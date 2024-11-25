@@ -1,0 +1,5 @@
+VITE_ENVIRONMENT=DBG
+VITE_BUILD_VERSION=1
+
+VITE_FRONT=https://localhost:3000
+VITE_BACKEND=https://localhost:7095

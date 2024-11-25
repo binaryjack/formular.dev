@@ -1,0 +1,23 @@
+.counter {
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    background: rgb(224, 176, 176);
+    padding: 10px;
+}
+
+.toggle {
+    display: flex;
+    flex-direction: row;
+    width: 150px;
+    background: rgba(33, 206, 10, 0.685);
+    padding: 10px;
+}
+
+
+button {
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+}
