@@ -1,0 +1,70 @@
+import { DataMutationObserverSubject } from '../dataMutationObserver/DataMutationObserverSubject'
+import { INotifier, notify } from '../notifications/notifications.types'
+import { ISignalArray, SignalType } from './signal.type'
+
+export const SignalArray = (function () {
+    const instances: Map<string, ISignalArray<unknown>> = new Map<string, ISignalArray<unknown>>()
+
+    const _SignalArray = function <SignalType>(
+        this: ISignalArray<SignalType>,
+        id: string,
+        values: SignalType[] | null[] = []
+    ) {
+        this.values = values
+        this.memoizedData = JSON.stringify(values)
+        this.id = id
+        this.parent = null
+        this.notifiers = new Map<string, INotifier>()
+        this.observer = new DataMutationObserverSubject()
+        this.computedSignalCallback = null
+    } as any as ISignalArray<SignalType>
+
+    _SignalArray.prototype = {
+        ...ISignal.prototype,
+
+        push: function (item: SignalType) {
+            this.values.push(item)
+            this.notify('changed')
+        },
+
+        pop: function () {
+            const item = this.values.pop()
+            this.notify('changed')
+            return item
+        },
+
+        shift: function () {
+            const item = this.values.shift()
+            this.notify('changed')
+            return item
+        },
+
+        unshift: function (item: SignalType) {
+            const length = this.values.unshift(item)
+            this.notify('changed')
+            return length
+        },
+
+        splice: function (start: number, deleteCount?: number, ...items: SignalType[]) {
+            const result = this.values.splice(start, deleteCount, ...items)
+            this.notify('changed')
+            return result
+        }
+    }
+
+    const SignalArray = <SignalType>(id: string, values?: SignalType[] | null[]) => {
+        if (instances.has(id)) {
+            const output = instances.get(id)
+            if (output) output.values = values ?? []
+            return output as ISignalArray<SignalType>
+        }
+        const instance = new _SignalArray<SignalType>(id, values) as any
+        instances.set(id, instance)
+        return instance
+    }
+
+    return {
+        SignalArray,
+        instances
+    }
+})()

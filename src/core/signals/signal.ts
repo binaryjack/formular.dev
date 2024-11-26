@@ -4,17 +4,29 @@ import { DataMutationObserverSubject } from '../dataMutationObserver/DataMutatio
 import { INotifier, notify, TNotifierType } from '../notifications/notifications.types'
 import { ISignal, SignalType } from './signal.type'
 
+/**
+ * Signals module to manage reactive data signals
+ */
 export const Signals = (function () {
     const instances: Map<string, ISignal<unknown>> = new Map<string, ISignal<unknown>>()
 
+    /**
+     * Placeholder function for tracking management (currently unused)
+     */
     const trackingManager = () => {}
 
+    /**
+     * Signal constructor function
+     * @template SignalType
+     * @param {string} id - Identifier for the signal
+     * @param {SignalType | null} value - Initial value of the signal
+     */
     const _Signal = function <SignalType>(
         this: ISignal<SignalType>,
         id: string,
         value: SignalType | null
     ) {
-        /** accessing this variable will not triggers any listeners
+        /** accessing this variable will not trigger any listeners
          * if we need a notification we must use method .get()
          */
         this.value = value ?? null
@@ -27,19 +39,35 @@ export const Signals = (function () {
     } as any as ISignal<SignalType>
 
     _Signal.prototype = {
+        /**
+         * Dispose of the signal, unsubscribing observers
+         */
         dispose: function () {
             this.observer.unSubscribe(this.onChanged)
         },
 
+        /**
+         * Get the current value of the signal
+         * @returns {SignalType} The current value
+         */
         get: function () {
             // this.notify('get')
             return this.value
         },
 
+        /**
+         * Set a new value for the signal using a callback
+         * @template SignalType
+         * @param {function(ISignal<SignalType>): void} callback - Callback to set the new value
+         */
         set: function <SignalType>(callback: (self: ISignal<SignalType>) => void) {
             callback(this)
         },
 
+        /**
+         * Update the signal's value using a callback
+         * @param {function(ISignal<SignalType>): SignalType} callback - Callback to update the value
+         */
         update: function (callback: (self: ISignal<SignalType>) => SignalType) {
             const updateValue = callback(this)
             const traceData = JSON.stringify(updateValue)
@@ -51,6 +79,12 @@ export const Signals = (function () {
             this.notify('changed')
         },
 
+        /**
+         * Define a computed signal based on a callback
+         * @template SignalType
+         * @param {function(): ISignal<SignalType>} callback - Callback to compute the signal value
+         * @returns {ISignal<SignalType>} The computed signal
+         */
         computed: function <SignalType>(callback: () => ISignal<SignalType>) {
             let value
             if (callback) {
@@ -81,11 +115,19 @@ export const Signals = (function () {
             return computedSignal
         },
 
+        /**
+         * Accept a notifier to observe the signal
+         * @param {INotifier} notify - Notifier to accept
+         */
         accept: function (notify: INotifier) {
             if (this.notifiers.has(notify.id)) return
             this.notifiers.set(notify.id, notify)
         },
 
+        /**
+         * Notify observers of a change in the signal
+         * @param {TNotifierType} type - Type of notification
+         */
         notify: function (type: TNotifierType) {
             this.notifiers.forEach((value: INotifier) => {
                 if (value.type === type) {
@@ -95,11 +137,22 @@ export const Signals = (function () {
             })
             this.observer?.trigger()
         },
+        /**
+         * Subscribe a callback to be called when the signal changes
+         * @param {function(): void} callback - Callback to call on change
+         */
         onChanged: function (callback: () => void) {
             this.observer.subscribe(callback)
         }
     }
 
+    /**
+     * Create or retrieve a signal instance
+     * @template SignalType
+     * @param {string} id - Identifier for the signal
+     * @param {SignalType | null} value - Initial value of the signal
+     * @returns {ISignal<SignalType>} The signal instance
+     */
     const Signal = <SignalType>(id: string, value: SignalType | null) => {
         if (instances.has(id)) {
             const output = instances.get(id)
@@ -111,6 +164,12 @@ export const Signals = (function () {
         return instance
     }
 
+    /**
+     * React hook to use signals in functional components
+     * @template SignalType
+     * @param {string} id - Identifier for the hook
+     * @param {...ISignal<SignalType>} signals - Signals to use in the hook
+     */
     const useSignal = <SignalType>(id: string, ...signals: ISignal<SignalType>[]) => {
         const [, setForceUpdate] = useState<number>(0)
         const signalRef = useRef<ISignal<SignalType>[]>([])
