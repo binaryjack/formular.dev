@@ -1,9 +1,4 @@
-import { useEffect, useState } from 'react'
-
 import FieldDemo from './demo/fields/text/FieldDemo'
-import { IFieldDescriptor } from './dependency/common'
-import controlDemoSchema from './dependency/schema/demo.schema'
-import { mapSchemaToFieldDescriptor } from './dependency/toFieldDescriptor'
 
 interface IApp extends Node {
     testName?: string
@@ -40,23 +35,23 @@ const newFormObject: IControlsDemo = {
 }
 
 const App = () => {
-    const [fields, setFields] = useState<IFieldDescriptor[]>([])
-    useEffect(() => {
-        // build a schema for the fields to be used
-        const item = controlDemoSchema
-        // map schema to fieldsDescriptors collection from schema
-        const fieldDescriptors = mapSchemaToFieldDescriptor(item)
+    // const [fields, setFields] = useState<IFieldDescriptor[]>([])
+    // useEffect(() => {
+    // build a schema for the fields to be used
+    // const item = controlDemoSchema
+    // // map schema to fieldsDescriptors collection from schema
+    // const fieldDescriptors = mapSchemaToFieldDescriptor(item)
 
-        setFields(fieldDescriptors)
-        // map object values to fieldsDescriptors collection
-        // const fields = mapObjectToFields(fieldDescriptors, newFormObject)
+    // setFields(fieldDescriptors)
+    //     // map object values to fieldsDescriptors collection
+    //     // const fields = mapObjectToFields(fieldDescriptors, newFormObject)
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     return (
         <div>
-            <FieldDemo fields={fields} />
+            <FieldDemo fields={[]} />
         </div>
     )
 }

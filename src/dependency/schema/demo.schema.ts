@@ -1,4 +1,4 @@
-import { IEntityScheme } from './field/field.scheme.types'
+import { IEntityScheme, IFieldScheme } from './field/field.scheme.types'
 import {
     CheckBuilder,
     DateTimeBuilder,
@@ -16,6 +16,15 @@ import {
 } from './field/field.schemes.builders'
 import baseOptionSchemaItem from './options/options.scheme.function'
 import { Validators } from './validation/validation.factored.base'
+
+export type newEntitySchemeObjectType = (
+    name: string,
+    ...properties: IFieldScheme[]
+) => IEntityScheme
+
+export const newEntityScheme = (name: string, ...properties: IFieldScheme[]): IEntityScheme => {
+    return { name: name, properties: properties } as IEntityScheme
+}
 
 const controlDemoSchema: IEntityScheme = {
     name: 'demo-schema',

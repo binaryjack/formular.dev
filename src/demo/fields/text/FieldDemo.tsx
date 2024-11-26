@@ -1,20 +1,27 @@
-import { useEffect } from 'react'
-
-import { FieldInput, useField } from '../../../core/field/fieldInputBase/FieldInputBase'
+import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInputBase'
 import { IFieldInput } from '../../../core/field/fieldInputBase/fieldInputBase.types'
 import { Signals } from '../../../core/signals/signal'
 import { ISignal } from '../../../core/signals/signal.type'
 import { IFieldDescriptor } from '../../../dependency/common'
+import controlDemoSchema from '../../../dependency/schema/demo.schema'
+import { mapSchemaToFieldDescriptor } from '../../../dependency/toFieldDescriptor'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
 const { Signal, useSignal } = Signals
 
+// build a schema for the fields to be used
+const item = controlDemoSchema
+// map schema to fieldsDescriptors collection from schema
+const fieldDescriptors = mapSchemaToFieldDescriptor(item)
+
 export const textSignal = Signal<string>('text1', '')
 
-const field1 = new FieldInput('1', 'MyInput', 'text', 'my-input', 'ABC')
+const { newFieldFromDescriptors, useField } = FieldInputCreators()
 
-field1.hasChanges(() => {
-    console.log('Field updated', field1)
+const outSideFields = newFieldFromDescriptors(fieldDescriptors)
+
+outSideFields?.[3].hasChanges(() => {
+    console.log('Field updated', outSideFields?.[3])
 })
 
 interface IFieldDemoProps {
@@ -22,22 +29,18 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    useField('FieldDemo', field1 as IFieldInput)
+    useField('FieldDemo', outSideFields?.[3] as IFieldInput)
+
     const handleTextChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
         textSignal.update((s: ISignal<string>) => (s.value = e.currentTarget.value))
     }
 
-    useEffect(() => {
-        if (fields.length === 0) return
-        field1.newFromField(fields[1])
-    }, [field1])
-
     return (
         <div>
             <h1>Text demo</h1>
-            <input {...field1.register()} />
-            {field1.get() as string}
+            <input {...outSideFields?.[3].register()} />
+            {outSideFields?.[3].get() as string}
         </div>
     )
 }
