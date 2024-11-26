@@ -18,25 +18,24 @@ import {
 } from './validation.builders'
 import {
     IValidationDataBuilder,
-    IValidationFatory,
-    minMaxMethodBuilderTypes,
-    ValidationBuildersEnum
+    IValidationFactory,
+    minMaxMethodBuilderTypes
 } from './validation.types'
 
-const ValidationFatory = function (this: IValidationFatory) {
+export const ValidationFactory = function (this: IValidationFactory) {
     this.builders = []
-} as any as IValidationFatory
+} as any as IValidationFactory
 
-ValidationFatory.prototype = {
+ValidationFactory.prototype = {
     addBuilders: function (...builders: minMaxMethodBuilderTypes[]) {
         this.builders = [...builders]
     },
-    createMinMaxBasedBuilder: function (name: ValidationBuildersEnum) {
+    createMinMaxBasedBuilder: function <minMaxMethodBuilderTypes>(builderName: string) {
         const _builder: IValidationDataBuilder | undefined = this.builders.find(
-            (o: IValidationDataBuilder) => o.name === name
+            (o: IValidationDataBuilder) => o.name === builderName
         )
         if (!_builder) return this.builders.find((o: IValidationDataBuilder) => o.name === 'empty')
-        return _builder
+        return _builder as minMaxMethodBuilderTypes
     },
     finalizer: function (
         required: boolean,
@@ -68,7 +67,7 @@ ValidationFatory.prototype = {
     }
 }
 
-const validationFactory = new ValidationFatory()
+const validationFactory = new ValidationFactory()
 
 validationFactory.addBuilders(
     BaseEmptyBuilder,

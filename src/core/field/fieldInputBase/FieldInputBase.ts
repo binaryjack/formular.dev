@@ -140,6 +140,8 @@ FieldInput.prototype = {
         return (this.value as string) ?? null
     },
     newFromField: function (field: IFieldDescriptor) {
+        this.id = field.id
+        this.name = field.name
         this.label = field.label
         this.value = field.value
         this.objectValue = field.objectValue

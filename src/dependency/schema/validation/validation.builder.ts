@@ -16,8 +16,17 @@ export const ValidationDataBuilder = function (this: IValidationDataBuilder, nam
 ValidationDataBuilder.prototype = {
     /** aim to ease chaining from existing or not builder in factory */
     fromBuilder: function (baseBuilder?: IValidationDataBuilder) {
-        if (!baseBuilder) return this
-        return { ...baseBuilder }
+        this.name = baseBuilder?.name
+        this.required = baseBuilder?.required
+        this.shouldValidate = baseBuilder?.shouldValidate
+        this.pattern = baseBuilder?.pattern
+        this.min = baseBuilder?.min
+        this.max = baseBuilder?.max
+        this.minLength = baseBuilder?.minLength
+        this.maxLength = baseBuilder?.maxLength
+        this.customGuide = baseBuilder?.customGuide
+        this.customError = baseBuilder?.customError
+        return this
     },
     isRequired: function (required: boolean) {
         this.required = required

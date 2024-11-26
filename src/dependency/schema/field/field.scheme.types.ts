@@ -33,8 +33,8 @@ export interface IFieldSchemeBuilder extends IFieldScheme {
     build: () => IFieldScheme
 }
 
-export interface IFieldSchemeFatory {
-    new (): IFieldSchemeFatory
+export interface IFieldSchemeFactory {
+    new (): IFieldSchemeFactory
     builders: IFieldSchemeBuilder[]
     addBuilders: (...builders: IFieldSchemeBuilder[]) => void
     create: (

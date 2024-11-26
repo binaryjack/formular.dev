@@ -1,10 +1,25 @@
 import { IOptionItem } from '../options/options.scheme.types'
 import { ISchemaValidationData } from '../validation/validation.types'
-import { IFieldSchemeBuilder, IFieldSchemeFatory } from './field.scheme.types'
+import { IFieldSchemeBuilder, IFieldSchemeFactory } from './field.scheme.types'
+import {
+    CheckBuilder,
+    DateTimeBuilder,
+    IdBuilder,
+    InputTextBuilder,
+    OrderBuilder,
+    PasswordBuilder,
+    RadioBuilder,
+    RangeBuilder,
+    RteBuilder,
+    SelectIdBuilder,
+    ShowRoomsBuilder,
+    ToggleBuilder,
+    UserIdBuilder
+} from './field.schemes.builders'
 
-export const FieldSchemeFactory = function (this: IFieldSchemeFatory) {
+const FieldSchemeFactory = function (this: IFieldSchemeFactory) {
     this.builders = []
-} as any as IFieldSchemeFatory
+} as any as IFieldSchemeFactory
 
 FieldSchemeFactory.prototype = {
     addBuilders: function (...builders: IFieldSchemeBuilder[]) {
@@ -31,3 +46,23 @@ FieldSchemeFactory.prototype = {
             .build()
     }
 }
+
+const fieldSchemeFactory = new FieldSchemeFactory()
+
+fieldSchemeFactory.addBuilders(
+    IdBuilder,
+    OrderBuilder,
+    ShowRoomsBuilder,
+    InputTextBuilder,
+    SelectIdBuilder,
+    CheckBuilder,
+    DateTimeBuilder,
+    RadioBuilder,
+    RteBuilder,
+    RangeBuilder,
+    UserIdBuilder,
+    PasswordBuilder,
+    ToggleBuilder
+)
+
+export default fieldSchemeFactory

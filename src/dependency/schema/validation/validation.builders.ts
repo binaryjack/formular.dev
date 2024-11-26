@@ -1,25 +1,27 @@
 import { ValidationDataBuilder } from './validation.builder'
 import { IValidationDataBuilder, ValidationBuildersEnum } from './validation.types'
 
-export const BaseEmptyBuilder = () => new ValidationDataBuilder(ValidationBuildersEnum.empty)
-export const RequiredBuilder = () => new ValidationDataBuilder(ValidationBuildersEnum.required)
+export const BaseEmptyBuilder = () =>
+    new ValidationDataBuilder(ValidationBuildersEnum.BaseEmptyBuilder)
+export const RequiredBuilder = () =>
+    new ValidationDataBuilder(ValidationBuildersEnum.RequiredBuilder)
 
 export const MinBuilder = (min: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.min).hasMin(min)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinBuilder).hasMin(min)
 
 export const MaxBuilder = (max: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.max).hasMax(max)
+    new ValidationDataBuilder(ValidationBuildersEnum.MaxBuilder).hasMax(max)
 
 export const MinMaxBuilder = (min: number, max: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMax).hasMin(min).hasMax(max)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinMaxBuilder).hasMin(min).hasMax(max)
 
 export const MinAndMinLengthBuilder = (min: number, minLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMinLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinAndMinLengthBuilder)
         .hasMin(min)
         .hasMinLength(minLength)
 
 export const MaxAndMinLengthBuilder = (max: number, minLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.maxMinLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MaxAndMinLengthBuilder)
         .hasMax(max)
         .hasMinLength(minLength)
 
@@ -28,18 +30,18 @@ export const MinMaxAndMinLengthBuilder = (
     max: number,
     minLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMaxMinLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinMaxAndMinLengthBuilder)
         .hasMin(min)
         .hasMax(max)
         .hasMinLength(minLength)
 
 export const MinAndMaxLengthBuilder = (min: number, maxLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinAndMaxLengthBuilder)
         .hasMin(min)
         .hasMaxLength(maxLength)
 
 export const MaxAndMaxLengthBuilder = (max: number, maxLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.maxMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MaxAndMaxLengthBuilder)
         .hasMax(max)
         .hasMaxLength(maxLength)
 
@@ -48,7 +50,7 @@ export const MinMaxAndMaxLengthBuilder = (
     max: number,
     maxLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMaxMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinMaxAndMaxLengthBuilder)
         .hasMin(min)
         .hasMax(max)
         .hasMaxLength(maxLength)
@@ -58,7 +60,7 @@ export const MinMinLengthAndMaxLengthBuilder = (
     minLength: number,
     maxLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMinLengthMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinMinLengthAndMaxLengthBuilder)
         .hasMin(min)
         .hasMinLength(minLength)
         .hasMaxLength(maxLength)
@@ -68,7 +70,7 @@ export const MaxMinLengthAndMaxLengthBuilder = (
     minLength: number,
     maxLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.maxMinLengthMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MaxMinLengthAndMaxLengthBuilder)
         .hasMax(max)
         .hasMinLength(minLength)
         .hasMaxLength(maxLength)
@@ -79,22 +81,22 @@ export const MinMaxMinLengthAndMaxLengthBuilder = (
     minLength: number,
     maxLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minMaxMinLengthMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinMaxMinLengthAndMaxLengthBuilder)
         .hasMin(min)
         .hasMax(max)
         .hasMinLength(minLength)
         .hasMaxLength(maxLength)
 
 export const MinLengthBuilder = (minLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minLength).hasMinLength(minLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinLengthBuilder).hasMinLength(minLength)
 
 export const MaxLengthBuilder = (maxLength: number): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.maxLength).hasMaxLength(maxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MaxLengthBuilder).hasMaxLength(maxLength)
 
 export const MinLengthAndMaxLengthBuilder = (
     minLength: number,
     maxLength: number
 ): IValidationDataBuilder =>
-    new ValidationDataBuilder(ValidationBuildersEnum.minLengthMaxLength)
+    new ValidationDataBuilder(ValidationBuildersEnum.MinLengthAndMaxLengthBuilder)
         .hasMinLength(minLength)
         .hasMaxLength(maxLength)

@@ -42,8 +42,15 @@ FieldSchemeBuilder.prototype = {
         return this
     },
     validationData: function (shouldValidate: boolean, validationData?: ISchemaValidationData) {
+        this.pattern = validationData?.pattern
+        this.min = validationData?.min
+        this.max = validationData?.max
+        this.minLength = validationData?.minLength
+        this.maxLength = validationData?.maxLength
+        this.required = validationData?.required
+        this.customGuide = validationData?.customGuide
+        this.customError = validationData?.customError
         this.shouldValidate = shouldValidate
-        this.validation = validationData
         return this
     },
     build: function () {

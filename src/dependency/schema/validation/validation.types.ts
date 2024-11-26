@@ -50,8 +50,8 @@ export interface IValidationDataBuilder extends ISchemaValidationData {
     build: () => ISchemaValidationData
 }
 
-export interface IValidationFatory {
-    new (): IValidationFatory
+export interface IValidationFactory {
+    new (): IValidationFactory
     builders: minMaxMethodBuilderTypes[]
     addBuilders: (...builders: minMaxMethodBuilderTypes[]) => void
     /** If we need a min max min length max length based validation we can start here
@@ -60,7 +60,7 @@ export interface IValidationFatory {
      * if not found it returns an empty validation builder
      */
     createMinMaxBasedBuilder: <minMaxMethodBuilderTypes>(
-        name: ValidationBuildersEnum
+        builderName: string
     ) => minMaxMethodBuilderTypes
     /**
      * create or finalize previousely done with createMinMaxBasedBuilder
@@ -87,25 +87,25 @@ export interface IValidationFatory {
 }
 
 export enum ValidationBuildersEnum {
-    empty = 'empty',
-    required = 'required',
-    min = 'min',
-    max = 'max',
-    minMax = 'minMax',
-    minMinLength = 'minMinLength',
-    minMinLengthMaxLength = 'minMinLengthMaxLength',
-    minMaxLength = 'minMaxLength',
+    BaseEmptyBuilder = 'BaseEmptyBuilder',
+    RequiredBuilder = 'RequiredBuilder',
+    MinBuilder = 'MinBuilder',
+    MaxBuilder = 'MaxBuilder',
+    MinMaxBuilder = 'MinMaxBuilder',
+    MinAndMinLengthBuilder = 'MinAndMinLengthBuilder',
+    MaxAndMinLengthBuilder = 'MaxAndMinLengthBuilder',
+    MinMaxAndMinLengthBuilder = 'MinMaxAndMinLengthBuilder',
 
-    maxMinLength = 'maxMinLength',
-    maxMaxLength = 'maxMaxLength',
+    MinAndMaxLengthBuilder = 'MinAndMaxLengthBuilder',
+    MinMaxAndMaxLengthBuilder = 'MinMaxAndMaxLengthBuilder',
 
-    minMaxMinLength = 'minMaxMinLength',
-    minMaxMaxLength = 'minMaxMaxLength',
+    MaxAndMaxLengthBuilder = 'MaxAndMaxLengthBuilder',
+    MinMinLengthAndMaxLengthBuilder = 'MinMinLengthAndMaxLengthBuilder',
 
-    minMaxMinLengthMaxLength = 'minMaxMinLengthMaxLength',
-    maxMinLengthMaxLength = 'maxMinLengthMaxLength',
+    MaxMinLengthAndMaxLengthBuilder = 'MaxMinLengthAndMaxLengthBuilder',
+    MinMaxMinLengthAndMaxLengthBuilder = 'MinMaxMinLengthAndMaxLengthBuilder',
 
-    minLength = 'minLength',
-    maxLength = 'maxLength',
-    minLengthMaxLength = 'minLengthMaxLength'
+    MinLengthBuilder = 'MinLengthBuilder',
+    MaxLengthBuilder = 'MaxLengthBuilder',
+    MinLengthAndMaxLengthBuilder = 'MinLengthAndMaxLengthBuilder'
 }
