@@ -1,4 +1,4 @@
-import { FieldValuesTypes } from '../../../dependency/common'
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldInput } from '../fieldInputBase/fieldInputBase.types'
 import { IParser, IValueStrategy } from './valueStrategy.types'
 

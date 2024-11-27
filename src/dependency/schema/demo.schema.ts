@@ -1,4 +1,3 @@
-import { IEntityScheme, IFieldScheme } from './field/field.scheme.types'
 import {
     CheckBuilder,
     DateTimeBuilder,
@@ -13,16 +12,17 @@ import {
     ShowRoomsBuilder,
     ToggleBuilder,
     UserIdBuilder
-} from './field/field.schemes.builders'
-import baseOptionSchemaItem from './options/options.scheme.function'
-import { Validators } from './validation/validation.factored.base'
+} from './fieldSchema/field.schema.specific.builders'
+import { IEntityScheme, IFieldSchema } from './fieldSchema/field.schema.types'
+import baseOptionSchemaItem from './optionsSchema/options.scheme.function'
+import { Validators } from './validationSchema/validation.schema.specific.validators'
 
 export type newEntitySchemeObjectType = (
     name: string,
-    ...properties: IFieldScheme[]
+    ...properties: IFieldSchema[]
 ) => IEntityScheme
 
-export const newEntityScheme = (name: string, ...properties: IFieldScheme[]): IEntityScheme => {
+export const newEntityScheme = (name: string, ...properties: IFieldSchema[]): IEntityScheme => {
     return { name: name, properties: properties } as IEntityScheme
 }
 

@@ -1,40 +1,43 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorPattern = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    fieldName: string,
-    configurationOptionMessage: string
-): IValidationResult => {
-    const hasValue = !!value
+const ValidatorPattern = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasValue = !!data?.value
+        if (!hasValue || !data?.validationOptions?.pattern?.pattern) {
+            return newValidationResult(true, data.fieldName)
+        }
 
-    if (!hasValue || !validationOptions.pattern) {
-        return newValidationResult(true, fieldName)
-    }
-
-    const regexp = new RegExp(validationOptions.pattern.pattern)
-    const valueToBeTested = value?.toString() ?? ''
-    if (!regexp.test(valueToBeTested)) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.custom,
-                validationOptions.pattern.error ? validationOptions.pattern.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.custom,
-                validationOptions.pattern?.guide ? validationOptions.pattern?.guide : undefined
+        const regexp = new RegExp(data.validationOptions.pattern.pattern)
+        const valueToBeTested = data?.value?.toString() ?? ''
+        if (!regexp.test(valueToBeTested)) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.custom,
+                    data.validationOptions.pattern.error
+                        ? data.validationOptions.pattern.error
+                        : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.custom,
+                    data.validationOptions.pattern?.guide
+                        ? data.validationOptions.pattern?.guide
+                        : undefined
+                )
             )
-        )
+        }
+
+        return newValidationResult(true, data.fieldName)
     }
-
-    return newValidationResult(true, fieldName)
-}
-
+} as any as IValidatorStrategy
+const validatorPattern = new ValidatorPattern()
 export default validatorPattern

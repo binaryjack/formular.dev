@@ -1,37 +1,44 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorMaxLength = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    fieldName: string
-): IValidationResult => {
-    const hasValue = !!value
+const ValidatorMaxLength = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasValue = !!data?.value
 
-    if (!hasValue || !validationOptions.maxLength) {
-        return newValidationResult(true, fieldName)
-    }
+        if (!hasValue || !data?.validationOptions?.maxLength) {
+            return newValidationResult(true, data.fieldName)
+        }
 
-    if ((value?.toString() ?? '')?.length > validationOptions?.maxLength.maxLength) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.maxLength,
-                validationOptions.maxLength.error ? validationOptions.maxLength.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.maxLength,
-                validationOptions.maxLength?.guide ? validationOptions.maxLength?.guide : undefined
+        if (
+            (data?.value?.toString() ?? '')?.length > data.validationOptions?.maxLength?.maxLength
+        ) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.maxLength,
+                    data.validationOptions.maxLength.error
+                        ? data.validationOptions.maxLength.error
+                        : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.maxLength,
+                    data.validationOptions.maxLength?.guide
+                        ? data.validationOptions.maxLength?.guide
+                        : undefined
+                )
             )
-        )
+        }
+
+        return newValidationResult(true, data.fieldName)
     }
-
-    return newValidationResult(true, fieldName)
-}
-
+} as any as IValidatorStrategy
+const validatorMaxLength = new ValidatorMaxLength()
 export default validatorMaxLength

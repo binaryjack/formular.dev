@@ -1,10 +1,8 @@
-import { INDate } from './dateModels'
-import { DateObject } from './DateObject'
-import { IFieldError, IFieldGuide } from './errors'
-import { IOptionItem } from './schema/options/options.scheme.types'
-import { IValidationOptions } from './validation'
-
-export type FieldValuesTypes = string | number | INDate | DateObject | object | bigint | undefined
+import { IFieldError, IFieldGuide } from '../../errors'
+import { IValidationOptions } from '../../validation'
+import { IOptionItem } from '../optionsSchema/options.scheme.types'
+import { INDate } from './field.data.date.struct'
+import { FieldValuesTypes } from './field.data.types'
 
 export interface IFieldDescriptor {
     id: number

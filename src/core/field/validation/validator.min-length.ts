@@ -1,36 +1,44 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorMinLength = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    fieldName: string
-): IValidationResult => {
-    const hasValue = !!value
+const ValidatorMinLength = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasValue = !!data?.value
 
-    if (!hasValue || !validationOptions.minLength) {
-        return newValidationResult(true, fieldName)
-    }
+        if (!hasValue || !data?.validationOptions?.minLength) {
+            return newValidationResult(true, data.fieldName)
+        }
 
-    if ((value?.toString() ?? '')?.length < validationOptions?.minLength.minLength) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.minLength,
-                validationOptions.minLength.error ? validationOptions.minLength.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.minLength,
-                validationOptions.minLength?.guide ? validationOptions.minLength?.guide : undefined
+        if ((data?.value?.toString() ?? '')?.length < data.validationOptions?.minLength.minLength) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.minLength,
+                    data.validationOptions.minLength.error
+                        ? data.validationOptions.minLength.error
+                        : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.minLength,
+                    data.validationOptions.minLength?.guide
+                        ? data.validationOptions.minLength?.guide
+                        : undefined
+                )
             )
-        )
-    }
+        }
 
-    return newValidationResult(true, fieldName)
-}
+        return newValidationResult(true, data.fieldName)
+    }
+} as any as IValidatorStrategy
+
+const validatorMinLength = new ValidatorMinLength()
+
 export default validatorMinLength

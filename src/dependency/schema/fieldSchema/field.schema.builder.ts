@@ -1,10 +1,10 @@
 import { SchemaDataTypes } from '../../form.common.enums'
-import { IOptionItem } from '../options/options.scheme.types'
-import { ISchemaValidationData } from '../validation/validation.types'
-import { IFieldScheme, IFieldSchemeBuilder } from './field.scheme.types'
+import { IOptionItem } from '../optionsSchema/options.scheme.types'
+import { IValidationSchema } from '../validationSchema/validation.schema.types'
+import { IFieldSchema, IFieldSchemaBuilder } from './field.schema.types'
 
-export const FieldSchemeBuilder = function (
-    this: IFieldSchemeBuilder,
+export const FieldSchemaBuilder = function (
+    this: IFieldSchemaBuilder,
     id: number,
     name: string,
     type: SchemaDataTypes
@@ -24,9 +24,9 @@ export const FieldSchemeBuilder = function (
     this.options = []
     this.expectedValue = null
     this.shouldValidate = false
-} as any as IFieldSchemeBuilder
+} as any as IFieldSchemaBuilder
 
-FieldSchemeBuilder.prototype = {
+FieldSchemaBuilder.prototype = {
     typeData: function (type: SchemaDataTypes) {
         this.type = type
         return this
@@ -41,7 +41,7 @@ FieldSchemeBuilder.prototype = {
         this.expectedValue = expectedValue
         return this
     },
-    validationData: function (shouldValidate: boolean, validationData?: ISchemaValidationData) {
+    validationData: function (shouldValidate: boolean, validationData?: IValidationSchema) {
         this.pattern = validationData?.pattern
         this.min = validationData?.min
         this.max = validationData?.max
@@ -56,6 +56,6 @@ FieldSchemeBuilder.prototype = {
     build: function () {
         return {
             ...this
-        } as IFieldScheme
+        } as IFieldSchema
     }
 }

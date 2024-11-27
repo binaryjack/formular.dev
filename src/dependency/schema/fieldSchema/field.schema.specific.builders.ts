@@ -1,0 +1,15 @@
+import { FieldSchemaBuilder } from './field.schema.builder'
+
+export const IdBuilder = new FieldSchemaBuilder(1, 'id').typeData('string')
+export const OrderBuilder = new FieldSchemaBuilder(2, 'order').typeData('number')
+export const ShowRoomsBuilder = new FieldSchemaBuilder(3, 'selectShowrooms').typeData('select')
+export const InputTextBuilder = new FieldSchemaBuilder(4, 'inputControl').typeData('string')
+export const SelectIdBuilder = new FieldSchemaBuilder(5, 'selectOptionsId').typeData('select')
+export const CheckBuilder = new FieldSchemaBuilder(6, 'trueFalseValue').typeData('check')
+export const DateTimeBuilder = new FieldSchemaBuilder(7, 'dateTimeValue').typeData('datetime')
+export const RadioBuilder = new FieldSchemaBuilder(8, 'selectedRadioId').typeData('radio')
+export const RteBuilder = new FieldSchemaBuilder(9, 'richTextField').typeData('textarea')
+export const RangeBuilder = new FieldSchemaBuilder(10, 'rangeSlider').typeData('range')
+export const UserIdBuilder = new FieldSchemaBuilder(11, 'userName').typeData('string')
+export const PasswordBuilder = new FieldSchemaBuilder(12, 'password').typeData('string')
+export const ToggleBuilder = new FieldSchemaBuilder(13, 'toggle').typeData('toggle')

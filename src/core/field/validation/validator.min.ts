@@ -1,38 +1,40 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorMin = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    fieldName: string,
-    configurationOptionMessage: string
-): IValidationResult => {
-    const hasValue = !!value
+const ValidatorMin = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasValue = !!data?.value
 
-    if (!hasValue || !validationOptions.min) {
-        return newValidationResult(true, fieldName)
-    }
+        if (!hasValue || !data?.validationOptions?.min) {
+            return newValidationResult(true, data.fieldName)
+        }
 
-    if (isNaN(Number(value)) || Number(value) < validationOptions.min.min) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.min,
-                validationOptions.min.error ? validationOptions.min.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.min,
-                validationOptions.min?.guide ? validationOptions.min?.guide : undefined
+        if (isNaN(Number(data?.value)) || Number(data?.value) < data.validationOptions.min.min) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.min,
+                    data.validationOptions.min.error ? data.validationOptions.min.error : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.min,
+                    data.validationOptions.min?.guide
+                        ? data.validationOptions.min?.guide
+                        : undefined
+                )
             )
-        )
+        }
+
+        return newValidationResult(true, data.fieldName)
     }
-
-    return newValidationResult(true, fieldName)
-}
-
+} as any as IValidatorStrategy
+const validatorMin = new ValidatorMin()
 export default validatorMin

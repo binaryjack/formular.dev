@@ -71,6 +71,8 @@ export interface ISignal<SignalType> {
 // }
 
 export interface ISignalArray<SignalType> extends ISignal<SignalType[]> {
+    new (id: string, values: SignalType[] | null[]): ISignalArray<SignalType>
+    values: SignalType[] | null[]
     push: (item: SignalType) => void
     pop: () => SignalType | undefined
     shift: () => SignalType | undefined

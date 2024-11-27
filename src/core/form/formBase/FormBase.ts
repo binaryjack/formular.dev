@@ -1,6 +1,6 @@
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
 import { IFieldInput } from '../../field/fieldInputBase/fieldInputBase.types'
-import { IValidationResult } from '../../field/validation/coreValidationFunctions'
+import { IValidationResult } from '../../field/validation/validator.types'
 import { IFormBase } from './formBase.types'
 
 export const Formy = function (this: IFormBase, id: string) {

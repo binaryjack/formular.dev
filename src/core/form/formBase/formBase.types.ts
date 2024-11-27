@@ -1,5 +1,5 @@
-import { IFieldDescriptor } from '../../../dependency/common'
 import { IErrors } from '../../../dependency/errors'
+import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldInputBase } from '../../field/fieldInputBase/fieldInputBase.types'
 import { INotifiableEntity } from '../../field/notifiableEntityBase/notifiableENtityBase.types'
 import { LoadingStatus } from '../../status'

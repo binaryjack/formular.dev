@@ -1,5 +1,5 @@
-import { IFieldDescriptor } from './common'
-import { IEntityScheme } from './schema/field/field.scheme.types'
+import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
+import { IEntityScheme } from './schema/fieldSchema/field.schema.types'
 import {
     IMax,
     IMaxLength,

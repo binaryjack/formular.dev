@@ -1,4 +1,4 @@
-export type TNotifierType = 'changed' | 'get'
+export type TNotifierType = 'changed' | 'get' | 'validate'
 
 export type TNotifierMethod = (data?: unknown) => void
 

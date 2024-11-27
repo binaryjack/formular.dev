@@ -1,4 +1,9 @@
-import { ValidationDataBuilder } from './validation.builder'
+import { ValidationSchemaBuilder } from './validation.schema.builder'
+import {
+    IValidationSchemaBuilder,
+    minMaxMethodBuilderTypes
+} from './validation.schema.builder.types'
+import { IValidationSchemaFactory } from './validation.schema.factory.types'
 import {
     BaseEmptyBuilder,
     MaxAndMaxLengthBuilder,
@@ -15,36 +20,32 @@ import {
     MinMaxBuilder,
     MinMinLengthAndMaxLengthBuilder,
     RequiredBuilder
-} from './validation.builders'
-import {
-    IValidationDataBuilder,
-    IValidationFactory,
-    minMaxMethodBuilderTypes
-} from './validation.types'
+} from './validation.schema.specific.builders'
 
-export const ValidationFactory = function (this: IValidationFactory) {
+export const ValidationSchemaFactory = function (this: IValidationSchemaFactory) {
     this.builders = []
-} as any as IValidationFactory
+} as any as IValidationSchemaFactory
 
-ValidationFactory.prototype = {
+ValidationSchemaFactory.prototype = {
     addBuilders: function (...builders: minMaxMethodBuilderTypes[]) {
         this.builders = [...builders]
     },
     createMinMaxBasedBuilder: function <minMaxMethodBuilderTypes>(builderName: string) {
-        const _builder: IValidationDataBuilder | undefined = this.builders.find(
-            (o: IValidationDataBuilder) => o.name === builderName
+        const _builder: IValidationSchemaBuilder | undefined = this.builders.find(
+            (o: IValidationSchemaBuilder) => o.name === builderName
         )
-        if (!_builder) return this.builders.find((o: IValidationDataBuilder) => o.name === 'empty')
+        if (!_builder)
+            return this.builders.find((o: IValidationSchemaBuilder) => o.name === 'empty')
         return _builder as minMaxMethodBuilderTypes
     },
     finalizer: function (
         required: boolean,
-        base?: IValidationDataBuilder,
+        base?: IValidationSchemaBuilder,
         pattern?: RegExp,
         customGuide?: string,
         customError?: string
     ) {
-        return new ValidationDataBuilder(`${name}-factored`)
+        return new ValidationSchemaBuilder(`${name}-factored`)
             .fromBuilder(base)
             .isRequired(required)
             .hasPattern(pattern)
@@ -58,7 +59,7 @@ ValidationFactory.prototype = {
         customGuide?: string,
         customError?: string
     ) {
-        return new ValidationDataBuilder(`${name}-factored`)
+        return new ValidationSchemaBuilder(`${name}-factored`)
             .isRequired(required)
             .hasPattern(pattern)
             .hasCustomError(customError)
@@ -67,9 +68,9 @@ ValidationFactory.prototype = {
     }
 }
 
-const validationFactory = new ValidationFactory()
+const validationSchemaFactory = new ValidationSchemaFactory()
 
-validationFactory.addBuilders(
+validationSchemaFactory.addBuilders(
     BaseEmptyBuilder,
     RequiredBuilder,
     MinBuilder,
@@ -87,4 +88,4 @@ validationFactory.addBuilders(
     MinLengthAndMaxLengthBuilder
 )
 
-export default validationFactory
+export default validationSchemaFactory

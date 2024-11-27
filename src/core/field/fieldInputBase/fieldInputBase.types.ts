@@ -1,9 +1,11 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
-import { FieldValuesTypes, IFieldDescriptor } from '../../../dependency/common'
-import { IEntityScheme } from '../../../dependency/schema/field/field.scheme.types'
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
+import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
+import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { IFieldStateStyle } from '../fieldStateStyle/fieldStateStyle.types'
 import { INotifiableEntity } from '../notifiableEntityBase/notifiableENtityBase.types'
+import { IValidationResult, IValidator } from '../validation/validator.types'
 import { IValueStrategy } from '../valueStrategy/valueStrategy.types'
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
@@ -21,7 +23,7 @@ export interface IFieldInputBase {
     setup: () => void
     classNames: () => string
     hasChanges: (callback: () => void) => void
-    validate: () => void
+    validate: (vtor: IValidator) => IValidationResult[]
     register: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     get: () => FieldValuesTypes | null
     getAsString: () => string | null

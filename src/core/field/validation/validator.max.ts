@@ -1,36 +1,44 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidationResult,
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorMax = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    fieldName: string
-): IValidationResult => {
-    const hasValue = !!value
+type NewType = IValidationResult
 
-    if (!hasValue || !validationOptions.max) {
-        return newValidationResult(true, fieldName)
-    }
+const ValidatorMax = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasValue = !!data?.value
 
-    if (isNaN(Number(value)) || Number(value) > validationOptions.max.max) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.max,
-                validationOptions.max.error ? validationOptions.max.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.max,
-                validationOptions.max?.guide ? validationOptions.max?.guide : undefined
+        if (!hasValue || !data?.validationOptions?.max) {
+            return newValidationResult(true, data.fieldName)
+        }
+
+        if (isNaN(Number(data?.value)) || Number(data?.value) > data.validationOptions.max.max) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.max,
+                    data.validationOptions.max.error ? data.validationOptions.max.error : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.max,
+                    data.validationOptions.max?.guide
+                        ? data.validationOptions.max?.guide
+                        : undefined
+                )
             )
-        )
-    }
+        }
 
-    return newValidationResult(true, fieldName)
-}
+        return newValidationResult(true, data.fieldName)
+    }
+} as any as IValidatorStrategy
+
+const validatorMax = new ValidatorMax()
 export default validatorMax

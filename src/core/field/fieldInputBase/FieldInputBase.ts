@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { FieldValuesTypes, IFieldDescriptor } from '../../../dependency/common'
 import { newEntitySchemeObjectType } from '../../../dependency/schema/demo.schema'
-import { IFieldSchemeBuilder } from '../../../dependency/schema/field/field.scheme.types'
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
+import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
+import { IFieldSchemaBuilder } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import {
     booleanTypes,
     dateTypes,
@@ -13,6 +14,12 @@ import { notify } from '../../notifications/notifications.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
 import { NotifiableEntity } from '../notifiableEntityBase/NotifiableEntity'
 import { INotifiableEntity } from '../notifiableEntityBase/notifiableENtityBase.types'
+import validator from '../validation/validator.strategy'
+import {
+    IValidationResult,
+    IValidator,
+    newValidatorStrategyData
+} from '../validation/validator.types'
 import {
     BoleanParserStrategy,
     DateOrTimeParserStrategy,
@@ -90,6 +97,7 @@ export const FieldInputCreators = function () {
             const updateUI = () => {
                 this.observers.trigger()
                 this.notify('changed')
+                this.notify('validate')
             }
 
             const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,7 +151,16 @@ export const FieldInputCreators = function () {
         hasChanges: function (callback: () => void) {
             this.observers.subscribe(callback)
         },
-        validate: function () {},
+        validate: function (vtor: IValidator) {
+            const validationstrategyData = newValidatorStrategyData(
+                this.name,
+                this.type,
+                this.validationOptions,
+                this.get(),
+                this.expectedValue
+            )
+            return vtor.validate(validationstrategyData)
+        },
         get: function () {
             return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
         },
@@ -157,6 +174,14 @@ export const FieldInputCreators = function () {
         ...fields: (IFieldInputBase & IFieldDescriptor & INotifiableEntity)[]
     ) => {
         const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
+        const [validationResults, setValidationResults] = useState<IValidationResult[]>([])
+        const handleValidation = () => {
+            const results: IValidationResult[] = []
+            for (const field of fields) {
+                results.push(...field.validate(validator))
+            }
+            setValidationResults(results)
+        }
 
         const handleRefresh = () => {
             forceUpdate()
@@ -166,17 +191,29 @@ export const FieldInputCreators = function () {
             for (const field of fields) {
                 field.accept(
                     notify(
-                        `${id}_${field.id}_hook_${handleRefresh.name}`,
+                        `${id}_${field.id}_changed_hook_${handleRefresh.name}`,
                         handleRefresh.bind(useField),
                         'changed'
                     )
                 )
+
+                field.accept(
+                    notify(
+                        `${id}_${field.id}_validate_hook_${handleRefresh.name}`,
+                        handleValidation.bind(useField),
+                        'validate'
+                    )
+                )
             }
         }, [id, ...fields])
+
+        return {
+            validationResults
+        }
     }
 
     const newFieldFromBuilder = (
-        builder: IFieldSchemeBuilder,
+        builder: IFieldSchemaBuilder,
         objectConverter: newEntitySchemeObjectType,
         converter: SchemeToDescriptorConverterType
     ) => {

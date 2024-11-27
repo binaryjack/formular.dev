@@ -1,6 +1,6 @@
-import { FieldValuesTypes } from '../../../dependency/common'
-import { INDate } from '../../../dependency/dateModels'
-import { DateObject } from '../../../dependency/DateObject'
+import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
+import { DateObject } from '../../../dependency/schema/descriptor/field.data.dateobject.type'
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import {
     isBooleanNullOrUndefined,
     isNDateNullOrUndefined,

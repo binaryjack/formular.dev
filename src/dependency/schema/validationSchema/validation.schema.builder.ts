@@ -1,6 +1,7 @@
-import { ISchemaValidationData, IValidationDataBuilder } from './validation.types'
+import { IValidationSchemaBuilder } from './validation.schema.builder.types'
+import { IValidationSchema } from './validation.schema.types'
 
-export const ValidationDataBuilder = function (this: IValidationDataBuilder, name: string) {
+export const ValidationSchemaBuilder = function (this: IValidationSchemaBuilder, name: string) {
     this.name = name
     this.required = false
     this.shouldValidate = false
@@ -11,11 +12,11 @@ export const ValidationDataBuilder = function (this: IValidationDataBuilder, nam
     this.maxLength = undefined
     this.customGuide = undefined
     this.customError = undefined
-} as any as IValidationDataBuilder
+} as any as IValidationSchemaBuilder
 
-ValidationDataBuilder.prototype = {
+ValidationSchemaBuilder.prototype = {
     /** aim to ease chaining from existing or not builder in factory */
-    fromBuilder: function (baseBuilder?: IValidationDataBuilder) {
+    fromBuilder: function (baseBuilder?: IValidationSchemaBuilder) {
         this.name = baseBuilder?.name
         this.required = baseBuilder?.required
         this.shouldValidate = baseBuilder?.shouldValidate
@@ -64,6 +65,6 @@ ValidationDataBuilder.prototype = {
         return this
     },
     build: function () {
-        return { ...this } as ISchemaValidationData
+        return { ...this } as IValidationSchema
     }
 }

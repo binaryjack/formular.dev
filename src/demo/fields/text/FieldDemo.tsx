@@ -2,8 +2,8 @@ import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInpu
 import { IFieldInput } from '../../../core/field/fieldInputBase/fieldInputBase.types'
 import { Signals } from '../../../core/signals/signal'
 import { ISignal } from '../../../core/signals/signal.type'
-import { IFieldDescriptor } from '../../../dependency/common'
 import controlDemoSchema from '../../../dependency/schema/demo.schema'
+import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { mapSchemaToFieldDescriptor } from '../../../dependency/toFieldDescriptor'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
@@ -29,7 +29,7 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    useField('FieldDemo', outSideFields?.[3] as IFieldInput)
+    const { validationResults } = useField('FieldDemo', outSideFields?.[3] as IFieldInput)
 
     const handleTextChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
@@ -40,7 +40,8 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
         <div>
             <h1>Text demo</h1>
             <input {...outSideFields?.[3].register()} />
-            {outSideFields?.[3].get() as string}
+            <div>{outSideFields?.[3].get() as string}</div>
+            <div>{JSON.stringify(validationResults)}</div>
         </div>
     )
 }

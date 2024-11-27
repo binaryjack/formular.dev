@@ -1,5 +1,5 @@
-import { INDate } from '../../../dependency/dateModels'
-import { DateObject } from '../../../dependency/DateObject'
+import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
+import { DateObject } from '../../../dependency/schema/descriptor/field.data.dateobject.type'
 
 export const toPascal = (word: string) => {
     return word.replace(/\w+/g, function (w) {

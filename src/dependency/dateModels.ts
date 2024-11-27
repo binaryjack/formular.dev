@@ -4,12 +4,6 @@ export type IDatePickerOutputType = 'DAY' | 'MONTH' | 'YEAR'
 export type DatePickerGridMode = 'YEAR' | 'MONTH' | 'DAY'
 export type DatePickerMode = 'range' | 'single'
 
-export interface INDate {
-    day: number
-    month: number
-    year: number
-}
-
 export interface IDateRangeObject {
     id: string
     from: IDate

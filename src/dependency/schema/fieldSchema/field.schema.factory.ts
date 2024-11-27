@@ -1,6 +1,5 @@
-import { IOptionItem } from '../options/options.scheme.types'
-import { ISchemaValidationData } from '../validation/validation.types'
-import { IFieldSchemeBuilder, IFieldSchemeFactory } from './field.scheme.types'
+import { IOptionItem } from '../optionsSchema/options.scheme.types'
+import { IValidationSchema } from '../validationSchema/validation.schema.types'
 import {
     CheckBuilder,
     DateTimeBuilder,
@@ -15,14 +14,15 @@ import {
     ShowRoomsBuilder,
     ToggleBuilder,
     UserIdBuilder
-} from './field.schemes.builders'
+} from './field.schema.specific.builders'
+import { IFieldSchemaBuilder, IFieldSchemeFactory } from './field.schema.types'
 
-const FieldSchemeFactory = function (this: IFieldSchemeFactory) {
+const FieldSchemaFactory = function (this: IFieldSchemeFactory) {
     this.builders = []
 } as any as IFieldSchemeFactory
 
-FieldSchemeFactory.prototype = {
-    addBuilders: function (...builders: IFieldSchemeBuilder[]) {
+FieldSchemaFactory.prototype = {
+    addBuilders: function (...builders: IFieldSchemaBuilder[]) {
         this.builders = [...builders]
     },
     create: function (
@@ -30,10 +30,10 @@ FieldSchemeFactory.prototype = {
         target: string | null,
         options: IOptionItem[],
         shouldValidate: boolean,
-        validationOptions?: ISchemaValidationData
+        validationOptions?: IValidationSchema
     ) {
-        const _innerBuilder: IFieldSchemeBuilder = this.builders.find(
-            (o: IFieldSchemeBuilder) => o.name === name
+        const _innerBuilder: IFieldSchemaBuilder = this.builders.find(
+            (o: IFieldSchemaBuilder) => o.name === name
         )
         if (!_innerBuilder) {
             console.error(`unable to find the builder for ${name}`)
@@ -47,7 +47,7 @@ FieldSchemeFactory.prototype = {
     }
 }
 
-const fieldSchemeFactory = new FieldSchemeFactory()
+const fieldSchemeFactory = new FieldSchemaFactory()
 
 fieldSchemeFactory.addBuilders(
     IdBuilder,

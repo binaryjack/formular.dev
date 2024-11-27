@@ -1,39 +1,43 @@
-import { INDate } from '../../../dependency/dateModels'
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { IValidationResult, newValidationResult } from './coreValidationFunctions'
-import { IValidationOptions, ValidationErrorsCodes } from './validation'
+import {
+    IValidatorStrategy,
+    IValidatorStrategyData,
+    newValidationResult,
+    ValidationErrorsCodes
+} from './validator.types'
 
-const validatorRequired = (
-    validationOptions: IValidationOptions,
-    value: string | number | boolean | INDate | undefined,
-    expectedValue: string | number | boolean | INDate | undefined,
-    fieldName: string
-): IValidationResult => {
-    const hasExpectedValue = expectedValue !== undefined
-    const hasValue = !!value
+const ValidatorRequired = function (this: IValidatorStrategy) {
+    this.validate = function (data: IValidatorStrategyData) {
+        const hasExpectedValue = data.expectedValue !== undefined
+        const hasValue = !!data?.value
 
-    if (!validationOptions.required) {
-        return newValidationResult(true, fieldName)
-    }
+        if (!data?.validationOptions?.required) {
+            return newValidationResult(true, data.fieldName)
+        }
 
-    if (!hasValue || (hasValue && hasExpectedValue && expectedValue !== value)) {
-        return newValidationResult(
-            false,
-            fieldName,
-            newFieldError(
-                fieldName,
-                ValidationErrorsCodes.required,
-                validationOptions.required?.error ? validationOptions.required?.error : undefined
-            ),
-            newFieldGuide(
-                fieldName,
-                ValidationErrorsCodes.required,
-                validationOptions.required?.guide ? validationOptions.required?.guide : undefined
+        if (!hasValue || (hasValue && hasExpectedValue && data.expectedValue !== data?.value)) {
+            return newValidationResult(
+                false,
+                data.fieldName,
+                newFieldError(
+                    data.fieldName,
+                    ValidationErrorsCodes.required,
+                    data.validationOptions.required?.error
+                        ? data.validationOptions.required?.error
+                        : undefined
+                ),
+                newFieldGuide(
+                    data.fieldName,
+                    ValidationErrorsCodes.required,
+                    data.validationOptions.required?.guide
+                        ? data.validationOptions.required?.guide
+                        : undefined
+                )
             )
-        )
+        }
+
+        return newValidationResult(true, data.fieldName)
     }
-
-    return newValidationResult(true, fieldName)
-}
-
+} as any as IValidatorStrategy
+const validatorRequired = new ValidatorRequired()
 export default validatorRequired

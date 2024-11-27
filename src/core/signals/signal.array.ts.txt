@@ -52,7 +52,7 @@ export const SignalArray = (function () {
         }
     }
 
-    const SignalArray = <SignalType>(id: string, values?: SignalType[] | null[]) => {
+    const SignalArray = <SignalType,>(id: string, values: SignalType[] | null[]) => {
         if (instances.has(id)) {
             const output = instances.get(id)
             if (output) output.values = values ?? []

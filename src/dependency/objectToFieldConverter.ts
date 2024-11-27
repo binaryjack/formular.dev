@@ -1,5 +1,5 @@
-import { IFieldDescriptor } from './common'
-import { DateObject } from './DateObject'
+import { DateObject } from './schema/descriptor/field.data.dateobject.type'
+import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
 
 export const mapObjectToFields = (
     schema: IFieldDescriptor[],
