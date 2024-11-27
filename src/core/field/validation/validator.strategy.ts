@@ -11,6 +11,19 @@ import {
 } from './validator.types'
 import validatorPattern from './vaslidator.pattern'
 
+/**
+ * Validator class that implements the IValidator interface.
+ *
+ * @class
+ * @implements {IValidator}
+ *
+ * @method addStrategies
+ * @param {...IValidatorStrategy[]} strategies - An array of strategies to be added.
+ *
+ * @method validate
+ * @param {IValidatorStrategyData} data - The data to be validated.
+ * @returns {IValidationResult[]} An array of validation results from the applied strategies.
+ */
 const Validator = function (this: IValidator) {
     this.addStrategies = function (...strategies: IValidatorStrategy[]) {
         this.strategies = strategies

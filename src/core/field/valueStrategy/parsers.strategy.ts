@@ -33,7 +33,7 @@ export const StringParserStrategy: TParserStrategy<string | null> = (
         : null
 }
 
-export const BoleanParserStrategy: TParserStrategy<boolean | null> = (
+export const BooleanParserStrategy: TParserStrategy<boolean | null> = (
     value: Partial<FieldValuesTypes>
 ): boolean | null =>
     !isBooleanNullOrUndefined(value as boolean | undefined | null) ? (value ? true : false) : null

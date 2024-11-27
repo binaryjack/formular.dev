@@ -21,7 +21,7 @@ import {
     newValidatorStrategyData
 } from '../validation/validator.types'
 import {
-    BoleanParserStrategy,
+    BooleanParserStrategy,
     DateOrTimeParserStrategy,
     NumericValueParserStrategy,
     StringParserStrategy
@@ -34,31 +34,45 @@ import {
     SchemeToDescriptorConverterType
 } from './fieldInputBase.types'
 
-// const Field = function () {}
-//     id = 0
-//     name = ''
-//     label = ''
-//     value = null
-//     objectValue = null
-//     defaultValue = null
-//     type = 'fieldType'
-//     errors = []
-//     guides = []
-//     validationOptions = {}
-//     target = undefined
-//     options = []
-//     isValid = false
-//     isDirty = false
-//     isPristine = false
-//     isFocus = false
-//     expectedValue = undefined
-//     loaded = false
-//     changed = false
-//     shouldValidate = false // d
-// }
 const defaultFieldInputCSSClassName = 'f-input'
 
 export const FieldInputCreators = function () {
+    /**
+     * Represents a field input with various properties and methods for managing its state and behavior.
+     *
+     * @param this - The context of the field input.
+     * @param descriptor - An object containing the initial properties of the field input.
+     *
+     * @property {string} id - The unique identifier of the field input.
+     * @property {string} name - The name of the field input.
+     * @property {string} label - The label of the field input.
+     * @property {any} value - The current value of the field input.
+     * @property {any} objectValue - The object value of the field input.
+     * @property {any} defaultValue - The default value of the field input.
+     * @property {string} type - The type of the field input.
+     * @property {Array} errors - The list of errors associated with the field input.
+     * @property {Array} guides - The list of guides associated with the field input.
+     * @property {any} validationOptions - The validation options for the field input.
+     * @property {any} target - The target element for the field input.
+     * @property {any} options - The options for the field input.
+     * @property {boolean} isValid - Indicates whether the field input is valid.
+     * @property {boolean} isDirty - Indicates whether the field input is dirty.
+     * @property {boolean} isPristine - Indicates whether the field input is pristine.
+     * @property {boolean} isFocus - Indicates whether the field input is focused.
+     * @property {any} expectedValue - The expected value of the field input.
+     * @property {boolean} loaded - Indicates whether the field input is loaded.
+     * @property {boolean} changed - Indicates whether the field input has changed.
+     * @property {boolean} shouldValidate - Indicates whether the field input should be validated.
+     * @property {FieldStateStyle} fieldStateStyle - The style state of the field input.
+     * @property {string} className - The CSS class name for the field input.
+     * @property {ValueStrategy} valueStrategy - The strategy for parsing the value of the field input.
+     *
+     * @method register - Registers event handlers for the field input.
+     * @template FieldValuesTypes
+     * @returns {object} An object containing the field input properties and event handlers.
+     *
+     * @method setup - Sets up the field input by subscribing to observers.
+     */
     const _fieldInput = function (this: IFieldInput, descriptor: IFieldDescriptor) {
         this.id = descriptor.id
         this.name = descriptor.name
@@ -90,7 +104,7 @@ export const FieldInputCreators = function () {
             setParser('DateOrTimeParserStrategy', dateTypes, DateOrTimeParserStrategy),
             setParser('NumericValueParserStrategy', numberTypes, NumericValueParserStrategy),
             setParser('StringParserStrategy', stringTypes, StringParserStrategy),
-            setParser('BoleanParserStrategy', booleanTypes, BoleanParserStrategy)
+            setParser('BooleanParserStrategy', booleanTypes, BooleanParserStrategy)
         )
 
         this.register = function <FieldValuesTypes>() {
@@ -169,11 +183,29 @@ export const FieldInputCreators = function () {
         }
     }
 
+    /**
+     * Custom hook that manages field validation and state updates for a set of fields.
+     *
+     * @param id - The unique identifier for the field group.
+     * @param fields - A variable number of field objects that implement IFieldInputBase, IFieldDescriptor, and INotifiableEntity interfaces.
+     * @returns An object containing the validation results for the fields.
+     *
+     * @example
+     * const { validationResults } = useField('fieldGroup1', field1, field2, field3);
+     *
+     * @remarks
+     * This hook sets up validation and change notifications for the provided fields.
+     * It uses `React.useReducer` to force updates and `React.useMemo` to memoize the fields.
+     * The `handleValidation` function aggregates validation results from all fields.
+     * The `handleRefresh` function forces a component re-render.
+     * The `useEffect` hook sets up notification handlers for field changes and validations.
+     */
     const useField = (
         id: string,
         ...fields: (IFieldInputBase & IFieldDescriptor & INotifiableEntity)[]
     ) => {
         const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
+        const stableFields = React.useMemo(() => fields, [fields])
         const [validationResults, setValidationResults] = useState<IValidationResult[]>([])
         const handleValidation = () => {
             const results: IValidationResult[] = []
@@ -205,13 +237,21 @@ export const FieldInputCreators = function () {
                     )
                 )
             }
-        }, [id, ...fields])
+        }, [id, stableFields])
 
         return {
             validationResults
         }
     }
 
+    /**
+     * Creates a new field from the provided builder, object converter, and scheme to descriptor converter.
+     *
+     * @param builder - The field schema builder used to build the field.
+     * @param objectConverter - A function that converts the built field into a new entity scheme object.
+     * @param converter - A function that converts the new entity scheme into a descriptor.
+     * @returns A new instance of `_fieldInput` initialized with the generated descriptor.
+     */
     const newFieldFromBuilder = (
         builder: IFieldSchemaBuilder,
         objectConverter: newEntitySchemeObjectType,
@@ -223,10 +263,22 @@ export const FieldInputCreators = function () {
         return new _fieldInput(descriptor)
     }
 
+    /**
+     * Creates a new instance of `_fieldInput` from the given field descriptor.
+     *
+     * @param descriptor - The descriptor object that defines the properties of the field.
+     * @returns A new instance of `_fieldInput` initialized with the provided descriptor.
+     */
     const newFieldFromDescriptor = (descriptor: IFieldDescriptor) => {
         return new _fieldInput(descriptor)
     }
 
+    /**
+     * Creates an array of `IFieldInput` instances from an array of `IFieldDescriptor` objects.
+     *
+     * @param descriptors - An array of field descriptors used to create the field inputs.
+     * @returns An array of `IFieldInput` instances created from the provided descriptors.
+     */
     const newFieldFromDescriptors = (descriptors: IFieldDescriptor[]): IFieldInput[] => {
         const output: IFieldInput[] = []
         for (const descriptor of descriptors) {
@@ -234,7 +286,6 @@ export const FieldInputCreators = function () {
         }
         return output
     }
-
     return {
         newFieldFromBuilder,
         newFieldFromDescriptor,

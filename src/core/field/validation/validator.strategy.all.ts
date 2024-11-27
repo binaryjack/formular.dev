@@ -7,6 +7,12 @@ import {
     newValidatorStrategyData
 } from './validator.types'
 
+/**
+ * Validates all fields using the provided validation strategies.
+ *
+ * @param {IFieldInput[]} fields - An array of field inputs to be validated.
+ * @returns {IValidationResults} The validation results, including the overall validity state.
+ */
 export const validateAll = (fields: IFieldInput[]): IValidationResults => {
     if (fields?.length === 0) return newValidationResults(false)
 
