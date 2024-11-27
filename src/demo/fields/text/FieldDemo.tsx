@@ -1,3 +1,4 @@
+import ValidationResultComponent from '../../../core/field/components/validation/ValidationResult'
 import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInputBase'
 import { IFieldInput } from '../../../core/field/fieldInputBase/fieldInputBase.types'
 import { Signals } from '../../../core/signals/signal'
@@ -41,7 +42,9 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
             <h1>Text demo</h1>
             <input {...outSideFields?.[3].register()} />
             <div>{outSideFields?.[3].get() as string}</div>
-            <div>{JSON.stringify(validationResults)}</div>
+            <div>
+                <ValidationResultComponent validationResults={validationResults} />
+            </div>
         </div>
     )
 }
