@@ -1,0 +1,89 @@
+{
+    "locale": "en",
+    "validations": [
+        { "key": "VALIDATION.NAME.ERROR", "value": "Name format is not correct" },
+        { "key": "VALIDATION.NAME.GUIDE", "value": "Name format is |data|." },
+        { "key": "VALIDATION.AGE.ERROR", "value": "Age format is not correct" },
+        { "key": "VALIDATION.AGE.GUIDE", "value": "Age format is |data|." },
+        { "key": "VALIDATION.EMAIL.ERROR", "value": "Email format is not correct" },
+        { "key": "VALIDATION.EMAIL.GUIDE", "value": "Email format is |data|." },
+        { "key": "VALIDATION.PHONE.ERROR", "value": "Phone format is not correct" },
+        { "key": "VALIDATION.PHONE.GUIDE", "value": "Phone format is |data|." },
+        { "key": "VALIDATION.ADDRESS.ERROR", "value": "Address format is not correct" },
+        { "key": "VALIDATION.ADDRESS.GUIDE", "value": "Address format is |data|." },
+        { "key": "VALIDATION.CITY.ERROR", "value": "City format is not correct" },
+        { "key": "VALIDATION.CITY.GUIDE", "value": "City format is |data|." },
+        { "key": "VALIDATION.COUNTRY.ERROR", "value": "Country format is not correct" },
+        { "key": "VALIDATION.COUNTRY.GUIDE", "value": "Country format is |data|." },
+        { "key": "VALIDATION.ZIPCODE.ERROR", "value": "Zipcode format is not correct" },
+        { "key": "VALIDATION.ZIPCODE.GUIDE", "value": "Zipcode format is |data|." },
+        { "key": "VALIDATION.PASSWORD.ERROR", "value": "Password format is not correct" },
+        { "key": "VALIDATION.PASSWORD.GUIDE", "value": "Password format is |data|." },
+        {
+            "key": "VALIDATION.CONFIRM_PASSWORD.ERROR",
+            "value": "Confirm password format is not correct"
+        },
+        {
+            "key": "VALIDATION.CONFIRM_PASSWORD.GUIDE",
+            "value": "Confirm password format is |data|."
+        },
+        { "key": "VALIDATION.OLD_PASSWORD.ERROR", "value": "Old password format is not correct" },
+        { "key": "VALIDATION.OLD_PASSWORD.GUIDE", "value": "Old password format is |data|." },
+        { "key": "VALIDATION.NEW_PASSWORD.ERROR", "value": "New password format is not correct" },
+        { "key": "VALIDATION.NEW_PASSWORD.GUIDE", "value": "New password format is |data|." },
+        {
+            "key": "VALIDATION.CONFIRM_NEW_PASSWORD.ERROR",
+            "value": "Confirm new password format is not correct"
+        },
+        {
+            "key": "VALIDATION.CONFIRM_NEW_PASSWORD.GUIDE",
+            "value": "Confirm new password format is |data|."
+        },
+        { "key": "VALIDATION.DATE.ERROR", "value": "Date format is not correct" },
+        { "key": "VALIDATION.DATE.GUIDE", "value": "Date format is |data|." },
+        { "key": "VALIDATION.TIME.ERROR", "value": "Time format is not correct" },
+        { "key": "VALIDATION.TIME.GUIDE", "value": "Time format is |data|." },
+        { "key": "VALIDATION.DATETIME.ERROR", "value": "Datetime format is not correct" },
+        { "key": "VALIDATION.DATETIME.GUIDE", "value": "Datetime format is |data|." },
+        { "key": "VALIDATION.URL.ERROR", "value": "URL format is not correct" },
+        { "key": "VALIDATION.URL.GUIDE", "value": "URL format is |data|." },
+        { "key": "VALIDATION.MAX.ERROR", "value": "The value should be lower than |data|" },
+        { "key": "VALIDATION.MAX.GUIDE", "value": "The value can be max of |data|" },
+        { "key": "VALIDATION.MIN.ERROR", "value": "The value should be higher than |data|" },
+        { "key": "VALIDATION.MIN.GUIDE", "value": "The value can be min of |data|" },
+        { "key": "VALIDATION.REQUIRED.ERROR", "value": "This field is required" },
+        { "key": "VALIDATION.REQUIRED.GUIDE", "value": "This field is required" },
+        { "key": "VALIDATION.EQUALS.ERROR", "value": "The value should be equal to |data|" },
+        { "key": "VALIDATION.EQUALS.GUIDE", "value": "The value should be equal to |data|" },
+        {
+            "key": "VALIDATION.NOT_EQUALS.ERROR",
+            "value": "The value should not be equal to |data|"
+        },
+        {
+            "key": "VALIDATION.NOT_EQUALS.GUIDE",
+            "value": "The value should not be equal to |data|"
+        },
+        { "key": "VALIDATION.CONTAINS.ERROR", "value": "The value should contain |data|" },
+        { "key": "VALIDATION.CONTAINS.GUIDE", "value": "The value should contain |data|" },
+        { "key": "VALIDATION.NOT_CONTAINS.ERROR", "value": "The value should not contain |data|" },
+        { "key": "VALIDATION.NOT_CONTAINS.GUIDE", "value": "The value should not contain |data|" },
+        { "key": "VALIDATION.STARTS_WITH.ERROR", "value": "The value should start with |data|" },
+        { "key": "VALIDATION.STARTS_WITH.GUIDE", "value": "The value should start with |data|" },
+        { "key": "VALIDATION.ENDS_WITH.ERROR", "value": "The value should end with |data|" },
+        { "key": "VALIDATION.ENDS_WITH.GUIDE", "value": "The value should end with |data|" },
+        { "key": "VALIDATION.LENGTH.ERROR", "value": "The value should be |data| characters" },
+        { "key": "VALIDATION.LENGTH.GUIDE", "value": "The value should be |data| characters" },
+        { "key": "VALIDATION.MIN_LENGTH.ERROR", "value": "The value should be at least |data|" },
+        { "key": "VALIDATION.MIN_LENGTH.GUIDE", "value": "The value should be at least |data|" },
+        { "key": "VALIDATION.MAX_LENGTH.ERROR", "value": "The value should be at most |data|" },
+        { "key": "VALIDATION.MAX_LENGTH.GUIDE", "value": "The value should be at most |data|" },
+        {
+            "key": "VALIDATION.BETWEEN_LENGTH.ERROR",
+            "value": "The value should be between |data| and |data2| characters"
+        },
+        {
+            "key": "VALIDATION.BETWEEN_LENGTH.GUIDE",
+            "value": "The value should be between |data| and |data2| characters"
+        }
+    ]
+}

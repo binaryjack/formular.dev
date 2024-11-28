@@ -1,5 +1,8 @@
+import { IValidationLocalize } from './localize/localize.type'
+import { GetTranslatioBuilder } from './localize/localize.utils'
 import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
 import { IEntityScheme } from './schema/fieldSchema/field.schema.types'
+import { ValidationLocalizeKeys } from './schema/validationSchema/validation.localize.keys'
 import {
     IMax,
     IMaxLength,
@@ -10,8 +13,26 @@ import {
     IValidationOptions
 } from './validation'
 
-export const mapSchemaToFieldDescriptor = (scheme: IEntityScheme): IFieldDescriptor[] => {
+export const mapSchemaToFieldDescriptor = (
+    scheme: IEntityScheme,
+    gt: GetTranslatioBuilder,
+    translations: IValidationLocalize
+): IFieldDescriptor[] => {
     const output: IFieldDescriptor[] = []
+
+    const gtReady = gt(translations)
+    const requiredError = gtReady(ValidationLocalizeKeys.requiredError)
+    const requiredGuide = gtReady(ValidationLocalizeKeys.requiredGuide)
+    const maxError = gtReady(ValidationLocalizeKeys.maxError)
+    const maxGuide = gtReady(ValidationLocalizeKeys.maxGuide)
+    const minError = gtReady(ValidationLocalizeKeys.minError)
+    const minGuide = gtReady(ValidationLocalizeKeys.minGuide)
+    const maxLengthError = gtReady(ValidationLocalizeKeys.maxLengthError)
+    const maxLengthGuide = gtReady(ValidationLocalizeKeys.maxLengthGuide)
+    const minLengthError = gtReady(ValidationLocalizeKeys.minLengthError)
+    const minLengthGuide = gtReady(ValidationLocalizeKeys.minLengthGuide)
+    const patternError = gtReady(ValidationLocalizeKeys.patternError)
+    const patternGuide = gtReady(ValidationLocalizeKeys.patternGuide)
 
     scheme.properties.forEach((f) => {
         const newF: IFieldDescriptor = {
@@ -35,46 +56,64 @@ export const mapSchemaToFieldDescriptor = (scheme: IEntityScheme): IFieldDescrip
             expectedValue:
                 f.expectedValue === null || f.expectedValue === '' ? undefined : f.expectedValue,
             validationOptions: {
-                required: { required: f.required } as IRequired,
+                required: {
+                    required: f.required,
+                    error: f.required ? requiredError() : '',
+                    guide: f.required ? requiredGuide() : ''
+                } as IRequired,
                 max:
                     f.max === null
                         ? undefined
                         : ({
                               max: f.max,
-                              error: f.customError,
-                              guide: f.customGuide
+                              error: f.max !== null ? maxError(`${f.max}`) : f.customGuide,
+                              guide: f.max !== null ? maxGuide(`${f.max}`) : f.customGuide
                           } as IMax | undefined),
                 min:
                     f.min === null
                         ? undefined
                         : ({
                               min: f.min,
-                              error: f.customError,
-                              guide: f.customGuide
+                              error: f.min !== null ? minError(`${f.min}`) : f.customGuide,
+                              guide: f.min !== null ? minGuide(`${f.min}`) : f.customGuide
                           } as IMin | undefined),
                 maxLength:
                     f.maxLength === null
                         ? undefined
                         : ({
                               maxLength: f.maxLength,
-                              error: f.customError,
-                              guide: f.customGuide
+                              error:
+                                  f.maxLength !== null
+                                      ? maxLengthError(`${f.maxLength}`)
+                                      : f.customGuide,
+                              guide:
+                                  f.maxLength !== null
+                                      ? maxLengthGuide(`${f.maxLength}`)
+                                      : f.customGuide
                           } as IMaxLength | undefined),
                 minLength:
                     f.minLength === null
                         ? undefined
                         : ({
                               minLength: f.minLength,
-                              error: f.customError,
-                              guide: f.customGuide
+                              error:
+                                  f.minLength !== null
+                                      ? minLengthError(`${f.minLength}`)
+                                      : f.customGuide,
+                              guide:
+                                  f.minLength !== null
+                                      ? minLengthGuide(`${f.minLength}`)
+                                      : f.customGuide
                           } as IMinLength | undefined),
                 pattern:
                     f.pattern === null
                         ? undefined
                         : ({
                               pattern: f.pattern,
-                              error: f.customError,
-                              guide: f.customGuide
+                              error:
+                                  f.pattern !== null ? patternError(`${f.pattern}`) : f.customGuide,
+                              guide:
+                                  f.pattern !== null ? patternGuide(`${f.pattern}`) : f.customGuide
                           } as IPattern | undefined)
             } as IValidationOptions,
             objectValue: null,

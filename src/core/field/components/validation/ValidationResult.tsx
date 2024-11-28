@@ -17,21 +17,12 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
     return (
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <h3>Validation Result for {validationResults?.[0]?.fieldName}</h3>
-
             <div>
                 {validationResults.map((result) => {
                     return (
                         <div key={result.fieldName}>
-                            {result.error && (
-                                <div className="error">
-                                    <strong>Error:</strong> {result.error?.text}
-                                </div>
-                            )}
-                            {result.guide && (
-                                <div className="guide">
-                                    <strong>Guide:</strong> {result.guide?.text}
-                                </div>
-                            )}
+                            {result.error && <div className="error">{result.error?.text}</div>}
+                            {result.guide && <div className="guide">{result.guide?.text}</div>}
                         </div>
                     )
                 })}

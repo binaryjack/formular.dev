@@ -3,6 +3,7 @@ import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInpu
 import { IFieldInput } from '../../../core/field/fieldInputBase/fieldInputBase.types'
 import { Signals } from '../../../core/signals/signal'
 import { ISignal } from '../../../core/signals/signal.type'
+import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import controlDemoSchema from '../../../dependency/schema/demo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { mapSchemaToFieldDescriptor } from '../../../dependency/toFieldDescriptor'
@@ -13,7 +14,7 @@ const { Signal, useSignal } = Signals
 // build a schema for the fields to be used
 const item = controlDemoSchema
 // map schema to fieldsDescriptors collection from schema
-const fieldDescriptors = mapSchemaToFieldDescriptor(item)
+const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
 export const textSignal = Signal<string>('text1', '')
 
