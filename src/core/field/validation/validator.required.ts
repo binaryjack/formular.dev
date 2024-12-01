@@ -8,7 +8,7 @@ import {
 
 const ValidatorRequired = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
-        const hasExpectedValue = data.expectedValue !== undefined
+        const hasExpectedValue = !!data.expectedValue
         const hasValue = !!data?.value
 
         if (!data?.validationOptions?.required) {

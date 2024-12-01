@@ -4,7 +4,7 @@ import { ComputedSignalCallback } from '../../signals/signal.type'
 
 export interface INotifiableEntity {
     new (): INotifiableEntity
-    notify: (type: TNotifierType) => void
+    notify: <T>(type: TNotifierType, data?: T) => void
     accept: (notify: INotifier) => void
     init: () => void
     dispose: () => void

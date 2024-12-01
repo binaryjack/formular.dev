@@ -1,6 +1,11 @@
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 
+export interface IValidationOrigin {
+    fieldName: string
+    fieldState: string
+}
+
 export interface IDoValidate {
     formId: string
 }

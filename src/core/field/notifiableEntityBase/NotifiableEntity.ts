@@ -1,6 +1,6 @@
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
 import { INotifier, TNotifierType } from '../../notifications/notifications.types'
-import { INotifiableEntity } from './notifiableENtityBase.types'
+import { INotifiableEntity } from './notifiableEntityBase.types'
 
 export const NotifiableEntity = function (this: INotifiableEntity) {
     this.notifiers = new Map<string, INotifier>()
@@ -13,11 +13,11 @@ NotifiableEntity.prototype = {
         if (this.notifiers.has(notify.id)) return
         this.notifiers.set(notify.id, notify)
     },
-    notify: function (type: TNotifierType) {
+    notify: function <T>(type: TNotifierType, data?: T) {
         this.notifiers.forEach((value: INotifier) => {
             if (value.type === type) {
                 console.log(`trigger - [${value.id}] on [${value.type}]`)
-                value.method(this)
+                value.method(data)
             }
         })
         this.observers?.trigger()

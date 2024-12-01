@@ -61,60 +61,53 @@ export const mapSchemaToFieldDescriptor = (
                     error: f.required ? requiredError() : '',
                     guide: f.required ? requiredGuide() : ''
                 } as IRequired,
-                max:
-                    f.max === null
-                        ? undefined
-                        : ({
-                              max: f.max,
-                              error: f.max !== null ? maxError(`${f.max}`) : f.customGuide,
-                              guide: f.max !== null ? maxGuide(`${f.max}`) : f.customGuide
-                          } as IMax | undefined),
-                min:
-                    f.min === null
-                        ? undefined
-                        : ({
-                              min: f.min,
-                              error: f.min !== null ? minError(`${f.min}`) : f.customGuide,
-                              guide: f.min !== null ? minGuide(`${f.min}`) : f.customGuide
-                          } as IMin | undefined),
-                maxLength:
-                    f.maxLength === null
-                        ? undefined
-                        : ({
-                              maxLength: f.maxLength,
-                              error:
-                                  f.maxLength !== null
-                                      ? maxLengthError(`${f.maxLength}`)
-                                      : f.customGuide,
-                              guide:
-                                  f.maxLength !== null
-                                      ? maxLengthGuide(`${f.maxLength}`)
-                                      : f.customGuide
-                          } as IMaxLength | undefined),
-                minLength:
-                    f.minLength === null
-                        ? undefined
-                        : ({
-                              minLength: f.minLength,
-                              error:
-                                  f.minLength !== null
-                                      ? minLengthError(`${f.minLength}`)
-                                      : f.customGuide,
-                              guide:
-                                  f.minLength !== null
-                                      ? minLengthGuide(`${f.minLength}`)
-                                      : f.customGuide
-                          } as IMinLength | undefined),
-                pattern:
-                    f.pattern === null
-                        ? undefined
-                        : ({
-                              pattern: f.pattern,
-                              error:
-                                  f.pattern !== null ? patternError(`${f.pattern}`) : f.customGuide,
-                              guide:
-                                  f.pattern !== null ? patternGuide(`${f.pattern}`) : f.customGuide
-                          } as IPattern | undefined)
+                max: f.max
+                    ? ({
+                          max: f.max,
+                          error: f.max !== null ? maxError(`${f.max}`) : f.customGuide,
+                          guide: f.max !== null ? maxGuide(`${f.max}`) : f.customGuide
+                      } as IMax | undefined)
+                    : undefined,
+                min: f.min
+                    ? ({
+                          min: f.min,
+                          error: f.min !== null ? minError(`${f.min}`) : f.customGuide,
+                          guide: f.min !== null ? minGuide(`${f.min}`) : f.customGuide
+                      } as IMin | undefined)
+                    : undefined,
+                maxLength: f.maxLength
+                    ? ({
+                          maxLength: f.maxLength,
+                          error:
+                              f.maxLength !== null
+                                  ? maxLengthError(`${f.maxLength}`)
+                                  : f.customGuide,
+                          guide:
+                              f.maxLength !== null
+                                  ? maxLengthGuide(`${f.maxLength}`)
+                                  : f.customGuide
+                      } as IMaxLength | undefined)
+                    : undefined,
+                minLength: f.minLength
+                    ? ({
+                          minLength: f.minLength,
+                          error:
+                              f.minLength !== null
+                                  ? minLengthError(`${f.minLength}`)
+                                  : f.customGuide,
+                          guide:
+                              f.minLength !== null
+                                  ? minLengthGuide(`${f.minLength}`)
+                                  : f.customGuide
+                      } as IMinLength | undefined)
+                    : undefined,
+                pattern: f.pattern
+                    ? ({
+                          pattern: f.pattern,
+                          error: f.pattern !== null ? patternError(`${f.pattern}`) : f.customGuide,
+                          guide: f.pattern !== null ? patternGuide(`${f.pattern}`) : f.customGuide
+                      } as IPattern | undefined)
+                    : undefined
             } as IValidationOptions,
             objectValue: null,
             defaultValue: null

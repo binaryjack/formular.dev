@@ -1,3 +1,5 @@
+import './ValidationResult.css'
+
 import React, { useMemo } from 'react'
 
 import { IValidationResult } from '../../validation/validator.types'
@@ -16,11 +18,10 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
 
     return (
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
-            <h3>Validation Result for {validationResults?.[0]?.fieldName}</h3>
-            <div>
-                {validationResults.map((result) => {
+            <div className={`validation-result-drawer`}>
+                {validationResults.map((result, index) => {
                     return (
-                        <div key={result.fieldName}>
+                        <div key={`${result.fieldName}-${index}`}>
                             {result.error && <div className="error">{result.error?.text}</div>}
                             {result.guide && <div className="guide">{result.guide?.text}</div>}
                         </div>
