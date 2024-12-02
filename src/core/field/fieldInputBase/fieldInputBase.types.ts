@@ -4,7 +4,7 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { IFieldStateStyle } from '../fieldStateStyle/fieldStateStyle.types'
-import { INotifiableEntity } from '../notifiableEntityBase/notifiableEntityBase.types'
+import { INotifiableEntity } from '../notifiableEntity/notifiableEntityBase.types'
 import { IValidationResult, IValidator } from '../validation/validator.types'
 import { IValueStrategy } from '../valueStrategy/valueStrategy.types'
 

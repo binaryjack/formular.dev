@@ -1,7 +1,7 @@
 import { IErrors } from '../../../dependency/errors'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldInputBase } from '../../field/fieldInputBase/fieldInputBase.types'
-import { INotifiableEntity } from '../../field/notifiableEntityBase/notifiableEntityBase.types'
+import { INotifiableEntity } from '../../field/notifiableEntity/notifiableEntityBase.types'
 import { LoadingStatus } from '../../status'
 
 export interface IFormFlags {

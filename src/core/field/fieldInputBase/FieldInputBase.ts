@@ -12,8 +12,8 @@ import {
 } from '../../form/formBase/formBase.types'
 import { notify } from '../../notifications/notifications.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
-import { NotifiableEntity } from '../notifiableEntityBase/NotifiableEntity'
-import { INotifiableEntity } from '../notifiableEntityBase/notifiableEntityBase.types'
+import { NotifiableEntity } from '../notifiableEntity/NotifiableEntity'
+import { INotifiableEntity } from '../notifiableEntity/notifiableEntityBase.types'
 import validator from '../validation/validator.strategy'
 import {
     IValidationOrigin,
