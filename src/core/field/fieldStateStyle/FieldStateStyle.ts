@@ -45,6 +45,17 @@ export const FieldStateStyle = function (this: IFieldStateStyle) {
             case 'focus':
                 this.classesList.set(type, state ? `is-${type}` : `is-not-${type}`)
                 break
+            case 'clear':
+            default: {
+                this.classesList.set('dirty', `is-not-dirty`)
+                this.classesList.set('errors', `no-errors`)
+                this.classesList.set('focus', 'is-not-focus')
+                this.classesList.set('open', 'is-closed')
+                this.classesList.set('pristine', 'is-pristine')
+                this.classesList.set('valid', 'is-valid')
+
+                break
+            }
         }
     }
     this.get = function () {

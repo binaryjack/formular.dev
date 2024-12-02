@@ -23,7 +23,7 @@ const { newFieldFromDescriptors, useField } = FieldInputCreators()
 const outSideFields = newFieldFromDescriptors(fieldDescriptors)
 
 outSideFields?.[3].hasChanges(() => {
-    console.log('Field updated', outSideFields?.[3])
+    // console.log('Field updated', outSideFields?.[3])
 })
 
 interface IFieldDemoProps {
@@ -41,11 +41,16 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
     return (
         <div>
             <h1>Text demo</h1>
-            <input {...outSideFields?.[3].register()} />
+            <input {...outSideFields?.[3].register()} ref={outSideFields?.[3].ref()} />
             <div>{outSideFields?.[3].get() as string}</div>
             <div>
                 <ValidationResultComponent validationResults={validationResults} />
             </div>
+
+            <button onClick={() => outSideFields?.[3].setFocus()}>focus Field</button>
+            <button onClick={() => outSideFields?.[3].enable(true)}>enable</button>
+            <button onClick={() => outSideFields?.[3].enable(false)}>disable</button>
+            <button onClick={() => outSideFields?.[3].clear()}>clear</button>
         </div>
     )
 }

@@ -29,7 +29,8 @@ const ValidatorMin = function (this: IValidatorStrategy) {
                     data.validationOptions.min?.guide
                         ? data.validationOptions.min?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 

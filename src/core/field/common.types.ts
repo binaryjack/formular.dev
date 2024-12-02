@@ -22,4 +22,11 @@ export type HTMLInputTypes =
     | 'url'
     | 'week'
 
-export type FieldInputStateType = 'dirty' | 'valid' | 'pristine' | 'focus' | 'open' | 'errors'
+export type FieldInputStateType =
+    | 'dirty'
+    | 'valid'
+    | 'pristine'
+    | 'focus'
+    | 'open'
+    | 'errors'
+    | 'clear'

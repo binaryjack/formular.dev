@@ -32,7 +32,8 @@ const ValidatorMax = function (this: IValidatorStrategy) {
                     data.validationOptions.max?.guide
                         ? data.validationOptions.max?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 

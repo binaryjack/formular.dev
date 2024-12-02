@@ -1,9 +1,17 @@
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 
+export type ValidationTriggerModeType =
+    | 'onBlur'
+    | 'onChange'
+    | 'onSubmit'
+    | 'onFocus'
+    | 'onLoad'
+    | 'reset'
+
 export interface IValidationOrigin {
     fieldName: string
-    fieldState: string
+    fieldState: ValidationTriggerModeType
 }
 
 export interface IDoValidate {
@@ -15,7 +23,7 @@ export interface IValidationResult {
     fieldName: string
     error?: IFieldError
     guide?: IFieldGuide
-    formId?: string
+    strategyData?: IValidatorStrategyData
 }
 
 export interface IDoValidateAll {
@@ -41,9 +49,9 @@ export const newValidationResult = (
     fieldName: string,
     error?: IFieldError,
     guide?: IFieldGuide,
-    formId?: string
+    strategyData?: IValidatorStrategyData
 ): IValidationResult => {
-    return { state, fieldName, error, guide, formId }
+    return { state, fieldName, error, guide, strategyData }
 }
 
 export interface IValidatorStrategyData {
@@ -52,6 +60,7 @@ export interface IValidatorStrategyData {
     validationOptions: IValidationOptions
     value: FieldValuesTypes | null
     expectedValue: FieldValuesTypes | null
+    origin: IValidationOrigin | null
 }
 
 export const newValidatorStrategyData = (
@@ -59,14 +68,16 @@ export const newValidatorStrategyData = (
     type: string,
     validationOptions: IValidationOptions,
     value: FieldValuesTypes | null,
-    expectedValue?: FieldValuesTypes | null
+    expectedValue?: FieldValuesTypes | null,
+    origin?: IValidationOrigin
 ) => {
     return {
         fieldName: fieldName,
         type: type,
         validationOptions: validationOptions,
         value: value,
-        expectedValue: expectedValue !== undefined ? expectedValue : null
+        expectedValue: expectedValue !== undefined ? expectedValue : null,
+        origin: origin ?? null
     } as IValidatorStrategyData
 }
 

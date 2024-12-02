@@ -32,7 +32,8 @@ const ValidatorPattern = function (this: IValidatorStrategy) {
                     data.validationOptions.pattern?.guide
                         ? data.validationOptions.pattern?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 

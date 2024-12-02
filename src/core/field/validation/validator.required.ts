@@ -32,7 +32,8 @@ const ValidatorRequired = function (this: IValidatorStrategy) {
                     data.validationOptions.required?.guide
                         ? data.validationOptions.required?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 

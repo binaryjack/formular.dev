@@ -12,18 +12,38 @@ interface ValidationResultProps {
 
 const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validationResults }) => {
     const valid = useMemo(
-        () => validationResults.filter((result) => result.state),
+        () => validationResults.every((result) => result.state),
         [validationResults]
     )
 
+    console.log('VALID: ', valid ? 'YES' : 'NO')
     return (
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <div className={`validation-result-drawer`}>
                 {validationResults.map((result, index) => {
+                    const showError = ['onBlur'].includes(
+                        result.strategyData?.origin?.fieldState ?? ''
+                    )
+                    const showGuide = ['onFocus', 'onChange'].includes(
+                        result.strategyData?.origin?.fieldState ?? ''
+                    )
+                    console.log(
+                        'result',
+                        result.strategyData?.origin?.fieldState,
+                        'showError',
+                        showError,
+                        'showGuide',
+                        showGuide
+                    )
                     return (
                         <div key={`${result.fieldName}-${index}`}>
-                            {result.error && <div className="error">{result.error?.text}</div>}
-                            {result.guide && <div className="guide">{result.guide?.text}</div>}
+                            {showError && result.error && (
+                                <div className="error">{result.error?.text}</div>
+                            )}
+
+                            {showGuide && result.guide && (
+                                <div className="guide">{result.guide?.text}</div>
+                            )}
                         </div>
                     )
                 })}

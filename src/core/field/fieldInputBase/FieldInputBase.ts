@@ -1,3 +1,4 @@
+import { clear } from 'console'
 import React, { useEffect, useState } from 'react'
 
 import { newEntitySchemeObjectType } from '../../../dependency/schema/demo.schema'
@@ -10,16 +11,17 @@ import {
     numberTypes,
     stringTypes
 } from '../../form/formBase/formBase.types'
+import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
+import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
 import { notify } from '../../notifications/notifications.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
-import { NotifiableEntity } from '../notifiableEntity/NotifiableEntity'
-import { INotifiableEntity } from '../notifiableEntity/notifiableEntityBase.types'
 import validator from '../validation/validator.strategy'
 import {
     IValidationOrigin,
     IValidationResult,
     IValidator,
-    newValidatorStrategyData
+    newValidatorStrategyData,
+    ValidationTriggerModeType
 } from '../validation/validator.types'
 import {
     BooleanParserStrategy,
@@ -73,12 +75,54 @@ export const FieldInputCreators = function () {
      * @returns {object} An object containing the field input properties and event handlers.
      *
      * @method setup - Sets up the field input by subscribing to observers.
+     *
+     *
+     * @method setValidationTriggerMode - Sets the validation trigger mode for the field input.
+     * @validationTriggerModeType - behavior: if the field should be validated onBlur, onFocus, onChange, onSubmit, onLoad, or reset.
+     * onBlur only takes effect when the field loses focus. It will show the error in the error color
+     * onFocus only takes effect when the field gains focus. It will show the guide in the guide color
+     * onChange only takes effect when the field value changes. It will show the guide in the guide color
+     * onSubmit only takes effect when the form is submitted.  It will show the error in the error color
+     * onLoad only takes effect when the field is loaded, It will show the error in the error color
+     * reset is used by default so the validation are cleared out.
+     *
+     * @method classNames - Returns the CSS class names for the field input.
+     * @returns {string} A string containing the CSS class names for the field input.
+     *
+     * @method hasChanges - Subscribes to the field input changes and triggers a callback when changes occur.
+     * @callback callback - The callback function to be triggered when changes occur.
+     *
+     * @method validate - Validates the field input using the provided validator.
+     * @param vtor - The validator used to validate the field input.
+     *
+     * @method get - Gets the value of the field input.
+     * @returns {FieldValuesTypes | null} The value of the field input.
+     *
+     * @method getAsString - Gets the value of the field input as a string.
+     * @returns {string | null} The value of the field input as a string.
+     *
+     * @method setFocus - Sets the focus on the field input.
+     *
+     * @method enable - Enables or disables the field input.
+     * @param enabled - Indicates whether the field input should be enabled.
+     *
+     * @method clear - Clears the field input of any errors or guides.
+     *
+     * @method ref - Creates a reference to the field input element.
+     * @returns {React.RefObject<HTMLInputElement>} A reference to the field input element.
+     *
+     * @method NotifiableEntity - The base class for field inputs that provides notification functionality.
+     * @extends NotifiableEntity
+     *
+     * @method valueStrategy - The strategy for parsing the value of the field input.
+     * @returns {ValueStrategy} The strategy for parsing the value of the field input.
      */
     const _fieldInput = function (this: IFieldInput, descriptor: IFieldDescriptor) {
         this.id = descriptor.id
         this.name = descriptor.name
         this.label = descriptor.label
         this.value = descriptor.value
+        this.enabled = true
         this.objectValue = descriptor.objectValue
         this.defaultValue = descriptor.defaultValue
         this.type = descriptor.type
@@ -97,7 +141,8 @@ export const FieldInputCreators = function () {
         this.shouldValidate = descriptor.shouldValidate
         this.fieldStateStyle = new FieldStateStyle()
         this.className = defaultFieldInputCSSClassName
-
+        this.validationTriggerModeType = ['onBlur']
+        this.internalHTMLElementRef = null
         // this.observers = new DataMutationObserverSubject()
         // this.notifiers = new Map<string, INotifier>()
         // this.computedSignalCallback = null
@@ -111,13 +156,19 @@ export const FieldInputCreators = function () {
         this.register = function <FieldValuesTypes>() {
             const updateUI = () => {
                 this.observers.trigger()
-                this.notify('changed')
             }
 
             const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 this.value = e.currentTarget.value
                 this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-                this.notify('validate', { fieldName: this.name, fieldState: 'changed' })
+
+                this.notify<IValidationOrigin>('validate', {
+                    fieldName: this.name,
+                    fieldState: this.validationTriggerModeType.includes('onChange')
+                        ? 'onChange'
+                        : 'reset'
+                })
+
                 updateUI()
                 e.stopPropagation()
                 e.preventDefault()
@@ -126,7 +177,14 @@ export const FieldInputCreators = function () {
             const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
                 this.isFocus = false
                 this.fieldStateStyle.update('focus', this.isFocus)
-                this.notify('validate', { fieldName: this.name, fieldState: 'blur' })
+
+                this.notify<IValidationOrigin>('validate', {
+                    fieldName: this.name,
+                    fieldState: this.validationTriggerModeType.includes('onBlur')
+                        ? 'onBlur'
+                        : 'reset'
+                })
+
                 updateUI()
 
                 e.stopPropagation()
@@ -138,7 +196,14 @@ export const FieldInputCreators = function () {
                 this.isPristine = false
                 this.fieldStateStyle.update('pristine', this.isPristine)
                 this.fieldStateStyle.update('focus', this.isFocus)
-                this.notify('validate', { fieldName: this.name, fieldState: 'focus' })
+
+                this.notify<IValidationOrigin>('validate', {
+                    fieldName: this.name,
+                    fieldState: this.validationTriggerModeType.includes('onFocus')
+                        ? 'onFocus'
+                        : 'reset'
+                })
+
                 updateUI()
                 e.stopPropagation()
                 e.preventDefault()
@@ -154,6 +219,10 @@ export const FieldInputCreators = function () {
                 onFocus
             }
         }
+        this.ref = function () {
+            this.internalHTMLElementRef = React.createRef<HTMLInputElement>()
+            return this.internalHTMLElementRef
+        }
         NotifiableEntity.call(this)
         this.setup = function () {
             this.observers.subscribe(this.classNames.bind(this))
@@ -163,19 +232,23 @@ export const FieldInputCreators = function () {
 
     _fieldInput.prototype = {
         ...NotifiableEntity.prototype,
+        setValidationTriggerMode: function (mode: ValidationTriggerModeType) {
+            this.validationTriggerModeType = mode
+        },
         classNames: function () {
             return `${this.className} ${this.fieldStateStyle.get()} `
         },
         hasChanges: function (callback: () => void) {
             this.observers.subscribe(callback)
         },
-        validate: function (vtor: IValidator) {
+        validate: function (vtor: IValidator, origin?: IValidationOrigin) {
             const validationstrategyData = newValidatorStrategyData(
                 this.name,
                 this.type,
                 this.validationOptions,
                 this.get(),
-                this.expectedValue
+                this.expectedValue,
+                origin
             )
             return vtor.validate(validationstrategyData)
         },
@@ -184,6 +257,30 @@ export const FieldInputCreators = function () {
         },
         getAsString: function () {
             return (this.value as string) ?? null
+        },
+        setFocus: function () {
+            if (this.internalHTMLElementRef.current.disabled) return
+            this.isFocus = true
+            this.fieldStateStyle.update('focus', this.isFocus)
+            this.internalHTMLElementRef?.current?.focus()
+        },
+        enable: function (enabled: boolean) {
+            this.enabled = enabled
+            if (!enabled) {
+                this.internalHTMLElementRef.current.blur()
+            }
+            this.internalHTMLElementRef.current.disabled = !enabled
+        },
+        clear: function () {
+            this.errors = []
+            this.guides = []
+            this.fieldStateStyle.update('clear', true)
+            this.notify('validate', {
+                fieldName: this.name,
+                fieldState: 'reset'
+            })
+            this.value = ''
+            this.internalHTMLElementRef.current.value = ''
         }
     }
 
@@ -215,7 +312,7 @@ export const FieldInputCreators = function () {
             const validationOrigin = origin as IValidationOrigin
             const results: IValidationResult[] = []
             for (const field of fields) {
-                results.push(...field.validate(validator))
+                results.push(...field.validate(validator, validationOrigin))
             }
             setValidationResults(results)
         }

@@ -21,9 +21,10 @@
  * @method dispose
  * Disposes of the notifiable entity, performing any necessary cleanup.
  */
-import { IDataMutationObserverSubject } from '../../dataMutationObserver/dataMutationObserverSubject.types'
-import { INotifier, TNotifierType } from '../../notifications/notifications.types'
-import { ComputedSignalCallback } from '../../signals/signal.type'
+
+import { IDataMutationObserverSubject } from '../dataMutationObserver/dataMutationObserverSubject.types'
+import { INotifier, TNotifierType } from '../notifications/notifications.types'
+import { ComputedSignalCallback } from '../signals/signal.type'
 
 export interface INotifiableEntity {
     new (): INotifiableEntity

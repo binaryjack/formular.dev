@@ -33,7 +33,8 @@ const ValidatorMaxLength = function (this: IValidatorStrategy) {
                     data.validationOptions.maxLength?.guide
                         ? data.validationOptions.maxLength?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 

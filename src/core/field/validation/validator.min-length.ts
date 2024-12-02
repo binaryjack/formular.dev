@@ -31,7 +31,8 @@ const ValidatorMinLength = function (this: IValidatorStrategy) {
                     data.validationOptions.minLength?.guide
                         ? data.validationOptions.minLength?.guide
                         : undefined
-                )
+                ),
+                data
             )
         }
 
