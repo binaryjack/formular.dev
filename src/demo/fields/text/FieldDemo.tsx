@@ -1,8 +1,6 @@
 import ValidationResultComponent from '../../../core/field/components/validation/ValidationResult'
 import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInputBase'
-import { IFieldInput } from '../../../core/field/fieldInputBase/fieldInputBase.types'
 import { Signals } from '../../../core/signals/signal'
-import { ISignal } from '../../../core/signals/signal.type'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import controlDemoSchema from '../../../dependency/schema/demo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
@@ -15,8 +13,6 @@ const { Signal, useSignal } = Signals
 const item = controlDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
-
-export const textSignal = Signal<string>('text1', '')
 
 const { newFieldFromDescriptors, useField } = FieldInputCreators()
 
@@ -31,26 +27,21 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    const { validationResults } = useField('FieldDemo', outSideFields?.[3] as IFieldInput)
-
-    const handleTextChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.currentTarget.value)
-        textSignal.update((s: ISignal<string>) => (s.value = e.currentTarget.value))
-    }
+    const { validationResults, field } = useField('inputControl', outSideFields)
 
     return (
         <div>
-            <h1>Text demo</h1>
-            <input {...outSideFields?.[3].register()} ref={outSideFields?.[3].ref()} />
-            <div>{outSideFields?.[3].get() as string}</div>
+            <label htmlFor={`${field?.id}`}>{field?.label}</label>
+            <input {...field?.register()} ref={field?.ref()} />
+            <div>{field?.get() as string}</div>
             <div>
                 <ValidationResultComponent validationResults={validationResults} />
             </div>
 
-            <button onClick={() => outSideFields?.[3].setFocus()}>focus Field</button>
-            <button onClick={() => outSideFields?.[3].enable(true)}>enable</button>
-            <button onClick={() => outSideFields?.[3].enable(false)}>disable</button>
-            <button onClick={() => outSideFields?.[3].clear()}>clear</button>
+            <button onClick={() => field?.setFocus()}>focus Field</button>
+            <button onClick={() => field?.enable(true)}>enable</button>
+            <button onClick={() => field?.enable(false)}>disable</button>
+            <button onClick={() => field?.clear()}>clear</button>
         </div>
     )
 }

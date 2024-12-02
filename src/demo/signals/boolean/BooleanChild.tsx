@@ -1,6 +1,3 @@
-import { ISignal } from '../../../core/signals/signal.type'
-import { textSignal } from '../../fields/text/FieldDemo'
-
 interface IBooleanChild {
     id: string
     children?: React.ReactNode
@@ -15,7 +12,6 @@ export const FieldDemo = () => {
     // useSignal('TextInput', textSignal)
     const handleTextChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.currentTarget.value)
-        textSignal.update((s: ISignal<string>) => (s.value = e.currentTarget.value))
     }
 
     return (

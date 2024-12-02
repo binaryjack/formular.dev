@@ -157,17 +157,18 @@ export const FieldInputCreators = function () {
             const updateUI = () => {
                 this.observers.trigger()
             }
+            const notifyValidation = (fieldState: string, trigger: ValidationTriggerModeType) => {
+                this.notify<IValidationOrigin>('validate', {
+                    fieldName: fieldState,
+                    fieldState: this.validationTriggerModeType.includes(trigger) ? trigger : 'reset'
+                })
+            }
 
             const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
                 this.value = e.currentTarget.value
                 this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-                this.notify<IValidationOrigin>('validate', {
-                    fieldName: this.name,
-                    fieldState: this.validationTriggerModeType.includes('onChange')
-                        ? 'onChange'
-                        : 'reset'
-                })
+                notifyValidation(this.name, 'onChange')
 
                 updateUI()
                 e.stopPropagation()
@@ -178,12 +179,7 @@ export const FieldInputCreators = function () {
                 this.isFocus = false
                 this.fieldStateStyle.update('focus', this.isFocus)
 
-                this.notify<IValidationOrigin>('validate', {
-                    fieldName: this.name,
-                    fieldState: this.validationTriggerModeType.includes('onBlur')
-                        ? 'onBlur'
-                        : 'reset'
-                })
+                notifyValidation(this.name, 'onBlur')
 
                 updateUI()
 
@@ -197,12 +193,7 @@ export const FieldInputCreators = function () {
                 this.fieldStateStyle.update('pristine', this.isPristine)
                 this.fieldStateStyle.update('focus', this.isFocus)
 
-                this.notify<IValidationOrigin>('validate', {
-                    fieldName: this.name,
-                    fieldState: this.validationTriggerModeType.includes('onFocus')
-                        ? 'onFocus'
-                        : 'reset'
-                })
+                notifyValidation(this.name, 'onFocus')
 
                 updateUI()
                 e.stopPropagation()
@@ -285,7 +276,7 @@ export const FieldInputCreators = function () {
     }
 
     /**
-     * Custom hook that manages field validation and state updates for a set of fields.
+     * Custom hook that manages field validation and state updates for a field.
      *
      * @param id - The unique identifier for the field group.
      * @param fields - A variable number of field objects that implement IFieldInputBase, IFieldDescriptor, and INotifiableEntity interfaces.
@@ -302,18 +293,29 @@ export const FieldInputCreators = function () {
      * The `useEffect` hook sets up notification handlers for field changes and validations.
      */
     const useField = (
-        id: string,
-        ...fields: (IFieldInputBase & IFieldDescriptor & INotifiableEntity)[]
+        nameOrId?: string | number,
+        fields?: (IFieldInputBase & IFieldDescriptor & INotifiableEntity)[]
     ) => {
         const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
-        const stableFields = React.useMemo(() => fields, [fields])
         const [validationResults, setValidationResults] = useState<IValidationResult[]>([])
+
+        const stableField = React.useMemo(() => {
+            const field = fields?.find?.((f) => {
+                if (typeof nameOrId === 'number') {
+                    return f.id === nameOrId
+                } else if (typeof nameOrId === 'string') {
+                    return f.name === nameOrId
+                }
+            })
+
+            return field
+        }, [fields])
+
         const handleValidation = (origin?: any) => {
+            if (!stableField) return
             const validationOrigin = origin as IValidationOrigin
             const results: IValidationResult[] = []
-            for (const field of fields) {
-                results.push(...field.validate(validator, validationOrigin))
-            }
+            results.push(...stableField.validate(validator, validationOrigin))
             setValidationResults(results)
         }
 
@@ -322,27 +324,27 @@ export const FieldInputCreators = function () {
         }
 
         useEffect(() => {
-            for (const field of fields) {
-                field.accept(
-                    notify(
-                        `${id}_${field.id}_changed_hook_${handleRefresh.name}`,
-                        handleRefresh.bind(useField),
-                        'changed'
-                    )
+            if (!stableField) return
+            stableField.accept(
+                notify(
+                    `${stableField.id}_${stableField.id}_changed_hook_${handleRefresh.name}`,
+                    handleRefresh.bind(useField),
+                    'changed'
                 )
+            )
 
-                field.accept(
-                    notify(
-                        `${id}_${field.id}_validate_hook_${handleRefresh.name}`,
-                        handleValidation.bind(useField),
-                        'validate'
-                    )
+            stableField.accept(
+                notify(
+                    `${stableField.id}_${stableField.id}_validate_hook_${handleRefresh.name}`,
+                    handleValidation.bind(useField),
+                    'validate'
                 )
-            }
-        }, [id, stableFields])
+            )
+        }, [stableField])
 
         return {
-            validationResults
+            validationResults,
+            field: stableField
         }
     }
 
