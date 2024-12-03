@@ -1,5 +1,5 @@
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
-import { IFieldInput } from '../../field/fieldInputBase/fieldInputBase.types'
+import { IFieldInput } from '../../field/fieldInputBase/fieldInput.types'
 import { IValidationResult } from '../../field/validation/validator.types'
 import { IFormBase } from './formBase.types'
 

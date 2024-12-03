@@ -21,6 +21,8 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <div className={`validation-result-drawer`}>
                 {validationResults.map((result, index) => {
+                    if (!result.strategyData?.origin?.fieldState) return null
+
                     const showError = ['onBlur'].includes(
                         result.strategyData?.origin?.fieldState ?? ''
                     )

@@ -4,7 +4,7 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
-import { IFieldStateStyle } from '../fieldStateStyle/fieldStateStyle.types'
+import { IFieldStateStyle, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
 import {
     IValidationOrigin,
     IValidationResult,
@@ -26,12 +26,15 @@ export interface IFieldInputBase {
     type: string
     fieldStateStyle: IFieldStateStyle
     className: string
+    validationResults: IValidationResult[]
     valueStrategy: IValueStrategy | null
     validationTriggerModeType: ValidationTriggerModeType[]
     setup: () => void
     setValidationTriggerMode: (...mode: ValidationTriggerModeType[]) => void
     classNames: () => string
+    getFlagsObject: () => IFlagsObject
     hasChanges: (callback: () => void) => void
+    handleValidation: (origin?: any) => void
     setFocus: () => void
     enable: (enabled: boolean) => void
     show: (show: boolean) => void

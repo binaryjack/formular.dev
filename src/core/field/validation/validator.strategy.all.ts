@@ -1,4 +1,4 @@
-import { IFieldInput } from '../fieldInputBase/fieldInputBase.types'
+import { IFieldInput } from '../fieldInputBase/fieldInput.types'
 import validator from './validator.strategy'
 import {
     IValidationResult,

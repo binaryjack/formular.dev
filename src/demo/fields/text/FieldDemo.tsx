@@ -1,5 +1,6 @@
+import FieldSet from '../../../core/field/components/fieldset/FieldSet'
 import ValidationResultComponent from '../../../core/field/components/validation/ValidationResult'
-import { FieldInputCreators } from '../../../core/field/fieldInputBase/FieldInputBase'
+import { FieldInputCreator } from '../../../core/field/fieldInputBase/FieldInput.creator'
 import { Signals } from '../../../core/signals/signal'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import controlDemoSchema from '../../../dependency/schema/demo.schema'
@@ -14,7 +15,7 @@ const item = controlDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
-const { newFieldFromDescriptors, useField } = FieldInputCreators()
+const { newFieldFromDescriptors, useField } = FieldInputCreator()
 
 const outSideFields = newFieldFromDescriptors(fieldDescriptors)
 
@@ -27,16 +28,21 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    const { validationResults, field } = useField('inputControl', outSideFields)
+    const { field, flags } = useField('inputControl', outSideFields)
 
     return (
         <div>
-            <label htmlFor={`${field?.id}`}>{field?.label}</label>
-            <input {...field?.register()} ref={field?.ref()} />
-            <div>{field?.get() as string}</div>
-            <div>
-                <ValidationResultComponent validationResults={validationResults} />
-            </div>
+            <FieldSet
+                inputId={field?.name}
+                label={field?.label}
+                type={field?.type}
+                flags={flags}
+                validationChildren={
+                    <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                }
+            >
+                <input {...field?.register()} ref={field?.ref()} />
+            </FieldSet>
 
             <button onClick={() => field?.setFocus()}>focus Field</button>
             <button onClick={() => field?.enable(true)}>enable</button>

@@ -1,5 +1,5 @@
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
-import { IFieldInput } from '../fieldInputBase/fieldInputBase.types'
+import { IFieldInput } from '../fieldInputBase/fieldInput.types'
 import { IParser, IValueStrategy } from './valueStrategy.types'
 
 export const ValueStrategy = function (this: IValueStrategy, ...parser: IParser<any>[]) {

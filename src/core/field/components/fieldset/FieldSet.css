@@ -1,0 +1,93 @@
+/* Basic styles for the fieldset */
+.input-container {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container.valid {
+    border-color: green;
+}
+
+.input-container.invalid {
+    border-color: red;
+}
+
+/* Styles for the label */
+label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+/* Styles for the input container */
+.input-container-input {
+    margin-bottom: 0.5rem;
+}
+
+/* Styles for the commands container */
+.input-container-commands {
+    margin-bottom: 0.5rem;
+}
+
+/* Styles for the focus indicator */
+.input-container-focus-indicator {
+    height: 2px;
+    background-color: blue;
+    margin-bottom: 0.5rem;
+}
+
+.input-container-focus-indicator.focus {
+    background-color: orange;
+}
+
+/* Styles for the required indicator */
+.input-container-required-indicator {
+    color: red;
+    font-size: 0.8rem;
+}
+
+/* Styles for the drawer container */
+.drawer-container {
+    margin-top: 1rem;
+}
+
+.drawer-container-header {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.drawer-container-body {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styles for the validation container */
+.validation-container {
+    margin-top: 1rem;
+}
+
+.validation-container-header {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.validation-container-body {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .input-container {
+        padding: 0.5rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+}

@@ -1,5 +1,5 @@
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
-import { IFieldInputBase } from '../fieldInputBase/fieldInputBase.types'
+import { IFieldInputBase } from '../fieldInputBase/fieldInput.types'
 
 export type TParserStrategy<TOut> = (value: Partial<FieldValuesTypes>) => TOut | null
 
