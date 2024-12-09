@@ -5,6 +5,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "env-cmd -f ./.env.development --use-shell vite",
+        "build-css": "tailwindcss build -i ./src/index.css -o ./public/index.css",
         "sta": "tsc-watch",
         "build": "tsc",
         "watch": "tsc -w",

@@ -229,7 +229,9 @@ FieldInput.prototype = {
         this.validationTriggerModeType = mode
     },
     classNames: function () {
-        return `${this.className} ${this.fieldStateStyle.get()} `
+        const userClassName = this.internalHTMLElementRef?.current?.attributes['data-class']?.value
+
+        return `${userClassName} ${this.className} ${this.fieldStateStyle.get()} `
     },
     getFlagsObject: function () {
         return this.fieldStateStyle.getFlagsObject()

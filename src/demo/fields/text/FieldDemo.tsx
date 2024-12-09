@@ -40,8 +40,9 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
                 validationChildren={
                     <ValidationResultComponent validationResults={field?.validationResults ?? []} />
                 }
+                onClear={() => field?.clear()}
             >
-                <input {...field?.register()} ref={field?.ref()} />
+                <input data-class="base-input" {...field?.register()} ref={field?.ref()} />
             </FieldSet>
 
             <button onClick={() => field?.setFocus()}>focus Field</button>

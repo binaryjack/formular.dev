@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-svgr/client" />
-import { FC, SVGProps } from 'react';
+import { FC, SVGProps } from 'react'
 
 declare module '*.png'
 declare module '*.jpeg'

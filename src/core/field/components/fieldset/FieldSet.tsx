@@ -12,6 +12,10 @@ interface IFieldSet<TType> {
     children: React.ReactNode
     itemsChildren?: React.ReactNode
     validationChildren?: React.ReactNode
+
+    onSetFocus?: () => void
+    onClear?: () => void
+    onSelectItem?: () => void
 }
 
 const FieldSet = <TType,>({
@@ -21,48 +25,54 @@ const FieldSet = <TType,>({
     flags,
     children,
     itemsChildren,
-    validationChildren
+    validationChildren,
+    onSetFocus,
+    onClear
 }: IFieldSet<TType>) => {
     return (
         <fieldset
-            className={`fieldset-container mt-2 ${flags.isValid ? 'valid' : 'invalid'}`}
+            className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
             data-type={type}
             data-testid={`test-${inputId}`}
         >
-            <label htmlFor={inputId} className="block text-sm/6 font-medium text-gray-900">
-                {label}
-            </label>
-            <div
-                className={`input-row flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600`}
-            >
-                <div className={`input-container`}>
-                    <div className={`input-content`}>{children}</div>
-                    <div className={`input-commands`}>
-                        <button>X</button>
-                        <button>V</button>
-                        <button>(o)</button>
+            <div className={`relative  input-row flex xl:flex-row md:flex-col xl:h-7 `}>
+                <div className={`flex items-center justify-start`}>
+                    <label
+                        htmlFor={inputId}
+                        className={`label flex mr-2 ${flags.isValid ? '' : 'label-error'}`}
+                    >
+                        {label}
+                    </label>
+                </div>
+                <div className={`input-container flex flex-row w-full`}>
+                    <div className={`input-content flex mr-2 w-full`}>{children}</div>
+                    <div className={`input-commands flex flex-row `}>
+                        <button className={`btn-sm-p mr-1`} onClick={onClear}>
+                            X
+                        </button>
+                        <button className={`btn-sm-p mr-1`}>V</button>
+                        <button className={`btn-sm-p mr-1`}>(o)</button>
                     </div>
                 </div>
 
                 <div
-                    className={`input-container-focus-indicator ${flags.isFocus ? 'focus' : ''}`}
+                    className={`input-container-focus-indicator flex ${flags.isFocus ? 'focus' : ''}`}
                 />
-                {flags.required && <div className={`input-container-required-indicator`} />}
+                {flags.required && <div className={`input-container-required-indicator flex`} />}
             </div>
             {itemsChildren && (
-                <div className={`drawer-container`}>
-                    <div className={`drawer-container-header`}>
-                        <button>X</button>
+                <div className={`relative bottom-0 left-0 flex flex-col `}>
+                    <div className={` flex flex-row justify-end`}>
+                        <button className={`btn-sm-p mr-1`}>X</button>
                     </div>
-                    <div className={`drawer-container-body`}>{itemsChildren}</div>
+                    <div className={` `}>{itemsChildren}</div>
                 </div>
             )}
             {validationChildren && (
-                <div className={`validation-container`}>
-                    <div className={`validation-container-header`}>
-                        <button>X</button>
+                <div className={`relative bottom-0 left-0 flex flex-col mt-1`}>
+                    <div className={`${flags.isFocus ? 'validation-success' : 'validation-error'}`}>
+                        {validationChildren}
                     </div>
-                    <div className={`validation-container-body`}>{validationChildren}</div>
                 </div>
             )}
         </fieldset>
