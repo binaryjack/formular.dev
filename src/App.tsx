@@ -1,4 +1,4 @@
-import FieldDemo from './demo/fields/text/FieldDemo'
+import FormDemo from './demo/forms/FormDemo'
 
 interface IApp extends Node {
     testName?: string
@@ -51,7 +51,7 @@ const App = () => {
 
     return (
         <div>
-            <FieldDemo fields={[]} />
+            <FormDemo />
         </div>
     )
 }
