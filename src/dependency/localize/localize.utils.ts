@@ -2,11 +2,11 @@ import { ValidationLocalizeKeys } from '../schema/validationSchema/validation.lo
 import translations from './locale.en.json'
 import { IValidationLocalize } from './localize.type'
 
-export type GetTranslatioBuilder = (
+export type TranslatioBuilderType = (
     translations: IValidationLocalize
 ) => (key: ValidationLocalizeKeys) => (data?: string, data2?: string) => string
 
-export const getTranslationBuilder: GetTranslatioBuilder =
+export const getTranslationBuilder: TranslatioBuilderType =
     (translations: IValidationLocalize) =>
     (key: ValidationLocalizeKeys) =>
     (data?: string, data2?: string) => {

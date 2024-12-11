@@ -1,6 +1,21 @@
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 
+export interface IValidableForm {
+    validateAll: () => void
+}
+
+export interface IValidableField {
+    validate: (vtor: IValidator, origin?: IValidationOrigin) => IValidationResult[]
+}
+
+export interface IValidable {
+    validationTriggerModeType: ValidationTriggerModeType[]
+    validationResults: IValidationResult[]
+    setValidationTriggerMode: (...mode: ValidationTriggerModeType[]) => void
+    handleValidation: (origin?: any) => void
+}
+
 export type ValidationTriggerModeType =
     | 'onBlur'
     | 'onChange'
@@ -8,6 +23,7 @@ export type ValidationTriggerModeType =
     | 'onFocus'
     | 'onLoad'
     | 'reset'
+    | 'onFormRequest'
 
 export interface IValidationOrigin {
     fieldName: string

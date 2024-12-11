@@ -1,5 +1,5 @@
 import { IValidationLocalize } from './localize/localize.type'
-import { GetTranslatioBuilder } from './localize/localize.utils'
+import { TranslatioBuilderType } from './localize/localize.utils'
 import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
 import { IEntityScheme } from './schema/fieldSchema/field.schema.types'
 import { ValidationLocalizeKeys } from './schema/validationSchema/validation.localize.keys'
@@ -15,7 +15,7 @@ import {
 
 export const mapSchemaToFieldDescriptor = (
     scheme: IEntityScheme,
-    gt: GetTranslatioBuilder,
+    gt: TranslatioBuilderType,
     translations: IValidationLocalize
 ): IFieldDescriptor[] => {
     const output: IFieldDescriptor[] = []

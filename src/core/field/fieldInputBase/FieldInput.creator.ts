@@ -3,13 +3,22 @@ import React, { useEffect } from 'react'
 import { newEntitySchemeObjectType } from '../../../dependency/schema/demo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '../../../dependency/schema/fieldSchema/field.schema.types'
-import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
 import { notify, TNotifierType } from '../../notifications/notifications.types'
 import { defaultFlagsObject, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
 import { FieldInput } from './FieldInput'
-import { IFieldInput, IFieldInputBase, SchemeToDescriptorConverterType } from './fieldInput.types'
+import { IFieldInput, SchemeToDescriptorConverterType } from './fieldInput.types'
 
-export const FieldInputCreator = function () {
+export interface IUseFieldHookReturn {
+    field: IFieldInput | undefined
+    flags: IFlagsObject
+}
+
+export type useFieldHookType = (
+    nameOrId?: string | number,
+    fields?: IFieldInput[]
+) => IUseFieldHookReturn
+
+export const FieldInputCreator = (function () {
     /**
      * Custom hook that manages field validation and state updates for a field.
      *
@@ -33,10 +42,7 @@ export const FieldInputCreator = function () {
                 console.log('Field updated', field)
             }, [field?.get()])
      */
-    const useField = (
-        nameOrId?: string | number,
-        fields?: (IFieldInputBase & IFieldDescriptor & INotifiableEntity)[]
-    ) => {
+    const useField = (nameOrId?: string | number, fields?: IFieldInput[]): IUseFieldHookReturn => {
         const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
         const [flags, setFlags] = React.useState<IFlagsObject>(defaultFlagsObject)
         const stableField = React.useMemo(() => {
@@ -73,13 +79,13 @@ export const FieldInputCreator = function () {
 
         useEffect(() => {
             if (!stableField) return
-            acceptNotificationStrategy('changed_hook', 'changed')
-            acceptNotificationStrategy('validate_hook', 'validate')
+            acceptNotificationStrategy('changed_hook_field', 'changed')
+            acceptNotificationStrategy('validate_hook_field', 'validate')
         }, [stableField])
 
         return {
             field: stableField,
-            flags
+            flags: flags
         }
     }
 
@@ -131,4 +137,4 @@ export const FieldInputCreator = function () {
         newFieldFromDescriptors,
         useField
     }
-}
+})()

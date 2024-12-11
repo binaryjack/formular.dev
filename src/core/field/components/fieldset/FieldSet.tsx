@@ -1,8 +1,11 @@
 import './FieldSet.css'
 
 import React from 'react'
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
+import { MdClose } from 'react-icons/md'
 
 import { IFlagsObject } from '../../fieldStateStyle/fieldStateStyle.types'
+import { DrawerOpenStateType } from '../drawer/Drawer.types'
 
 interface IFieldSet<TType> {
     inputId?: string
@@ -12,10 +15,11 @@ interface IFieldSet<TType> {
     children: React.ReactNode
     itemsChildren?: React.ReactNode
     validationChildren?: React.ReactNode
-
+    drawerOpenState?: DrawerOpenStateType
     onSetFocus?: () => void
     onClear?: () => void
     onSelectItem?: () => void
+    onSetOpenState?: () => void
 }
 
 const FieldSet = <TType,>({
@@ -26,9 +30,12 @@ const FieldSet = <TType,>({
     children,
     itemsChildren,
     validationChildren,
+    drawerOpenState,
     onSetFocus,
-    onClear
+    onClear,
+    onSetOpenState
 }: IFieldSet<TType>) => {
+    console.log('FieldSet', drawerOpenState)
     return (
         <fieldset
             className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
@@ -47,11 +54,15 @@ const FieldSet = <TType,>({
                 <div className={`input-container flex flex-row w-full`}>
                     <div className={`input-content flex mr-2 w-full`}>{children}</div>
                     <div className={`input-commands flex flex-row `}>
-                        <button className={`btn-sm-p mr-1`} onClick={onClear}>
-                            X
+                        <button type="button" className={`btn-sm-p mr-1`} onClick={onClear}>
+                            {<MdClose />}
                         </button>
-                        <button className={`btn-sm-p mr-1`}>V</button>
-                        <button className={`btn-sm-p mr-1`}>(o)</button>
+                        {itemsChildren && (
+                            <button className={`btn-sm-p mr-1`} onClick={onSetOpenState}>
+                                {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
+                            </button>
+                        )}
+                        {type === 'password' && <button className={`btn-sm-p mr-1`}>(o)</button>}
                     </div>
                 </div>
 
@@ -62,9 +73,6 @@ const FieldSet = <TType,>({
             </div>
             {itemsChildren && (
                 <div className={`relative bottom-0 left-0 flex flex-col `}>
-                    <div className={` flex flex-row justify-end`}>
-                        <button className={`btn-sm-p mr-1`}>X</button>
-                    </div>
                     <div className={` `}>{itemsChildren}</div>
                 </div>
             )}

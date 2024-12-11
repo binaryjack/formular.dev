@@ -15,7 +15,7 @@ const item = controlDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
-const { newFieldFromDescriptors, useField } = FieldInputCreator()
+const { newFieldFromDescriptors, useField } = FieldInputCreator
 
 const outSideFields = newFieldFromDescriptors(fieldDescriptors)
 

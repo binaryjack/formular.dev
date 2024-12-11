@@ -3,14 +3,9 @@ import React from 'react'
 
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
-import {
-    booleanTypes,
-    dateTypes,
-    numberTypes,
-    stringTypes
-} from '../../form/formBase/formBase.types'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { notify } from '../../notifications/notifications.types'
+import { DrawerOpenStateType } from '../components/drawer/Drawer.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
 import validator from '../validation/validator.strategy'
 import {
@@ -27,7 +22,7 @@ import {
 } from '../valueStrategy/parsers.strategy'
 import { ValueStrategy } from '../valueStrategy/ValueStrategy'
 import { setParser } from '../valueStrategy/valueStrategy.types'
-import { IFieldInput } from './fieldInput.types'
+import { booleanTypes, dateTypes, IFieldInput, numberTypes, stringTypes } from './fieldInput.types'
 
 const defaultFieldInputCSSClassName = 'f-input'
 
@@ -132,10 +127,11 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.shouldValidate = descriptor.shouldValidate
     this.fieldStateStyle = new FieldStateStyle()
     this.className = defaultFieldInputCSSClassName
-    this.validationTriggerModeType = ['onBlur']
+    /** the On form request will be trigger by the form! It should remains as the basic one in this list */
+    this.validationTriggerModeType = ['onBlur', 'onFormRequest']
     this.internalHTMLElementRef = null
     this.options = descriptor.options
-
+    this.openState = 'closed'
     // this.observers = new DataMutationObserverSubject()
     // this.notifiers = new Map<string, INotifier>()
     // this.computedSignalCallback = null
@@ -299,5 +295,13 @@ FieldInput.prototype = {
         this.fieldStateStyle.update('clear', true)
         this.value = ''
         this.internalHTMLElementRef.current.value = ''
+    },
+    setOpenState: function (state: DrawerOpenStateType) {
+        this.openState = state
+        this.observers.trigger()
+        this.notify('changed', {
+            fieldName: this.name,
+            fieldState: 'reset'
+        })
     }
 }
