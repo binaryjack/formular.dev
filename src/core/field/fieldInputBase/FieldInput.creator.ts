@@ -13,10 +13,7 @@ export interface IUseFieldHookReturn {
     flags: IFlagsObject
 }
 
-export type useFieldHookType = (
-    nameOrId?: string | number,
-    fields?: IFieldInput[]
-) => IUseFieldHookReturn
+export type useFieldHookType = (field?: IFieldInput) => IUseFieldHookReturn
 
 export const FieldInputCreator = (function () {
     /**
@@ -42,20 +39,12 @@ export const FieldInputCreator = (function () {
                 console.log('Field updated', field)
             }, [field?.get()])
      */
-    const useField = (nameOrId?: string | number, fields?: IFieldInput[]): IUseFieldHookReturn => {
+    const useField = (field?: IFieldInput): IUseFieldHookReturn => {
         const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
         const [flags, setFlags] = React.useState<IFlagsObject>(defaultFlagsObject)
         const stableField = React.useMemo(() => {
-            const field = fields?.find?.((f) => {
-                if (typeof nameOrId === 'number') {
-                    return f.id === nameOrId
-                } else if (typeof nameOrId === 'string') {
-                    return f.name === nameOrId
-                }
-            })
-
             return field
-        }, [fields])
+        }, [field])
 
         const handleRefresh = () => {
             forceUpdate()

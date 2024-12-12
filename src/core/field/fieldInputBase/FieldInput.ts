@@ -298,7 +298,7 @@ FieldInput.prototype = {
     },
     setOpenState: function (state: DrawerOpenStateType) {
         this.openState = state
-        this.observers.trigger()
+        //this.observers.trigger()
         this.notify('changed', {
             fieldName: this.name,
             fieldState: 'reset'

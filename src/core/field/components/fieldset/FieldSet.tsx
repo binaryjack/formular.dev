@@ -19,7 +19,7 @@ interface IFieldSet<TType> {
     onSetFocus?: () => void
     onClear?: () => void
     onSelectItem?: () => void
-    onSetOpenState?: () => void
+    onSetOpenState?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const FieldSet = <TType,>({

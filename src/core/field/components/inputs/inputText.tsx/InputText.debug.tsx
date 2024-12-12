@@ -8,7 +8,7 @@ interface IInputTextProps {
 const InputTextDebug = ({ formId, fieldName }: IInputTextProps) => {
     return (
         <div>
-            <InputText formId={formId} fieldName={fieldName} />
+            <InputText fieldName={fieldName} />
 
             {/* <button onClick={() => field?.setFocus()}>focus Field</button>
             <button onClick={() => field?.enable(true)}>enable</button>

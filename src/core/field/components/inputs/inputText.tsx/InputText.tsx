@@ -1,18 +1,15 @@
-import { FormCreator } from '../../../../form/formyBase/Formy.creator'
+import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
 
 interface IInputTextProps {
-    formId: string
     fieldName: string
 }
 
-const { getFieldHook, getForm } = FormCreator
-const useField = getFieldHook()
+const InputText = ({ fieldName }: IInputTextProps) => {
+    const { formInstance } = useFormyContext()
+    const { field, flags } = useField(formInstance?.getField(fieldName))
 
-const InputText = ({ formId, fieldName }: IInputTextProps) => {
-    const currentForm = getForm(formId)
-    const { field, flags } = useField(fieldName, currentForm?.fields)
     console.log('InputText RENDER')
     return (
         <FieldSet

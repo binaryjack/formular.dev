@@ -1,6 +1,7 @@
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
 import { IFieldInput } from '../../field/fieldInputBase/fieldInput.types'
 import { IValidationResult } from '../../field/validation/validator.types'
+import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { LoadingStatus } from '../../status'
 import { IFieldChange, IFormy } from './formyBase.types'
 
@@ -14,9 +15,11 @@ export const Formy = function (this: IFormy, id: string) {
     this.validationTriggerModeType = ['onBlur']
     this.isDirty = false
     this.observers = new DataMutationObserverSubject()
+    NotifiableEntity.call(this)
 } as any as IFormy
 
 Formy.prototype = {
+    ...NotifiableEntity.prototype,
     addFields: function (...flds: IFieldInput[]) {
         this.originFields = []
         for (const fld of flds) {
@@ -62,5 +65,8 @@ Formy.prototype = {
     },
     hasChanges: function (callback: () => void) {
         this.observers.subscribe(callback.bind(this))
+    },
+    getField: function (fieldName: string) {
+        return this.fields.find((field: IFieldInput) => field.name === fieldName)
     }
 }

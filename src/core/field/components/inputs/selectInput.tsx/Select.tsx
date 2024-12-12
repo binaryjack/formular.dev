@@ -1,23 +1,22 @@
-import { FormCreator } from '../../../../form/formyBase/Formy.creator'
+import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
 import SelectDrawer from './SelectDrawer'
 
 interface ISelectProps {
-    formId: string
     fieldName: string
 }
 
-const { getFieldHook, getForm } = FormCreator
-const useField = getFieldHook()
+const Select = ({ fieldName }: ISelectProps) => {
+    const { formInstance } = useFormyContext()
+    const { field, flags } = useField(formInstance?.getField(fieldName))
 
-const Select = ({ formId, fieldName }: ISelectProps) => {
-    const currentForm = getForm(formId)
-    const { field, flags } = useField(fieldName, currentForm?.fields)
-
-    const handleDrawerOpenState = () => {
+    const handleDrawerOpenState = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
+        e.preventDefault()
         field?.setOpenState(field?.openState === 'open' ? 'closed' : 'open')
     }
+
     console.log('Select RENDER')
     return (
         <FieldSet

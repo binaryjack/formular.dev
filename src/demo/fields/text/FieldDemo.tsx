@@ -28,7 +28,7 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    const { field, flags } = useField('inputControl', outSideFields)
+    const { field, flags } = useField(outSideFields.find((o) => o.name === 'inputControl'))
 
     return (
         <div>

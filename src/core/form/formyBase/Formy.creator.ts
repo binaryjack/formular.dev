@@ -81,6 +81,7 @@ export const FormCreator = (function () {
         newFormy,
         getFormFlags,
         getForm,
-        getFieldHook
+        getFieldHook,
+        useForm
     }
 })()

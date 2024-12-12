@@ -7,7 +7,7 @@ import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 interface ISelectDrawerProps {
     items: IOptionItem[]
     drawerOpenState?: DrawerOpenStateType
-    onSetOpenState: () => void
+    onSetOpenState: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerProps) => {
@@ -36,5 +36,4 @@ const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerP
         </div>
     )
 }
-
 export default SelectDrawer

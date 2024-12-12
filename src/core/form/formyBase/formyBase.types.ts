@@ -26,6 +26,7 @@ export interface IFormyBase {
     canValidate: boolean
     setup: () => void
     addFields: (...flds: IFieldInput[]) => void
+    getField: (fieldName: string) => IFieldInput | undefined
     checkChanges: () => void
     hasChanges: (callback: () => void) => void
 }
