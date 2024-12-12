@@ -13,8 +13,8 @@ interface ISelectDrawerProps {
 const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerProps) => {
     console.log('SelectDrawer', drawerOpenState)
     return (
-        <div className={`list-compact mt-1`}>
-            <div className={`items-left ${drawerOpenState === 'open' ? 'open' : 'closed'}`}>
+        <div className={` mt-1 select-drawer ${drawerOpenState === 'open' ? 'open' : 'closed'}`}>
+            <div className={`items-left`}>
                 <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
                     <i className={`flex icon-box mr-1 h-6`}>
                         <SlMagnifier />

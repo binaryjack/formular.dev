@@ -108,24 +108,24 @@
         @apply text-green-500 text-sm/6;
     }
 
-    .list-compact {
-        @apply list-none;
-    }
-
     .items-left {
         @apply flex items-start flex-col bg-slate-600 p-1 rounded;
     }
 
+    .select-drawer {
+        @apply absolute list-none bg-gray-200 p-2 rounded w-full h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none;
+    }
+
+    .select-drawer.open {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-100;
+    }
+
+    .select-drawer.closed {
+        @apply bg-gray-200 p-2 rounded  mt-1 scale-y-0;
+    }
+
     .select-item {
-        @apply bg-gray-200 p-2 rounded w-full mt-1 transition ease-in-out delay-150 cursor-pointer select-none;
-    }
-
-    .select-item .open {
-        @apply bg-gray-200 p-2 rounded h-full mt-1;
-    }
-
-    .select-item .closed {
-        @apply bg-gray-200 p-2 rounded h-auto mt-1;
+        @apply bg-gray-200 p-2 rounded w-full mt-1 cursor-pointer select-none;
     }
 
     .icon-box {
