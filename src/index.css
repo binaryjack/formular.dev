@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-
 @tailwind utilities;
 
 @layer components {
@@ -9,23 +8,23 @@
     }
 
     .btn-primary {
-        @apply bg-blue-500 text-white font-bold  rounded;
+        @apply bg-blue-500 text-white font-bold rounded;
     }
 
     .btn-secondary {
-        @apply bg-gray-500 text-white font-bold  rounded;
+        @apply bg-gray-500 text-white font-bold rounded;
     }
 
     .btn-danger {
-        @apply bg-red-500 text-white font-bold  rounded;
+        @apply bg-red-500 text-white font-bold rounded;
     }
 
     .btn-success {
-        @apply bg-green-500 text-white font-bold  rounded;
+        @apply bg-green-500 text-white font-bold rounded;
     }
 
     .btn-warning {
-        @apply bg-yellow-500 text-white font-bold  rounded;
+        @apply bg-yellow-500 text-white font-bold rounded;
     }
 
     .btn-small {
@@ -49,11 +48,11 @@
     }
 
     .base-input.is-not-valid {
-        @apply rounded py-1 px-4  border-2  border-solid border-red-500;
+        @apply rounded py-1 px-4 border-2 border-solid border-red-500;
     }
 
     .base-input.is-valid {
-        @apply rounded py-1 px-4 border-2  border-solid border-green-500;
+        @apply rounded py-1 px-4 border-2 border-solid border-green-500;
     }
 
     .btn-sm-p {
@@ -61,15 +60,15 @@
     }
 
     .label {
-        @apply text-gray-700  block text-sm/6 font-medium;
+        @apply text-gray-700 block text-sm/6 font-medium;
     }
 
     .label-success {
-        @apply text-green-500  block text-sm/6 font-medium;
+        @apply text-green-500 block text-sm/6 font-medium;
     }
 
     .label-error {
-        @apply text-red-500  block text-sm/6 font-medium;
+        @apply text-red-500 block text-sm/6 font-medium;
     }
 
     .card {
@@ -113,7 +112,7 @@
     }
 
     .select-drawer {
-        @apply absolute list-none bg-gray-200 p-2 rounded w-full h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none;
+        @apply absolute list-none bg-gray-200 p-2 rounded w-full h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
     }
 
     .select-drawer.open {
@@ -121,7 +120,7 @@
     }
 
     .select-drawer.closed {
-        @apply bg-gray-200 p-2 rounded  mt-1 scale-y-0;
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-0;
     }
 
     .select-item {
@@ -130,5 +129,33 @@
 
     .icon-box {
         @apply bg-gray-200 p-2 rounded w-8 mt-0 transition ease-in-out delay-150 hover:bg-gray-300 text-xs/6;
+    }
+
+    .base-checkbox {
+        @apply appearance-none h-6 w-6 border-2 cursor-pointer border-gray-400 rounded checked:bg-blue-500 checked:border-transparent;
+    }
+
+    .debug-table {
+        @apply border-2 border-gray-400 border-solid;
+    }
+
+    .debug-table-row {
+        @apply border-b-2 border-gray-400 border-solid flex flex-row;
+    }
+
+    .debug-table-row.valid {
+        @apply bg-green-200;
+    }
+
+    .debug-table-row.invalid {
+        @apply bg-red-200;
+    }
+
+    .debug-table-row:last-child {
+        @apply border-b-0 flex border-gray-400 border-solid;
+    }
+
+    .debug-table-col {
+        @apply border-r-2 border-gray-400 border-solid flex flex-1;
     }
 }

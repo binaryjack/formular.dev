@@ -19,7 +19,7 @@ const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerP
                     <i className={`flex icon-box mr-1 h-6`}>
                         <SlMagnifier />
                     </i>
-                    <input className={`flex input-sm-p mr-1 w-full`} />
+                    <input className={`flex input-sm-p mr-1 w-full`} onClick={(e) => {}} />
                     <button className={`btn-sm-p mr-1`} onClick={onSetOpenState}>
                         {<MdClose />}
                     </button>

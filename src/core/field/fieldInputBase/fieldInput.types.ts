@@ -28,6 +28,7 @@ export interface IFieldInputBase {
     fieldStateStyle: IFieldStateStyle
     className: string
     valueStrategy: IValueStrategy | null
+    checked?: boolean
     setup: () => void
     classNames: () => string
     getFlagsObject: () => IFlagsObject
@@ -44,7 +45,7 @@ export interface IFieldInputBase {
 
 export enum FieldTypesNamesEnum {
     // BOOLEAN TYPES
-    CHECK = 'check',
+    CHECK = 'checkbox',
     BOOLEAN = 'boolean',
     TOGGLE = 'toggle',
 

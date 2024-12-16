@@ -132,6 +132,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.internalHTMLElementRef = null
     this.options = descriptor.options
     this.openState = 'closed'
+    this.checked = undefined
     // this.observers = new DataMutationObserverSubject()
     // this.notifiers = new Map<string, INotifier>()
     // this.computedSignalCallback = null
@@ -154,14 +155,25 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         }
 
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            this.value = e.currentTarget.value
+            if (this.type === 'checkbox' || this.type === 'radio') {
+                if (this?.internalHTMLElementRef?.current?.disabled) {
+                    // this.internalHTMLElementRef.current.checked =
+                    //     !this.internalHTMLElementRef.current.checked
+
+                    this.value = this.internalHTMLElementRef.current.checked
+                    this.checked = this.value as boolean
+                }
+            } else {
+                this.value = e.currentTarget.value
+            }
+
             this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
             notifyValidation(this.name, 'onChange')
             updateUI()
 
             e.stopPropagation()
-            e.preventDefault()
+            // e.preventDefault()
         }
 
         const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -188,6 +200,24 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             e.preventDefault()
         }
 
+        const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+            if (
+                !this?.internalHTMLElementRef?.current ||
+                this.internalHTMLElementRef.current.disabled
+            )
+                return
+            if (this.type !== 'checkbox' && this.type !== 'radio') return
+            console.log('onClick')
+            // this.internalHTMLElementRef.current.checked =
+            //     this.internalHTMLElementRef.current.checked
+
+            this.value = this.internalHTMLElementRef.current.checked
+            this.checked = this.value as boolean
+
+            e?.stopPropagation?.()
+            // e?.preventDefault?.()
+        }
+
         return {
             id: `${this.id}`,
             type: this.type,
@@ -195,7 +225,8 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             label: this.label,
             onChange,
             onBlur,
-            onFocus
+            onFocus,
+            onClick
         }
     }
     this.ref = function () {
@@ -215,6 +246,10 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         )
         /* sets the required flag indicator */
         this.fieldStateStyle.update('required', this.validationOptions.required?.required === true)
+
+        if (this.type === 'checkbox' || this.type === 'radio') {
+            this.checked = this.value === 'true' || this.value === true
+        }
     }
     this.setup()
 } as any as IFieldInput
@@ -295,6 +330,7 @@ FieldInput.prototype = {
         this.fieldStateStyle.update('clear', true)
         this.value = ''
         this.internalHTMLElementRef.current.value = ''
+        this.internalHTMLElementRef.current.checked = ''
     },
     setOpenState: function (state: DrawerOpenStateType) {
         this.openState = state

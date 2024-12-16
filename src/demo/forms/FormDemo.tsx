@@ -1,3 +1,4 @@
+import CheckInput from '../../core/field/components/inputs/checkInput/CheckText'
 import InputText from '../../core/field/components/inputs/inputText.tsx/InputText'
 import Select from '../../core/field/components/inputs/selectInput.tsx/Select'
 import FormyForm from '../../core/form/components/Formy/Formy.form'
@@ -30,6 +31,7 @@ const FormDemo = () => {
         <FormyForm formy={demoFormInstance}>
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
+            <CheckInput fieldName={'trueFalseValue'} />
         </FormyForm>
     )
 }

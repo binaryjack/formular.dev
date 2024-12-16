@@ -69,6 +69,7 @@ export const FieldInputCreator = (function () {
         useEffect(() => {
             if (!stableField) return
             acceptNotificationStrategy('changed_hook_field', 'changed')
+            acceptNotificationStrategy('changed_hook_field', 'clicked')
             acceptNotificationStrategy('validate_hook_field', 'validate')
         }, [stableField])
 

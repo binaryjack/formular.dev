@@ -51,7 +51,7 @@ export const isPrimitiveValuedField = (fieldType: string) => {
 export type SchemaDataTypes =
     | 'number'
     | 'string'
-    | 'check'
+    | 'checkbox'
     | 'boolean'
     | 'text'
     | 'textarea'

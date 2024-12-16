@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { IFieldInput } from '../../../field/fieldInputBase/fieldInput.types'
 import { IFormy, IFormyFlags } from '../../formyBase/formyBase.types'
 import { formyContext, IFormyContext, useForm } from './Formy.context'
+import FormyDebug from './Formy.debug'
 
 interface IFormyFormProps {
     formy: IFormy
@@ -45,6 +46,7 @@ const FormyForm = ({ formy, children }: IFormyFormProps) => {
     return (
         <formyContext.Provider value={output}>
             <form data-form-id={''}>{children}</form>
+            <FormyDebug formy={formInstance} />
         </formyContext.Provider>
     )
 }

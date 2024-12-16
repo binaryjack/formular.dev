@@ -28,6 +28,15 @@ export const FormCreator = (function () {
                     trigger
                 )
             )
+            stableForm.fields.forEach((field) => {
+                field.accept(
+                    notify(
+                        `${field.id}_${localName}_${handleRefresh.name}`,
+                        handleRefresh.bind(useForm),
+                        trigger
+                    )
+                )
+            })
         }
 
         const handleRefresh = () => {
