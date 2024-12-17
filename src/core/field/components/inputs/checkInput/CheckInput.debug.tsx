@@ -1,9 +1,9 @@
-interface ICheckTextProps {
+interface ICheckInputProps {
     formId: string
     fieldName: string
 }
 
-const CheckTextDebug = ({ formId, fieldName }: ICheckTextProps) => {
+const CheckInputDebug = ({ formId, fieldName }: ICheckInputProps) => {
     return (
         <div>
             {/* <button onClick={() => field?.setFocus()}>focus Field</button>
@@ -13,4 +13,4 @@ const CheckTextDebug = ({ formId, fieldName }: ICheckTextProps) => {
         </div>
     )
 }
-export default CheckTextDebug
+export default CheckInputDebug

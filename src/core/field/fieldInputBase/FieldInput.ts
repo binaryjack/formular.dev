@@ -129,7 +129,11 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.className = defaultFieldInputCSSClassName
     /** the On form request will be trigger by the form! It should remains as the basic one in this list */
     this.validationTriggerModeType = ['onBlur', 'onFormRequest']
+    /* Should be used when the input is the entry point for the field value */
     this.internalHTMLElementRef = null
+
+    this.internalHTMLElementRefs = []
+
     this.options = descriptor.options
     this.openState = 'closed'
     this.checked = undefined
@@ -157,9 +161,6 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             if (this.type === 'checkbox' || this.type === 'radio') {
                 if (this?.internalHTMLElementRef?.current?.disabled) {
-                    // this.internalHTMLElementRef.current.checked =
-                    //     !this.internalHTMLElementRef.current.checked
-
                     this.value = this.internalHTMLElementRef.current.checked
                     this.checked = this.value as boolean
                 }
@@ -173,7 +174,6 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             updateUI()
 
             e.stopPropagation()
-            // e.preventDefault()
         }
 
         const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -207,15 +207,11 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             )
                 return
             if (this.type !== 'checkbox' && this.type !== 'radio') return
-            console.log('onClick')
-            // this.internalHTMLElementRef.current.checked =
-            //     this.internalHTMLElementRef.current.checked
 
             this.value = this.internalHTMLElementRef.current.checked
             this.checked = this.value as boolean
 
             e?.stopPropagation?.()
-            // e?.preventDefault?.()
         }
 
         return {
@@ -232,6 +228,36 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.ref = function () {
         this.internalHTMLElementRef = React.createRef<HTMLInputElement>()
         return this.internalHTMLElementRef
+    }
+
+    this.refOption = function () {
+        const refElement = React.createRef<HTMLInputElement>()
+
+        this.internalHTMLElementRefs?.push(refElement)
+
+        console.log('refOption', this.internalHTMLElementRefs)
+        return refElement
+    }
+
+    this.registerOption = function () {
+        const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+            this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
+            console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
+
+            this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
+            this.notify<IValidationOrigin>('validate', {
+                fieldName: this.name,
+                fieldState: this.validationTriggerModeType.includes('onChange')
+                    ? 'onChange'
+                    : 'reset'
+            })
+            this.observers.trigger()
+            e?.stopPropagation?.()
+        }
+
+        return {
+            onClick
+        }
     }
     NotifiableEntity.call(this)
     this.setup = function () {
@@ -323,6 +349,13 @@ FieldInput.prototype = {
     clear: function () {
         this.errors = []
         this.guides = []
+
+        this.internalHTMLElementRefs?.forEach((element: React.RefObject<HTMLInputElement>) => {
+            if (element.current) {
+                element.current.checked = false
+            }
+        })
+
         this.notify('validate', {
             fieldName: this.name,
             fieldState: 'reset'

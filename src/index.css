@@ -156,6 +156,14 @@
     }
 
     .debug-table-col {
-        @apply border-r-2 border-gray-400 border-solid flex flex-1;
+        @apply border-r-2 border-gray-400 border-solid flex flex-1 overflow-hidden;
+    }
+
+    .text-elipsis {
+        @apply whitespace-nowrap overflow-hidden overflow-ellipsis;
+    }
+
+    .base-radio {
+        @apply appearance-none h-6 w-6 border-2 cursor-pointer border-gray-400 rounded checked:bg-blue-500 checked:border-transparent;
     }
 }

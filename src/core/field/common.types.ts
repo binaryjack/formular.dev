@@ -18,6 +18,7 @@ export type HTMLInputTypes =
     | 'submit'
     | 'tel'
     | 'text'
+    | 'textarea'
     | 'time'
     | 'url'
     | 'week'

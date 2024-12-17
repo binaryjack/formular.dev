@@ -22,6 +22,7 @@ export interface IFieldInputBase {
     new (descriptor: IFieldDescriptor): IFieldInput
     name: string
     internalHTMLElementRef: React.RefObject<HTMLInputElement> | null
+    internalHTMLElementRefs: React.RefObject<HTMLInputElement>[]
     originalValue: FieldValuesTypes | null
     enabled: boolean
     type: string
@@ -38,7 +39,9 @@ export interface IFieldInputBase {
     show: (show: boolean) => void
     clear: () => void
     register: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+    registerOption: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     ref: () => React.RefObject<HTMLInputElement>
+    refOption: () => React.RefObject<HTMLInputElement> | undefined
     get: () => FieldValuesTypes | null
     getAsString: () => string | null
 }
@@ -52,7 +55,7 @@ export enum FieldTypesNamesEnum {
     // STRING TYPES
     TEXT = 'text',
     STRING = 'string',
-    TEXTAREA = 'textares',
+    TEXTAREA = 'textarea',
 
     // NUMBER TYPES
     SELECT = 'select',
@@ -75,13 +78,13 @@ export const booleanTypes = [
 export const stringTypes = [
     FieldTypesNamesEnum.TEXT.toString(),
     FieldTypesNamesEnum.STRING.toString(),
-    FieldTypesNamesEnum.TEXTAREA.toString()
+    FieldTypesNamesEnum.TEXTAREA.toString(),
+    FieldTypesNamesEnum.RADIO.toString()
 ]
 
 export const numberTypes = [
     FieldTypesNamesEnum.SELECT.toString(),
     FieldTypesNamesEnum.NUMBER.toString(),
-    FieldTypesNamesEnum.RADIO.toString(),
     FieldTypesNamesEnum.BIGINT.toString(),
     FieldTypesNamesEnum.RANGE.toString()
 ]
