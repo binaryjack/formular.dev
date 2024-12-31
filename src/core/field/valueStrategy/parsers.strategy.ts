@@ -4,8 +4,8 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import {
     isBooleanNullOrUndefined,
     isNDateNullOrUndefined,
-    isNullEmptyOrUndefined,
-    isNumericNullOrUndefined
+    isNotNumericNullOrUndefined,
+    isNullEmptyOrUndefined
 } from '../fieldInputBase/utils'
 import { TParserStrategy } from './valueStrategy.types'
 
@@ -23,7 +23,7 @@ export const DateOrTimeParserStrategy: TParserStrategy<string | null> = (
 export const NumericValueParserStrategy: TParserStrategy<number | null> = (
     value: Partial<FieldValuesTypes>
 ): number | null =>
-    isNumericNullOrUndefined(value as number | null | undefined) ? Number(value) : null
+    !isNotNumericNullOrUndefined(value as number | null | undefined) ? Number(value) : null
 
 export const StringParserStrategy: TParserStrategy<string | null> = (
     value: Partial<FieldValuesTypes>

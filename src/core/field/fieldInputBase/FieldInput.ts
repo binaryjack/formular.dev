@@ -3,6 +3,7 @@ import React from 'react'
 
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
+import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { notify } from '../../notifications/notifications.types'
 import { DrawerOpenStateType } from '../components/drawer/Drawer.types'
@@ -392,6 +393,21 @@ FieldInput.prototype = {
         this.openState = state
         //this.observers.trigger()
         this.notify('changed', {
+            fieldName: this.name,
+            fieldState: 'reset'
+        })
+    },
+    onSelectItem: function (option: IOptionItem) {
+        this.value = Number(option.id)
+        this.internalHTMLElementRef.current.value = option.text
+        this.openState = 'closed'
+        // this.observers.trigger()
+        this.notify('changed', {
+            fieldName: this.name,
+            fieldState: 'onChange'
+        })
+
+        this.notify('validate', {
             fieldName: this.name,
             fieldState: 'reset'
         })

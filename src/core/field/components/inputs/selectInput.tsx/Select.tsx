@@ -29,6 +29,7 @@ const Select = ({ fieldName }: ISelectProps) => {
                     items={field?.options ?? []}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
+                    onSelectItem={(value) => field?.onSelectItem(value)}
                 />
             }
             validationChildren={

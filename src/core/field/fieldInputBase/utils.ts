@@ -48,8 +48,19 @@ export const isNullEmptyOrUndefined = (value?: string | null): boolean =>
  * @param value - The number to check.
  * @returns True if the number is null or undefined, otherwise false.
  */
-export const isNumericNullOrUndefined = (value?: number | null): boolean =>
-    value === null || value === undefined
+export const isNotNumericNullOrUndefined = (value?: number | null): boolean => {
+    if (value === null || value === undefined) {
+        return true
+    }
+
+    const conversionTry = Number(value)
+
+    if (typeof conversionTry !== 'number') {
+        return true
+    }
+
+    return false
+}
 
 /**
  * Checks if a given boolean is null or undefined.
@@ -77,3 +88,7 @@ export const isBigIntNullOrUndefined = (value?: bigint | null): boolean =>
  */
 export const isNDateNullOrUndefined = (value?: INDate | DateObject | null): boolean =>
     value === null || value === undefined
+
+export const valueIsNullOrUndefined = (value: any): boolean => {
+    return value === null || value === undefined
+}

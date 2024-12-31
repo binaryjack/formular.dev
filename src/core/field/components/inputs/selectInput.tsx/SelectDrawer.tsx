@@ -8,9 +8,15 @@ interface ISelectDrawerProps {
     items: IOptionItem[]
     drawerOpenState?: DrawerOpenStateType
     onSetOpenState: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    onSelectItem: (value: IOptionItem) => void
 }
 
-const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerProps) => {
+const SelectDrawer = ({
+    items,
+    drawerOpenState,
+    onSetOpenState,
+    onSelectItem
+}: ISelectDrawerProps) => {
     console.log('SelectDrawer', drawerOpenState)
     return (
         <div className={` mt-1 select-drawer ${drawerOpenState === 'open' ? 'open' : 'closed'}`}>
@@ -27,7 +33,11 @@ const SelectDrawer = ({ items, drawerOpenState, onSetOpenState }: ISelectDrawerP
 
                 {items.map((item, index) => {
                     return (
-                        <div key={item.id} className={`select-item`}>
+                        <div
+                            key={item.id}
+                            className={`select-item`}
+                            onClick={() => onSelectItem(item)}
+                        >
                             {item.text}
                         </div>
                     )

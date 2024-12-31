@@ -3,6 +3,7 @@ import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
+import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
 import { IDrawerBase } from '../components/drawer/Drawer.types'
 import { IFieldStateStyle, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
@@ -46,6 +47,7 @@ export interface IFieldInputBase {
     ) => React.RefObject<HTMLInputElement> | undefined
     get: () => FieldValuesTypes | null
     getAsString: () => string | null
+    onSelectItem: (option: IOptionItem) => void
 }
 
 export enum FieldTypesNamesEnum {

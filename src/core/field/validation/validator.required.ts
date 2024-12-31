@@ -1,4 +1,5 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
+import { valueIsNullOrUndefined } from '../fieldInputBase/utils'
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,7 +10,7 @@ import {
 const ValidatorRequired = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
         const hasExpectedValue = !!data.expectedValue
-        const hasValue = !!data?.value
+        const hasValue = !valueIsNullOrUndefined(data?.value)
 
         if (!data?.validationOptions?.required) {
             return newValidationResult(true, data.fieldName)

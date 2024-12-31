@@ -21,7 +21,10 @@ ValueStrategy.prototype = {
             console.error(`NO PARSE FOUND FOR THIS TYPE ${field.type} `)
             return
         }
-
-        return parser.method(field.value as FieldValuesTypes)
+        try {
+            return parser.method(field.value as FieldValuesTypes)
+        } catch (e) {
+            console.error(`PARSING ERROR FOR TYPE ${field.type} in field: ${field.name} `, e)
+        }
     }
 }
