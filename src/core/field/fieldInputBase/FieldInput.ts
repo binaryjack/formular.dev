@@ -134,8 +134,6 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
     this.internalHTMLElementRefs = []
 
-    this.internalHTMLElementsList = []
-
     this.options = descriptor.options
     this.openState = 'closed'
     this.checked = undefined
@@ -242,6 +240,15 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.refOption = function (ref: React.RefObject<HTMLInputElement>) {
         if (!ref?.current) return ref
 
+        /** Okay this following check after investigating is useless
+         * I will keep it anyways because for me
+         * it makes the code more readable and understandable
+         * but it's does nothing at all since refs comes not null and only once
+         *
+         * I guessing that maybe a day if the render is dubbled
+         * by the StrictMode of something else like that
+         * we expect to have only one ref and it could avoid bugs
+         */
         const existingRef = this.internalHTMLElementRefs?.find(
             (internalHtmlOptionReference) =>
                 internalHtmlOptionReference.current?.id === ref.current?.id

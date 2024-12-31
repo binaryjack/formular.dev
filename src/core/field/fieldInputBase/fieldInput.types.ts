@@ -23,7 +23,6 @@ export interface IFieldInputBase {
     name: string
     internalHTMLElementRef: React.RefObject<HTMLInputElement> | null
     internalHTMLElementRefs: React.RefObject<HTMLInputElement>[]
-    internalHTMLElementsList: string[]
     originalValue: FieldValuesTypes | null
     enabled: boolean
     type: string
