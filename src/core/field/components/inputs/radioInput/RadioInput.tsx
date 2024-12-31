@@ -1,6 +1,9 @@
+import { useRef } from 'react'
+
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
+import RadioInputOption from '../radioInputOption/RadioInputOption'
 
 interface IRadioInputProps {
     fieldName: string
@@ -9,7 +12,7 @@ interface IRadioInputProps {
 const RadioInput = ({ fieldName }: IRadioInputProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
-
+    const optionRefs = useRef<HTMLInputElement[]>([])
     console.log('RadioInput RENDER')
     return (
         <FieldSet
@@ -29,18 +32,11 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             <ul>
                 {field?.options?.map((option, index) => {
                     return (
-                        <div key={`${field.id}-${option.id}`}>
-                            <input
-                                data-class="base-radio "
-                                type="radio"
-                                id={option.id}
-                                name={field.name}
-                                value={option.value}
-                                {...field.registerOption()}
-                                ref={field.refOption()}
-                            />
-                            <label htmlFor={option.id}>{option.text}</label>
-                        </div>
+                        <RadioInputOption
+                            key={`${field.id}-${option.id}`}
+                            field={field}
+                            option={option}
+                        />
                     )
                 })}
             </ul>

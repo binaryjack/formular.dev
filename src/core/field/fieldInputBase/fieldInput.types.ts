@@ -23,6 +23,7 @@ export interface IFieldInputBase {
     name: string
     internalHTMLElementRef: React.RefObject<HTMLInputElement> | null
     internalHTMLElementRefs: React.RefObject<HTMLInputElement>[]
+    internalHTMLElementsList: string[]
     originalValue: FieldValuesTypes | null
     enabled: boolean
     type: string
@@ -41,7 +42,9 @@ export interface IFieldInputBase {
     register: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     registerOption: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     ref: () => React.RefObject<HTMLInputElement>
-    refOption: () => React.RefObject<HTMLInputElement> | undefined
+    refOption: (
+        o: React.RefObject<HTMLInputElement>
+    ) => React.RefObject<HTMLInputElement> | undefined
     get: () => FieldValuesTypes | null
     getAsString: () => string | null
 }

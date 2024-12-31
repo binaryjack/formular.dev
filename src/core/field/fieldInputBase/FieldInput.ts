@@ -134,6 +134,8 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
     this.internalHTMLElementRefs = []
 
+    this.internalHTMLElementsList = []
+
     this.options = descriptor.options
     this.openState = 'closed'
     this.checked = undefined
@@ -229,14 +231,28 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         this.internalHTMLElementRef = React.createRef<HTMLInputElement>()
         return this.internalHTMLElementRef
     }
+    /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
+     * I guess (not sure at this point!) but I believe tha's because of the render nature.
+     * as it's render through a [].MAP => if it's created by React.createRef the class is not aware of the ref itself
+     * until the render is complete. And each render will create a new ref whidh is not what we want.
+     *
+     * In this case we provide a ref from the component itself and we add to the collection only if the ref has already
+     * been created and the value (current) is referencing the input.
+     *  */
+    this.refOption = function (ref: React.RefObject<HTMLInputElement>) {
+        if (!ref?.current) return ref
 
-    this.refOption = function () {
-        const refElement = React.createRef<HTMLInputElement>()
+        const existingRef = this.internalHTMLElementRefs?.find(
+            (internalHtmlOptionReference) =>
+                internalHtmlOptionReference.current?.id === ref.current?.id
+        )
+        if (existingRef !== undefined) {
+            return existingRef
+        }
 
-        this.internalHTMLElementRefs?.push(refElement)
-
+        this.internalHTMLElementRefs?.push(ref)
         console.log('refOption', this.internalHTMLElementRefs)
-        return refElement
+        return ref
     }
 
     this.registerOption = function () {
