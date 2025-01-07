@@ -1,4 +1,5 @@
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
+import useKeyBindings from '../../../../hooks/useKeyBindings'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
 
@@ -9,6 +10,12 @@ interface IInputTextProps {
 const InputText = ({ fieldName }: IInputTextProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
+
+    const handleDelete = () => {
+        field?.clear()
+    }
+
+    const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
     console.log('InputText RENDER')
     return (
@@ -22,7 +29,12 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             }
             onClear={() => field?.clear()}
         >
-            <input data-class="base-input" {...field?.register()} ref={field?.ref()} />
+            <input
+                data-class="base-input"
+                {...field?.register()}
+                ref={field?.ref()}
+                onKeyDown={handleKeyDown}
+            />
         </FieldSet>
     )
 }

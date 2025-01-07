@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
-import RadioInputOption from '../radioInputOption/RadioInputOption'
+import RadioInputOption from './RadioInput.option'
 
 interface IRadioInputProps {
     fieldName: string

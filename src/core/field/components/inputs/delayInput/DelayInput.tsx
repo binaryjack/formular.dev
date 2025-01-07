@@ -1,18 +1,21 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdClose } from 'react-icons/md'
 
-import useDebouncer from '../../../../hooks/debouncer.hook'
+import useDebouncer from '../../../../hooks/useDebouncer'
+import useKeyBindings from '../../../../hooks/useKeyBindings'
 
 interface IDelayInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     delay: number
     onChangeCallback: (value: string) => void
-    onClearCallback: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    onClearCallback: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    canGotFocus?: boolean
     classNames?: string
 }
 
 const DelayInput = ({
     classNames,
     delay,
+    canGotFocus,
     onChangeCallback,
     onClearCallback,
     ...rest
@@ -27,8 +30,8 @@ const DelayInput = ({
         setValue(e.target.value)
     }
 
-    const handleClear = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault()
+    const handleClear = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e?.preventDefault?.()
         setValue('')
 
         onClearCallback(e)
@@ -38,6 +41,17 @@ const DelayInput = ({
         inputElement.value = ''
     }
 
+    const { handleKeyDown } = useKeyBindings<HTMLInputElement>({
+        onDeleteCallback: handleClear
+    })
+
+    useEffect(() => {
+        if (!canGotFocus) return
+        const inputElement = inputRef.current as unknown as HTMLInputElement
+        if (!inputElement) return
+        inputElement?.focus()
+    }, [canGotFocus])
+
     return (
         <>
             <input
@@ -45,6 +59,7 @@ const DelayInput = ({
                 ref={inputRef}
                 onChange={handleOnChanged}
                 className={classNames ? classNames : 'base-input'}
+                onKeyDown={handleKeyDown}
             />
             <button className={`btn-sm-p mr-1`} onClick={handleClear}>
                 {<MdClose />}

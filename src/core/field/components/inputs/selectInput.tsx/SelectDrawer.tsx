@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
+import useKeyBindings from '../../../../hooks/useKeyBindings'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 import SelectDrawerUI from './SelectDrawer.UI'
 
@@ -43,8 +44,8 @@ const SelectDrawer = ({
         setFilteredItems(newCollection)
     }
 
-    const handleClearFilter = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-        e.preventDefault()
+    const handleClearFilter = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+        e?.preventDefault?.()
         setFilteredItems(items)
     }
 
@@ -52,10 +53,17 @@ const SelectDrawer = ({
         setFilteredItems(items)
     }, [items])
 
+    const { handleKeyDown } = useKeyBindings({
+        onEscapeCallback: () => {
+            onSetOpenState({} as any, 'closed')
+        }
+    })
+
     return (
         <SelectDrawerUI
             filterTriggerDelay={filterTriggerDelay}
             items={filteredItems}
+            handleKeyDown={handleKeyDown}
             drawerOpenState={drawerOpenState}
             onHandleSelectItem={handleSelectItem}
             onFilterItems={handleFilterItems}
