@@ -1,49 +1,66 @@
-import { MdClose } from 'react-icons/md'
-import { SlMagnifier } from 'react-icons/sl'
+import { useEffect, useState } from 'react'
 
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
+import SelectDrawerUI from './SelectDrawer.UI'
 
 interface ISelectDrawerProps {
     items: IOptionItem[]
     drawerOpenState?: DrawerOpenStateType
-    onSetOpenState: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    filterTriggerDelay: number
+    onSetOpenState: (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: DrawerOpenStateType
+    ) => void
     onSelectItem: (value: IOptionItem) => void
 }
 
 const SelectDrawer = ({
     items,
+    filterTriggerDelay,
     drawerOpenState,
     onSetOpenState,
     onSelectItem
 }: ISelectDrawerProps) => {
     console.log('SelectDrawer', drawerOpenState)
-    return (
-        <div className={` mt-1 select-drawer ${drawerOpenState === 'open' ? 'open' : 'closed'}`}>
-            <div className={`items-left`}>
-                <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
-                    <i className={`flex icon-box mr-1 h-6`}>
-                        <SlMagnifier />
-                    </i>
-                    <input className={`flex input-sm-p mr-1 w-full`} onClick={(e) => {}} />
-                    <button className={`btn-sm-p mr-1`} onClick={onSetOpenState}>
-                        {<MdClose />}
-                    </button>
-                </div>
+    const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
 
-                {items.map((item, index) => {
-                    return (
-                        <div
-                            key={item.id}
-                            className={`select-item`}
-                            onClick={() => onSelectItem(item)}
-                        >
-                            {item.text}
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
+    const handleSelectItem = (
+        e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        item: IOptionItem
+    ) => {
+        e.stopPropagation()
+        e.preventDefault()
+        onSelectItem(item)
+        onSetOpenState(e, 'closed')
+    }
+
+    const handleFilterItems = (value: string): void => {
+        console.log('FILTER', value)
+        const newCollection = items.filter((item) =>
+            item.text.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+        )
+        setFilteredItems(newCollection)
+    }
+
+    const handleClearFilter = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+        e.preventDefault()
+        setFilteredItems(items)
+    }
+
+    useEffect(() => {
+        setFilteredItems(items)
+    }, [items])
+
+    return (
+        <SelectDrawerUI
+            filterTriggerDelay={filterTriggerDelay}
+            items={filteredItems}
+            drawerOpenState={drawerOpenState}
+            onHandleSelectItem={handleSelectItem}
+            onFilterItems={handleFilterItems}
+            onClearFilter={handleClearFilter}
+        />
     )
 }
 export default SelectDrawer

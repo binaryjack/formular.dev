@@ -19,7 +19,10 @@ interface IFieldSet<TType> {
     onSetFocus?: () => void
     onClear?: () => void
     onSelectItem?: () => void
-    onSetOpenState?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    onSetOpenState?: (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: DrawerOpenStateType
+    ) => void
 }
 
 const FieldSet = <TType,>({
@@ -58,7 +61,15 @@ const FieldSet = <TType,>({
                             {<MdClose />}
                         </button>
                         {itemsChildren && (
-                            <button className={`btn-sm-p mr-1`} onClick={onSetOpenState}>
+                            <button
+                                className={`btn-sm-p mr-1`}
+                                onClick={(e) =>
+                                    onSetOpenState?.(
+                                        e,
+                                        drawerOpenState === 'open' ? 'closed' : 'open'
+                                    )
+                                }
+                            >
                                 {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
                             </button>
                         )}

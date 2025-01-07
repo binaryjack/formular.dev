@@ -1,4 +1,5 @@
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
+import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
 import SelectDrawer from './SelectDrawer'
@@ -11,10 +12,13 @@ const Select = ({ fieldName }: ISelectProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
 
-    const handleDrawerOpenState = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleDrawerOpenState = (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: DrawerOpenStateType
+    ) => {
         e.stopPropagation()
         e.preventDefault()
-        field?.setOpenState(field?.openState === 'open' ? 'closed' : 'open')
+        field?.setOpenState(state)
     }
 
     console.log('Select RENDER')
@@ -26,6 +30,7 @@ const Select = ({ fieldName }: ISelectProps) => {
             flags={flags}
             itemsChildren={
                 <SelectDrawer
+                    filterTriggerDelay={500}
                     items={field?.options ?? []}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}

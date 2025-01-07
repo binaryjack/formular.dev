@@ -1,5 +1,5 @@
 import CheckInput from '../../core/field/components/inputs/checkInput/CheckInput'
-import InputText from '../../core/field/components/inputs/inputText.tsx/InputText'
+import InputText from '../../core/field/components/inputs/inputText/InputText'
 import RadioInput from '../../core/field/components/inputs/radioInput/RadioInput'
 import Select from '../../core/field/components/inputs/selectInput.tsx/Select'
 import FormyForm from '../../core/form/components/Formy/Formy.form'
