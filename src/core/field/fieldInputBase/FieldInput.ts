@@ -384,10 +384,15 @@ FieldInput.prototype = {
             fieldName: this.name,
             fieldState: 'reset'
         })
+        this.notify('changed', {
+            fieldName: this.name,
+            fieldState: 'onChange'
+        })
+
         this.fieldStateStyle.update('clear', true)
-        this.value = ''
-        this.internalHTMLElementRef.current.value = ''
-        this.internalHTMLElementRef.current.checked = ''
+        this.value = null
+        this.internalHTMLElementRef.current.value = null
+        this.internalHTMLElementRef.current.checked = null
     },
     setOpenState: function (state: DrawerOpenStateType) {
         this.openState = state
