@@ -1,28 +1,34 @@
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
+import SelectDrawerOption from './SelectDrawer.option'
 
-interface ISelecteDrawerOptionProps {
-    option: IOptionItem
-    isSelected: boolean
+interface ISelectDrawerOptionsProps {
+    options: IOptionItem[]
+    selectedItemId: number
     onHandleSelectItem: (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         value: IOptionItem
     ) => void
 }
 
-const SelecteDrawerOption = ({
-    option,
-    isSelected,
+const SelectDrawerOptions = ({
+    options,
+    selectedItemId,
     onHandleSelectItem
-}: ISelecteDrawerOptionProps) => {
+}: ISelectDrawerOptionsProps) => {
     return (
-        <div
-            id={option.id}
-            className={`select-item ${isSelected ? 'selected' : ''}`}
-            onClick={(e) => onHandleSelectItem(e, option)}
-        >
-            {option.text}
+        <div className={`select-list`}>
+            {options.map((item) => {
+                return (
+                    <SelectDrawerOption
+                        key={item.id}
+                        option={item}
+                        isSelected={item.id === selectedItemId.toString()}
+                        onHandleSelectItem={onHandleSelectItem}
+                    />
+                )
+            })}
         </div>
     )
 }
 
-export default SelecteDrawerOption
+export default SelectDrawerOptions

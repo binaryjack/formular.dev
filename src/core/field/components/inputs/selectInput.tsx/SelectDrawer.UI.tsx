@@ -3,7 +3,7 @@ import { SlMagnifier } from 'react-icons/sl'
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 import DelayInput from '../delayInput/DelayInput'
-import SelecteDrawerOption from './SelectDrawer.option'
+import SelectDrawerOptions from './SelectDrawer.options'
 
 interface ISelectDrawerUIProps {
     items: IOptionItem[]
@@ -15,7 +15,7 @@ interface ISelectDrawerUIProps {
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         value: IOptionItem
     ) => void
-
+    selectedItemId: number
     onFilterItems: (value: string) => void
     onClearFilter: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
@@ -25,6 +25,7 @@ const SelectDrawerUI = ({
     drawerOpenState,
     handleKeyDown,
     onHandleSelectItem,
+    selectedItemId,
     filterTriggerDelay,
     onFilterItems,
     onClearFilter
@@ -48,16 +49,11 @@ const SelectDrawerUI = ({
                     />
                 </div>
 
-                {items.map((item, index) => {
-                    return (
-                        <SelecteDrawerOption
-                            key={item.id}
-                            option={item}
-                            isSelected={item.id === index.toString()}
-                            onHandleSelectItem={onHandleSelectItem}
-                        />
-                    )
-                })}
+                <SelectDrawerOptions
+                    options={items}
+                    onHandleSelectItem={onHandleSelectItem}
+                    selectedItemId={selectedItemId}
+                />
             </div>
         </div>
     )

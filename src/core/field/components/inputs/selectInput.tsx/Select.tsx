@@ -16,12 +16,11 @@ const Select = ({ fieldName }: ISelectProps) => {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => {
-        e.stopPropagation()
-        e.preventDefault()
+        e?.stopPropagation?.()
+        e?.preventDefault?.()
         field?.setOpenState(state)
     }
 
-    console.log('Select RENDER')
     return (
         <FieldSet
             inputId={field?.name}

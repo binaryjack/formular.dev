@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
 import useKeyBindings from '../../../../hooks/useKeyBindings'
@@ -9,6 +9,7 @@ interface ISelectDrawerProps {
     items: IOptionItem[]
     drawerOpenState?: DrawerOpenStateType
     filterTriggerDelay: number
+    selectedItemId?: number
     onSetOpenState: (
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
@@ -20,12 +21,14 @@ const SelectDrawer = ({
     items,
     filterTriggerDelay,
     drawerOpenState,
+    selectedItemId,
     onSetOpenState,
     onSelectItem
 }: ISelectDrawerProps) => {
     console.log('SelectDrawer', drawerOpenState)
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
-
+    const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ? selectedItemId : 0)
+    const originalSelectedItemRef = useRef<number>(selectedItemId ? selectedItemId : 0)
     const handleSelectItem = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         item: IOptionItem
@@ -34,10 +37,12 @@ const SelectDrawer = ({
         e.preventDefault()
         onSelectItem(item)
         onSetOpenState(e, 'closed')
+        setCurrentItemId(Number(item.id))
     }
 
     const handleFilterItems = (value: string): void => {
         console.log('FILTER', value)
+        originalSelectedItemRef.current = currentItemId
         const newCollection = items.filter((item) =>
             item.text.toLocaleLowerCase().includes(value.toLocaleLowerCase())
         )
@@ -47,6 +52,33 @@ const SelectDrawer = ({
     const handleClearFilter = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
         e?.preventDefault?.()
         setFilteredItems(items)
+        setCurrentItemId(originalSelectedItemRef.current)
+    }
+
+    const selectNextItem = () => {
+        if (drawerOpenState === 'closed') return
+        if (currentItemId === items.length - 1) {
+            setCurrentItemId(0)
+            return
+        }
+        setCurrentItemId(currentItemId + 1)
+    }
+
+    const selectPreviousItem = () => {
+        if (drawerOpenState === 'closed') return
+        if (currentItemId === 0) {
+            setCurrentItemId(items.length - 1)
+            return
+        }
+        setCurrentItemId(currentItemId - 1)
+    }
+
+    const selectOnEnter = () => {
+        const selectedItem = items.find((item) => item.id === currentItemId.toString())
+        if (selectedItem) {
+            onSelectItem(selectedItem)
+            onSetOpenState({} as any, 'closed')
+        }
     }
 
     useEffect(() => {
@@ -56,6 +88,15 @@ const SelectDrawer = ({
     const { handleKeyDown } = useKeyBindings({
         onEscapeCallback: () => {
             onSetOpenState({} as any, 'closed')
+        },
+        onArrowUpCallback: () => {
+            selectPreviousItem()
+        },
+        onArrowDownCallback: () => {
+            selectNextItem()
+        },
+        onEnterCallback: () => {
+            selectOnEnter()
         }
     })
 
@@ -65,6 +106,7 @@ const SelectDrawer = ({
             items={filteredItems}
             handleKeyDown={handleKeyDown}
             drawerOpenState={drawerOpenState}
+            selectedItemId={currentItemId}
             onHandleSelectItem={handleSelectItem}
             onFilterItems={handleFilterItems}
             onClearFilter={handleClearFilter}

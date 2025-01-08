@@ -1,6 +1,6 @@
 import { IOptionItem } from '../../../../../dependency/schema/optionsSchema/options.scheme.types'
 
-interface ISelecteDrawerOptionProps {
+interface ISelectDrawerOptionProps {
     option: IOptionItem
     isSelected: boolean
     onHandleSelectItem: (
@@ -9,11 +9,11 @@ interface ISelecteDrawerOptionProps {
     ) => void
 }
 
-const SelecteDrawerOption = ({
+const SelectDrawerOption = ({
     option,
     isSelected,
     onHandleSelectItem
-}: ISelecteDrawerOptionProps) => {
+}: ISelectDrawerOptionProps) => {
     return (
         <div
             id={option.id}
@@ -25,4 +25,4 @@ const SelecteDrawerOption = ({
     )
 }
 
-export default SelecteDrawerOption
+export default SelectDrawerOption
