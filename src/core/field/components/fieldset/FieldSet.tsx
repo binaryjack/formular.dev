@@ -38,7 +38,6 @@ const FieldSet = <TType,>({
     onClear,
     onSetOpenState
 }: IFieldSet<TType>) => {
-    console.log('FieldSet', drawerOpenState)
     return (
         <fieldset
             className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
@@ -57,11 +56,17 @@ const FieldSet = <TType,>({
                 <div className={`input-container flex flex-row w-full`}>
                     <div className={`input-content flex mr-2 w-full`}>{children}</div>
                     <div className={`input-commands flex flex-row `}>
-                        <button type="button" className={`btn-sm-p mr-1`} onClick={onClear}>
+                        <button
+                            type="button"
+                            className={`btn-sm-p mr-1`}
+                            onClick={onClear}
+                            tabIndex={-1}
+                        >
                             {<MdClose />}
                         </button>
                         {itemsChildren && (
                             <button
+                                type="button"
                                 className={`btn-sm-p mr-1`}
                                 onClick={(e) =>
                                     onSetOpenState?.(
@@ -69,6 +74,7 @@ const FieldSet = <TType,>({
                                         drawerOpenState === 'open' ? 'closed' : 'open'
                                     )
                                 }
+                                tabIndex={-1}
                             >
                                 {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
                             </button>

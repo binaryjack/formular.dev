@@ -13,7 +13,6 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
     const optionRefs = useRef<HTMLInputElement[]>([])
-    console.log('RadioInput RENDER')
     return (
         <FieldSet
             inputId={field?.name}
@@ -25,12 +24,8 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             }
             onClear={() => field?.clear()}
         >
-            <span {...field?.register()} ref={field?.ref()}>
-                selected value{field?.get()?.toString()}
-                {<div />}
-            </span>
             <ul>
-                {field?.options?.map((option, index) => {
+                {field?.options?.map((option) => {
                     return (
                         <RadioInputOption
                             key={`${field.id}-${option.id}`}

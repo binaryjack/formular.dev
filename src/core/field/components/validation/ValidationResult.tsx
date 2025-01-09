@@ -16,7 +16,6 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
         [validationResults]
     )
 
-    console.log('VALID: ', valid ? 'YES' : 'NO')
     return (
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <div className={`validation-result-drawer`}>

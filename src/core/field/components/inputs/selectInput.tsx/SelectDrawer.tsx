@@ -25,7 +25,6 @@ const SelectDrawer = ({
     onSetOpenState,
     onSelectItem
 }: ISelectDrawerProps) => {
-    console.log('SelectDrawer', drawerOpenState)
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
     const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ? selectedItemId : 0)
     const originalSelectedItemRef = useRef<number>(selectedItemId ? selectedItemId : 0)
@@ -41,7 +40,6 @@ const SelectDrawer = ({
     }
 
     const handleFilterItems = (value: string): void => {
-        console.log('FILTER', value)
         originalSelectedItemRef.current = currentItemId
         const newCollection = items.filter((item) =>
             item.text.toLocaleLowerCase().includes(value.toLocaleLowerCase())

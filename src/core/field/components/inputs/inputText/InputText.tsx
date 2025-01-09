@@ -17,7 +17,6 @@ const InputText = ({ fieldName }: IInputTextProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    console.log('InputText RENDER')
     return (
         <FieldSet
             inputId={field?.name}

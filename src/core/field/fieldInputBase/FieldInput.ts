@@ -259,14 +259,14 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         }
 
         this.internalHTMLElementRefs?.push(ref)
-        console.log('refOption', this.internalHTMLElementRefs)
+        // console.log('refOption', this.internalHTMLElementRefs)
         return ref
     }
 
     this.registerOption = function () {
         const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
             this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
-            console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
+            // console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
 
             this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
             this.notify<IValidationOrigin>('validate', {
@@ -401,8 +401,12 @@ FieldInput.prototype = {
 
         this.fieldStateStyle.update('clear', true)
         this.value = null
+        if (!this.internalHTMLElementRef?.current) {
+            return
+        }
         this.internalHTMLElementRef.current.value = null
         this.internalHTMLElementRef.current.checked = null
+        this.internalHTMLElementRef.current.focus()
     },
     setOpenState: function (state: DrawerOpenStateType) {
         this.openState = state
@@ -415,6 +419,7 @@ FieldInput.prototype = {
     onSelectItem: function (option: IOptionItem) {
         this.value = Number(option.id)
         this.internalHTMLElementRef.current.value = option.text
+        this.internalHTMLElementRef.current.focus()
         this.openState = 'closed'
         // this.observers.trigger()
         this.notify('changed', {

@@ -1,4 +1,5 @@
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
+import useKeyBindings from '../../../../hooks/useKeyBindings'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
@@ -20,6 +21,15 @@ const Select = ({ fieldName }: ISelectProps) => {
         e?.preventDefault?.()
         field?.setOpenState(state)
     }
+
+    const { handleKeyDown } = useKeyBindings({
+        onArrowDownCallback: () => {
+            handleDrawerOpenState({} as any, 'open')
+        },
+        onDeleteCallback: () => {
+            field?.clear()
+        }
+    })
 
     return (
         <FieldSet
@@ -43,7 +53,12 @@ const Select = ({ fieldName }: ISelectProps) => {
             onSetOpenState={handleDrawerOpenState}
             drawerOpenState={field?.openState}
         >
-            <input data-class="base-input" {...field?.register()} ref={field?.ref()} />
+            <input
+                data-class="base-input"
+                {...field?.register()}
+                ref={field?.ref()}
+                onKeyDown={handleKeyDown}
+            />
         </FieldSet>
     )
 }

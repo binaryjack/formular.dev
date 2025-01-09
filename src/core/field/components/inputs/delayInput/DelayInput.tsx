@@ -10,6 +10,7 @@ interface IDelayInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     onClearCallback: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     canGotFocus?: boolean
     classNames?: string
+    tabIndex?: number
 }
 
 const DelayInput = ({
@@ -18,6 +19,7 @@ const DelayInput = ({
     canGotFocus,
     onChangeCallback,
     onClearCallback,
+    tabIndex = -1,
     ...rest
 }: IDelayInputProps) => {
     const [value, setValue] = useState('')
@@ -60,8 +62,9 @@ const DelayInput = ({
                 onChange={handleOnChanged}
                 className={classNames ? classNames : 'base-input'}
                 onKeyDown={handleKeyDown}
+                tabIndex={tabIndex}
             />
-            <button className={`btn-sm-p mr-1`} onClick={handleClear}>
+            <button className={`btn-sm-p mr-1`} onClick={handleClear} tabIndex={-1}>
                 {<MdClose />}
             </button>
         </>

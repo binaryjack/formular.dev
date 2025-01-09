@@ -10,7 +10,6 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
 
-    console.log('CheckInput RENDER')
     return (
         <FieldSet
             inputId={field?.name}
