@@ -1,7 +1,9 @@
-import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
-import useKeyBindings from '../../../../hooks/useKeyBindings'
-import FieldSet from '../../fieldset/FieldSet'
-import ValidationResultComponent from '../../validation/ValidationResult'
+import useFormyContext, {
+    useField,
+} from '../../../../form/components/Formy/Formy.context';
+import useKeyBindings from '../../../../hooks/useKeyBindings';
+import FieldSet from '../../fieldset/FieldSet';
+import ValidationResultComponent from '../../validation/ValidationResult';
 
 interface IInputTextProps {
     fieldName: string
@@ -23,6 +25,9 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             label={field?.label}
             type={field?.type}
             flags={flags}
+            onClick={() => {
+                field?.focus()
+            }}
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }
@@ -33,6 +38,7 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 {...field?.register()}
                 ref={field?.ref()}
                 onKeyDown={handleKeyDown}
+                autoComplete="off"
             />
         </FieldSet>
     )

@@ -48,6 +48,7 @@ export interface IFieldInputBase {
     get: () => FieldValuesTypes | null
     getAsString: () => string | null
     onSelectItem: (option: IOptionItem) => void
+    focus: () => void
 }
 
 export enum FieldTypesNamesEnum {

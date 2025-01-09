@@ -37,6 +37,9 @@ const Select = ({ fieldName }: ISelectProps) => {
             label={field?.label}
             type={field?.type}
             flags={flags}
+            onClick={() => {
+                field?.focus()
+            }}
             itemsChildren={
                 <SelectDrawer
                     filterTriggerDelay={500}
@@ -58,6 +61,7 @@ const Select = ({ fieldName }: ISelectProps) => {
                 {...field?.register()}
                 ref={field?.ref()}
                 onKeyDown={handleKeyDown}
+                autoComplete="off"
             />
         </FieldSet>
     )

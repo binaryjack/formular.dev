@@ -23,6 +23,7 @@ interface IFieldSet<TType> {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
+    onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
 const FieldSet = <TType,>({
@@ -36,6 +37,7 @@ const FieldSet = <TType,>({
     drawerOpenState,
     onSetFocus,
     onClear,
+    onClick,
     onSetOpenState
 }: IFieldSet<TType>) => {
     return (
@@ -43,6 +45,7 @@ const FieldSet = <TType,>({
             className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
             data-type={type}
             data-testid={`test-${inputId}`}
+            onClick={onClick}
         >
             <div className={`relative  input-row flex xl:flex-row md:flex-col xl:h-7 `}>
                 <div className={`flex items-center justify-start`}>

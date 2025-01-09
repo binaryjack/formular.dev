@@ -147,7 +147,9 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         setParser('StringParserStrategy', stringTypes, StringParserStrategy),
         setParser('BooleanParserStrategy', booleanTypes, BooleanParserStrategy)
     )
-
+    /**
+     * The register function is used to register the event handlers for the field input.
+     */
     this.register = function <FieldValuesTypes>() {
         const updateUI = () => {
             this.observers.trigger()
@@ -262,7 +264,10 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         // console.log('refOption', this.internalHTMLElementRefs)
         return ref
     }
-
+    /**
+     * The registerOption function is used to register the event handlers for
+     * the field input options.
+     */
     this.registerOption = function () {
         const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
             this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
@@ -284,6 +289,10 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         }
     }
     NotifiableEntity.call(this)
+    /**
+     * The setup function sets up the field input by subscribing to observers.
+     * basic configuration for styles and validation
+     */
     this.setup = function () {
         this.observers.subscribe(this.classNames.bind(this))
         this.observers.subscribe(this.getFlagsObject.bind(this))
@@ -401,12 +410,14 @@ FieldInput.prototype = {
 
         this.fieldStateStyle.update('clear', true)
         this.value = null
+
+        this.focus()
+
         if (!this.internalHTMLElementRef?.current) {
             return
         }
         this.internalHTMLElementRef.current.value = null
         this.internalHTMLElementRef.current.checked = null
-        this.internalHTMLElementRef.current.focus()
     },
     setOpenState: function (state: DrawerOpenStateType) {
         this.openState = state
@@ -431,5 +442,20 @@ FieldInput.prototype = {
             fieldName: this.name,
             fieldState: 'reset'
         })
+    } /**
+     * Here we have a focus function that will focus the main root input if it's available, otherwise
+     * it will try to focus the first child option item.
+     */,
+    focus: function () {
+        if (this.internalHTMLElementRef?.current) {
+            this.internalHTMLElementRef.current.focus()
+        } else {
+            const firstChildOptionItem = this
+                .internalHTMLElementRefs?.[0] as React.RefObject<HTMLInputElement>
+
+            if (firstChildOptionItem?.current) {
+                firstChildOptionItem.current.focus()
+            }
+        }
     }
 }

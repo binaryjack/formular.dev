@@ -19,6 +19,9 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             label={field?.label}
             type={field?.type}
             flags={flags}
+            onClick={() => {
+                field?.focus()
+            }}
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }
