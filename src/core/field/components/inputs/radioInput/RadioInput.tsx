@@ -27,7 +27,7 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             }
             onClear={() => field?.clear()}
         >
-            <ul>
+            <ul className={`radio-group`}>
                 {field?.options?.map((option) => {
                     return (
                         <RadioInputOption

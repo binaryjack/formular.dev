@@ -22,7 +22,7 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
         <div className={`radio-item-group`}>
             <input
                 id={option.id}
-                data-class="base-radio "
+                className="base-radio "
                 type="radio"
                 name={field.name}
                 value={option.value}
