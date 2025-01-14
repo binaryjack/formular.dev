@@ -1,4 +1,5 @@
 import CheckInput from '../../core/field/components/inputs/checkInput/CheckInput'
+import DateInput from '../../core/field/components/inputs/datePicker/DatePicker'
 import InputText from '../../core/field/components/inputs/inputText/InputText'
 import RadioInput from '../../core/field/components/inputs/radioInput/RadioInput'
 import Select from '../../core/field/components/inputs/selectInput.tsx/Select'
@@ -34,6 +35,7 @@ const FormDemo = () => {
             <Select fieldName={'selectOptionsId'} />
             <CheckInput fieldName={'trueFalseValue'} />
             <RadioInput fieldName={'selectedRadioId'} />
+            <DateInput fieldName={'dateTimeValue'} />
         </FormyForm>
     )
 }
