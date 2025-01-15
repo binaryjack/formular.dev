@@ -13,7 +13,7 @@ export const DateObject = function (this: IDateObject, name: string, separator =
     this.day = 0
     this.month = 0
     this.year = 0
-}
+} as any as IDateObject
 
 DateObject.prototype = {
     isDefined: function () {

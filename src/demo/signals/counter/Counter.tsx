@@ -23,39 +23,44 @@ export const counter2Computed = counter2.computed(() => {
 })
 
 export const counter2Computed2 = counter2Computed.computed(() => {
-    return counter2Computed.get() * 5
+    return counter2Computed.get() * counter.get()
 })
 
 export const counter2Computed3 = counter2Computed2.computed(() => {
     return 1000
 })
 
-effI1.effect(() => {
-    console.log('effect triggered')
+counter2Computed2.onChanged(() => {
+    console.log('counter2Computed2 changed!!!!')
 }, [counter])
+
+counter2Computed3.onChanged(() => {
+    console.log('counter2Computed3 changed!!!!')
+})
 
 const Counter = () => {
     const [state2, setState2] = useState<number>(0)
 
-    useSignal('Counter', counter2)
+    useSignal('Counter', counter)
+    useSignal('Counter2', counter2)
 
     // useSignal(counter)
-
-    counter2.onChanged(() => {
-        console.log('changed!!!!')
-    })
 
     effI2.effect(() => {
         console.log('effect2 triggered')
         setState2(counter.value)
+        setState2(counter2.value)
 
         if (counter2.value && counter2?.value > 10) {
             console.log('effect2 DISPOSED')
             effI2.dispose()
         }
-    }, [counter2])
+    }, [counter2, counter])
+
+    // effI1.effect(() => {}, [])
 
     const onCounterClick = () => {
+        counter.update((o: any) => o.value + 1)
         console.log(counter.value, counter2.value)
     }
 
@@ -66,14 +71,16 @@ const Counter = () => {
 
     return (
         <div>
-            <h1>Hello</h1>
+            <h1>Counter </h1>
             <div>updated by signal effect : {state2}</div>
-            <button type="button" onClick={onCounterClick}>
-                {`update counter value to ${counter.value}`}
+            <h4>using signals with computed values</h4>
+            <br />
+            <button className="btn-base btn-primary mb-4" type="button" onClick={onCounterClick}>
+                {`update counter  ${counter.value}`}
             </button>
-
-            <button type="button" onClick={onCounter2Click}>
-                {`update counter 2 value ${counter2.value}`}
+            <br />
+            <button className="btn-base btn-secondary mb-4" type="button" onClick={onCounter2Click}>
+                {`update counter 2  ${counter2.value}`}
             </button>
             <ChildComponent />
         </div>

@@ -7,7 +7,8 @@ export type DatePickerOutputFormat = 'dd/mm/yyyy' | 'mm/dd/yyyy' | 'yyyy/mm/dd'
 export type IDatePickerOutputType = 'DAY' | 'MONTH' | 'YEAR'
 
 export interface IDatePicker {
-    new (): IDatePicker
+    new (id: string, name?: string): IDatePicker
+    id: string
     name: string
     separator: string
 

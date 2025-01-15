@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
+
 @layer components {
     .btn-base {
         @apply py-2 px-4 rounded hover:bg-gray-700 active:bg-gray-800 focus:ring-4;
@@ -172,7 +173,7 @@
     }
 
     .radio-group {
-        @apply flex flex-col sm:flex-col  md:flex-row  items-start w-full;
+        @apply flex flex-col sm:flex-col md:flex-row items-start w-full;
     }
 
     .radio-item-group {
@@ -184,6 +185,18 @@
     }
 
     .base-radio {
-        @apply appearance-none mr-2 h-6 w-6 border-2  cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
+        @apply appearance-none mr-2 h-6 w-6 border-2 cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
+    }
+
+    .app {
+        @apply bg-gray-200 p-3;
+    }
+
+    h1 {
+        @apply text-2xl font-bold bg-center bg-cover mb-4;
+    }
+
+    h3 {
+        @apply text-lg font-bold mb-4;
     }
 }

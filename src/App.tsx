@@ -1,4 +1,6 @@
 import FormDemo from './demo/forms/FormDemo'
+import Counter from './demo/signals/counter/Counter'
+import TextInput from './demo/signals/text/TextInput'
 
 interface IApp extends Node {
     testName?: string
@@ -50,8 +52,20 @@ const App = () => {
     // }, [])
 
     return (
-        <div>
+        <div className={'app'}>
+            <h1>Forms Inputs using event driven design classes</h1>
+            <h3>Patterns used: builder, strategy, observer, factory</h3>
             <FormDemo />
+
+            <br />
+            <h1>Signals Text Input</h1>
+            <h3>Patterns used: signals, observer </h3>
+            <TextInput />
+
+            <br />
+            <h1>Signals Counter</h1>
+            <h3>Patterns used: signals, observer </h3>
+            <Counter />
         </div>
     )
 }

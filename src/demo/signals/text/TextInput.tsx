@@ -18,7 +18,13 @@ const TextInput = () => {
     return (
         <div>
             <h1>Text demo</h1>
-            <input id={`text-input`} title="text" onChange={handleTextChanged} />
+            <input
+                data-class="base-input"
+                className={`base-input`}
+                id={`text-input`}
+                title="text"
+                onChange={handleTextChanged}
+            />
             {textSignal.get()}
             <TextChild id={'12'}>
                 <TextChild id={'13'}>
