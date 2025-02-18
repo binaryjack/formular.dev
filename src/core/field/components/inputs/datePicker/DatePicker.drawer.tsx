@@ -1,7 +1,21 @@
-import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
+import { useEffect, useState } from 'react';
+import {
+    FaArrowCircleLeft, FaArrowCircleRight,
+} from 'react-icons/fa';
 
-import { INDate } from '../../../../../dependency/schema/descriptor/field.data.date.struct'
-import { DrawerOpenStateType } from '../../drawer/Drawer.types'
+
+import {
+    INDate,
+} from '../../../../../dependency/schema/descriptor/field.data.date.struct';
+import {
+    IDatePickerRow,
+} from '../../../datePickerBase/DatePicker.types';
+import {
+    computeGrid,
+} from '../../../datePickerBase/DatePicker.utils';
+import {
+    DrawerOpenStateType,
+} from '../../drawer/Drawer.types';
 
 interface IDatePickerDrawerProps {
     drawerOpenState?: DrawerOpenStateType
@@ -19,9 +33,17 @@ const DatePickerDrawer = ({
     onSetOpenState,
     onSelectDate
 }: IDatePickerDrawerProps) => {
+    const [dateGrid, setDateGrid] = useState<IDatePickerRow[]>([])
+
+    useEffect(() => {
+        const currentDate = new Date()
+        const gridData = computeGrid(currentDate.getMonth(), currentDate.getFullYear())
+        setDateGrid(gridData)
+    }, [])
+
     return (
         <div className={`date-picker-drawer`}>
-            <div className={`date-picker-header`}>
+            <div className={`date-picker-header `}>
                 <button
                     type="button"
                     className={`btn-sm-p mr-1`}
@@ -37,7 +59,9 @@ const DatePickerDrawer = ({
                             className={`btn-sm-p mr-1`}
                             title={`btn-year-mode`}
                             onClick={() => {}}
-                        ></button>
+                        >
+                            {selectedDate?.year}
+                        </button>
                     </div>
                     <div className={`month`}>
                         <button
@@ -45,7 +69,9 @@ const DatePickerDrawer = ({
                             className={`btn-sm-p mr-1`}
                             title={`btn-month-mode`}
                             onClick={() => {}}
-                        ></button>
+                        >
+                            {selectedDate?.month}
+                        </button>
                     </div>
                     <div className={`day`}>
                         <button
@@ -53,7 +79,9 @@ const DatePickerDrawer = ({
                             className={`btn-sm-p mr-1`}
                             title={`btn-day-mode`}
                             onClick={() => {}}
-                        ></button>
+                        >
+                            {selectedDate?.day}
+                        </button>
                     </div>
                 </div>
                 <div className={`date-picker-date`}></div>
@@ -66,7 +94,17 @@ const DatePickerDrawer = ({
                     <FaArrowCircleRight />
                 </button>
             </div>
-            <div className={`date-picker-body`}></div>
+            <div className={`date-picker-body`}>
+                {dateGrid.map((dateRow) => (
+                    <div key={dateRow.id} className={`date-row`}>
+                        {dateRow.cells.map((dateRow) => (
+                            <div key={dateRow.id} className={`date-cell`}>
+                                {dateRow.id}
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

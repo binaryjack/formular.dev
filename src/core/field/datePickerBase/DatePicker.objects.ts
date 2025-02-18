@@ -2,20 +2,27 @@ import { INDate } from '../../../dependency/schema/descriptor/field.data.date.st
 import { DatePickerOutputFormat, IDateObject } from './DatePicker.types'
 import { getPaddedNumber } from './DatePicker.utils'
 
-export const DateObject = function (this: IDateObject, name: string, separator = '-') {
+export const DateObject = function (
+    this: IDateObject,
+    date?: INDate,
+    name: string = '',
+    separator: string = '-'
+) {
     this.name = name
-    this.separator = separator
-    this.dateObject = {
-        day: 0,
-        month: 0,
-        year: 0
-    }
-    this.day = 0
-    this.month = 0
-    this.year = 0
+    this.separator = separator ?? '-'
+    this.dateObject = date ? { ...date } : { day: 0, month: 0, year: 0 }
 } as any as IDateObject
 
 DateObject.prototype = {
+    day: function () {
+        return this.dateObject.day
+    },
+    month: function () {
+        return this.dateObject.month
+    },
+    year: function () {
+        return this.dateObject.year
+    },
     isDefined: function () {
         return (
             this.dateObject.day !== 0 && this.dateObject.month !== 0 && this.dateObject.year !== 0

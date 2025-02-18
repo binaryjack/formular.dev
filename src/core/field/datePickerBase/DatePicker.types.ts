@@ -1,6 +1,11 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import {
+    DetailedHTMLProps, InputHTMLAttributes,
+} from 'react';
 
-import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
+
+import {
+    INDate,
+} from '../../../dependency/schema/descriptor/field.data.date.struct';
 
 export type DatePickerModeType = 'FULL' | 'DATE' | 'TIME'
 export type DatePickerOutputFormat = 'dd/mm/yyyy' | 'mm/dd/yyyy' | 'yyyy/mm/dd'
@@ -28,14 +33,10 @@ export interface IDatePicker {
     focusCell: () => void
 }
 
-export interface IDateObject {
-    new (name: string, separator?: string): IDateObject
-    name: string
-    separator: string
-    dateObject: INDate
-    day: number
-    month: number
-    year: number
+export interface IDateObjectMethods {
+    day: () => number
+    month: () => number
+    year: () => number
 
     isDefined: () => boolean
 
@@ -48,11 +49,8 @@ export interface IDateObject {
 
     validateInput: (date: string, format: DatePickerOutputFormat) => boolean
 
-    isNullEmptyOrUndefined: (dateObject: INDate | undefined | null) => boolean
+    isNullEmptyOrUndefined?: (dateObject: INDate | undefined | null) => boolean
 
-    getCurrentDay: () => number
-    getCurrentMonth: () => number
-    getCurrentYear: () => number
     nextDay: () => void
     nextMonth: () => void
     nextYear: () => void
@@ -72,6 +70,12 @@ export interface IDateObject {
     getDayShortName: () => string
     getMonthShortName: () => string
 }
+export interface IDateObject extends Partial<IDateObjectMethods> {
+    new (date?: INDate, name?: string, separator?: string): IDateObject
+    name: string
+    separator: string
+    dateObject: INDate
+}
 
 export interface ICursorPosition {
     currentID: number
@@ -85,4 +89,34 @@ export interface IDatePickerItem {
     selected: boolean
     active: boolean
     type: IDatePickerOutputType
+}
+
+export interface IDatePickerCell {
+    id: number
+    label: string | undefined
+    item: IDatePickerItem | null
+    day: number
+}
+
+export const newCell = (
+    id: number,
+    label: string | undefined,
+    day: number,
+    item: IDatePickerItem | null
+) => {
+    return {
+        id,
+        label,
+        item,
+        day
+    }
+}
+
+export interface IDatePickerRow {
+    id: number
+    cells: IDatePickerCell[]
+}
+
+export const newCellsRow = (id: number, cells: IDatePickerCell[]) => {
+    return { id, cells }
 }

@@ -1,3 +1,8 @@
+import {
+    IDatePickerCell, IDatePickerRow, newCell,
+    newCellsRow,
+} from './DatePicker.types';
+
 export const getPaddedNumber = (num: number, count: number) => num.toString().padStart(count, '0')
 
 export const getDayNumber = (dateStr: string) => new Date(dateStr).getDay()
@@ -54,22 +59,65 @@ export const GetMonthIndexByName = (month: string): number => {
 export const GetDayIndexByName = (day: string): number => {
     return GetDayNames().indexOf(day)
 }
-export const computeGrid = (month: number, year: number): number[][] => {
-    const firstDay = new Date(year, month - 1, 1).getDay()
-    const lastDay = new Date(year, month, 0).getDate()
-    const grid = Array.from({ length: 6 }, () => Array.from({ length: 7 }, () => 0))
+export const computeGrid = (month: number, year: number): IDatePickerRow[] => {
+    const firstDay = new Date(year, month, 1).getDay()
+    const nextMonthFirstDay = new Date(year, month + 1, 1).getDay()
+    const output: IDatePickerRow[] = []
+
+    // let's find out how many days previews the first day to complete a weekrow with previous month
+    const previousDaysRemaining = firstDay - 1 === 0 ? firstDay : firstDay - 1
+    // let's find out how many days remains the last day to complete a weekrow with next months
+    const nextMonthDaysRemaining = Math.abs(nextMonthFirstDay - 7)
     let day = 1
-    for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 7; j++) {
-            if (i === 0 && j < firstDay) {
-                grid[i][j] = 0
-            } else if (day > lastDay) {
-                grid[i][j] = 0
-            } else {
-                grid[i][j] = day
-                day++
-            }
+    const maxRows = 7 // 1 based
+
+    // gets the previous month's days
+    const previousDays = getPreviousMonthDays(previousDaysRemaining, month - 1, year)
+    // gets the month's days
+    const currentDays = getCurrentMonthDays(month, year)
+    // gets the next month's days
+    const nextMonthDays = getNextMonthDays(nextMonthDaysRemaining, month + 1, year)
+
+    const fullGridData = [...previousDays, ...currentDays, ...nextMonthDays]
+
+    for (let row = day; row < 6; row++) {
+        const weekDays = fullGridData.splice(0, 7)
+        const newRow = newCellsRow(row, weekDays)
+        output.push(newRow)
+    }
+
+    return output
+}
+
+const getPreviousMonthDays = (remainingDays: number, previousMonth: number, year: number) => {
+    const lastDay = new Date(year, previousMonth, 0).getDate()
+    const output: IDatePickerCell[] = []
+    for (let i = lastDay; i > 0; i--) {
+        const cDate = new Date(year, previousMonth, i)
+        output.push(newCell(i, `${previousMonth + 1}-${i}`, cDate.getDay(), null))
+        if (output.length === remainingDays) {
+            break
         }
     }
-    return grid
+    return output.sort((a, b) => a.id - b.id)
+}
+
+const getNextMonthDays = (remainingDays: number, nextMonth: number, year: number) => {
+    const output: IDatePickerCell[] = []
+    for (let i = 1; i <= remainingDays + 1; i++) {
+        const cDate = new Date(year, nextMonth, i)
+        output.push(newCell(i, `${nextMonth + 1}-${i}`, cDate.getDay(), null))
+    }
+    return output
+}
+
+const getCurrentMonthDays = (month: number, year: number) => {
+    //If you provide 0 as the dayValue in Date.setFullYear you get the last day of the previous month:
+    const lastDay = new Date(year, month + 1, 0).getDate()
+    const output: IDatePickerCell[] = []
+    for (let i = 1; i < lastDay + 1; i++) {
+        const cDate = new Date(year, month, i)
+        output.push(newCell(i, `${month + 1}-${i}`, cDate.getDay(), null))
+    }
+    return output
 }
