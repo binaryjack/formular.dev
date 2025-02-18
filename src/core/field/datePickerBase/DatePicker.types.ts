@@ -71,10 +71,11 @@ export interface IDateObjectMethods {
     getMonthShortName: () => string
 }
 export interface IDateObject extends Partial<IDateObjectMethods> {
-    new (date?: INDate, name?: string, separator?: string): IDateObject
+    new (date?: Date, name?: string, separator?: string): IDateObject
     name: string
     separator: string
     dateObject: INDate
+    dayOfWeek: number
 }
 
 export interface ICursorPosition {
@@ -88,27 +89,49 @@ export interface IDatePickerItem {
     date: IDateObject
     selected: boolean
     active: boolean
-    type: IDatePickerOutputType
+    isNextMonth: boolean
+    isPreviousMonth: boolean
+    isCurrentMonth: boolean
+    displayType: IDatePickerOutputType
+}
+
+export interface IDatePickerOptions {
+    selected: boolean
+    active: boolean
+    isNextMonth: boolean
+    isPreviousMonth: boolean
+    isCurrentMonth: boolean
+    displayType: IDatePickerOutputType
+}
+
+export const newDatePickerItem = (
+    id: string,
+    date: IDateObject,
+    option: Partial<IDatePickerOptions>
+) => {
+    return {
+        id,
+        date,
+        selected: option.selected ?? false,
+        active: option.active ?? false,
+        isNextMonth: option.isNextMonth ?? false,
+        isPreviousMonth: option.isPreviousMonth ?? false,
+        isCurrentMonth: option.isCurrentMonth ?? false,
+        displayType: option.displayType ?? 'DAY'
+    }
 }
 
 export interface IDatePickerCell {
     id: number
-    label: string | undefined
+    code: string | undefined
     item: IDatePickerItem | null
-    day: number
 }
 
-export const newCell = (
-    id: number,
-    label: string | undefined,
-    day: number,
-    item: IDatePickerItem | null
-) => {
+export const newCell = (id: number, item: IDatePickerItem | null): IDatePickerCell => {
     return {
         id,
-        label,
-        item,
-        day
+        code: item?.id,
+        item
     }
 }
 

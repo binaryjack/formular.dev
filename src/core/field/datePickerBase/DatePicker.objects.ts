@@ -1,16 +1,29 @@
-import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DatePickerOutputFormat, IDateObject } from './DatePicker.types'
-import { getPaddedNumber } from './DatePicker.utils'
+import {
+    INDate,
+} from '../../../dependency/schema/descriptor/field.data.date.struct';
+import {
+    DatePickerOutputFormat, IDateObject,
+} from './DatePicker.types';
+import {
+    getPaddedNumber,
+} from './DatePicker.utils';
 
 export const DateObject = function (
     this: IDateObject,
-    date?: INDate,
+    date?: Date,
     name: string = '',
     separator: string = '-'
 ) {
     this.name = name
     this.separator = separator ?? '-'
-    this.dateObject = date ? { ...date } : { day: 0, month: 0, year: 0 }
+    this.dateObject = date
+        ? { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() }
+        : {
+              day: new Date().getDate(),
+              month: new Date().getMonth() + 1,
+              year: new Date().getFullYear()
+          }
+    this.dayOfWeek = date ? date.getDay() : new Date().getDay()
 } as any as IDateObject
 
 DateObject.prototype = {
@@ -32,16 +45,19 @@ DateObject.prototype = {
         this.dateObject.day = parseInt(day)
         this.dateObject.month = parseInt(month)
         this.dateObject.year = parseInt(year)
+        this.dayOfWeek = new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getDay()
     },
     setFromNumbers: function (day = 0, month = 0, year = 0) {
         this.dateObject.day = day
         this.dateObject.month = month
         this.dateObject.year = year
+        this.dayOfWeek = new Date(year, month - 1, day).getDay()
     },
     setFromDate: function (date: Date) {
         this.dateObject.day = date.getDate()
         this.dateObject.month = date.getMonth() + 1
         this.dateObject.year = date.getFullYear()
+        this.dayOfWeek = date.getDay()
     },
     setFromNumber: function (date: number) {
         const d = new Date(date)

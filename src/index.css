@@ -227,4 +227,8 @@
     .date-cell {
         @apply w-1/6 h-12 flex justify-center items-center cursor-pointer flex-row p-4 border-cyan-800 border-2;
     }
+
+    .date-cell.selected {
+        @apply bg-blue-500 text-white;
+    }
 }

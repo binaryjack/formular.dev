@@ -8,7 +8,7 @@ import {
     INDate,
 } from '../../../../../dependency/schema/descriptor/field.data.date.struct';
 import {
-    IDatePickerRow,
+    IDatePickerCell, IDatePickerRow,
 } from '../../../datePickerBase/DatePicker.types';
 import {
     computeGrid,
@@ -16,6 +16,7 @@ import {
 import {
     DrawerOpenStateType,
 } from '../../drawer/Drawer.types';
+import DatePickerCell from './DatePicker.cell';
 
 interface IDatePickerDrawerProps {
     drawerOpenState?: DrawerOpenStateType
@@ -34,12 +35,49 @@ const DatePickerDrawer = ({
     onSelectDate
 }: IDatePickerDrawerProps) => {
     const [dateGrid, setDateGrid] = useState<IDatePickerRow[]>([])
+    const [dateInfos, setDateInfos] = useState<string>('')
+    const [selection, setSelection] = useState<IDatePickerCell[]>([])
 
     useEffect(() => {
         const currentDate = new Date()
         const gridData = computeGrid(currentDate.getMonth(), currentDate.getFullYear())
         setDateGrid(gridData)
     }, [])
+
+    useEffect(() => {
+        if (dateGrid.length === 0) return
+
+        const newArray = [...dateGrid]
+
+        for (const row of newArray) {
+            for (const cell of row.cells) {
+                if (cell?.item === null) continue
+                cell.item.selected = !!selection.find((o) => o.id === cell.id)
+            }
+        }
+
+        setDateGrid(newArray)
+    }, [selection.length])
+
+    const handleDisplayInfos = (cell: IDatePickerCell) => {
+        if (cell?.item === null) return
+
+        const day = (cell?.item.date.day?.() ?? 0).toString().padStart(2, '0')
+        const month = (cell?.item.date.month?.() ?? 0).toString().padStart(2, '0')
+        const year = (cell?.item.date.year?.() ?? 0).toString().padStart(4, '0')
+        const dow = cell?.item.date.dayOfWeek.toString()
+
+        setDateInfos(`${year}-${month}-${day}: DOW: ${dow}`)
+    }
+
+    const handleSelectedCell = (cell: IDatePickerCell) => {
+        if (selection.find((o) => o.id === cell.id)) {
+            const newCopy = selection.filter((o) => o.id !== cell.id)
+            setSelection(newCopy)
+        } else {
+            selection.push(cell)
+        }
+    }
 
     return (
         <div className={`date-picker-drawer`}>
@@ -98,13 +136,17 @@ const DatePickerDrawer = ({
                 {dateGrid.map((dateRow) => (
                     <div key={dateRow.id} className={`date-row`}>
                         {dateRow.cells.map((dateRow) => (
-                            <div key={dateRow.id} className={`date-cell`}>
-                                {dateRow.id}
-                            </div>
+                            <DatePickerCell
+                                key={dateRow.id}
+                                onMouseEnter={handleDisplayInfos}
+                                onSelected={handleSelectedCell}
+                                item={dateRow}
+                            />
                         ))}
                     </div>
                 ))}
             </div>
+            <div>{dateInfos}</div>
         </div>
     )
 }
