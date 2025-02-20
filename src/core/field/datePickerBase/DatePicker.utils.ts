@@ -1,9 +1,12 @@
-import { DateObject } from './DatePicker.objects';
+import { DateObject } from './DatePicker.objects'
 import {
-    IDatePickerCell, IDatePickerOptions,
-    IDatePickerRow, newCell, newCellsRow,
-    newDatePickerItem,
-} from './DatePicker.types';
+    IDatePickerCell,
+    IDatePickerOptions,
+    IDatePickerRow,
+    newCell,
+    newCellsRow,
+    newDatePickerItem
+} from './DatePicker.types'
 
 export const getPaddedNumber = (num: number, count: number) => num.toString().padStart(count, '0')
 
@@ -125,7 +128,7 @@ const getNextMonthDays = (remainingDays: number, nextMonth: number, year: number
     const output: IDatePickerCell[] = []
     for (let i = 1; i <= remainingDays + 1; i++) {
         const cell = createCell(i, nextMonth, year, {
-            isPreviousMonth: true
+            isNextMonth: true
         })
         output.push(cell)
         // const cDate = new Date(year, nextMonth, i)
@@ -140,7 +143,7 @@ const getCurrentMonthDays = (month: number, year: number) => {
     const output: IDatePickerCell[] = []
     for (let i = 1; i < lastDay + 1; i++) {
         const cell = createCell(i, month, year, {
-            isPreviousMonth: true
+            isCurrentMonth: true
         })
         output.push(cell)
         // const cDate = new Date(year, month, i)

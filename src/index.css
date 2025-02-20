@@ -231,4 +231,9 @@
     .date-cell.selected {
         @apply bg-blue-500 text-white;
     }
+
+    .date-cell.next,
+    .date-cell.previous {
+        @apply bg-gray-500 text-white;
+    }
 }

@@ -51,7 +51,9 @@ const DatePicker = ({
             label={field?.label}
             type={field?.type}
             flags={flags}
-            onClick={() => {
+            onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
                 field?.focus()
             }}
             itemsChildren={

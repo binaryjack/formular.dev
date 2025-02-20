@@ -1,9 +1,6 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react'
 
-
-import {
-    IDatePickerCell,
-} from '../../../datePickerBase/DatePicker.types';
+import { IDatePickerCell } from '../../../datePickerBase/DatePicker.types'
 
 interface IDatePickerCellProps {
     item: IDatePickerCell
@@ -12,21 +9,41 @@ interface IDatePickerCellProps {
 }
 
 const DatePickerCell: React.FC<IDatePickerCellProps> = ({ item, onMouseEnter, onSelected }) => {
-    const handleMouseEnter = () => {
+    const [cellItem, setCellItem] = useState<IDatePickerCell>(item)
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation()
+        e.preventDefault()
+
         onMouseEnter(item)
     }
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation()
+        e.preventDefault()
+
+        if (!cellItem?.item) return
+
+        const newCellItem = { ...cellItem }
+
+        if (!newCellItem?.item) return
+        newCellItem.item.selected = !newCellItem.item.selected
+        setCellItem(newCellItem)
+
         onSelected(item)
     }
 
+    const monthScope = useMemo(() => {
+        return item.item?.isNextMonth ? 'next' : item.item?.isPreviousMonth ? 'previous' : 'current'
+    }, [item])
+
     return (
         <div
-            className={`date-cell ${item.item?.selected ? 'selected' : ''}`}
+            className={`date-cell ${cellItem.item?.selected ? 'selected' : ''} ${monthScope}`}
             onMouseEnter={handleMouseEnter}
             onClick={handleClick}
         >
-            {item.id}
+            {cellItem.id}
         </div>
     )
 }
