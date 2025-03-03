@@ -36,6 +36,7 @@ export interface IFieldInputBase {
     getFlagsObject: () => IFlagsObject
     hasChanges: (callback: () => void) => void
     setFocus: () => void
+    setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
     enable: (enabled: boolean) => void
     show: (show: boolean) => void
     clear: () => void

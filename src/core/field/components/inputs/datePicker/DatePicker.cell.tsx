@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DatePickerMode } from '../../../../../dependency/dateModels'
+import { DatePickerGridMode, DatePickerSelectionMode } from '../../../../../dependency/dateModels'
 import { IDatePickerCell } from '../../../datePickerBase/DatePicker.types'
 
 interface IDatePickerCellProps {
     item: IDatePickerCell
     selectedCells: IDatePickerCell[]
-    mode: DatePickerMode
+    selectionMode: DatePickerSelectionMode
+    gridMode: DatePickerGridMode
     onMouseEnter: (item: IDatePickerCell) => void
     onSelected: (item: IDatePickerCell) => void
 }
@@ -15,7 +16,8 @@ const DatePickerCell: React.FC<IDatePickerCellProps> = ({
     item,
     onMouseEnter,
     onSelected,
-    mode,
+    selectionMode,
+    gridMode,
     selectedCells
 }) => {
     const [cellItem, setCellItem] = useState<IDatePickerCell>(item)
@@ -33,29 +35,22 @@ const DatePickerCell: React.FC<IDatePickerCellProps> = ({
 
         if (!cellItem?.item) return
 
-        const newCellItem = { ...cellItem }
-
-        if (!newCellItem?.item) return
-        newCellItem.item.selected = !newCellItem.item.selected
-        setCellItem(newCellItem)
-
+        if (cellItem.item.isCurrentMonth) {
+            const newCellItem = { ...cellItem }
+            if (!newCellItem?.item) return
+            newCellItem.item.selected = !newCellItem.item.selected
+            setCellItem(newCellItem)
+        }
         onSelected(item)
     }
 
     useEffect(() => {
         if (!cellItem) return
-        if (selectedCells.length === 0) return
         const newCellItem = { ...cellItem }
         if (!newCellItem?.item) return
-
-        if (mode === 'range') {
-            newCellItem.item.selected = !!selectedCells.find((o) => o.code === cellItem.code)
-        } else {
-            newCellItem.item.selected = selectedCells[0].code === cellItem.code
-        }
-
+        newCellItem.item.selected = !!selectedCells.find((o) => o.code === cellItem.code)
         setCellItem(newCellItem)
-    }, [selectedCells, mode])
+    }, [selectedCells, selectionMode])
 
     const monthScope = useMemo(() => {
         return item.item?.isNextMonth ? 'next' : item.item?.isPreviousMonth ? 'previous' : 'current'
@@ -68,7 +63,11 @@ const DatePickerCell: React.FC<IDatePickerCellProps> = ({
             onClick={handleClick}
             data-code={cellItem?.code}
         >
-            {cellItem.id}
+            <div>
+                {gridMode === 'DAY' && <span> {cellItem.id}</span>}
+                {gridMode === 'YEAR' && <span> {cellItem.item?.date?.dateObject.year}</span>}
+                {gridMode === 'MONTH' && <span> {cellItem.item?.date?.dateObject.month}</span>}
+            </div>
         </div>
     )
 }

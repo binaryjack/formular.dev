@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
+import { FaArrowCircleLeft, FaArrowCircleRight, FaWindowClose } from 'react-icons/fa'
 
-import { DatePickerGridMode, DatePickerMode } from '../../../../../dependency/dateModels'
+import { DatePickerGridMode, DatePickerSelectionMode } from '../../../../../dependency/dateModels'
 import { INDate } from '../../../../../dependency/schema/descriptor/field.data.date.struct'
 import { IDatePickerCell, IDatePickerRow } from '../../../datePickerBase/DatePicker.types'
 import {
@@ -20,7 +20,7 @@ interface IDatePickerDrawerProps {
         state: DrawerOpenStateType
     ) => void
     defaultDate?: INDate | Date
-    onSelectDate: (startDate: INDate, endDate?: INDate) => void
+    onSelectDate: (startDate?: INDate, endDate?: INDate) => void
 }
 
 const DatePickerDrawer = ({
@@ -30,7 +30,7 @@ const DatePickerDrawer = ({
     onSelectDate
 }: IDatePickerDrawerProps) => {
     const [gridMode, setGridMode] = useState<DatePickerGridMode>('MONTH')
-    const [mode, setMode] = useState<DatePickerMode>('single')
+    const [selectionMode, setSelectionMode] = useState<DatePickerSelectionMode>('single')
 
     const [dateGrid, setDateGrid] = useState<IDatePickerRow[]>([])
     const [dateInfos, setDateInfos] = useState<string>('')
@@ -81,10 +81,13 @@ const DatePickerDrawer = ({
 
     useEffect(() => {
         if (selection.length === 0) return
-        if (mode === 'single') {
-            // onSelectDate(selection[0].item?.date)
-        } else {
-        }
+        const startDate = selection?.[0]?.item?.date?.dateObject
+        const endDate =
+            selection.length > 1
+                ? selection?.[selection.length - 1]?.item?.date?.dateObject
+                : undefined
+
+        onSelectDate(startDate, endDate)
     }, [selection])
 
     const handleDisplayInfos = (cell: IDatePickerCell) => {
@@ -96,8 +99,19 @@ const DatePickerDrawer = ({
         // setDateInfos(`${year}-${month}-${day}: DOW: ${dow}`)
     }
 
-    const handleSelectedCell = (cell: IDatePickerCell) => {
-        if (mode === 'single' || selection.length > 1) {
+    const daySelections = (cell: IDatePickerCell) => {
+        if (cell.item?.isNextMonth) {
+            if (!internalDate) return
+            setInternalDate(getNextDate(gridMode, internalDate))
+            return
+        }
+        if (cell.item?.isPreviousMonth) {
+            if (!internalDate) return
+            setInternalDate(getPreviousDate(gridMode, internalDate))
+            return
+        }
+
+        if (selectionMode === 'single' || selection.length > 1) {
             setSelection([cell])
             return
         }
@@ -107,6 +121,26 @@ const DatePickerDrawer = ({
         newSelection.push(...computeRange(newSelection))
 
         setSelection(newSelection.sort((a, b) => a.ts - b.ts))
+    }
+
+    const monthSelection = (cell: IDatePickerCell) => {}
+
+    const yearSelection = (cell: IDatePickerCell) => {}
+
+    const handleSelectedCell = (cell: IDatePickerCell) => {
+        switch (gridMode) {
+            case 'YEAR':
+                monthSelection(cell)
+                break
+            case 'MONTH':
+                monthSelection(cell)
+                break
+
+            case 'DAY':
+            default:
+                daySelections(cell)
+                break
+        }
     }
 
     const handleMovePrevious = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -123,7 +157,15 @@ const DatePickerDrawer = ({
     }
 
     const handleSelectMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) => {
-        setMode(e.currentTarget.value as DatePickerMode)
+        setSelectionMode(e.currentTarget.value as DatePickerSelectionMode)
+    }
+
+    const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        setSelection([])
+    }
+
+    const handleSelectGridMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) => {
+        setGridMode(e.currentTarget.value as DatePickerGridMode)
     }
 
     return (
@@ -175,24 +217,44 @@ const DatePickerDrawer = ({
                 <button
                     className={`btn-sm-p mr-1`}
                     type="button"
-                    title={`Previous`}
+                    title={`clear`}
                     onClick={(e) => handleMoveNext(e)}
                 >
                     <FaArrowCircleRight />
                 </button>
             </div>
-            <select title="modeselection" onChange={handleSelectMode}>
-                <option value="single">Single</option>
-                <option value="range">Range</option>
-            </select>{' '}
-            {mode}
+            <div>
+                <select title="modeselection" onChange={handleSelectMode}>
+                    <option value="single">Single</option>
+                    <option value="range">Range</option>
+                </select>
+            </div>
+            <div>
+                <select title="gridMode" onChange={handleSelectGridMode}>
+                    <option value="DAY">Day</option>
+                    <option value="MONTH">Month</option>
+                    <option value="YEAR">Year</option>
+                </select>
+            </div>
+            <div>
+                <button
+                    type="button"
+                    className={`btn-sm-p mr-1`}
+                    title={`btn-day-mode`}
+                    onClick={handleClearSelection}
+                >
+                    <FaWindowClose />
+                </button>
+            </div>
+
             <div className={`date-picker-body`}>
                 {dateGrid.map((dateRow) => (
                     <div key={dateRow.id} className={`date-row`}>
                         {dateRow.cells.map((dateRow) => (
                             <DatePickerCell
                                 key={dateRow.code}
-                                mode={mode}
+                                selectionMode={selectionMode}
+                                gridMode={gridMode}
                                 selectedCells={selection}
                                 onMouseEnter={handleDisplayInfos}
                                 onSelected={handleSelectedCell}

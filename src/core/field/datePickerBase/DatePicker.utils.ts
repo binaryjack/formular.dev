@@ -1,6 +1,8 @@
 import { DatePickerGridMode } from '../../../dependency/dateModels'
+import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
 import { DateObject } from './DatePicker.objects'
 import {
+    DatePickerOutputFormat,
     IDatePickerCell,
     IDatePickerOptions,
     IDatePickerRow,
@@ -200,6 +202,22 @@ export const getNextDate = (gridMode: DatePickerGridMode, currentDate: Date) => 
 
 const getTs = (date: Date) =>
     `${date.getFullYear().toString()}${date.getMonth().toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`
+
+export const formatDate = (date?: INDate, format?: DatePickerOutputFormat) => {
+    if (!date || !format) return ''
+
+    switch (format) {
+        case 'yyyy/mm/dd':
+            return `${date?.year}-${date?.month.toString().padStart(2, '0')}-${date?.day.toString().padStart(2, '0')}`
+
+        case 'mm/dd/yyyy':
+            return `${date?.month.toString().padStart(2, '0')}-${date?.day.toString().padStart(2, '0')}-${date?.year}`
+
+        case 'dd/mm/yyyy':
+        default:
+            return `${date?.day.toString().padStart(2, '0')}-${date?.month.toString().padStart(2, '0')}-${date?.year}`
+    }
+}
 
 export const computeRange = (selection: IDatePickerCell[]): IDatePickerCell[] => {
     const output: IDatePickerCell[] = []

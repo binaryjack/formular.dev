@@ -2,6 +2,7 @@ import { INDate } from '../../../../../dependency/schema/descriptor/field.data.d
 import useFormyContext, { useField } from '../../../../form/components/Formy/Formy.context'
 import useKeyBindings from '../../../../hooks/useKeyBindings'
 import { DatePickerOutputFormat } from '../../../datePickerBase/DatePicker.types'
+import { formatDate } from '../../../datePickerBase/DatePicker.utils'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
 import FieldSet from '../../fieldset/FieldSet'
 import ValidationResultComponent from '../../validation/ValidationResult'
@@ -25,7 +26,18 @@ const DatePicker = ({
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
 
-    const onSelectDate = (value: INDate) => {}
+    const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
+        if (!field) return
+
+        const sd = formatDate(startDate, displayFormat)
+
+        let value = sd
+        if (endDate) {
+            value = `${value} => ${formatDate(endDate, displayFormat)}`
+        }
+
+        field.setValue(value)
+    }
 
     const handleDrawerOpenState = (
         e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -60,7 +72,7 @@ const DatePicker = ({
                 <DatePickerDrawer
                     onSetOpenState={handleDrawerOpenState}
                     onSelectDate={onSelectDate}
-                    defaultDate={new Date(2025, 8, 1)}
+                    // defaultDate={new Date(2025, 8, 1)}
                 />
             }
             validationChildren={

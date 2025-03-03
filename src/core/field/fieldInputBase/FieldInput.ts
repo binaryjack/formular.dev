@@ -373,6 +373,28 @@ FieldInput.prototype = {
     get: function () {
         return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
     },
+    setValue: function (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) {
+        this.value = value
+
+        this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
+
+        this.notify('changed', {
+            fieldName: this.name,
+            fieldState: 'onChange'
+        })
+
+        this.notify('validate', {
+            fieldName: this.name,
+            fieldState: 'reset'
+        })
+
+        this.observers.trigger()
+
+        if (!this.internalHTMLElementRef?.current) {
+            return
+        }
+        this.internalHTMLElementRef.current.value = this.value
+    },
     getAsString: function () {
         return (this.value as string) ?? null
     },
