@@ -3,6 +3,8 @@ import { IDate } from './contextModels'
 export type IDatePickerOutputType = 'DAY' | 'MONTH' | 'YEAR'
 export type DatePickerGridMode = 'YEAR' | 'MONTH' | 'DAY'
 export type DatePickerMode = 'range' | 'single'
+/** indicates start and end date in caso of using range mode */
+export type DatePickerLocator = 'start' | 'end'
 
 export interface IDateRangeObject {
     id: string

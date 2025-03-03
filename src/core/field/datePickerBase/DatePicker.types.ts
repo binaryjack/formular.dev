@@ -1,11 +1,6 @@
-import {
-    DetailedHTMLProps, InputHTMLAttributes,
-} from 'react';
+import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
-
-import {
-    INDate,
-} from '../../../dependency/schema/descriptor/field.data.date.struct';
+import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
 
 export type DatePickerModeType = 'FULL' | 'DATE' | 'TIME'
 export type DatePickerOutputFormat = 'dd/mm/yyyy' | 'mm/dd/yyyy' | 'yyyy/mm/dd'
@@ -92,6 +87,7 @@ export interface IDatePickerItem {
     isNextMonth: boolean
     isPreviousMonth: boolean
     isCurrentMonth: boolean
+    isRangeDays: boolean
     displayType: IDatePickerOutputType
 }
 
@@ -101,6 +97,7 @@ export interface IDatePickerOptions {
     isNextMonth: boolean
     isPreviousMonth: boolean
     isCurrentMonth: boolean
+    isRangeDays: boolean
     displayType: IDatePickerOutputType
 }
 
@@ -117,6 +114,7 @@ export const newDatePickerItem = (
         isNextMonth: option.isNextMonth ?? false,
         isPreviousMonth: option.isPreviousMonth ?? false,
         isCurrentMonth: option.isCurrentMonth ?? false,
+        isRangeDays: option.isRangeDays ?? false,
         displayType: option.displayType ?? 'DAY'
     }
 }
@@ -124,13 +122,16 @@ export const newDatePickerItem = (
 export interface IDatePickerCell {
     id: number
     code: string | undefined
+    ts: number
     item: IDatePickerItem | null
 }
 
 export const newCell = (id: number, item: IDatePickerItem | null): IDatePickerCell => {
+    const dtePrint = `${item?.date.dateObject.year}${item?.date.dateObject.month.toString().padStart(2, '0')}${item?.date.dateObject.day.toString().padStart(2, '0')}`
     return {
         id,
-        code: item?.id,
+        code: dtePrint,
+        ts: parseInt(dtePrint),
         item
     }
 }

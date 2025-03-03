@@ -60,6 +60,7 @@ const DatePicker = ({
                 <DatePickerDrawer
                     onSetOpenState={handleDrawerOpenState}
                     onSelectDate={onSelectDate}
+                    defaultDate={new Date(2025, 8, 1)}
                 />
             }
             validationChildren={

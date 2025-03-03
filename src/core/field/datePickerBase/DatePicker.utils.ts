@@ -1,3 +1,4 @@
+import { DatePickerGridMode } from '../../../dependency/dateModels'
 import { DateObject } from './DatePicker.objects'
 import {
     IDatePickerCell,
@@ -66,27 +67,31 @@ export const GetDayIndexByName = (day: string): number => {
 }
 
 export const getCorrectMonthNumber = (month: number): number =>
-    month < 0 ? 12 : month > 12 ? 1 : month
+    month < 0 ? 11 : month > 11 ? 0 : month
 
-export const computeGrid = (month: number, year: number): IDatePickerRow[] => {
-    const firstDay = new Date(year, month, 1).getDay()
-    const nextMonthFirstDay = new Date(year, month + 1, 1).getDay()
+export const computeGrid = (dte: Date): IDatePickerRow[] => {
+    const year = dte.getFullYear()
+    const currentMonth = dte.getMonth()
+    const daysArray = [1, 2, 3, 4, 5, 6, 0]
+
+    const firstDay = new Date(year, currentMonth, 1).getDay()
+    const nextMonthFirstDay = new Date(year, currentMonth + 1, 1).getDay()
     const output: IDatePickerRow[] = []
 
     // let's find out how many days previews the first day to complete a weekrow with previous month
-    const previousDaysRemaining = firstDay - 1 === 0 ? firstDay : firstDay - 1
+    const previousDaysRemaining = daysArray.indexOf(firstDay)
     // let's find out how many days remains the last day to complete a weekrow with next months
-    const nextMonthDaysRemaining = Math.abs(nextMonthFirstDay - 7)
+    const nextMonthDaysRemaining = Math.abs(daysArray.indexOf(nextMonthFirstDay) - daysArray.length)
     // gets the previous month's days
-    const previousDays = getPreviousMonthDays(previousDaysRemaining, month - 1, year)
+    const previousDays = getPreviousMonthDays(previousDaysRemaining, currentMonth, year)
     // gets the month's days
-    const currentDays = getCurrentMonthDays(month, year)
+    const currentDays = getCurrentMonthDays(currentMonth, year)
     // gets the next month's days
-    const nextMonthDays = getNextMonthDays(nextMonthDaysRemaining, month + 1, year)
+    const nextMonthDays = getNextMonthDays(nextMonthDaysRemaining, currentMonth, year)
     // build full grid data combining the three above collections
     const fullGridData = [...previousDays, ...currentDays, ...nextMonthDays]
     // split week rows
-    for (let row = 1; row < 6; row++) {
+    for (let row = 1; row < 7; row++) {
         const weekDays = fullGridData.splice(0, 7)
         const newRow = newCellsRow(row, weekDays)
         output.push(newRow)
@@ -101,18 +106,19 @@ const createCell = (
     year: number,
     options: Partial<IDatePickerOptions>
 ): IDatePickerCell => {
-    const key = `${getCorrectMonthNumber(month + 1)}${day}`
+    const key = `${month}${day}`
     const cDate = new Date(year, month, day)
     const dateObjectInstance = new DateObject(cDate, key)
     const dpItem = newDatePickerItem(key, dateObjectInstance, options)
     return newCell(day, dpItem)
 }
 
-const getPreviousMonthDays = (remainingDays: number, previousMonth: number, year: number) => {
-    const lastDay = new Date(year, previousMonth, 0).getDate()
+const getPreviousMonthDays = (remainingDays: number, currentMonth: number, year: number) => {
+    const lastDay = new Date(year, currentMonth, 0).getDate()
     const output: IDatePickerCell[] = []
+    if (remainingDays === 0) return output
     for (let i = lastDay; i > 0; i--) {
-        const cell = createCell(i, previousMonth, year, {
+        const cell = createCell(i, currentMonth, year, {
             isPreviousMonth: true
         })
 
@@ -124,10 +130,10 @@ const getPreviousMonthDays = (remainingDays: number, previousMonth: number, year
     return output.sort((a, b) => a.id - b.id)
 }
 
-const getNextMonthDays = (remainingDays: number, nextMonth: number, year: number) => {
+const getNextMonthDays = (remainingDays: number, currentMonth: number, year: number) => {
     const output: IDatePickerCell[] = []
-    for (let i = 1; i <= remainingDays + 1; i++) {
-        const cell = createCell(i, nextMonth, year, {
+    for (let i = 1; i <= remainingDays + 14; i++) {
+        const cell = createCell(i, currentMonth + 1, year, {
             isNextMonth: true
         })
         output.push(cell)
@@ -149,5 +155,73 @@ const getCurrentMonthDays = (month: number, year: number) => {
         // const cDate = new Date(year, month, i)
         // output.push(newCell(i, `${month + 1}-${i}`, cDate.getDay(), null))
     }
+    return output
+}
+
+export const getPreviousDate = (gridMode: DatePickerGridMode, currentDate: Date) => {
+    let _year = currentDate.getFullYear()
+    let _month = currentDate.getMonth()
+    let _day = currentDate.getDate()
+
+    switch (gridMode) {
+        case 'YEAR':
+            _year = _year - 1
+            break
+        case 'MONTH':
+            _month = _month - 1
+            break
+        case 'DAY':
+        default:
+            _day = _day - 1
+            break
+    }
+    return new Date(_year, _month, _day)
+}
+
+export const getNextDate = (gridMode: DatePickerGridMode, currentDate: Date) => {
+    let _year = currentDate.getFullYear()
+    let _month = currentDate.getMonth()
+    let _day = currentDate.getDate()
+
+    switch (gridMode) {
+        case 'YEAR':
+            _year = _year + 1
+            break
+        case 'MONTH':
+            _month = _month + 1
+            break
+        case 'DAY':
+        default:
+            _day = _day + 1
+            break
+    }
+    return new Date(_year, _month, _day)
+}
+
+const getTs = (date: Date) =>
+    `${date.getFullYear().toString()}${date.getMonth().toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`
+
+export const computeRange = (selection: IDatePickerCell[]): IDatePickerCell[] => {
+    const output: IDatePickerCell[] = []
+    if (selection.length < 2) return output
+
+    const startDateObject = selection[0]
+    const endDateObject = selection[1]
+
+    const _sd = startDateObject.item?.date.toDate?.()
+    const _ed = endDateObject.item?.date.toDate?.()
+
+    if (!_sd || !_ed) return output
+
+    let newDate = new Date(_sd.getFullYear(), _sd.getMonth(), _sd.getDate())
+
+    while (getTs(newDate) !== getTs(_ed)) {
+        newDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate() + 1)
+        const cell = createCell(newDate.getDate(), newDate.getMonth(), newDate.getFullYear(), {
+            isRangeDays: true
+        })
+        output.push(cell)
+    }
+
     return output
 }
