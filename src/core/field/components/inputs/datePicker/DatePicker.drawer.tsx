@@ -3,6 +3,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight, FaWindowClose } from 'react-icon
 
 import { DatePickerGridMode, DatePickerSelectionMode } from '../../../../../dependency/dateModels'
 import { INDate } from '../../../../../dependency/schema/descriptor/field.data.date.struct'
+import Button from '../../../../components/button/Button'
 import { IDatePickerCell, IDatePickerRow } from '../../../datePickerBase/DatePicker.types'
 import {
     computeGrid,
@@ -11,7 +12,7 @@ import {
     getPreviousDate
 } from '../../../datePickerBase/DatePicker.utils'
 import { DrawerOpenStateType } from '../../drawer/Drawer.types'
-import DatePickerCell from './DatePicker.cell'
+import DatePickerCell from './components/DatePicker.cell'
 
 interface IDatePickerDrawerProps {
     drawerOpenState?: DrawerOpenStateType
@@ -125,7 +126,10 @@ const DatePickerDrawer = ({
 
     const monthSelection = (cell: IDatePickerCell) => {}
 
-    const yearSelection = (cell: IDatePickerCell) => {}
+    const yearSelection = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        cell: IDatePickerCell
+    ) => {}
 
     const handleSelectedCell = (cell: IDatePickerCell) => {
         switch (gridMode) {
@@ -181,14 +185,9 @@ const DatePickerDrawer = ({
                 </button>
                 <div className={`date-picker-date-parts`}>
                     <div className={`year`}>
-                        <button
-                            type="button"
-                            className={`btn-sm-p mr-1`}
-                            title={`btn-year-mode`}
-                            onClick={() => {}}
-                        >
+                        <Button onClickCallback={(e) => yearSelection(e, {} as IDatePickerCell)}>
                             {internalDate?.getFullYear()}
-                        </button>
+                        </Button>
                     </div>
                     <div className={`month`}>
                         <button

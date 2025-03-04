@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DatePickerGridMode, DatePickerSelectionMode } from '../../../../../dependency/dateModels'
-import { IDatePickerCell } from '../../../datePickerBase/DatePicker.types'
+import {
+    DatePickerGridMode,
+    DatePickerSelectionMode
+} from '../../../../../../dependency/dateModels'
+import { IDatePickerCell } from '../../../../datePickerBase/DatePicker.types'
+import DatePickerCellDay from './DatePicker.cell.day'
+import DatePickerCellMonth from './DatePicker.cell.month'
+import DatePickerCellYear from './DatePicker.cell.year'
 
 interface IDatePickerCellProps {
     item: IDatePickerCell
@@ -12,14 +18,14 @@ interface IDatePickerCellProps {
     onSelected: (item: IDatePickerCell) => void
 }
 
-const DatePickerCell: React.FC<IDatePickerCellProps> = ({
+const DatePickerCell = ({
     item,
     onMouseEnter,
     onSelected,
     selectionMode,
     gridMode,
     selectedCells
-}) => {
+}: IDatePickerCellProps) => {
     const [cellItem, setCellItem] = useState<IDatePickerCell>(item)
 
     const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -64,9 +70,9 @@ const DatePickerCell: React.FC<IDatePickerCellProps> = ({
             data-code={cellItem?.code}
         >
             <div>
-                {gridMode === 'DAY' && <span> {cellItem.id}</span>}
-                {gridMode === 'YEAR' && <span> {cellItem.item?.date?.dateObject.year}</span>}
-                {gridMode === 'MONTH' && <span> {cellItem.item?.date?.dateObject.month}</span>}
+                {gridMode === 'DAY' && <DatePickerCellDay cellItem={cellItem} />}
+                {gridMode === 'YEAR' && <DatePickerCellYear cellItem={cellItem} />}
+                {gridMode === 'MONTH' && <DatePickerCellMonth cellItem={cellItem} />}
             </div>
         </div>
     )

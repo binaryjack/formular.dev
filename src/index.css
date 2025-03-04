@@ -1,49 +1,10 @@
+@import 'core/components/button/Button.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @tailwind screens;
 
 @layer components {
-    .btn-base {
-        @apply py-2 px-4 rounded hover:bg-gray-700 active:bg-gray-800 focus:ring-4;
-    }
-
-    .btn-primary {
-        @apply bg-blue-500 text-white font-bold rounded;
-    }
-
-    .btn-secondary {
-        @apply bg-gray-500 text-white font-bold rounded;
-    }
-
-    .btn-danger {
-        @apply bg-red-500 text-white font-bold rounded;
-    }
-
-    .btn-success {
-        @apply bg-green-500 text-white font-bold rounded;
-    }
-
-    .btn-warning {
-        @apply bg-yellow-500 text-white font-bold rounded;
-    }
-
-    .btn-small {
-        @apply text-sm/6 py-1 px-2;
-    }
-
-    .btn-medium {
-        @apply text-base py-2 px-4;
-    }
-
-    .btn-smaller {
-        @apply text-xs py-1 px-2;
-    }
-
-    .btn-tall {
-        @apply text-base py-4 px-4;
-    }
-
     .base-input {
         @apply rounded py-1 px-4 border-2 bg-slate-500 h-full w-full text-white disabled:bg-gray-400 outline-none;
     }
@@ -54,10 +15,6 @@
 
     .base-input.is-valid {
         @apply rounded py-1 px-4 border-2 border-solid border-green-500;
-    }
-
-    .btn-sm-p {
-        @apply btn-base btn-smaller btn-primary;
     }
 
     .label {
