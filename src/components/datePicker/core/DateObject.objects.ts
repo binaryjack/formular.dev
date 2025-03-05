@@ -1,12 +1,7 @@
-import {
-    INDate,
-} from '../../../dependency/schema/descriptor/field.data.date.struct';
-import {
-    DatePickerOutputFormat, IDateObject,
-} from './DatePicker.types';
-import {
-    getPaddedNumber,
-} from './DatePicker.utils';
+import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
+import { DatePickerOutputFormatType } from './DatePicker.types'
+import { getPaddedNumber } from './DatePicker.utils'
+import { IDateObject } from './models/DateObject.models'
 
 export const DateObject = function (
     this: IDateObject,
@@ -70,7 +65,7 @@ DateObject.prototype = {
         const [day, month, year] = date.split(this.separator)
         this.setFromStrings(day, month, year)
     },
-    validateInput: function (date: string, format: DatePickerOutputFormat) {
+    validateInput: function (date: string, format: DatePickerOutputFormatType) {
         if (date.length === 10) {
             let year = ''
             let month = ''
@@ -139,7 +134,7 @@ DateObject.prototype = {
     setCurrentDate: function (year: number, month: number, day = 1) {
         this.setFromNumbers(day, month, year)
     },
-    toString: function (format: DatePickerOutputFormat) {
+    toString: function (format: DatePickerOutputFormatType) {
         if (format === 'mm/dd/yyyy') {
             return `${getPaddedNumber(this.dateObject.month, 2)}/${getPaddedNumber(this.dateObject.day, 2)}/${this.dateObject.year}`
         }

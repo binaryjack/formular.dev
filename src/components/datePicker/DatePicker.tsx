@@ -1,19 +1,19 @@
-import useFormyContext, { useField } from '../../core/form/components/Formy/Formy.context'
+import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
-import { DatePickerOutputFormat } from '../../field/datePickerBase/DatePicker.types'
-import { formatDate } from '../../field/datePickerBase/DatePicker.utils'
-import { DrawerOpenStateType } from '../../field/drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
+import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
+import { DatePickerOutputFormatType } from './core/DatePicker.types'
+import { formatDate } from './core/DatePicker.utils'
 import DatePickerDrawer from './DatePicker.drawer'
 
 interface DatePickerProps {
     fieldName: string
     separator?: string
-    inputFormat?: DatePickerOutputFormat
-    outputFormat?: DatePickerOutputFormat
-    displayFormat?: DatePickerOutputFormat
+    inputFormat?: DatePickerOutputFormatType
+    outputFormat?: DatePickerOutputFormatType
+    displayFormat?: DatePickerOutputFormatType
 }
 
 const DatePicker = ({

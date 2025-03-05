@@ -1,17 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { FaWindowClose } from 'react-icons/fa'
 
-import { DatePickerGridMode, DatePickerSelectionMode } from '../../dependency/dateModels'
+import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
-import { IDatePickerCell, IDatePickerRow } from '../../field/datePickerBase/DatePicker.types'
-import {
-    computeGrid,
-    computeRange,
-    getNextDate,
-    getPreviousDate
-} from '../../field/datePickerBase/DatePicker.utils'
-import { DrawerOpenStateType } from '../../field/drawer/Drawer.types'
 import DatePickerCell from './components/DatePicker.cell'
+import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
+import { computeGrid, computeRange, getNextDate, getPreviousDate } from './core/DatePicker.utils'
+import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
 import DatePickerDrawerHeader from './DatePicker.header'
 
 interface IDatePickerDrawerProps {
@@ -30,8 +25,8 @@ const DatePickerDrawer = ({
     onSetOpenState,
     onSelectDate
 }: IDatePickerDrawerProps) => {
-    const [gridMode, setGridMode] = useState<DatePickerGridMode>('MONTH')
-    const [selectionMode, setSelectionMode] = useState<DatePickerSelectionMode>('single')
+    const [gridMode, setGridMode] = useState<DatePickerGridModeType>('MONTH')
+    const [selectionMode, setSelectionMode] = useState<DatePickerSelectionModeType>('single')
 
     const [dateGrid, setDateGrid] = useState<IDatePickerRow[]>([])
     const [dateInfos, setDateInfos] = useState<string>('')
@@ -148,16 +143,16 @@ const DatePickerDrawer = ({
     }
 
     const updateInternalDate = (newDate: Date) => setInternalDate(newDate)
-    const updateGridMode = (gridMode: DatePickerGridMode) => setGridMode(gridMode)
+    const updateGridMode = (gridMode: DatePickerGridModeType) => setGridMode(gridMode)
 
     const handleSelectMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
-        setSelectionMode(e.currentTarget.value as DatePickerSelectionMode)
+        setSelectionMode(e.currentTarget.value as DatePickerSelectionModeType)
 
     const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
         setSelection([])
 
     const handleSelectGridMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
-        updateGridMode(e.currentTarget.value as DatePickerGridMode)
+        updateGridMode(e.currentTarget.value as DatePickerGridModeType)
 
     return (
         <div className={`date-picker-drawer`} onClick={handleOnClick}>

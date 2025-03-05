@@ -1,15 +1,8 @@
-import { DatePickerGridMode } from '../../../dependency/dateModels'
 import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DateObject } from './DatePicker.objects'
-import {
-    DatePickerOutputFormat,
-    IDatePickerCell,
-    IDatePickerOptions,
-    IDatePickerRow,
-    newCell,
-    newCellsRow,
-    newDatePickerItem
-} from './DatePicker.types'
+import { DateObject } from './DateObject.objects'
+import { DatePickerGridModeType, DatePickerOutputFormatType } from './DatePicker.types'
+import { IDatePickerCell, IDatePickerOptions, IDatePickerRow } from './models/DatePicker.models'
+import { newCell, newCellsRow, newDatePickerItem } from './models/DatePicker.models.constructors'
 
 export const getPaddedNumber = (num: number, count: number) => num.toString().padStart(count, '0')
 
@@ -160,7 +153,7 @@ const getCurrentMonthDays = (month: number, year: number) => {
     return output
 }
 
-export const getPreviousDate = (gridMode: DatePickerGridMode, currentDate: Date) => {
+export const getPreviousDate = (gridMode: DatePickerGridModeType, currentDate: Date) => {
     let _year = currentDate.getFullYear()
     let _month = currentDate.getMonth()
     let _day = currentDate.getDate()
@@ -180,7 +173,7 @@ export const getPreviousDate = (gridMode: DatePickerGridMode, currentDate: Date)
     return new Date(_year, _month, _day)
 }
 
-export const getNextDate = (gridMode: DatePickerGridMode, currentDate: Date) => {
+export const getNextDate = (gridMode: DatePickerGridModeType, currentDate: Date) => {
     let _year = currentDate.getFullYear()
     let _month = currentDate.getMonth()
     let _day = currentDate.getDate()
@@ -203,7 +196,7 @@ export const getNextDate = (gridMode: DatePickerGridMode, currentDate: Date) => 
 const getTs = (date: Date) =>
     `${date.getFullYear().toString()}${date.getMonth().toString().padStart(2, '0')}${date.getDate().toString().padStart(2, '0')}`
 
-export const formatDate = (date?: INDate, format?: DatePickerOutputFormat) => {
+export const formatDate = (date?: INDate, format?: DatePickerOutputFormatType) => {
     if (!date || !format) return ''
 
     switch (format) {

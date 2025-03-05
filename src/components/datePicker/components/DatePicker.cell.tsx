@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DatePickerGridMode, DatePickerSelectionMode } from '../../../dependency/dateModels'
-import { IDatePickerCell } from '../../../field/datePickerBase/DatePicker.types'
+import { DatePickerGridModeType, DatePickerSelectionModeType } from '../core/DatePicker.types'
+import { IDatePickerCell } from '../core/models/DatePicker.models'
 import DatePickerCellDay from './DatePicker.cell.day'
 import DatePickerCellMonth from './DatePicker.cell.month'
 import DatePickerCellYear from './DatePicker.cell.year'
@@ -9,8 +9,8 @@ import DatePickerCellYear from './DatePicker.cell.year'
 interface IDatePickerCellProps {
     item: IDatePickerCell
     selectedCells: IDatePickerCell[]
-    selectionMode: DatePickerSelectionMode
-    gridMode: DatePickerGridMode
+    selectionMode: DatePickerSelectionModeType
+    gridMode: DatePickerGridModeType
     onMouseEnter: (item: IDatePickerCell) => void
     onSelected: (item: IDatePickerCell) => void
 }

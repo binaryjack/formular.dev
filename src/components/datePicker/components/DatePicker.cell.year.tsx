@@ -1,4 +1,4 @@
-import { IDatePickerCell } from '../../../field/datePickerBase/DatePicker.types'
+import { IDatePickerCell } from '../core/models/DatePicker.models'
 
 interface IDatePickerCellYearProps {
     cellItem: IDatePickerCell
