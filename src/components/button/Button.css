@@ -1,0 +1,88 @@
+@layer components {
+    .btn-wrapper {
+        @apply p-0 m-0 flex items-center justify-center overflow-hidden w-full h-full
+    }
+
+    .btn-base {
+        @apply flex py-2 px-4 w-full h-auto focus:ring-4 transition-all duration-150 ease-in-out overflow-hidden;
+    }
+
+    .btn-base .content {
+        @apply flex w-full h-auto;
+    }
+
+    .btn-base .icon {
+        @apply flex w-6 h-6 items-center justify-center mr-2;
+    }
+
+    .btn-primary {
+        @apply bg-blue-500 text-white hover:bg-blue-400;
+    }
+
+    .btn-secondary {
+        @apply bg-gray-500 text-white hover:bg-gray-400;
+    }
+
+    .btn-danger {
+        @apply bg-red-500 text-white hover:bg-red-400;
+    }
+
+    .btn-success {
+        @apply bg-green-500 text-white hover:bg-green-400;
+    }
+
+    .btn-warning {
+        @apply bg-yellow-500 text-white hover:bg-yellow-400;
+    }
+
+    .btn-info {
+        @apply bg-violet-500 text-white hover:bg-violet-400;
+    }
+
+    .btn-base span.primary {
+        @apply bg-blue-200;
+    }
+
+    .btn-base span.secondary {
+        @apply bg-gray-200;
+    }
+
+    .btn-base span.danger {
+        @apply bg-red-200;
+    }
+
+    .btn-base span.success {
+        @apply bg-green-200;
+    }
+
+    .btn-base span.warning {
+        @apply bg-yellow-200;
+    }
+
+    .btn-base span.info {
+        @apply bg-violet-200;
+    }
+
+    .btn-base span.ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    .btn-base .ripple.animate {
+        animation: makeRipple 300ms linear;
+    }
+
+    @keyframes makeRipple {
+        from {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(2);
+            opacity: 1;
+        }
+    }
+}

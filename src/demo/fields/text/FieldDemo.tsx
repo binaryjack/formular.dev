@@ -1,5 +1,5 @@
-import FieldSet from '../../../core/field/components/fieldset/FieldSet'
-import ValidationResultComponent from '../../../core/field/components/validation/ValidationResult'
+import FieldSet from '../../../components/fieldset/FieldSet'
+import ValidationResultComponent from '../../../components/validationResult/ValidationResult'
 import { FieldInputCreator } from '../../../core/field/fieldInputBase/FieldInput.creator'
 import { Signals } from '../../../core/signals/signal'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
