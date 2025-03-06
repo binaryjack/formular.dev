@@ -1,6 +1,6 @@
 import FieldSet from '../../../components/fieldset/FieldSet'
 import ValidationResultComponent from '../../../components/validationResult/ValidationResult'
-import { FieldInputCreator } from '../../../core/field/fieldInputBase/FieldInput.creator'
+import { FieldInputCreator } from '../../../core/base/fieldInputBase/FieldInput.creator'
 import { Signals } from '../../../core/signals/signal'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import controlDemoSchema from '../../../dependency/schema/demo.schema'

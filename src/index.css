@@ -1,5 +1,5 @@
-@import 'core/components/button/Button.css';
-@import 'core/field/components/inputs/datePicker/DatePicker.css';
+@import 'components/button/Button.css';
+@import 'components/datePicker/DatePicker.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

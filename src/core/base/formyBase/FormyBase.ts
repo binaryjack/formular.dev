@@ -1,8 +1,8 @@
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
-import { IFieldInput } from '../../field/fieldInputBase/fieldInput.types'
-import { IValidationResult } from '../../field/validatiors/validator.types'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { LoadingStatus } from '../../status'
+import { IFieldInput } from '../fieldInputBase/fieldInput.types'
+import { IValidationResult } from '../validatiors/validator.types'
 import { IFieldChange, IFormy } from './formyBase.types'
 
 export const Formy = function (this: IFormy, id: string) {

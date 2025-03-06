@@ -1,7 +1,7 @@
 import { SlMagnifier } from 'react-icons/sl'
 
+import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
-import { DrawerOpenStateType } from '../../field/drawer/Drawer.types'
 import DelayInput from '../delayInput/DelayInput'
 import SelectDrawerOptions from './SelectDrawer.options'
 

@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 
+import { IFieldInput } from '../../core/base/fieldInputBase/fieldInput.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
-import { IFieldInput } from '../../field/fieldInputBase/fieldInput.types'
 
 interface IRadioInputOptionProps {
     field: IFieldInput

@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
-import useFormyContext, { useField } from '../../core/form/components/Formy/Formy.context'
 import FieldSet from '../fieldset/FieldSet'
+import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import RadioInputOption from './RadioInput.option'
 
@@ -28,7 +28,7 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             onClear={() => field?.clear()}
         >
             <ul className={`radio-group`}>
-                {field?.options?.map((option) => {
+                {field?.options?.map((option: any) => {
                     return (
                         <RadioInputOption
                             key={`${field.id}-${option.id}`}

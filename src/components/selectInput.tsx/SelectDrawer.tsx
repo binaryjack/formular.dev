@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
-import { DrawerOpenStateType } from '../../field/drawer/Drawer.types'
 import SelectDrawerUI from './SelectDrawer.UI'
 
 interface ISelectDrawerProps {

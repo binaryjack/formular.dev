@@ -1,5 +1,5 @@
-import { DatePickerOutputFormat } from '../../contextModels'
-import { getContextualizedDate, getLastDayOfMonth, getPaddedNumber } from '../../dateHelpers'
+import { DatePickerOutputFormatType } from '../../../components/datePicker/core/DatePicker.types'
+import { getPaddedNumber } from '../../../components/datePicker/core/DatePicker.utils'
 import { INDate } from './field.data.date.struct'
 
 export class DateObject {
@@ -30,10 +30,10 @@ export class DateObject {
     }
 
     public get day(): string {
-        return getPaddedNumber(this.dateObject.day)
+        return getPaddedNumber(this.dateObject.day, 2)
     }
     public get month(): string {
-        return getPaddedNumber(this.dateObject.month)
+        return getPaddedNumber(this.dateObject.month, 2)
     }
     public get year(): string {
         return `${this.dateObject.year}`
@@ -51,7 +51,7 @@ export class DateObject {
         return this.dateObject
     }
 
-    public toString(format: DatePickerOutputFormat = 'dd/mm/yyyy'): string | null {
+    public toString(format: DatePickerOutputFormatType = 'dd/mm/yyyy'): string | null {
         // console.log(
         //     'toString',
         //     format,
@@ -162,7 +162,7 @@ export class DateObject {
         }
     }
 
-    public validateInput(date: string, format: DatePickerOutputFormat = 'dd/mm/yyyy'): boolean {
+    public validateInput(date: string, format: DatePickerOutputFormatType = 'dd/mm/yyyy'): boolean {
         if (date.length === 0) return true
 
         if (date.length === 10) {
@@ -207,16 +207,13 @@ export class DateObject {
     }
 
     public setCurrentDate = (year: number, month: number, day?: number) => {
-        const { contextYear, contextMonth } = getContextualizedDate(year, month)
-
-        const lastDay = getLastDayOfMonth(contextYear, contextMonth)
-
-        const givenStamp = `${year}${getPaddedNumber(month)}`
-        const newStamp = `${contextYear}${getPaddedNumber(contextMonth)}`
-
-        this.dateObject.day = day ? day : newStamp < givenStamp ? lastDay : 1
-        this.dateObject.month = contextMonth
-        this.dateObject.year = contextYear
+        // const { contextYear, contextMonth } = getContextualizedDate(year, month)
+        // const lastDay = getLastDayOfMonth(contextYear, contextMonth)
+        // const givenStamp = `${year}${getPaddedNumber(month, 2)}`
+        // const newStamp = `${contextYear}${getPaddedNumber(contextMonth, 2)}`
+        // this.dateObject.day = day ? day : newStamp < givenStamp ? lastDay : 1
+        // this.dateObject.month = contextMonth
+        // this.dateObject.year = contextYear
     }
 
     private readonly splitString = (item: string, separator: string): string[] | undefined => {

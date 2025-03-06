@@ -11,9 +11,9 @@ export const newDatePickerItem = (
         date,
         selected: option.selected ?? false,
         active: option.active ?? false,
-        isNextMonth: option.isNextMonth ?? false,
-        isPreviousMonth: option.isPreviousMonth ?? false,
-        isCurrentMonth: option.isCurrentMonth ?? false,
+        isNextScope: option.isNextScope ?? false,
+        isPreviousScope: option.isPreviousScope ?? false,
+        isCurrentScope: option.isCurrentScope ?? false,
         isRangeDays: option.isRangeDays ?? false,
         displayType: option.displayType ?? 'DAY'
     }

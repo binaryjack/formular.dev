@@ -1,33 +1,24 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
-import { DatePickerGridMode } from '../../dependency/dateModels'
-import { getNextDate, getPreviousDate } from '../../field/datePickerBase/DatePicker.utils'
 import Button from '../button/Button'
+import { useDatePickerContext } from './components/DatePicker.context'
 
-interface IDatePickerDrawerHeaderProps {
-    gridMode: DatePickerGridMode
-    internalDate: Date
-    updateInternalDate: (newDate: Date) => void
-    updateGridMode: (gridMode: DatePickerGridMode) => void
-}
+interface IDatePickerDrawerHeaderProps {}
 
-const DatePickerDrawerHeader = ({
-    gridMode,
-    internalDate,
-    updateInternalDate,
-    updateGridMode
-}: IDatePickerDrawerHeaderProps) => {
+const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
+    const { internalDate, updateGridMode, next, previous } = useDatePickerContext()
+
     const handleMovePrevious = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         e.stopPropagation()
         if (!internalDate) return
-        updateInternalDate(getPreviousDate(gridMode, internalDate))
+        previous()
     }
     const handleMoveNext = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         e.stopPropagation()
         if (!internalDate) return
-        updateInternalDate(getNextDate(gridMode, internalDate))
+        next()
     }
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

@@ -12,9 +12,9 @@ export interface IDatePickerItem {
     date: IDateObject
     selected: boolean
     active: boolean
-    isNextMonth: boolean
-    isPreviousMonth: boolean
-    isCurrentMonth: boolean
+    isNextScope: boolean
+    isPreviousScope: boolean
+    isCurrentScope: boolean
     isRangeDays: boolean
     displayType: DatePickerDisplayType
 }
@@ -22,9 +22,9 @@ export interface IDatePickerItem {
 export interface IDatePickerOptions {
     selected: boolean
     active: boolean
-    isNextMonth: boolean
-    isPreviousMonth: boolean
-    isCurrentMonth: boolean
+    isNextScope: boolean
+    isPreviousScope: boolean
+    isCurrentScope: boolean
     isRangeDays: boolean
     displayType: DatePickerDisplayType
 }

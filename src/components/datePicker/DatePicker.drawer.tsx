@@ -3,10 +3,19 @@ import { FaWindowClose } from 'react-icons/fa'
 
 import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
-import DatePickerCell from './components/DatePicker.cell'
+import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
-import { computeGrid, computeRange, getNextDate, getPreviousDate } from './core/DatePicker.utils'
+import {
+    computeDaysGrid,
+    computeMonthsGrid,
+    computeYearsGrid,
+    getNextDate,
+    getPreviousDate
+} from './core/DatePicker.utils'
 import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
+import DatePickerBodyDays from './DatePicker.body.days'
+import DatePickerBodyMonths from './DatePicker.body.months'
+import DatePickerBodyYears from './DatePicker.body.years'
 import DatePickerDrawerHeader from './DatePicker.header'
 
 interface IDatePickerDrawerProps {
@@ -25,10 +34,10 @@ const DatePickerDrawer = ({
     onSetOpenState,
     onSelectDate
 }: IDatePickerDrawerProps) => {
-    const [gridMode, setGridMode] = useState<DatePickerGridModeType>('MONTH')
+    const [gridMode, setGridMode] = useState<DatePickerGridModeType>('DAY')
     const [selectionMode, setSelectionMode] = useState<DatePickerSelectionModeType>('single')
 
-    const [dateGrid, setDateGrid] = useState<IDatePickerRow[]>([])
+    const [gridData, setGridData] = useState<IDatePickerRow[]>([])
     const [dateInfos, setDateInfos] = useState<string>('')
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
 
@@ -44,17 +53,22 @@ const DatePickerDrawer = ({
 
     const updateGrid = useCallback(() => {
         if (!internalDate) return
-        const gridData = computeGrid(internalDate)
-        setDateGrid(gridData)
 
-        // setInternalSelectedDate({
-        //     day: internalDate.getDate(),
-        //     month: internalDate.getMonth(),
-        //     year: internalDate.getFullYear()
-        // })
+        switch (gridMode) {
+            case 'MONTH':
+                setGridData(computeMonthsGrid(internalDate.getFullYear()))
+                break
+            case 'YEAR':
+                setGridData(computeYearsGrid(internalDate.getFullYear()))
+                break
+            case 'DAY':
+            default:
+                setGridData(computeDaysGrid(internalDate))
+                break
+        }
 
         console.log('render')
-    }, [internalDate])
+    }, [internalDate, gridMode])
 
     useEffect(() => {
         /** If the defaultDate is undefined */
@@ -73,7 +87,7 @@ const DatePickerDrawer = ({
 
     useEffect(() => {
         updateGrid()
-    }, [internalDate])
+    }, [internalDate, gridMode])
 
     useEffect(() => {
         if (selection.length === 0) return
@@ -95,30 +109,6 @@ const DatePickerDrawer = ({
         // setDateInfos(`${year}-${month}-${day}: DOW: ${dow}`)
     }
 
-    const daySelections = (cell: IDatePickerCell) => {
-        if (cell.item?.isNextMonth) {
-            if (!internalDate) return
-            setInternalDate(getNextDate(gridMode, internalDate))
-            return
-        }
-        if (cell.item?.isPreviousMonth) {
-            if (!internalDate) return
-            setInternalDate(getPreviousDate(gridMode, internalDate))
-            return
-        }
-
-        if (selectionMode === 'single' || selection.length > 1) {
-            setSelection([cell])
-            return
-        }
-        let newSelection: IDatePickerCell[] = []
-
-        newSelection = [...selection, cell].sort((a, b) => a.ts - b.ts)
-        newSelection.push(...computeRange(newSelection))
-
-        setSelection(newSelection.sort((a, b) => a.ts - b.ts))
-    }
-
     const monthSelection = (cell: IDatePickerCell) => {}
 
     const yearSelection = (
@@ -126,24 +116,9 @@ const DatePickerDrawer = ({
         cell: IDatePickerCell
     ) => {}
 
-    const handleSelectedCell = (cell: IDatePickerCell) => {
-        switch (gridMode) {
-            case 'YEAR':
-                monthSelection(cell)
-                break
-            case 'MONTH':
-                monthSelection(cell)
-                break
-
-            case 'DAY':
-            default:
-                daySelections(cell)
-                break
-        }
-    }
-
     const updateInternalDate = (newDate: Date) => setInternalDate(newDate)
     const updateGridMode = (gridMode: DatePickerGridModeType) => setGridMode(gridMode)
+    const updateSelectedCells = (cells: IDatePickerCell[]) => setSelection(cells)
 
     const handleSelectMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
         setSelectionMode(e.currentTarget.value as DatePickerSelectionModeType)
@@ -154,65 +129,77 @@ const DatePickerDrawer = ({
     const handleSelectGridMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
         updateGridMode(e.currentTarget.value as DatePickerGridModeType)
 
-    return (
-        <div className={`date-picker-drawer`} onClick={handleOnClick}>
-            <DatePickerDrawerHeader
-                gridMode={gridMode}
-                internalDate={internalDate ?? new Date()}
-                updateInternalDate={updateInternalDate}
-                updateGridMode={updateGridMode}
-            />
-            <div>
-                <select title="modeselection" onChange={handleSelectMode}>
-                    <option value="single">Single</option>
-                    <option value="range">Range</option>
-                </select>
-            </div>
-            <div>
-                <select title="gridMode" onChange={handleSelectGridMode}>
-                    <option value="DAY">Day</option>
-                    <option value="MONTH">Month</option>
-                    <option value="YEAR">Year</option>
-                </select>
-            </div>
-            <div>
-                <button
-                    type="button"
-                    className={`btn-sm-p mr-1`}
-                    title={`btn-day-mode`}
-                    onClick={handleClearSelection}
-                >
-                    <FaWindowClose />
-                </button>
-            </div>
+    const previous = () => {
+        updateInternalDate(getPreviousDate(gridMode, internalDate ?? new Date()))
+    }
+    const next = () => {
+        updateInternalDate(getNextDate(gridMode, internalDate ?? new Date()))
+    }
 
-            <div className={`date-picker-body`}>
-                {dateGrid.map((dateRow) => (
-                    <div key={dateRow.id} className={`date-row`}>
-                        {dateRow.cells.map((dateRow) => (
-                            <DatePickerCell
-                                key={dateRow.code}
-                                selectionMode={selectionMode}
-                                gridMode={gridMode}
-                                selectedCells={selection}
-                                onMouseEnter={handleDisplayInfos}
-                                onSelected={handleSelectedCell}
-                                item={dateRow}
-                            />
-                        ))}
-                    </div>
-                ))}
+    const datePickerContextDefault: IDatePickerContext = {
+        selectionMode: selectionMode,
+        internalDate: internalDate ?? new Date(),
+        gridData: gridData,
+        selectedCells: selection,
+        updateInternalDate: updateInternalDate,
+        updateSelectedCells: updateSelectedCells,
+        updateGridMode: updateGridMode,
+        next: next,
+        previous: previous
+    }
+
+    return (
+        <DatePickerContext.Provider value={datePickerContextDefault}>
+            <div className={`date-picker-drawer`} onClick={handleOnClick}>
+                <DatePickerDrawerHeader />
+                <div>
+                    <select title="modeselection" onChange={handleSelectMode}>
+                        <option value="single">Single</option>
+                        <option value="range">Range</option>
+                    </select>
+                </div>
+                <div>
+                    <select title="gridMode" onChange={handleSelectGridMode}>
+                        <option value="DAY">Day</option>
+                        <option value="MONTH">Month</option>
+                        <option value="YEAR">Year</option>
+                    </select>
+                </div>
+                <div>
+                    <button
+                        type="button"
+                        className={`btn-sm-p mr-1`}
+                        title={`btn-day-mode`}
+                        onClick={handleClearSelection}
+                    >
+                        <FaWindowClose />
+                    </button>
+                </div>
+
+                <div className={`date-picker-body`}>
+                    {gridMode === 'YEAR' ? (
+                        <DatePickerBodyYears />
+                    ) : gridMode === 'MONTH' ? (
+                        <DatePickerBodyMonths />
+                    ) : gridMode === 'DAY' ? (
+                        <DatePickerBodyDays />
+                    ) : (
+                        <></>
+                    )}
+                </div>
+                <div>{dateInfos}</div>
+                <div>{gridMode}</div>
+                <div>{selectionMode}</div>
+                <div>
+                    {JSON.stringify(
+                        selection.reduce<number[]>((acc, item) => {
+                            acc.push(item.ts)
+                            return acc
+                        }, [])
+                    )}
+                </div>
             </div>
-            <div>{dateInfos}</div>
-            <div>
-                {JSON.stringify(
-                    selection.reduce<number[]>((acc, item) => {
-                        acc.push(item.ts)
-                        return acc
-                    }, [])
-                )}
-            </div>
-        </div>
+        </DatePickerContext.Provider>
     )
 }
 

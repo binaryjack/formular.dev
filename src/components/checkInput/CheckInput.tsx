@@ -1,6 +1,6 @@
-import useFormyContext, { useField } from '../../core/form/components/Formy/Formy.context'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import FieldSet from '../fieldset/FieldSet'
+import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 
 interface ICheckInputProps {

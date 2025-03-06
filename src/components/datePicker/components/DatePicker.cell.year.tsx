@@ -5,7 +5,7 @@ interface IDatePickerCellYearProps {
 }
 
 const DatePickerCellYear = ({ cellItem }: IDatePickerCellYearProps) => {
-    return <span> {cellItem?.item?.date?.dateObject.month}</span>
+    return <span> {cellItem?.item?.date?.dateObject.year}</span>
 }
 
 export default DatePickerCellYear

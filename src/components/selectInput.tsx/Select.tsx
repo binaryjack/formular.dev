@@ -1,7 +1,7 @@
-import useFormyContext, { useField } from '../../core/form/components/Formy/Formy.context'
+import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
-import { DrawerOpenStateType } from '../../field/drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
+import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import SelectDrawer from './SelectDrawer'
 

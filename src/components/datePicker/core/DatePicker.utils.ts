@@ -64,7 +64,7 @@ export const GetDayIndexByName = (day: string): number => {
 export const getCorrectMonthNumber = (month: number): number =>
     month < 0 ? 11 : month > 11 ? 0 : month
 
-export const computeGrid = (dte: Date): IDatePickerRow[] => {
+export const computeDaysGrid = (dte: Date): IDatePickerRow[] => {
     const year = dte.getFullYear()
     const currentMonth = dte.getMonth()
     const daysArray = [1, 2, 3, 4, 5, 6, 0]
@@ -95,6 +95,64 @@ export const computeGrid = (dte: Date): IDatePickerRow[] => {
     return output
 }
 
+export const computeMonthsGrid = (year: number) => {
+    const output: IDatePickerRow[] = []
+    let rowData: IDatePickerCell[] = []
+    let colNumber: number = 0
+    let rowNumber: number = 0
+    for (let month = 0; month < 11; month++) {
+        colNumber++
+        const cell = createCell(rowNumber, month, year, {
+            isCurrentScope: true
+        })
+        rowData.push(cell)
+        if (colNumber === 4) {
+            rowNumber++
+            colNumber = 0
+            const newRow = newCellsRow(rowNumber, rowData)
+            rowData = []
+            output.push(newRow)
+        }
+    }
+    return output
+}
+
+export const computeYearsGrid = (year: number) => {
+    const previousYears: number[] = []
+    const nextYears: number[] = []
+    for (let p = year - 1; p > year - 13; p--) {
+        previousYears.push(p)
+    }
+    for (let n = year + 1; n < year + 13; n++) {
+        nextYears.push(n)
+    }
+
+    const allYears = [...previousYears, year, ...nextYears].sort((a, b) => a - b)
+
+    const output: IDatePickerRow[] = []
+    let rowData: IDatePickerCell[] = []
+    let colNumber: number = 0
+    let rowNumber: number = 0
+    for (const y of allYears) {
+        colNumber++
+        const cell = createCell(1, 1, y, {
+            isPreviousScope: previousYears.includes(y),
+            isCurrentScope: y === year,
+            isNextScope: nextYears.includes(y)
+        })
+        rowData.push(cell)
+        if (colNumber === 5) {
+            rowNumber++
+            colNumber = 0
+            const newRow = newCellsRow(rowNumber, rowData)
+            rowData = []
+            output.push(newRow)
+        }
+    }
+
+    return output
+}
+
 const createCell = (
     day: number,
     month: number,
@@ -114,7 +172,7 @@ const getPreviousMonthDays = (remainingDays: number, currentMonth: number, year:
     if (remainingDays === 0) return output
     for (let i = lastDay; i > 0; i--) {
         const cell = createCell(i, currentMonth, year, {
-            isPreviousMonth: true
+            isPreviousScope: true
         })
 
         output.push(cell)
@@ -129,7 +187,7 @@ const getNextMonthDays = (remainingDays: number, currentMonth: number, year: num
     const output: IDatePickerCell[] = []
     for (let i = 1; i <= remainingDays + 14; i++) {
         const cell = createCell(i, currentMonth + 1, year, {
-            isNextMonth: true
+            isNextScope: true
         })
         output.push(cell)
         // const cDate = new Date(year, nextMonth, i)
@@ -144,7 +202,7 @@ const getCurrentMonthDays = (month: number, year: number) => {
     const output: IDatePickerCell[] = []
     for (let i = 1; i < lastDay + 1; i++) {
         const cell = createCell(i, month, year, {
-            isCurrentMonth: true
+            isCurrentScope: true
         })
         output.push(cell)
         // const cDate = new Date(year, month, i)
