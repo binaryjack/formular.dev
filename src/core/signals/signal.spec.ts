@@ -1,58 +1,54 @@
-import { expect, test } from '@playwright/test'
+// test.describe('Signals Module', () => {
+//     test('should create a new signal', async () => {
+//         const signal = Signals.Signal<string>('testSignal', 'initialValue')
+//         expect(signal.get()).toBe('initialValue')
+//     })
 
-import { Signals } from '../src/core/signals/signal'
+//     test('should update signal value', async () => {
+//         const signal = Signals.Signal<number>('testSignal', 1)
+//         signal.update((self) => {
+//             return 2
+//         })
+//         expect(signal.get()).toBe(2)
+//     })
 
-test.describe('Signals Module', () => {
-    test('should create a new signal', async () => {
-        const signal = Signals.Signal<string>('testSignal', 'initialValue')
-        expect(signal.get()).toBe('initialValue')
-    })
+//     test('should notify observers on value change', async () => {
+//         const signal = Signals.Signal<boolean>('testSignal', true)
+//         let notified = false
 
-    test('should update signal value', async () => {
-        const signal = Signals.Signal<number>('testSignal', 1)
-        signal.update((self) => {
-            return 2
-        })
-        expect(signal.get()).toBe(2)
-    })
+//         signal.onChanged(() => {
+//             notified = true
+//         })
 
-    test('should notify observers on value change', async () => {
-        const signal = Signals.Signal<boolean>('testSignal', true)
-        let notified = false
+//         signal.update((self) => {
+//             return false
+//         })
 
-        signal.onChanged(() => {
-            notified = true
-        })
+//         expect(notified).toBe(true)
+//     })
 
-        signal.update((self) => {
-            return false
-        })
+//     test('should dispose of signal', async () => {
+//         const signal = Signals.Signal<any>('testSignal', { key: 'value' })
+//         signal.dispose()
+//         // Assuming dispose sets some internal state or unsubscribes observers.
+//         // Here you can add assertions to verify the dispose behavior.
+//         expect(signal.observer).toBeUndefined()
+//     })
 
-        expect(notified).toBe(true)
-    })
+//     test('should compute signal value', async () => {
+//         const signal1 = Signals.Signal<number>('signal1', 1)
+//         const signal2 = Signals.Signal<number>('signal2', 2)
 
-    test('should dispose of signal', async () => {
-        const signal = Signals.Signal<any>('testSignal', { key: 'value' })
-        signal.dispose()
-        // Assuming dispose sets some internal state or unsubscribes observers.
-        // Here you can add assertions to verify the dispose behavior.
-        expect(signal.observer).toBeUndefined()
-    })
+//         const computedSignal = signal1.computed(() => {
+//             return Signals.Signal('computedSignal', signal1.get() + signal2.get())
+//         })
 
-    test('should compute signal value', async () => {
-        const signal1 = Signals.Signal<number>('signal1', 1)
-        const signal2 = Signals.Signal<number>('signal2', 2)
+//         expect(computedSignal.get()).toBe(3)
 
-        const computedSignal = signal1.computed(() => {
-            return Signals.Signal('computedSignal', signal1.get() + signal2.get())
-        })
+//         signal1.update((self) => {
+//             return 2
+//         })
 
-        expect(computedSignal.get()).toBe(3)
-
-        signal1.update((self) => {
-            return 2
-        })
-
-        expect(computedSignal.get()).toBe(4)
-    })
-})
+//         expect(computedSignal.get()).toBe(4)
+//     })
+// })

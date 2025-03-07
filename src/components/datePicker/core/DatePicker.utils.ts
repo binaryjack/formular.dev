@@ -98,34 +98,37 @@ export const computeDaysGrid = (dte: Date): IDatePickerRow[] => {
 export const computeMonthsGrid = (year: number) => {
     const output: IDatePickerRow[] = []
     let rowData: IDatePickerCell[] = []
-    let colNumber: number = 0
-    let rowNumber: number = 0
-    for (let month = 0; month < 11; month++) {
-        colNumber++
-        const cell = createCell(rowNumber, month, year, {
+    let colNumber: number = 1
+    let rowNumber: number = 1
+    for (let month = 0; month < 12; month++) {
+        const cell = createCell(1, month, year, {
             isCurrentScope: true
         })
         rowData.push(cell)
         if (colNumber === 4) {
-            rowNumber++
             colNumber = 0
             const newRow = newCellsRow(rowNumber, rowData)
             rowData = []
             output.push(newRow)
+            rowNumber++
         }
+        colNumber++
     }
     return output
 }
 
 export const computeYearsGrid = (year: number) => {
-    const previousYears: number[] = []
-    const nextYears: number[] = []
+    let previousYears: number[] = []
+    let nextYears: number[] = []
     for (let p = year - 1; p > year - 13; p--) {
         previousYears.push(p)
     }
     for (let n = year + 1; n < year + 13; n++) {
         nextYears.push(n)
     }
+
+    previousYears = previousYears.sort((a, b) => a - b)
+    nextYears = nextYears.sort((a, b) => a - b)
 
     const allYears = [...previousYears, year, ...nextYears].sort((a, b) => a - b)
 
@@ -136,9 +139,9 @@ export const computeYearsGrid = (year: number) => {
     for (const y of allYears) {
         colNumber++
         const cell = createCell(1, 1, y, {
-            isPreviousScope: previousYears.includes(y),
+            isPreviousScope: previousYears[0] === y,
             isCurrentScope: y === year,
-            isNextScope: nextYears.includes(y)
+            isNextScope: nextYears[nextYears.length - 1] === y
         })
         rowData.push(cell)
         if (colNumber === 5) {

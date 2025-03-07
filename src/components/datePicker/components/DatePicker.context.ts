@@ -11,8 +11,8 @@ export interface IDatePickerContext {
     updateInternalDate: (date: Date) => void
     updateSelectedCells: (cells: IDatePickerCell[]) => void
     updateGridMode: (gridMode: DatePickerGridModeType) => void
-    next: () => void
-    previous: () => void
+    next: (forceGridMode?: DatePickerGridModeType) => void
+    previous: (forceGridMode?: DatePickerGridModeType) => void
 }
 
 export const datePickerContextDefault: IDatePickerContext = {
@@ -29,10 +29,10 @@ export const datePickerContextDefault: IDatePickerContext = {
     updateGridMode: () => {
         return
     },
-    next: () => {
+    next: (forceGridMode?: DatePickerGridModeType) => {
         return
     },
-    previous: () => {
+    previous: (forceGridMode?: DatePickerGridModeType) => {
         return
     }
 }

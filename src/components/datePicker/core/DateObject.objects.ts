@@ -12,10 +12,10 @@ export const DateObject = function (
     this.name = name
     this.separator = separator ?? '-'
     this.dateObject = date
-        ? { day: date.getDate(), month: date.getMonth() + 1, year: date.getFullYear() }
+        ? { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() }
         : {
               day: new Date().getDate(),
-              month: new Date().getMonth() + 1,
+              month: new Date().getMonth(),
               year: new Date().getFullYear()
           }
     this.dayOfWeek = date ? date.getDay() : new Date().getDay()
@@ -40,17 +40,17 @@ DateObject.prototype = {
         this.dateObject.day = parseInt(day)
         this.dateObject.month = parseInt(month)
         this.dateObject.year = parseInt(year)
-        this.dayOfWeek = new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getDay()
+        this.dayOfWeek = new Date(parseInt(year), parseInt(month), parseInt(day)).getDay()
     },
     setFromNumbers: function (day = 0, month = 0, year = 0) {
         this.dateObject.day = day
         this.dateObject.month = month
         this.dateObject.year = year
-        this.dayOfWeek = new Date(year, month - 1, day).getDay()
+        this.dayOfWeek = new Date(year, month, day).getDay()
     },
     setFromDate: function (date: Date) {
         this.dateObject.day = date.getDate()
-        this.dateObject.month = date.getMonth() + 1
+        this.dateObject.month = date.getMonth()
         this.dateObject.year = date.getFullYear()
         this.dayOfWeek = date.getDay()
     },

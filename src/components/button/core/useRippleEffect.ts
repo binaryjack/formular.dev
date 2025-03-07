@@ -46,10 +46,10 @@ const useRippleEffect = (
 
         setClassRef('animate')
 
+        onClickCallback(e)
         const to = setTimeout(() => {
             setClassRef('')
             clearTimeout(to)
-            onClickCallback(e)
         }, 300)
     }
 

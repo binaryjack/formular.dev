@@ -19,9 +19,9 @@ interface DatePickerProps {
 const DatePicker = ({
     fieldName,
     separator = '-',
-    inputFormat = 'mm/dd/yyyy',
-    outputFormat = 'mm/dd/yyyy',
-    displayFormat = 'mm/dd/yyyy'
+    inputFormat = 'yyyy/mm/dd',
+    outputFormat = 'yyyy/mm/dd',
+    displayFormat = 'yyyy/mm/dd'
 }: DatePickerProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))

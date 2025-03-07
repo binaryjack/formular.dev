@@ -1,25 +1,10 @@
-import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
-
 import Button from '../button/Button'
 import { useDatePickerContext } from './components/DatePicker.context'
 
 interface IDatePickerDrawerHeaderProps {}
 
 const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
-    const { internalDate, updateGridMode, next, previous } = useDatePickerContext()
-
-    const handleMovePrevious = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault()
-        e.stopPropagation()
-        if (!internalDate) return
-        previous()
-    }
-    const handleMoveNext = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault()
-        e.stopPropagation()
-        if (!internalDate) return
-        next()
-    }
+    const { internalDate, updateGridMode } = useDatePickerContext()
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -39,14 +24,7 @@ const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
 
     return (
         <div className={`date-picker-header `}>
-            <Button
-                id={'dp-previous'}
-                title={'previous'}
-                variant={{ rounded: true }}
-                onClickCallback={handleMovePrevious}
-            >
-                <FaArrowCircleLeft />
-            </Button>
+            <div id={`header-previous-container`} />
 
             <div className={`date-picker-date-parts`}>
                 <div className={`year`}>
@@ -87,14 +65,7 @@ const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
             </div>
             <div className={`date-picker-date`}></div>
 
-            <Button
-                id={'dp-next'}
-                title={'next'}
-                variant={{ rounded: true }}
-                onClickCallback={handleMoveNext}
-            >
-                <FaArrowCircleRight />
-            </Button>
+            <div id={`header-next-container`} />
         </div>
     )
 }

@@ -129,11 +129,11 @@ const DatePickerDrawer = ({
     const handleSelectGridMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
         updateGridMode(e.currentTarget.value as DatePickerGridModeType)
 
-    const previous = () => {
-        updateInternalDate(getPreviousDate(gridMode, internalDate ?? new Date()))
+    const previous = (forceGridMode?: DatePickerGridModeType) => {
+        updateInternalDate(getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
     }
-    const next = () => {
-        updateInternalDate(getNextDate(gridMode, internalDate ?? new Date()))
+    const next = (forceGridMode?: DatePickerGridModeType) => {
+        updateInternalDate(getNextDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
     }
 
     const datePickerContextDefault: IDatePickerContext = {
