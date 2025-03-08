@@ -13,21 +13,10 @@ export interface IDateObjectMethods {
     setFromDate: (date: Date) => void
     setFromNumber: (date: number) => void
     setFromObject: (date: INDate) => void
-    setFromString: (date: string) => void
 
-    validateInput: (date: string, format: DatePickerOutputFormatType) => boolean
+    setFromString: (date: string, format: DatePickerOutputFormatType) => boolean
 
     isNullEmptyOrUndefined?: (dateObject: INDate | undefined | null) => boolean
-
-    nextDay: () => void
-    nextMonth: () => void
-    nextYear: () => void
-    previousDay: () => void
-    previousMonth: () => void
-    previousYear: () => void
-    setCurrentDay: (day: number) => void
-    setCurrentMonth: (month: number) => void
-    setCurrentYear: (year: number) => void
 
     setCurrentDate: (year: number, month: number, day?: number) => void
 

@@ -19,5 +19,13 @@ module.exports = {
         'no-useless-escape': 'off',
         'no-prototype-builtins': 'off',
         'react/react-in-jsx-scope': 'off'
-    }
+    },
+    overrides: [
+        {
+            files: ['__tests__/**/*'],
+            env: {
+                jest: true
+            }
+        }
+    ]
 }

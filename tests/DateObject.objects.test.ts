@@ -1,6 +1,4 @@
-import { describe, expect, it } from '@jest/globals'
-
-import { DateObject } from './DateObject.objects'
+import { DateObject } from '../src/components/datePicker/core/DateObject.objects'
 
 describe('DateObject', () => {
     it('should initialize with current date if no date is provided', () => {
@@ -62,12 +60,30 @@ describe('DateObject', () => {
         expect(dateObject?.year?.()).toBe(2025)
     })
 
-    it('should validate input date', () => {
+    it('should validate input date mm/dd/yyyy', () => {
         const dateObject = new DateObject()
-        const isValid = dateObject?.validateInput?.('07/02/2025', 'mm/dd/yyyy')
+        const isValid = dateObject?.setFromString?.('07/02/2025', 'mm/dd/yyyy')
         expect(isValid).toBe(true)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
+        expect(dateObject?.day?.()).toBe(2)
+        expect(dateObject?.month?.()).toBe(7)
+        expect(dateObject?.year?.()).toBe(2025)
+    })
+
+    it('should validate input date dd/mm/yyyy', () => {
+        const dateObject = new DateObject()
+        const isValid = dateObject?.setFromString?.('02/07/2025', 'dd/mm/yyyy')
+        expect(isValid).toBe(true)
+        expect(dateObject?.day?.()).toBe(2)
+        expect(dateObject?.month?.()).toBe(7)
+        expect(dateObject?.year?.()).toBe(2025)
+    })
+
+    it('should validate input date yyyy/mm/dd', () => {
+        const dateObject = new DateObject()
+        const isValid = dateObject?.setFromString?.('2025/07/02', 'yyyy/mm/dd')
+        expect(isValid).toBe(true)
+        expect(dateObject?.day?.()).toBe(2)
+        expect(dateObject?.month?.()).toBe(7)
         expect(dateObject?.year?.()).toBe(2025)
     })
 

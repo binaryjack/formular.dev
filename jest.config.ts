@@ -1,7 +1,7 @@
 module.exports = {
     preset: 'jest-playwright-preset',
     testEnvironment: 'jest-playwright-preset',
-    testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
+    testMatch: ['__tests__/?(*.)+(spec|test).[jt]s?(x)'],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     globals: {
         'ts-jest': {

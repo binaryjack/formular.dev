@@ -61,75 +61,37 @@ DateObject.prototype = {
     setFromObject: function (date: INDate) {
         this.dateObject = { ...date }
     },
-    setFromString: function (date: string) {
-        const [day, month, year] = date.split(this.separator)
-        this.setFromStrings(day, month, year)
-    },
-    validateInput: function (date: string, format: DatePickerOutputFormatType) {
+    setFromString: function (date: string, format: DatePickerOutputFormatType) {
         if (date.length === 10) {
-            let year = ''
-            let month = ''
-            let day = ''
+            let _year = ''
+            let _month = ''
+            let _day = ''
             if (format === 'mm/dd/yyyy') {
-                month = date.substring(0, 2)
-                day = date.substring(2, 4)
-                year = date.substring(4)
+                _month = date.substring(0, 2)
+                _day = date.substring(3, 5)
+                _year = date.substring(6)
             }
 
             if (format === 'dd/mm/yyyy') {
-                day = date.substring(0, 2)
-                month = date.substring(2, 4)
-                year = date.substring(4)
+                _day = date.substring(0, 2)
+                _month = date.substring(3, 5)
+                _year = date.substring(6)
             }
 
             if (format === 'yyyy/mm/dd') {
-                year = date.substring(0, 4)
-                month = date.substring(4, 6)
-                day = date.substring(6)
+                _year = date.substring(0, 4)
+                _month = date.substring(5, 7)
+                _day = date.substring(8)
             }
-            this.setFromStrings(day, month, year)
+
+            console.log('RESULT', _day, _month, _year, 'DTE', date)
+            this.setFromStrings(_day, _month, _year)
             return true
         }
         return false
     },
     isNullEmptyOrUndefined: function (dateObject: INDate | undefined | null) {
         return dateObject === null || dateObject === undefined
-    },
-    getCurrentDay: function () {
-        return this.dateObject.day
-    },
-    getCurrentMonth: function () {
-        return this.dateObject.month
-    },
-    getCurrentYear: function () {
-        return this.dateObject.year
-    },
-    nextDay: function () {
-        this.dateObject.day++
-    },
-    nextMonth: function () {
-        this.dateObject.month++
-    },
-    nextYear: function () {
-        this.dateObject.year++
-    },
-    previousDay: function () {
-        this.dateObject.day--
-    },
-    previousMonth: function () {
-        this.dateObject.month--
-    },
-    previousYear: function () {
-        this.dateObject.year--
-    },
-    setCurrentDay: function (day: number) {
-        this.dateObject.day = day
-    },
-    setCurrentMonth: function (month: number) {
-        this.dateObject.month = month
-    },
-    setCurrentYear: function (year: number) {
-        this.dateObject.year = year
     },
     setCurrentDate: function (year: number, month: number, day = 1) {
         this.setFromNumbers(day, month, year)
@@ -149,7 +111,7 @@ DateObject.prototype = {
         return ''
     },
     toDate: function () {
-        return new Date(this.dateObject.year, this.dateObject.month - 1, this.dateObject.day)
+        return new Date(this.dateObject.year, this.dateObject.month, this.dateObject.day)
     },
     getDayName: function () {
         const date = this.toDate()
