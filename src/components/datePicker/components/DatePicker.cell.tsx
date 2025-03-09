@@ -1,15 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DatePickerDisplayType, DatePickerSelectionModeType } from '../core/DatePicker.types'
+import { DatePickerDisplayType } from '../core/DatePicker.types'
 import { IDatePickerCell } from '../core/models/DatePicker.models'
-import DatePickerCellDay from './DatePicker.cell.day'
-import DatePickerCellMonth from './DatePicker.cell.month'
-import DatePickerCellYear from './DatePicker.cell.year'
 
 interface IDatePickerCellProps {
     item: IDatePickerCell
     selectedCells: IDatePickerCell[]
-    selectionMode: DatePickerSelectionModeType
     gridDisplayMode: DatePickerDisplayType
     onMouseEnter: (item: IDatePickerCell) => void
     onSelected: (item: IDatePickerCell) => void
@@ -19,7 +15,6 @@ const DatePickerCell = ({
     item,
     onMouseEnter,
     onSelected,
-    selectionMode,
     gridDisplayMode,
     selectedCells
 }: IDatePickerCellProps) => {
@@ -53,23 +48,35 @@ const DatePickerCell = ({
         if (!newCellItem?.item) return
         newCellItem.item.selected = !!selectedCells.find((o) => o.code === cellItem.code)
         setCellItem(newCellItem)
-    }, [selectedCells, selectionMode])
+    }, [selectedCells])
 
-    const monthScope = useMemo(() => {
+    const scope = useMemo(() => {
         return item.item?.isNextScope ? 'next' : item.item?.isPreviousScope ? 'previous' : 'current'
+    }, [item])
+
+    const day = useMemo(() => {
+        return cellItem.id
+    }, [item])
+
+    const month = useMemo(() => {
+        return (cellItem?.item?.date?.dateObject.month ?? 0) + 1
+    }, [item])
+
+    const year = useMemo(() => {
+        return cellItem?.item?.date?.dateObject.year
     }, [item])
 
     return (
         <div
-            className={`date-cell ${cellItem.item?.selected ? 'selected' : ''} ${monthScope}`}
+            className={`date-cell ${cellItem.item?.selected ? 'selected' : ''} ${scope}`}
             onMouseEnter={handleMouseEnter}
             onClick={handleClick}
             data-code={cellItem?.code}
         >
             <div>
-                {gridDisplayMode === 'DAY' && <DatePickerCellDay cellItem={cellItem} />}
-                {gridDisplayMode === 'YEAR' && <DatePickerCellYear cellItem={cellItem} />}
-                {gridDisplayMode === 'MONTH' && <DatePickerCellMonth cellItem={cellItem} />}
+                {gridDisplayMode === 'DAY' && <span> {day}</span>}
+                {gridDisplayMode === 'YEAR' && <span> {year}</span>}
+                {gridDisplayMode === 'MONTH' && <span> {month}</span>}
             </div>
         </div>
     )

@@ -95,13 +95,17 @@ export const computeDaysGrid = (dte: Date): IDatePickerRow[] => {
     return output
 }
 
-export const computeMonthsGrid = (year: number) => {
+export const computeMonthsGrid = (date: Date) => {
     const output: IDatePickerRow[] = []
     let rowData: IDatePickerCell[] = []
+
+    const currentYear = date.getFullYear()
+    const currentDay = date.getDate()
+
     let colNumber: number = 1
     let rowNumber: number = 1
     for (let month = 0; month < 12; month++) {
-        const cell = createCell(1, month, year, {
+        const cell = createCell(currentDay, month, currentYear, {
             isCurrentScope: true
         })
         rowData.push(cell)
@@ -117,20 +121,24 @@ export const computeMonthsGrid = (year: number) => {
     return output
 }
 
-export const computeYearsGrid = (year: number) => {
+export const computeYearsGrid = (date: Date) => {
     let previousYears: number[] = []
     let nextYears: number[] = []
-    for (let p = year - 1; p > year - 13; p--) {
+
+    const currentMonth = date.getMonth()
+    const currentDay = date.getDate()
+    const currentYear = date.getFullYear()
+    for (let p = currentYear - 1; p > currentYear - 13; p--) {
         previousYears.push(p)
     }
-    for (let n = year + 1; n < year + 13; n++) {
+    for (let n = currentYear + 1; n < currentYear + 13; n++) {
         nextYears.push(n)
     }
 
     previousYears = previousYears.sort((a, b) => a - b)
     nextYears = nextYears.sort((a, b) => a - b)
 
-    const allYears = [...previousYears, year, ...nextYears].sort((a, b) => a - b)
+    const allYears = [...previousYears, currentYear, ...nextYears].sort((a, b) => a - b)
 
     const output: IDatePickerRow[] = []
     let rowData: IDatePickerCell[] = []
@@ -138,9 +146,9 @@ export const computeYearsGrid = (year: number) => {
     let rowNumber: number = 0
     for (const y of allYears) {
         colNumber++
-        const cell = createCell(1, 1, y, {
+        const cell = createCell(currentDay, currentMonth, y, {
             isPreviousScope: previousYears[0] === y,
-            isCurrentScope: y === year,
+            isCurrentScope: y === currentYear,
             isNextScope: nextYears[nextYears.length - 1] === y
         })
         rowData.push(cell)

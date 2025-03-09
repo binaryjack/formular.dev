@@ -67,7 +67,6 @@ const DatePickerBodyDays = ({}: IDatePickerBodyDaysProps) => {
                         {dateRow.cells.map((dateRow) => (
                             <DatePickerCell
                                 key={dateRow.code}
-                                selectionMode={selectionMode}
                                 gridDisplayMode={'DAY'}
                                 selectedCells={selectedCells}
                                 onMouseEnter={handleDisplayInfos}

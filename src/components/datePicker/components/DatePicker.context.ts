@@ -13,6 +13,7 @@ export interface IDatePickerContext {
     updateGridMode: (gridMode: DatePickerGridModeType) => void
     next: (forceGridMode?: DatePickerGridModeType) => void
     previous: (forceGridMode?: DatePickerGridModeType) => void
+    resetTo: (now: boolean) => void
 }
 
 export const datePickerContextDefault: IDatePickerContext = {
@@ -33,6 +34,9 @@ export const datePickerContextDefault: IDatePickerContext = {
         return
     },
     previous: (forceGridMode?: DatePickerGridModeType) => {
+        return
+    },
+    resetTo: (now: boolean) => {
         return
     }
 }

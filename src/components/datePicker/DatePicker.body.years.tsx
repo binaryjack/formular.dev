@@ -56,7 +56,6 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
                         {dateRow.cells.map((dateRow) => (
                             <DatePickerCell
                                 key={dateRow.code}
-                                selectionMode={selectionMode}
                                 gridDisplayMode={'YEAR'}
                                 selectedCells={selectedCells}
                                 onMouseEnter={handleDisplayInfos}

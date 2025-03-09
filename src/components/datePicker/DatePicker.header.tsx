@@ -1,10 +1,12 @@
+import { SlTarget } from 'react-icons/sl'
+
 import Button from '../button/Button'
 import { useDatePickerContext } from './components/DatePicker.context'
 
 interface IDatePickerDrawerHeaderProps {}
 
 const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
-    const { internalDate, updateGridMode } = useDatePickerContext()
+    const { internalDate, updateGridMode, resetTo } = useDatePickerContext()
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -60,6 +62,28 @@ const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
                         onClickCallback={daySelection}
                     >
                         {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}
+                    </Button>
+                </div>
+
+                <div className={`selected`}>
+                    <Button
+                        id={'dp-now'}
+                        title={'reset to selected'}
+                        variant={{ rounded: true }}
+                        onClickCallback={() => resetTo(false)}
+                    >
+                        <SlTarget />
+                    </Button>
+                </div>
+
+                <div className={`now`}>
+                    <Button
+                        id={'dp-now'}
+                        title={'reset to now'}
+                        variant={{ rounded: true }}
+                        onClickCallback={() => resetTo(true)}
+                    >
+                        <SlTarget />
                     </Button>
                 </div>
             </div>

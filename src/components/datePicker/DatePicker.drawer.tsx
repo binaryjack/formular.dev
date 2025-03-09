@@ -51,19 +51,30 @@ const DatePickerDrawer = ({
         e.preventDefault()
     }
 
+    const resetTo = (now: boolean) => {
+        if (!internalDate || selection.length === 0) return
+
+        const daysData = now ? new Date() : selection[0].item?.date?.toDate?.()
+        setInternalDate(daysData)
+    }
+
     const updateGrid = useCallback(() => {
         if (!internalDate) return
 
         switch (gridMode) {
             case 'MONTH':
-                setGridData(computeMonthsGrid(internalDate.getFullYear()))
+                const monthData = computeMonthsGrid(internalDate)
+                setGridData(monthData)
+
                 break
             case 'YEAR':
-                setGridData(computeYearsGrid(internalDate.getFullYear()))
+                const yearData = computeYearsGrid(internalDate)
+                setGridData(yearData)
                 break
             case 'DAY':
             default:
-                setGridData(computeDaysGrid(internalDate))
+                const daysData = computeDaysGrid(internalDate)
+                setGridData(daysData)
                 break
         }
     }, [internalDate, gridMode])
@@ -85,15 +96,14 @@ const DatePickerDrawer = ({
 
     useEffect(() => {
         updateGrid()
-        console.log('INTERNAL UPDATED: ', internalDate?.toDateString())
     }, [internalDate, gridMode])
 
     useEffect(() => {
         if (selection.length === 0) return
-        const startDate = selection?.[0]?.item?.date?.dateObject
+        const startDate = selection?.[0]?.item?.date?.toINDate?.()
         const endDate =
             selection.length > 1
-                ? selection?.[selection.length - 1]?.item?.date?.dateObject
+                ? selection?.[selection.length - 1]?.item?.date?.toINDate?.()
                 : undefined
 
         onSelectDate(startDate, endDate)
@@ -144,7 +154,8 @@ const DatePickerDrawer = ({
         updateSelectedCells: updateSelectedCells,
         updateGridMode: updateGridMode,
         next: next,
-        previous: previous
+        previous: previous,
+        resetTo: resetTo
     }
 
     return (
@@ -189,6 +200,7 @@ const DatePickerDrawer = ({
                 <div>{dateInfos}</div>
                 <div>{gridMode}</div>
                 <div>{selectionMode}</div>
+                <div>{internalDate?.toString()}</div>
                 <div>
                     {JSON.stringify(
                         selection.reduce<number[]>((acc, item) => {

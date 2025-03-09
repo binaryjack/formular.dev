@@ -113,6 +113,13 @@ DateObject.prototype = {
     toDate: function () {
         return new Date(this.dateObject.year, this.dateObject.month, this.dateObject.day)
     },
+    toINDate: function () {
+        return {
+            year: this.dateObject.year,
+            month: this.dateObject.month + 1,
+            day: this.dateObject.day
+        } as INDate
+    },
     getDayName: function () {
         const date = this.toDate()
         return date.toLocaleString('en', { weekday: 'long' })

@@ -32,7 +32,7 @@ const DatePickerBodyMonths = ({}: IDatePickerBodyMonthsProps) => {
         if (cell.item?.date?.dateObject) {
             const newDate = new Date(
                 internalDate.getFullYear(),
-                cell.item?.date?.dateObject?.month - 1,
+                cell.item?.date?.dateObject?.month,
                 internalDate.getDate()
             )
             updateInternalDate(newDate)
@@ -47,7 +47,6 @@ const DatePickerBodyMonths = ({}: IDatePickerBodyMonthsProps) => {
                         {dateRow.cells.map((dateRow) => (
                             <DatePickerCell
                                 key={dateRow.code}
-                                selectionMode={selectionMode}
                                 gridDisplayMode={'MONTH'}
                                 selectedCells={selectedCells}
                                 onMouseEnter={handleDisplayInfos}
