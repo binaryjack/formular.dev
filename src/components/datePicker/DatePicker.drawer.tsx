@@ -66,8 +66,6 @@ const DatePickerDrawer = ({
                 setGridData(computeDaysGrid(internalDate))
                 break
         }
-
-        console.log('render')
     }, [internalDate, gridMode])
 
     useEffect(() => {
@@ -87,6 +85,7 @@ const DatePickerDrawer = ({
 
     useEffect(() => {
         updateGrid()
+        console.log('INTERNAL UPDATED: ', internalDate?.toDateString())
     }, [internalDate, gridMode])
 
     useEffect(() => {

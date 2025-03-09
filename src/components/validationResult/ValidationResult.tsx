@@ -28,14 +28,14 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
                     const showGuide = ['onFocus', 'onChange'].includes(
                         result.strategyData?.origin?.fieldState ?? ''
                     )
-                    console.log(
-                        'result',
-                        result.strategyData?.origin?.fieldState,
-                        'showError',
-                        showError,
-                        'showGuide',
-                        showGuide
-                    )
+                    // console.log(
+                    //     'result',
+                    //     result.strategyData?.origin?.fieldState,
+                    //     'showError',
+                    //     showError,
+                    //     'showGuide',
+                    //     showGuide
+                    // )
                     return (
                         <div key={`${result.fieldName}-${index}`}>
                             {showError && result.error && (
