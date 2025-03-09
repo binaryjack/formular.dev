@@ -1,11 +1,9 @@
 import { SlTarget } from 'react-icons/sl'
 
-import Button from '../button/Button'
-import { useDatePickerContext } from './components/DatePicker.context'
+import Button from '../../button/Button'
+import { useDatePickerContext } from './DatePicker.context'
 
-interface IDatePickerDrawerHeaderProps {}
-
-const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
+const DatePickerDrawerHeader = () => {
     const { internalDate, updateGridMode, resetTo } = useDatePickerContext()
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -27,7 +25,6 @@ const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
     return (
         <div className={`date-picker-header `}>
             <div id={`header-previous-container`} />
-
             <div className={`date-picker-date-parts`}>
                 <div className={`year`}>
                     <Button
@@ -88,7 +85,6 @@ const DatePickerDrawerHeader = ({}: IDatePickerDrawerHeaderProps) => {
                 </div>
             </div>
             <div className={`date-picker-date`}></div>
-
             <div id={`header-next-container`} />
         </div>
     )

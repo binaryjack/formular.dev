@@ -1,14 +1,15 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
-import Button from '../button/Button'
-import Portal from '../portals/Portal'
-import DatePickerCell from './components/DatePicker.cell'
-import { useDatePickerContext } from './components/DatePicker.context'
-import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
+import Button from '../../button/Button'
+import Portal from '../../portals/Portal'
+import { computeRange } from '../core/DatePicker.utils'
+import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
+import DatePickerCell from './DatePicker.cell'
+import { useDatePickerContext } from './DatePicker.context'
 
-interface IDatePickerBodyYearsProps {}
+interface IDatePickerBodyDaysProps {}
 
-const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
+const DatePickerBodyDays = ({}: IDatePickerBodyDaysProps) => {
     const {
         gridData,
         updateSelectedCells,
@@ -22,41 +23,51 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
 
     const handleDisplayInfos = (cell: IDatePickerCell) => {}
 
-    const handleMovePrevious = () => previous()
+    const handleMovePrevious = () => previous('MONTH')
 
-    const handleMoveNext = () => next()
+    const handleMoveNext = () => next('MONTH')
 
     const onSelectedCell = (cell: IDatePickerCell) => {
         if (cell.item?.isNextScope) {
             if (!internalDate) return
-            next()
+            next('MONTH')
             return
         }
         if (cell.item?.isPreviousScope) {
             if (!internalDate) return
-            previous()
+            previous('MONTH')
             return
         }
-        updateSelectedCells([cell])
-        if (cell.item?.date?.dateObject) {
-            const newDate = new Date(
-                cell.item?.date?.dateObject?.year,
-                internalDate.getMonth(),
-                internalDate.getDate()
-            )
-            updateInternalDate(newDate)
+
+        if (selectionMode === 'single' || selectedCells.length > 1) {
+            updateSelectedCells([cell])
+            if (cell.item?.date?.dateObject) {
+                const newDate = new Date(
+                    internalDate.getFullYear(),
+                    internalDate.getMonth(),
+                    cell.item?.date?.dateObject?.day
+                )
+                updateInternalDate(newDate)
+            }
+            return
         }
+        let newSelection: IDatePickerCell[] = []
+
+        newSelection = [...selectedCells, cell].sort((a, b) => a.ts - b.ts)
+        newSelection.push(...computeRange(newSelection))
+
+        updateSelectedCells(newSelection.sort((a, b) => a.ts - b.ts))
     }
 
     return (
-        <div className={`date-picker-body-years-container`}>
-            <div className={`date-picker-body-years-wrapper`}>
+        <div className={`date-picker-body-container`}>
+            <div className={`date-picker-body-wrapper`}>
                 {gridData.map((dateRow: IDatePickerRow) => (
-                    <div key={dateRow.id} className={`date-row`}>
+                    <div key={dateRow.id} className={`date-picker-body-row`}>
                         {dateRow.cells.map((dateRow) => (
                             <DatePickerCell
                                 key={dateRow.code}
-                                gridDisplayMode={'YEAR'}
+                                gridDisplayMode={'DAY'}
                                 selectedCells={selectedCells}
                                 onMouseEnter={handleDisplayInfos}
                                 onSelected={onSelectedCell}
@@ -98,4 +109,4 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
     )
 }
 
-export default DatePickerBodyYears
+export default DatePickerBodyDays

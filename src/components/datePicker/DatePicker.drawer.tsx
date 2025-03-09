@@ -3,7 +3,11 @@ import { FaWindowClose } from 'react-icons/fa'
 
 import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
+import DatePickerBodyDays from './components/DatePicker.body.days'
+import DatePickerBodyMonths from './components/DatePicker.body.months'
+import DatePickerBodyYears from './components/DatePicker.body.years'
 import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
+import DatePickerDrawerHeader from './components/DatePicker.header'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
 import {
     computeDaysGrid,
@@ -13,10 +17,6 @@ import {
     getPreviousDate
 } from './core/DatePicker.utils'
 import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
-import DatePickerBodyDays from './DatePicker.body.days'
-import DatePickerBodyMonths from './DatePicker.body.months'
-import DatePickerBodyYears from './DatePicker.body.years'
-import DatePickerDrawerHeader from './DatePicker.header'
 
 interface IDatePickerDrawerProps {
     drawerOpenState?: DrawerOpenStateType

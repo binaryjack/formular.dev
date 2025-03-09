@@ -1,0 +1,10 @@
+@layer components {
+    .date-picker-header {
+        @apply flex justify-between items-center;
+    }
+
+    .date-cell.next,
+    .date-cell.previous {
+        @apply bg-gray-500 text-white;
+    }
+}

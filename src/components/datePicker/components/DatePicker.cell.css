@@ -1,0 +1,9 @@
+@layer components {
+    .date-cell {
+        @apply flex flex-1 w-auto h-full justify-center items-center cursor-pointer flex-row border-cyan-800 border;
+    }
+
+    .date-cell.selected {
+        @apply bg-blue-500 text-white;
+    }
+}
