@@ -87,6 +87,30 @@
         @apply bg-violet-500 text-white hover:bg-violet-400;
     }
 
+    .btn-primary.disabled {
+        @apply bg-blue-200 hover:bg-blue-50 cursor-not-allowed;
+    }
+
+    .btn-secondary.disabled {
+        @apply bg-gray-200 hover:bg-gray-50 cursor-not-allowed;
+    }
+
+    .btn-danger.disabled {
+        @apply bg-red-200 hover:bg-red-50 cursor-not-allowed;
+    }
+
+    .btn-success.disabled {
+        @apply bg-green-200 hover:bg-green-50 cursor-not-allowed;
+    }
+
+    .btn-warning.disabled {
+        @apply bg-yellow-200 hover:bg-yellow-50 cursor-not-allowed;
+    }
+
+    .btn-info.disabled {
+        @apply bg-violet-500 hover:bg-violet-50 cursor-not-allowed;
+    }
+
     .btn-base span.primary {
         @apply bg-blue-200;
     }

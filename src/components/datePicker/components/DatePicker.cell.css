@@ -3,7 +3,16 @@
         @apply flex flex-1 w-auto h-full justify-center items-center cursor-pointer flex-row border-cyan-800 border;
     }
 
+    .date-cell:hover {
+        @apply border-cyan-300 bg-cyan-50 transition-all duration-100 ease-in-out;
+    }
+
     .date-cell.selected {
         @apply bg-blue-500 text-white;
+    }
+
+    .date-cell.previous,
+    .date-cell.next {
+        @apply bg-blue-950 text-white;
     }
 }

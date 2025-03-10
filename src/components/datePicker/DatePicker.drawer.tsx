@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { FaWindowClose } from 'react-icons/fa'
+import { BsCalendar3, BsCalendar3Event, BsCalendar3Range, BsCalendarDate } from 'react-icons/bs'
+import { TbWorld } from 'react-icons/tb'
 
 import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
@@ -26,25 +27,26 @@ interface IDatePickerDrawerProps {
     ) => void
     defaultDate?: INDate | Date
     onSelectDate: (startDate?: INDate, endDate?: INDate) => void
+    defaultSelectionMode?: DatePickerSelectionModeType
+    defaultGridMode?: DatePickerGridModeType
+    showFooter?: boolean
 }
 
 const DatePickerDrawer = ({
     drawerOpenState,
     defaultDate,
     onSetOpenState,
-    onSelectDate
+    onSelectDate,
+    showFooter,
+    defaultSelectionMode = 'single',
+    defaultGridMode = 'DAY'
 }: IDatePickerDrawerProps) => {
-    const [gridMode, setGridMode] = useState<DatePickerGridModeType>('DAY')
-    const [selectionMode, setSelectionMode] = useState<DatePickerSelectionModeType>('single')
-
+    const [gridMode, setGridMode] = useState<DatePickerGridModeType>(defaultGridMode)
+    const [selectionMode, setSelectionMode] =
+        useState<DatePickerSelectionModeType>(defaultSelectionMode)
     const [gridData, setGridData] = useState<IDatePickerRow[]>([])
-    const [dateInfos, setDateInfos] = useState<string>('')
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
-
     const [internalDate, setInternalDate] = useState<Date>()
-    const [selectedCellsIds, setSelectedCellsIds] = useState<number[]>([])
-
-    const [internalSelectedDate, setInternalSelectedDate] = useState<INDate>()
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -109,40 +111,11 @@ const DatePickerDrawer = ({
         onSelectDate(startDate, endDate)
     }, [selection])
 
-    const handleDisplayInfos = (cell: IDatePickerCell) => {
-        // if (cell?.item === null) return
-        // const day = (cell?.item.date.day?.() ?? 0).toString().padStart(2, '0')
-        // const month = (cell?.item.date.month?.() ?? 0).toString().padStart(2, '0')
-        // const year = (cell?.item.date.year?.() ?? 0).toString().padStart(4, '0')
-        // const dow = cell?.item.date.dayOfWeek.toString()
-        // setDateInfos(`${year}-${month}-${day}: DOW: ${dow}`)
-    }
-
-    const monthSelection = (cell: IDatePickerCell) => {}
-
-    const yearSelection = (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-        cell: IDatePickerCell
-    ) => {}
-
-    const updateInternalDate = (newDate: Date) => setInternalDate(newDate)
-    const updateGridMode = (gridMode: DatePickerGridModeType) => setGridMode(gridMode)
-    const updateSelectedCells = (cells: IDatePickerCell[]) => setSelection(cells)
-
-    const handleSelectMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
-        setSelectionMode(e.currentTarget.value as DatePickerSelectionModeType)
-
-    const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-        setSelection([])
-
-    const handleSelectGridMode = (e: React.SyntheticEvent<HTMLSelectElement, Event>) =>
-        updateGridMode(e.currentTarget.value as DatePickerGridModeType)
-
-    const previous = (forceGridMode?: DatePickerGridModeType) => {
-        updateInternalDate(getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
-    }
-    const next = (forceGridMode?: DatePickerGridModeType) => {
-        updateInternalDate(getNextDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
+    const getSelectedDateNumbers = (): number[] => {
+        return selection.reduce<number[]>((acc, item) => {
+            acc.push(item.ts)
+            return acc
+        }, [])
     }
 
     const datePickerContextDefault: IDatePickerContext = {
@@ -150,41 +123,24 @@ const DatePickerDrawer = ({
         internalDate: internalDate ?? new Date(),
         gridData: gridData,
         selectedCells: selection,
-        updateInternalDate: updateInternalDate,
-        updateSelectedCells: updateSelectedCells,
-        updateGridMode: updateGridMode,
-        next: next,
-        previous: previous,
-        resetTo: resetTo
+        updateInternalDate: (newDate: Date) => setInternalDate(newDate),
+        updateSelectedCells: (cells: IDatePickerCell[]) => setSelection(cells),
+        updateGridMode: (gridMode: DatePickerGridModeType) => setGridMode(gridMode),
+        next: (forceGridMode?: DatePickerGridModeType) => {
+            setInternalDate(getNextDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
+        },
+        previous: (forceGridMode?: DatePickerGridModeType) => {
+            setInternalDate(getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
+        },
+        resetTo: resetTo,
+        clear: () => setSelection([]),
+        close: () => {}
     }
 
     return (
         <DatePickerContext.Provider value={datePickerContextDefault}>
             <div className={`date-picker-drawer`} onClick={handleOnClick}>
                 <DatePickerDrawerHeader />
-                <div>
-                    <select title="modeselection" onChange={handleSelectMode}>
-                        <option value="single">Single</option>
-                        <option value="range">Range</option>
-                    </select>
-                </div>
-                <div>
-                    <select title="gridMode" onChange={handleSelectGridMode}>
-                        <option value="DAY">Day</option>
-                        <option value="MONTH">Month</option>
-                        <option value="YEAR">Year</option>
-                    </select>
-                </div>
-                <div>
-                    <button
-                        type="button"
-                        className={`btn-sm-p mr-1`}
-                        title={`btn-day-mode`}
-                        onClick={handleClearSelection}
-                    >
-                        <FaWindowClose />
-                    </button>
-                </div>
 
                 <div className={`date-picker-body`}>
                     {gridMode === 'YEAR' ? (
@@ -197,18 +153,36 @@ const DatePickerDrawer = ({
                         <></>
                     )}
                 </div>
-                <div>{dateInfos}</div>
-                <div>{gridMode}</div>
-                <div>{selectionMode}</div>
-                <div>{internalDate?.toString()}</div>
-                <div>
-                    {JSON.stringify(
-                        selection.reduce<number[]>((acc, item) => {
-                            acc.push(item.ts)
-                            return acc
-                        }, [])
-                    )}
-                </div>
+
+                {showFooter ? (
+                    <div className={`date-picker-footer`}>
+                        <div className={`grid-mode`}>
+                            <div>grid mode: </div>
+                            <div>
+                                {gridMode === 'DAY' ? (
+                                    <BsCalendarDate title={`day`} />
+                                ) : gridMode === 'MONTH' ? (
+                                    <BsCalendar3 title={`month`} />
+                                ) : (
+                                    <TbWorld title={`year`} />
+                                )}
+                            </div>
+                        </div>
+
+                        <div className={`grid-mode`}>
+                            <div>selection mode: </div>
+                            <div>
+                                {selectionMode === 'range' ? (
+                                    <BsCalendar3Range title={`range`} />
+                                ) : (
+                                    <BsCalendar3Event title={`single`} />
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <></>
+                )}
             </div>
         </DatePickerContext.Provider>
     )

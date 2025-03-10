@@ -14,6 +14,8 @@ export interface IDatePickerContext {
     next: (forceGridMode?: DatePickerGridModeType) => void
     previous: (forceGridMode?: DatePickerGridModeType) => void
     resetTo: (now: boolean) => void
+    clear: () => void
+    close: () => void
 }
 
 export const datePickerContextDefault: IDatePickerContext = {
@@ -21,24 +23,14 @@ export const datePickerContextDefault: IDatePickerContext = {
     internalDate: new Date(),
     gridData: [],
     selectedCells: [],
-    updateInternalDate: () => {
-        return
-    },
-    updateSelectedCells: () => {
-        return
-    },
-    updateGridMode: () => {
-        return
-    },
-    next: (forceGridMode?: DatePickerGridModeType) => {
-        return
-    },
-    previous: (forceGridMode?: DatePickerGridModeType) => {
-        return
-    },
-    resetTo: (now: boolean) => {
-        return
-    }
+    updateInternalDate: () => {},
+    updateSelectedCells: () => {},
+    updateGridMode: () => {},
+    next: () => {},
+    previous: () => {},
+    resetTo: () => {},
+    clear: () => {},
+    close: () => {}
 }
 
 const DatePickerContext = createContext<IDatePickerContext>(datePickerContextDefault)

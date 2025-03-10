@@ -1,10 +1,25 @@
 @layer components {
     .date-picker-header {
-        @apply flex justify-between items-center;
+        @apply flex flex-col w-full justify-center items-center;
     }
 
-    .date-cell.next,
-    .date-cell.previous {
-        @apply bg-gray-500 text-white;
+    .date-picker-header-top {
+        @apply flex w-full rounded flex-row justify-between items-center;
+    }
+
+    .date-picker-date-parts {
+        @apply flex w-auto flex-row justify-between items-center;
+    }
+
+    .date-picker-date-parts div {
+        @apply flex;
+    }
+
+    .date-picker-header-bottom {
+        @apply my-3 flex flex-row w-full rounded justify-between items-center;
+    }
+
+    .date-picker-header-separator {
+        @apply flex flex-1 h-[1px] w-full absolute top-11 bg-slate-100;
     }
 }

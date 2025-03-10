@@ -4,7 +4,7 @@
 
 @layer components {
     .date-picker-drawer {
-        @apply absolute flex flex-1 items-center flex-col overflow-hidden list-none bg-gray-300 p-2 rounded w-[20em] h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
+        @apply absolute flex flex-1 items-center flex-col overflow-hidden list-none bg-gray-300 drop-shadow-lg p-2 rounded w-[16em] h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
     }
 
     .date-picker-drawer.open {
@@ -16,6 +16,14 @@
     }
 
     .date-picker-body {
-        @apply flex w-[18em] h-[18em] justify-center items-center flex-col;
+        @apply flex w-[15em] h-[15em] m-0 p-0 justify-center items-center flex-col;
+    }
+
+    .date-picker-footer {
+        @apply flex flex-row justify-between items-center w-full;
+    }
+
+    .date-picker-footer .grid-mode {
+        @apply flex w-auto h-full justify-center items-center;
     }
 }

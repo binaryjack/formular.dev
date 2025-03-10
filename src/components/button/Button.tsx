@@ -1,15 +1,18 @@
+import { useEffect } from 'react'
+
+import { uniqueClass } from '../../dependency/uniqueClass'
 import Spinner from '../spinner/Spinner'
 import useRippleEffect from './core/useRippleEffect'
 
 export type ButtonVariantType = 'primary' | 'secondary' | 'info' | 'error' | 'success' | 'warning'
 export type ButtonVariantSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xd'
 
-export type ButtonCaseType = 'uppercase' | 'lowercase'
+export type ButtonCaseType = 'uppercase' | 'lowercase' | 'capitalize' | 'normal-case'
 
 interface IButtonVariant {
     type: ButtonVariantType
     size: ButtonVariantSize
-    case: ButtonCaseType
+    textCase: ButtonCaseType
     rounded: boolean
     bold: boolean
 }
@@ -22,40 +25,53 @@ interface IButtonProps {
     variant?: Partial<IButtonVariant>
     loading?: boolean
     icon?: React.ReactNode
+    disabled?: boolean
 }
 const Button = ({
     id,
     title,
     children,
     onClickCallback,
-    variant,
+    variant = {},
     loading = false,
-    icon
+    icon,
+    disabled
 }: IButtonProps) => {
-    const _variants = {
-        rounded: false,
-        size: 'sm',
-        type: 'primary',
-        bold: true,
-        case: 'uppercase',
-        ...variant
-    }
+    const {
+        rounded = false,
+        size = 'sm',
+        type = 'primary',
+        bold = false,
+        textCase = 'normal-case'
+    } = variant
+
+    const btnBaseClasses = uniqueClass([
+        'btn-base',
+        size,
+        `btn-${type}`,
+        disabled ? 'disabled' : '',
+        rounded ? 'rounded' : '',
+        `text-${size}`,
+        `font-${bold ? 'bold' : 'normal'}`,
+        textCase
+    ])
 
     const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(id, onClickCallback)
+
+    useEffect(() => {
+        if (!buttonRef) return
+        const btn = buttonRef.current as unknown as HTMLButtonElement
+        if (!btn) return
+        btn.setAttribute('aria-busy', loading ? 'true' : 'false')
+    }, [buttonRef])
+
     return (
-        <div id={id} className={` w-full button-wrapper relative overflow-hidden`}>
+        <div id={id} className={` w-full btn-wrapper relative overflow-hidden`}>
             <button
                 ref={buttonRef}
                 type="button"
-                className={`btn-base ${_variants.size}
-                        btn-${_variants.type} 
-                        ${_variants.rounded ? 'rounded' : ''} 
-                    
-                        text-${_variants.size} 
-                        font-${_variants.bold ? 'bold' : 'normal'} 
-
-                        
-                        ${_variants.case}`}
+                disabled={disabled}
+                className={btnBaseClasses}
                 title={title}
                 onClick={onClick}
             >
@@ -69,8 +85,8 @@ const Button = ({
                     ) : (
                         <></>
                     )}
-                    <span className={`flex ${_variants.type} ripple ${classRef} `}></span>
-                    <div className={`content ${_variants.size}`}>{children}</div>
+                    <span className={`flex ${type} ripple ${classRef} `}></span>
+                    <div className={`content ${size}`}>{children}</div>
                     <style>{rippleStyle}</style>
                 </div>
             </button>
