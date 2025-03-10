@@ -73,7 +73,7 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: 'md' }}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -87,7 +87,7 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: 'md' }}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />

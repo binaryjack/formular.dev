@@ -1,14 +1,62 @@
 @layer components {
     .btn-wrapper {
-        @apply p-0 m-0 flex items-center justify-center overflow-hidden w-full h-full
+        @apply p-0 m-0 flex items-center justify-center overflow-hidden w-full h-full;
     }
 
     .btn-base {
-        @apply flex py-2 px-4 w-full h-auto focus:ring-4 transition-all duration-150 ease-in-out overflow-hidden;
+        @apply flex py-1 px-2 w-full h-auto focus:ring-4 transition-all duration-150 ease-in-out overflow-hidden;
+    }
+
+    .btn-base.xs {
+        @apply py-1 px-1;
+    }
+
+    .btn-base.sm {
+        @apply py-1 px-1;
+    }
+
+    .btn-base.md {
+        @apply py-1 px-2;
+    }
+
+    .btn-base.lg {
+        @apply py-2 px-3;
+    }
+
+    .btn-base.xd {
+        @apply py-2 px-4;
+    }
+
+    .btn-base.xl {
+        @apply py-3 px-5;
     }
 
     .btn-base .content {
-        @apply flex w-full h-auto;
+        @apply flex w-full items-center justify-center;
+    }
+
+    .btn-base .content.xs {
+        @apply h-[20px];
+    }
+
+    .btn-base .content.sm {
+        @apply h-[22px];
+    }
+
+    .btn-base .content.md {
+        @apply h-[25px];
+    }
+
+    .btn-base .content.lg {
+        @apply h-[25px];
+    }
+
+    .btn-base .content.xd {
+        @apply h-[25px];
+    }
+
+    .btn-base .content.xl {
+        @apply h-[25px];
     }
 
     .btn-base .icon {

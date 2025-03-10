@@ -2,7 +2,7 @@ import Spinner from '../spinner/Spinner'
 import useRippleEffect from './core/useRippleEffect'
 
 export type ButtonVariantType = 'primary' | 'secondary' | 'info' | 'error' | 'success' | 'warning'
-export type ButtonVariantSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type ButtonVariantSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xd'
 
 export type ButtonCaseType = 'uppercase' | 'lowercase'
 
@@ -43,15 +43,18 @@ const Button = ({
 
     const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(id, onClickCallback)
     return (
-        <div id={id} className="button-wrapper relative overflow-hidden ">
+        <div id={id} className={` w-full button-wrapper relative overflow-hidden`}>
             <button
                 ref={buttonRef}
                 type="button"
-                className={`btn-base 
+                className={`btn-base ${_variants.size}
                         btn-${_variants.type} 
                         ${_variants.rounded ? 'rounded' : ''} 
+                    
                         text-${_variants.size} 
                         font-${_variants.bold ? 'bold' : 'normal'} 
+
+                        
                         ${_variants.case}`}
                 title={title}
                 onClick={onClick}
@@ -67,7 +70,7 @@ const Button = ({
                         <></>
                     )}
                     <span className={`flex ${_variants.type} ripple ${classRef} `}></span>
-                    <div className={`content`}>{children}</div>
+                    <div className={`content ${_variants.size}`}>{children}</div>
                     <style>{rippleStyle}</style>
                 </div>
             </button>

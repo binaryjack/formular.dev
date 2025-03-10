@@ -22,6 +22,8 @@ const DatePickerDrawerHeader = () => {
         updateGridMode('DAY')
     }
 
+    const btnSizes = 'md'
+
     return (
         <div className={`date-picker-header `}>
             <div id={`header-previous-container`} />
@@ -30,7 +32,7 @@ const DatePickerDrawerHeader = () => {
                     <Button
                         id={'dp-year'}
                         title={'year selection'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: btnSizes }}
                         onClickCallback={yearSelection}
                     >
                         {internalDate?.getFullYear()}
@@ -40,7 +42,7 @@ const DatePickerDrawerHeader = () => {
                     <Button
                         id={'dp-month'}
                         title={'month selection'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: btnSizes }}
                         onClickCallback={monthSelection}
                     >
                         {(internalDate?.getMonth() || internalDate?.getMonth() === 0
@@ -55,7 +57,7 @@ const DatePickerDrawerHeader = () => {
                     <Button
                         id={'dp-day'}
                         title={'day selection'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: btnSizes }}
                         onClickCallback={daySelection}
                     >
                         {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}
@@ -66,7 +68,7 @@ const DatePickerDrawerHeader = () => {
                     <Button
                         id={'dp-now'}
                         title={'reset to selected'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: btnSizes }}
                         onClickCallback={() => resetTo(false)}
                     >
                         <SlTarget />
@@ -77,7 +79,7 @@ const DatePickerDrawerHeader = () => {
                     <Button
                         id={'dp-now'}
                         title={'reset to now'}
-                        variant={{ rounded: true }}
+                        variant={{ rounded: true, size: btnSizes }}
                         onClickCallback={() => resetTo(true)}
                     >
                         <SlTarget />
