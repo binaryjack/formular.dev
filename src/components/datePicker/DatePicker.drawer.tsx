@@ -70,18 +70,14 @@ const DatePickerDrawer = ({
 
         switch (gridMode) {
             case 'MONTH':
-                const monthData = computeMonthsGrid(internalDate)
-                setGridData(monthData)
-
+                setGridData(computeMonthsGrid(internalDate))
                 break
             case 'YEAR':
-                const yearData = computeYearsGrid(internalDate)
-                setGridData(yearData)
+                setGridData(computeYearsGrid(internalDate))
                 break
             case 'DAY':
             default:
-                const daysData = computeDaysGrid(internalDate)
-                setGridData(daysData)
+                setGridData(computeDaysGrid(internalDate))
                 break
         }
     }, [internalDate, gridMode])

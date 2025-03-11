@@ -1,5 +1,5 @@
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
-import SelectDrawerOption from './SelectDrawer.option'
+import SelectDrawerOption from './Select.drawer.option'
 
 interface ISelectDrawerOptionsProps {
     options: IOptionItem[]

@@ -3,7 +3,7 @@ import useKeyBindings from '../../core/hooks/useKeyBindings'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
-import SelectDrawer from './SelectDrawer'
+import SelectDrawer from './Select.drawer'
 
 interface ISelectProps {
     fieldName: string
