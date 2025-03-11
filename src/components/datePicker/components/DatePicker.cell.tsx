@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
+import { ifClass, newIFClass } from '../../../dependency/ifClass'
 import { DatePickerDisplayType } from '../core/DatePicker.types'
 import { IDatePickerCell } from '../core/models/DatePicker.models'
+import DatePickerSwitch from './DatePicker.switch'
 
 interface IDatePickerCellProps {
     item: IDatePickerCell
@@ -66,17 +68,26 @@ const DatePickerCell = ({
         return cellItem?.item?.date?.dateObject.year
     }, [item])
 
+    const classes = ifClass([
+        newIFClass('is-now', cellItem.item?.isNow),
+        newIFClass('is-weekend', cellItem.item?.isWeekEnd),
+        newIFClass('selected', cellItem.item?.selected)
+    ])
+
     return (
         <div
-            className={`date-cell ${cellItem.item?.selected ? 'selected' : ''} ${scope}`}
+            className={`date-cell ${classes} ${scope} `}
             onMouseEnter={handleMouseEnter}
             onClick={handleClick}
             data-code={cellItem?.code}
         >
             <div>
-                {gridDisplayMode === 'DAY' && <span> {day}</span>}
-                {gridDisplayMode === 'YEAR' && <span> {year}</span>}
-                {gridDisplayMode === 'MONTH' && <span> {month}</span>}
+                <DatePickerSwitch
+                    definedGridMode={gridDisplayMode}
+                    day={<span> {day}</span>}
+                    year={<span> {year}</span>}
+                    month={<span> {month}</span>}
+                />
             </div>
         </div>
     )

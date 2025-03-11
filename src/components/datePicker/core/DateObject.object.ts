@@ -40,7 +40,11 @@ DateObject.prototype = {
         this.dateObject.day = parseInt(day)
         this.dateObject.month = parseInt(month)
         this.dateObject.year = parseInt(year)
-        this.dayOfWeek = new Date(parseInt(year), parseInt(month), parseInt(day)).getDay()
+        this.dayOfWeek = new Date(
+            this.dateObject.year,
+            this.dateObject.month,
+            this.dateObject.day
+        ).getDay()
     },
     setFromNumbers: function (day = 0, month = 0, year = 0) {
         this.dateObject.day = day
@@ -58,8 +62,9 @@ DateObject.prototype = {
         const d = new Date(date)
         this.setFromDate(d)
     },
+    /** here we store the date object with the month shifted - 1 */
     setFromObject: function (date: INDate) {
-        this.dateObject = { ...date }
+        this.dateObject = { ...date, month: date.month - 1 }
     },
     setFromString: function (date: string, format: DatePickerOutputFormatType) {
         if (date.length === 10) {
@@ -84,7 +89,6 @@ DateObject.prototype = {
                 _day = date.substring(8)
             }
 
-            console.log('RESULT', _day, _month, _year, 'DTE', date)
             this.setFromStrings(_day, _month, _year)
             return true
         }
@@ -113,27 +117,12 @@ DateObject.prototype = {
     toDate: function () {
         return new Date(this.dateObject.year, this.dateObject.month, this.dateObject.day)
     },
+    /** here we return the date object with the month shifted + 1 */
     toINDate: function () {
         return {
             year: this.dateObject.year,
             month: this.dateObject.month + 1,
             day: this.dateObject.day
         } as INDate
-    },
-    getDayName: function () {
-        const date = this.toDate()
-        return date.toLocaleString('en', { weekday: 'long' })
-    },
-    getMonthName: function () {
-        const date = this.toDate()
-        return date.toLocaleString('en', { month: 'long' })
-    },
-    getDayShortName: function () {
-        const date = this.toDate()
-        return date.toLocaleString('en', { weekday: 'short' })
-    },
-    getMonthShortName: function () {
-        const date = this.toDate()
-        return date.toLocaleString('en', { month: 'short' })
     }
 }

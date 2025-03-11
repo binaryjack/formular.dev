@@ -3,10 +3,19 @@ import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 
 import Button from '../../button/Button'
 import { useDatePickerContext } from './DatePicker.context'
+import DatePickerSwitch from './DatePicker.switch'
 
 const DatePickerDrawerHeader = () => {
-    const { internalDate, updateGridMode, resetTo, selectedCells, clear, close } =
-        useDatePickerContext()
+    const {
+        gridMode,
+        internalDate,
+        updateGridMode,
+        jumpToNow,
+        jumpToSelection,
+        selectedCells,
+        clear,
+        close
+    } = useDatePickerContext()
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -35,7 +44,7 @@ const DatePickerDrawerHeader = () => {
                         id={'dp-now'}
                         title={'go to selected'}
                         variant={{ rounded: true, size: btnSizes }}
-                        onClickCallback={() => resetTo(false)}
+                        onClickCallback={jumpToSelection}
                     >
                         <div className={`mr-2`}>Selected</div>
                         <TbCalendarSearch />
@@ -47,7 +56,7 @@ const DatePickerDrawerHeader = () => {
                         id={'dp-now'}
                         title={'go to now'}
                         variant={{ rounded: true, size: btnSizes }}
-                        onClickCallback={() => resetTo(true)}
+                        onClickCallback={jumpToNow}
                     >
                         <div className={`mr-2`}>Now</div>
                         <TbCalendar />
@@ -90,7 +99,7 @@ const DatePickerDrawerHeader = () => {
                             {internalDate?.getFullYear()}
                         </Button>
                     </div>
-                    <div className={`month ml-1 mr-1`}>
+                    <div className={`month mx-1`}>
                         <Button
                             id={'dp-month'}
                             title={'month selection'}
@@ -117,6 +126,23 @@ const DatePickerDrawerHeader = () => {
                     </div>
                 </div>
                 <div id={`header-next-container`} />
+            </div>
+            <div className={`date-picker-header-grid-mode`}>
+                <DatePickerSwitch
+                    day={
+                        <>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                            <div>Sun</div>
+                        </>
+                    }
+                    month={<div>Month</div>}
+                    year={<div>Years</div>}
+                />
             </div>
         </div>
     )

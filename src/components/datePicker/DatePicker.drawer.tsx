@@ -9,6 +9,7 @@ import DatePickerBodyMonths from './components/DatePicker.body.months'
 import DatePickerBodyYears from './components/DatePicker.body.years'
 import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
 import DatePickerDrawerHeader from './components/DatePicker.header'
+import DatePickerSwitch from './components/DatePicker.switch'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
 import {
     computeDaysGrid,
@@ -53,10 +54,14 @@ const DatePickerDrawer = ({
         e.preventDefault()
     }
 
-    const resetTo = (now: boolean) => {
-        if (!internalDate || selection.length === 0) return
+    const jumpToNow = () => {
+        const daysData = new Date()
+        setInternalDate(daysData)
+    }
 
-        const daysData = now ? new Date() : selection[0].item?.date?.toDate?.()
+    const jumpToSelection = () => {
+        if (selection.length === 0) return
+        const daysData = selection[0].item?.date?.toDate?.()
         setInternalDate(daysData)
     }
 
@@ -120,6 +125,7 @@ const DatePickerDrawer = ({
 
     const datePickerContextDefault: IDatePickerContext = {
         selectionMode: selectionMode,
+        gridMode: gridMode,
         internalDate: internalDate ?? new Date(),
         gridData: gridData,
         selectedCells: selection,
@@ -132,7 +138,8 @@ const DatePickerDrawer = ({
         previous: (forceGridMode?: DatePickerGridModeType) => {
             setInternalDate(getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
         },
-        resetTo: resetTo,
+        jumpToNow: jumpToNow,
+        jumpToSelection: jumpToSelection,
         clear: () => setSelection([]),
         close: () => {}
     }
@@ -143,15 +150,11 @@ const DatePickerDrawer = ({
                 <DatePickerDrawerHeader />
 
                 <div className={`date-picker-body`}>
-                    {gridMode === 'YEAR' ? (
-                        <DatePickerBodyYears />
-                    ) : gridMode === 'MONTH' ? (
-                        <DatePickerBodyMonths />
-                    ) : gridMode === 'DAY' ? (
-                        <DatePickerBodyDays />
-                    ) : (
-                        <></>
-                    )}
+                    <DatePickerSwitch
+                        day={<DatePickerBodyDays />}
+                        year={<DatePickerBodyYears />}
+                        month={<DatePickerBodyMonths />}
+                    />
                 </div>
 
                 {showFooter ? (
@@ -159,13 +162,11 @@ const DatePickerDrawer = ({
                         <div className={`grid-mode`}>
                             <div>grid mode: </div>
                             <div>
-                                {gridMode === 'DAY' ? (
-                                    <BsCalendarDate title={`day`} />
-                                ) : gridMode === 'MONTH' ? (
-                                    <BsCalendar3 title={`month`} />
-                                ) : (
-                                    <TbWorld title={`year`} />
-                                )}
+                                <DatePickerSwitch
+                                    day={<BsCalendarDate title={`day`} />}
+                                    month={<BsCalendar3 title={`month`} />}
+                                    year={<TbWorld title={`year`} />}
+                                />
                             </div>
                         </div>
 

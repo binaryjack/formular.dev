@@ -23,10 +23,6 @@ export interface IDateObjectMethods {
     toString: (format: DatePickerOutputFormatType) => string
     toDate: () => Date
     toINDate: () => INDate
-    getDayName: () => string
-    getMonthName: () => string
-    getDayShortName: () => string
-    getMonthShortName: () => string
 }
 
 export interface IDateObject extends Partial<IDateObjectMethods> {

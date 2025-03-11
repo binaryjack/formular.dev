@@ -15,6 +15,8 @@ export const newDatePickerItem = (
         isPreviousScope: option.isPreviousScope ?? false,
         isCurrentScope: option.isCurrentScope ?? false,
         isRangeDays: option.isRangeDays ?? false,
+        isWeekEnd: option.isWeekEnd ?? false,
+        isNow: option.isNow ?? false,
         displayType: option.displayType ?? 'DAY'
     }
 }

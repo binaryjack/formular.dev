@@ -1,10 +1,15 @@
 import { createContext, useContext } from 'react'
 
-import { DatePickerGridModeType, DatePickerSelectionModeType } from '../core/DatePicker.types'
+import {
+    DatePickerDisplayType,
+    DatePickerGridModeType,
+    DatePickerSelectionModeType
+} from '../core/DatePicker.types'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
 
 export interface IDatePickerContext {
     selectionMode: DatePickerSelectionModeType
+    gridMode: DatePickerDisplayType
     internalDate: Date
     gridData: IDatePickerRow[]
     selectedCells: IDatePickerCell[]
@@ -13,13 +18,15 @@ export interface IDatePickerContext {
     updateGridMode: (gridMode: DatePickerGridModeType) => void
     next: (forceGridMode?: DatePickerGridModeType) => void
     previous: (forceGridMode?: DatePickerGridModeType) => void
-    resetTo: (now: boolean) => void
+    jumpToNow: () => void
+    jumpToSelection: () => void
     clear: () => void
     close: () => void
 }
 
 export const datePickerContextDefault: IDatePickerContext = {
     selectionMode: 'single',
+    gridMode: 'DAY',
     internalDate: new Date(),
     gridData: [],
     selectedCells: [],
@@ -28,7 +35,8 @@ export const datePickerContextDefault: IDatePickerContext = {
     updateGridMode: () => {},
     next: () => {},
     previous: () => {},
-    resetTo: () => {},
+    jumpToNow: () => {},
+    jumpToSelection: () => {},
     clear: () => {},
     close: () => {}
 }

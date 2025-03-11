@@ -1,5 +1,5 @@
 import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DateObject } from './DateObject.objects'
+import { DateObject } from './DateObject.object'
 import { DatePickerGridModeType, DatePickerOutputFormatType } from './DatePicker.types'
 import { IDatePickerCell, IDatePickerOptions, IDatePickerRow } from './models/DatePicker.models'
 import { newCell, newCellsRow, newDatePickerItem } from './models/DatePicker.models.constructors'
@@ -168,12 +168,23 @@ const createCell = (
     day: number,
     month: number,
     year: number,
-    options: Partial<IDatePickerOptions>
+    options: Partial<IDatePickerOptions>,
+    defineWeekEnds?: boolean
 ): IDatePickerCell => {
     const key = `${month}${day}`
     const cDate = new Date(year, month, day)
+    const isWeekEnd = defineWeekEnds ? [6, 0].includes(cDate.getDay()) : false
+    const nowDate = new Date()?.toLocaleString(undefined, {
+        dateStyle: 'short'
+    })
+    const currentCellDate = cDate.toLocaleDateString(undefined, {
+        dateStyle: 'short'
+    })
+
+    const isNow = nowDate === currentCellDate
+
     const dateObjectInstance = new DateObject(cDate, key)
-    const dpItem = newDatePickerItem(key, dateObjectInstance, options)
+    const dpItem = newDatePickerItem(key, dateObjectInstance, { ...options, isWeekEnd, isNow })
     return newCell(day, dpItem)
 }
 
@@ -212,9 +223,15 @@ const getCurrentMonthDays = (month: number, year: number) => {
     const lastDay = new Date(year, month + 1, 0).getDate()
     const output: IDatePickerCell[] = []
     for (let i = 1; i < lastDay + 1; i++) {
-        const cell = createCell(i, month, year, {
-            isCurrentScope: true
-        })
+        const cell = createCell(
+            i,
+            month,
+            year,
+            {
+                isCurrentScope: true
+            },
+            true
+        )
         output.push(cell)
         // const cDate = new Date(year, month, i)
         // output.push(newCell(i, `${month + 1}-${i}`, cDate.getDay(), null))

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 
-import { DateObject } from './components/datePicker/core/DateObject.objects'
 import FormDemo from './demo/forms/FormDemo'
 import Counter from './demo/signals/counter/Counter'
 import TextInput from './demo/signals/text/TextInput'
@@ -55,11 +54,6 @@ const App = () => {
 
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [])
-
-    useEffect(() => {
-        const dateObject = new DateObject(new Date(2025, 0, 7))
-        console.log(dateObject.getMonthName?.())
-    }, [])
 
     return (
         <div className={'app'}>

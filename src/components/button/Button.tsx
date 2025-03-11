@@ -56,7 +56,11 @@ const Button = ({
         textCase
     ])
 
-    const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(id, onClickCallback)
+    const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(
+        id,
+        onClickCallback,
+        (disabled ?? false) || loading
+    )
 
     useEffect(() => {
         if (!buttonRef) return

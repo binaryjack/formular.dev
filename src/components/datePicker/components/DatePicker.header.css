@@ -16,10 +16,18 @@
     }
 
     .date-picker-header-bottom {
-        @apply my-3 flex flex-row w-full rounded justify-between items-center;
+        @apply mt-3 flex flex-row w-full rounded justify-between items-center;
     }
 
     .date-picker-header-separator {
         @apply flex flex-1 h-[1px] w-full absolute top-11 bg-slate-100;
+    }
+
+    .date-picker-header-grid-mode {
+        @apply flex w-full h-[2em] justify-center items-center;
+    }
+
+    .date-picker-header-grid-mode div {
+        @apply flex w-full h-full justify-center items-end text-xs pb-1 font-bold;
     }
 }

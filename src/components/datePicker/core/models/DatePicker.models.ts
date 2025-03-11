@@ -16,6 +16,8 @@ export interface IDatePickerItem {
     isPreviousScope: boolean
     isCurrentScope: boolean
     isRangeDays: boolean
+    isWeekEnd: boolean
+    isNow: boolean
     displayType: DatePickerDisplayType
 }
 
@@ -26,6 +28,8 @@ export interface IDatePickerOptions {
     isPreviousScope: boolean
     isCurrentScope: boolean
     isRangeDays: boolean
+    isWeekEnd: boolean
+    isNow: boolean
     displayType: DatePickerDisplayType
 }
 
