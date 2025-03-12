@@ -50,7 +50,6 @@ const Button = ({
         size,
         `btn-${type}`,
         disabled ? 'disabled' : '',
-        rounded ? 'rounded' : '',
         `text-${size}`,
         `font-${bold ? 'bold' : 'normal'}`,
         textCase
@@ -70,7 +69,7 @@ const Button = ({
     }, [buttonRef])
 
     return (
-        <div id={id} className={` w-full btn-wrapper relative overflow-hidden`}>
+        <div id={id} className={`btn-wrapper ${rounded ? 'rounded' : ''}`}>
             <button
                 ref={buttonRef}
                 type="button"

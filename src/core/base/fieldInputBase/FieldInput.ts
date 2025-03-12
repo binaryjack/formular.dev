@@ -1,12 +1,12 @@
 import { clear } from 'console'
 import React from 'react'
 
+import { DrawerOpenStateType } from '../../../components/drawer/Drawer.types'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { notify } from '../../notifications/notifications.types'
-import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
 import validator from '../validatiors/validator.strategy'
 import {

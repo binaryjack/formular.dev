@@ -1,5 +1,6 @@
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
+import Drawer from '../drawer/Drawer'
+import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
@@ -37,24 +38,28 @@ const Select = ({ fieldName }: ISelectProps) => {
             label={field?.label}
             type={field?.type}
             flags={flags}
-            onClick={() => {
+            onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
                 field?.focus()
             }}
             itemsChildren={
-                <SelectDrawer
-                    filterTriggerDelay={500}
-                    items={field?.options ?? []}
+                <Drawer
+                    id={field?.name ?? 'NOT-DEFINED!'}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
-                    onSelectItem={(value) => field?.onSelectItem(value)}
-                />
+                >
+                    <SelectDrawer
+                        filterTriggerDelay={500}
+                        items={field?.options ?? []}
+                        onSelectItem={(value) => field?.onSelectItem(value)}
+                    />
+                </Drawer>
             }
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }
             onClear={() => field?.clear()}
-            onSetOpenState={handleDrawerOpenState}
-            drawerOpenState={field?.openState}
         >
             <input
                 data-class="base-input"

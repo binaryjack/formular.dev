@@ -1,10 +1,12 @@
 @layer components {
     .btn-wrapper {
-        @apply p-0 m-0 flex items-center justify-center overflow-hidden w-full h-full;
+        z-index: 0;
+        @apply relative p-0 m-0 flex items-center justify-center w-full h-full overflow-hidden;
     }
 
     .btn-base {
-        @apply flex py-1 px-2 w-full h-auto focus:ring-4 transition-all duration-150 ease-in-out overflow-hidden;
+        z-index: 1;
+        @apply flex py-1 px-2 w-full h-auto transition-all duration-150 ease-in-out;
     }
 
     .btn-base.xs {
@@ -137,6 +139,7 @@
 
     .btn-base span.ripple {
         position: absolute;
+        z-index: 0;
         border-radius: 50%;
         transform: scale(0);
         opacity: 0;

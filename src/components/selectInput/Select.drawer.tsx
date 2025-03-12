@@ -1,33 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
+import { useDrawerContext } from '../drawer/Drawer.context'
 import SelectDrawerUI from './Select.drawer.UI'
 
 interface ISelectDrawerProps {
     items: IOptionItem[]
-    drawerOpenState?: DrawerOpenStateType
     filterTriggerDelay: number
     selectedItemId?: number
-    onSetOpenState: (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: DrawerOpenStateType
-    ) => void
     onSelectItem: (value: IOptionItem) => void
 }
 
 const SelectDrawer = ({
     items,
     filterTriggerDelay,
-    drawerOpenState,
     selectedItemId,
-    onSetOpenState,
     onSelectItem
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
     const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ? selectedItemId : 0)
     const originalSelectedItemRef = useRef<number>(selectedItemId ? selectedItemId : 0)
+
+    const { drawerOpenState, onSetOpenState } = useDrawerContext()
+
     const handleSelectItem = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         item: IOptionItem
@@ -35,7 +31,7 @@ const SelectDrawer = ({
         e.stopPropagation()
         e.preventDefault()
         onSelectItem(item)
-        onSetOpenState(e, 'closed')
+        onSetOpenState?.(e, 'closed')
         setCurrentItemId(Number(item.id))
     }
 
@@ -75,7 +71,7 @@ const SelectDrawer = ({
         const selectedItem = items.find((item) => item.id === currentItemId.toString())
         if (selectedItem) {
             onSelectItem(selectedItem)
-            onSetOpenState({} as any, 'closed')
+            onSetOpenState?.({} as any, 'closed')
         }
     }
 
@@ -85,7 +81,7 @@ const SelectDrawer = ({
 
     const { handleKeyDown } = useKeyBindings({
         onEscapeCallback: () => {
-            onSetOpenState({} as any, 'closed')
+            onSetOpenState?.({} as any, 'closed')
         },
         onArrowUpCallback: () => {
             selectPreviousItem()
@@ -103,7 +99,6 @@ const SelectDrawer = ({
             filterTriggerDelay={filterTriggerDelay}
             items={filteredItems}
             handleKeyDown={handleKeyDown}
-            drawerOpenState={drawerOpenState}
             selectedItemId={currentItemId}
             onHandleSelectItem={handleSelectItem}
             onFilterItems={handleFilterItems}

@@ -1,6 +1,7 @@
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
+import Drawer from '../drawer/Drawer'
+import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
@@ -69,17 +70,18 @@ const DatePicker = ({
                 field?.focus()
             }}
             itemsChildren={
-                <DatePickerDrawer
+                <Drawer
+                    id={field?.name ?? 'NOT-DEFINED!'}
                     onSetOpenState={handleDrawerOpenState}
-                    onSelectDate={onSelectDate}
-                />
+                    drawerOpenState={field?.openState}
+                >
+                    <DatePickerDrawer onSelectDate={onSelectDate} />
+                </Drawer>
             }
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }
             onClear={() => field?.clear()}
-            onSetOpenState={handleDrawerOpenState}
-            drawerOpenState={field?.openState}
         >
             <input
                 data-class="base-input"

@@ -1,13 +1,12 @@
 import { SlMagnifier } from 'react-icons/sl'
 
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
 import DelayInput from '../delayInput/DelayInput'
+import { useDrawerSize } from '../drawer/hooks/useDrawerSize'
 import SelectDrawerOptions from './Select.drawer.options'
 
 interface ISelectDrawerUIProps {
     items: IOptionItem[]
-    drawerOpenState?: DrawerOpenStateType
 
     filterTriggerDelay: number
     handleKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void
@@ -22,7 +21,6 @@ interface ISelectDrawerUIProps {
 
 const SelectDrawerUI = ({
     items,
-    drawerOpenState,
     handleKeyDown,
     onHandleSelectItem,
     selectedItemId,
@@ -30,11 +28,10 @@ const SelectDrawerUI = ({
     onFilterItems,
     onClearFilter
 }: ISelectDrawerUIProps) => {
+    const { drawerWrapperRef, drawerOpenState } = useDrawerSize()
+
     return (
-        <div
-            className={` mt-1 select-drawer ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
-            onKeyDown={handleKeyDown}
-        >
+        <div className={` mt-1 select-drawer`} onKeyDown={handleKeyDown} ref={drawerWrapperRef}>
             <div className={`items-left`}>
                 <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
                     <i className={`flex icon-box mr-1 h-6`}>

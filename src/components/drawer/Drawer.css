@@ -1,0 +1,17 @@
+@layer components {
+    .drawer-wrapper {
+        @apply relative bottom-0 left-0 flex flex-col w-full h-full;
+    }
+
+    .drawer-container {
+        @apply flex top-16 left-0 absolute list-none bg-gray-600 p-2 rounded w-full h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
+    }
+
+    .drawer-container.open {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-100;
+    }
+
+    .drawer-container.closed {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-0;
+    }
+}

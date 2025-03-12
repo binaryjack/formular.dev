@@ -1,0 +1,25 @@
+@layer components {
+    .select-drawer {
+        @apply absolute list-none bg-gray-200 p-2 rounded w-full h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
+    }
+
+    .select-drawer.open {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-100;
+    }
+
+    .select-drawer.closed {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-0;
+    }
+
+    .select-list {
+        @apply p-2 rounded w-full mt-1 cursor-pointer select-none;
+    }
+
+    .select-item {
+        @apply bg-gray-200 p-2 rounded w-full mt-1 select-none;
+    }
+
+    .select-item.selected {
+        @apply bg-gray-900 text-gray-50;
+    }
+}

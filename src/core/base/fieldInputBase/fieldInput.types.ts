@@ -1,11 +1,11 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
 
+import { IDrawerBase } from '../../../components/drawer/Drawer.types'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
-import { IDrawerBase } from '../drawer/Drawer.types'
 import { IFieldStateStyle, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
 import { IValidable, IValidableField } from '../validatiors/validator.types'
 import { IValueStrategy } from '../valueStrategy/valueStrategy.types'

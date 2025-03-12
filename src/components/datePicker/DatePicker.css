@@ -11,6 +11,10 @@
         @apply bg-gray-200 p-2 rounded mt-1 scale-y-100;
     }
 
+    .date-picker-drawer.closed {
+        @apply bg-gray-200 p-2 rounded mt-1 scale-y-0;
+    }
+
     .date-picker-date-parts {
         @apply flex justify-between items-center;
     }

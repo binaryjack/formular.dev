@@ -1,16 +1,16 @@
 import React, { useRef, useState } from 'react'
 
-const useRippleEffect = (
+const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEvent>>(
     id: string,
     // buttonRef: React.RefObject<HTMLButtonElement>,
-    onClickCallback: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
+    onClickCallback: (e: E) => void,
     disabled: boolean
 ) => {
     const buttonRef = useRef(null)
     const [classRef, setClassRef] = useState<string>('')
     const [rippleStyle, setRippleStyle] = useState<string>('')
 
-    const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const onClick = (e: E) => {
         if (disabled) return
         e.stopPropagation()
         e.preventDefault()

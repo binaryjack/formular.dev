@@ -1,15 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import { BsCalendar3, BsCalendar3Event, BsCalendar3Range, BsCalendarDate } from 'react-icons/bs'
-import { TbWorld } from 'react-icons/tb'
 
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
-import DatePickerBodyDays from './components/DatePicker.body.days'
-import DatePickerBodyMonths from './components/DatePicker.body.months'
-import DatePickerBodyYears from './components/DatePicker.body.years'
+import { useDrawerContext } from '../drawer/Drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
-import DatePickerDrawerHeader from './components/DatePicker.header'
-import DatePickerSwitch from './components/DatePicker.switch'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
 import {
     computeDaysGrid,
@@ -19,13 +12,9 @@ import {
     getPreviousDate
 } from './core/DatePicker.utils'
 import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
+import DatePickerDrawerUI from './DatePicker.drawer.UI'
 
 interface IDatePickerDrawerProps {
-    drawerOpenState?: DrawerOpenStateType
-    onSetOpenState: (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: DrawerOpenStateType
-    ) => void
     defaultDate?: INDate | Date
     onSelectDate: (startDate?: INDate, endDate?: INDate) => void
     defaultSelectionMode?: DatePickerSelectionModeType
@@ -34,20 +23,18 @@ interface IDatePickerDrawerProps {
 }
 
 const DatePickerDrawer = ({
-    drawerOpenState,
     defaultDate,
-    onSetOpenState,
     onSelectDate,
     showFooter,
     defaultSelectionMode = 'single',
     defaultGridMode = 'DAY'
 }: IDatePickerDrawerProps) => {
     const [gridMode, setGridMode] = useState<DatePickerGridModeType>(defaultGridMode)
-    const [selectionMode, setSelectionMode] =
-        useState<DatePickerSelectionModeType>(defaultSelectionMode)
     const [gridData, setGridData] = useState<IDatePickerRow[]>([])
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
     const [internalDate, setInternalDate] = useState<Date>()
+
+    const { drawerOpenState, onSetOpenState } = useDrawerContext()
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -120,7 +107,7 @@ const DatePickerDrawer = ({
     }
 
     const datePickerContextDefault: IDatePickerContext = {
-        selectionMode: selectionMode,
+        selectionMode: defaultSelectionMode,
         gridMode: gridMode,
         internalDate: internalDate ?? new Date(),
         gridData: gridData,
@@ -142,45 +129,11 @@ const DatePickerDrawer = ({
 
     return (
         <DatePickerContext.Provider value={datePickerContextDefault}>
-            <div className={`date-picker-drawer`} onClick={handleOnClick}>
-                <DatePickerDrawerHeader />
-
-                <div className={`date-picker-body`}>
-                    <DatePickerSwitch
-                        day={<DatePickerBodyDays />}
-                        year={<DatePickerBodyYears />}
-                        month={<DatePickerBodyMonths />}
-                    />
-                </div>
-
-                {showFooter ? (
-                    <div className={`date-picker-footer`}>
-                        <div className={`grid-mode`}>
-                            <div>grid mode: </div>
-                            <div>
-                                <DatePickerSwitch
-                                    day={<BsCalendarDate title={`day`} />}
-                                    month={<BsCalendar3 title={`month`} />}
-                                    year={<TbWorld title={`year`} />}
-                                />
-                            </div>
-                        </div>
-
-                        <div className={`grid-mode`}>
-                            <div>selection mode: </div>
-                            <div>
-                                {selectionMode === 'range' ? (
-                                    <BsCalendar3Range title={`range`} />
-                                ) : (
-                                    <BsCalendar3Event title={`single`} />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <></>
-                )}
-            </div>
+            <DatePickerDrawerUI
+                defaultSelectionMode={defaultSelectionMode}
+                showFooter={showFooter}
+                onClick={handleOnClick}
+            />
         </DatePickerContext.Provider>
     )
 }

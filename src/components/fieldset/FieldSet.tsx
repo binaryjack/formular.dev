@@ -1,11 +1,10 @@
 import './FieldSet.css'
 
 import React from 'react'
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { MdClose } from 'react-icons/md'
 
-import { DrawerOpenStateType } from '../../core/base/drawer/Drawer.types'
 import { IFlagsObject } from '../../core/base/fieldStateStyle/fieldStateStyle.types'
+import Button from '../button/Button'
 
 interface IFieldSet<TType> {
     inputId?: string
@@ -15,14 +14,10 @@ interface IFieldSet<TType> {
     children: React.ReactNode
     itemsChildren?: React.ReactNode
     validationChildren?: React.ReactNode
-    drawerOpenState?: DrawerOpenStateType
     onSetFocus?: () => void
     onClear?: () => void
     onSelectItem?: () => void
-    onSetOpenState?: (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: DrawerOpenStateType
-    ) => void
+
     onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }
 
@@ -34,14 +29,13 @@ const FieldSet = <TType,>({
     children,
     itemsChildren,
     validationChildren,
-    drawerOpenState,
     onSetFocus,
     onClear,
-    onClick,
-    onSetOpenState
+    onClick
 }: IFieldSet<TType>) => {
     return (
         <fieldset
+            id={`${inputId}-fieldset`}
             className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
             data-type={type}
             data-testid={`test-${inputId}`}
@@ -59,29 +53,16 @@ const FieldSet = <TType,>({
                 <div className={`input-container flex flex-row w-full`}>
                     <div className={`input-content flex mr-2 w-full`}>{children}</div>
                     <div className={`input-commands flex flex-row `}>
-                        <button
-                            type="button"
-                            className={`btn-sm-p mr-1`}
-                            onClick={onClear}
-                            tabIndex={-1}
+                        <Button
+                            id={`${inputId}-clear-field-btn`}
+                            title={'Clear'}
+                            variant={{ rounded: true, size: 'md' }}
+                            onClickCallback={() => onClear?.()}
                         >
                             {<MdClose />}
-                        </button>
-                        {itemsChildren && (
-                            <button
-                                type="button"
-                                className={`btn-sm-p mr-1`}
-                                onClick={(e) =>
-                                    onSetOpenState?.(
-                                        e,
-                                        drawerOpenState === 'open' ? 'closed' : 'open'
-                                    )
-                                }
-                                tabIndex={-1}
-                            >
-                                {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
-                            </button>
-                        )}
+                        </Button>
+
+                        {itemsChildren && <div id={`${inputId}-close-drawer-container`} />}
                         {type === 'password' && <button className={`btn-sm-p mr-1`}>(o)</button>}
                     </div>
                 </div>
@@ -91,11 +72,8 @@ const FieldSet = <TType,>({
                 />
                 {flags.required && <div className={`input-container-required-indicator flex`} />}
             </div>
-            {itemsChildren && (
-                <div className={`relative bottom-0 left-0 flex flex-col `}>
-                    <div className={` `}>{itemsChildren}</div>
-                </div>
-            )}
+
+            {itemsChildren && <>{itemsChildren}</>}
             {validationChildren && (
                 <div className={`relative bottom-0 left-0 flex flex-col mt-1`}>
                     <div className={`${flags.isFocus ? 'validation-success' : 'validation-error'}`}>
