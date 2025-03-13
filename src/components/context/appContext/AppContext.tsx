@@ -4,7 +4,9 @@
 
 import { useState } from 'react'
 
+import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import useIsomorphicLayoutEffect from '../../../core/hooks/useIsomorphicLayout'
+import useThrottle from '../../../core/hooks/useThrottle'
 import { AppContext, IAppContext } from './AppContext.context'
 
 interface AppContextProps {
@@ -33,25 +35,38 @@ interface AppContextProps {
  */
 const AppContextProvider = ({ children }: AppContextProps) => {
     const [currentY, setCurrentY] = useState<number>(0)
+    const [middleScreenY, setMiddleScreenY] = useState<number>(0)
 
-    const updateY = (e: Event) => {
-        e.stopPropagation()
+    const { breakpoints, media, windowY, windowX } = useMediaScreens()
+
+    const updateY = useThrottle(() => {
         setCurrentY(window.scrollY)
-    }
+        setMiddleScreenY(window.innerHeight / 2)
+    })
 
     useIsomorphicLayoutEffect(() => {
         window.addEventListener('scroll', updateY, { passive: true })
-
+        updateY()
         return () => {
             window.removeEventListener('scroll', updateY)
         }
     }, [])
 
     const contextOutput: IAppContext = {
-        currentY: currentY
+        breakpoints: breakpoints,
+        media: media,
+        currentY: currentY,
+        middleScreenY: middleScreenY,
+        isMobileDevice: false
     }
 
-    return <AppContext.Provider value={contextOutput}>{children}</AppContext.Provider>
+    return (
+        <AppContext.Provider value={contextOutput}>
+            <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+
+            {children}
+        </AppContext.Provider>
+    )
 }
 
 export { AppContextProvider }

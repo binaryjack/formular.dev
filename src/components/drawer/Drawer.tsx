@@ -20,7 +20,7 @@ interface IDrawerProps {
 
 const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps) => {
     const [drawerHeightSize, setDrawerHeightSize] = useState<number>(0)
-    const { currentY } = useAppContext()
+    const { currentY, isMobileDevice, middleScreenY, breakpoints, media } = useAppContext()
     const drawerContainerRef = useRef(null)
 
     const reportDraweSize = (size: number) => {
@@ -42,12 +42,19 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
     const positionY = useMemo(() => {
         const _el = drawerContainerRef.current as unknown as HTMLDivElement
         if (!_el) return 0
-        return _el.getBoundingClientRect().y
-    }, [drawerContainerRef])
+        // console.log('RENDER MEMO')
+        return _el.getBoundingClientRect().top
+    }, [(drawerContainerRef?.current as unknown as HTMLDivElement)?.getBoundingClientRect?.()?.top])
 
     useEffect(() => {
-        console.log(currentY, positionY)
-    }, [currentY, positionY])
+        // console.log(currentY, positionY)
+        if (!media?.media) return
+        /** if height of drawer is greater than half of screen size */
+        if (middleScreenY >= drawerHeightSize) {
+        }
+
+        if (['L', 'XL', 'XXL'].includes(media?.media)) return
+    }, [middleScreenY, media, drawerHeightSize])
 
     return (
         <DatePickerContext.Provider key={id} value={drawerContextDefault}>
