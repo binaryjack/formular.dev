@@ -1,5 +1,5 @@
 @layer components {
     .drawer-container {
-        @apply flex absolute overflow-hidden list-none p-0 m-0 rounded w-full h-full transition-all ease-in-out delay-150 cursor-pointer select-none z-50;
+        @apply transition-all ease-in-out delay-150 cursor-pointer select-none z-50 list-none;
     }
 }

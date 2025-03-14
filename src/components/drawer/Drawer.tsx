@@ -59,13 +59,78 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
         }
     }, [middleScreenY, media, drawerHeightSize, positionY])
 
-    const drawerStyle = `
-        #${id}-drawer-slot-${drawerDisplayStyle} .open {
-            height: ${drawerHeightSize}px;
-        }
-       
+    // tt-transform-origin: ${drawerDisplayStyle === 'bottom' ? 'top' : drawerDisplayStyle === 'top' ? 'bottom' : 'center'};
+    const drawerStyle =
+        drawerDisplayStyle !== 'center'
+            ? `
+            #${id}-drawer-slot-${drawerDisplayStyle}-container {
+                display: flex;
+                position: relative;
+           
+            }
 
+             #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            .drawer-container {
+                display: flex;
+                position: absolute;
+                width: 100%;
+                height: ${drawerHeightSize}px;
+               
+                transform-origin: ${drawerDisplayStyle};
+                overflow: hidden;
+            }
+        
+            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+              .drawer-container.open {        
+               transform: scaleY(${drawerHeightSize}px);
+               ${drawerDisplayStyle}:-${drawerHeightSize}px;
+            }
+
+            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            .drawer-container.closed { 
+               transform: scaleY(0);
+               ${drawerDisplayStyle}: 0;               
+            }
     `
+            : `
+            
+              #${id}-drawer-slot-${drawerDisplayStyle}-container {
+                display: flex;
+                position: relative;
+           
+            }
+
+              #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            .drawer-container {
+                display: flex;
+                align-items: center;
+                justify-items: center;
+                position: absolute;
+       
+                height: ${drawerHeightSize}px;               
+                transform-origin: ${drawerDisplayStyle};
+                overflow: hidden;
+            
+            }
+
+            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+              .drawer-container.open {        
+               transform: scaleY(${drawerHeightSize}px);
+                width: 100%;
+                heigh: 100%;
+                 background: red;
+              
+            }
+
+            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            .drawer-container.closed { 
+               transform: scaleY(0);
+               ${drawerDisplayStyle}: 0;       
+               
+                   background: red;
+            }
+            
+            `
 
     return (
         <DatePickerContext.Provider key={id} value={drawerContextDefault}>
@@ -73,13 +138,16 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
                 id={id}
                 slotName={`drawer-slot-${drawerDisplayStyle}`}
                 children={
-                    <div
-                        ref={drawerContainerRef}
-                        id={`${id}-drawer-wrapper`}
-                        className={`drawer-container  ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
-                    >
-                        {children}
-                    </div>
+                    <>
+                        <div
+                            ref={drawerContainerRef}
+                            id={`${id}-drawer-wrapper`}
+                            className={`drawer-container  ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
+                        >
+                            {children}
+                        </div>
+                        <style>{drawerStyle}</style>
+                    </>
                 }
             />
 
