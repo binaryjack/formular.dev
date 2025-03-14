@@ -6,7 +6,7 @@ import Button from '../button/Button'
 import useAppContext from '../context/appContext/AppContext.context'
 import Portal from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
-import { DrawerOpenStateType } from './Drawer.types'
+import { DrawerDisplayStyleType, DrawerOpenStateType } from './Drawer.types'
 
 interface IDrawerProps {
     id: string
@@ -20,7 +20,8 @@ interface IDrawerProps {
 
 const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps) => {
     const [drawerHeightSize, setDrawerHeightSize] = useState<number>(0)
-    const { currentY, isMobileDevice, middleScreenY, breakpoints, media } = useAppContext()
+    const [drawerDisplayStyle, setDrawerDisplayStyle] = useState<DrawerDisplayStyleType>('bottom')
+    const { currentY, middleScreenY, breakpoints, media } = useAppContext()
     const drawerContainerRef = useRef(null)
 
     const reportDraweSize = (size: number) => {
@@ -43,34 +44,45 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
         const _el = drawerContainerRef.current as unknown as HTMLDivElement
         if (!_el) return 0
         // console.log('RENDER MEMO')
-        return _el.getBoundingClientRect().top
+        return _el.getBoundingClientRect().height / 2 + _el.getBoundingClientRect().top
     }, [(drawerContainerRef?.current as unknown as HTMLDivElement)?.getBoundingClientRect?.()?.top])
 
     useEffect(() => {
-        // console.log(currentY, positionY)
+        console.log(currentY, positionY, middleScreenY)
         if (!media?.media) return
         /** if height of drawer is greater than half of screen size */
-        if (middleScreenY >= drawerHeightSize) {
-        }
 
-        if (['L', 'XL', 'XXL'].includes(media?.media)) return
-    }, [middleScreenY, media, drawerHeightSize])
+        if (['M', 'L', 'XL', 'XXL'].includes(media?.media)) {
+            setDrawerDisplayStyle(positionY >= middleScreenY ? 'top' : 'bottom')
+        } else {
+            setDrawerDisplayStyle('center')
+        }
+    }, [middleScreenY, media, drawerHeightSize, positionY])
+
+    const drawerStyle = `
+        #${id}-drawer-slot-${drawerDisplayStyle} .open {
+            height: ${drawerHeightSize}px;
+        }
+       
+
+    `
 
     return (
         <DatePickerContext.Provider key={id} value={drawerContextDefault}>
-            {/* <div
-                id={`${id}-drawer-wrapper`}
-                ref={drawerContainerRef}
-                // className={`drawer-wrapper  `}
-            > */}
-            <div
-                ref={drawerContainerRef}
-                id={`${id}-drawer-wrapper`}
-                className={`drawer-container  ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
-            >
-                {children}
-            </div>
-            {drawerHeightSize}
+            <Portal
+                id={id}
+                slotName={`drawer-slot-${drawerDisplayStyle}`}
+                children={
+                    <div
+                        ref={drawerContainerRef}
+                        id={`${id}-drawer-wrapper`}
+                        className={`drawer-container  ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
+                    >
+                        {children}
+                    </div>
+                }
+            />
+
             <Portal
                 id={id}
                 slotName={'close-drawer'}

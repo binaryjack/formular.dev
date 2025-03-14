@@ -12,8 +12,6 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
 
     const onClick = (e: E) => {
         if (disabled) return
-        e.stopPropagation()
-        e.preventDefault()
 
         if (!buttonRef?.current) return
         const btn = buttonRef?.current as unknown as HTMLButtonElement

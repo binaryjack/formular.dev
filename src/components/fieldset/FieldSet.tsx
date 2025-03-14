@@ -51,7 +51,14 @@ const FieldSet = <TType,>({
                     </label>
                 </div>
                 <div className={`input-container flex flex-row w-full`}>
-                    <div className={`input-content flex mr-2 w-full`}>{children}</div>
+                    <div className={`input-content flex flex-col mr-2 w-full`}>
+                        {itemsChildren && <div id={`${inputId}-drawer-slot-top-container`} />}
+
+                        <div>{children}</div>
+
+                        {itemsChildren && <div id={`${inputId}-drawer-slot-bottom-container`} />}
+                    </div>
+
                     <div className={`input-commands flex flex-row `}>
                         <Button
                             id={`${inputId}-clear-field-btn`}

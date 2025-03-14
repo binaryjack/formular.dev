@@ -41,8 +41,9 @@ const AppContextProvider = ({ children }: AppContextProps) => {
 
     const updateY = useThrottle(() => {
         setCurrentY(window.scrollY)
-        setMiddleScreenY(window.innerHeight / 2)
-    })
+        const computeMiddleOfScreen = window.innerHeight / 2 + window.scrollY
+        setMiddleScreenY(computeMiddleOfScreen)
+    }, 200)
 
     useIsomorphicLayoutEffect(() => {
         window.addEventListener('scroll', updateY, { passive: true })
