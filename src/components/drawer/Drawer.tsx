@@ -6,7 +6,7 @@ import Button from '../button/Button'
 import useAppContext from '../context/appContext/AppContext.context'
 import Portal from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
-import { DrawerDisplayStyleType, DrawerOpenStateType } from './Drawer.types'
+import { DrawerDisplayStyleType, DrawerOpenStateType, IDrawerSize } from './Drawer.types'
 
 interface IDrawerProps {
     id: string
@@ -16,23 +16,27 @@ interface IDrawerProps {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
+    debug: string
 }
 
-const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps) => {
-    const [drawerHeightSize, setDrawerHeightSize] = useState<number>(0)
+const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawerProps) => {
+    const [drawerSize, setDrawerSize] = useState<IDrawerSize>({
+        width: 0,
+        height: 0
+    })
     const [drawerDisplayStyle, setDrawerDisplayStyle] = useState<DrawerDisplayStyleType>('bottom')
     const { currentY, middleScreenY, breakpoints, media } = useAppContext()
     const drawerContainerRef = useRef(null)
+    const drawerSurfaceDetectorRef = useRef(null)
+    const drawerPositionDetectorRef = useRef(null)
 
-    const reportDraweSize = (size: number) => {
-        setDrawerHeightSize(size)
+    const reportDraweSize = (size: IDrawerSize) => {
+        setDrawerSize(size)
     }
 
     const handleClose = () => {
         onSetOpenState?.({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
     }
-
-    useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
     const drawerContextDefault: IDrawerContext = {
         onSetOpenState,
@@ -42,22 +46,36 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
 
     const positionY = useMemo(() => {
         const _el = drawerContainerRef.current as unknown as HTMLDivElement
-        if (!_el) return 0
-        // console.log('RENDER MEMO')
-        return _el.getBoundingClientRect().height / 2 + _el.getBoundingClientRect().top
-    }, [(drawerContainerRef?.current as unknown as HTMLDivElement)?.getBoundingClientRect?.()?.top])
+        const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
+
+        if (!_el || !_sd) return 0
+        console.log('RENDER position')
+        return _el.scrollTop + _sd.getBoundingClientRect?.()?.height / 2
+    }, [middleScreenY, currentY])
 
     useEffect(() => {
-        console.log(currentY, positionY, middleScreenY)
-        if (!media?.media) return
+        const _el = drawerPositionDetectorRef.current as unknown as HTMLDivElement
+        if (!media?.media || !_el) return
+
         /** if height of drawer is greater than half of screen size */
 
         if (['M', 'L', 'XL', 'XXL'].includes(media?.media)) {
-            setDrawerDisplayStyle(positionY >= middleScreenY ? 'top' : 'bottom')
+            setDrawerDisplayStyle(
+                _el.getBoundingClientRect?.()?.top >= middleScreenY ? 'top' : 'bottom'
+            )
+
+            console.log(
+                'DETERMIN position',
+                _el.getBoundingClientRect?.()?.top,
+                middleScreenY,
+                currentY
+            )
         } else {
             setDrawerDisplayStyle('center')
         }
-    }, [middleScreenY, media, drawerHeightSize, positionY])
+    }, [middleScreenY, media, drawerSize, positionY])
+
+    useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
     // tt-transform-origin: ${drawerDisplayStyle === 'bottom' ? 'top' : drawerDisplayStyle === 'top' ? 'bottom' : 'center'};
     const drawerStyle =
@@ -66,70 +84,66 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
             #${id}-drawer-slot-${drawerDisplayStyle}-container {
                 display: flex;
                 position: relative;
-           
             }
 
              #${id}-drawer-slot-${drawerDisplayStyle}-container 
             .drawer-container {
                 display: flex;
                 position: absolute;
-                width: 100%;
-                height: ${drawerHeightSize}px;
-               
+                width: ${drawerSize.width}px;
+                height: ${drawerSize.height}px;
+           
                 transform-origin: ${drawerDisplayStyle};
                 overflow: hidden;
             }
         
             #${id}-drawer-slot-${drawerDisplayStyle}-container 
-              .drawer-container.open {        
-               transform: scaleY(${drawerHeightSize}px);
-               ${drawerDisplayStyle}:-${drawerHeightSize}px;
+              .drawer-container.open {
+               transform: scaleY(${drawerSize.height}px);
+               ${drawerDisplayStyle}:-${drawerSize.height}px;
             }
 
             #${id}-drawer-slot-${drawerDisplayStyle}-container 
             .drawer-container.closed { 
                transform: scaleY(0);
-               ${drawerDisplayStyle}: 0;               
+               ${drawerDisplayStyle}: 0;
             }
     `
             : `
             
               #${id}-drawer-slot-${drawerDisplayStyle}-container {
-                display: flex;
+                display: grid;
                 position: relative;
-           
+                align-items: center;
+                justify-items: center;
+                transform-origin: center;
+                width: 100%;
             }
 
               #${id}-drawer-slot-${drawerDisplayStyle}-container 
-            .drawer-container {
+                .drawer-container {
                 display: flex;
-                align-items: center;
+                align-items:center;
                 justify-items: center;
-                position: absolute;
-       
-                height: ${drawerHeightSize}px;               
-                transform-origin: ${drawerDisplayStyle};
-                overflow: hidden;
-            
+                align-content: center;
+                justify-content: center;
+                position: absolute;      
+                max-width: ${drawerSize.width}px;
+                height: ${drawerSize.height}px;
+              
             }
 
             #${id}-drawer-slot-${drawerDisplayStyle}-container 
               .drawer-container.open {        
-               transform: scaleY(${drawerHeightSize}px);
-                width: 100%;
-                heigh: 100%;
-                 background: red;
+               transform: scale(${drawerSize.height}px);
+            width:100%;
               
             }
 
             #${id}-drawer-slot-${drawerDisplayStyle}-container 
             .drawer-container.closed { 
-               transform: scaleY(0);
-               ${drawerDisplayStyle}: 0;       
-               
-                   background: red;
+               transform: scale(0);
             }
-            
             `
 
     return (
@@ -167,6 +181,32 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState }: IDrawerProps)
                     </Button>
                 }
             />
+            <div
+                id={`debug-${id}`}
+                ref={drawerPositionDetectorRef}
+                style={{
+                    top: `${positionY}px`,
+                    display: 'flex',
+                    background: debug,
+                    width: '100%',
+                    height: '5px',
+                    position: 'absolute',
+                    zIndex: '9999'
+                }}
+            />
+            <div
+                id={`drawer-parent-height-${id}`}
+                ref={drawerSurfaceDetectorRef}
+                style={{
+                    top: `${positionY}px`,
+                    display: 'flex',
+                    background: 'blue',
+                    width: '1px',
+                    height: '100%',
+                    position: 'absolute',
+                    zIndex: '9999'
+                }}
+            ></div>
         </DatePickerContext.Provider>
     )
 }

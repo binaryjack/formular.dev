@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import useThrottle from '../useThrottle'
 import { getMediaBreakpoints, getMediaScreenAspectRatio } from './screen.constructors'
 import { IMedia, IMediaBreakpoints, IMediaScreenResult } from './screen.models'
 
@@ -7,6 +8,7 @@ import { IMedia, IMediaBreakpoints, IMediaScreenResult } from './screen.models'
 const useMediaScreens = (): IMediaScreenResult => {
     // Initialize state with undefined width/height so server and client renders match
     // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+
     const [media, setMedia] = useState<IMedia>(
         getMediaScreenAspectRatio(window.innerWidth, window.innerHeight)
     )
@@ -15,16 +17,17 @@ const useMediaScreens = (): IMediaScreenResult => {
         getMediaBreakpoints(getMediaScreenAspectRatio(window.innerWidth, window.innerHeight))
     )
 
-    useEffect(() => {
-        // Handler to call on window resize
-        function handleResize() {
-            // Set window width/height to state
-            const media = getMediaScreenAspectRatio(window.innerWidth, window.innerHeight)
-            const breakpoints = getMediaBreakpoints(media)
+    // Handler to call on window resize
+    const handleResize = useThrottle(() => {
+        // Set window width/height to state
+        const media = getMediaScreenAspectRatio(window.innerWidth, window.innerHeight)
+        const breakpoints = getMediaBreakpoints(media)
 
-            setMedia(media)
-            setBreakpoints(breakpoints)
-        }
+        setMedia(media)
+        setBreakpoints(breakpoints)
+    }, 200)
+
+    useEffect(() => {
         // Add event listener
         window.addEventListener('resize', handleResize)
         // Call handler right away so state gets updated with initial window size

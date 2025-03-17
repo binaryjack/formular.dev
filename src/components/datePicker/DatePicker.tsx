@@ -1,3 +1,5 @@
+import { useRef } from 'react'
+
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import Drawer from '../drawer/Drawer'
@@ -26,7 +28,7 @@ const DatePicker = ({
 }: DatePickerProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
-
+    const fieldSet = useRef(null)
     const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
         if (!field) return
 
@@ -74,6 +76,7 @@ const DatePicker = ({
                     id={field?.name ?? 'NOT-DEFINED!'}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
+                    debug={'orange'}
                 >
                     <DatePickerDrawer onSelectDate={onSelectDate} />
                 </Drawer>

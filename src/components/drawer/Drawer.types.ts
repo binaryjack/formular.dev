@@ -5,3 +5,8 @@ export interface IDrawerBase {
     openState: DrawerOpenStateType
     setOpenState: (state: DrawerOpenStateType) => void
 }
+
+export interface IDrawerSize {
+    width: number
+    height: number
+}

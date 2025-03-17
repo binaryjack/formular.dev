@@ -43,7 +43,7 @@ const AppContextProvider = ({ children }: AppContextProps) => {
         setCurrentY(window.scrollY)
         const computeMiddleOfScreen = window.innerHeight / 2 + window.scrollY
         setMiddleScreenY(computeMiddleOfScreen)
-    }, 200)
+    }, 50)
 
     useIsomorphicLayoutEffect(() => {
         window.addEventListener('scroll', updateY, { passive: true })
@@ -64,7 +64,17 @@ const AppContextProvider = ({ children }: AppContextProps) => {
     return (
         <AppContext.Provider value={contextOutput}>
             <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
-
+            <div
+                style={{
+                    top: `${middleScreenY}px`,
+                    display: 'flex',
+                    background: 'red',
+                    width: '100%',
+                    height: '5px',
+                    position: 'absolute',
+                    zIndex: '9999'
+                }}
+            />
             {children}
         </AppContext.Provider>
     )
