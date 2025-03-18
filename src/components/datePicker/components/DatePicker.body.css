@@ -1,4 +1,8 @@
 @layer components {
+    .date-picker-body {
+        @apply flex w-full h-[15em] m-0 p-0 justify-center items-center flex-col;
+    }
+
     .date-picker-body-container {
         @apply relative flex w-full h-full justify-center items-center;
     }

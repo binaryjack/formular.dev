@@ -48,7 +48,6 @@ const Select = ({ fieldName }: ISelectProps) => {
                     id={field?.name ?? 'NOT-DEFINED!'}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
-                    debug={'green'}
                 >
                     <SelectDrawer
                         filterTriggerDelay={500}

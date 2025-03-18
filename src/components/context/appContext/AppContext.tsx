@@ -7,9 +7,11 @@ import { useState } from 'react'
 import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import useIsomorphicLayoutEffect from '../../../core/hooks/useIsomorphicLayout'
 import useThrottle from '../../../core/hooks/useThrottle'
+import { IDebug } from '../debug/debug.types'
 import { AppContext, IAppContext } from './AppContext.context'
 
 interface AppContextProps {
+    debug?: IDebug
     children: React.ReactNode
 }
 
@@ -33,7 +35,7 @@ interface AppContextProps {
  *
  * The component also renders a `Toast` component along with its children.
  */
-const AppContextProvider = ({ children }: AppContextProps) => {
+const AppContextProvider = ({ debug, children }: AppContextProps) => {
     const [currentY, setCurrentY] = useState<number>(0)
     const [middleScreenY, setMiddleScreenY] = useState<number>(0)
 
@@ -68,11 +70,11 @@ const AppContextProvider = ({ children }: AppContextProps) => {
                 style={{
                     top: `${middleScreenY}px`,
                     display: 'flex',
-                    background: 'red',
+                    background: debug?.color,
                     width: '100%',
-                    height: '5px',
+                    height: debug ? '5px' : '0px',
                     position: 'absolute',
-                    zIndex: '9999'
+                    zIndex: debug ? 9999 : -1
                 }}
             />
             {children}

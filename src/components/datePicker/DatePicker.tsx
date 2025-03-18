@@ -76,7 +76,6 @@ const DatePicker = ({
                     id={field?.name ?? 'NOT-DEFINED!'}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
-                    debug={'orange'}
                 >
                     <DatePickerDrawer onSelectDate={onSelectDate} />
                 </Drawer>

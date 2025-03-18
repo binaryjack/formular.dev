@@ -4,6 +4,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import Button from '../button/Button'
 import useAppContext from '../context/appContext/AppContext.context'
+import { IDebug } from '../context/debug/debug.types'
 import Portal from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
 import { DrawerDisplayStyleType, DrawerOpenStateType, IDrawerSize } from './Drawer.types'
@@ -16,7 +17,7 @@ interface IDrawerProps {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
-    debug: string
+    debug?: IDebug
 }
 
 const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawerProps) => {
@@ -164,7 +165,6 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                     </>
                 }
             />
-
             <Portal
                 id={id}
                 slotName={'close-drawer'}
@@ -181,30 +181,33 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                     </Button>
                 }
             />
+            {/** this will stick along the component in order to compute the position from TOP */}
             <div
                 id={`debug-${id}`}
                 ref={drawerPositionDetectorRef}
                 style={{
                     top: `${positionY}px`,
                     display: 'flex',
-                    background: debug,
+                    background: debug?.color,
                     width: '100%',
-                    height: '5px',
+                    height: debug ? '5px' : '0px',
                     position: 'absolute',
-                    zIndex: '9999'
+                    zIndex: debug ? 99999 : -1
                 }}
             />
+
+            {/** this will stick along the component in order to compute the height of the parent component and find the middle */}
             <div
                 id={`drawer-parent-height-${id}`}
                 ref={drawerSurfaceDetectorRef}
                 style={{
                     top: `${positionY}px`,
                     display: 'flex',
-                    background: 'blue',
-                    width: '1px',
+                    background: debug?.color,
+                    width: debug ? '1px' : '0px',
                     height: '100%',
                     position: 'absolute',
-                    zIndex: '9999'
+                    zIndex: debug ? 99999 : -1
                 }}
             ></div>
         </DatePickerContext.Provider>
