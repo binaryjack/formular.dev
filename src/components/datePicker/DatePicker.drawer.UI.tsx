@@ -10,12 +10,14 @@ import DatePickerSwitch from './components/DatePicker.switch'
 import { DatePickerSelectionModeType } from './core/DatePicker.types'
 
 interface IDatePickerDrawerProps {
+    id: string
     defaultSelectionMode?: DatePickerSelectionModeType
     showFooter?: boolean
     onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const DatePickerDrawerUI = ({
+    id,
     showFooter,
     defaultSelectionMode = 'single',
     onClick
@@ -23,14 +25,14 @@ const DatePickerDrawerUI = ({
     const { drawerWrapperRef } = useDrawerSize()
 
     return (
-        <div className={`date-picker-drawer`} onClick={onClick} ref={drawerWrapperRef}>
-            <DatePickerDrawerHeader />
+        <div className={`date-picker-container `} onClick={onClick} ref={drawerWrapperRef}>
+            <DatePickerDrawerHeader id={id} />
 
             <div className={`date-picker-body`}>
                 <DatePickerSwitch
-                    day={<DatePickerBodyDays />}
-                    year={<DatePickerBodyYears />}
-                    month={<DatePickerBodyMonths />}
+                    day={<DatePickerBodyDays id={id} />}
+                    year={<DatePickerBodyYears id={id} />}
+                    month={<DatePickerBodyMonths id={id} />}
                 />
             </div>
 

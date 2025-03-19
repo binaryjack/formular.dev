@@ -1,3 +1,4 @@
+import { conventions } from '../../../components/context/conventions/conventions'
 import FieldSet from '../../../components/fieldset/FieldSet'
 import ValidationResultComponent from '../../../components/validationResult/ValidationResult'
 import { FieldInputCreator } from '../../../core/base/fieldInputBase/FieldInput.creator'
@@ -33,7 +34,7 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
     return (
         <div>
             <FieldSet
-                inputId={field?.name}
+                inputId={field?.name ?? conventions.IdIsEmpty()}
                 label={field?.label}
                 type={field?.type}
                 flags={flags}

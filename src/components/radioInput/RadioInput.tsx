@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 
+import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
@@ -15,7 +16,7 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
     const optionRefs = useRef<HTMLInputElement[]>([])
     return (
         <FieldSet
-            inputId={field?.name}
+            inputId={field?.name ?? conventions.IdIsEmpty()}
             label={field?.label}
             type={field?.type}
             flags={flags}

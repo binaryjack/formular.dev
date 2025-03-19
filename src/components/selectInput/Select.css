@@ -1,14 +1,6 @@
 @layer components {
-    .select-drawer {
-        @apply absolute flex list-none justify-center items-center bg-gray-200 p-0 rounded w-[16em] h-auto mt-0 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
-    }
-
-    .select-drawer.open {
-        @apply bg-gray-200 p-1 rounded mt-1 scale-y-100;
-    }
-
-    .select-drawer.closed {
-        @apply bg-gray-200 p-1 rounded mt-1 scale-y-0;
+    .select-container {
+        @apply relative flex flex-col w-full h-72 bg-red-400;
     }
 
     .select-list {

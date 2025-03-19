@@ -5,7 +5,7 @@ import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import Button from '../button/Button'
 import useAppContext from '../context/appContext/AppContext.context'
 import { IDebug } from '../context/debug/debug.types'
-import Portal from '../portals/Portal'
+import { Portal } from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
 import { DrawerDisplayStyleType, DrawerOpenStateType, IDrawerSize } from './Drawer.types'
 
@@ -50,7 +50,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
 
         if (!_el || !_sd) return 0
-        console.log('RENDER position')
+
         return _el.scrollTop + _sd.getBoundingClientRect?.()?.height / 2
     }, [middleScreenY, currentY])
 
@@ -63,13 +63,6 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         if (['M', 'L', 'XL', 'XXL'].includes(media?.media)) {
             setDrawerDisplayStyle(
                 _el.getBoundingClientRect?.()?.top >= middleScreenY ? 'top' : 'bottom'
-            )
-
-            console.log(
-                'DETERMIN position',
-                _el.getBoundingClientRect?.()?.top,
-                middleScreenY,
-                currentY
             )
         } else {
             setDrawerDisplayStyle('center')
@@ -95,7 +88,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                 height: ${drawerSize.height}px;
            
                 transform-origin: ${drawerDisplayStyle};
-                overflow: hidden;
+             
             }
         
             #${id}-drawer-slot-${drawerDisplayStyle}-container 

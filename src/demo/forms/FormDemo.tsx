@@ -1,10 +1,16 @@
+import { useMemo } from 'react'
+
 import CheckInput from '../../components/checkInput/CheckInput'
+import { DateObject } from '../../components/datePicker/core/DateObject.object'
 import DateInput from '../../components/datePicker/DatePicker'
+import DatePickerDrawer from '../../components/datePicker/DatePicker.drawer'
 import FormyForm from '../../components/Formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
 import Select from '../../components/selectInput/Select'
+import SelectDrawer from '../../components/selectInput/Select.drawer'
 import { Signals } from '../../core/signals/signal'
+import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { IFieldDescriptor } from '../../dependency/schema/descriptor/field.descriptor'
 import { demoFormInstance } from './DormDemo.instance'
 
@@ -29,8 +35,29 @@ interface IFieldDemoProps {
 }
 
 const FormDemo = () => {
+    const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
+        const sd = new DateObject()
+        const ed = new DateObject()
+
+        if (sd && startDate) sd.setFromObject?.(startDate)
+        if (ed && endDate) ed.setFromObject?.(endDate)
+        console.log('date selected', sd.toString?.('mm/dd/yyyy'), ed.toString?.('mm/dd/yyyy'))
+    }
+
+    const fieldSelect = useMemo(() => {
+        return demoFormInstance?.fields.find((o) => o.name === 'selectOptionsId')
+    }, [demoFormInstance])
+
+    // conventions.IdIsEmpty()
+
     return (
         <FormyForm formy={demoFormInstance}>
+            <DatePickerDrawer onSelectDate={onSelectDate} id={'DatePickerDrawerDemoStatic'} />
+            <SelectDrawer
+                filterTriggerDelay={500}
+                items={fieldSelect?.options ?? []}
+                onSelectItem={(value) => fieldSelect?.onSelectItem(value)}
+            />
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
             <CheckInput fieldName={'trueFalseValue'} />

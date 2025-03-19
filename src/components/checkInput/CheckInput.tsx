@@ -1,4 +1,5 @@
 import useKeyBindings from '../../core/hooks/useKeyBindings'
+import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
@@ -19,7 +20,7 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
 
     return (
         <FieldSet
-            inputId={field?.name}
+            inputId={field?.name ?? conventions.IdIsEmpty()}
             label={field?.label}
             type={field?.type}
             flags={flags}

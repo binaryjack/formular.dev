@@ -1,14 +1,16 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
 import Button from '../../button/Button'
-import Portal from '../../portals/Portal'
+import { Portal } from '../../portals/Portal'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
 import DatePickerCell from './DatePicker.cell'
 import { useDatePickerContext } from './DatePicker.context'
 
-interface IDatePickerBodyYearsProps {}
+interface IDatePickerBodyYearsProps {
+    id: string
+}
 
-const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
+const DatePickerBodyYears = ({ id }: IDatePickerBodyYearsProps) => {
     const {
         gridData,
         updateSelectedCells,
@@ -67,7 +69,7 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
                 ))}
             </div>
             <Portal
-                id={'header'}
+                id={id}
                 slotName={'previous'}
                 children={
                     <Button
@@ -81,7 +83,7 @@ const DatePickerBodyYears = ({}: IDatePickerBodyYearsProps) => {
                 }
             />
             <Portal
-                id={'header'}
+                id={id}
                 slotName={'next'}
                 children={
                     <Button

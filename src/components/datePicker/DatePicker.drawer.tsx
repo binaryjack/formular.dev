@@ -15,6 +15,7 @@ import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models
 import DatePickerDrawerUI from './DatePicker.drawer.UI'
 
 interface IDatePickerDrawerProps {
+    id: string
     defaultDate?: INDate | Date
     onSelectDate: (startDate?: INDate, endDate?: INDate) => void
     defaultSelectionMode?: DatePickerSelectionModeType
@@ -23,6 +24,7 @@ interface IDatePickerDrawerProps {
 }
 
 const DatePickerDrawer = ({
+    id,
     defaultDate,
     onSelectDate,
     showFooter,
@@ -130,6 +132,7 @@ const DatePickerDrawer = ({
     return (
         <DatePickerContext.Provider value={datePickerContextDefault}>
             <DatePickerDrawerUI
+                id={id}
                 defaultSelectionMode={defaultSelectionMode}
                 showFooter={showFooter}
                 onClick={handleOnClick}

@@ -2,6 +2,7 @@ import { useRef } from 'react'
 
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
+import { conventions } from '../context/conventions/conventions'
 import Drawer from '../drawer/Drawer'
 import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
@@ -62,7 +63,7 @@ const DatePicker = ({
 
     return (
         <FieldSet
-            inputId={field?.name}
+            inputId={field?.name ?? conventions.IdIsEmpty()}
             label={field?.label}
             type={field?.type}
             flags={flags}
@@ -77,7 +78,10 @@ const DatePicker = ({
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={field?.openState}
                 >
-                    <DatePickerDrawer onSelectDate={onSelectDate} />
+                    <DatePickerDrawer
+                        id={field?.name ?? 'NOT-DEFINED!'}
+                        onSelectDate={onSelectDate}
+                    />
                 </Drawer>
             }
             validationChildren={

@@ -2,10 +2,15 @@ import { MdClear } from 'react-icons/md'
 import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 
 import Button from '../../button/Button'
+import { PortalSlot } from '../../portals/PortalSlot'
 import { useDatePickerContext } from './DatePicker.context'
 import DatePickerSwitch from './DatePicker.switch'
 
-const DatePickerDrawerHeader = () => {
+interface IDatePickerDrawerHeaderProps {
+    id: string
+}
+
+const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
     const {
         gridMode,
         internalDate,
@@ -86,7 +91,7 @@ const DatePickerDrawerHeader = () => {
             </div>
             <div className={`date-picker-header-separator`} />
             <div className={`date-picker-header-bottom`}>
-                <div id={`header-previous-container`} />
+                <PortalSlot id={id} slotName={'previous'} />
 
                 <div className={`date-picker-date-parts`}>
                     <div className={`year`}>
@@ -125,7 +130,7 @@ const DatePickerDrawerHeader = () => {
                         </Button>
                     </div>
                 </div>
-                <div id={`header-next-container`} />
+                <PortalSlot id={id} slotName={'next'} />
             </div>
             <div className={`date-picker-header-grid-mode`}>
                 <DatePickerSwitch

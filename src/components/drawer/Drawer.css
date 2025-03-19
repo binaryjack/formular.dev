@@ -1,5 +1,9 @@
 @layer components {
     .drawer-container {
-        @apply transition-all ease-in-out delay-150 cursor-pointer select-none z-50 list-none;
+        @apply bg-gray-200 transition-all ease-in-out delay-150 cursor-pointer select-none z-50 list-none;
+    }
+
+    .drawer-content {
+        @apply absolute flex flex-col w-full h-full list-none justify-center items-center p-0 rounded mt-0;
     }
 }

@@ -1,15 +1,17 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
 import Button from '../../button/Button'
-import Portal from '../../portals/Portal'
+import { Portal } from '../../portals/Portal'
 import { computeRange } from '../core/DatePicker.utils'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
 import DatePickerCell from './DatePicker.cell'
 import { useDatePickerContext } from './DatePicker.context'
 
-interface IDatePickerBodyDaysProps {}
+interface IDatePickerBodyDaysProps {
+    id: string
+}
 
-const DatePickerBodyDays = ({}: IDatePickerBodyDaysProps) => {
+const DatePickerBodyDays = ({ id }: IDatePickerBodyDaysProps) => {
     const {
         gridData,
         updateSelectedCells,
@@ -78,7 +80,7 @@ const DatePickerBodyDays = ({}: IDatePickerBodyDaysProps) => {
                 ))}
             </div>
             <Portal
-                id={'header'}
+                id={id}
                 slotName={'previous'}
                 children={
                     <Button
@@ -92,7 +94,7 @@ const DatePickerBodyDays = ({}: IDatePickerBodyDaysProps) => {
                 }
             />
             <Portal
-                id={'header'}
+                id={id}
                 slotName={'next'}
                 children={
                     <Button

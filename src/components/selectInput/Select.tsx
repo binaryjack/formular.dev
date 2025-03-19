@@ -1,4 +1,5 @@
 import useKeyBindings from '../../core/hooks/useKeyBindings'
+import { conventions } from '../context/conventions/conventions'
 import Drawer from '../drawer/Drawer'
 import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
@@ -34,7 +35,7 @@ const Select = ({ fieldName }: ISelectProps) => {
 
     return (
         <FieldSet
-            inputId={field?.name}
+            inputId={field?.name ?? conventions.IdIsEmpty()}
             label={field?.label}
             type={field?.type}
             flags={flags}

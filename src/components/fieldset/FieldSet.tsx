@@ -5,9 +5,10 @@ import { MdClose } from 'react-icons/md'
 
 import { IFlagsObject } from '../../core/base/fieldStateStyle/fieldStateStyle.types'
 import Button from '../button/Button'
+import { PortalSlot } from '../portals/PortalSlot'
 
 interface IFieldSetProps<TType> {
-    inputId?: string
+    inputId: string
     label?: string
     type: TType
     flags: IFlagsObject
@@ -70,7 +71,7 @@ const FieldSet = <TType,>({
                         {<MdClose />}
                     </Button>
 
-                    {itemsChildren && <div id={`${inputId}-close-drawer-container`} />}
+                    {itemsChildren && <PortalSlot id={inputId} slotName={'close-drawer'} />}
                     {type === 'password' && <button className={`btn-sm-p mr-1`}>(o)</button>}
                 </div>
             </div>

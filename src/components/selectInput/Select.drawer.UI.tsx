@@ -31,27 +31,25 @@ const SelectDrawerUI = ({
     const { drawerWrapperRef, drawerOpenState } = useDrawerSize()
 
     return (
-        <div className={` mt-1 select-drawer`} onKeyDown={handleKeyDown} ref={drawerWrapperRef}>
-            <div className={`items-left`}>
-                <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
-                    <i className={`flex icon-box mr-1 h-6`}>
-                        <SlMagnifier />
-                    </i>
-                    <DelayInput
-                        canGotFocus={drawerOpenState === 'open'}
-                        classNames={`flex input-sm-p mr-1 w-full`}
-                        delay={filterTriggerDelay}
-                        onChangeCallback={onFilterItems}
-                        onClearCallback={onClearFilter}
-                    />
-                </div>
-
-                <SelectDrawerOptions
-                    options={items}
-                    onHandleSelectItem={onHandleSelectItem}
-                    selectedItemId={selectedItemId}
+        <div className={`select-container`} onKeyDown={handleKeyDown} ref={drawerWrapperRef}>
+            <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
+                <i className={`flex icon-box mr-1 h-6`}>
+                    <SlMagnifier />
+                </i>
+                <DelayInput
+                    canGotFocus={drawerOpenState === 'open'}
+                    classNames={`flex input-sm-p mr-1 w-full`}
+                    delay={filterTriggerDelay}
+                    onChangeCallback={onFilterItems}
+                    onClearCallback={onClearFilter}
                 />
             </div>
+
+            <SelectDrawerOptions
+                options={items}
+                onHandleSelectItem={onHandleSelectItem}
+                selectedItemId={selectedItemId}
+            />
         </div>
     )
 }

@@ -3,16 +3,8 @@
 @import './components/DatePicker.cell.css';
 
 @layer components {
-    .date-picker-drawer {
-        @apply absolute flex flex-1 items-center flex-col overflow-hidden list-none bg-gray-300 drop-shadow-lg p-0 rounded w-[16em] h-auto mt-1 transition-all origin-top ease-in-out delay-150 cursor-pointer select-none z-50;
-    }
-
-    .date-picker-drawer.open {
-        @apply bg-gray-200 p-2 rounded mt-1 scale-y-100;
-    }
-
-    .date-picker-drawer.closed {
-        @apply bg-gray-200 p-2 rounded mt-1 scale-y-0;
+    .date-picker-container {
+        @apply relative flex flex-col w-full h-full p-1 rounded bg-slate-100;
     }
 
     .date-picker-date-parts {
