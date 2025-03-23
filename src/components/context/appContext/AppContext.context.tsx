@@ -7,6 +7,7 @@ export interface IAppContext {
     media?: IMedia
     currentY: number
     middleScreenY: number
+    middleScreenRefPositionY: number
     isMobileDevice: boolean
 }
 
@@ -15,6 +16,7 @@ export const appContextDefault = {
     media: undefined,
     currentY: 0,
     middleScreenY: 0,
+    middleScreenRefPositionY: 0,
     isMobileDevice: false
 }
 

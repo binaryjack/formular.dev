@@ -26,7 +26,8 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         height: 0
     })
     const [drawerDisplayStyle, setDrawerDisplayStyle] = useState<DrawerDisplayStyleType>('bottom')
-    const { currentY, middleScreenY, breakpoints, media } = useAppContext()
+    const { currentY, middleScreenY, breakpoints, media, middleScreenRefPositionY } =
+        useAppContext()
     const drawerContainerRef = useRef(null)
     const drawerSurfaceDetectorRef = useRef(null)
     const drawerPositionDetectorRef = useRef(null)
@@ -45,7 +46,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         reportDraweSize
     }
 
-    const positionY = useMemo(() => {
+    const positionInParentY = useMemo(() => {
         const _el = drawerContainerRef.current as unknown as HTMLDivElement
         const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
 
@@ -56,18 +57,24 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
 
     useEffect(() => {
         const _el = drawerPositionDetectorRef.current as unknown as HTMLDivElement
-        if (!media?.media || !_el) return
+        const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
+        if (!media?.media || !_el || !_sd) return
 
+        const clientHeight = _sd?.getBoundingClientRect?.()?.y
+
+        console.clear()
         /** if height of drawer is greater than half of screen size */
-
+        console.log(_el.getBoundingClientRect().top - window.screenTop, middleScreenRefPositionY)
         if (['M', 'L', 'XL', 'XXL'].includes(media?.media)) {
             setDrawerDisplayStyle(
-                _el.getBoundingClientRect?.()?.top >= middleScreenY ? 'top' : 'bottom'
+                _el.getBoundingClientRect().top - window.screenTop > middleScreenRefPositionY
+                    ? 'top'
+                    : 'bottom'
             )
         } else {
             setDrawerDisplayStyle('center')
         }
-    }, [middleScreenY, media, drawerSize, positionY])
+    }, [middleScreenRefPositionY, media, drawerSize, positionInParentY])
 
     useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
@@ -78,6 +85,9 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
             #${id}-drawer-slot-${drawerDisplayStyle}-container {
                 display: flex;
                 position: relative;
+                background: red;
+                width: 100%;
+                height: 100%;
             }
 
              #${id}-drawer-slot-${drawerDisplayStyle}-container 
@@ -179,7 +189,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                 id={`debug-${id}`}
                 ref={drawerPositionDetectorRef}
                 style={{
-                    top: `${positionY}px`,
+                    top: `${positionInParentY}px`,
                     display: 'flex',
                     background: debug?.color,
                     width: '100%',
@@ -194,11 +204,12 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                 id={`drawer-parent-height-${id}`}
                 ref={drawerSurfaceDetectorRef}
                 style={{
-                    top: `${positionY}px`,
+                    top: `${0}px`,
                     display: 'flex',
                     background: debug?.color,
                     width: debug ? '1px' : '0px',
                     height: '100%',
+
                     position: 'absolute',
                     zIndex: debug ? 99999 : -1
                 }}

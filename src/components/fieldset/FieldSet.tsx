@@ -5,6 +5,7 @@ import { MdClose } from 'react-icons/md'
 
 import { IFlagsObject } from '../../core/base/fieldStateStyle/fieldStateStyle.types'
 import Button from '../button/Button'
+
 import { PortalSlot } from '../portals/PortalSlot'
 
 interface IFieldSetProps<TType> {

@@ -2,13 +2,14 @@
 //     () => import('@components/portals/DropdownButtonPortal')
 // )
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import useIsomorphicLayoutEffect from '../../../core/hooks/useIsomorphicLayout'
 import useThrottle from '../../../core/hooks/useThrottle'
-import { IDebug } from '../debug/debug.types'
 import { AppContext, IAppContext } from './AppContext.context'
+
+import { IDebug } from '../debug/debug.types'
 
 interface AppContextProps {
     debug?: IDebug
@@ -38,14 +39,22 @@ interface AppContextProps {
 const AppContextProvider = ({ debug, children }: AppContextProps) => {
     const [currentY, setCurrentY] = useState<number>(0)
     const [middleScreenY, setMiddleScreenY] = useState<number>(0)
+    const [middleScreenRefPositionY, setMiddleScreenRefPositionY] = useState<number>(0)
+    const middleScreenRef = useRef(null)
 
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
 
     const updateY = useThrottle(() => {
         setCurrentY(window.scrollY)
         const computeMiddleOfScreen = window.innerHeight / 2 + window.scrollY
+
         setMiddleScreenY(computeMiddleOfScreen)
-    }, 50)
+
+        const _mspy = middleScreenRef?.current as unknown as HTMLDivElement
+
+        if (!_mspy) return
+        setMiddleScreenRefPositionY(_mspy.getBoundingClientRect().top + window.scrollY)
+    }, 2)
 
     useIsomorphicLayoutEffect(() => {
         window.addEventListener('scroll', updateY, { passive: true })
@@ -60,13 +69,27 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
         media: media,
         currentY: currentY,
         middleScreenY: middleScreenY,
+        middleScreenRefPositionY: middleScreenRefPositionY,
         isMobileDevice: false
     }
 
     return (
         <AppContext.Provider value={contextOutput}>
             <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+
             <div
+                style={{
+                    top: `${middleScreenRefPositionY}px`,
+                    display: 'flex',
+                    background: 'red',
+                    width: '100%',
+                    height: debug ? '6px' : '0px',
+                    position: 'absolute',
+                    zIndex: debug ? 99999 : -1
+                }}
+            />
+            <div
+                ref={middleScreenRef}
                 style={{
                     top: `${middleScreenY}px`,
                     display: 'flex',

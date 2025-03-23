@@ -1,9 +1,12 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
+import Button from '../../components/button/Button'
 import CheckInput from '../../components/checkInput/CheckInput'
 import { DateObject } from '../../components/datePicker/core/DateObject.object'
 import DateInput from '../../components/datePicker/DatePicker'
 import DatePickerDrawer from '../../components/datePicker/DatePicker.drawer'
+import Drawer from '../../components/drawer/Drawer'
+import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
 import FormyForm from '../../components/Formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
@@ -35,6 +38,17 @@ interface IFieldDemoProps {
 }
 
 const FormDemo = () => {
+    const [openState, setOpenState] = useState<DrawerOpenStateType>('closed')
+
+    const handleDrawerOpenState = (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: DrawerOpenStateType
+    ) => {
+        e?.stopPropagation?.()
+        e?.preventDefault?.()
+        setOpenState(state)
+    }
+
     const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
         const sd = new DateObject()
         const ed = new DateObject()
@@ -60,6 +74,28 @@ const FormDemo = () => {
             />
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
+            <div className={`relative bg-slate-400   w-full h-full p-6 `}>
+                <div id={`demo-drawer-drawer-slot-top-container`} />
+
+                <Drawer
+                    id={`demo-drawer`}
+                    onSetOpenState={handleDrawerOpenState}
+                    drawerOpenState={openState}
+                    debug={{ color: 'blue' }}
+                >
+                    <div className={`absolute flex w-52 h-96 bg-blue-400 p-3`}>TEST</div>
+                </Drawer>
+                <Button
+                    onClickCallback={(e) => setOpenState('open')}
+                    id={'drawer-button-demo'}
+                    title={'drawer-button'}
+                >
+                    Demo Drawer
+                </Button>
+
+                <div id={`demo-drawer-drawer-slot-bottom-container`} />
+            </div>
+
             <CheckInput fieldName={'trueFalseValue'} />
             <RadioInput fieldName={'selectedRadioId'} />
             <DateInput fieldName={'dateTimeValue'} />

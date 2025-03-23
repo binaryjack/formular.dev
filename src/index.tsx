@@ -10,7 +10,7 @@ const rootComponent = document.getElementById('root')
 
 const root = ReactDOM.createRoot(rootComponent!)
 root.render(
-    <AppContextProvider>
+    <AppContextProvider debug={{ color: 'yellow' }}>
         <App />
     </AppContextProvider>
 )
