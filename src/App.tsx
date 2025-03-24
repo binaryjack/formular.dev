@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import FormDemo from './demo/forms/FormDemo'
+import Positionning from './demo/positionning/Positionning'
 import Counter from './demo/signals/counter/Counter'
 import TextInput from './demo/signals/text/TextInput'
 
@@ -55,21 +56,35 @@ const App = () => {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [])
 
-    return (
-        <div className={'app'}>
+    const formDemo = () => (
+        <div>
             <h1>Forms Inputs using event driven design classes</h1>
             <h3>Patterns used: builder, strategy, observer, factory</h3>
             <FormDemo />
-
+        </div>
+    )
+    const TextInputDemo = () => (
+        <div>
+            {' '}
             <br />
             <h1>Signals Text Input</h1>
             <h3>Patterns used: signals, observer </h3>
             <TextInput />
-
+        </div>
+    )
+    const CounterDemo = () => (
+        <div>
+            {' '}
             <br />
             <h1>Signals Counter</h1>
             <h3>Patterns used: signals, observer </h3>
             <Counter />
+        </div>
+    )
+
+    return (
+        <div className={'app'}>
+            <Positionning />
         </div>
     )
 }
