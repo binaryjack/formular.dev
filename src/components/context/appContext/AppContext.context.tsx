@@ -1,14 +1,13 @@
 import { createContext, useContext } from 'react'
 
 import { IMedia, IMediaBreakpoints } from '../../../core/hooks/screen/screen.models'
+import { IDebug } from '../debug/debug.types'
 
 export interface IAppContext {
     breakpoints?: IMediaBreakpoints
     media?: IMedia
-    currentY: number
-    middleScreenY: number
-    middleScreenRefPositionY: number
     isMobileDevice: boolean
+    debug?: IDebug
 }
 
 export const appContextDefault = {
@@ -17,7 +16,8 @@ export const appContextDefault = {
     currentY: 0,
     middleScreenY: 0,
     middleScreenRefPositionY: 0,
-    isMobileDevice: false
+    isMobileDevice: false,
+    debug: undefined
 }
 
 export const AppContext = createContext<IAppContext>(appContextDefault)

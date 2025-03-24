@@ -1,11 +1,10 @@
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
-import Drawer from '../drawer/Drawer'
 import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
-import SelectDrawer from './Select.drawer'
+import SelectDrawerContent from './Select.drawer.content'
 
 interface ISelectProps {
     fieldName: string
@@ -45,17 +44,11 @@ const Select = ({ fieldName }: ISelectProps) => {
                 field?.focus()
             }}
             itemsChildren={
-                <Drawer
-                    id={field?.name ?? 'NOT-DEFINED!'}
-                    onSetOpenState={handleDrawerOpenState}
-                    drawerOpenState={field?.openState}
-                >
-                    <SelectDrawer
-                        filterTriggerDelay={500}
-                        items={field?.options ?? []}
-                        onSelectItem={(value) => field?.onSelectItem(value)}
-                    />
-                </Drawer>
+                <SelectDrawerContent
+                    filterTriggerDelay={500}
+                    items={field?.options ?? []}
+                    onSelectItem={(value) => field?.onSelectItem(value)}
+                />
             }
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />

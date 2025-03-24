@@ -2,16 +2,18 @@ import { useMemo, useState } from 'react'
 
 import Button from '../../components/button/Button'
 import CheckInput from '../../components/checkInput/CheckInput'
+import { CenterElementDebug } from '../../components/context/debug/CenterElementDebug'
 import { DateObject } from '../../components/datePicker/core/DateObject.object'
 import DateInput from '../../components/datePicker/DatePicker'
-import DatePickerDrawer from '../../components/datePicker/DatePicker.drawer'
+import DatePickerContentDrawer from '../../components/datePicker/DatePicker.drawer.content'
 import Drawer from '../../components/drawer/Drawer'
 import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
 import FormyForm from '../../components/Formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
 import Select from '../../components/selectInput/Select'
-import SelectDrawer from '../../components/selectInput/Select.drawer'
+import SelectDrawerContent from '../../components/selectInput/Select.drawer.content'
+import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 import { Signals } from '../../core/signals/signal'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { IFieldDescriptor } from '../../dependency/schema/descriptor/field.descriptor'
@@ -40,6 +42,9 @@ interface IFieldDemoProps {
 const FormDemo = () => {
     const [openState, setOpenState] = useState<DrawerOpenStateType>('closed')
 
+    const { scrollPosition, elementRef, elementPositionRefs, toggle } =
+        useCenterElementTrigger<HTMLDivElement>()
+
     const handleDrawerOpenState = (
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
@@ -66,8 +71,11 @@ const FormDemo = () => {
 
     return (
         <FormyForm formy={demoFormInstance}>
-            <DatePickerDrawer onSelectDate={onSelectDate} id={'DatePickerDrawerDemoStatic'} />
-            <SelectDrawer
+            <DatePickerContentDrawer
+                onSelectDate={onSelectDate}
+                id={'DatePickerDrawerDemoStatic'}
+            />
+            <SelectDrawerContent
                 filterTriggerDelay={500}
                 items={fieldSelect?.options ?? []}
                 onSelectItem={(value) => fieldSelect?.onSelectItem(value)}
@@ -75,13 +83,13 @@ const FormDemo = () => {
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
             <div className={`relative bg-slate-400   w-full h-full p-6 `}>
+                <div id={`demo-drawer-drawer-slot-center-container`} />
                 <div id={`demo-drawer-drawer-slot-top-container`} />
-
                 <Drawer
                     id={`demo-drawer`}
                     onSetOpenState={handleDrawerOpenState}
                     drawerOpenState={openState}
-                    debug={{ color: 'blue' }}
+                    position={'bottom'}
                 >
                     <div className={`absolute flex w-52 h-96 bg-blue-400 p-3`}>TEST</div>
                 </Drawer>
@@ -92,6 +100,12 @@ const FormDemo = () => {
                 >
                     Demo Drawer
                 </Button>
+
+                <CenterElementDebug
+                    centerScreen={scrollPosition.centerScreen}
+                    parentHeight={elementPositionRefs.height}
+                    screenTop={scrollPosition.screenTop}
+                />
 
                 <div id={`demo-drawer-drawer-slot-bottom-container`} />
             </div>

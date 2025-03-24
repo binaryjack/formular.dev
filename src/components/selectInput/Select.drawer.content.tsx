@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
 import { useDrawerContext } from '../drawer/Drawer.context'
-import SelectDrawerUI from './Select.drawer.UI'
+import SelectDrawerContentUI from './Select.drawer.content.UI'
 
 interface ISelectDrawerProps {
     items: IOptionItem[]
@@ -12,7 +12,7 @@ interface ISelectDrawerProps {
     onSelectItem: (value: IOptionItem) => void
 }
 
-const SelectDrawer = ({
+const SelectDrawerContent = ({
     items,
     filterTriggerDelay,
     selectedItemId,
@@ -95,7 +95,7 @@ const SelectDrawer = ({
     })
 
     return (
-        <SelectDrawerUI
+        <SelectDrawerContentUI
             filterTriggerDelay={filterTriggerDelay}
             items={filteredItems}
             handleKeyDown={handleKeyDown}
@@ -106,4 +106,4 @@ const SelectDrawer = ({
         />
     )
 }
-export default SelectDrawer
+export default SelectDrawerContent

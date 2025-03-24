@@ -1,36 +1,31 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
+import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import Button from '../button/Button'
-import useAppContext from '../context/appContext/AppContext.context'
-import { IDebug } from '../context/debug/debug.types'
 import { Portal } from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
-import { DrawerDisplayStyleType, DrawerOpenStateType, IDrawerSize } from './Drawer.types'
+import { DrawerOpenStateType, IDrawerSize } from './Drawer.types'
 
 interface IDrawerProps {
     id: string
     children: React.ReactNode
+    position: ElementPositionOutputType
     drawerOpenState?: DrawerOpenStateType
     onSetOpenState?: (
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
-    debug?: IDebug
 }
 
-const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawerProps) => {
+const Drawer = ({ id, children, position, drawerOpenState, onSetOpenState }: IDrawerProps) => {
     const [drawerSize, setDrawerSize] = useState<IDrawerSize>({
         width: 0,
         height: 0
     })
-    const [drawerDisplayStyle, setDrawerDisplayStyle] = useState<DrawerDisplayStyleType>('bottom')
-    const { currentY, middleScreenY, breakpoints, media, middleScreenRefPositionY } =
-        useAppContext()
+
     const drawerContainerRef = useRef(null)
-    const drawerSurfaceDetectorRef = useRef(null)
-    const drawerPositionDetectorRef = useRef(null)
 
     const reportDraweSize = (size: IDrawerSize) => {
         setDrawerSize(size)
@@ -46,43 +41,12 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         reportDraweSize
     }
 
-    const positionInParentY = useMemo(() => {
-        const _el = drawerContainerRef.current as unknown as HTMLDivElement
-        const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
-
-        if (!_el || !_sd) return 0
-
-        return _el.scrollTop + _sd.getBoundingClientRect?.()?.height / 2
-    }, [middleScreenY, currentY])
-
-    useEffect(() => {
-        const _el = drawerPositionDetectorRef.current as unknown as HTMLDivElement
-        const _sd = drawerSurfaceDetectorRef.current as unknown as HTMLDivElement
-        if (!media?.media || !_el || !_sd) return
-
-        const clientHeight = _sd?.getBoundingClientRect?.()?.y
-
-        console.clear()
-        /** if height of drawer is greater than half of screen size */
-        console.log(_el.getBoundingClientRect().top - window.screenTop, middleScreenRefPositionY)
-        if (['M', 'L', 'XL', 'XXL'].includes(media?.media)) {
-            setDrawerDisplayStyle(
-                _el.getBoundingClientRect().top - window.screenTop > middleScreenRefPositionY
-                    ? 'top'
-                    : 'bottom'
-            )
-        } else {
-            setDrawerDisplayStyle('center')
-        }
-    }, [middleScreenRefPositionY, media, drawerSize, positionInParentY])
-
     useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
-    // tt-transform-origin: ${drawerDisplayStyle === 'bottom' ? 'top' : drawerDisplayStyle === 'top' ? 'bottom' : 'center'};
     const drawerStyle =
-        drawerDisplayStyle !== 'center'
+        position !== 'center'
             ? `
-            #${id}-drawer-slot-${drawerDisplayStyle}-container {
+            #${id}-drawer-slot-${position}-container {
                 display: flex;
                 position: relative;
                 background: red;
@@ -90,32 +54,32 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                 height: 100%;
             }
 
-             #${id}-drawer-slot-${drawerDisplayStyle}-container 
+             #${id}-drawer-slot-${position}-container 
             .drawer-container {
                 display: flex;
                 position: absolute;
                 width: ${drawerSize.width}px;
                 height: ${drawerSize.height}px;
            
-                transform-origin: ${drawerDisplayStyle};
+                transform-origin: ${position};
              
             }
         
-            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            #${id}-drawer-slot-${position}-container 
               .drawer-container.open {
                transform: scaleY(${drawerSize.height}px);
-               ${drawerDisplayStyle}:-${drawerSize.height}px;
+               ${position}:-${drawerSize.height}px;
             }
 
-            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            #${id}-drawer-slot-${position}-container 
             .drawer-container.closed { 
                transform: scaleY(0);
-               ${drawerDisplayStyle}: 0;
+               ${position}: 0;
             }
     `
             : `
             
-              #${id}-drawer-slot-${drawerDisplayStyle}-container {
+              #${id}-drawer-slot-${position}-container {
                 display: grid;
                 position: relative;
                 align-items: center;
@@ -124,7 +88,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                 width: 100%;
             }
 
-              #${id}-drawer-slot-${drawerDisplayStyle}-container 
+              #${id}-drawer-slot-${position}-container 
                 .drawer-container {
                 display: flex;
                 align-items:center;
@@ -137,14 +101,14 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
               
             }
 
-            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            #${id}-drawer-slot-${position}-container 
               .drawer-container.open {        
                transform: scale(${drawerSize.height}px);
             width:100%;
               
             }
 
-            #${id}-drawer-slot-${drawerDisplayStyle}-container 
+            #${id}-drawer-slot-${position}-container 
             .drawer-container.closed { 
                transform: scale(0);
             }
@@ -154,7 +118,7 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
         <DatePickerContext.Provider key={id} value={drawerContextDefault}>
             <Portal
                 id={id}
-                slotName={`drawer-slot-${drawerDisplayStyle}`}
+                slotName={`drawer-slot-${position}`}
                 children={
                     <>
                         <div
@@ -184,36 +148,6 @@ const Drawer = ({ id, children, drawerOpenState, onSetOpenState, debug }: IDrawe
                     </Button>
                 }
             />
-            {/** this will stick along the component in order to compute the position from TOP */}
-            <div
-                id={`debug-${id}`}
-                ref={drawerPositionDetectorRef}
-                style={{
-                    top: `${positionInParentY}px`,
-                    display: 'flex',
-                    background: debug?.color,
-                    width: '100%',
-                    height: debug ? '5px' : '0px',
-                    position: 'absolute',
-                    zIndex: debug ? 99999 : -1
-                }}
-            />
-
-            {/** this will stick along the component in order to compute the height of the parent component and find the middle */}
-            <div
-                id={`drawer-parent-height-${id}`}
-                ref={drawerSurfaceDetectorRef}
-                style={{
-                    top: `${0}px`,
-                    display: 'flex',
-                    background: debug?.color,
-                    width: debug ? '1px' : '0px',
-                    height: '100%',
-
-                    position: 'absolute',
-                    zIndex: debug ? 99999 : -1
-                }}
-            ></div>
         </DatePickerContext.Provider>
     )
 }

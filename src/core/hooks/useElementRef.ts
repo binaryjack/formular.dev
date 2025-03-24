@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useScrollingContext } from './screen/Scrolling.context'
+import { useScrollingContext } from '../../components/context/scrolling/Scrolling.context'
 
 export interface IElementRef {
     height: number
@@ -11,13 +11,13 @@ export interface IElementRef {
     y: number
 }
 
-export const useElementRef = (inputRef: React.RefObject<HTMLDivElement>) => {
+export const useElementRef = <T extends HTMLElement>(inputRef: React.RefObject<T>) => {
     const [elementPositionRefs, setElementPositionRefs] = useState<IElementRef>({} as IElementRef)
 
     const { screenProperties } = useScrollingContext()
 
     const computePosition = useCallback(() => {
-        const _el = inputRef?.current as unknown as HTMLDivElement
+        const _el = inputRef?.current as unknown as T
         if (!_el) return
 
         const elBC = _el.getBoundingClientRect?.()

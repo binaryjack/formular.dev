@@ -19,7 +19,7 @@ interface ISelectDrawerUIProps {
     onClearFilter: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
-const SelectDrawerUI = ({
+const SelectDrawerContentUI = ({
     items,
     handleKeyDown,
     onHandleSelectItem,
@@ -53,4 +53,4 @@ const SelectDrawerUI = ({
         </div>
     )
 }
-export default SelectDrawerUI
+export default SelectDrawerContentUI

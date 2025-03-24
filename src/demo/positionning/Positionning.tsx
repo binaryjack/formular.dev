@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
-import { CenterElementDebug } from '../../core/hooks/screen/CenterElementDebug'
+
+import { CenterElementDebug } from '../../components/context/debug/CenterElementDebug'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 
 const style: CSSProperties = {
@@ -14,7 +15,8 @@ interface ScreenElementProps {
 }
 
 const ScreenElement = ({ name }: ScreenElementProps) => {
-    const { scrollPosition, elementRef, elementPositionRefs, toggle } = useCenterElementTrigger()
+    const { scrollPosition, elementRef, elementPositionRefs, toggle } =
+        useCenterElementTrigger<HTMLDivElement>()
 
     return (
         <div

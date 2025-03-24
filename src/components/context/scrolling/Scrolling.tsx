@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import useThrottle from '../useThrottle'
+
+import useThrottle from '../../../core/hooks/useThrottle'
+import { VisualLandmark } from '../debug/VisualLandmark'
 import { IScreenProperties, IScrollingContext, ScrollContextProvider } from './Scrolling.context'
-import { VisualLandmark } from './VisualLandmark'
 
 interface IScrollContextProps {
     children: React.ReactNode
@@ -35,6 +36,7 @@ export const ScrollContext = ({ children }: IScrollContextProps) => {
     useEffect(() => {
         window.addEventListener('scroll', () => handle('Scroll'), { passive: true })
         window.addEventListener('resize', () => handle('Resize'), { passive: true })
+        handle('Init')
         return () => {
             window.removeEventListener('scroll', () => handle('Scroll'))
             window.removeEventListener('resize', () => handle('Resize'))

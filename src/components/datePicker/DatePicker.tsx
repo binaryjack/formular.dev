@@ -3,14 +3,13 @@ import { useRef } from 'react'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { conventions } from '../context/conventions/conventions'
-import Drawer from '../drawer/Drawer'
 import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../Formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import { DatePickerOutputFormatType } from './core/DatePicker.types'
 import { formatDate } from './core/DatePicker.utils'
-import DatePickerDrawer from './DatePicker.drawer'
+import DatePickerContentDrawer from './DatePicker.drawer.content'
 
 interface DatePickerProps {
     fieldName: string
@@ -73,16 +72,10 @@ const DatePicker = ({
                 field?.focus()
             }}
             itemsChildren={
-                <Drawer
+                <DatePickerContentDrawer
                     id={field?.name ?? 'NOT-DEFINED!'}
-                    onSetOpenState={handleDrawerOpenState}
-                    drawerOpenState={field?.openState}
-                >
-                    <DatePickerDrawer
-                        id={field?.name ?? 'NOT-DEFINED!'}
-                        onSelectDate={onSelectDate}
-                    />
-                </Drawer>
+                    onSelectDate={onSelectDate}
+                />
             }
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />

@@ -12,7 +12,7 @@ import {
     getPreviousDate
 } from './core/DatePicker.utils'
 import { IDatePickerCell, IDatePickerRow } from './core/models/DatePicker.models'
-import DatePickerDrawerUI from './DatePicker.drawer.UI'
+import DatePickerDrawerUI from './DatePicker.drawer.content.UI'
 
 interface IDatePickerDrawerProps {
     id: string
@@ -23,7 +23,7 @@ interface IDatePickerDrawerProps {
     showFooter?: boolean
 }
 
-const DatePickerDrawer = ({
+const DatePickerContentDrawer = ({
     id,
     defaultDate,
     onSelectDate,
@@ -141,4 +141,4 @@ const DatePickerDrawer = ({
     )
 }
 
-export default DatePickerDrawer
+export default DatePickerContentDrawer
