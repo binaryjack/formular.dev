@@ -27,9 +27,9 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
 
         const isLaptopAndHigher = ['M', 'L', 'XL', 'XXL'].includes(media?.media)
 
-        const isPositionTop = isLaptopAndHigher && screenProperties.screenTop < triggerPosition
+        const isPositionTop = isLaptopAndHigher && screenProperties.screenTop > triggerPosition
 
-        const isPositionBottom = isLaptopAndHigher && screenProperties.screenTop >= triggerPosition
+        const isPositionBottom = isLaptopAndHigher && screenProperties.screenTop <= triggerPosition
 
         const targetPositionToggle: ElementPositionOutputType = isPositionTop
             ? 'top'

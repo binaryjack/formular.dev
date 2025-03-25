@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import Button from './components/button/Button'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
 import Counter from './demo/signals/counter/Counter'
@@ -65,7 +66,6 @@ const App = () => {
     )
     const TextInputDemo = () => (
         <div>
-            {' '}
             <br />
             <h1>Signals Text Input</h1>
             <h3>Patterns used: signals, observer </h3>
@@ -74,7 +74,6 @@ const App = () => {
     )
     const CounterDemo = () => (
         <div>
-            {' '}
             <br />
             <h1>Signals Counter</h1>
             <h3>Patterns used: signals, observer </h3>
@@ -84,6 +83,15 @@ const App = () => {
 
     return (
         <div className={'app'}>
+            <Button
+                onClickCallback={(e) => console.log('CLICKED')}
+                id={'lambda-button-demo'}
+                title={'drawer-button'}
+                variant={{ rounded: true, size: 'md', width: '150px' }}
+            >
+                Demo Drawer
+            </Button>
+
             <Positionning />
         </div>
     )

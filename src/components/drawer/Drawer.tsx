@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
@@ -6,7 +6,7 @@ import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import Button from '../button/Button'
 import { Portal } from '../portals/Portal'
 import { DatePickerContext, IDrawerContext } from './Drawer.context'
-import { DrawerOpenStateType, IDrawerSize } from './Drawer.types'
+import { DrawerOpenStateType } from './Drawer.types'
 
 interface IDrawerProps {
     id: string
@@ -17,19 +17,20 @@ interface IDrawerProps {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
+    width?: string
+    height?: string
 }
 
-const Drawer = ({ id, children, position, drawerOpenState, onSetOpenState }: IDrawerProps) => {
-    const [drawerSize, setDrawerSize] = useState<IDrawerSize>({
-        width: 0,
-        height: 0
-    })
-
+const Drawer = ({
+    id,
+    children,
+    position,
+    drawerOpenState,
+    onSetOpenState,
+    width = '200px',
+    height = '100px'
+}: IDrawerProps) => {
     const drawerContainerRef = useRef(null)
-
-    const reportDraweSize = (size: IDrawerSize) => {
-        setDrawerSize(size)
-    }
 
     const handleClose = () => {
         onSetOpenState?.({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
@@ -38,7 +39,8 @@ const Drawer = ({ id, children, position, drawerOpenState, onSetOpenState }: IDr
     const drawerContextDefault: IDrawerContext = {
         onSetOpenState,
         drawerOpenState,
-        reportDraweSize
+        drawerWidth: width,
+        drawerHeight: height
     }
 
     useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
@@ -51,35 +53,33 @@ const Drawer = ({ id, children, position, drawerOpenState, onSetOpenState }: IDr
                 position: relative;
                 background: red;
                 width: 100%;
-                height: 100%;
+                height: 1px; 
+
             }
 
              #${id}-drawer-slot-${position}-container 
             .drawer-container {
                 display: flex;
                 position: absolute;
-                width: ${drawerSize.width}px;
-                height: ${drawerSize.height}px;
-           
-                transform-origin: ${position};
-             
+                width: ${width};
+                height: ${height};
+                border: 6px solid gray;
+                transform-origin:${position};    
             }
         
             #${id}-drawer-slot-${position}-container 
               .drawer-container.open {
-               transform: scaleY(${drawerSize.height}px);
-               ${position}:-${drawerSize.height}px;
+               transform: scaleY(1);
+               ${position}:0;
+               
             }
 
             #${id}-drawer-slot-${position}-container 
             .drawer-container.closed { 
                transform: scaleY(0);
-               ${position}: 0;
-            }
-    `
-            : `
-            
-              #${id}-drawer-slot-${position}-container {
+               ${position}:0;
+            }`
+            : `#${id}-drawer-slot-${position}-container {
                 display: grid;
                 position: relative;
                 align-items: center;
@@ -96,14 +96,14 @@ const Drawer = ({ id, children, position, drawerOpenState, onSetOpenState }: IDr
                 align-content: center;
                 justify-content: center;
                 position: absolute;      
-                max-width: ${drawerSize.width}px;
-                height: ${drawerSize.height}px;
+                max-width: ${width}px;
+                height: ${height}px;
               
             }
 
             #${id}-drawer-slot-${position}-container 
               .drawer-container.open {        
-               transform: scale(${drawerSize.height}px);
+               transform: scale(${height}px);
             width:100%;
               
             }

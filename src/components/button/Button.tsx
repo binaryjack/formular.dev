@@ -15,6 +15,8 @@ interface IButtonVariant {
     textCase: ButtonCaseType
     rounded: boolean
     bold: boolean
+    width: string
+    height: string
 }
 
 interface IButtonProps {
@@ -42,7 +44,9 @@ const Button = ({
         size = 'sm',
         type = 'primary',
         bold = false,
-        textCase = 'normal-case'
+        textCase = 'normal-case',
+        width = 'unset',
+        height = 'unset'
     } = variant
 
     const btnBaseClasses = uniqueClass([
@@ -69,7 +73,11 @@ const Button = ({
     }, [buttonRef])
 
     return (
-        <div id={id} className={`btn-wrapper ${rounded ? 'rounded' : ''}`}>
+        <div
+            id={id}
+            className={`btn-wrapper ${rounded ? 'rounded' : ''}`}
+            style={{ width: width, height: height }}
+        >
             <button
                 ref={buttonRef}
                 type="button"

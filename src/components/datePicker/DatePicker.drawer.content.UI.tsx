@@ -1,7 +1,7 @@
 import { BsCalendar3, BsCalendar3Event, BsCalendar3Range, BsCalendarDate } from 'react-icons/bs'
 import { TbWorld } from 'react-icons/tb'
 
-import { useDrawerSize } from '../drawer/hooks/useDrawerSize'
+import { useDrawerContext } from '../drawer/Drawer.context'
 import DatePickerBodyDays from './components/DatePicker.body.days'
 import DatePickerBodyMonths from './components/DatePicker.body.months'
 import DatePickerBodyYears from './components/DatePicker.body.years'
@@ -22,10 +22,14 @@ const DatePickerDrawerUI = ({
     defaultSelectionMode = 'single',
     onClick
 }: IDatePickerDrawerProps) => {
-    const { drawerWrapperRef } = useDrawerSize()
+    const { drawerHeight, drawerWidth } = useDrawerContext()
 
     return (
-        <div className={`date-picker-container `} onClick={onClick} ref={drawerWrapperRef}>
+        <div
+            className={`date-picker-container `}
+            onClick={onClick}
+            style={{ width: drawerWidth, height: drawerHeight }}
+        >
             <DatePickerDrawerHeader id={id} />
 
             <div className={`date-picker-body`}>

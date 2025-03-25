@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-import { DrawerOpenStateType, IDrawerSize } from './Drawer.types'
+import { DrawerOpenStateType } from './Drawer.types'
 
 export interface IDrawerContext {
     drawerOpenState?: DrawerOpenStateType
@@ -8,7 +8,8 @@ export interface IDrawerContext {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
-    reportDraweSize: (size: IDrawerSize) => void
+    drawerHeight: string
+    drawerWidth: string
 }
 
 export const drawerContextDefault: IDrawerContext = {
@@ -16,9 +17,8 @@ export const drawerContextDefault: IDrawerContext = {
     onSetOpenState: () => {
         return
     },
-    reportDraweSize: () => {
-        return
-    }
+    drawerHeight: '0px',
+    drawerWidth: '0px'
 }
 const DrawerContext = createContext<IDrawerContext>(drawerContextDefault)
 

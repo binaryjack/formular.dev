@@ -2,7 +2,8 @@ import { SlMagnifier } from 'react-icons/sl'
 
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
 import DelayInput from '../delayInput/DelayInput'
-import { useDrawerSize } from '../drawer/hooks/useDrawerSize'
+
+import { useDrawerContext } from '../drawer/Drawer.context'
 import SelectDrawerOptions from './Select.drawer.options'
 
 interface ISelectDrawerUIProps {
@@ -28,10 +29,14 @@ const SelectDrawerContentUI = ({
     onFilterItems,
     onClearFilter
 }: ISelectDrawerUIProps) => {
-    const { drawerWrapperRef, drawerOpenState } = useDrawerSize()
+    const { drawerHeight, drawerWidth, drawerOpenState } = useDrawerContext()
 
     return (
-        <div className={`select-container`} onKeyDown={handleKeyDown} ref={drawerWrapperRef}>
+        <div
+            className={`select-container`}
+            onKeyDown={handleKeyDown}
+            style={{ width: drawerWidth, height: drawerHeight }}
+        >
             <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
                 <i className={`flex icon-box mr-1 h-6`}>
                     <SlMagnifier />

@@ -7,6 +7,7 @@ import { DateObject } from '../../components/datePicker/core/DateObject.object'
 import DateInput from '../../components/datePicker/DatePicker'
 import DatePickerContentDrawer from '../../components/datePicker/DatePicker.drawer.content'
 import Drawer from '../../components/drawer/Drawer'
+import DrawerContent from '../../components/drawer/Drawer.content'
 import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
 import FormyForm from '../../components/Formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
@@ -91,7 +92,7 @@ const FormDemo = () => {
                     drawerOpenState={openState}
                     position={'bottom'}
                 >
-                    <div className={`absolute flex w-52 h-96 bg-blue-400 p-3`}>TEST</div>
+                    <DrawerContent id={`demo-drawer`} />
                 </Drawer>
                 <Button
                     onClickCallback={(e) => setOpenState('open')}

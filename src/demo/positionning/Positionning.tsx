@@ -1,54 +1,19 @@
-import { CSSProperties } from 'react'
-
-import { CenterElementDebug } from '../../components/context/debug/CenterElementDebug'
-import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
-
-const style: CSSProperties = {
-    position: 'absolute',
-    background: 'red',
-    display: 'flex',
-    flexDirection: 'row'
-}
-
-interface ScreenElementProps {
-    name: string
-}
-
-const ScreenElement = ({ name }: ScreenElementProps) => {
-    const { scrollPosition, elementRef, elementPositionRefs, toggle } =
-        useCenterElementTrigger<HTMLDivElement>()
-
-    return (
-        <div
-            ref={elementRef}
-            className={`relative flex flex-col items-center justify-center text-slate-200 font-bold size-64 w-full h-44 bg-orange-800 p-2 m-4`}
-        >
-            <CenterElementDebug
-                centerScreen={scrollPosition.centerScreen}
-                parentHeight={elementPositionRefs.height}
-                screenTop={scrollPosition.screenTop}
-            />
-            <h1>
-                {name} | {scrollPosition.centerScreen} |{scrollPosition.triggerPoint} | {toggle}
-            </h1>
-        </div>
-    )
-}
+import { ScreenElement } from './ScreenElement'
 
 const Positionning = () => {
     return (
         <div className={`relaive flex flex-col w-full h-full bg-slate-200`}>
-            <ScreenElement name={`element 1`} />
-            <ScreenElement name={`element 2`} />
-            <ScreenElement name={`element 3`} />
-            <ScreenElement name={`element 4`} />
-            <ScreenElement name={`element 5`} />
-            <ScreenElement name={`element 6`} />
-            <ScreenElement name={`element 7`} />
-            <ScreenElement name={`element 8`} />
-            <ScreenElement name={`element 9`} />
-            <ScreenElement name={`element 10`} />
-            <ScreenElement name={`element 11`} />
+            <ScreenElement id={`element1`} name={`element 1`} />
+            <ScreenElement id={`element2`} name={`element 2`} />
+            <ScreenElement id={`element3`} name={`element 3`} />
+            <ScreenElement id={`element4`} name={`element 4`} />
+            <ScreenElement id={`element5`} name={`element 5`} />
+            <ScreenElement id={`element6`} name={`element 6`} />
+            <ScreenElement id={`element7`} name={`element 7`} />
+            <ScreenElement id={`element8`} name={`element 8`} />
+            <ScreenElement id={`element9`} name={`element 9`} />
+            <ScreenElement id={`element10`} name={`element 10`} />
+            <ScreenElement id={`element11`} name={`element 11`} />
         </div>
     )
 }
