@@ -1,13 +1,15 @@
+/** @jsxImportSource @emotion/react */
+
 import { useRef } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
+import { css } from '@emotion/react'
 import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import Button from '../button/Button'
 import { Portal } from '../portals/Portal'
-import { DatePickerContext, IDrawerContext } from './Drawer.context'
+import { DrawerContext, IDrawerContext } from './Drawer.context'
 import { DrawerOpenStateType } from './Drawer.types'
-
 interface IDrawerProps {
     id: string
     children: React.ReactNode
@@ -21,6 +23,74 @@ interface IDrawerProps {
     height?: string
 }
 
+const drawerContainerStyle = (
+    position: ElementPositionOutputType,
+    width: string,
+    height: string
+) => css`
+    --display: flex;
+    --position: ${position === 'center' ? 'relative' : 'absolute'};
+    width: ${width};
+    height: ${height};
+    transform-origin: ${position};
+
+    &.open {
+        transform: ${position === 'center' ? 'scale(1)' : 'scaleY(1)'};
+        ${position !== 'center' && `${position}: 0;`}
+    }
+
+    &.closed {
+        transform: ${position === 'center' ? 'scale(0)' : 'scaleY(0)'};
+        ${position !== 'center' && `${position}: 0;`}
+    }
+`
+
+const drawerConditionnalStyle = (
+    id: string,
+    position: ElementPositionOutputType,
+    width: string,
+    height: string
+) => {
+    return `
+            #${id}-drawer-slot-${position}-container {
+                display: ${position === 'center' ? 'grid' : 'flex'};
+                position: relative;
+                background: red;
+                width: 100%;
+                height: 1px;                               
+                ${position === 'center' ? `align-items: center;` : ''}    
+                ${position === 'center' ? `justify-items: center;` : ''}    
+                transform-origin: ${position === 'center' ? 'center' : 'unset'};
+            }
+            #${id}-drawer-slot-${position}-container 
+            .drawer-container {
+                display: flex;
+                position: absolute;
+                width: ${width};
+                height: ${height};
+                transform-origin:${position === 'center' ? position : 'unset'};  
+
+                align-items: ${position === 'center' ? 'center' : 'flex-start'};
+                justify-items: ${position === 'center' ? 'center' : 'unset'};
+                align-content: ${position === 'center' ? 'center' : 'unset'};
+                justify-content: ${position === 'center' ? 'center' : 'unset'};
+            }     
+
+
+             #${id}-drawer-slot-${position}-container 
+            .drawer-container.open {
+                transform: scaleY(1);
+                ${position !== 'center' ? `${position}:0;` : ''}             
+            }
+
+            #${id}-drawer-slot-${position}-container 
+            .drawer-container.closed { 
+                transform: scaleY(0);
+                ${position !== 'center' ? `${position}:0;` : ''}    
+            }
+    
+    `
+}
 const Drawer = ({
     id,
     children,
@@ -45,77 +115,8 @@ const Drawer = ({
 
     useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
-    const drawerStyle =
-        position !== 'center'
-            ? `
-            #${id}-drawer-slot-${position}-container {
-                display: flex;
-                position: relative;
-                background: red;
-                width: 100%;
-                height: 1px; 
-
-            }
-
-             #${id}-drawer-slot-${position}-container 
-            .drawer-container {
-                display: flex;
-                position: absolute;
-                width: ${width};
-                height: ${height};
-                border: 6px solid gray;
-                transform-origin:${position};    
-            }
-        
-            #${id}-drawer-slot-${position}-container 
-              .drawer-container.open {
-               transform: scaleY(1);
-               ${position}:0;
-               
-            }
-
-            #${id}-drawer-slot-${position}-container 
-            .drawer-container.closed { 
-               transform: scaleY(0);
-               ${position}:0;
-            }`
-            : `#${id}-drawer-slot-${position}-container {
-                display: grid;
-                position: relative;
-                align-items: center;
-                justify-items: center;
-                transform-origin: center;
-                width: 100%;
-            }
-
-              #${id}-drawer-slot-${position}-container 
-                .drawer-container {
-                display: flex;
-                align-items:center;
-                justify-items: center;
-                align-content: center;
-                justify-content: center;
-                position: absolute;      
-                max-width: ${width}px;
-                height: ${height}px;
-              
-            }
-
-            #${id}-drawer-slot-${position}-container 
-              .drawer-container.open {        
-               transform: scale(${height}px);
-            width:100%;
-              
-            }
-
-            #${id}-drawer-slot-${position}-container 
-            .drawer-container.closed { 
-               transform: scale(0);
-            }
-            `
-
     return (
-        <DatePickerContext.Provider key={id} value={drawerContextDefault}>
+        <DrawerContext.Provider key={id} value={drawerContextDefault}>
             <Portal
                 id={id}
                 slotName={`drawer-slot-${position}`}
@@ -128,7 +129,7 @@ const Drawer = ({
                         >
                             {children}
                         </div>
-                        <style>{drawerStyle}</style>
+                        <style>{drawerConditionnalStyle(id, position, width, height)}</style>
                     </>
                 }
             />
@@ -143,12 +144,14 @@ const Drawer = ({
                         onClickCallback={(e) =>
                             onSetOpenState?.(e, drawerOpenState === 'open' ? 'closed' : 'open')
                         }
+                        aria-expanded={drawerOpenState === 'open'}
+                        aria-controls={`${id}-drawer-wrapper`}
                     >
                         {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
                     </Button>
                 }
             />
-        </DatePickerContext.Provider>
+        </DrawerContext.Provider>
     )
 }
 

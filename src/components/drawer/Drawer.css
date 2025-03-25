@@ -1,6 +1,6 @@
 @layer components {
     .drawer-container {
-        @apply bg-gray-200 transition ease-in-out cursor-pointer select-none z-50 list-none;
+        @apply bg-gray-200 transition ease-in-out cursor-pointer select-none z-[9999] list-none shadow-xl;
     }
 
     .drawer-content {

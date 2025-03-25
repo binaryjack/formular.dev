@@ -40,8 +40,8 @@ export const getMediaScreenAspectRatio = (x: number, y: number): IMedia => {
     console.log()
     const _orientations: ScreenOrientationType = x >= y ? 'landscape' : 'portrait'
 
-    const max = Math.max(x, y)
-    let om = MediaRanges.find((o) => o.max >= max)
+    const min = Math.min(x, y)
+    let om = MediaRanges.find((o) => o.max >= min)
     if (!om) {
         om = MediaRanges[MediaRanges.length - 1]
     }

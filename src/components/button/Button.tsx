@@ -17,6 +17,7 @@ interface IButtonVariant {
     bold: boolean
     width: string
     height: string
+    className: string
 }
 
 interface IButtonProps {
@@ -46,7 +47,8 @@ const Button = ({
         bold = false,
         textCase = 'normal-case',
         width = 'unset',
-        height = 'unset'
+        height = 'unset',
+        className
     } = variant
 
     const btnBaseClasses = uniqueClass([
@@ -75,7 +77,7 @@ const Button = ({
     return (
         <div
             id={id}
-            className={`btn-wrapper ${rounded ? 'rounded' : ''}`}
+            className={`btn-wrapper ${rounded ? 'rounded' : ''} ${className}`}
             style={{ width: width, height: height }}
         >
             <button

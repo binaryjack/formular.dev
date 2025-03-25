@@ -26,4 +26,4 @@ const useDrawerContext = (): IDrawerContext => {
     return useContext(DrawerContext)
 }
 
-export { DrawerContext as DatePickerContext, useDrawerContext }
+export { DrawerContext, useDrawerContext }

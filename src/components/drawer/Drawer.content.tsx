@@ -9,7 +9,7 @@ const DrawerContent = ({ id }: DrawerContentProps) => {
     return (
         <div
             id={id}
-            className={`relative flex w-full h-full bg-blue-400 p-3 m-0`}
+            className={`relative flex w-full h-full bg-blue-400 p-3 m-0 `}
             style={{ height: drawerHeight, width: drawerWidth }}
         >
             <span>{id} TEST</span>

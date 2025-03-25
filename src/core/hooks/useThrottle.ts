@@ -10,28 +10,36 @@ type SomeFunction = (...args: any[]) => void
  * @returns The debounced function, which will run only if the debounced function has not been called in the last (delay) ms
  */
 
-const useThrottle = <Func extends SomeFunction | void>(
-    func: Func,
-    delay = 1000
-) => {
+const useThrottle = <Func extends SomeFunction | void>(func: Func, delay = 1000) => {
     let lastArgs: any[] | undefined
+    const lastCall = useRef<number>(Number.NEGATIVE_INFINITY)
+    const wait = useRef<number>(Number.NEGATIVE_INFINITY)
     const timer = useRef<Timer>()
+
     useEffect(() => {
         return () => {
             if (!timer.current) return
             clearTimeout(timer.current)
         }
     }, [])
+
     const throttledFunction = ((...args: any[]) => {
         const lastArgsString = JSON.stringify(lastArgs)
         if (lastArgsString === JSON.stringify(args)) return
-        // console.log('DEBOUNCE')
-        const newTimer = setTimeout(() => {
-            // console.log('THROTTLE______FUNCTION EXEC')
-            func?.(...args)
-        }, delay)
+
+        wait.current = lastCall.current + delay - Date.now()
         clearTimeout(timer.current)
-        timer.current = newTimer
+
+        if (wait.current <= 0) {
+            // console.log('DEBOUNCE')
+            const newTimer = setTimeout(() => {
+                // console.log('THROTTLE______FUNCTION EXEC')
+                func?.(...args)
+                lastCall.current = Date.now()
+            }, delay)
+            clearTimeout(timer.current)
+            timer.current = newTimer
+        }
     }) as Func
     return throttledFunction
 }

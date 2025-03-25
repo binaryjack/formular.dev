@@ -17,6 +17,7 @@
     "description": "",
     "devDependencies": {
         "@babel/preset-typescript": "^7.26.0",
+        "@emotion/babel-plugin": "^11.13.5",
         "@jest/globals": "^29.7.0",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.8.5",
@@ -42,6 +43,9 @@
         "vite-plugin-svg": "^0.7.0"
     },
     "dependencies": {
+        "@emotion/css": "^11.13.5",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-icons": "^5.4.0",

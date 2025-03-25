@@ -15,7 +15,8 @@
         "isolatedModules": true,
         "noImplicitThis": true,
         "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "jsxImportSource": "@emotion/react"
     },
     "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
     "include": ["src", "tests"]

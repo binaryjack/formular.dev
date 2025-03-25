@@ -4,7 +4,7 @@ import { CenterElementDebug } from '../../components/context/debug/CenterElement
 import Drawer from '../../components/drawer/Drawer'
 import DrawerContent from '../../components/drawer/Drawer.content'
 import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
-import { PortalSlot } from '../../components/portals/PortalSlot'
+import DrawerSlot from '../../components/drawer/DrawerSlot'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 
 interface ScreenElementProps {
@@ -32,8 +32,8 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
             ref={elementRef}
             className={`relative flex flex-col items-center justify-center text-slate-200 font-bold size-64 w-full h-44 bg-orange-800 p-2 my-2`}
         >
-            <PortalSlot id={id} slotName={'drawer-slot-center'} />
-            <PortalSlot id={id} slotName={'drawer-slot-bottom'} />
+            <DrawerSlot id={id} slotName={'drawer-slot-center'} position={toggle} />
+            <DrawerSlot id={id} slotName={'drawer-slot-bottom'} position={toggle} />
 
             <Drawer
                 id={id}
@@ -56,14 +56,12 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
                 onClickCallback={(e) => setOpenState('open')}
                 id={`${id}-button`}
                 title={`${id}-button`}
+                variant={{ width: '500px', size: 'sm', rounded: true, className: 'z-50' }}
             >
-                Demo Drawer
-            </Button>
-            <h1>
                 {name} | {scrollPosition.centerScreen} |{scrollPosition.triggerPoint} | {toggle}
-            </h1>
+            </Button>
 
-            <PortalSlot id={id} slotName={'drawer-slot-top'} />
+            <DrawerSlot id={id} slotName={'drawer-slot-top'} position={toggle} />
         </div>
     )
 }
