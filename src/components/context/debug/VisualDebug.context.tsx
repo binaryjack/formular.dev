@@ -11,7 +11,7 @@ export const visualDebugContextDefault: IVisualDebugContext = {
 
 export const DebugContextProvider = createContext<IVisualDebugContext>(visualDebugContextDefault)
 
-export const useDebugContext = () => {
+export const useVisualDebugContext = () => {
     const context = useContext(DebugContextProvider)
     if (context === undefined) {
         throw new Error('useDebugContext must be used within a VisualDebug')

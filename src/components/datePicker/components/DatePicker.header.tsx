@@ -1,7 +1,7 @@
 import { MdClear } from 'react-icons/md'
 import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 
-import Button from '../../button/Button'
+import { Button } from '../../button/Button'
 import { PortalSlot } from '../../portals/PortalSlot'
 import { useDatePickerContext } from './DatePicker.context'
 import DatePickerSwitch from './DatePicker.switch'

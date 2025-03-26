@@ -1,6 +1,6 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
-import Button from '../../button/Button'
+import { Button } from '../../button/Button'
 import { Portal } from '../../portals/Portal'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
 import DatePickerCell from './DatePicker.cell'

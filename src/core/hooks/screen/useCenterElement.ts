@@ -9,14 +9,17 @@ import { useElementRef } from '../useElementRef'
 import { ElementPositionOutputType } from './screen.types'
 
 export const useCenterElementTrigger = <T extends HTMLElement>() => {
-    const [toggle, setToggle] = useState<ElementPositionOutputType>('center')
-
-    const [scrollPosition, setScrollPosition] = useState<IScreenProperties>({} as IScreenProperties)
-    const elementRef = useRef<T>(null)
-
-    const { elementPositionRefs } = useElementRef<T>(elementRef)
+    /** gets the responsive media object handled through the application context */
     const { media } = useAppContext()
+    /** gets the scrolling screenProperties handled by the Scrolling context */
     const { screenProperties } = useScrollingContext()
+
+    const [toggle, setToggle] = useState<ElementPositionOutputType>('center')
+    const [scrollPosition, setScrollPosition] = useState<IScreenProperties>({} as IScreenProperties)
+    /** use this output to ref the div which will be used as a horizontal reference keept at the middle of the screen */
+    const elementRef = useRef<T>(null)
+    /** this hook will extract all needed bounding rectangle box data as a IElementRef*/
+    const { elementPositionRefs } = useElementRef<T>(elementRef)
 
     const handleScroll = useCallback(() => {
         if (!media?.media) return

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import useThrottle from '../../../core/hooks/useThrottle'
 import { VisualLandmark } from '../debug/VisualLandmark'
 import { IScreenProperties, IScrollingContext, ScrollContextProvider } from './Scrolling.context'
 
@@ -13,12 +12,8 @@ export const ScrollContext = ({ children }: IScrollContextProps) => {
         {} as IScreenProperties
     )
 
-    const updates = useCallback(() => {
-        return window.innerWidth + window.innerHeight + window.scrollY + window.screenTop
-    }, [window.innerWidth, window.innerHeight, window.scrollY, window.screenTop])
-
     const handle = useCallback(
-        useThrottle((eventName: string) => {
+        (eventName: string) => {
             console.log(eventName)
             setScreenProperties({
                 width: window.innerWidth,
@@ -27,9 +22,10 @@ export const ScrollContext = ({ children }: IScrollContextProps) => {
                 screenTop: window.innerHeight / 2,
                 centerScreen: window.innerHeight / 2 + window.scrollY,
                 triggerPoint: 0,
-                hasUpdates: updates()
+                hasUpdates:
+                    window.innerWidth + window.innerHeight + window.scrollY + window.screenTop
             })
-        }, 10),
+        },
         [window.innerHeight, window.innerWidth, window.scrollY]
     )
 

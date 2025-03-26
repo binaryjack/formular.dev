@@ -1,3 +1,5 @@
+import { useVisualDebugContext } from './VisualDebug.context'
+
 export interface ICenterElementDebugProps {
     height: number
     width?: number
@@ -13,6 +15,8 @@ export const VisualLandmark = ({
     displayText,
     color
 }: ICenterElementDebugProps) => {
+    const { options } = useVisualDebugContext()
+    if (!options?.enabled) return <></>
     return (
         <div
             className={`absolute flex items-center justify-center  h-auto ${color} z-40 top-0 `}

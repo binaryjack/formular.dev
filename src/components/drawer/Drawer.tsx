@@ -3,10 +3,10 @@
 import { useRef } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-import { css } from '@emotion/react'
 import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
-import Button from '../button/Button'
+import { Button } from '../button/Button'
+import { useVisualDebugContext } from '../context/debug/VisualDebug.context'
 import { Portal } from '../portals/Portal'
 import { DrawerContext, IDrawerContext } from './Drawer.context'
 import { DrawerOpenStateType } from './Drawer.types'
@@ -23,43 +23,23 @@ interface IDrawerProps {
     height?: string
 }
 
-const drawerContainerStyle = (
-    position: ElementPositionOutputType,
-    width: string,
-    height: string
-) => css`
-    --display: flex;
-    --position: ${position === 'center' ? 'relative' : 'absolute'};
-    width: ${width};
-    height: ${height};
-    transform-origin: ${position};
-
-    &.open {
-        transform: ${position === 'center' ? 'scale(1)' : 'scaleY(1)'};
-        ${position !== 'center' && `${position}: 0;`}
-    }
-
-    &.closed {
-        transform: ${position === 'center' ? 'scale(0)' : 'scaleY(0)'};
-        ${position !== 'center' && `${position}: 0;`}
-    }
-`
-
 const drawerConditionnalStyle = (
     id: string,
     position: ElementPositionOutputType,
     width: string,
-    height: string
+    height: string,
+    isDebugEnabled?: boolean
 ) => {
     return `
             #${id}-drawer-slot-${position}-container {
                 display: ${position === 'center' ? 'grid' : 'flex'};
                 position: relative;
-                background: red;
                 width: 100%;
-                height: 1px;                               
-                ${position === 'center' ? `align-items: center;` : ''}    
-                ${position === 'center' ? `justify-items: center;` : ''}    
+                height: 1px;
+                ${isDebugEnabled ? `background: red;` : ''}
+                ${isDebugEnabled ? `height: 1px;` : ''}
+                ${position === 'center' ? `align-items: center;` : ''}
+                ${position === 'center' ? `justify-items: center;` : ''}
                 transform-origin: ${position === 'center' ? 'center' : 'unset'};
             }
             #${id}-drawer-slot-${position}-container 
@@ -68,30 +48,26 @@ const drawerConditionnalStyle = (
                 position: absolute;
                 width: ${width};
                 height: ${height};
-                transform-origin:${position === 'center' ? position : 'unset'};  
+                transform-origin:${position};  
 
                 align-items: ${position === 'center' ? 'center' : 'flex-start'};
                 justify-items: ${position === 'center' ? 'center' : 'unset'};
                 align-content: ${position === 'center' ? 'center' : 'unset'};
                 justify-content: ${position === 'center' ? 'center' : 'unset'};
-            }     
-
-
+            }
              #${id}-drawer-slot-${position}-container 
-            .drawer-container.open {
-                transform: scaleY(1);
+            .drawer-container.open {   
+                transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
                 ${position !== 'center' ? `${position}:0;` : ''}             
             }
-
             #${id}-drawer-slot-${position}-container 
             .drawer-container.closed { 
-                transform: scaleY(0);
+                transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
                 ${position !== 'center' ? `${position}:0;` : ''}    
             }
-    
     `
 }
-const Drawer = ({
+export const Drawer = ({
     id,
     children,
     position,
@@ -115,6 +91,8 @@ const Drawer = ({
 
     useOnClickOutside(drawerContainerRef, handleClose, 'mouseup')
 
+    const { options } = useVisualDebugContext()
+
     return (
         <DrawerContext.Provider key={id} value={drawerContextDefault}>
             <Portal
@@ -125,21 +103,27 @@ const Drawer = ({
                         <div
                             ref={drawerContainerRef}
                             id={`${id}-drawer-wrapper`}
-                            className={`drawer-container  ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
+                            className={`drawer-container ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
                         >
                             {children}
                         </div>
-                        <style>{drawerConditionnalStyle(id, position, width, height)}</style>
+                        {/** I need to render the style this way because we are in a portal context which the component is rendered on demand
+                         * because of this, if we use inline style or emotions or styled component we can not achieve this.
+                         * we have a state open / close which must be isolated with specific css query that's why we need to append the style after
+                         */}
+                        <style>
+                            {drawerConditionnalStyle(id, position, width, height, options?.enabled)}
+                        </style>
                     </>
                 }
             />
             <Portal
                 id={id}
-                slotName={'close-drawer'}
+                slotName={'toggle-drawer'}
                 children={
                     <Button
-                        id={`${id}-close-drawer-btn`}
-                        title={'Close Drawer'}
+                        id={`${id}-toggle-drawer-btn`}
+                        title={'Toggle Drawer'}
                         variant={{ rounded: true, size: 'md' }}
                         onClickCallback={(e) =>
                             onSetOpenState?.(e, drawerOpenState === 'open' ? 'closed' : 'open')
@@ -154,5 +138,3 @@ const Drawer = ({
         </DrawerContext.Provider>
     )
 }
-
-export default Drawer

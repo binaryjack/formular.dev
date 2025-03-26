@@ -1,3 +1,4 @@
+import { useVisualDebugContext } from './VisualDebug.context'
 import { VisualLandmark } from './VisualLandmark'
 
 export interface ICenterElementDebugProps {
@@ -11,6 +12,8 @@ export const CenterElementDebug = ({
     screenTop,
     centerScreen
 }: ICenterElementDebugProps) => {
+    const { options } = useVisualDebugContext()
+    if (!options?.enabled) return <></>
     return (
         <>
             <VisualLandmark

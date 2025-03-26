@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import Button from './components/button/Button'
+import { Button } from './components/button/Button'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
 import Counter from './demo/signals/counter/Counter'

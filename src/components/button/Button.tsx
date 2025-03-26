@@ -30,7 +30,7 @@ interface IButtonProps {
     icon?: React.ReactNode
     disabled?: boolean
 }
-const Button = ({
+export const Button = ({
     id,
     title,
     children,
@@ -106,5 +106,3 @@ const Button = ({
         </div>
     )
 }
-
-export default Button

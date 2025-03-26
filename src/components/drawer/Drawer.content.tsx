@@ -4,7 +4,7 @@ interface DrawerContentProps {
     id: string
 }
 
-const DrawerContent = ({ id }: DrawerContentProps) => {
+export const DrawerContent = ({ id }: DrawerContentProps) => {
     const { drawerHeight, drawerWidth } = useDrawerContext()
     return (
         <div
@@ -16,5 +16,3 @@ const DrawerContent = ({ id }: DrawerContentProps) => {
         </div>
     )
 }
-
-export default DrawerContent

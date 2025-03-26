@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Button from '../../components/button/Button'
 import { CenterElementDebug } from '../../components/context/debug/CenterElementDebug'
-import Drawer from '../../components/drawer/Drawer'
-import DrawerContent from '../../components/drawer/Drawer.content'
+import { Drawer } from '../../components/drawer/Drawer'
+import { DrawerContent } from '../../components/drawer/Drawer.content'
+import { DrawerToggle } from '../../components/drawer/Drawer.toggle'
 import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
-import DrawerSlot from '../../components/drawer/DrawerSlot'
+import { DrawerSlot } from '../../components/drawer/DrawerSlot'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 
 interface ScreenElementProps {
@@ -30,10 +30,10 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
     return (
         <div
             ref={elementRef}
-            className={`relative flex flex-col items-center justify-center text-slate-200 font-bold size-64 w-full h-44 bg-orange-800 p-2 my-2`}
+            className={`relative flex flex-col items-center justify-center  xl:w-[500px] md:w-[300px] sm:w-[70%]  h-20 bg-orange-800 p-2 my-2`}
         >
-            <DrawerSlot id={id} slotName={'drawer-slot-center'} position={toggle} />
-            <DrawerSlot id={id} slotName={'drawer-slot-bottom'} position={toggle} />
+            <DrawerSlot id={id} slotName={'drawer-slot'} opensToThe="center" />
+            <DrawerSlot id={id} slotName={'drawer-slot'} opensToThe="bottom" />
 
             <Drawer
                 id={id}
@@ -52,16 +52,22 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
                 screenTop={scrollPosition.screenTop}
             />
 
-            <Button
-                onClickCallback={(e) => setOpenState('open')}
-                id={`${id}-button`}
-                title={`${id}-button`}
-                variant={{ width: '500px', size: 'sm', rounded: true, className: 'z-50' }}
+            <div
+                id={`${id}-component`}
+                title={`${id}-component`}
+                className={`flex flex-row items-center justify-center p-2`}
             >
-                {name} | {scrollPosition.centerScreen} |{scrollPosition.triggerPoint} | {toggle}
-            </Button>
+                <div
+                    className={`flex flex-row items-center justify-center mr-2 text-slate-50 font-bold`}
+                >
+                    {name} | drawer appears from:
+                    {toggle}
+                </div>
 
-            <DrawerSlot id={id} slotName={'drawer-slot-top'} position={toggle} />
+                <DrawerToggle id={id} />
+            </div>
+
+            <DrawerSlot id={id} slotName={'drawer-slot'} opensToThe="top" />
         </div>
     )
 }

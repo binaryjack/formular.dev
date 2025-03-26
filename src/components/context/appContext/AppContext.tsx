@@ -6,7 +6,7 @@ import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import { AppContext, IAppContext } from './AppContext.context'
 
 import { IDebug } from '../debug/debug.types'
-import { useDebugContext } from '../debug/VisualDebug.context'
+import { useVisualDebugContext } from '../debug/VisualDebug.context'
 
 interface AppContextProps {
     debug?: IDebug
@@ -36,7 +36,7 @@ interface AppContextProps {
 const AppContextProvider = ({ debug, children }: AppContextProps) => {
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
 
-    const { options } = useDebugContext()
+    const { options } = useVisualDebugContext()
 
     const contextOutput: IAppContext = {
         breakpoints: breakpoints,

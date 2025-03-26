@@ -20,10 +20,8 @@ export const drawerContextDefault: IDrawerContext = {
     drawerHeight: '0px',
     drawerWidth: '0px'
 }
-const DrawerContext = createContext<IDrawerContext>(drawerContextDefault)
+export const DrawerContext = createContext<IDrawerContext>(drawerContextDefault)
 
-const useDrawerContext = (): IDrawerContext => {
+export const useDrawerContext = (): IDrawerContext => {
     return useContext(DrawerContext)
 }
-
-export { DrawerContext, useDrawerContext }
