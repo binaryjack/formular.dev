@@ -21,6 +21,8 @@ interface IDatePickerDrawerProps {
     defaultSelectionMode?: DatePickerSelectionModeType
     defaultGridMode?: DatePickerGridModeType
     showFooter?: boolean
+    width?: string
+    height?: string
 }
 
 const DatePickerContentDrawer = ({
@@ -29,14 +31,16 @@ const DatePickerContentDrawer = ({
     onSelectDate,
     showFooter,
     defaultSelectionMode = 'single',
-    defaultGridMode = 'DAY'
+    defaultGridMode = 'DAY',
+    width = '100%',
+    height = '100%'
 }: IDatePickerDrawerProps) => {
     const [gridMode, setGridMode] = useState<DatePickerGridModeType>(defaultGridMode)
     const [gridData, setGridData] = useState<IDatePickerRow[]>([])
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
     const [internalDate, setInternalDate] = useState<Date>()
 
-    const { drawerOpenState, onSetOpenState } = useDrawerContext()
+    const { drawerOpenState, onSetOpenState, drawerHeight, drawerWidth } = useDrawerContext()
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -136,6 +140,8 @@ const DatePickerContentDrawer = ({
                 defaultSelectionMode={defaultSelectionMode}
                 showFooter={showFooter}
                 onClick={handleOnClick}
+                width={drawerWidth ?? width}
+                height={drawerHeight ?? height}
             />
         </DatePickerContext.Provider>
     )

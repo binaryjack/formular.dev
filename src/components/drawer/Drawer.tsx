@@ -25,16 +25,16 @@ interface IDrawerProps {
 
 const drawerConditionnalStyle = (id: string, position: ElementPositionOutputType) => {
     return `   
-            #${id}-drawer-slot-${position}-container 
-            .drawer-container.open {   
-                transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
-                ${position !== 'center' ? `${position}:0;` : ''}             
-            }
-            #${id}-drawer-slot-${position}-container 
-            .drawer-container.closed { 
-                transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
-                ${position !== 'center' ? `${position}:0;` : ''}    
-            }
+        #${id}-drawer-slot-${position}-container 
+        .drawer-container.open {   
+            transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
+            ${position !== 'center' ? `${position}:0;` : ''}             
+        }
+        #${id}-drawer-slot-${position}-container 
+        .drawer-container.closed { 
+            transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
+            ${position !== 'center' ? `${position}:0;` : ''}    
+        }
     `
 }
 export const Drawer = ({
@@ -71,7 +71,7 @@ export const Drawer = ({
                         <div
                             ref={drawerContainerRef}
                             id={`${id}-drawer-wrapper`}
-                            className={`flex absolute drawer-container ${drawerOpenState === 'open' ? 'open' : 'closed'}`}
+                            className={`flex absolute drawer-container ${drawerOpenState === 'open' ? 'open' : 'closed'} overflow-hidden`}
                             style={{
                                 width: width,
                                 height: height,

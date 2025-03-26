@@ -77,6 +77,8 @@ const DatePicker = ({
                     onSelectDate={onSelectDate}
                 />
             }
+            itemsDrawerHeight="350px"
+            itemsDrawerWidth="250px"
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }

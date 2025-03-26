@@ -8,8 +8,8 @@ export interface IDrawerContext {
         e: React.MouseEvent<HTMLElement, MouseEvent>,
         state: DrawerOpenStateType
     ) => void
-    drawerHeight: string
-    drawerWidth: string
+    drawerHeight?: string
+    drawerWidth?: string
 }
 
 export const drawerContextDefault: IDrawerContext = {
@@ -17,11 +17,15 @@ export const drawerContextDefault: IDrawerContext = {
     onSetOpenState: () => {
         return
     },
-    drawerHeight: '0px',
-    drawerWidth: '0px'
+    drawerHeight: undefined,
+    drawerWidth: undefined
 }
 export const DrawerContext = createContext<IDrawerContext>(drawerContextDefault)
 
 export const useDrawerContext = (): IDrawerContext => {
-    return useContext(DrawerContext)
+    const context = useContext(DrawerContext)
+    if (!context)
+        throw Error('Could not use hook useDrawerContext outside Drawer children hierarchy')
+
+    return context
 }

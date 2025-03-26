@@ -1,6 +1,6 @@
 import './FieldSet.css'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { MdClose } from 'react-icons/md'
 
 import { IFlagsObject } from '../../core/base/fieldStateStyle/fieldStateStyle.types'
@@ -10,6 +10,7 @@ import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElemen
 import { CenterElementDebug } from '../context/debug/CenterElementDebug'
 import { Drawer } from '../drawer/Drawer'
 import { DrawerToggle } from '../drawer/Drawer.toggle'
+import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import { DrawerSlot } from '../drawer/DrawerSlot'
 
 interface IFieldSetProps<TType> {
@@ -19,6 +20,8 @@ interface IFieldSetProps<TType> {
     flags: IFlagsObject
     children: React.ReactNode
     itemsChildren?: React.ReactNode
+    itemsDrawerWidth?: string
+    itemsDrawerHeight?: string
     validationChildren?: React.ReactNode
     onSetFocus?: () => void
     onClear?: () => void
@@ -37,8 +40,21 @@ const FieldSet = <TType,>({
     validationChildren,
     onSetFocus,
     onClear,
-    onClick
+    onClick,
+    itemsDrawerWidth,
+    itemsDrawerHeight
 }: IFieldSetProps<TType>) => {
+    const [openState, setOpenState] = useState<DrawerOpenStateType>('closed')
+
+    const handleDrawerOpenState = (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: DrawerOpenStateType
+    ) => {
+        e?.stopPropagation?.()
+        e?.preventDefault?.()
+        setOpenState(state)
+    }
+
     const { scrollPosition, elementRef, elementPositionRefs, toggle } =
         useCenterElementTrigger<HTMLFieldSetElement>()
 
@@ -81,10 +97,17 @@ const FieldSet = <TType,>({
                          * In order to decide from which origin it appears I use an association of hooks and contexts
                          * useMedia
                          */}
-                        <Drawer id={`${inputId}`} position={toggle}>
-                            {children}
+                        <Drawer
+                            id={`${inputId}`}
+                            onSetOpenState={handleDrawerOpenState}
+                            drawerOpenState={openState}
+                            position={toggle}
+                            width={itemsDrawerWidth}
+                            height={itemsDrawerHeight}
+                        >
+                            <> {itemsChildren}</>
                         </Drawer>
-
+                        {children}
                         <DrawerSlot
                             id={inputId}
                             slotName={'drawer-slot'}
@@ -113,7 +136,6 @@ const FieldSet = <TType,>({
                 {flags.required && <div className={`input-container-required-indicator flex`} />}
             </div>
 
-            {itemsChildren && <>{itemsChildren}</>}
             {validationChildren && (
                 <div className={`relative bottom-0 left-0 flex flex-col mt-1`}>
                     <div className={`${flags.isFocus ? 'validation-success' : 'validation-error'}`}>

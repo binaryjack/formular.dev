@@ -50,6 +50,8 @@ const Select = ({ fieldName }: ISelectProps) => {
                     onSelectItem={(value) => field?.onSelectItem(value)}
                 />
             }
+            itemsDrawerHeight="350px"
+            itemsDrawerWidth="250px"
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }

@@ -33,7 +33,7 @@ const SelectDrawerContentUI = ({
 
     return (
         <div
-            className={`select-container`}
+            className={`select-container overflow-hidden`}
             onKeyDown={handleKeyDown}
             style={{ width: drawerWidth, height: drawerHeight }}
         >

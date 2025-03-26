@@ -93,6 +93,8 @@ const App = () => {
             </Button>
 
             <Positionning />
+
+            {formDemo()}
         </div>
     )
 }
