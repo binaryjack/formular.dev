@@ -14,14 +14,17 @@
  */
 
 import { Interpolation, Theme } from '@emotion/react'
+import { CSSProperties } from 'react'
 
 // declare an interface props
 export interface IPortalSlotProps {
     id: string
     slotName: string
     css?: Interpolation<Theme>
+    className?: string
+    styles?: CSSProperties
 }
 
-export const PortalSlot = ({ id, slotName, css }: IPortalSlotProps) => (
-    <div id={`${id}-${slotName}-container`} css={css} />
+export const PortalSlot = ({ id, slotName, css, className, styles }: IPortalSlotProps) => (
+    <div id={`${id}-${slotName}-container`} css={css} className={className} style={styles} />
 )

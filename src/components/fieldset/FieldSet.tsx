@@ -55,7 +55,7 @@ const FieldSet = <TType,>({
                 id={inputId}
                 slotName={'drawer-slot'}
                 opensToThe="center"
-                conditionnalShow={!!itemsChildren}
+                conditionalShow={!!itemsChildren}
             />
 
             <div className={`relative  input-row flex xl:flex-row md:flex-col xl:h-7 `}>
@@ -73,9 +73,14 @@ const FieldSet = <TType,>({
                             id={inputId}
                             slotName={'drawer-slot'}
                             opensToThe="bottom"
-                            conditionnalShow={!!itemsChildren}
+                            conditionalShow={!!itemsChildren}
                         />
-
+                        {/** drawer depends always on a DrawerSlot which is the place where it will be rendered
+                         * it uses portal concept
+                         *
+                         * In order to decide from which origin it appears I use an association of hooks and contexts
+                         * useMedia
+                         */}
                         <Drawer id={`${inputId}`} position={toggle}>
                             {children}
                         </Drawer>
@@ -84,7 +89,7 @@ const FieldSet = <TType,>({
                             id={inputId}
                             slotName={'drawer-slot'}
                             opensToThe="top"
-                            conditionnalShow={!!itemsChildren}
+                            conditionalShow={!!itemsChildren}
                         />
                     </div>
 

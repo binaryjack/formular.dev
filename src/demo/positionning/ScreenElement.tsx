@@ -30,7 +30,16 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
     return (
         <div
             ref={elementRef}
-            className={`relative flex flex-col items-center justify-center  xl:w-[500px] md:w-[300px] sm:w-[70%]  h-20 bg-orange-800 p-2 my-2`}
+            className={`relative flex flex-col items-center justify-center 
+                2xs:bg-orange-500 2sx:w-full
+                xs:bg-red-500 sx:w-full
+                sm:bg-blue-500 sm:w-2/3
+                md:bg-green-500 md:w-1/2
+                lg:bg-yellow-500 lg:w-96                
+                xl:bg-pink-500 xl:w-96    
+                2xl:bg-violet-500 2xl:w-80 
+                
+                h-20 p-2 my-2`}
         >
             <DrawerSlot id={id} slotName={'drawer-slot'} opensToThe="center" />
             <DrawerSlot id={id} slotName={'drawer-slot'} opensToThe="bottom" />
@@ -55,10 +64,10 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
             <div
                 id={`${id}-component`}
                 title={`${id}-component`}
-                className={`flex flex-row items-center justify-center p-2`}
+                className={`flex flex-row items-center justify-center w-full p-2 overflow-hidden`}
             >
                 <div
-                    className={`flex flex-row items-center justify-center mr-2 text-slate-50 font-bold`}
+                    className={`w-full flex flex-row items-center justify-between mr-2 text-slate-50 font-bold`}
                 >
                     {name} | drawer appears from:
                     {toggle}
