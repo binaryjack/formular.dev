@@ -3,13 +3,13 @@ import { ScreenBreakPointType, ScreenOrientationType } from './screen.types'
 
 export const getMediaBreakpoints = (media: IMedia) => {
     return {
-        is2XS: media.media === '2XS',
-        isXS: media.media === 'XS',
-        isSM: media.media === 'SM',
-        isMD: media.media === 'MD',
-        isLG: media.media === 'LG',
-        isXL: media.media === 'XL',
-        is2XL: media.media === '2XL'
+        is2XS: media.media === '2xs',
+        isXS: media.media === 'xs',
+        isSM: media.media === 'sm',
+        isMD: media.media === 'md',
+        isLG: media.media === 'lg',
+        isXL: media.media === 'xl',
+        is2XL: media.media === '2xl'
     }
 }
 
@@ -60,11 +60,11 @@ export const mediaBreakpointsDefault: IMediaBreakpoints = {
 }
 
 export const MediaRanges: IMediaRange[] = [
-    newMediaRange(0, 320, 480, '2XS'),
-    newMediaRange(481, 481, 639, 'XS'),
-    newMediaRange(640, 640, 767, 'SM'),
-    newMediaRange(768, 768, 1023, 'MD'),
-    newMediaRange(1024, 1024, 1279, 'LG'),
-    newMediaRange(1280, 1280, 1535, 'XL'),
-    newMediaRange(1536, 1536, 5400, '2XL')
+    newMediaRange(0, 320, 480, '2xs'),
+    newMediaRange(481, 481, 639, 'xs'),
+    newMediaRange(640, 640, 767, 'sm'),
+    newMediaRange(768, 768, 1023, 'md'),
+    newMediaRange(1024, 1024, 1279, 'lg'),
+    newMediaRange(1280, 1280, 1535, 'xl'),
+    newMediaRange(1536, 1536, 5400, '2xl')
 ]

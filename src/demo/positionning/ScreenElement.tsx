@@ -31,12 +31,12 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
         <div
             ref={elementRef}
             className={`relative flex flex-col items-center justify-center 
-                2xs:bg-orange-500 2sx:w-full
+                2xs:bg-orange-500 2xs:w-full
                 xs:bg-red-500 sx:w-full
                 sm:bg-blue-500 sm:w-2/3
                 md:bg-green-500 md:w-1/2
                 lg:bg-yellow-500 lg:w-96                
-                xl:bg-pink-500 xl:w-96    
+                xl:bg-pink-500 xl:w-96 
                 2xl:bg-violet-500 2xl:w-80 
                 
                 h-20 p-2 my-2`}

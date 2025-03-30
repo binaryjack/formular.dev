@@ -20,8 +20,8 @@ export default defineConfig(() => ({
         'process.env': {}
     },
     esbuild: {
-        jsxFactory: 'h',
-        jsxFragment: 'Fragment'
+        // jsxFactory: 'h',
+        // jsxFragment: 'Fragment'
     },
     build: {
         outDir: 'dist',

@@ -6,6 +6,9 @@ module.exports = {
             screens: {
                 '2xs': '0px',
                 xs: '480px'
+            },
+            fontSize: {
+                '2xs': '0.55rem'
             }
         }
     },

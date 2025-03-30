@@ -6,11 +6,16 @@
 
     .btn-base {
         z-index: 1;
-        @apply flex py-1 px-2 w-full items-center justify-center h-auto transition-all duration-150 ease-in-out;
+        @apply flex w-full items-center justify-center h-auto transition-all duration-150 ease-in-out;
+    }
+
+    /* 
+    .btn-base.xxs {
+        @apply py-[2px] px-[2px];
     }
 
     .btn-base.xs {
-        @apply py-1 px-1;
+        @apply py-[1px] px-[1px];
     }
 
     .btn-base.sm {
@@ -25,40 +30,43 @@
         @apply py-2 px-3;
     }
 
-    .btn-base.xd {
+    .btn-base.xl {
         @apply py-2 px-4;
     }
 
-    .btn-base.xl {
+    .btn-base.xxl {
         @apply py-3 px-5;
-    }
-
+    } */
     .btn-base .content {
         @apply flex w-full items-center justify-center;
     }
 
+    .btn-base .content.xxs {
+        @apply h-[11px] text-04 px-[3px] my-[1px];
+    }
+
     .btn-base .content.xs {
-        @apply h-[20px] font-extralight;
+        @apply h-[19px] text-08 px-[4px] my-[2px];
     }
 
     .btn-base .content.sm {
-        @apply h-[22px] font-light;
+        @apply h-[20px] text-10 px-[4px] my-[5px];
     }
 
     .btn-base .content.md {
-        @apply h-[25px] font-thin;
+        @apply h-[25px] text-115 px-[5px] my-[6px];
     }
 
     .btn-base .content.lg {
-        @apply h-[25px] font-normal;
-    }
-
-    .btn-base .content.xd {
-        @apply h-[25px] font-medium;
+        @apply h-[27px] text-135 px-[7px] my-[9px];
     }
 
     .btn-base .content.xl {
-        @apply h-[25px] font-semibold;
+        @apply h-[28px] text-165 px-[15px] my-[10px];
+    }
+
+    .btn-base .content.xxl {
+        @apply h-[30px] text-200 px-[15px] my-[20px];
     }
 
     .btn-base .icon {

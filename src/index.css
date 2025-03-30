@@ -1,6 +1,6 @@
 /** base */
 @import "tailwindcss/base";
-@import './style/index.root.base.css';
+@import './style/globals.css';
 /** COMPONENTS */
 @import "tailwindcss/components";
 @import './style/index.root.components.css';

@@ -1,18 +1,33 @@
 import { useEffect } from 'react'
 
+import { ScreenBreakPointType } from '../../core/hooks/screen/screen.types'
+import { sizeConverter } from '../../core/hooks/screen/utils/screen.utils'
 import { conditionalClass } from '../../dependency/conditionalClass'
 import Spinner from '../spinner/Spinner'
 import useRippleEffect from './core/useRippleEffect'
 
 export type ButtonVariantType = 'primary' | 'secondary' | 'info' | 'error' | 'success' | 'warning'
-export type ButtonVariantSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xd'
 
 export type ButtonCaseType = 'uppercase' | 'lowercase' | 'capitalize' | 'normal-case'
 
+export type TextWeightType =
+    | 'extralight'
+    | 'light'
+    | 'thin'
+    | 'normal'
+    | 'medium'
+    | 'semibold'
+    | 'bold'
+    | 'extrabold'
+    | 'mono'
+    | 'sans'
+    | 'serif'
+
 interface IButtonVariant {
     type: ButtonVariantType
-    size: ButtonVariantSize
+    size: ScreenBreakPointType
     textCase: ButtonCaseType
+    weight: TextWeightType
     rounded: boolean
     bold: boolean
     width: string
@@ -48,6 +63,7 @@ export const Button = ({
         textCase = 'normal-case',
         width = 'unset',
         height = 'unset',
+        weight = 'normal',
         className
     } = variant
 
@@ -75,6 +91,7 @@ export const Button = ({
 
     return (
         <button
+            tabIndex={0}
             id={id}
             type="button"
             ref={buttonRef}
@@ -95,10 +112,14 @@ export const Button = ({
                         <></>
                     )}
                     <span
-                        className={`relative flex ${type} ripple ${classRef} `}
+                        className={`relative flex ${type} ripple ${classRef}`}
                         style={{ ...rippleStyle }}
                     ></span>
-                    <span className={`content ${size} text-nowrap text-ellipsis`}>{children}</span>
+                    <span
+                        className={`content ${sizeConverter(size)}  text-nowrap text-ellipsis ${weight}`}
+                    >
+                        {children}
+                    </span>
                 </div>
             </div>
         </button>
