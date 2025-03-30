@@ -38,27 +38,27 @@
     }
 
     .btn-base .content.xs {
-        @apply h-[20px];
+        @apply h-[20px] font-extralight;
     }
 
     .btn-base .content.sm {
-        @apply h-[22px];
+        @apply h-[22px] font-light;
     }
 
     .btn-base .content.md {
-        @apply h-[25px];
+        @apply h-[25px] font-thin;
     }
 
     .btn-base .content.lg {
-        @apply h-[25px];
+        @apply h-[25px] font-normal;
     }
 
     .btn-base .content.xd {
-        @apply h-[25px];
+        @apply h-[25px] font-medium;
     }
 
     .btn-base .content.xl {
-        @apply h-[25px];
+        @apply h-[25px] font-semibold;
     }
 
     .btn-base .icon {

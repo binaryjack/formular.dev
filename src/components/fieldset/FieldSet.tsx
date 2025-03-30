@@ -62,7 +62,7 @@ const FieldSet = <TType,>({
         <fieldset
             ref={elementRef}
             id={`${inputId}-fieldset`}
-            className={`relative  flex flex-col fieldset h-full fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
+            className={`fieldset fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
             data-type={type}
             data-testid={`test-${inputId}`}
             onClick={onClick}
@@ -74,7 +74,7 @@ const FieldSet = <TType,>({
                 conditionalShow={!!itemsChildren}
             />
 
-            <div className={`relative  input-row flex xl:flex-row md:flex-col xl:h-7 `}>
+            <div className={`relative input-row flex xl:flex-row md:flex-col`}>
                 <div className={`flex items-center justify-start`}>
                     <label
                         htmlFor={inputId}

@@ -1,0 +1,13 @@
+@layer components {
+    .base-input {
+        @apply rounded px-[3px] py-[2px] bg-slate-500 h-full w-full text-white disabled:bg-gray-400 outline-none;
+    }
+
+    .base-input.is-not-valid {
+        @apply rounded border-2 border-solid border-red-500;
+    }
+
+    .base-input.is-valid {
+        @apply rounded border-2 border-solid border-green-500;
+    }
+}

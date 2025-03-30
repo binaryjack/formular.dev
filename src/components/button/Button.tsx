@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { uniqueClass } from '../../dependency/uniqueClass'
+import { conditionalClass } from '../../dependency/conditionalClass'
 import Spinner from '../spinner/Spinner'
 import useRippleEffect from './core/useRippleEffect'
 
@@ -51,7 +51,7 @@ export const Button = ({
         className
     } = variant
 
-    const btnBaseClasses = uniqueClass([
+    const btnBaseClasses = conditionalClass([
         'btn-base',
         size,
         `btn-${type}`,
@@ -62,7 +62,6 @@ export const Button = ({
     ])
 
     const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(
-        id,
         onClickCallback,
         (disabled ?? false) || loading
     )
@@ -75,19 +74,16 @@ export const Button = ({
     }, [buttonRef])
 
     return (
-        <div
+        <button
             id={id}
+            type="button"
+            ref={buttonRef}
+            disabled={disabled}
             className={`btn-wrapper ${rounded ? 'rounded' : ''} ${className}`}
             style={{ width: width, height: height }}
+            onClick={onClick}
         >
-            <button
-                ref={buttonRef}
-                type="button"
-                disabled={disabled}
-                className={btnBaseClasses}
-                title={title}
-                onClick={onClick}
-            >
+            <div className={btnBaseClasses} title={title}>
                 <div className={` flex flex-row  items-center justify-center overflow-hidden`}>
                     {loading ? (
                         <div className={`flex loading mr-2`}>
@@ -98,11 +94,13 @@ export const Button = ({
                     ) : (
                         <></>
                     )}
-                    <span className={`flex ${type} ripple ${classRef} `}></span>
-                    <div className={`content ${size}`}>{children}</div>
-                    <style>{rippleStyle}</style>
+                    <span
+                        className={`relative flex ${type} ripple ${classRef} `}
+                        style={{ ...rippleStyle }}
+                    ></span>
+                    <span className={`content ${size} text-nowrap text-ellipsis`}>{children}</span>
                 </div>
-            </button>
-        </div>
+            </div>
+        </button>
     )
 }

@@ -25,7 +25,7 @@ const useMediaScreens = (): IMediaScreenResult => {
 
         setMedia(media)
         setBreakpoints(breakpoints)
-    }, 200)
+    }, 10)
 
     useEffect(() => {
         // Add event listener

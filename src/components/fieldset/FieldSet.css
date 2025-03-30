@@ -1,0 +1,27 @@
+@tailwind components;
+
+@layer components {
+    .fieldset {
+        @apply relative flex flex-col h-full border-2 border-gray-400 rounded p-4 border-solid;
+    }
+
+    .label {
+        @apply text-gray-700 block text-sm/6 font-medium;
+    }
+
+    .label-success {
+        @apply text-green-500 block text-sm/6 font-medium;
+    }
+
+    .label-error {
+        @apply text-red-500 block text-sm/6 font-medium;
+    }
+
+    .validation-error {
+        @apply text-red-500 text-sm/6;
+    }
+
+    .validation-success {
+        @apply text-green-500 text-sm/6;
+    }
+}

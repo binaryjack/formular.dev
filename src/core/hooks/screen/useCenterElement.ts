@@ -28,7 +28,7 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
         const centerScreen = elementPositionRefs.height / 2
         const triggerPosition = centerScreen + screentTop
 
-        const isLaptopAndHigher = ['M', 'L', 'XL', 'XXL'].includes(media?.media)
+        const isLaptopAndHigher = ['MD', 'LG', 'XL', '2XL'].includes(media?.media)
 
         const isPositionTop = isLaptopAndHigher && screenProperties.screenTop > triggerPosition
 

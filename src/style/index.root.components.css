@@ -1,0 +1,93 @@
+@layer components {
+    .card {
+        @apply bg-white shadow-md rounded p-4;
+    }
+
+    .hero {
+        @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+    }
+
+    .footer {
+        @apply bg-gray-800 text-white font-bold py-2 px-4 rounded;
+    }
+
+    .header {
+        @apply bg-gray-800 text-white font-bold py-2 px-4 rounded;
+    }
+
+    .text-primary {
+        @apply text-blue-500;
+    }
+
+    .text-secondary {
+        @apply text-gray-500;
+    }
+
+    .items-left {
+        @apply flex items-start flex-col bg-slate-600 p-1 rounded;
+    }
+
+    .icon-box {
+        @apply bg-gray-200 p-2 rounded w-8 mt-0 transition ease-in-out delay-150 hover:bg-gray-300 text-xs/6;
+    }
+
+    .base-checkbox {
+        @apply appearance-none h-6 w-6 border-2 cursor-pointer border-gray-400 rounded checked:bg-blue-500 checked:border-transparent;
+    }
+
+    .debug-table {
+        @apply border-2 border-gray-400 border-solid;
+    }
+
+    .debug-table-row {
+        @apply border-b-2 border-gray-400 border-solid flex flex-row;
+    }
+
+    .debug-table-row.valid {
+        @apply bg-green-200;
+    }
+
+    .debug-table-row.invalid {
+        @apply bg-red-200;
+    }
+
+    .debug-table-row:last-child {
+        @apply border-b-0 flex border-gray-400 border-solid;
+    }
+
+    .debug-table-col {
+        @apply border-r-2 border-gray-400 border-solid flex flex-1 overflow-hidden;
+    }
+
+    .text-elipsis {
+        @apply whitespace-nowrap overflow-hidden overflow-ellipsis;
+    }
+
+    .radio-group {
+        @apply flex flex-col sm:flex-col md:flex-row items-start w-full;
+    }
+
+    .radio-item-group {
+        @apply flex flex-row items-center w-full;
+    }
+
+    .radio-item-group.mobile {
+        @apply flex flex-col items-start;
+    }
+
+    .base-radio {
+        @apply appearance-none mr-2 h-6 w-6 border-2 cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
+    }
+
+    .app {
+        @apply bg-gray-200 p-3;
+    }
+
+    h1 {
+        @apply text-2xl font-bold bg-center bg-cover mb-4;
+    }
+
+    h3 {
+        @apply text-lg font-bold mb-4;
+    }
+}

@@ -70,7 +70,17 @@ export const ScreenElement = ({ id, name }: ScreenElementProps) => {
                     className={`w-full flex flex-row items-center justify-between mr-2 text-slate-50 font-bold`}
                 >
                     {name} | drawer appears from:
-                    {toggle}
+                    <div
+                        className={`${
+                            toggle === 'top'
+                                ? 'bg-yellow-700 text-yellow-50 border border-yellow-700'
+                                : toggle === 'bottom'
+                                  ? 'bg-purple-700 text-purple-50 border border-purple-700'
+                                  : 'bg-lime-700-700 text-lime-50 border border-lime-700'
+                        }`}
+                    >
+                        {toggle}
+                    </div>
                 </div>
 
                 <DrawerToggle id={id} />

@@ -1,4 +1,4 @@
-export const uniqueClass = (classes: string[]) => {
+export const conditionalClass = (classes: string[]) => {
     const output: string[] = []
     for (const i of classes) {
         if (i !== undefined && i !== null && !!i) {

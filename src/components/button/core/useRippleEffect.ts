@@ -1,14 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { CSSProperties, useRef, useState } from 'react'
 
 const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEvent>>(
-    id: string,
     // buttonRef: React.RefObject<HTMLButtonElement>,
     onClickCallback: (e: E) => void,
     disabled: boolean
 ) => {
     const buttonRef = useRef(null)
     const [classRef, setClassRef] = useState<string>('')
-    const [rippleStyle, setRippleStyle] = useState<string>('')
+    const [rippleStyle, setRippleStyle] = useState<CSSProperties>({} as CSSProperties)
 
     const onClick = (e: E) => {
         if (disabled) return
@@ -33,14 +32,12 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
         const left = `${e.clientX - (btnOffsetLeft + radius)}px`
         const top = `${e.clientY - (btnOffsetTop + radius)}px`
 
-        const _style = `
-            #${id} .btn-base span.ripple {
-                left:${left};
-                top:${top};
-                width:${width};
-                height:${height};
-             }        
-        `
+        const _style: CSSProperties = {
+            left: `${left}`,
+            top: `${top}`,
+            width: `${width}`,
+            height: `${height}`
+        }
 
         setRippleStyle(_style)
 

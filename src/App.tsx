@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from './components/button/Button'
 import FormDemo from './demo/forms/FormDemo'
@@ -40,6 +40,37 @@ const newFormObject: IControlsDemo = {
     toggle: false
 }
 
+const formDemo = () => (
+    <div>
+        <h1>Forms Inputs using event driven design classes</h1>
+        <h3>Patterns used: builder, strategy, observer, factory</h3>
+        <FormDemo />
+    </div>
+)
+const TextInputDemo = () => (
+    <div>
+        <br />
+        <h1>Signals Text Input</h1>
+        <h3>Patterns used: signals, observer </h3>
+        <TextInput />
+    </div>
+)
+const CounterDemo = () => (
+    <div>
+        <br />
+        <h1>Signals Counter</h1>
+        <h3>Patterns used: signals, observer </h3>
+        <Counter />
+    </div>
+)
+
+const PositioningDemo = () => (
+    <div>
+        <br />
+        <Positionning />
+    </div>
+)
+
 const App = () => {
     useEffect(() => {}, [])
 
@@ -57,44 +88,49 @@ const App = () => {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [])
 
-    const formDemo = () => (
-        <div>
-            <h1>Forms Inputs using event driven design classes</h1>
-            <h3>Patterns used: builder, strategy, observer, factory</h3>
-            <FormDemo />
-        </div>
-    )
-    const TextInputDemo = () => (
-        <div>
-            <br />
-            <h1>Signals Text Input</h1>
-            <h3>Patterns used: signals, observer </h3>
-            <TextInput />
-        </div>
-    )
-    const CounterDemo = () => (
-        <div>
-            <br />
-            <h1>Signals Counter</h1>
-            <h3>Patterns used: signals, observer </h3>
-            <Counter />
-        </div>
-    )
+    const [clickedInfo, setClickedInfo] = useState<string[]>([])
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.stopPropagation()
+        e.preventDefault()
 
+        if (!e.currentTarget) return
+        const newCol = [...clickedInfo, `${e.currentTarget?.getAttribute('id')} has clicked!`]
+        setClickedInfo(newCol)
+    }
     return (
-        <div className={'app'}>
+        <div className={'app flex flex-col flex-1 items-center justify-center'}>
             <Button
-                onClickCallback={(e) => console.log('CLICKED')}
-                id={'lambda-button-demo'}
-                title={'drawer-button'}
-                variant={{ rounded: true, size: 'md', width: '150px' }}
+                onClickCallback={handleClick}
+                id={'button-demo'}
+                title={'button'}
+                variant={{ rounded: true, size: 'md', className: 'm-2' }}
             >
-                Demo Drawer
+                Button 1
             </Button>
 
-            <Positionning />
+            <Button
+                onClickCallback={handleClick}
+                id={'button-demo-2'}
+                title={'button-2'}
+                variant={{ rounded: true, size: 'md', className: 'm-2' }}
+            >
+                Button 2
+            </Button>
 
-            {formDemo()}
+            <Button
+                onClickCallback={handleClick}
+                id={'button-demo-3'}
+                title={'button-3'}
+                variant={{ rounded: true, size: 'md', className: 'm-2' }}
+            >
+                Button 3
+            </Button>
+
+            <div>
+                {clickedInfo.map((e, i) => {
+                    return <div key={`${e}-${i}`}>{e}</div>
+                })}
+            </div>
         </div>
     )
 }
