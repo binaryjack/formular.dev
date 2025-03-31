@@ -72,11 +72,25 @@ export const Button = ({
     )
 
     useEffect(() => {
-        if (!buttonRef) return
-        const btn = buttonRef.current as unknown as HTMLButtonElement
+        const btn = buttonRef?.current as unknown as HTMLButtonElement
         if (!btn) return
         btn.setAttribute('aria-busy', loading ? 'true' : 'false')
-    }, [buttonRef, loading])
+
+        if (!btn.getAttribute('aria-title')) btn.setAttribute('aria-title', title)
+        if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', title)
+    }, [buttonRef, loading, title])
+
+    const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const btn = buttonRef?.current as unknown as HTMLButtonElement
+        if (!btn) return
+        btn.setAttribute('aria-pressed', 'true')
+    }
+
+    const handleOnMouseUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const btn = buttonRef?.current as unknown as HTMLButtonElement
+        if (!btn) return
+        btn.setAttribute('aria-pressed', 'false')
+    }
 
     return (
         <button
@@ -92,6 +106,8 @@ export const Button = ({
                 height: height === 'unset' ? sizes.height : height
             }}
             onClick={onClick}
+            onMouseDown={handleOnMouseDown}
+            onMouseUp={handleOnMouseUp}
         >
             <div
                 className={`flex flex-row flex-1  items-center 
