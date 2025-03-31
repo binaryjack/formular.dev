@@ -1,4 +1,4 @@
-import { ScreenBreakPointType } from '../screen.types'
+import { AppBreakPointSizesType } from '../../../../style/global.types'
 
 const correlatedSizes: Record<string, string> = {
     '2xs': 'xxs',
@@ -10,6 +10,6 @@ const correlatedSizes: Record<string, string> = {
     '2xl': 'xxl'
 }
 
-export const sizeConverter = (size: ScreenBreakPointType) => {
-    return correlatedSizes[size]
+export const sizeConverter = (size: AppBreakPointSizesType) => {
+    return correlatedSizes[typeof size]
 }

@@ -48,7 +48,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'go to selected'}
-                        variant={{ rounded: true, size: btnSizes }}
+                        variantProperties={{ rounded: true, size: btnSizes }}
                         onClickCallback={jumpToSelection}
                     >
                         <div className={`mr-2`}>Selected</div>
@@ -60,7 +60,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     <Button
                         id={'dp-now'}
                         title={'go to now'}
-                        variant={{ rounded: true, size: btnSizes }}
+                        variantProperties={{ rounded: true, size: btnSizes }}
                         onClickCallback={jumpToNow}
                     >
                         <div className={`mr-2`}>Now</div>
@@ -72,7 +72,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'clear selection'}
-                        variant={{ rounded: true, size: btnSizes }}
+                        variantProperties={{ rounded: true, size: btnSizes }}
                         onClickCallback={clear}
                     >
                         <TbCalendarCancel />
@@ -82,7 +82,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     <Button
                         id={'dp-now'}
                         title={'close'}
-                        variant={{ rounded: true, size: btnSizes }}
+                        variantProperties={{ rounded: true, size: btnSizes }}
                         onClickCallback={close}
                     >
                         <MdClear />
@@ -98,7 +98,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             id={'dp-year'}
                             title={'year selection'}
-                            variant={{ rounded: true, size: btnSizes }}
+                            variantProperties={{ rounded: true, size: btnSizes }}
                             onClickCallback={yearSelection}
                         >
                             {internalDate?.getFullYear()}
@@ -108,7 +108,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             id={'dp-month'}
                             title={'month selection'}
-                            variant={{ rounded: true, size: btnSizes }}
+                            variantProperties={{ rounded: true, size: btnSizes }}
                             onClickCallback={monthSelection}
                         >
                             {(internalDate?.getMonth() || internalDate?.getMonth() === 0
@@ -123,7 +123,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             id={'dp-day'}
                             title={'day selection'}
-                            variant={{ rounded: true, size: btnSizes }}
+                            variantProperties={{ rounded: true, size: btnSizes }}
                             onClickCallback={daySelection}
                         >
                             {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}

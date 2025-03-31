@@ -1,4 +1,4 @@
-import { ScreenBreakPointType, ScreenOrientationType } from './screen.types'
+import { AppBreakPointSizesType, ScreenOrientationType } from '../../../style/global.types'
 
 export interface IMediaBreakpoints {
     /** Extra Small Screen 320 * 480px */
@@ -26,7 +26,7 @@ export interface IMediaBreakpoints {
 export interface IMediaScren {
     x: number
     y: number
-    media: ScreenBreakPointType
+    media: AppBreakPointSizesType
 }
 
 export interface IMediaRange extends IMediaScren {

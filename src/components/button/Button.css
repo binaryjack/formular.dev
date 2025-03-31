@@ -74,27 +74,27 @@
     }
 
     .btn-primary {
-        @apply bg-blue-500 text-white hover:bg-blue-400;
+        @apply primary;
     }
 
     .btn-secondary {
-        @apply bg-gray-500 text-white hover:bg-gray-400;
+        @apply secondary;
     }
 
     .btn-danger {
-        @apply bg-red-500 text-white hover:bg-red-400;
+        @apply danger;
     }
 
     .btn-success {
-        @apply bg-green-500 text-white hover:bg-green-400;
+        @apply success;
     }
 
     .btn-warning {
-        @apply bg-yellow-500 text-white hover:bg-yellow-400;
+        @apply warning;
     }
 
     .btn-info {
-        @apply bg-violet-500 text-white hover:bg-violet-400;
+        @apply info;
     }
 
     .btn-primary.disabled {

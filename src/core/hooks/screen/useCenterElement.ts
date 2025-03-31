@@ -5,8 +5,8 @@ import {
     IScreenProperties,
     useScrollingContext
 } from '../../../components/context/scrolling/Scrolling.context'
+import { ElementPositionOutputType } from '../../../style/global.types'
 import { useElementRef } from '../useElementRef'
-import { ElementPositionOutputType } from './screen.types'
 
 export const useCenterElementTrigger = <T extends HTMLElement>() => {
     /** gets the responsive media object handled through the application context */

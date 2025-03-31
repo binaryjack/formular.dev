@@ -66,7 +66,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous'}
-                        variant={{ rounded: true, size: 'md' }}
+                        variantProperties={{ rounded: true, size: 'md' }}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -80,7 +80,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next'}
-                        variant={{ rounded: true, size: 'md' }}
+                        variantProperties={{ rounded: true, size: 'md' }}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />

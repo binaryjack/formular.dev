@@ -1,5 +1,5 @@
+import { AppBreakPointSizesType, ScreenOrientationType } from '../../../style/global.types'
 import { IMedia, IMediaBreakpoints, IMediaRange, IMediaScren } from './screen.models'
-import { ScreenBreakPointType, ScreenOrientationType } from './screen.types'
 
 export const getMediaBreakpoints = (media: IMedia) => {
     return {
@@ -17,20 +17,24 @@ export const newMediaRange = (
     min: number,
     x: number,
     y: number,
-    media: ScreenBreakPointType
+    media: AppBreakPointSizesType
 ): IMediaRange => {
     const max = Math.max(x, y)
     return { min, max, x, y, media }
 }
 
-export const newMediaScreen = (x: number, y: number, media: ScreenBreakPointType): IMediaScren => {
+export const newMediaScreen = (
+    x: number,
+    y: number,
+    media: AppBreakPointSizesType
+): IMediaScren => {
     return { x, y, media }
 }
 
 export const newMedia = (
     x: number,
     y: number,
-    media: ScreenBreakPointType,
+    media: AppBreakPointSizesType,
     orientation: ScreenOrientationType
 ): IMedia => {
     return { x, y, media, orientation }

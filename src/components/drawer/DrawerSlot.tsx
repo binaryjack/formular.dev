@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
+import { ElementPositionOutputType } from '../../style/global.types'
 import { useVisualDebugContext } from '../context/debug/VisualDebug.context'
 import { PortalSlot } from '../portals/PortalSlot'
 

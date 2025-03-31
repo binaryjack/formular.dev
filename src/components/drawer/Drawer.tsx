@@ -3,8 +3,8 @@
 import { useRef } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-import { ElementPositionOutputType } from '../../core/hooks/screen/screen.types'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
+import { ElementPositionOutputType } from '../../style/global.types'
 import { Button } from '../button/Button'
 import { Portal } from '../portals/Portal'
 import { DrawerContext, IDrawerContext } from './Drawer.context'
@@ -99,7 +99,7 @@ export const Drawer = ({
                     <Button
                         id={`${id}-toggle-drawer-btn`}
                         title={'Toggle Drawer'}
-                        variant={{ rounded: true, size: 'md' }}
+                        variantProperties={{ rounded: true, size: 'md' }}
                         onClickCallback={(e) =>
                             onSetOpenState?.(e, drawerOpenState === 'open' ? 'closed' : 'open')
                         }

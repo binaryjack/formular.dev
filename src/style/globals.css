@@ -76,6 +76,54 @@
         @apply font-serif;
     }
 
+    .c-primary {
+        @apply bg-blue-500;
+    }
+
+    .c-secondary {
+        @apply bg-gray-500;
+    }
+
+    .c-danger {
+        @apply bg-red-500;
+    }
+
+    .c-success {
+        @apply bg-green-500;
+    }
+
+    .c-warning {
+        @apply bg-yellow-500;
+    }
+
+    .c-info {
+        @apply bg-violet-500;
+    }
+
+    .primary {
+        @apply c-primary text-white hover:bg-blue-400;
+    }
+
+    .secondary {
+        @apply c-secondary text-white hover:bg-gray-400;
+    }
+
+    .danger {
+        @apply c-danger text-white hover:bg-red-400;
+    }
+
+    .success {
+        @apply c-success text-white hover:bg-green-400;
+    }
+
+    .warning {
+        @apply c-warning text-white hover:bg-yellow-400;
+    }
+
+    .info {
+        @apply c-info text-white hover:bg-violet-400;
+    }
+
     .flex-between {
         @apply flex justify-between items-center;
     }

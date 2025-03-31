@@ -1,35 +1,24 @@
 import { useEffect } from 'react'
 
-import { ScreenBreakPointType } from '../../core/hooks/screen/screen.types'
 import { sizeConverter } from '../../core/hooks/screen/utils/screen.utils'
 import { conditionalClass } from '../../dependency/conditionalClass'
+import {
+    AppBreakPointSizesType,
+    TextCaseType,
+    TextWeightType,
+    VariantNameType
+} from '../../style/global.types'
 import Spinner from '../spinner/Spinner'
+import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 import useRippleEffect from './core/useRippleEffect'
+import { getButtonXYSizes } from './utils/button.types'
 
-export type ButtonVariantType = 'primary' | 'secondary' | 'info' | 'error' | 'success' | 'warning'
-
-export type ButtonCaseType = 'uppercase' | 'lowercase' | 'capitalize' | 'normal-case'
-
-export type TextWeightType =
-    | 'extralight'
-    | 'light'
-    | 'thin'
-    | 'normal'
-    | 'medium'
-    | 'semibold'
-    | 'bold'
-    | 'extrabold'
-    | 'mono'
-    | 'sans'
-    | 'serif'
-
-interface IButtonVariant {
-    type: ButtonVariantType
-    size: ScreenBreakPointType
-    textCase: ButtonCaseType
+export interface IButtonVariant {
+    variant: VariantNameType
+    size: AppBreakPointSizesType
+    textCase: TextCaseType
     weight: TextWeightType
     rounded: boolean
-    bold: boolean
     width: string
     height: string
     className: string
@@ -40,7 +29,7 @@ interface IButtonProps {
     title: string
     children?: React.ReactNode | string
     onClickCallback: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-    variant?: Partial<IButtonVariant>
+    variantProperties?: Partial<IButtonVariant>
     loading?: boolean
     icon?: React.ReactNode
     disabled?: boolean
@@ -50,7 +39,7 @@ export const Button = ({
     title,
     children,
     onClickCallback,
-    variant = {},
+    variantProperties = {},
     loading = false,
     icon,
     disabled
@@ -58,24 +47,24 @@ export const Button = ({
     const {
         rounded = false,
         size = 'sm',
-        type = 'primary',
-        bold = false,
+        variant = 'primary',
         textCase = 'normal-case',
         width = 'unset',
         height = 'unset',
         weight = 'normal',
         className
-    } = variant
+    } = variantProperties
 
     const btnBaseClasses = conditionalClass([
         'btn-base',
         size,
-        `btn-${type}`,
+        `btn-${variant}`,
         disabled ? 'disabled' : '',
-        `text-${size}`,
-        `font-${bold ? 'bold' : 'normal'}`,
+        `text-${String(size)}`,
         textCase
     ])
+
+    const sizes = getButtonXYSizes(size)
 
     const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(
         onClickCallback,
@@ -96,15 +85,18 @@ export const Button = ({
             type="button"
             ref={buttonRef}
             disabled={disabled}
-            className={`btn-wrapper ${rounded ? 'rounded' : ''} ${className}`}
-            style={{ width: width, height: height }}
+            className={`btn-wrapper ${rounded ? 'rounded' : ''}   ${className} ${sizes.px}  ${sizes.my}   `}
+            style={{
+                width: width === 'unset' ? sizes.width : width,
+                height: height === 'unset' ? sizes.height : height
+            }}
             onClick={onClick}
         >
             <div className={btnBaseClasses} title={title}>
                 <div className={` flex flex-row  items-center justify-center overflow-hidden`}>
                     {loading ? (
-                        <div className={`flex loading mr-2`}>
-                            <Spinner width={18} height={18} strokeWidth={2} />
+                        <div className={`flex loading ml-1`}>
+                            <Spinner {...getSpinnerVariant?.(size, variant)} />
                         </div>
                     ) : icon ? (
                         <div className={`icon `}>{icon}</div>
@@ -112,11 +104,11 @@ export const Button = ({
                         <></>
                     )}
                     <span
-                        className={`relative flex ${type} ripple ${classRef}`}
+                        className={`relative flex ${variant} ripple ${classRef}`}
                         style={{ ...rippleStyle }}
                     ></span>
                     <span
-                        className={`content ${sizeConverter(size)}  text-nowrap text-ellipsis ${weight}`}
+                        className={`content ${sizeConverter?.(size)}  text-nowrap text-ellipsis ${weight}`}
                     >
                         {children}
                     </span>

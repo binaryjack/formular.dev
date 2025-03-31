@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import { Button } from './components/button/Button'
-import { sizeConverter } from './core/hooks/screen/utils/screen.utils'
+import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
 import Counter from './demo/signals/counter/Counter'
@@ -89,87 +88,9 @@ const App = () => {
     //     // eslint-disable-next-line react-hooks/exhaustive-deps
     // }, [])
 
-    const [clickedInfo, setClickedInfo] = useState<string[]>([])
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation()
-        e.preventDefault()
-
-        if (!e.currentTarget) return
-        const newCol = [...clickedInfo, `${e.currentTarget?.getAttribute('id')} has clicked!`]
-        setClickedInfo(newCol)
-    }
     return (
         <div className={'app flex flex-col flex-1 items-center justify-center'}>
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-0'}
-                title={'button'}
-                variant={{ rounded: true, size: '2xs', className: 'm-2' }}
-            >
-                Button 0 2XS
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-1'}
-                title={'button'}
-                variant={{ rounded: true, size: 'xs', className: 'm-2' }}
-            >
-                Button 1 XS
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-2'}
-                title={'button-2'}
-                variant={{ rounded: true, size: 'sm', className: 'm-2' }}
-            >
-                Button 2 SM
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-3'}
-                title={'button-3'}
-                variant={{ rounded: true, size: 'md', className: 'm-2' }}
-            >
-                Button 3 MD
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-4'}
-                title={'button-4'}
-                variant={{ rounded: true, size: 'lg', className: 'm-2' }}
-            >
-                Button 4 LG
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-5'}
-                title={'button-5'}
-                variant={{ rounded: true, size: 'xl', className: 'm-2' }}
-            >
-                Button 5 XL
-            </Button>
-
-            <Button
-                onClickCallback={handleClick}
-                id={'button-demo-6'}
-                title={'button-6'}
-                variant={{ rounded: true, size: '2xl', className: 'm-2' }}
-            >
-                Button 6 2XL
-            </Button>
-
-            <div>
-                {clickedInfo.map((e, i) => {
-                    return <div key={`${e}-${i}`}>{e}</div>
-                })}
-            </div>
-
-            <div>{sizeConverter('2xs')}</div>
+            <ButtonsDemo />
         </div>
     )
 }
