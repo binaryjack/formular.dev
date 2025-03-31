@@ -56,11 +56,11 @@ export const Button = ({
     } = variantProperties
 
     const btnBaseClasses = conditionalClass([
-        'btn-base',
-        size,
+        `${sizeConverter?.(size)}`,
         `btn-${variant}`,
         disabled ? 'disabled' : '',
-        `text-${String(size)}`,
+        `text-${sizeConverter?.(size)}`,
+        `${rounded ? 'rounded' : ''}`,
         textCase
     ])
 
@@ -76,26 +76,36 @@ export const Button = ({
         const btn = buttonRef.current as unknown as HTMLButtonElement
         if (!btn) return
         btn.setAttribute('aria-busy', loading ? 'true' : 'false')
-    }, [buttonRef])
+    }, [buttonRef, loading])
 
     return (
         <button
             tabIndex={0}
             id={id}
+            title={title}
             type="button"
             ref={buttonRef}
             disabled={disabled}
-            className={`btn-wrapper ${rounded ? 'rounded' : ''}   ${className} ${sizes.px}  ${sizes.my}   `}
+            className={`btn-wrapper ${btnBaseClasses} ${className} ${sizes.px} ${sizes.my}`}
             style={{
-                width: width === 'unset' ? sizes.width : width,
+                maxWidth: width === 'unset' ? sizes.width : width,
                 height: height === 'unset' ? sizes.height : height
             }}
             onClick={onClick}
         >
-            <div className={btnBaseClasses} title={title}>
+            <div
+                className={`flex flex-row flex-1  items-center 
+                            2xs:justify-center 
+                            xs:justify-center
+                            sm:justify-center
+                            md:justify-center
+                            lg:justify-center
+                            xl:justify-center
+                            2xl:justify-center`}
+            >
                 <div className={` flex flex-row  items-center justify-center overflow-hidden`}>
                     {loading ? (
-                        <div className={`flex loading ml-1`}>
+                        <div className={`flex loading ml-1 mr-1`}>
                             <Spinner {...getSpinnerVariant?.(size, variant)} />
                         </div>
                     ) : icon ? (
@@ -104,11 +114,11 @@ export const Button = ({
                         <></>
                     )}
                     <span
-                        className={`relative flex ${variant} ripple ${classRef}`}
+                        className={`relative flex ripple ${variant} ${classRef}`}
                         style={{ ...rippleStyle }}
-                    ></span>
+                    />
                     <span
-                        className={`content ${sizeConverter?.(size)}  text-nowrap text-ellipsis ${weight}`}
+                        className={`flex content ${sizeConverter?.(size)} text-nowrap ${weight} `}
                     >
                         {children}
                     </span>

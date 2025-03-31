@@ -7,13 +7,13 @@ export interface IButtonBaseSize {
     my: string
 }
 export const buttonSizes: Record<string, IButtonBaseSize> = {
-    '2xs': { width: 'auto', height: '10px', px: 'p-[3px]', my: 'm-[3px]' },
-    xs: { width: 'auto', height: '12px', px: 'p-[3px]', my: 'm-[3px]' },
-    sm: { width: 'auto', height: '15px', px: 'p-[3px]', my: 'm-[3px]' },
-    md: { width: 'auto', height: '20px', px: 'p-[3px]', my: 'm-[3px]' },
-    lg: { width: 'auto', height: '23px', px: 'p-[3px]', my: 'm-[3px]' },
-    xl: { width: 'auto', height: '26px', px: 'p-[3px]', my: 'm-[3px]' },
-    '2xl': { width: 'auto', height: '30px', px: 'p-[3px]', my: 'm-[3px]' }
+    '2xs': { width: '12em', height: '2.5em', px: 'p-0', my: 'm-0' },
+    xs: { width: '10em', height: '2em', px: 'p-0', my: 'm-0' },
+    sm: { width: '10em', height: '2em', px: 'p-0', my: 'm-0' },
+    md: { width: '10em', height: '2em', px: 'p-0', my: 'm-0' },
+    lg: { width: '10em', height: '2em', px: 'p-0', my: 'm-0' },
+    xl: { width: '10em', height: '2em', px: 'p-0', my: 'm-0' },
+    '2xl': { width: '10em', height: '2em', px: 'p-0', my: 'm-0' }
 }
 
 export const getButtonXYSizes = (size: AppBreakPointSizesType) => {

@@ -10,6 +10,4 @@ const correlatedSizes: Record<string, string> = {
     '2xl': 'xxl'
 }
 
-export const sizeConverter = (size: AppBreakPointSizesType) => {
-    return correlatedSizes[typeof size]
-}
+export const sizeConverter = (size: AppBreakPointSizesType) => correlatedSizes[size]

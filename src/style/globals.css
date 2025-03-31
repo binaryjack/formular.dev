@@ -36,6 +36,12 @@
         @apply text-[2em];
     }
 
+    .elipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .extralight {
         @apply font-extralight;
     }
@@ -126,10 +132,6 @@
 
     .flex-between {
         @apply flex justify-between items-center;
-    }
-
-    .text-30-extrabold {
-        @apply text-[30px] font-extrabold text-white;
     }
 
     .pink_container {
