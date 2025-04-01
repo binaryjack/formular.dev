@@ -71,6 +71,12 @@ const PositioningDemo = () => (
     </div>
 )
 
+const buttonsDemo = () => (
+    <div className={'app flex flex-col flex-1 items-center justify-center'}>
+        <ButtonsDemo />
+    </div>
+)
+
 const App = () => {
     useEffect(() => {}, [])
 
@@ -89,8 +95,8 @@ const App = () => {
     // }, [])
 
     return (
-        <div className={'app flex flex-col flex-1 items-center justify-center'}>
-            <ButtonsDemo />
+        <div className={'app flex flex-col items-center justify-center min-w-[300px] '}>
+            {formDemo()}
         </div>
     )
 }

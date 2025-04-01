@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
-
 @layer base {
     :root {
         --radius: 0.5rem;
@@ -83,27 +81,27 @@
     }
 
     .c-primary {
-        @apply bg-blue-500;
+        @apply bg-blue-500 ring-blue-500;
     }
 
     .c-secondary {
-        @apply bg-gray-500;
+        @apply bg-gray-500 ring-gray-500;
     }
 
     .c-danger {
-        @apply bg-red-500;
+        @apply bg-red-500 ring-red-500;
     }
 
     .c-success {
-        @apply bg-green-500;
+        @apply bg-green-500 ring-green-500;
     }
 
     .c-warning {
-        @apply bg-yellow-500;
+        @apply bg-yellow-500 ring-yellow-500;
     }
 
     .c-info {
-        @apply bg-violet-500;
+        @apply bg-violet-500 ring-violet-500;
     }
 
     .primary {

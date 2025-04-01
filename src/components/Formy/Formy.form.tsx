@@ -45,7 +45,7 @@ const FormyForm = ({ formy, children }: IFormyFormProps) => {
 
     return (
         <formyContext.Provider value={output}>
-            <form data-form-id={''} className={`relative p-2 top-0`}>
+            <form data-form-id={''} className={`relative p-0 top-0`}>
                 {children}
             </form>
             <FormyDebug formy={formInstance} />

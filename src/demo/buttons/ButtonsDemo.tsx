@@ -37,13 +37,16 @@ const getButtonsCombinations = (
                         // .filter((o) => o === false)
                         .forEach((loading) => {
                             AppBreakPointSizesArray.forEach((size) => {
-                                VariantNameArray.filter((o) => o === 'primary').forEach(
-                                    (variant) => {
+                                VariantNameArray
+                                    // .filter((o) => o === 'primary')
+                                    .forEach((variant) => {
+                                        if (loading && disabled) return
+
                                         const tempsize = getSizeTypeName(size)
                                         const tempvariant = getVariantTypeName?.(variant)
 
-                                        const key = `B-${size}-${variant}-${disabled ? '[D]' : ''}-${loading ? '[L]' : ''}-${rounded ? '[R]' : ''}`
-                                        const title = `B-${size}-${variant}-${i}`
+                                        const key = `B-${size}-${variant}-${disabled ? '[D]' : ''}-${loading ? '[L]' : ''}-${rounded ? '[R]' : ''}-${i}`
+                                        const title = `B-${size}-${variant}`
 
                                         if (buttonCombinations.find((o) => o.id === key)) return
 
@@ -55,14 +58,13 @@ const getButtonsCombinations = (
                                                 size: tempsize,
                                                 variant: tempvariant,
                                                 rounded,
-                                                className: 'my-1'
+                                                className: 'my-1 hover:ring-1'
                                             },
                                             disabled,
                                             loading
                                         })
                                         i++
-                                    }
-                                )
+                                    })
                             })
                         })
                 })

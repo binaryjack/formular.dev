@@ -20,11 +20,11 @@ export const VariantNameArray: string[] = Object.values(VariantNameEnum)
 /**https://htmlcolorcodes.com/color-names/ */
 export const colorsCorrecpondance: Record<string, IColorCorrespondance> = {
     primary: { bg: 'lightblue', fg: 'white' },
-    secondary: { bg: 'gray', fg: 'lightgray' },
-    danger: { bg: 'DarkOrange', fg: 'OrangeRed' },
-    success: { bg: 'LimeGreen', fg: 'SpringGreen' },
-    warning: { bg: 'Gold', fg: 'Yellow' },
-    info: { bg: 'MediumVioletRed', fg: 'DeepPink' }
+    secondary: { bg: 'darkgray', fg: 'lightgray' },
+    danger: { bg: 'lightyellow', fg: 'lightred' },
+    success: { bg: 'darkGreen', fg: 'SpringGreen' },
+    warning: { bg: 'lightyellow', fg: 'Yellow' },
+    info: { bg: 'violet', fg: 'lightPink' }
 }
 
 export const getCorrespondingVariantColors = (variant: VariantNameType) =>

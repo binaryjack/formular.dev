@@ -1,11 +1,15 @@
 @layer components {
     .btn-wrapper {
         z-index: 0;
-        @apply relative p-0 m-0 flex items-center justify-center w-full h-full overflow-hidden select-none transition-all duration-150 ease-in-out;
+        @apply relative p-0 m-0 flex flex-grow items-center justify-center w-full h-full overflow-hidden select-none transition-all duration-150 ease-in-out;
     }
 
     .btn-wrapper .content {
         @apply flex w-full items-center justify-center;
+    }
+
+    .btn-wrapper.loading {
+        @apply cursor-not-allowed;
     }
 
     .btn-wrapper.xxs {

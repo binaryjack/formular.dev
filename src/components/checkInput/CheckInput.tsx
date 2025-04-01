@@ -32,13 +32,15 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
             }
             onClear={() => field?.clear()}
         >
-            <input
-                data-class="base-checkbox "
-                {...field?.register()}
-                ref={field?.ref()}
-                onKeyDown={handleKeyDown}
-                autoComplete="off"
-            />
+            <div className={`flex flex-1 items-center ml-1`}>
+                <input
+                    data-class="base-checkbox "
+                    {...field?.register()}
+                    ref={field?.ref()}
+                    onKeyDown={handleKeyDown}
+                    autoComplete="off"
+                />
+            </div>
         </FieldSet>
     )
 }

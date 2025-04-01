@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import { DetailedHTMLProps, HtmlHTMLAttributes, InputHTMLAttributes } from 'react'
 
 import { IDrawerBase } from '../../../components/drawer/Drawer.types'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
@@ -42,6 +42,9 @@ export interface IFieldInputBase {
     clear: () => void
     register: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
     registerOption: () => DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+    registerLabel: (
+        refHtmlFor: React.RefObject<HTMLInputElement>
+    ) => DetailedHTMLProps<HtmlHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
     ref: () => React.RefObject<HTMLInputElement>
     refOption: (
         o: React.RefObject<HTMLInputElement>

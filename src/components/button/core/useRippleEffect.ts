@@ -1,19 +1,21 @@
-import React, { CSSProperties, useRef, useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
+import { useObjectRef } from '../../../core/hooks/useObjectRef'
 
 const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEvent>>(
     // buttonRef: React.RefObject<HTMLButtonElement>,
     onClickCallback: (e: E) => void,
     disabled: boolean
 ) => {
-    const buttonRef = useRef(null)
     const [classRef, setClassRef] = useState<string>('')
     const [rippleStyle, setRippleStyle] = useState<CSSProperties>({} as CSSProperties)
+
+    const { buttonRefObject, mainRef } = useObjectRef<HTMLButtonElement>()
 
     const onClick = (e: E) => {
         if (disabled) return
 
-        if (!buttonRef?.current) return
-        const btn = buttonRef?.current as unknown as HTMLButtonElement
+        if (!mainRef?.current) return
+        const btn = mainRef?.current as unknown as HTMLButtonElement
         if (!btn) return
 
         const btnClientWidth = btn.getBoundingClientRect().width
@@ -51,7 +53,8 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
     }
 
     return {
-        buttonRef,
+        mainRef,
+        buttonRefObject,
         onClick,
         classRef,
         rippleStyle

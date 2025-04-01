@@ -99,12 +99,19 @@ export const Drawer = ({
                     <Button
                         id={`${id}-toggle-drawer-btn`}
                         title={'Toggle Drawer'}
-                        variantProperties={{ rounded: true, size: 'md' }}
+                        variantProperties={{
+                            rounded: true,
+                            size: 'md',
+                            width: '2em',
+                            height: '2em',
+                            className: 'ml-1'
+                        }}
                         onClickCallback={(e) =>
                             onSetOpenState?.(e, drawerOpenState === 'open' ? 'closed' : 'open')
                         }
                         aria-expanded={drawerOpenState === 'open'}
                         aria-controls={`${id}-drawer-wrapper`}
+                        isToggle={drawerOpenState === 'open'}
                     >
                         {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
                     </Button>

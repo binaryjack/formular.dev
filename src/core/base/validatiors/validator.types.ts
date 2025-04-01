@@ -141,7 +141,7 @@ export interface IPattern extends IValidationTextBase {
 }
 
 export interface IValidationOptions {
-    required?: IRequired
+    requiredData?: IRequired
     min?: IMin
     max?: IMax
     minLength?: IMinLength

@@ -96,7 +96,7 @@ export const Signals = (function () {
             } else {
                 console.warn('computed callback not defined!')
             }
-            console.log('Computed triggered!', this.id)
+            // console.log('Computed triggered!', this.id)
 
             const signalName = `${this.id}-C`
 

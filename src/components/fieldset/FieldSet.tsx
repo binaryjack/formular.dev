@@ -23,6 +23,7 @@ interface IFieldSetProps<TType> {
     itemsDrawerWidth?: string
     itemsDrawerHeight?: string
     validationChildren?: React.ReactNode
+    className?: string
     onSetFocus?: () => void
     onClear?: () => void
     onSelectItem?: () => void
@@ -39,6 +40,7 @@ const FieldSet = <TType,>({
     itemsChildren,
     validationChildren,
     onSetFocus,
+    className,
     onClear,
     onClick,
     itemsDrawerWidth,
@@ -62,7 +64,7 @@ const FieldSet = <TType,>({
         <fieldset
             ref={elementRef}
             id={`${inputId}-fieldset`}
-            className={`fieldset fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'}`}
+            className={`fieldset fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'} ${className}`}
             data-type={type}
             data-testid={`test-${inputId}`}
             onClick={onClick}
@@ -74,11 +76,16 @@ const FieldSet = <TType,>({
                 conditionalShow={!!itemsChildren}
             />
 
-            <div className={`relative input-row flex xl:flex-row md:flex-col`}>
-                <div className={`flex items-center justify-start`}>
+            <div
+                className={`relative flex  w-full h-full
+                flex-col               
+                lg:flex-row
+               `}
+            >
+                <div className={`flex items-center justify-start  lg:w-[10em]`}>
                     <label
                         htmlFor={inputId}
-                        className={`label flex mr-2 ${flags.isValid ? '' : 'label-error'}`}
+                        className={`label inline-block mr-2 ${flags.isValid ? '' : 'label-error text-ellipsis'}`}
                     >
                         {label}
                     </label>
@@ -120,7 +127,13 @@ const FieldSet = <TType,>({
                         <Button
                             id={`${inputId}-clear-field-btn`}
                             title={'Clear'}
-                            variantProperties={{ rounded: true, size: 'md' }}
+                            variantProperties={{
+                                rounded: true,
+                                size: 'md',
+                                width: '2em',
+                                height: '2em',
+                                className: 'ml-0'
+                            }}
                             onClickCallback={() => onClear?.()}
                         >
                             {<MdClose />}

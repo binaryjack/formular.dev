@@ -1,4 +1,3 @@
-import { clear } from 'console'
 import React from 'react'
 
 import { DrawerOpenStateType } from '../../../components/drawer/Drawer.types'
@@ -129,7 +128,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.fieldStateStyle = new FieldStateStyle()
     this.className = defaultFieldInputCSSClassName
     /** the On form request will be trigger by the form! It should remains as the basic one in this list */
-    this.validationTriggerModeType = ['onBlur', 'onFormRequest']
+    this.validationTriggerModeType = []
     /* Should be used when the input is the entry point for the field value */
     this.internalHTMLElementRef = null
 
@@ -235,7 +234,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
      * I guess (not sure at this point!) but I believe tha's because of the render nature.
      * as it's render through a [].MAP => if it's created by React.createRef the class is not aware of the ref itself
-     * until the render is complete. And each render will create a new ref whidh is not what we want.
+     * until the render is complete. And each render will create a new ref whitch is not what we want.
      *
      * In this case we provide a ref from the component itself and we add to the collection only if the ref has already
      * been created and the value (current) is referencing the input.
@@ -273,6 +272,31 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
             // console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
 
+            this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
+            this.notify<IValidationOrigin>('validate', {
+                fieldName: this.name,
+                fieldState: this.validationTriggerModeType.includes('onChange')
+                    ? 'onChange'
+                    : 'reset'
+            })
+            this.observers.trigger()
+
+            e?.stopPropagation?.()
+        }
+
+        return {
+            onClick
+        }
+    }
+    /** register label is used to enable radio labels to be clickable and provide the expected behavior
+     * You must pass the ref of the radio input back to this function in order it behaves properly
+     */
+    this.registerLabel = function (refHtmlFor: React.RefObject<HTMLInputElement>) {
+        const onClick = (e: MouseEvent | React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+            const currentInputElement = refHtmlFor.current as unknown as HTMLInputElement
+
+            this.value = currentInputElement?.value ?? ''
+            currentInputElement.checked = true
             this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
             this.notify<IValidationOrigin>('validate', {
                 fieldName: this.name,

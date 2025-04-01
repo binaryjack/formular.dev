@@ -14,7 +14,7 @@ export const ScrollContext = ({ children }: IScrollContextProps) => {
 
     const handle = useCallback(
         (eventName: string) => {
-            console.log(eventName)
+            // console.log(eventName)
             setScreenProperties({
                 width: window.innerWidth,
                 height: window.innerHeight,

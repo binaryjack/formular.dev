@@ -30,7 +30,13 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
                 ref={field.refOption(ref)}
                 onKeyDown={handleKeyDown}
             />
-            <label htmlFor={option.id}>{option.text}</label>
+            <label
+                {...field.registerLabel(ref)}
+                htmlFor={option.id}
+                className={`ml-2 cursor-pointer`}
+            >
+                {option.text}
+            </label>
         </div>
     )
 }

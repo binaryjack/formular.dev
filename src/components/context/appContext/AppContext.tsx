@@ -47,7 +47,7 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
 
     return (
         <AppContext.Provider value={contextOutput}>
-            <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full  h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
             {children}
         </AppContext.Provider>
     )

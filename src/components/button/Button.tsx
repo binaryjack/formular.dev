@@ -33,6 +33,7 @@ interface IButtonProps {
     loading?: boolean
     icon?: React.ReactNode
     disabled?: boolean
+    isToggle?: boolean
 }
 export const Button = ({
     id,
@@ -42,7 +43,8 @@ export const Button = ({
     variantProperties = {},
     loading = false,
     icon,
-    disabled
+    disabled,
+    isToggle
 }: IButtonProps) => {
     const {
         rounded = false,
@@ -59,6 +61,7 @@ export const Button = ({
         `${sizeConverter?.(size)}`,
         `btn-${variant}`,
         disabled ? 'disabled' : '',
+        loading ? 'loading' : '',
         `text-${sizeConverter?.(size)}`,
         `${rounded ? 'rounded' : ''}`,
         textCase
@@ -66,30 +69,40 @@ export const Button = ({
 
     const sizes = getButtonXYSizes(size)
 
-    const { buttonRef, onClick, classRef, rippleStyle } = useRippleEffect(
-        onClickCallback,
-        (disabled ?? false) || loading
-    )
+    const {
+        mainRef: buttonRef,
+        buttonRefObject,
+        onClick,
+        classRef,
+        rippleStyle
+    } = useRippleEffect(onClickCallback, (disabled ?? false) || loading)
 
     useEffect(() => {
-        const btn = buttonRef?.current as unknown as HTMLButtonElement
-        if (!btn) return
-        btn.setAttribute('aria-busy', loading ? 'true' : 'false')
+        if (!buttonRefObject?.getAttribute('aria-title'))
+            buttonRefObject?.setAttribute('aria-title', title)
+        if (!buttonRefObject?.getAttribute('aria-label'))
+            buttonRefObject?.setAttribute('aria-label', title)
 
-        if (!btn.getAttribute('aria-title')) btn.setAttribute('aria-title', title)
-        if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', title)
-    }, [buttonRef, loading, title])
+        buttonRefObject?.setAttribute('aria-pressed', 'undefined')
+    }, [buttonRefObject, title])
+
+    useEffect(() => {
+        buttonRefObject?.setAttribute('aria-busy', loading ? 'true' : 'false')
+    }, [buttonRef, loading])
+
+    useEffect(() => {
+        if (isToggle === undefined) return
+        buttonRefObject?.setAttribute('aria-pressed', isToggle ? 'true' : 'false')
+    }, [isToggle])
 
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const btn = buttonRef?.current as unknown as HTMLButtonElement
-        if (!btn) return
-        btn.setAttribute('aria-pressed', 'true')
+        e.stopPropagation()
+        e.preventDefault()
     }
 
     const handleOnMouseUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        const btn = buttonRef?.current as unknown as HTMLButtonElement
-        if (!btn) return
-        btn.setAttribute('aria-pressed', 'false')
+        e.stopPropagation()
+        e.preventDefault()
     }
 
     return (
@@ -102,14 +115,18 @@ export const Button = ({
             disabled={disabled}
             className={`btn-wrapper ${btnBaseClasses} ${className} ${sizes.px} ${sizes.my}`}
             style={{
-                maxWidth: width === 'unset' ? sizes.width : width,
-                height: height === 'unset' ? sizes.height : height
+                width: width ?? 'unset',
+                maxWidth: sizes.width ?? 'unset',
+                height: height ?? sizes.height
             }}
             onClick={onClick}
             onMouseDown={handleOnMouseDown}
             onMouseUp={handleOnMouseUp}
         >
             <div
+                /** Here after I want to keep all the breakpoints even if they does the same just in order to
+                 * get used to them
+                 */
                 className={`flex flex-row flex-1  items-center 
                             2xs:justify-center 
                             xs:justify-center
@@ -119,13 +136,13 @@ export const Button = ({
                             xl:justify-center
                             2xl:justify-center`}
             >
-                <div className={` flex flex-row  items-center justify-center overflow-hidden`}>
+                <div className={`flex flex-row  items-center justify-center overflow-hidden`}>
                     {loading ? (
-                        <div className={`flex loading ml-1 mr-1`}>
+                        <div className={`flex loading  mr-1`}>
                             <Spinner {...getSpinnerVariant?.(size, variant)} />
                         </div>
                     ) : icon ? (
-                        <div className={`icon `}>{icon}</div>
+                        <div className={`icon mx-[100px]`}>{icon}</div>
                     ) : (
                         <></>
                     )}

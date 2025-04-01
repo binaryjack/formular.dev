@@ -12,7 +12,7 @@ const ValidatorRequired = function (this: IValidatorStrategy) {
         const hasExpectedValue = !!data.expectedValue
         const hasValue = !valueIsNullOrUndefined(data?.value)
 
-        if (!data?.validationOptions?.required) {
+        if (!data?.validationOptions?.requiredData?.required) {
             return newValidationResult(true, data.fieldName)
         }
 
@@ -23,15 +23,15 @@ const ValidatorRequired = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.required,
-                    data.validationOptions.required?.error
-                        ? data.validationOptions.required?.error
+                    data.validationOptions.requiredData?.error
+                        ? data.validationOptions.requiredData?.error
                         : undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.required,
-                    data.validationOptions.required?.guide
-                        ? data.validationOptions.required?.guide
+                    data.validationOptions.requiredData?.guide
+                        ? data.validationOptions.requiredData?.guide
                         : undefined
                 ),
                 data

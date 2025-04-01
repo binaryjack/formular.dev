@@ -31,10 +31,6 @@
         @apply bg-gray-200 p-2 rounded w-8 mt-0 transition ease-in-out delay-150 hover:bg-gray-300 text-xs/6;
     }
 
-    .base-checkbox {
-        @apply appearance-none h-6 w-6 border-2 cursor-pointer border-gray-400 rounded checked:bg-blue-500 checked:border-transparent;
-    }
-
     .debug-table {
         @apply border-2 border-gray-400 border-solid;
     }
@@ -63,24 +59,8 @@
         @apply whitespace-nowrap overflow-hidden overflow-ellipsis;
     }
 
-    .radio-group {
-        @apply flex flex-col sm:flex-col md:flex-row items-start w-full;
-    }
-
-    .radio-item-group {
-        @apply flex flex-row items-center w-full;
-    }
-
-    .radio-item-group.mobile {
-        @apply flex flex-col items-start;
-    }
-
-    .base-radio {
-        @apply appearance-none mr-2 h-6 w-6 border-2 cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
-    }
-
     .app {
-        @apply bg-gray-200 p-3;
+        @apply bg-gray-200 2xs:p-0;
     }
 
     h1 {
