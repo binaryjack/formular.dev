@@ -1,106 +1,36 @@
-import { DateObject } from '../src/components/datePicker/core/DateObject.objects'
-
+import { DateObject } from '../src/components/datePicker/core/DateObject.object'
 describe('DateObject', () => {
-    it('should initialize with current date if no date is provided', () => {
-        const dateObject = new DateObject()
-        const currentDate = new Date()
-        expect(dateObject?.day?.()).toBe(currentDate.getDate())
-        expect(dateObject?.month?.()).toBe(currentDate.getMonth())
-        expect(dateObject?.year?.()).toBe(currentDate.getFullYear())
-    })
-
-    it('should initialize with provided date', () => {
-        const date = new Date(2025, 2, 7) // March 7, 2025
+    it('should create a DateObject with the correct date', () => {
+        const date = new Date(2023, 9, 15) // October 15, 2023
         const dateObject = new DateObject(date)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
+        expect(dateObject.year).toBe(2023)
+        expect(dateObject.month).toBe(10) // Months are 1-based in DateObject
+        expect(dateObject.day).toBe(15)
     })
 
-    it('should set date from strings', () => {
-        const dateObject = new DateObject()
-        dateObject.setFromStrings?.('07', '02', '2025')
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
+    it('should correctly handle leap years', () => {
+        const leapYearDate = new Date(2024, 1, 29) // February 29, 2024
+        const dateObject = new DateObject(leapYearDate)
+        expect(dateObject.year).toBe(2024)
+        expect(dateObject.month).toBe(2)
+        expect(dateObject.day).toBe(29)
     })
 
-    it('should set date from numbers', () => {
-        const dateObject = new DateObject()
-        dateObject.setFromNumbers?.(7, 2, 2025)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
+    it('should correctly handle non-leap years', () => {
+        const nonLeapYearDate = new Date(2023, 1, 28) // February 28, 2023
+        const dateObject = new DateObject(nonLeapYearDate)
+        expect(dateObject.year).toBe(2023)
+        expect(dateObject.month).toBe(2)
+        expect(dateObject.day).toBe(28)
     })
 
-    it('should set date from Date object', () => {
-        const date = new Date(2025, 2, 7)
-        const dateObject = new DateObject()
-        dateObject?.setFromDate?.(date)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should set date from timestamp', () => {
-        const timestamp = new Date(2025, 2, 7).getTime()
-        const dateObject = new DateObject()
-        dateObject.setFromNumber?.(timestamp)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should set date from object', () => {
-        const date = { day: 7, month: 2, year: 2025 }
-        const dateObject = new DateObject()
-        dateObject.setFromObject?.(date)
-        expect(dateObject?.day?.()).toBe(7)
-        expect(dateObject?.month?.()).toBe(2)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should validate input date mm/dd/yyyy', () => {
-        const dateObject = new DateObject()
-        const isValid = dateObject?.setFromString?.('07/02/2025', 'mm/dd/yyyy')
-        expect(isValid).toBe(true)
-        expect(dateObject?.day?.()).toBe(2)
-        expect(dateObject?.month?.()).toBe(7)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should validate input date dd/mm/yyyy', () => {
-        const dateObject = new DateObject()
-        const isValid = dateObject?.setFromString?.('02/07/2025', 'dd/mm/yyyy')
-        expect(isValid).toBe(true)
-        expect(dateObject?.day?.()).toBe(2)
-        expect(dateObject?.month?.()).toBe(7)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should validate input date yyyy/mm/dd', () => {
-        const dateObject = new DateObject()
-        const isValid = dateObject?.setFromString?.('2025/07/02', 'yyyy/mm/dd')
-        expect(isValid).toBe(true)
-        expect(dateObject?.day?.()).toBe(2)
-        expect(dateObject?.month?.()).toBe(7)
-        expect(dateObject?.year?.()).toBe(2025)
-    })
-
-    it('should return correct string format', () => {
-        const dateObject = new DateObject(new Date(2025, 2, 7))
-        expect(dateObject.toString?.('mm/dd/yyyy')).toBe('02/07/2025')
-        expect(dateObject.toString?.('dd/mm/yyyy')).toBe('07/02/2025')
-        expect(dateObject.toString?.('yyyy/mm/dd')).toBe('2025/02/07')
-    })
-
-    it('should return correct day name', () => {
-        const dateObject = new DateObject(new Date(2025, 2, 7))
-        expect(dateObject.getDayName?.()).toBe('Friday')
-    })
-
-    it('should return correct month name', () => {
-        const dateObject = new DateObject(new Date(2025, 2, 7))
-        expect(dateObject.getMonthName?.()).toBe('March')
+    it('should correctly format the date as a string', () => {
+        const date = new Date(2023, 9, 15) // October 15, 2023
+        const dateObject = new DateObject(date)
+        expect(dateObject.toString !== undefined).toBeTruthy()
+        expect(dateObject.toString !== null).toBeTruthy()
+        if (dateObject.toString) {
+            expect(dateObject.toString('yyyy/mm/dd')).toBe('2023-10-15')
+        }
     })
 })

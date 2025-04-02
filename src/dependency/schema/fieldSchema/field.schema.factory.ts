@@ -1,5 +1,3 @@
-import { IOptionItem } from '../optionsSchema/options.scheme.types'
-import { IValidationSchema } from '../validationSchema/validation.schema.types'
 import {
     CheckBuilder,
     DateTimeBuilder,
@@ -14,7 +12,9 @@ import {
     ShowRoomsBuilder,
     ToggleBuilder,
     UserIdBuilder
-} from './field.schema.specific.builders'
+} from '../../../demo/forms/FormDemo.schema.specific.builders'
+import { IOptionItem } from '../optionsSchema/options.scheme.types'
+import { IValidationSchema } from '../validationSchema/validation.schema.types'
 import { IFieldSchemaBuilder, IFieldSchemeFactory } from './field.schema.types'
 
 const FieldSchemaFactory = function (this: IFieldSchemeFactory) {

@@ -101,6 +101,7 @@ DateObject.prototype = {
     setCurrentDate: function (year: number, month: number, day = 1) {
         this.setFromNumbers(day, month, year)
     },
+    /** Note that  */
     toString: function (format: DatePickerOutputFormatType) {
         if (format === 'mm/dd/yyyy') {
             return `${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${this.dateObject.year}`

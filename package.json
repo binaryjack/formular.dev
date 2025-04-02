@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "start": "env-cmd -f ./.env.development --use-shell vite",
         "build-css": "tailwindcss build -i ./src/index.css -o ./public/index.css",
         "sta": "tsc-watch",
@@ -41,13 +41,13 @@
         "vite-plugin-dts": "^4.3.0",
         "vite-plugin-eslint": "^1.8.1",
         "vite-plugin-static-copy": "^2.0.0",
-        "vite-plugin-svg": "^0.7.0"
-    },
-    "dependencies": {
+        "vite-plugin-svg": "^0.7.0",
         "@emotion/css": "^11.13.5",
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
-        "postcss-import": "^16.1.0",
+        "postcss-import": "^16.1.0"
+    },
+    "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-icons": "^5.4.0",

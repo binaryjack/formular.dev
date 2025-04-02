@@ -1,14 +1,15 @@
 /** @jsxImportSource @emotion/react */
 
-import { useRef } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
+import { useObjectRef } from '../../core/hooks/useObjectRef'
 import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import { ElementPositionOutputType } from '../../style/global.types'
 import { Button } from '../button/Button'
 import { Portal } from '../portals/Portal'
 import { DrawerContext, IDrawerContext } from './Drawer.context'
 import { DrawerOpenStateType } from './Drawer.types'
+import { OverflowingEdgeType, useDrawerIsOverflowing } from './hooks/useDrawerIsOverflowing'
 
 interface IDrawerProps {
     id: string
@@ -23,17 +24,25 @@ interface IDrawerProps {
     height?: string
 }
 
-const drawerConditionnalStyle = (id: string, position: ElementPositionOutputType) => {
+const drawerConditionnalStyle = (
+    id: string,
+    position: ElementPositionOutputType,
+    isOverflowingAt: OverflowingEdgeType
+) => {
     return `   
         #${id}-drawer-slot-${position}-container 
         .drawer-container.open {   
             transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
-            ${position !== 'center' ? `${position}:0;` : ''}             
+            ${isOverflowingAt === 'none' && position !== 'center' ? `${position}:0;` : ''}
+            ${isOverflowingAt === 'top' ? `top:0` : ''}
+            ${isOverflowingAt === 'bottom' ? `bottom:0` : ''}
         }
         #${id}-drawer-slot-${position}-container 
         .drawer-container.closed { 
             transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
-            ${position !== 'center' ? `${position}:0;` : ''}    
+            ${isOverflowingAt === 'none' && position !== 'center' ? `${position}:0;` : ''}
+            ${isOverflowingAt === 'top' ? `top:0` : ''}
+            ${isOverflowingAt === 'bottom' ? `bottom:0` : ''}
         }
     `
 }
@@ -46,11 +55,18 @@ export const Drawer = ({
     width = '200px',
     height = '100px'
 }: IDrawerProps) => {
-    const drawerContainerRef = useRef(null)
+    const { buttonRefObject, mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
 
     const handleClose = () => {
         onSetOpenState?.({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
     }
+
+    const { isOverflowingAt } = useDrawerIsOverflowing(
+        buttonRefObject,
+        position,
+        drawerOpenState,
+        height
+    )
 
     const drawerContextDefault: IDrawerContext = {
         onSetOpenState,
@@ -88,7 +104,7 @@ export const Drawer = ({
                          * because of this, if we use inline style or emotions or styled component we can not achieve this.
                          * we have a state open / close which must be isolated with specific css query that's why we need to append the style here after
                          */}
-                        <style>{drawerConditionnalStyle(id, position)}</style>
+                        <style>{drawerConditionnalStyle(id, position, isOverflowingAt)}</style>
                     </>
                 }
             />

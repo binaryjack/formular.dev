@@ -96,13 +96,13 @@ export const Button = ({
     }, [isToggle])
 
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation()
-        e.preventDefault()
+        // e.stopPropagation()
+        // e.preventDefault()
     }
 
     const handleOnMouseUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation()
-        e.preventDefault()
+        // e.stopPropagation()
+        // e.preventDefault()
     }
 
     return (

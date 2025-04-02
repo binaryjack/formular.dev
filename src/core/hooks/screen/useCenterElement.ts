@@ -5,7 +5,7 @@ import {
     IScreenProperties,
     useScrollingContext
 } from '../../../components/context/scrolling/Scrolling.context'
-import { ElementPositionOutputType } from '../../../style/global.types'
+import { DrawerBreakPointType, ElementPositionOutputType } from '../../../style/global.types'
 import { useElementRef } from '../useElementRef'
 
 export const useCenterElementTrigger = <T extends HTMLElement>() => {
@@ -28,7 +28,7 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
         const centerScreen = elementPositionRefs.height / 2
         const triggerPosition = centerScreen + screentTop
 
-        const isLaptopAndHigher = ['MD', 'LG', 'XL', '2XL'].includes(media?.media)
+        const isLaptopAndHigher = DrawerBreakPointType.includes(media?.media)
 
         const isPositionTop = isLaptopAndHigher && screenProperties.screenTop > triggerPosition
 
@@ -46,6 +46,8 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
             screenTop: screentTop,
             triggerPoint: centerScreen + screentTop
         })
+
+        // console.log('position target', targetPositionToggle)
 
         setToggle(targetPositionToggle)
     }, [screenProperties.hasUpdates, media?.media])

@@ -1,3 +1,6 @@
+import { IEntityScheme, IFieldSchema } from '../../dependency/schema/fieldSchema/field.schema.types'
+import baseOptionSchemaItem from '../../dependency/schema/optionsSchema/options.scheme.function'
+import { Validators } from '../../dependency/schema/validationSchema/validation.schema.specific.validators'
 import {
     CheckBuilder,
     DateTimeBuilder,
@@ -12,10 +15,7 @@ import {
     ShowRoomsBuilder,
     ToggleBuilder,
     UserIdBuilder
-} from '../../dependency/schema/fieldSchema/field.schema.specific.builders'
-import { IEntityScheme, IFieldSchema } from '../../dependency/schema/fieldSchema/field.schema.types'
-import baseOptionSchemaItem from '../../dependency/schema/optionsSchema/options.scheme.function'
-import { Validators } from '../../dependency/schema/validationSchema/validation.schema.specific.validators'
+} from './FormDemo.schema.specific.builders'
 
 export type newEntitySchemeObjectType = (
     name: string,

@@ -90,6 +90,12 @@ export enum AppBreakPointSizesEnum {
 }
 
 export type AppBreakPointSizesType = keyof typeof AppBreakPointSizesEnum
+export const DrawerBreakPointType: string[] = [
+    AppBreakPointSizesEnum.md,
+    AppBreakPointSizesEnum.lg,
+    AppBreakPointSizesEnum.xl,
+    AppBreakPointSizesEnum['2xl']
+]
 export const AppBreakPointSizesArray: string[] = Object.values<string>(
     AppBreakPointSizesEnum
 ) as string[]
