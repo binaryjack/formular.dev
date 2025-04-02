@@ -1,5 +1,4 @@
-import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DateObject } from '../../../dependency/schema/descriptor/field.data.dateobject.type'
+import { DateObjectTypes } from '../../../components/datePicker/core/models/DateObject.types'
 
 /**
  * Converts a given word to PascalCase.
@@ -86,7 +85,7 @@ export const isBigIntNullOrUndefined = (value?: bigint | null): boolean =>
  * @param value - The INDate or DateObject to check.
  * @returns True if the INDate or DateObject is null or undefined, otherwise false.
  */
-export const isNDateNullOrUndefined = (value?: INDate | DateObject | null): boolean =>
+export const isNDateNullOrUndefined = (value?: DateObjectTypes): boolean =>
     value === null || value === undefined
 
 export const valueIsNullOrUndefined = (value: any): boolean => {

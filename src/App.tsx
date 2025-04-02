@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
+import { DatePickerDemo } from './demo/fields/datePickerDemo/DatePicker.demo'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
 import Counter from './demo/signals/counter/Counter'
@@ -41,34 +42,34 @@ const newFormObject: IControlsDemo = {
 }
 
 const formDemo = () => (
-    <div>
+    <>
         <h1>Forms Inputs using event driven design classes</h1>
         <h3>Patterns used: builder, strategy, observer, factory</h3>
         <FormDemo />
-    </div>
+    </>
 )
 const TextInputDemo = () => (
-    <div>
+    <>
         <br />
         <h1>Signals Text Input</h1>
         <h3>Patterns used: signals, observer </h3>
         <TextInput />
-    </div>
+    </>
 )
 const CounterDemo = () => (
-    <div>
+    <>
         <br />
         <h1>Signals Counter</h1>
         <h3>Patterns used: signals, observer </h3>
         <Counter />
-    </div>
+    </>
 )
 
 const PositioningDemo = () => (
-    <div>
+    <>
         <br />
         <Positionning />
-    </div>
+    </>
 )
 
 const buttonsDemo = () => (
@@ -96,7 +97,7 @@ const App = () => {
 
     return (
         <div className={'app flex flex-col items-center justify-center min-w-[300px] '}>
-            {formDemo()}
+            <DatePickerDemo />
         </div>
     )
 }

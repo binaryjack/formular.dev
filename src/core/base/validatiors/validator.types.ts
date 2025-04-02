@@ -1,3 +1,5 @@
+import { DateObject } from '../../../components/datePicker/core/DateObject.object'
+import { IDateObject } from '../../../components/datePicker/core/models/DateObject.models'
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 
@@ -77,6 +79,7 @@ export interface IValidatorStrategyData {
     value: FieldValuesTypes | null
     expectedValue: FieldValuesTypes | null
     origin: IValidationOrigin | null
+    toString: () => string
 }
 
 export const newValidatorStrategyData = (
@@ -93,7 +96,31 @@ export const newValidatorStrategyData = (
         validationOptions: validationOptions,
         value: value,
         expectedValue: expectedValue !== undefined ? expectedValue : null,
-        origin: origin ?? null
+        origin: origin ?? null,
+        toString: function () {
+            if (this.value === undefined || this.value === null) {
+                return ''
+            }
+            if (typeof this.value === 'string') {
+                return String(this.value)
+            }
+            if (typeof this.value === 'number') {
+                return Number(this.value).toString()
+            }
+            if (typeof this.value === 'bigint') {
+                return BigInt(this.value).toString()
+            }
+            if (value instanceof DateObject) {
+                return (this.value as IDateObject).toString?.('yyyy/mm/dd')
+            }
+            if (typeof this.value === 'object') {
+                if ('year' in this.value && 'day' in this.value && 'month' in this.value) {
+                    return `${this.value.year}-${this.value.month}-${this.value.day}`
+                }
+                return JSON.stringify(this.value)
+            }
+            return ''
+        }
     } as IValidatorStrategyData
 }
 

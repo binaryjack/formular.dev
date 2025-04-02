@@ -16,7 +16,7 @@ const ValidatorPattern = function (this: IValidatorStrategy) {
         }
 
         const regexp = new RegExp(data.validationOptions.pattern.pattern)
-        const valueToBeTested = data?.value?.toString() ?? ''
+        const valueToBeTested = data?.toString()
         if (!regexp.test(valueToBeTested)) {
             return newValidationResult(
                 false,

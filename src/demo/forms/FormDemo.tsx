@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import CheckInput from '../../components/checkInput/CheckInput'
 import { DateObject } from '../../components/datePicker/core/DateObject.object'
-import DateInput from '../../components/datePicker/DatePicker'
+import DatePicker from '../../components/datePicker/DatePicker'
 import DatePickerContentDrawer from '../../components/datePicker/DatePicker.drawer.content'
 import FormyForm from '../../components/Formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
@@ -12,7 +12,7 @@ import SelectDrawerContent from '../../components/selectInput/Select.drawer.cont
 import { Signals } from '../../core/signals/signal'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { IFieldDescriptor } from '../../dependency/schema/descriptor/field.descriptor'
-import { demoFormInstance } from './DormDemo.instance'
+import { demoFormInstance } from './FormDemo.instance'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
 const { Signal, useSignal } = Signals
@@ -66,7 +66,7 @@ const FormDemo = () => {
 
             <CheckInput fieldName={'trueFalseValue'} />
             <RadioInput fieldName={'selectedRadioId'} />
-            <DateInput fieldName={'dateTimeValue'} />
+            <DatePicker fieldName={'dateTimeValue'} />
         </FormyForm>
     )
 }

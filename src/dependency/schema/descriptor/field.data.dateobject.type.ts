@@ -2,7 +2,7 @@ import { DatePickerOutputFormatType } from '../../../components/datePicker/core/
 import { getPaddedNumber } from '../../../components/datePicker/core/DatePicker.utils'
 import { INDate } from './field.data.date.struct'
 
-export class DateObject {
+export class DateObjectOld {
     separator: string
     name: string
     constructor(name: string, separator = '-') {
@@ -190,17 +190,17 @@ export class DateObject {
         return false
     }
 
-    public setCurrentDay = (date: DateObject, day: number) => {
+    public setCurrentDay = (date: DateObjectOld, day: number) => {
         this.dateObject.day = day
         this.dateObject.month = date.type.month
         this.dateObject.year = date.type.year
     }
-    public setCurrentMonth = (date: DateObject, month: number) => {
+    public setCurrentMonth = (date: DateObjectOld, month: number) => {
         this.dateObject.day = date.type.day
         this.dateObject.month = month
         this.dateObject.year = date.type.year
     }
-    public setCurrentYear = (date: DateObject, year: number) => {
+    public setCurrentYear = (date: DateObjectOld, year: number) => {
         this.dateObject.day = date.type.day
         this.dateObject.month = date.type.month
         this.dateObject.year = year

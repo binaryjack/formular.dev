@@ -12,10 +12,10 @@ import {
     ShowRoomsBuilder,
     ToggleBuilder,
     UserIdBuilder
-} from './fieldSchema/field.schema.specific.builders'
-import { IEntityScheme, IFieldSchema } from './fieldSchema/field.schema.types'
-import baseOptionSchemaItem from './optionsSchema/options.scheme.function'
-import { Validators } from './validationSchema/validation.schema.specific.validators'
+} from '../../dependency/schema/fieldSchema/field.schema.specific.builders'
+import { IEntityScheme, IFieldSchema } from '../../dependency/schema/fieldSchema/field.schema.types'
+import baseOptionSchemaItem from '../../dependency/schema/optionsSchema/options.scheme.function'
+import { Validators } from '../../dependency/schema/validationSchema/validation.schema.specific.validators'
 
 export type newEntitySchemeObjectType = (
     name: string,
@@ -26,7 +26,7 @@ export const newEntityScheme = (name: string, ...properties: IFieldSchema[]): IE
     return { name: name, properties: properties } as IEntityScheme
 }
 
-const controlDemoSchema: IEntityScheme = {
+export const controlsDemoSchema: IEntityScheme = {
     name: 'demo-schema',
     properties: [
         IdBuilder.validationData(true, Validators.baseRequiredValidator).build(),
@@ -56,4 +56,3 @@ const controlDemoSchema: IEntityScheme = {
         ToggleBuilder.build()
     ]
 }
-export default controlDemoSchema

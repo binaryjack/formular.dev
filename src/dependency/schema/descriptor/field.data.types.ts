@@ -1,6 +1,6 @@
+import { IDateObject } from '../../../components/datePicker/core/models/DateObject.models'
 import { INDate } from './field.data.date.struct'
-import { DateObject } from './field.data.dateobject.type'
 
-export type FieldValuesTypes = string | number | INDate | DateObject | object | bigint | undefined
+export type FieldValuesTypes = string | number | INDate | IDateObject | object | bigint | undefined
 
 export type FieldOmmitObjectsType = 'object' | 'INDate' | 'DateObject'

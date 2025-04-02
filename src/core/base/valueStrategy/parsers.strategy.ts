@@ -1,5 +1,6 @@
-import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DateObject } from '../../../dependency/schema/descriptor/field.data.dateobject.type'
+import { DateObject } from '../../../components/datePicker/core/DateObject.object'
+import { DateObjectTypes } from '../../../components/datePicker/core/models/DateObject.types'
+
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import {
     isBooleanNullOrUndefined,
@@ -12,10 +13,11 @@ import { TParserStrategy } from './valueStrategy.types'
 export const DateOrTimeParserStrategy: TParserStrategy<string | null> = (
     value: Partial<FieldValuesTypes>
 ): string | null => {
-    if (!isNDateNullOrUndefined(value as INDate | DateObject | null)) {
-        const newDte = new DateObject('temp-date')
-        newDte.parseObject = value as INDate
-        return newDte.isDefined ? newDte.toString('yyyy/mm/dd') : null
+    if (!isNDateNullOrUndefined(value as DateObjectTypes)) {
+        const newDte = new DateObject(undefined, 'temp-date')
+        if (!newDte?.toString || !newDte.isDefined || !newDte.parse) return null
+        newDte.parse?.(value as DateObjectTypes)
+        return newDte.isDefined?.() ? newDte.toString('yyyy/mm/dd') : null
     }
     return null
 }

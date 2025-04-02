@@ -1,4 +1,4 @@
-import { DateObject } from './schema/descriptor/field.data.dateobject.type'
+import { DateObject } from '../components/datePicker/core/DateObject.object'
 import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
 
 export const mapObjectToFields = (
@@ -28,8 +28,8 @@ export const mapObjectToFields = (
             targetField.value = null
             targetField.isDirty = false
             if (targetField?.type === 'datetime') {
-                const dateObjectDisplay = new DateObject('display')
-                dateObjectDisplay.parseString = value as string
+                const dateObjectDisplay = new DateObject(undefined, 'display')
+                dateObjectDisplay?.parse?.(value as string)
                 targetField.objectValue = dateObjectDisplay.dateObject
             }
             if (targetField.validationOptions !== undefined && forceShouldValidate) {

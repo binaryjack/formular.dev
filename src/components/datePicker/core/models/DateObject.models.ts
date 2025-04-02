@@ -1,5 +1,6 @@
 import { INDate } from '../../../../dependency/schema/descriptor/field.data.date.struct'
 import { DatePickerOutputFormatType } from '../DatePicker.types'
+import { DateObjectTypes } from './DateObject.types'
 
 export interface IDateObjectMethods {
     day: () => number
@@ -23,6 +24,7 @@ export interface IDateObjectMethods {
     toString: (format: DatePickerOutputFormatType) => string
     toDate: () => Date
     toINDate: () => INDate
+    parse: (value: DateObjectTypes) => void
 }
 
 export interface IDateObject extends Partial<IDateObjectMethods> {

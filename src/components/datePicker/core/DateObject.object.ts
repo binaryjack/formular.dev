@@ -2,6 +2,7 @@ import { INDate } from '../../../dependency/schema/descriptor/field.data.date.st
 import { DatePickerOutputFormatType } from './DatePicker.types'
 import { getPaddedNumber } from './DatePicker.utils'
 import { IDateObject } from './models/DateObject.models'
+import { DateObjectTypes } from './models/DateObject.types'
 
 export const DateObject = function (
     this: IDateObject,
@@ -102,15 +103,15 @@ DateObject.prototype = {
     },
     toString: function (format: DatePickerOutputFormatType) {
         if (format === 'mm/dd/yyyy') {
-            return `${getPaddedNumber(this.dateObject.month, 2)}/${getPaddedNumber(this.dateObject.day, 2)}/${this.dateObject.year}`
+            return `${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${this.dateObject.year}`
         }
 
         if (format === 'dd/mm/yyyy') {
-            return `${getPaddedNumber(this.dateObject.day, 2)}/${getPaddedNumber(this.dateObject.month, 2)}/${this.dateObject.year}`
+            return `${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${this.dateObject.year}`
         }
 
         if (format === 'yyyy/mm/dd') {
-            return `${this.dateObject.year}/${getPaddedNumber(this.dateObject.month, 2)}/${getPaddedNumber(this.dateObject.day, 2)}`
+            return `${this.dateObject.year}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}`
         }
         return ''
     },
@@ -124,5 +125,32 @@ DateObject.prototype = {
             month: this.dateObject.month + 1,
             day: this.dateObject.day
         } as INDate
+    },
+    parse: function (value: DateObjectTypes) {
+        if (typeof value === 'string') {
+            const isValidFormat =
+                this.setFromString(value, 'yyyy/mm/dd') ||
+                this.setFromString(value, 'mm/dd/yyyy') ||
+                this.setFromString(value, 'dd/mm/yyyy')
+            if (isValidFormat) return
+        }
+
+        if (typeof value === 'number') {
+            this.setFromNumber(value)
+            return
+        }
+
+        if (value instanceof Date) {
+            this.setFromDate(value)
+            return
+        }
+
+        if (typeof value === 'object' && value !== null) {
+            if ('year' in value && 'month' in value && 'day' in value) {
+                this.setFromObject(value as INDate)
+                return
+            }
+        }
+        throw Error(`Cannot parse DATE ${JSON.stringify(value)} `)
     }
 }

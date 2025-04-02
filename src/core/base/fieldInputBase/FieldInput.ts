@@ -395,7 +395,10 @@ FieldInput.prototype = {
     },
 
     get: function () {
-        return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
+        const output = this.valueStrategy?.getValue(this) as FieldValuesTypes | null
+
+        console.log(output)
+        return output
     },
     setValue: function (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) {
         this.value = value

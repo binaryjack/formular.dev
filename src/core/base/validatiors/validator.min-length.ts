@@ -15,7 +15,7 @@ const ValidatorMinLength = function (this: IValidatorStrategy) {
             return newValidationResult(true, data.fieldName)
         }
 
-        if ((data?.value?.toString() ?? '')?.length < data.validationOptions?.minLength.minLength) {
+        if (data.toString().length < data.validationOptions?.minLength.minLength) {
             return newValidationResult(
                 false,
                 data.fieldName,

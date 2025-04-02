@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { newEntitySchemeObjectType } from '../../../dependency/schema/demo.schema'
+import { newEntitySchemeObjectType } from '../../../demo/forms/FormDemo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { notify, TNotifierType } from '../../notifications/notifications.types'

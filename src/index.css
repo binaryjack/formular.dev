@@ -5,6 +5,7 @@
 @import "tailwindcss/components";
 @import './style/index.root.components.css';
 @import './components/fieldset/FieldSet.css';
+@import './components/Formy/Formy.css';
 @import './components/checkInput/CheckInput.css';
 @import './components/radioInput/RadioInput.css';
 @import './components/button/Button.css';

@@ -15,9 +15,7 @@ const ValidatorMaxLength = function (this: IValidatorStrategy) {
             return newValidationResult(true, data.fieldName)
         }
 
-        if (
-            (data?.value?.toString() ?? '')?.length > data.validationOptions?.maxLength?.maxLength
-        ) {
+        if (data.toString().length > data.validationOptions?.maxLength?.maxLength) {
             return newValidationResult(
                 false,
                 data.fieldName,

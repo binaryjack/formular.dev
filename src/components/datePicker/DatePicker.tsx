@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { conventions } from '../context/conventions/conventions'
@@ -28,10 +26,8 @@ const DatePicker = ({
 }: DatePickerProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
-    const fieldSet = useRef(null)
-    const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
-        if (!field) return
 
+    const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
         const sd = formatDate(startDate, displayFormat)
 
         let value = sd
@@ -39,7 +35,7 @@ const DatePicker = ({
             value = `${value} => ${formatDate(endDate, displayFormat)}`
         }
 
-        field.setValue(value)
+        field?.setValue(value)
     }
 
     const handleDrawerOpenState = (

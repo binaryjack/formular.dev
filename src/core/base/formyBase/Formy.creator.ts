@@ -45,6 +45,8 @@ export const FormCreator = (function () {
 
         useEffect(() => {
             if (!stableForm) return
+            acceptNotificationStrategy('changed_hook_field', 'changed')
+            acceptNotificationStrategy('changed_hook_field', 'clicked')
             acceptNotificationStrategy('validate_hook_form', 'validate')
         }, [stableForm])
     }
