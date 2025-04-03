@@ -6,5 +6,6 @@ export const demoFormInstance = newFormy(
     'demoForm',
     controlsDemoSchema,
     getTranslationBuilder,
-    getTranslations
+    getTranslations,
+    ['onChange', 'onBlur']
 )

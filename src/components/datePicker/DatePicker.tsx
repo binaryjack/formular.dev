@@ -81,6 +81,7 @@ const DatePicker = ({
             onClear={() => field?.clear()}
         >
             <input
+                tabIndex={0}
                 data-class="base-input"
                 {...field?.register()}
                 ref={field?.ref()}

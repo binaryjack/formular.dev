@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { conventions } from '../../../components/context/conventions/conventions'
 import { DrawerOpenStateType } from '../../../components/drawer/Drawer.types'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
@@ -109,6 +110,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.name = descriptor.name
     this.label = descriptor.label
     this.value = descriptor.value
+    this.originalValue = descriptor.value
     this.enabled = true
     this.objectValue = descriptor.objectValue
     this.defaultValue = descriptor.defaultValue
@@ -169,8 +171,10 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             } else {
                 this.value = e.currentTarget.value
             }
-
-            this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
+            this.isPristine = this.originalValue === this.value
+            this.fieldStateStyle.update('pristine', this.isPristine)
+            this.isDirty = this.originalValue !== this.value
+            this.fieldStateStyle.update('dirty', this.isDirty)
 
             notifyValidation(this.name, 'onChange')
             updateUI()
@@ -191,11 +195,9 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
         const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
             this.isFocus = true
-            this.isPristine = false
-            this.fieldStateStyle.update('pristine', this.isPristine)
             this.fieldStateStyle.update('focus', this.isFocus)
 
-            notifyValidation(this.name, 'onFocus')
+            !this.isPristine && notifyValidation(this.name, 'onFocus')
             updateUI()
 
             e.stopPropagation()
@@ -215,6 +217,13 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
             e?.stopPropagation?.()
         }
+
+        /** ARIA BASICS */
+        this.internalHTMLElementRef?.current?.setAttribute(
+            'aria-labelledby',
+            `${this.id}${conventions.suffix.labelId}`
+        )
+        this.internalHTMLElementRef?.current?.setAttribute('name', `${this.name}`)
 
         return {
             id: `${this.id}`,
@@ -339,7 +348,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
 FieldInput.prototype = {
     ...NotifiableEntity.prototype,
-    setValidationTriggerMode: function (mode: ValidationTriggerModeType) {
+    setValidationTriggerMode: function (mode: ValidationTriggerModeType[]) {
         this.validationTriggerModeType = mode
     },
     /** the reason of using data-class instead of className

@@ -34,6 +34,7 @@ interface IButtonProps {
     icon?: React.ReactNode
     disabled?: boolean
     isToggle?: boolean
+    tabindex?: number
 }
 export const Button = ({
     id,
@@ -44,7 +45,8 @@ export const Button = ({
     loading = false,
     icon,
     disabled,
-    isToggle
+    isToggle,
+    tabindex = -1
 }: IButtonProps) => {
     const {
         rounded = false,
@@ -107,7 +109,7 @@ export const Button = ({
 
     return (
         <button
-            tabIndex={0}
+            tabIndex={tabindex}
             id={id}
             title={title}
             type="button"

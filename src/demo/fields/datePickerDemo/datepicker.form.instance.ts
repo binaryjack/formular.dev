@@ -6,5 +6,6 @@ export const demoFormInstance = newFormy(
     'date-picker-form-schema',
     dateTimeSchema,
     getTranslationBuilder,
-    getTranslations
+    getTranslations,
+    ['onChange']
 )

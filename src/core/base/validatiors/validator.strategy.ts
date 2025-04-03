@@ -30,6 +30,11 @@ const Validator = function (this: IValidator) {
     }
     this.validate = function (data: IValidatorStrategyData) {
         const output: IValidationResult[] = []
+
+        if (data.origin?.fieldState === 'reset') {
+            return output
+        }
+
         for (const strategy of this.strategies) {
             output.push(strategy.validate(data))
         }

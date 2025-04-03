@@ -21,6 +21,7 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
     return (
         <div className={`radio-item-group`}>
             <input
+                tabIndex={0}
                 id={option.id}
                 className="base-radio "
                 type="radio"

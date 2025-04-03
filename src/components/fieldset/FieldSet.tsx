@@ -13,6 +13,9 @@ import { DrawerToggle } from '../drawer/Drawer.toggle'
 import { DrawerOpenStateType } from '../drawer/Drawer.types'
 import { DrawerSlot } from '../drawer/DrawerSlot'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { conventions } from '../context/conventions/conventions'
+
 interface IFieldSetProps<TType> {
     inputId: string
     label?: string
@@ -85,6 +88,15 @@ const FieldSet = <TType,>({
                 >
                     <div className={`flex items-center justify-start  lg:w-[10em]`}>
                         <label
+                            /**
+                             * ARIA Notice:
+                             * For label ID is important to keep it as it is because we do use
+                             * the ID of the input suffixed with conventions.suffix.labelId so it matches
+                             * ARIA Labelledby whitin FieldInput setup method
+                             * @see FieldInput
+                             * @see conventions.suffix.labelId
+                             * */
+                            id={`${inputId}${conventions.suffix.labelId}`}
                             htmlFor={inputId}
                             className={`label inline-block mr-2 ${flags.isValid ? '' : 'label-error text-ellipsis'}`}
                         >

@@ -45,7 +45,9 @@ const FormyForm = ({ formy, children }: IFormyFormProps) => {
 
     return (
         <formyContext.Provider value={output}>
-            <form data-form-id={''} className={`formy `}>
+            <div>{formInstance.validationTriggerModeType.join(' ')}</div>
+            <div>{formInstance.isDirty ? 'Has changes!' : 'pristine'}</div>
+            <form data-form-id={`${formInstance.id}`} className={`formy `}>
                 {children}
             </form>
             <FormyDebug formy={formInstance} />

@@ -6,6 +6,7 @@ import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.sche
 import { mapSchemaToFieldDescriptor } from '../../../dependency/toFieldDescriptor'
 import { notify, TNotifierType } from '../../notifications/notifications.types'
 import { FieldInputCreator, useFieldHookType } from '../fieldInputBase/FieldInput.creator'
+import { ValidationTriggerModeType } from '../validatiors/validator.types'
 import { Formy } from './FormyBase'
 import { IFormy, IFormyFlags } from './formyBase.types'
 
@@ -45,9 +46,9 @@ export const FormCreator = (function () {
 
         useEffect(() => {
             if (!stableForm) return
-            acceptNotificationStrategy('changed_hook_field', 'changed')
-            acceptNotificationStrategy('changed_hook_field', 'clicked')
-            acceptNotificationStrategy('validate_hook_form', 'validate')
+            // acceptNotificationStrategy('changed_hook_form', 'changed')
+            acceptNotificationStrategy('clicked_hook_form', 'clicked')
+            // acceptNotificationStrategy('validate_hook_form', 'validate')
         }, [stableForm])
     }
 
@@ -74,7 +75,8 @@ export const FormCreator = (function () {
         id: string,
         schema: IEntityScheme,
         translationBuilder: TranslatioBuilderType,
-        validationLocalize: () => IValidationLocalize
+        validationLocalize: () => IValidationLocalize,
+        validationTriggerModeType: ValidationTriggerModeType[]
     ) {
         const fieldDescriptors = mapSchemaToFieldDescriptor(
             schema,
@@ -83,8 +85,10 @@ export const FormCreator = (function () {
         )
         const { newFieldFromDescriptors } = FieldInputCreator
         const formyTemp = new Formy(id)
+        formyTemp.setValidationTriggerMode(validationTriggerModeType)
         formyTemp.addFields(...newFieldFromDescriptors(fieldDescriptors))
         forms.set(id, formyTemp)
+
         return formyTemp
     }
 

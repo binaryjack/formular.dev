@@ -33,11 +33,13 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             onClear={() => field?.clear()}
         >
             <input
+                tabIndex={0}
                 data-class="base-input"
                 {...field?.register()}
                 ref={field?.ref()}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
+                type="text"
             />
         </FieldSet>
     )

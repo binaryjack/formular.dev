@@ -14,18 +14,26 @@ export interface IValidableField {
 export interface IValidable {
     validationTriggerModeType: ValidationTriggerModeType[]
     validationResults: IValidationResult[]
-    setValidationTriggerMode: (...mode: ValidationTriggerModeType[]) => void
+    setValidationTriggerMode: (mode: ValidationTriggerModeType[]) => void
     handleValidation: (origin?: any) => void
 }
 
+/** if no rule is applied the the field is never validated */
 export type ValidationTriggerModeType =
+    /** will validate on field blur (lost focus) */
     | 'onBlur'
+    /** will validate on field value is changed */
     | 'onChange'
+    /** will validate on form submit */
     | 'onSubmit'
+    /** will validate on field got focus */
     | 'onFocus'
+    /** will validate on field load */
     | 'onLoad'
+    /** will reset validation */
     | 'reset'
-    | 'onFormRequest'
+    /** Means that the very first validation will occurs only from the first submit attempt */
+    | 'onFormFirstSubmit'
 
 export interface IValidationOrigin {
     fieldName: string

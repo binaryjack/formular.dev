@@ -34,11 +34,13 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
         >
             <div className={`flex flex-1 items-center ml-1`}>
                 <input
+                    tabIndex={0}
                     data-class="base-checkbox "
                     {...field?.register()}
                     ref={field?.ref()}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
+                    type="checkbox"
                 />
             </div>
         </FieldSet>

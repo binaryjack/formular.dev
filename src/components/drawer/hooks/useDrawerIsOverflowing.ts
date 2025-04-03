@@ -29,14 +29,11 @@ export const useDrawerIsOverflowing = <T extends HTMLElement>(
         console.log(position, drawerTop, drawerBottom)
         if (drawerTop < 0) {
             setIsOverflowingAt('top')
-            return
-        }
-        if (drawerBottom > window.innerHeight) {
+        } else if (drawerBottom >= window.innerHeight) {
             setIsOverflowingAt('bottom')
-            return
+        } else {
+            setIsOverflowingAt('none')
         }
-
-        setIsOverflowingAt('none')
     }, 150)
 
     useEffect(() => {

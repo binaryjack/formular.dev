@@ -2,7 +2,7 @@ import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMuta
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { LoadingStatus } from '../../status'
 import { IFieldInput } from '../fieldInputBase/fieldInput.types'
-import { IValidationResult } from '../validatiors/validator.types'
+import { IValidationResult, ValidationTriggerModeType } from '../validatiors/validator.types'
 import { IFieldChange, IFormy } from './formyBase.types'
 
 export const Formy = function (this: IFormy, id: string) {
@@ -12,7 +12,7 @@ export const Formy = function (this: IFormy, id: string) {
     this.validationResults = []
     this.isValid = true
     this.isBusy = LoadingStatus.Loaded
-    this.validationTriggerModeType = ['onBlur']
+    this.validationTriggerModeType = []
     this.isDirty = false
     this.observers = new DataMutationObserverSubject()
     NotifiableEntity.call(this)
@@ -25,6 +25,12 @@ Formy.prototype = {
         for (const fld of flds) {
             const existingFieldRef = this.fields.find((o: IFieldInput) => o.id === fld.id)
             if (!existingFieldRef) {
+                /** update each field with the validation trigger mode form form  */
+                if (this.validationTriggerModeType.length > 1) {
+                    console.log('stop')
+                }
+
+                fld.setValidationTriggerMode(this.validationTriggerModeType)
                 fld.accept(this.checkChanges.bind(this))
                 this.fields.push(fld)
                 this.originFields.push(fld)
@@ -68,5 +74,8 @@ Formy.prototype = {
     },
     getField: function (fieldName: string) {
         return this.fields.find((field: IFieldInput) => field.name === fieldName)
+    },
+    setValidationTriggerMode: function (mode: ValidationTriggerModeType[]) {
+        this.validationTriggerModeType = mode
     }
 }

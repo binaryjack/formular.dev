@@ -33,16 +33,12 @@ const drawerConditionnalStyle = (
         #${id}-drawer-slot-${position}-container 
         .drawer-container.open {   
             transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
-            ${isOverflowingAt === 'none' && position !== 'center' ? `${position}:0;` : ''}
-            ${isOverflowingAt === 'top' ? `top:0` : ''}
-            ${isOverflowingAt === 'bottom' ? `bottom:0` : ''}
+            ${isOverflowingAt === 'none' ? position : isOverflowingAt}:0;
         }
         #${id}-drawer-slot-${position}-container 
         .drawer-container.closed { 
             transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
-            ${isOverflowingAt === 'none' && position !== 'center' ? `${position}:0;` : ''}
-            ${isOverflowingAt === 'top' ? `top:0` : ''}
-            ${isOverflowingAt === 'bottom' ? `bottom:0` : ''}
+           ${isOverflowingAt === 'none' ? position : isOverflowingAt}:0; 
         }
     `
 }
