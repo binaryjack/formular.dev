@@ -9,7 +9,7 @@
  *
  * @method notify
  * @template T
- * @param {TNotifierType} type - The type of notification.
+ * @param {TNotifierEventsType} type - The type of notification.
  * @param {T} [data] - Optional data to be passed with the notification.
  *
  * @method accept
@@ -23,12 +23,12 @@
  */
 
 import { IDataMutationObserverSubject } from '../dataMutationObserver/dataMutationObserverSubject.types'
-import { INotifier, TNotifierType } from '../notifications/notifications.types'
+import { INotifier, TNotifierEventsType } from '../notifications/notifications.types'
 import { ComputedSignalCallback } from '../signals/signal.type'
 
 export interface INotifiableEntity {
     new (): INotifiableEntity
-    notify: <T>(type: TNotifierType, data?: T) => void
+    notify: <T>(type: TNotifierEventsType, data?: T) => void
     accept: (notify: INotifier) => void
     init: () => void
     dispose: () => void

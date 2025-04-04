@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { DataMutationObserverSubject } from '../dataMutationObserver/DataMutationObserverSubject'
-import { INotifier, notify, TNotifierType } from '../notifications/notifications.types'
+import { INotifier, notify, TNotifierEventsType } from '../notifications/notifications.types'
 import { ISignal, SignalType } from './signal.type'
 
 /**
@@ -126,9 +126,9 @@ export const Signals = (function () {
 
         /**
          * Notify observers of a change in the signal
-         * @param {TNotifierType} type - Type of notification
+         * @param {TNotifierEventsType} type - Type of notification
          */
-        notify: function (type: TNotifierType) {
+        notify: function (type: TNotifierEventsType) {
             this.notifiers.forEach((value: INotifier) => {
                 if (value.type === type) {
                     console.log(`trigger - [${value.id}] on [${value.type}]`)

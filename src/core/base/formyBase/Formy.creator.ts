@@ -4,7 +4,7 @@ import { IValidationLocalize } from '../../../dependency/localize/localize.type'
 import { TranslatioBuilderType } from '../../../dependency/localize/localize.utils'
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { mapSchemaToFieldDescriptor } from '../../../dependency/toFieldDescriptor'
-import { notify, TNotifierType } from '../../notifications/notifications.types'
+import { notify, TNotifierEventsType } from '../../notifications/notifications.types'
 import { FieldInputCreator, useFieldHookType } from '../fieldInputBase/FieldInput.creator'
 import { ValidationTriggerModeType } from '../validatiors/validator.types'
 import { Formy } from './FormyBase'
@@ -20,7 +20,7 @@ export const FormCreator = (function () {
             return form
         }, [form])
 
-        const acceptNotificationStrategy = (localName: string, trigger: TNotifierType) => {
+        const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
             if (!stableForm) return
             stableForm.accept(
                 notify(
@@ -46,7 +46,7 @@ export const FormCreator = (function () {
 
         useEffect(() => {
             if (!stableForm) return
-            // acceptNotificationStrategy('changed_hook_form', 'changed')
+            acceptNotificationStrategy('changed_hook_form', 'changed')
             acceptNotificationStrategy('clicked_hook_form', 'clicked')
             // acceptNotificationStrategy('validate_hook_form', 'validate')
         }, [stableForm])

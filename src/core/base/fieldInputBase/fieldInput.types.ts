@@ -6,7 +6,9 @@ import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.de
 import { IEntityScheme } from '../../../dependency/schema/fieldSchema/field.schema.types'
 import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
+import { IEventsHanlders } from '../events/events.types'
 import { IFieldStateStyle, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
+import { ITriggerableNotifiableEntity } from '../hybridTypes/hybrid.types'
 import { IValidable, IValidableField } from '../validatiors/validator.types'
 import { IValueStrategy } from '../valueStrategy/valueStrategy.types'
 
@@ -17,7 +19,9 @@ export type IFieldInput = IFieldInputBase &
     INotifiableEntity &
     IDrawerBase &
     IValidable &
-    IValidableField
+    IValidableField &
+    IEventsHanlders &
+    ITriggerableNotifiableEntity
 
 export interface IFieldInputBase {
     new (descriptor: IFieldDescriptor): IFieldInput

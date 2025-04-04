@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { newEntitySchemeObjectType } from '../../../demo/forms/FormDemo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '../../../dependency/schema/fieldSchema/field.schema.types'
-import { notify, TNotifierType } from '../../notifications/notifications.types'
+import { notify, TNotifierEventsType } from '../../notifications/notifications.types'
 import { defaultFlagsObject, IFlagsObject } from '../fieldStateStyle/fieldStateStyle.types'
 import { FieldInput } from './FieldInput'
 import { IFieldInput, SchemeToDescriptorConverterType } from './fieldInput.types'
@@ -55,7 +55,7 @@ export const FieldInputCreator = (function () {
             setFlags(stableField?.getFlagsObject?.())
         }, [stableField?.classNames()])
 
-        const acceptNotificationStrategy = (localName: string, trigger: TNotifierType) => {
+        const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
             if (!stableField) return
             stableField.accept(
                 notify(

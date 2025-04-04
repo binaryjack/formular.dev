@@ -1,20 +1,12 @@
 import React from 'react'
 
-import { conventions } from '../../../components/context/conventions/conventions'
-import { DrawerOpenStateType } from '../../../components/drawer/Drawer.types'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
-import { IOptionItem } from '../../../dependency/schema/optionsSchema/options.scheme.types'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
-import { notify } from '../../notifications/notifications.types'
+import { notify, TNotifierEventsType } from '../../notifications/notifications.types'
 import { FieldStateStyle } from '../fieldStateStyle/FieldStateStyle'
-import validator from '../validatiors/validator.strategy'
-import {
-    IValidationOrigin,
-    IValidator,
-    newValidatorStrategyData,
-    ValidationTriggerModeType
-} from '../validatiors/validator.types'
+import { IValidationOrigin, ValidationTriggerModeType } from '../validatiors/validator.types'
+import { newValidationOrogin } from '../validatiors/validators.constructors'
 import {
     BooleanParserStrategy,
     DateOrTimeParserStrategy,
@@ -24,6 +16,30 @@ import {
 import { ValueStrategy } from '../valueStrategy/ValueStrategy'
 import { setParser } from '../valueStrategy/valueStrategy.types'
 import { booleanTypes, dateTypes, IFieldInput, numberTypes, stringTypes } from './fieldInput.types'
+import { classNames } from './prototype/classNames'
+import { clear } from './prototype/clear'
+import { enable } from './prototype/enable'
+import { focus } from './prototype/focus'
+import { get } from './prototype/get'
+import { getAsString } from './prototype/getAsString'
+import { getFlagsObject } from './prototype/getFlagsObject'
+import {
+    handleOnBlur,
+    handleOnChanged,
+    handleOnClicked,
+    handleOnFocus,
+    handleOnSelected,
+    handleValidation
+} from './prototype/handlers'
+import { onSelectItem } from './prototype/onSelectItem'
+import { register } from './prototype/register'
+import { registerLabel } from './prototype/registerLabel'
+import { registerOption } from './prototype/registerOptions'
+import { setFocus } from './prototype/setFocus'
+import { setOpenState } from './prototype/setOpenState'
+import { setValidationTriggerMode } from './prototype/setValidationTriggerMode'
+import { setValue } from './prototype/setValue'
+import { validate } from './prototype/validate'
 
 const defaultFieldInputCSSClassName = 'f-input'
 
@@ -148,94 +164,21 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         setParser('StringParserStrategy', stringTypes, StringParserStrategy),
         setParser('BooleanParserStrategy', booleanTypes, BooleanParserStrategy)
     )
-    /**
-     * The register function is used to register the event handlers for the field input.
-     */
-    this.register = function <FieldValuesTypes>() {
-        const updateUI = () => {
-            this.observers.trigger()
-        }
-        const notifyValidation = (fieldState: string, trigger: ValidationTriggerModeType) => {
-            this.notify<IValidationOrigin>('validate', {
-                fieldName: fieldState,
-                fieldState: this.validationTriggerModeType.includes(trigger) ? trigger : 'reset'
-            })
-        }
 
-        const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-            if (this.type === 'checkbox' || this.type === 'radio') {
-                if (this?.internalHTMLElementRef?.current?.disabled) {
-                    this.value = this.internalHTMLElementRef.current.checked
-                    this.checked = this.value as boolean
-                }
-            } else {
-                this.value = e.currentTarget.value
-            }
-            this.isPristine = this.originalValue === this.value
-            this.fieldStateStyle.update('pristine', this.isPristine)
-            this.isDirty = this.originalValue !== this.value
-            this.fieldStateStyle.update('dirty', this.isDirty)
-
-            notifyValidation(this.name, 'onChange')
-            updateUI()
-
-            e.stopPropagation()
-        }
-
-        const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-            this.isFocus = false
-            this.fieldStateStyle.update('focus', this.isFocus)
-
-            notifyValidation(this.name, 'onBlur')
-            updateUI()
-
-            e.stopPropagation()
-            e.preventDefault()
-        }
-
-        const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-            this.isFocus = true
-            this.fieldStateStyle.update('focus', this.isFocus)
-
-            !this.isPristine && notifyValidation(this.name, 'onFocus')
-            updateUI()
-
-            e.stopPropagation()
-            e.preventDefault()
-        }
-
-        const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-            if (
-                !this?.internalHTMLElementRef?.current ||
-                this.internalHTMLElementRef.current.disabled
+    this._notify = function (
+        type: TNotifierEventsType,
+        fieldState: string,
+        trigger: ValidationTriggerModeType
+    ) {
+        this.notify<IValidationOrigin>(
+            type,
+            newValidationOrogin(
+                fieldState,
+                this.validationTriggerModeType.includes(trigger) ? trigger : 'reset'
             )
-                return
-            if (this.type !== 'checkbox' && this.type !== 'radio') return
-
-            this.value = this.internalHTMLElementRef.current.checked
-            this.checked = this.value as boolean
-
-            e?.stopPropagation?.()
-        }
-
-        /** ARIA BASICS */
-        this.internalHTMLElementRef?.current?.setAttribute(
-            'aria-labelledby',
-            `${this.id}${conventions.suffix.labelId}`
         )
-        this.internalHTMLElementRef?.current?.setAttribute('name', `${this.name}`)
-
-        return {
-            id: `${this.id}`,
-            type: this.type,
-            className: this.classNames(),
-            label: this.label,
-            onChange,
-            onBlur,
-            onFocus,
-            onClick
-        }
     }
+
     this.ref = function () {
         this.internalHTMLElementRef = React.createRef<HTMLInputElement>()
         return this.internalHTMLElementRef
@@ -272,56 +215,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         // console.log('refOption', this.internalHTMLElementRefs)
         return ref
     }
-    /**
-     * The registerOption function is used to register the event handlers for
-     * the field input options.
-     */
-    this.registerOption = function () {
-        const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-            this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
-            // console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
 
-            this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-            this.notify<IValidationOrigin>('validate', {
-                fieldName: this.name,
-                fieldState: this.validationTriggerModeType.includes('onChange')
-                    ? 'onChange'
-                    : 'reset'
-            })
-            this.observers.trigger()
-
-            e?.stopPropagation?.()
-        }
-
-        return {
-            onClick
-        }
-    }
-    /** register label is used to enable radio labels to be clickable and provide the expected behavior
-     * You must pass the ref of the radio input back to this function in order it behaves properly
-     */
-    this.registerLabel = function (refHtmlFor: React.RefObject<HTMLInputElement>) {
-        const onClick = (e: MouseEvent | React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-            const currentInputElement = refHtmlFor.current as unknown as HTMLInputElement
-
-            this.value = currentInputElement?.value ?? ''
-            currentInputElement.checked = true
-            this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-            this.notify<IValidationOrigin>('validate', {
-                fieldName: this.name,
-                fieldState: this.validationTriggerModeType.includes('onChange')
-                    ? 'onChange'
-                    : 'reset'
-            })
-            this.observers.trigger()
-            e?.stopPropagation?.()
-        }
-
-        return {
-            onClick
-        }
-    }
-    NotifiableEntity.call(this)
     /**
      * The setup function sets up the field input by subscribing to observers.
      * basic configuration for styles and validation
@@ -329,13 +223,29 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.setup = function () {
         this.observers.subscribe(this.classNames.bind(this))
         this.observers.subscribe(this.getFlagsObject.bind(this))
+
         this.accept(
-            notify(
-                `${this.id}_${this.id}_validate_${this.name}`,
-                this.handleValidation.bind(this),
-                'validate'
-            )
+            notify(`${this.id}_changed_${this.name}`, this.handleOnChanged.bind(this), 'changed')
         )
+
+        this.accept(
+            notify(`${this.id}_clicked_${this.name}`, this.handleOnClicked.bind(this), 'clicked')
+        )
+
+        this.accept(
+            notify(`${this.id}_validate_${this.name}`, this.handleValidation.bind(this), 'validate')
+        )
+
+        this.accept(notify(`${this.id}_blur_${this.name}`, this.handleOnBlur.bind(this), 'blurred'))
+
+        this.accept(
+            notify(`${this.id}_focus_${this.name}`, this.handleOnFocus.bind(this), 'focused')
+        )
+
+        this.accept(
+            notify(`${this.id}_select_${this.name}`, this.handleOnSelected.bind(this), 'selected')
+        )
+
         /* sets the required flag indicator */
         this.fieldStateStyle.update('required', this.validationOptions.required?.required === true)
 
@@ -343,178 +253,35 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
             this.checked = this.value === 'true' || this.value === true
         }
     }
+    NotifiableEntity.call(this)
     this.setup()
 } as any as IFieldInput
 
 FieldInput.prototype = {
-    ...NotifiableEntity.prototype,
-    setValidationTriggerMode: function (mode: ValidationTriggerModeType[]) {
-        this.validationTriggerModeType = mode
-    },
-    /** the reason of using data-class instead of className
-     *
-     * className attribute is mainly used in jsx or tsx context to act as class (html) at the end of the day.
-     *
-     * Well, as we have a internal mechanism to manage the class names for the input states
-     * and we want to keep the initial component class name we use data-class to do so.
-     *
-     * this exists for two reasons:
-     *   1) for more readability and to avoid confusion between the initial class name and the class name.
-     *   2) to avoid the need to parse className get the original input class name if the state changes.
-     */
-    classNames: function () {
-        const userClassName = this.internalHTMLElementRef?.current?.attributes['data-class']?.value
-        return `${userClassName} ${this.className} ${this.fieldStateStyle.get()} `
-    },
-    getFlagsObject: function () {
-        return this.fieldStateStyle.getFlagsObject()
-    },
-    hasChanges: function (callback: () => void) {
-        this.observers.subscribe(callback)
-    },
-
-    handleValidation: function (origin?: any) {
-        const validationOrigin = origin as IValidationOrigin
-        this.validate(validator, validationOrigin)
-    },
-    validate: function (vtor: IValidator, origin?: IValidationOrigin) {
-        const validationstrategyData = newValidatorStrategyData(
-            this.name,
-            this.type,
-            this.validationOptions,
-            this.get(),
-            this.expectedValue,
-            origin
-        )
-        const results = vtor.validate(validationstrategyData)
-        // keep the validation results for the field
-        this.validationResults = results
-
-        this.fieldStateStyle.update(
-            'valid',
-            results.every((result) => result.state)
-        )
-
-        this.fieldStateStyle.update(
-            'errors',
-            results.some((result) => !result.state)
-        )
-
-        return results
-    },
-
-    get: function () {
-        return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
-        /** Let this comments below in order to debug when needed */
-        // const output = this.valueStrategy?.getValue(this) as FieldValuesTypes | null
-        // console.log(output)
-        // return output
-    },
-    setValue: function (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) {
-        this.value = value
-
-        this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-
-        this.notify('changed', {
-            fieldName: this.name,
-            fieldState: 'onChange'
-        })
-
-        this.notify('validate', {
-            fieldName: this.name,
-            fieldState: 'reset'
-        })
-
-        this.observers.trigger()
-
-        if (!this.internalHTMLElementRef?.current) {
-            return
-        }
-        this.internalHTMLElementRef.current.value = this.value
-    },
-    getAsString: function () {
-        return (this.value as string) ?? null
-    },
-    setFocus: function () {
-        if (this.internalHTMLElementRef.current.disabled) return
-        this.isFocus = true
-        this.fieldStateStyle.update('focus', this.isFocus)
-        this.internalHTMLElementRef?.current?.focus()
-    },
-    enable: function (enabled: boolean) {
-        this.enabled = enabled
-        if (!enabled) {
-            this.internalHTMLElementRef.current.blur()
-        }
-        this.internalHTMLElementRef.current.disabled = !enabled
-    },
-    clear: function () {
-        this.errors = []
-        this.guides = []
-
-        this.internalHTMLElementRefs?.forEach((element: React.RefObject<HTMLInputElement>) => {
-            if (element.current) {
-                element.current.checked = false
-            }
-        })
-
-        this.notify('validate', {
-            fieldName: this.name,
-            fieldState: 'reset'
-        })
-        this.notify('changed', {
-            fieldName: this.name,
-            fieldState: 'onChange'
-        })
-
-        this.fieldStateStyle.update('clear', true)
-        this.value = null
-
-        this.focus()
-
-        if (!this.internalHTMLElementRef?.current) {
-            return
-        }
-        this.internalHTMLElementRef.current.value = null
-        this.internalHTMLElementRef.current.checked = null
-    },
-    setOpenState: function (state: DrawerOpenStateType) {
-        this.openState = state
-        //this.observers.trigger()
-        this.notify('changed', {
-            fieldName: this.name,
-            fieldState: 'reset'
-        })
-    },
-    onSelectItem: function (option: IOptionItem) {
-        this.value = Number(option.id)
-        this.internalHTMLElementRef.current.value = option.text
-        this.internalHTMLElementRef.current.focus()
-        this.openState = 'closed'
-        // this.observers.trigger()
-        this.notify('changed', {
-            fieldName: this.name,
-            fieldState: 'onChange'
-        })
-
-        this.notify('validate', {
-            fieldName: this.name,
-            fieldState: 'reset'
-        })
-    } /**
-     * Here we have a focus function that will focus the main root input if it's available, otherwise
-     * it will try to focus the first child option item.
-     */,
-    focus: function () {
-        if (this.internalHTMLElementRef?.current) {
-            this.internalHTMLElementRef.current.focus()
-        } else {
-            const firstChildOptionItem = this
-                .internalHTMLElementRefs?.[0] as React.RefObject<HTMLInputElement>
-
-            if (firstChildOptionItem?.current) {
-                firstChildOptionItem.current.focus()
-            }
-        }
-    }
+    ...NotifiableEntity.prototype
 }
+
+Object.assign(FieldInput.prototype, {
+    classNames,
+    clear,
+    enable,
+    focus,
+    get,
+    getAsString,
+    getFlagsObject,
+    handleOnChanged,
+    handleOnClicked,
+    handleOnSelected,
+    handleOnBlur,
+    handleOnFocus,
+    handleValidation,
+    onSelectItem,
+    register,
+    registerOption,
+    registerLabel,
+    setFocus,
+    setOpenState,
+    setValidationTriggerMode,
+    setValue,
+    validate
+})
