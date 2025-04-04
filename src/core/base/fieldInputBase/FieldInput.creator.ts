@@ -55,6 +55,8 @@ export const FieldInputCreator = (function () {
             setFlags(stableField?.getFlagsObject?.())
         }, [stableField?.classNames()])
 
+        /** Bind the function handleRefresh to field events*
+         */
         const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
             if (!stableField) return
             stableField.accept(
@@ -68,6 +70,8 @@ export const FieldInputCreator = (function () {
 
         useEffect(() => {
             if (!stableField) return
+
+            /** Bind the function handleRefresh to followng field events*/
             acceptNotificationStrategy('changed_hook_field', 'changed')
             acceptNotificationStrategy('clicked_hook_field', 'clicked')
             acceptNotificationStrategy('validate_hook_field', 'validate')
