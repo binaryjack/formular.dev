@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react'
-
-import { DrawerOpenStateType } from './Drawer.types'
+import { DrawerOpenStateType } from '../Drawer.types'
 
 export interface IDrawerContext {
     drawerOpenState?: DrawerOpenStateType

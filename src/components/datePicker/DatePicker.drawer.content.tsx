@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
-import { useDrawerContext } from '../drawer/Drawer.context'
+
+import { useDrawerContext } from '../drawer/components/Drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
 import {

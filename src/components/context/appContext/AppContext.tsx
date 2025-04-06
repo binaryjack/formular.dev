@@ -5,6 +5,7 @@
 import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import { AppContext, IAppContext } from './AppContext.context'
 
+import { DrawerSlotCenter } from '../../drawer/components/DrawerSlot.center'
 import { IDebug } from '../debug/debug.types'
 import { useVisualDebugContext } from '../debug/VisualDebug.context'
 
@@ -48,6 +49,13 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
     return (
         <AppContext.Provider value={contextOutput}>
             <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full  h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+
+            <DrawerSlotCenter
+                id={'center'}
+                slotName={'drawer-slot'}
+                opensToThe="center"
+                conditionalShow={true}
+            />
             {children}
         </AppContext.Provider>
     )

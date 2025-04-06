@@ -3,7 +3,7 @@ import { SlMagnifier } from 'react-icons/sl'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
 import DelayInput from '../delayInput/DelayInput'
 
-import { useDrawerContext } from '../drawer/Drawer.context'
+import { useDrawerContext } from '../drawer/components/Drawer.context'
 import SelectDrawerOptions from './Select.drawer.options'
 
 interface ISelectDrawerUIProps {

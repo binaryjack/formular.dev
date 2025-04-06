@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { PortalSlot } from '../portals/PortalSlot'
+import { PortalSlot } from '../../portals/PortalSlot'
 
 interface DrawerToggleProps {
     id: string

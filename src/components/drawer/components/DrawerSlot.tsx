@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
-import { ElementPositionOutputType } from '../../style/global.types'
-import { useVisualDebugContext } from '../context/debug/VisualDebug.context'
-import { PortalSlot } from '../portals/PortalSlot'
+import { ElementPositionOutputType } from '../../../style/global.types'
+import { useVisualDebugContext } from '../../context/debug/VisualDebug.context'
+import { PortalSlot } from '../../portals/PortalSlot'
 
 interface DrawerSlotProps {
     id: string

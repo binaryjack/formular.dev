@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { CenterElementDebug } from '../../components/context/debug/CenterElementDebug'
 import { Drawer } from '../../components/drawer/Drawer'
-import { DrawerContent } from '../../components/drawer/Drawer.content'
-import { DrawerToggle } from '../../components/drawer/Drawer.toggle'
 import { DrawerOpenStateType } from '../../components/drawer/Drawer.types'
-import { DrawerSlot } from '../../components/drawer/DrawerSlot'
+import { DrawerContent } from '../../components/drawer/components/Drawer.content'
+import { DrawerToggle } from '../../components/drawer/components/Drawer.toggle'
+import { DrawerSlot } from '../../components/drawer/components/DrawerSlot'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 
 interface ScreenElementProps {

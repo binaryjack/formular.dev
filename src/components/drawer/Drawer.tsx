@@ -7,9 +7,12 @@ import { useOnClickOutside } from '../../core/hooks/useOnClickOutside'
 import { ElementPositionOutputType } from '../../style/global.types'
 import { Button } from '../button/Button'
 import { Portal } from '../portals/Portal'
-import { DrawerContext, IDrawerContext } from './Drawer.context'
+import { DrawerTopBottomPortal } from './components/Drawer.top-bottom.portal'
+
+import { DrawerCenterPortal } from './components/Drawer.center.portal'
+import { DrawerContext, IDrawerContext } from './components/Drawer.context'
 import { DrawerOpenStateType } from './Drawer.types'
-import { OverflowingEdgeType, useDrawerIsOverflowing } from './hooks/useDrawerIsOverflowing'
+import { useDrawerIsOverflowing } from './hooks/useDrawerIsOverflowing'
 
 interface IDrawerProps {
     id: string
@@ -24,24 +27,6 @@ interface IDrawerProps {
     height?: string
 }
 
-const drawerConditionnalStyle = (
-    id: string,
-    position: ElementPositionOutputType,
-    isOverflowingAt: OverflowingEdgeType
-) => {
-    return `   
-        #${id}-drawer-slot-${position}-container 
-        .drawer-container.open {   
-            transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
-            ${isOverflowingAt === 'none' ? position : isOverflowingAt}:0;
-        }
-        #${id}-drawer-slot-${position}-container 
-        .drawer-container.closed { 
-            transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
-           ${isOverflowingAt === 'none' ? position : isOverflowingAt}:0; 
-        }
-    `
-}
 export const Drawer = ({
     id,
     children,
@@ -75,35 +60,29 @@ export const Drawer = ({
 
     return (
         <DrawerContext.Provider key={id} value={drawerContextDefault}>
-            <Portal
-                id={id}
-                slotName={`drawer-slot-${position}`}
-                children={
-                    <>
-                        <div
-                            ref={drawerContainerRef}
-                            id={`${id}-drawer-wrapper`}
-                            className={`flex absolute drawer-container ${drawerOpenState === 'open' ? 'open' : 'closed'} overflow-hidden`}
-                            style={{
-                                width: width,
-                                height: height,
-                                transformOrigin: position,
-                                alignItems: position === 'center' ? 'center' : 'flex-start',
-                                justifyItems: position === 'center' ? 'center' : 'unset',
-                                alignContent: position === 'center' ? 'center' : 'unset',
-                                justifyContent: position === 'center' ? 'center' : 'unset'
-                            }}
-                        >
-                            {children}
-                        </div>
-                        {/** I need to render the style this way because we are in a portal context which the component is rendered on demand
-                         * because of this, if we use inline style or emotions or styled component we can not achieve this.
-                         * we have a state open / close which must be isolated with specific css query that's why we need to append the style here after
-                         */}
-                        <style>{drawerConditionnalStyle(id, position, isOverflowingAt)}</style>
-                    </>
-                }
-            />
+            {position === 'center' ? (
+                <DrawerCenterPortal
+                    id={'center'}
+                    position={position}
+                    drawerContainerRef={drawerContainerRef}
+                    width={width}
+                    height={height}
+                    drawerOpenState={drawerOpenState}
+                >
+                    {children}
+                </DrawerCenterPortal>
+            ) : (
+                <DrawerTopBottomPortal
+                    id={id}
+                    position={position}
+                    drawerContainerRef={drawerContainerRef}
+                    width={width}
+                    height={height}
+                    drawerOpenState={drawerOpenState}
+                >
+                    {children}
+                </DrawerTopBottomPortal>
+            )}
             <Portal
                 id={id}
                 slotName={'toggle-drawer'}
