@@ -9,10 +9,11 @@ import { Button } from '../button/Button'
 import { Portal } from '../portals/Portal'
 import { DrawerTopBottomPortal } from './components/Drawer.top-bottom.portal'
 
+import { useEffect } from 'react'
+import useAppContext from '../context/appContext/AppContext.context'
 import { DrawerCenterPortal } from './components/Drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/Drawer.context'
 import { DrawerOpenStateType } from './Drawer.types'
-import { useDrawerIsOverflowing } from './hooks/useDrawerIsOverflowing'
 
 interface IDrawerProps {
     id: string
@@ -36,18 +37,30 @@ export const Drawer = ({
     width = '200px',
     height = '100px'
 }: IDrawerProps) => {
-    const { buttonRefObject, mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
+    const { mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
+
+    const { setHoldScroll } = useAppContext()
+
+    useEffect(() => {
+        if (position !== 'center') return
+
+        setHoldScroll(drawerOpenState === 'open' ? true : false)
+        if (drawerOpenState === 'open') {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflowY = 'auto'
+            document.body.style.overflowX = 'hidden'
+        }
+        return () => {
+            setHoldScroll(false)
+            document.body.style.overflowY = 'auto'
+            document.body.style.overflowX = 'hidden'
+        }
+    }, [position, drawerOpenState])
 
     const handleClose = () => {
         onSetOpenState?.({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
     }
-
-    const { isOverflowingAt } = useDrawerIsOverflowing(
-        buttonRefObject,
-        position,
-        drawerOpenState,
-        height
-    )
 
     const drawerContextDefault: IDrawerContext = {
         onSetOpenState,

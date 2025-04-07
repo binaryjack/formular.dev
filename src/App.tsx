@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-
+import useAppContext from './components/context/appContext/AppContext.context'
 import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
 import { DatePickerDemo } from './demo/fields/datePickerDemo/DatePicker.demo'
 import FormDemo from './demo/forms/FormDemo'
@@ -79,7 +78,7 @@ const buttonsDemo = () => (
 )
 
 const App = () => {
-    useEffect(() => {}, [])
+    const { holdScroll } = useAppContext()
 
     // const [fields, setFields] = useState<IFieldDescriptor[]>([])
     // useEffect(() => {
@@ -96,7 +95,9 @@ const App = () => {
     // }, [])
 
     return (
-        <div className={'app flex flex-col items-center justify-center min-w-[300px] '}>
+        <div
+            className={`app flex flex-col items-center justify-center min-w-[300px] ${holdScroll ? 'hold-scroll' : ''}`}
+        >
             <DatePickerDemo />
             <FormDemo />
         </div>

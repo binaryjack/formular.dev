@@ -5,6 +5,7 @@
 import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
 import { AppContext, IAppContext } from './AppContext.context'
 
+import { useState } from 'react'
 import { DrawerSlotCenter } from '../../drawer/components/DrawerSlot.center'
 import { IDebug } from '../debug/debug.types'
 import { useVisualDebugContext } from '../debug/VisualDebug.context'
@@ -35,6 +36,7 @@ interface AppContextProps {
  * The component also renders a `Toast` component along with its children.
  */
 const AppContextProvider = ({ debug, children }: AppContextProps) => {
+    const [holdScroll, setHoldScroll] = useState<boolean>(false)
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
 
     const { options } = useVisualDebugContext()
@@ -43,20 +45,17 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
         breakpoints: breakpoints,
         media: media,
         isMobileDevice: false,
-        debug: options
+        debug: options,
+        holdScroll,
+        setHoldScroll: (hold: boolean) => setHoldScroll(hold)
     }
 
     return (
         <AppContext.Provider value={contextOutput}>
             <div className="z-50 sticky flex flex-1 items-center justify-center top-0 w-full  h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
-
-            <DrawerSlotCenter
-                id={'center'}
-                slotName={'drawer-slot'}
-                opensToThe="center"
-                conditionalShow={true}
-            />
+            <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
             {children}
+            <div className="z-50 sticky flex flex-1 items-center justify-center bottom-0 w-full  h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
         </AppContext.Provider>
     )
 }

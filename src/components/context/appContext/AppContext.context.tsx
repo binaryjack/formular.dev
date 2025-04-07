@@ -8,6 +8,8 @@ export interface IAppContext {
     media?: IMedia
     isMobileDevice: boolean
     debug?: IDebug
+    holdScroll: boolean
+    setHoldScroll: (hold: boolean) => void
 }
 
 export const appContextDefault = {
@@ -17,7 +19,11 @@ export const appContextDefault = {
     middleScreenY: 0,
     middleScreenRefPositionY: 0,
     isMobileDevice: false,
-    debug: undefined
+    debug: undefined,
+    holdScroll: false,
+    setHoldScroll: () => {
+        return
+    }
 }
 
 export const AppContext = createContext<IAppContext>(appContextDefault)

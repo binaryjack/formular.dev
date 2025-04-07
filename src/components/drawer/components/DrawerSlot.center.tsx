@@ -2,7 +2,6 @@
 
 import { useMemo } from 'react'
 import { ElementPositionOutputType } from '../../../style/global.types'
-import useAppContext from '../../context/appContext/AppContext.context'
 import { useVisualDebugContext } from '../../context/debug/VisualDebug.context'
 import { useScrollingContext } from '../../context/scrolling/Scrolling.context'
 import { PortalSlot } from '../../portals/PortalSlot'
@@ -11,19 +10,12 @@ interface DrawerSlotProps {
     id: string
     slotName: string
     opensToThe: ElementPositionOutputType
-    conditionalShow?: boolean
     // Define your props here
 }
 
-export const DrawerSlotCenter = ({
-    id,
-    slotName,
-    opensToThe,
-    conditionalShow = true
-}: DrawerSlotProps) => {
+export const DrawerSlotCenter = ({ id, slotName, opensToThe }: DrawerSlotProps) => {
     const { options } = useVisualDebugContext()
-    /** gets the responsive media object handled through the application context */
-    const { media } = useAppContext()
+
     /** gets the scrolling screenProperties handled by the Scrolling context */
     const { screenProperties } = useScrollingContext()
 
