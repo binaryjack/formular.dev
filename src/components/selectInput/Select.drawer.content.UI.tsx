@@ -18,6 +18,8 @@ interface ISelectDrawerUIProps {
     selectedItemId: number
     onFilterItems: (value: string) => void
     onClearFilter: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    width?: string
+    height?: string
 }
 
 const SelectDrawerContentUI = ({
@@ -27,22 +29,24 @@ const SelectDrawerContentUI = ({
     selectedItemId,
     filterTriggerDelay,
     onFilterItems,
-    onClearFilter
+    onClearFilter,
+    width,
+    height
 }: ISelectDrawerUIProps) => {
-    const { drawerHeight, drawerWidth, drawerOpenState } = useDrawerContext()
+    const { toggleState } = useDrawerContext()
 
     return (
         <div
             className={`select-container overflow-hidden`}
             onKeyDown={handleKeyDown}
-            style={{ width: drawerWidth, height: drawerHeight }}
+            style={{ width: width, height: height }}
         >
             <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
                 <i className={`flex icon-box mr-1 h-6`}>
                     <SlMagnifier />
                 </i>
                 <DelayInput
-                    canGotFocus={drawerOpenState === 'open'}
+                    canGotFocus={toggleState === 'open'}
                     classNames={`flex input-sm-p mr-1 w-full`}
                     delay={filterTriggerDelay}
                     onChangeCallback={onFilterItems}

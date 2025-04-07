@@ -12,6 +12,7 @@ interface IDatePickerDrawerProps {
     id: string
     defaultSelectionMode?: DatePickerSelectionModeType
     showFooter?: boolean
+    handleKeyDown: (e: React.KeyboardEvent<HTMLElement>) => void
     onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
     width?: string
     height?: string
@@ -21,6 +22,7 @@ const DatePickerDrawerUI = ({
     id,
     showFooter,
     defaultSelectionMode = 'single',
+    handleKeyDown,
     onClick,
     width,
     height
@@ -29,6 +31,7 @@ const DatePickerDrawerUI = ({
         <div
             className={`date-picker-container overflow-hidden`}
             onClick={onClick}
+            onKeyDown={handleKeyDown}
             style={{ width: width, height: height }}
         >
             <DatePickerDrawerHeader id={id} />

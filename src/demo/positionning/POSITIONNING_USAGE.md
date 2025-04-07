@@ -42,7 +42,7 @@ It is designed to showcase dynamic behaviors such as drawer interactions and deb
 - The component renders a container with a `relative` layout and various styling classes for alignment, spacing, and appearance.
 - It includes:
     - **PortalSlot**: Used for rendering content in specific slots (`drawer-slot-center`, `drawer-slot-bottom`, and `drawer-slot-top`).
-    - **Drawer**: A collapsible drawer component that can be toggled open or closed. It accepts props such as `id`, `onSetOpenState`, `drawerOpenState`, `position`, `width`, and `height`.
+    - **Drawer**: A collapsible drawer component that can be toggled open or closed. It accepts props such as `id`, `onSetOpenState`, `toggleState`, `position`, `width`, and `height`.
     - **CenterElementDebug**: Displays debug information about the element's position and screen alignment.
     - **Button**: A button that triggers the drawer to open when clicked.
 - The component dynamically updates its state and behavior based on user interactions and screen properties.

@@ -1,5 +1,5 @@
 import DatePicker from '../../../components/datePicker/DatePicker'
-import FormyForm from '../../../components/Formy/Formy.form'
+import FormyForm from '../../../components/formy/Formy.form'
 import { demoFormInstance } from './datepicker.form.instance'
 
 export const DatePickerDemo = () => {

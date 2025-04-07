@@ -1,6 +1,6 @@
 import { ElementPositionOutputType } from '../../../style/global.types'
 import { Portal } from '../../portals/Portal'
-import { DrawerOpenStateType } from '../Drawer.types'
+import { ToggleableStateType } from '../../toggleable/Toggleable.types'
 
 interface IDrawerTopBottomPortalProps {
     id: string
@@ -9,7 +9,7 @@ interface IDrawerTopBottomPortalProps {
     children: React.ReactNode
     width?: string
     height?: string
-    drawerOpenState?: DrawerOpenStateType
+    toggleState?: ToggleableStateType
 }
 const drawerConditionnalStyle = (id: string, position: ElementPositionOutputType) => {
     return `   
@@ -31,7 +31,7 @@ export const DrawerTopBottomPortal = ({
     drawerContainerRef,
     id,
     position,
-    drawerOpenState,
+    toggleState,
     height,
     width
 }: IDrawerTopBottomPortalProps) => (
@@ -43,7 +43,7 @@ export const DrawerTopBottomPortal = ({
                 <div
                     ref={drawerContainerRef}
                     id={`${id}-drawer-wrapper`}
-                    className={`flex absolute drawer-container ${drawerOpenState === 'open' ? 'open' : 'closed'} overflow-hidden`}
+                    className={`flex absolute drawer-container ${toggleState === 'open' ? 'open' : 'closed'} overflow-hidden`}
                     style={{
                         width: width,
                         height: height,

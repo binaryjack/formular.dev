@@ -4,14 +4,14 @@ import useThrottle from '../../../core/hooks/useThrottle'
 import { ElementPositionOutputType } from '../../../style/global.types'
 import useAppContext from '../../context/appContext/AppContext.context'
 import { useScrollingContext } from '../../context/scrolling/Scrolling.context'
-import { DrawerOpenStateType } from '../Drawer.types'
+import { ToggleableStateType } from '../../toggleable/Toggleable.types'
 
 export type OverflowingEdgeType = 'top' | 'bottom' | 'none'
 
 export const useDrawerIsOverflowing = <T extends HTMLElement>(
     element: T,
     position: ElementPositionOutputType,
-    drawerOpenState?: DrawerOpenStateType,
+    toggleState?: ToggleableStateType,
     height?: string
 ) => {
     /** gets the responsive media object handled through the application context */
@@ -37,10 +37,10 @@ export const useDrawerIsOverflowing = <T extends HTMLElement>(
     }, 150)
 
     useEffect(() => {
-        if (drawerOpenState === 'closed') return
+        if (toggleState === 'closed') return
         if (!element) return
         checkOverflow()
-    }, [element, position, drawerOpenState, screenProperties.hasUpdates, media?.media])
+    }, [element, position, toggleState, screenProperties.hasUpdates, media?.media])
 
     return {
         isOverflowingAt

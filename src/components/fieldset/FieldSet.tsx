@@ -1,6 +1,6 @@
 import './FieldSet.css'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { MdClose } from 'react-icons/md'
 
 import { IFlagsObject } from '../../core/base/fieldStateStyle/fieldStateStyle.types'
@@ -9,12 +9,13 @@ import { Button } from '../button/Button'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 import { CenterElementDebug } from '../context/debug/CenterElementDebug'
 import { Drawer } from '../drawer/Drawer'
-import { DrawerOpenStateType } from '../drawer/Drawer.types'
+
 import { DrawerToggle } from '../drawer/components/Drawer.toggle'
 import { DrawerSlot } from '../drawer/components/DrawerSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { conventions } from '../context/conventions/conventions'
+import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 
 interface IFieldSetProps<TType> {
     inputId: string
@@ -49,16 +50,7 @@ const FieldSet = <TType,>({
     itemsDrawerWidth,
     itemsDrawerHeight
 }: IFieldSetProps<TType>) => {
-    const [openState, setOpenState] = useState<DrawerOpenStateType>('closed')
-
-    const handleDrawerOpenState = (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: DrawerOpenStateType
-    ) => {
-        e?.stopPropagation?.()
-        e?.preventDefault?.()
-        setOpenState(state)
-    }
+    const { toggleState, setToggleState } = useToggleableContext()
 
     const { scrollPosition, elementRef, elementPositionRefs, toggle } =
         useCenterElementTrigger<HTMLFieldSetElement>()
@@ -111,8 +103,6 @@ const FieldSet = <TType,>({
                          */}
                         <Drawer
                             id={`${inputId}`}
-                            onSetOpenState={handleDrawerOpenState}
-                            drawerOpenState={openState}
                             position={toggle}
                             width={itemsDrawerWidth}
                             height={itemsDrawerHeight}

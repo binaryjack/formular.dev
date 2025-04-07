@@ -9,24 +9,24 @@ export interface IKeyBindings<T> {
 const useKeyBindings = <T>(options: Partial<IKeyBindings<T>>) => {
     const handleKeyDown = (e: React.KeyboardEvent<T>) => {
         if (options.onEnterCallback && e.key === 'Enter') {
-            e.preventDefault()
             options.onEnterCallback()
+            // e.preventDefault()
         }
         if (options.onEscapeCallback && e.key === 'Escape') {
-            e.preventDefault()
             options.onEscapeCallback()
+            // e.preventDefault()
         }
         if (options.onArrowDownCallback && e.key === 'ArrowDown') {
-            e.preventDefault()
             options.onArrowDownCallback()
+            //e.preventDefault()
         }
         if (options.onArrowUpCallback && e.key === 'ArrowUp') {
-            e.preventDefault()
             options.onArrowUpCallback()
+            // e.preventDefault()
         }
         if (options.onDeleteCallback && e.key === 'Delete') {
-            e.preventDefault()
             options.onDeleteCallback()
+            // e.preventDefault()
         }
         // Add more keybindings as needed
     }

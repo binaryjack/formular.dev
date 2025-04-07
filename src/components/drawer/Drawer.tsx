@@ -11,19 +11,15 @@ import { DrawerTopBottomPortal } from './components/Drawer.top-bottom.portal'
 
 import { useEffect } from 'react'
 import useAppContext from '../context/appContext/AppContext.context'
+import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
+import { ToggleableStateType } from '../toggleable/Toggleable.types'
 import { DrawerCenterPortal } from './components/Drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/Drawer.context'
-import { DrawerOpenStateType } from './Drawer.types'
 
 interface IDrawerProps {
     id: string
     children: React.ReactNode
     position: ElementPositionOutputType
-    drawerOpenState?: DrawerOpenStateType
-    onSetOpenState?: (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: DrawerOpenStateType
-    ) => void
     width?: string
     height?: string
 }
@@ -32,11 +28,21 @@ export const Drawer = ({
     id,
     children,
     position,
-    drawerOpenState,
-    onSetOpenState,
     width = '200px',
     height = '100px'
 }: IDrawerProps) => {
+    const { toggleState, setToggleState } = useToggleableContext()
+
+    const handleDrawerOpenState = (
+        e: React.MouseEvent<HTMLElement, MouseEvent>,
+        state: ToggleableStateType
+    ) => {
+        if (state === toggleState) return
+        setToggleState(state)
+        e?.stopPropagation?.()
+        e?.preventDefault?.()
+    }
+
     const { mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
 
     const { setHoldScroll } = useAppContext()
@@ -44,8 +50,8 @@ export const Drawer = ({
     useEffect(() => {
         if (position !== 'center') return
 
-        setHoldScroll(drawerOpenState === 'open' ? true : false)
-        if (drawerOpenState === 'open') {
+        setHoldScroll(toggleState === 'open' ? true : false)
+        if (toggleState === 'open') {
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflowY = 'auto'
@@ -56,15 +62,21 @@ export const Drawer = ({
             document.body.style.overflowY = 'auto'
             document.body.style.overflowX = 'hidden'
         }
-    }, [position, drawerOpenState])
+    }, [position, toggleState])
 
     const handleClose = () => {
-        onSetOpenState?.({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
+        handleDrawerOpenState({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
     }
 
     const drawerContextDefault: IDrawerContext = {
-        onSetOpenState,
-        drawerOpenState,
+        toggleState,
+        setOpenState: (
+            e: React.MouseEvent<HTMLElement, MouseEvent>,
+            state: ToggleableStateType
+        ) => {
+            console.log('Drawer onSetOpenState', id, state)
+            handleDrawerOpenState(e, state)
+        },
         drawerWidth: width,
         drawerHeight: height
     }
@@ -80,7 +92,7 @@ export const Drawer = ({
                     drawerContainerRef={drawerContainerRef}
                     width={width}
                     height={height}
-                    drawerOpenState={drawerOpenState}
+                    toggleState={toggleState}
                 >
                     {children}
                 </DrawerCenterPortal>
@@ -91,7 +103,7 @@ export const Drawer = ({
                     drawerContainerRef={drawerContainerRef}
                     width={width}
                     height={height}
-                    drawerOpenState={drawerOpenState}
+                    toggleState={toggleState}
                 >
                     {children}
                 </DrawerTopBottomPortal>
@@ -111,13 +123,13 @@ export const Drawer = ({
                             className: 'ml-1'
                         }}
                         onClickCallback={(e) =>
-                            onSetOpenState?.(e, drawerOpenState === 'open' ? 'closed' : 'open')
+                            handleDrawerOpenState(e, toggleState === 'open' ? 'closed' : 'open')
                         }
-                        aria-expanded={drawerOpenState === 'open'}
+                        aria-expanded={toggleState === 'open'}
                         aria-controls={`${id}-drawer-wrapper`}
-                        isToggle={drawerOpenState === 'open'}
+                        isToggle={toggleState === 'open'}
                     >
-                        {drawerOpenState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
+                        {toggleState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
                     </Button>
                 }
             />

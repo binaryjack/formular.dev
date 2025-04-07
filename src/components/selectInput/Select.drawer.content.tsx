@@ -11,19 +11,23 @@ interface ISelectDrawerProps {
     filterTriggerDelay: number
     selectedItemId?: number
     onSelectItem: (value: IOptionItem) => void
+    width?: string
+    height?: string
 }
 
 const SelectDrawerContent = ({
     items,
     filterTriggerDelay,
     selectedItemId,
-    onSelectItem
+    onSelectItem,
+    width,
+    height
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
     const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ? selectedItemId : 0)
     const originalSelectedItemRef = useRef<number>(selectedItemId ? selectedItemId : 0)
 
-    const { drawerOpenState, onSetOpenState } = useDrawerContext()
+    const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()
 
     const handleSelectItem = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -32,7 +36,7 @@ const SelectDrawerContent = ({
         e.stopPropagation()
         e.preventDefault()
         onSelectItem(item)
-        onSetOpenState?.(e, 'closed')
+        setOpenState?.(e, 'closed')
         setCurrentItemId(Number(item.id))
     }
 
@@ -51,7 +55,7 @@ const SelectDrawerContent = ({
     }
 
     const selectNextItem = () => {
-        if (drawerOpenState === 'closed') return
+        if (toggleState === 'closed') return
         if (currentItemId === items.length - 1) {
             setCurrentItemId(0)
             return
@@ -60,7 +64,7 @@ const SelectDrawerContent = ({
     }
 
     const selectPreviousItem = () => {
-        if (drawerOpenState === 'closed') return
+        if (toggleState === 'closed') return
         if (currentItemId === 0) {
             setCurrentItemId(items.length - 1)
             return
@@ -72,7 +76,7 @@ const SelectDrawerContent = ({
         const selectedItem = items.find((item) => item.id === currentItemId.toString())
         if (selectedItem) {
             onSelectItem(selectedItem)
-            onSetOpenState?.({} as any, 'closed')
+            setOpenState?.({} as any, 'closed')
         }
     }
 
@@ -82,7 +86,7 @@ const SelectDrawerContent = ({
 
     const { handleKeyDown } = useKeyBindings({
         onEscapeCallback: () => {
-            onSetOpenState?.({} as any, 'closed')
+            setOpenState?.({} as any, 'closed')
         },
         onArrowUpCallback: () => {
             selectPreviousItem()
@@ -104,6 +108,8 @@ const SelectDrawerContent = ({
             onHandleSelectItem={handleSelectItem}
             onFilterItems={handleFilterItems}
             onClearFilter={handleClearFilter}
+            width={drawerWidth ?? width}
+            height={drawerHeight ?? height}
         />
     )
 }

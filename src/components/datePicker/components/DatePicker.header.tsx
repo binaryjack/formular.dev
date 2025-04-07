@@ -24,7 +24,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
         close
     } = useDatePickerContext()
 
-    const { drawerOpenState } = useDrawerContext()
+    const { toggleState } = useDrawerContext()
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
@@ -49,7 +49,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
             <div className={`date-picker-header-top`}>
                 <div className={`selected`}>
                     <Button
-                        tabindex={drawerOpenState === 'open' ? 0 : -1}
+                        tabindex={toggleState === 'open' ? 0 : -1}
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'go to selected'}
@@ -63,7 +63,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
 
                 <div className={`ml-1 now`}>
                     <Button
-                        tabindex={drawerOpenState === 'open' ? 0 : -1}
+                        tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'go to now'}
                         variantProperties={{ rounded: true, size: btnSizes }}
@@ -75,7 +75,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                 </div>
                 <div className={`ml-1 clear`}>
                     <Button
-                        tabindex={drawerOpenState === 'open' ? 0 : -1}
+                        tabindex={toggleState === 'open' ? 0 : -1}
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'clear selection'}
@@ -87,7 +87,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                 </div>
                 <div className={`ml-1 close`}>
                     <Button
-                        tabindex={drawerOpenState === 'open' ? 0 : -1}
+                        tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'close'}
                         variantProperties={{ rounded: true, size: btnSizes }}
@@ -104,7 +104,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                 <div className={`date-picker-date-parts`}>
                     <div className={`year`}>
                         <Button
-                            tabindex={drawerOpenState === 'open' ? 0 : -1}
+                            tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-year'}
                             title={'year selection'}
                             variantProperties={{ rounded: true, size: btnSizes }}
@@ -115,7 +115,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     </div>
                     <div className={`month mx-1`}>
                         <Button
-                            tabindex={drawerOpenState === 'open' ? 0 : -1}
+                            tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-month'}
                             title={'month selection'}
                             variantProperties={{ rounded: true, size: btnSizes }}
@@ -131,7 +131,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     </div>
                     <div className={`day`}>
                         <Button
-                            tabindex={drawerOpenState === 'open' ? 0 : -1}
+                            tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-day'}
                             title={'day selection'}
                             variantProperties={{ rounded: true, size: btnSizes }}

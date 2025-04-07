@@ -2,21 +2,29 @@ import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
+import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 import ValidationResultComponent from '../validationResult/ValidationResult'
+import SelectDrawerContent from './Select.drawer.content'
 
-interface IInputTextProps {
+interface ISelectProps {
     fieldName: string
 }
 
-const InputText = ({ fieldName }: IInputTextProps) => {
+export const SelectSF = ({ fieldName }: ISelectProps) => {
     const { formInstance } = useFormyContext()
+
     const { field, flags } = useField(formInstance?.getField(fieldName))
 
-    const handleDelete = () => {
-        field?.clear()
-    }
+    const { setToggleState } = useToggleableContext()
 
-    const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
+    const { handleKeyDown } = useKeyBindings({
+        onArrowDownCallback: () => {
+            setToggleState('open')
+        },
+        onDeleteCallback: () => {
+            field?.clear()
+        }
+    })
 
     return (
         <FieldSet
@@ -24,9 +32,20 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             label={field?.label}
             type={field?.type}
             flags={flags}
-            onClick={() => {
+            onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
                 field?.focus()
             }}
+            itemsChildren={
+                <SelectDrawerContent
+                    filterTriggerDelay={500}
+                    items={field?.options ?? []}
+                    onSelectItem={(value) => field?.onSelectItem(value)}
+                />
+            }
+            itemsDrawerHeight="350px"
+            itemsDrawerWidth="250px"
             validationChildren={
                 <ValidationResultComponent validationResults={field?.validationResults ?? []} />
             }
@@ -37,11 +56,9 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 data-class="base-input"
                 {...field?.register()}
                 ref={field?.ref()}
-                onKeyDown={handleKeyDown}
                 autoComplete="off"
-                type="text"
+                onKeyDownCapture={handleKeyDown}
             />
         </FieldSet>
     )
 }
-export default InputText

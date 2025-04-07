@@ -2,7 +2,7 @@ import { useRef } from 'react'
 
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
-import useFormyContext, { useField } from '../Formy/Formy.context'
+import useFormyContext, { useField } from '../formy/Formy.context'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import RadioInputOption from './RadioInput.option'
 

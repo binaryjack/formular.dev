@@ -1,4 +1,4 @@
-import { newFormy } from '../../../components/Formy/Formy.context'
+import { newFormy } from '../../../components/formy/Formy.context'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import { dateTimeSchema } from './datepicker.schema'
 

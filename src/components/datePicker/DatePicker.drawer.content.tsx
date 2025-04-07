@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 
+import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { useDrawerContext } from '../drawer/components/Drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/DatePicker.context'
 import { DatePickerGridModeType, DatePickerSelectionModeType } from './core/DatePicker.types'
@@ -41,7 +42,7 @@ const DatePickerContentDrawer = ({
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
     const [internalDate, setInternalDate] = useState<Date>()
 
-    const { drawerOpenState, onSetOpenState, drawerHeight, drawerWidth } = useDrawerContext()
+    const { toggleState, setOpenState, drawerHeight, drawerWidth } = useDrawerContext()
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -113,6 +114,15 @@ const DatePickerContentDrawer = ({
         }, [])
     }
 
+    const { handleKeyDown } = useKeyBindings({
+        onEscapeCallback: () => {
+            setOpenState?.({} as any, 'closed')
+        },
+        onArrowUpCallback: () => {},
+        onArrowDownCallback: () => {},
+        onEnterCallback: () => {}
+    })
+
     const datePickerContextDefault: IDatePickerContext = {
         selectionMode: defaultSelectionMode,
         gridMode: gridMode,
@@ -143,6 +153,7 @@ const DatePickerContentDrawer = ({
                 onClick={handleOnClick}
                 width={drawerWidth ?? width}
                 height={drawerHeight ?? height}
+                handleKeyDown={handleKeyDown}
             />
         </DatePickerContext.Provider>
     )

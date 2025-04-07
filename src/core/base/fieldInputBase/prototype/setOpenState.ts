@@ -1,4 +1,4 @@
-import { DrawerOpenStateType } from '../../../../components/drawer/Drawer.types'
+import { ToggleableStateType } from '../../../../components/toggleable/Toggleable.types'
 import { IFieldInput } from '../fieldInput.types'
 
 /**
@@ -13,7 +13,7 @@ import { IFieldInput } from '../fieldInput.types'
  * to observers with the event type `'changed'`. The notification includes the field name and
  * a field state of `'reset'`.
  */
-export const setOpenState = function (this: IFieldInput, state: DrawerOpenStateType) {
+export const setOpenState = function (this: IFieldInput, state: ToggleableStateType) {
     this.openState = state
     //this.observers.trigger()
     this.notify('changed', {
