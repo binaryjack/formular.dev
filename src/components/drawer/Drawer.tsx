@@ -10,6 +10,7 @@ import { Portal } from '../portals/Portal'
 import { DrawerTopBottomPortal } from './components/Drawer.top-bottom.portal'
 
 import { useEffect } from 'react'
+import useMediaScreens from '../../core/hooks/screen/useMediaScreens'
 import useAppContext from '../context/appContext/AppContext.context'
 import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 import { ToggleableStateType } from '../toggleable/Toggleable.types'
@@ -46,6 +47,7 @@ export const Drawer = ({
     const { mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
 
     const { setHoldScroll } = useAppContext()
+    const { media } = useMediaScreens()
 
     useEffect(() => {
         if (position !== 'center') return
@@ -62,7 +64,7 @@ export const Drawer = ({
             document.body.style.overflowY = 'auto'
             document.body.style.overflowX = 'hidden'
         }
-    }, [position, toggleState])
+    }, [position, toggleState, media])
 
     const handleClose = () => {
         handleDrawerOpenState({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')

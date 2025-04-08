@@ -15,7 +15,6 @@ import { DrawerSlot } from '../drawer/components/DrawerSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { conventions } from '../context/conventions/conventions'
-import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 
 interface IFieldSetProps<TType> {
     inputId: string
@@ -50,8 +49,6 @@ const FieldSet = <TType,>({
     itemsDrawerWidth,
     itemsDrawerHeight
 }: IFieldSetProps<TType>) => {
-    const { toggleState, setToggleState } = useToggleableContext()
-
     const { scrollPosition, elementRef, elementPositionRefs, toggle } =
         useCenterElementTrigger<HTMLFieldSetElement>()
 

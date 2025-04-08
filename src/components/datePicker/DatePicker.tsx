@@ -5,24 +5,21 @@ import { DatePickerSF } from './DatePicker.SF'
 interface DatePickerProps {
     fieldName: string
     separator?: string
-    inputFormat?: DatePickerOutputFormatType
-    outputFormat?: DatePickerOutputFormatType
+    dataFormat?: DatePickerOutputFormatType
     displayFormat?: DatePickerOutputFormatType
 }
 
 const DatePicker = ({
     fieldName,
     separator = '-',
-    inputFormat = 'yyyy/mm/dd',
-    outputFormat = 'yyyy/mm/dd',
-    displayFormat = 'yyyy/mm/dd'
+    dataFormat = 'yyyy/mm/dd',
+    displayFormat = 'dd/mm/yyyy'
 }: DatePickerProps) => (
     <Toggleable>
         <DatePickerSF
             fieldName={fieldName}
             separator={separator}
-            inputFormat={inputFormat}
-            outputFormat={outputFormat}
+            dataFormat={dataFormat}
             displayFormat={displayFormat}
         />
     </Toggleable>

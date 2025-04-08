@@ -4,6 +4,7 @@ import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 import { Button } from '../../button/Button'
 import { useDrawerContext } from '../../drawer/components/Drawer.context'
 import { PortalSlot } from '../../portals/PortalSlot'
+import { btnSizes } from './DatePicker.buttons.settings'
 import { useDatePickerContext } from './DatePicker.context'
 import DatePickerSwitch from './DatePicker.switch'
 
@@ -11,6 +12,30 @@ interface IDatePickerDrawerHeaderProps {
     id: string
 }
 
+/**
+ * The `DatePickerDrawerHeader` component renders the header section of a date picker drawer.
+ * It provides controls for navigating and interacting with the date picker, including options
+ * to jump to the current date, clear the selection, close the drawer, and select specific
+ * date parts (year, month, day).
+ *
+ * @param {IDatePickerDrawerHeaderProps} props - The properties for the component.
+ * @param {string} props.id - The unique identifier for the component, used for portal slot integration.
+ *
+ * @returns {JSX.Element} The rendered header component for the date picker drawer.
+ *
+ * @remarks
+ * - This component relies on context providers (`useDatePickerContext` and `useDrawerContext`)
+ *   to manage state and behavior.
+ * - The header includes buttons for various actions, such as navigating to the selected date,
+ *   jumping to the current date, clearing the selection, and closing the drawer.
+ * - The bottom section of the header allows users to select specific date parts (year, month, day)
+ *   and displays the current grid mode (day, month, or year).
+ *
+ * @example
+ * ```tsx
+ * <DatePickerDrawerHeader id="my-date-picker-header" />
+ * ```
+ */
 const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
     const {
         gridMode,
@@ -42,8 +67,6 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
         updateGridMode('DAY')
     }
 
-    const btnSizes = 'sm'
-
     return (
         <div className={`date-picker-header `}>
             <div className={`date-picker-header-top`}>
@@ -53,10 +76,10 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'go to selected'}
-                        variantProperties={{ rounded: true, size: btnSizes }}
+                        variantProperties={btnSizes}
                         onClickCallback={jumpToSelection}
                     >
-                        <div className={`mr-2`}>Selected</div>
+                        <div className={`mr-1`}>Selected</div>
                         <TbCalendarSearch />
                     </Button>
                 </div>
@@ -66,10 +89,10 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'go to now'}
-                        variantProperties={{ rounded: true, size: btnSizes }}
+                        variantProperties={btnSizes}
                         onClickCallback={jumpToNow}
                     >
-                        <div className={`mr-2`}>Now</div>
+                        <div className={`mr-1`}>Now</div>
                         <TbCalendar />
                     </Button>
                 </div>
@@ -79,7 +102,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'clear selection'}
-                        variantProperties={{ rounded: true, size: btnSizes }}
+                        variantProperties={btnSizes}
                         onClickCallback={clear}
                     >
                         <TbCalendarCancel />
@@ -90,7 +113,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'close'}
-                        variantProperties={{ rounded: true, size: btnSizes }}
+                        variantProperties={btnSizes}
                         onClickCallback={close}
                     >
                         <MdClear />
@@ -107,7 +130,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-year'}
                             title={'year selection'}
-                            variantProperties={{ rounded: true, size: btnSizes }}
+                            variantProperties={btnSizes}
                             onClickCallback={yearSelection}
                         >
                             {internalDate?.getFullYear()}
@@ -118,7 +141,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-month'}
                             title={'month selection'}
-                            variantProperties={{ rounded: true, size: btnSizes }}
+                            variantProperties={btnSizes}
                             onClickCallback={monthSelection}
                         >
                             {(internalDate?.getMonth() || internalDate?.getMonth() === 0
@@ -134,7 +157,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-day'}
                             title={'day selection'}
-                            variantProperties={{ rounded: true, size: btnSizes }}
+                            variantProperties={btnSizes}
                             onClickCallback={daySelection}
                         >
                             {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}

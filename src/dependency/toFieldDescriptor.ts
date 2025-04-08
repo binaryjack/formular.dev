@@ -110,7 +110,7 @@ export const mapSchemaToFieldDescriptor = (
                     : undefined
             } as IValidationOptions,
             objectValue: null,
-            defaultValue: null
+            defaultValue: f.defaultValue
         }
         output.push(newF)
         // console.log(output)

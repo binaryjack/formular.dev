@@ -3,6 +3,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 import { Button } from '../../button/Button'
 import { Portal } from '../../portals/Portal'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/DatePicker.models'
+import { btnSizes } from './DatePicker.buttons.settings'
 import DatePickerCell from './DatePicker.cell'
 import { useDatePickerContext } from './DatePicker.context'
 
@@ -66,7 +67,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous'}
-                        variantProperties={{ rounded: true, size: 'md' }}
+                        variantProperties={btnSizes}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -80,7 +81,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next'}
-                        variantProperties={{ rounded: true, size: 'md' }}
+                        variantProperties={btnSizes}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />

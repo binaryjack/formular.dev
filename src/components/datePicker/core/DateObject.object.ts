@@ -1,6 +1,7 @@
 import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
 import { DatePickerOutputFormatType } from './DatePicker.types'
-import { getPaddedNumber } from './DatePicker.utils'
+import { getPaddedNumber } from './getters/getPaddedNumber'
+
 import { IDateObject } from './models/DateObject.models'
 import { DateObjectTypes } from './models/DateObject.types'
 
@@ -39,7 +40,7 @@ DateObject.prototype = {
     },
     setFromStrings: function (day = '', month = '', year = '') {
         this.dateObject.day = parseInt(day)
-        this.dateObject.month = parseInt(month)
+        this.dateObject.month = parseInt(month) - 1
         this.dateObject.year = parseInt(year)
         this.dayOfWeek = new Date(
             this.dateObject.year,

@@ -41,8 +41,8 @@ FieldSchemaFactory.prototype = {
         }
 
         return _innerBuilder
-            .optionData(target, options)
-            .validationData(shouldValidate, validationOptions)
+            .setOptionData(target, options)
+            .setValidationData(shouldValidate, validationOptions)
             .build()
     }
 }

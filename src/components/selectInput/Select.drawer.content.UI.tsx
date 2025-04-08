@@ -42,10 +42,17 @@ const SelectDrawerContentUI = ({
             style={{ width: width, height: height }}
         >
             <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
-                <i className={`flex icon-box mr-1 h-6`}>
+                <i
+                    className={`flex icon-box mr-1 h-6`}
+                    onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                    }}
+                >
                     <SlMagnifier />
                 </i>
                 <DelayInput
+                    tabIndex={0}
                     canGotFocus={toggleState === 'open'}
                     classNames={`flex input-sm-p mr-1 w-full`}
                     delay={filterTriggerDelay}

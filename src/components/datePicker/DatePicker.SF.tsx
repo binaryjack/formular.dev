@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { conventions } from '../context/conventions/conventions'
@@ -5,26 +6,26 @@ import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
 import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
-import { ToggleableStateType } from '../toggleable/Toggleable.types'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import { DatePickerOutputFormatType } from './core/DatePicker.types'
-import { formatDate } from './core/DatePicker.utils'
+
 import DatePickerContentDrawer from './DatePicker.drawer.content'
+import { formatDate } from './core/formatters/formatDate'
 
 interface DatePickerSFProps {
     fieldName: string
+    defaultDate?: string
     separator?: string
-    inputFormat?: DatePickerOutputFormatType
-    outputFormat?: DatePickerOutputFormatType
+    dataFormat?: DatePickerOutputFormatType
     displayFormat?: DatePickerOutputFormatType
 }
 
 export const DatePickerSF = ({
     fieldName,
+    defaultDate,
     separator = '-',
-    inputFormat = 'yyyy/mm/dd',
-    outputFormat = 'yyyy/mm/dd',
-    displayFormat = 'yyyy/mm/dd'
+    dataFormat = 'yyyy/mm/dd',
+    displayFormat = 'dd/mm/yyyy'
 }: DatePickerSFProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
@@ -42,16 +43,6 @@ export const DatePickerSF = ({
         field?.setValue(value)
     }
 
-    const handleDrawerOpenState = (
-        e: React.MouseEvent<HTMLElement, MouseEvent>,
-        state: ToggleableStateType
-    ) => {
-        // setOpenState?.(e, state)
-        // e?.stopPropagation?.()
-        // e?.preventDefault?.()
-        // field?.setOpenState(state)
-    }
-
     const { handleKeyDown } = useKeyBindings({
         onArrowDownCallback: () => {
             setToggleState('open')
@@ -60,6 +51,9 @@ export const DatePickerSF = ({
             field?.clear()
         }
     })
+    useEffect(() => {
+        console.log('FIELD HAS VALUE: ', field?.defaultValue)
+    }, [field?.defaultValue])
 
     return (
         <FieldSet
@@ -76,6 +70,10 @@ export const DatePickerSF = ({
                 <DatePickerContentDrawer
                     id={field?.name ?? 'NOT-DEFINED!'}
                     onSelectDate={onSelectDate}
+                    separator={separator}
+                    dataFormat={dataFormat}
+                    displayFormat={displayFormat}
+                    defaultDate={field?.defaultValue as string}
                 />
             }
             itemsDrawerHeight="350px"

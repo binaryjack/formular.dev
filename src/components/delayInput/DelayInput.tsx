@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { MdClose } from 'react-icons/md'
 
 import useDebouncer from '../../core/hooks/useDebouncer'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
@@ -36,8 +35,6 @@ const DelayInput = ({
         e?.preventDefault?.()
         setValue('')
 
-        onClearCallback(e)
-
         const inputElement = inputRef.current as unknown as HTMLInputElement
         if (!inputElement) return
         inputElement.value = ''
@@ -55,19 +52,14 @@ const DelayInput = ({
     }, [canGotFocus])
 
     return (
-        <>
-            <input
-                {...rest}
-                ref={inputRef}
-                onChange={handleOnChanged}
-                className={classNames ? classNames : 'base-input'}
-                onKeyDown={handleKeyDown}
-                tabIndex={tabIndex}
-            />
-            <button className={`btn-sm-p mr-1`} onClick={handleClear} tabIndex={-1}>
-                {<MdClose />}
-            </button>
-        </>
+        <input
+            ref={inputRef}
+            onChange={handleOnChanged}
+            className={classNames ? classNames : 'base-input'}
+            onKeyDown={handleKeyDown}
+            tabIndex={tabIndex}
+            {...rest}
+        />
     )
 }
 

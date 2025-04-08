@@ -29,11 +29,11 @@ export const newEntityScheme = (name: string, ...properties: IFieldSchema[]): IE
 export const controlsDemoSchema: IEntityScheme = {
     name: 'demo-schema',
     properties: [
-        IdBuilder.validationData(true, Validators.baseRequiredValidator).build(),
-        OrderBuilder.validationData(true, Validators.baseRequiredValidator).build(),
-        ShowRoomsBuilder.optionData('Showroom', []).build(),
-        InputTextBuilder.validationData(true, Validators.baseRequiredNameValidator).build(),
-        SelectIdBuilder.optionData('selectOptionsTest', [
+        IdBuilder.setValidationData(true, Validators.baseRequiredValidator).build(),
+        OrderBuilder.setValidationData(true, Validators.baseRequiredValidator).build(),
+        ShowRoomsBuilder.setOptionData('Showroom', []).build(),
+        InputTextBuilder.setValidationData(true, Validators.baseRequiredNameValidator).build(),
+        SelectIdBuilder.setOptionData('selectOptionsTest', [
             baseOptionSchemaItem(0, '0', 'value-0', 'Fraises'),
             baseOptionSchemaItem(1, '1', 'value-1', 'Element A'),
             baseOptionSchemaItem(2, '2', 'value-2', 'Bananes'),
@@ -43,16 +43,16 @@ export const controlsDemoSchema: IEntityScheme = {
         ]).build(),
 
         CheckBuilder.build(),
-        DateTimeBuilder.validationData(true, Validators.dateRequiredIso8601Validator).build(),
-        RadioBuilder.optionData('radioTest', [
+        DateTimeBuilder.setValidationData(true, Validators.dateRequiredIso8601Validator).build(),
+        RadioBuilder.setOptionData('radioTest', [
             baseOptionSchemaItem(1, '0', 'value-0', 'Value 0'),
             baseOptionSchemaItem(2, '1', 'value-1', 'Value 1'),
             baseOptionSchemaItem(3, '2', 'value-2', 'Value 2')
         ]).build(),
         RteBuilder.build(),
         RangeBuilder.build(),
-        UserIdBuilder.validationData(true, Validators.eMailRequiredValidator).build(),
-        PasswordBuilder.validationData(true, Validators.baseRequiredValidator).build(),
+        UserIdBuilder.setValidationData(true, Validators.eMailRequiredValidator).build(),
+        PasswordBuilder.setValidationData(true, Validators.baseRequiredValidator).build(),
         ToggleBuilder.build()
     ]
 }

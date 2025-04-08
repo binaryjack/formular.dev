@@ -27,21 +27,24 @@ export const FieldSchemaBuilder = function (
 } as any as IFieldSchemaBuilder
 
 FieldSchemaBuilder.prototype = {
-    typeData: function (type: SchemaDataTypes) {
+    setTypeData: function (type: SchemaDataTypes) {
         this.type = type
         return this
     },
-    optionData: function (target: string, options: IOptionItem[]) {
+    setOptionData: function (target: string, options: IOptionItem[]) {
         this.target = target
         this.options = options
         return this
     },
-    valueData: function (expectedValue: any | null, defaultValue: any | null) {
-        this.defaultValue = defaultValue
+    setExpectedValue: function (expectedValue: any | null) {
         this.expectedValue = expectedValue
         return this
     },
-    validationData: function (shouldValidate: boolean, validationData?: IValidationSchema) {
+    setDefaultValue: function (defaultValue: any | null) {
+        this.defaultValue = defaultValue
+        return this
+    },
+    setValidationData: function (shouldValidate: boolean, validationData?: IValidationSchema) {
         this.pattern = validationData?.pattern
         this.min = validationData?.min
         this.max = validationData?.max

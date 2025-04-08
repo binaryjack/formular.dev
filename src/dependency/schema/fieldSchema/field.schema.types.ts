@@ -17,6 +17,7 @@ export interface IFieldSchema {
     customError: string | null
     target: string | null
     options: IOptionItem[]
+    defaultValue: string | null
     expectedValue: string | null
     shouldValidate: boolean
 }
@@ -25,10 +26,11 @@ type NewType = IValidationSchema
 
 export interface IFieldSchemaBuilder extends IFieldSchema {
     new (id: number, name: string): IFieldSchemaBuilder
-    typeData: (type: SchemaDataTypes) => IFieldSchemaBuilder
-    optionData: (target: string | null, options?: IOptionItem[]) => IFieldSchemaBuilder
-    valueData: (expectedValue?: any) => IFieldSchemaBuilder
-    validationData: (shouldValidate: boolean, validationData?: NewType) => IFieldSchemaBuilder
+    setTypeData: (type: SchemaDataTypes) => IFieldSchemaBuilder
+    setOptionData: (target: string | null, options?: IOptionItem[]) => IFieldSchemaBuilder
+    setExpectedValue: (expectedValue?: any) => IFieldSchemaBuilder
+    setDefaultValue: (defaultValue?: any) => IFieldSchemaBuilder
+    setValidationData: (shouldValidate: boolean, validationData?: NewType) => IFieldSchemaBuilder
     build: () => IFieldSchema
 }
 
