@@ -102,7 +102,7 @@ const DatePickerContentDrawer = ({
     const [selection, setSelection] = useState<IDatePickerCell[]>([])
     const [internalDate, setInternalDate] = useState<Date>()
 
-    const { toggleState, setOpenState, drawerHeight, drawerWidth } = useDrawerContext()
+    const { setOpenState, drawerHeight, drawerWidth } = useDrawerContext()
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
@@ -119,6 +119,28 @@ const DatePickerContentDrawer = ({
         const daysData = selection[0].item?.date?.toDate?.()
         setInternalDate(daysData)
     }
+
+    const moveNextGetDate = (forceGridMode?: DatePickerGridModeType): Date =>
+        getNextDate(forceGridMode ?? gridMode, internalDate ?? new Date())
+
+    const moveNext = (forceGridMode?: DatePickerGridModeType) => {
+        setInternalDate(moveNextGetDate(forceGridMode))
+    }
+
+    const movePreviousGetDate = (forceGridMode?: DatePickerGridModeType) =>
+        getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date())
+
+    const movePrevious = (forceGridMode?: DatePickerGridModeType) => {
+        setInternalDate(movePreviousGetDate(forceGridMode))
+    }
+
+    const setSelectedCellFromDate = useCallback((date?: Date) => {
+        if (!date) return
+        const cell = createCell(date.getDate(), date.getMonth(), date?.getFullYear(), {
+            selected: true
+        })
+        setSelection([cell])
+    }, [])
 
     const updateGrid = useCallback(() => {
         if (!internalDate) return
@@ -143,6 +165,7 @@ const DatePickerContentDrawer = ({
         if (!defaultDate) {
             defaultDteTemp = new Date()
             setInternalDate(defaultDteTemp)
+            return
         } else if (defaultDate instanceof Date) {
             /** If the defaultDate is of type Date */
             defaultDteTemp = defaultDate
@@ -162,13 +185,7 @@ const DatePickerContentDrawer = ({
             setInternalDate(defaultDteTemp)
         }
         if (defaultDteTemp) {
-            const cell = createCell(
-                defaultDteTemp.getDate(),
-                defaultDteTemp.getMonth(),
-                defaultDteTemp?.getFullYear(),
-                { selected: true }
-            )
-            setSelection([cell])
+            setSelectedCellFromDate(defaultDteTemp)
         }
     }, [defaultDate])
 
@@ -198,9 +215,36 @@ const DatePickerContentDrawer = ({
         onEscapeCallback: () => {
             setOpenState?.({} as any, 'closed')
         },
-        onArrowUpCallback: () => {},
-        onArrowDownCallback: () => {},
-        onEnterCallback: () => {}
+        onArrowLeftCallback: () => {
+            const dteTemp = movePreviousGetDate()
+            setInternalDate(dteTemp)
+            setSelectedCellFromDate(dteTemp)
+        },
+        onArrowRightCallback: () => {
+            const dteTemp = moveNextGetDate()
+            setInternalDate(dteTemp)
+            setSelectedCellFromDate(dteTemp)
+        },
+        onKeyCallback(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                setOpenState?.({} as any, 'closed')
+            }
+            if (['y', 'Y'].includes(e.key)) {
+                setGridMode('YEAR')
+            }
+            if (['m', 'M'].includes(e.key)) {
+                setGridMode('MONTH')
+            }
+            if (['d', 'D'].includes(e.key)) {
+                setGridMode('DAY')
+            }
+            if (['n', 'N'].includes(e.key)) {
+                jumpToNow()
+            }
+            if (['s', 'S'].includes(e.key)) {
+                jumpToSelection()
+            }
+        }
     })
 
     const datePickerContextDefault: IDatePickerContext = {
@@ -209,19 +253,17 @@ const DatePickerContentDrawer = ({
         internalDate: internalDate ?? new Date(),
         gridData: gridData,
         selectedCells: selection,
+        next: moveNext,
+        previous: movePrevious,
+        jumpToNow: jumpToNow,
+        jumpToSelection: jumpToSelection,
         updateInternalDate: (newDate: Date) => setInternalDate(newDate),
         updateSelectedCells: (cells: IDatePickerCell[]) => setSelection(cells),
         updateGridMode: (gridMode: DatePickerGridModeType) => setGridMode(gridMode),
-        next: (forceGridMode?: DatePickerGridModeType) => {
-            setInternalDate(getNextDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
-        },
-        previous: (forceGridMode?: DatePickerGridModeType) => {
-            setInternalDate(getPreviousDate(forceGridMode ?? gridMode, internalDate ?? new Date()))
-        },
-        jumpToNow: jumpToNow,
-        jumpToSelection: jumpToSelection,
         clear: () => setSelection([]),
-        close: () => {}
+        close: () => {
+            setOpenState?.({} as any, 'closed')
+        }
     }
 
     return (

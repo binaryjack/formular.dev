@@ -9,7 +9,7 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
     const [classRef, setClassRef] = useState<string>('')
     const [rippleStyle, setRippleStyle] = useState<CSSProperties>({} as CSSProperties)
 
-    const { buttonRefObject, mainRef } = useObjectRef<HTMLButtonElement>()
+    const { castedRefObject, mainRef } = useObjectRef<HTMLButtonElement>()
 
     const onClick = (e: E) => {
         if (disabled) return
@@ -54,7 +54,7 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
 
     return {
         mainRef,
-        buttonRefObject,
+        castedRefObject,
         onClick,
         classRef,
         rippleStyle

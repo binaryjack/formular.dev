@@ -1,6 +1,9 @@
 import { BsCalendar3, BsCalendar3Event, BsCalendar3Range, BsCalendarDate } from 'react-icons/bs'
 import { TbWorld } from 'react-icons/tb'
 
+import { useEffect } from 'react'
+import { useObjectRef } from '../../core/hooks/useObjectRef'
+import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 import DatePickerBodyDays from './components/DatePicker.body.days'
 import DatePickerBodyMonths from './components/DatePicker.body.months'
 import DatePickerBodyYears from './components/DatePicker.body.years'
@@ -41,8 +44,16 @@ const DatePickerDrawerUI = ({
     width,
     height
 }: IDatePickerDrawerProps) => {
+    const { mainRef, castedRefObject } = useObjectRef<HTMLDivElement>()
+    const { toggleState } = useToggleableContext()
+    useEffect(() => {
+        if (toggleState === 'closed') return
+        castedRefObject.focus()
+    }, [toggleState])
     return (
         <div
+            ref={mainRef}
+            tabIndex={0}
             className={`date-picker-container overflow-hidden`}
             onClick={onClick}
             onKeyDown={handleKeyDown}

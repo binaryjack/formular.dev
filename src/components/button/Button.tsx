@@ -73,28 +73,28 @@ export const Button = ({
 
     const {
         mainRef: buttonRef,
-        buttonRefObject,
+        castedRefObject,
         onClick,
         classRef,
         rippleStyle
     } = useRippleEffect(onClickCallback, (disabled ?? false) || loading)
 
     useEffect(() => {
-        if (!buttonRefObject?.getAttribute('aria-title'))
-            buttonRefObject?.setAttribute('aria-title', title)
-        if (!buttonRefObject?.getAttribute('aria-label'))
-            buttonRefObject?.setAttribute('aria-label', title)
+        if (!castedRefObject?.getAttribute('aria-title'))
+            castedRefObject?.setAttribute('aria-title', title)
+        if (!castedRefObject?.getAttribute('aria-label'))
+            castedRefObject?.setAttribute('aria-label', title)
 
-        buttonRefObject?.setAttribute('aria-pressed', 'undefined')
-    }, [buttonRefObject, title])
+        castedRefObject?.setAttribute('aria-pressed', 'undefined')
+    }, [castedRefObject, title])
 
     useEffect(() => {
-        buttonRefObject?.setAttribute('aria-busy', loading ? 'true' : 'false')
+        castedRefObject?.setAttribute('aria-busy', loading ? 'true' : 'false')
     }, [buttonRef, loading])
 
     useEffect(() => {
         if (isToggle === undefined) return
-        buttonRefObject?.setAttribute('aria-pressed', isToggle ? 'true' : 'false')
+        castedRefObject?.setAttribute('aria-pressed', isToggle ? 'true' : 'false')
     }, [isToggle])
 
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
