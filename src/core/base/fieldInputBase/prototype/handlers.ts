@@ -11,7 +11,7 @@ import { IFieldInput } from '../fieldInput.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function (this: IFieldInput, data?: any) {
-    console.log('value changed', data, this.value)
+    // console.log('value changed', data, this.value)
 
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)

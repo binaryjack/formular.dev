@@ -39,6 +39,8 @@ interface IDatePickerDrawerProps {
  * a date picker interface within a drawer. It allows users to select dates, navigate
  * through different grid modes (day, month, year), and manage date selections.
  *
+ * Author: Tadeo Piana.
+ *
  * @param {IDatePickerDrawerProps} props - The properties for the component.
  * @param {string} props.id - The unique identifier for the date picker drawer.
  * @param {Date | string | INDate} [props.defaultDate] - The default date to initialize the date picker.
@@ -82,8 +84,21 @@ interface IDatePickerDrawerProps {
  *   defaultGridMode="MONTH"
  * />
  * ```
+ * ### Keybindings
+ * The `DatePickerContentDrawer` supports the following keyboard shortcuts for navigation and interaction:
+ *
+ * - **Escape**: Closes the drawer.
+ * - **Arrow Left**: Moves to the previous date in the current grid mode.
+ * - **Arrow Right**: Moves to the next date in the current grid mode.
+ * - **Ctrl + Enter**: Closes the drawer.
+ * - **Y / y**: Switches the grid mode to 'YEAR'.
+ * - **M / m**: Switches the grid mode to 'MONTH'.
+ * - **D / d**: Switches the grid mode to 'DAY'.
+ * - **N / n**: Jumps to the current date.
+ * - **S / s**: Jumps to the currently selected date.
+ *
+ * These keybindings enhance the usability of the date picker by allowing users to navigate and interact with the component using the keyboard.
  */
-
 const DatePickerContentDrawer = ({
     id,
     defaultDate,

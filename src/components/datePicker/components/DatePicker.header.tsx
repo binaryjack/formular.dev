@@ -36,6 +36,7 @@ interface IDatePickerDrawerHeaderProps {
  * <DatePickerDrawerHeader id="my-date-picker-header" />
  * ```
  */
+
 const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
     const {
         gridMode,
@@ -75,7 +76,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
-                        title={'go to selected'}
+                        title={'go to selected (s)'}
                         variantProperties={btnSizes}
                         onClickCallback={jumpToSelection}
                     >
@@ -88,7 +89,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     <Button
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
-                        title={'go to now'}
+                        title={'go to now (n)'}
                         variantProperties={btnSizes}
                         onClickCallback={jumpToNow}
                     >
@@ -101,7 +102,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
-                        title={'clear selection'}
+                        title={'clear selection (c)'}
                         variantProperties={btnSizes}
                         onClickCallback={clear}
                     >
@@ -112,7 +113,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                     <Button
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
-                        title={'close'}
+                        title={'close (Escape)'}
                         variantProperties={btnSizes}
                         onClickCallback={close}
                     >
@@ -129,7 +130,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-year'}
-                            title={'year selection'}
+                            title={'year selection (y)'}
                             variantProperties={btnSizes}
                             onClickCallback={yearSelection}
                         >
@@ -140,7 +141,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-month'}
-                            title={'month selection'}
+                            title={'month selection (m)'}
                             variantProperties={btnSizes}
                             onClickCallback={monthSelection}
                         >
@@ -156,7 +157,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         <Button
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-day'}
-                            title={'day selection'}
+                            title={'day selection (d)'}
                             variantProperties={btnSizes}
                             onClickCallback={daySelection}
                         >

@@ -9,6 +9,7 @@ import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
 import SelectDrawerContent from '../../components/selectInput/Select.drawer.content'
 
+import { RangeSlider } from '../../components/rangeSlider/RangeSlider'
 import Select from '../../components/selectInput/Select'
 import { Signals } from '../../core/signals/signal'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
@@ -49,8 +50,6 @@ const FormDemo = () => {
         return demoFormInstance?.fields.find((o) => o.name === 'selectOptionsId')
     }, [demoFormInstance])
 
-    // conventions.IdIsEmpty()
-
     return (
         <FormyForm formy={demoFormInstance}>
             <DatePickerContentDrawer
@@ -68,6 +67,17 @@ const FormDemo = () => {
             <CheckInput fieldName={'trueFalseValue'} />
             <RadioInput fieldName={'selectedRadioId'} />
             <DatePicker fieldName={'dateTimeValue'} />
+
+            <RangeSlider
+                fieldName={'rangeSlider'}
+                min={0}
+                max={100}
+                step={5}
+                behavior={'snap'}
+                handleStyle="circle"
+                handlerStyleWidth={15}
+                handlerStyleHeight={15}
+            />
         </FormyForm>
     )
 }

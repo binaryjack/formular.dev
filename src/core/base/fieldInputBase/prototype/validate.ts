@@ -43,7 +43,7 @@ export const validate = function (this: IFieldInput, vtor: IValidator, origin?: 
         )
         results = vtor.validate(validationstrategyData)
     } else {
-        console.log('Validation skipped')
+        // console.log('Validation skipped')
     }
 
     // keep the validation results for the field
