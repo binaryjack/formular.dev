@@ -9,7 +9,7 @@ import { Button } from '../button/Button'
 import { Portal } from '../portals/Portal'
 import { DrawerTopBottomPortal } from './components/Drawer.top-bottom.portal'
 
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import useMediaScreens from '../../core/hooks/screen/useMediaScreens'
 import useAppContext from '../context/appContext/AppContext.context'
 import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
@@ -33,6 +33,7 @@ export const Drawer = ({
     height = '100px'
 }: IDrawerProps) => {
     const { toggleState, setToggleState } = useToggleableContext()
+    const { mainRef: drawerContainerRef, castedRefObject } = useObjectRef<HTMLDivElement>()
 
     const handleDrawerOpenState = (
         e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -43,8 +44,6 @@ export const Drawer = ({
         e?.stopPropagation?.()
         e?.preventDefault?.()
     }
-
-    const { mainRef: drawerContainerRef } = useObjectRef<HTMLDivElement>()
 
     const { setHoldScroll } = useAppContext()
     const { media } = useMediaScreens()
@@ -65,6 +64,22 @@ export const Drawer = ({
             document.body.style.overflowX = 'hidden'
         }
     }, [position, toggleState, media])
+
+    const handleAnimationEnded = useCallback(() => {
+        if (toggleState === 'closed') {
+            setToggleState('idle')
+        }
+    }, [toggleState, castedRefObject])
+
+    useEffect(() => {
+        if (!castedRefObject) return
+        castedRefObject.addEventListener('animationend', handleAnimationEnded)
+        // console.log('ADD EVENT LISTENER')
+        return () => {
+            castedRefObject.removeEventListener('animationend', handleAnimationEnded)
+            // console.log('REMOVE EVENT LISTENER')
+        }
+    }, [castedRefObject, toggleState])
 
     const handleClose = () => {
         handleDrawerOpenState({} as React.MouseEvent<HTMLElement, MouseEvent>, 'closed')
@@ -87,7 +102,7 @@ export const Drawer = ({
 
     return (
         <DrawerContext.Provider key={id} value={drawerContextDefault}>
-            {position === 'center' ? (
+            {toggleState !== 'idle' && position === 'center' ? (
                 <DrawerCenterPortal
                     id={'center'}
                     position={position}
@@ -99,16 +114,18 @@ export const Drawer = ({
                     {children}
                 </DrawerCenterPortal>
             ) : (
-                <DrawerTopBottomPortal
-                    id={id}
-                    position={position}
-                    drawerContainerRef={drawerContainerRef}
-                    width={width}
-                    height={height}
-                    toggleState={toggleState}
-                >
-                    {children}
-                </DrawerTopBottomPortal>
+                toggleState !== 'idle' && (
+                    <DrawerTopBottomPortal
+                        id={id}
+                        position={position}
+                        drawerContainerRef={drawerContainerRef}
+                        width={width}
+                        height={height}
+                        toggleState={toggleState}
+                    >
+                        {children}
+                    </DrawerTopBottomPortal>
+                )
             )}
             <Portal
                 id={id}
@@ -125,13 +142,20 @@ export const Drawer = ({
                             className: 'ml-1'
                         }}
                         onClickCallback={(e) =>
-                            handleDrawerOpenState(e, toggleState === 'open' ? 'closed' : 'open')
+                            handleDrawerOpenState(
+                                e,
+                                ['closed', 'idle'].includes(toggleState) ? 'open' : 'closed'
+                            )
                         }
                         aria-expanded={toggleState === 'open'}
                         aria-controls={`${id}-drawer-wrapper`}
                         isToggle={toggleState === 'open'}
                     >
-                        {toggleState === 'closed' ? <FaChevronDown /> : <FaChevronUp />}
+                        {['closed', 'idle'].includes(toggleState) ? (
+                            <FaChevronDown />
+                        ) : (
+                            <FaChevronUp />
+                        )}
                     </Button>
                 }
             />

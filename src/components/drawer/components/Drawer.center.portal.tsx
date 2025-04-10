@@ -12,22 +12,6 @@ interface IDrawerCenterPortalProps {
     toggleState?: ToggleableStateType
 }
 
-const drawerConditionnalStyle = (id: string, position: ElementPositionOutputType) => {
-    return `   
-        #${id}-drawer-slot-${position}-container 
-        .drawer-container.open {    
-
-            transform: scale(1);
-            ${position}:0;
-        }
-        #${id}-drawer-slot-${position}-container         
-        .drawer-container.closed {           
-            transform: scale(0);
-            ${position}:0; 
-        }
-    `
-}
-
 export const DrawerCenterPortal = ({
     children,
     drawerContainerRef,
@@ -44,12 +28,20 @@ export const DrawerCenterPortal = ({
             <>
                 <div
                     id={`${id}-overlay`}
-                    className={`drawer-slot-overlay ${toggleState === 'open' ? 'open' : 'closed'}`}
+                    className={`drawer-slot-overlay`}
+                    style={{
+                        animation:
+                            toggleState === 'open'
+                                ? `openOverlay 0.3s ease-in-out forwards`
+                                : toggleState === 'closed'
+                                  ? `closeOverlay 0.3s ease-in-out forwards`
+                                  : 'idle forwards'
+                    }}
                 />
                 <div
                     ref={drawerContainerRef}
                     id={`${id}-drawer-wrapper`}
-                    className={`flex absolute drawer-container ${toggleState === 'open' ? 'open' : 'closed'} overflow-hidden`}
+                    className={`flex absolute drawer-container overflow-hidden`}
                     style={{
                         width: width,
                         height: height,
@@ -57,16 +49,17 @@ export const DrawerCenterPortal = ({
                         alignItems: 'flex-start',
                         justifyItems: 'unset',
                         alignContent: 'unset',
-                        justifyContent: 'unset'
+                        justifyContent: 'unset',
+                        animation:
+                            toggleState === 'open'
+                                ? `openDrawer 0.3s ease-in-out forwards`
+                                : toggleState === 'closed'
+                                  ? `closeDrawer 0.3s ease-in-out forwards`
+                                  : 'idle forwards'
                     }}
                 >
                     {children}
                 </div>
-                {/** I need to render the style this way because we are in a portal context which the component is rendered on demand
-                 * because of this, if we use inline style or emotions or styled component we can not achieve this.
-                 * we have a state open / close which must be isolated with specific css query that's why we need to append the style here after
-                 */}
-                <style>{drawerConditionnalStyle(id, position)}</style>
             </>
         }
     />

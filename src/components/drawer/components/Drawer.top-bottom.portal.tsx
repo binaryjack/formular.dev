@@ -11,20 +11,6 @@ interface IDrawerTopBottomPortalProps {
     height?: string
     toggleState?: ToggleableStateType
 }
-const drawerConditionnalStyle = (id: string, position: ElementPositionOutputType) => {
-    return `   
-        #${id}-drawer-slot-${position}-container 
-        .drawer-container.open {        
-            transform: ${position !== 'center' ? `scaleY(1)` : 'scale(1)'};
-            ${position}:0;
-        }
-        #${id}-drawer-slot-${position}-container         
-        .drawer-container.closed {           
-            transform: ${position !== 'center' ? `scaleY(0)` : 'scale(0)'};
-            ${position}:0; 
-        }
-    `
-}
 
 export const DrawerTopBottomPortal = ({
     children,
@@ -39,29 +25,28 @@ export const DrawerTopBottomPortal = ({
         id={id}
         slotName={`drawer-slot-${position}`}
         children={
-            <>
-                <div
-                    ref={drawerContainerRef}
-                    id={`${id}-drawer-wrapper`}
-                    className={`flex absolute drawer-container ${toggleState === 'open' ? 'open' : 'closed'} overflow-hidden`}
-                    style={{
-                        width: width,
-                        height: height,
-                        transformOrigin: position,
-                        alignItems: 'flex-start',
-                        justifyItems: 'unset',
-                        alignContent: 'unset',
-                        justifyContent: 'unset'
-                    }}
-                >
-                    {children}
-                </div>
-                {/** I need to render the style this way because we are in a portal context which the component is rendered on demand
-                 * because of this, if we use inline style or emotions or styled component we can not achieve this.
-                 * we have a state open / close which must be isolated with specific css query that's why we need to append the style here after
-                 */}
-                <style>{drawerConditionnalStyle(id, position)}</style>
-            </>
+            <div
+                ref={drawerContainerRef}
+                id={`${id}-drawer-wrapper`}
+                className={`flex absolute drawer-container ${toggleState === 'open' ? 'open' : 'closed'} overflow-hidden  ${position}-0`}
+                style={{
+                    width: width,
+                    height: height,
+                    transformOrigin: position,
+                    alignItems: 'flex-start',
+                    justifyItems: 'unset',
+                    alignContent: 'unset',
+                    justifyContent: 'unset',
+                    animation:
+                        toggleState === 'open'
+                            ? `openDrawerY 0.3s ease-in-out forwards`
+                            : toggleState === 'closed'
+                              ? `closeDrawerY 0.3s ease-in-out forwards`
+                              : 'idle forwards'
+                }}
+            >
+                {children}
+            </div>
         }
     />
 )

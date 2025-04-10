@@ -47,8 +47,8 @@ const DatePickerDrawerUI = ({
     const { mainRef, castedRefObject } = useObjectRef<HTMLDivElement>()
     const { toggleState } = useToggleableContext()
     useEffect(() => {
-        if (toggleState === 'closed') return
-        castedRefObject.focus()
+        if (!castedRefObject || toggleState === 'closed') return
+        castedRefObject?.focus()
     }, [toggleState])
     return (
         <div

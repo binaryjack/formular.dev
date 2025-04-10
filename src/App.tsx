@@ -1,8 +1,7 @@
-import useAppContext from './components/context/appContext/AppContext.context'
 import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
-import { DatePickerDemo } from './demo/fields/datePickerDemo/DatePicker.demo'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
+import RteDemo from './demo/rte/RteDemo'
 import Counter from './demo/signals/counter/Counter'
 import TextInput from './demo/signals/text/TextInput'
 
@@ -78,8 +77,6 @@ const buttonsDemo = () => (
 )
 
 const App = () => {
-    const { holdScroll } = useAppContext()
-
     // const [fields, setFields] = useState<IFieldDescriptor[]>([])
     // useEffect(() => {
     // build a schema for the fields to be used
@@ -95,11 +92,9 @@ const App = () => {
     // }, [])
 
     return (
-        <div
-            className={`app flex flex-col items-center justify-center min-w-[300px] ${holdScroll ? 'hold-scroll' : ''}`}
-        >
-            <DatePickerDemo />
-            <FormDemo />
+        <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
+            <RteDemo />
+            {formDemo()}
         </div>
     )
 }

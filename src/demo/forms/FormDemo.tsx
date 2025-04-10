@@ -3,11 +3,9 @@ import { useMemo } from 'react'
 import CheckInput from '../../components/checkInput/CheckInput'
 import { DateObject } from '../../components/datePicker/core/DateObject.object'
 import DatePicker from '../../components/datePicker/DatePicker'
-import DatePickerContentDrawer from '../../components/datePicker/DatePicker.drawer.content'
 import FormyForm from '../../components/formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
-import SelectDrawerContent from '../../components/selectInput/Select.drawer.content'
 
 import { RangeSlider } from '../../components/rangeSlider/RangeSlider'
 import Select from '../../components/selectInput/Select'
@@ -52,7 +50,7 @@ const FormDemo = () => {
 
     return (
         <FormyForm formy={demoFormInstance}>
-            <DatePickerContentDrawer
+            {/* <DatePickerContentDrawer
                 onSelectDate={onSelectDate}
                 id={'DatePickerDrawerDemoStatic'}
             />
@@ -60,7 +58,7 @@ const FormDemo = () => {
                 filterTriggerDelay={500}
                 items={fieldSelect?.options ?? []}
                 onSelectItem={(value) => fieldSelect?.onSelectItem(value)}
-            />
+            /> */}
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
 

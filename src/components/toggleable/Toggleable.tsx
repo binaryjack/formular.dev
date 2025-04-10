@@ -8,7 +8,7 @@ interface ToggleableProviderProps {
 }
 
 export const Toggleable: React.FC<ToggleableProviderProps> = ({ children }) => {
-    const [toggleState, setToggleState] = useState<ToggleableStateType>('closed')
+    const [toggleState, setToggleState] = useState<ToggleableStateType>('idle')
 
     return (
         <toggleableContext.Provider value={{ toggleState, setToggleState }}>

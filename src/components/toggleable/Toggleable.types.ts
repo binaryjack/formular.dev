@@ -1,1 +1,1 @@
-export type ToggleableStateType = 'open' | 'closed'
+export type ToggleableStateType = 'open' | 'closed' | 'idle'

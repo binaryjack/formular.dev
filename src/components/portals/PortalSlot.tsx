@@ -23,8 +23,22 @@ export interface IPortalSlotProps {
     css?: Interpolation<Theme>
     className?: string
     styles?: CSSProperties
+    drawerContainerRef?: React.RefObject<HTMLDivElement>
 }
 
-export const PortalSlot = ({ id, slotName, css, className, styles }: IPortalSlotProps) => (
-    <div id={`${id}-${slotName}-container`} css={css} className={className} style={styles} />
+export const PortalSlot = ({
+    id,
+    slotName,
+    drawerContainerRef,
+    css,
+    className,
+    styles
+}: IPortalSlotProps) => (
+    <div
+        ref={drawerContainerRef}
+        id={`${id}-${slotName}-container`}
+        css={css}
+        className={className}
+        style={styles}
+    />
 )

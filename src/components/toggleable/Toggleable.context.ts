@@ -6,7 +6,7 @@ export interface IToggleableContextType {
     setToggleState: (state: ToggleableStateType) => void
 }
 export const toggleableContextTypeDefault: IToggleableContextType = {
-    toggleState: 'closed',
+    toggleState: 'idle',
     setToggleState: () => {
         return
     }
