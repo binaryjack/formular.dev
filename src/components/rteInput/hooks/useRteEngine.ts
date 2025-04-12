@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { notify, TNotifierEventsType } from '../../../core/notifications/notifications.types'
 import { RteEngine } from '../core/rteEngine/RteEngine'
 import { IRteEngine } from '../core/rteEngine/rteEngine.types'
-import { IEditorState } from '../core/rteInput.types'
+import { FormatsEnum, IEditorState, newCommand } from '../core/rteInput.types'
 
 export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     const rteEngine = useRef<IRteEngine | null>(null)
@@ -11,7 +11,7 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
 
     const handleBoldSelection = () => {
         if (rteEngine.current && editorState?.selection && !editorState.selection?.isCollapsed) {
-            rteEngine.current.commandManager.execute({ type: 'bold' })
+            rteEngine.current.execute(newCommand(FormatsEnum.bold))
         }
     }
 

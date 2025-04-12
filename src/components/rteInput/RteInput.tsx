@@ -56,6 +56,9 @@ export const RteInput = ({ id }: IRteInputProps) => {
                     <pre>{JSON.stringify(editorState?.selection, null, 2)}</pre>
                 </>
             )}
+            {editorState?.activeFormatState && (
+                <pre>{JSON.stringify(editorState?.activeFormatState, null, 2)}</pre>
+            )}
         </div>
     )
 }

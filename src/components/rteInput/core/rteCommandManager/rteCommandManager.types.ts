@@ -1,5 +1,5 @@
 import { INotifiableEntity } from '../../../../core/notifiableEntity/notifiableEntityBase.types'
-import { IEditorState, IRteCommand } from '../rteInput.types'
+import { IActiveFormatsState, IEditorState, IRteCommand } from '../rteInput.types'
 
 export type IRteCommandManager = IRteCommandManagerBase & INotifiableEntity
 
@@ -10,6 +10,7 @@ export interface IRteCommandManagerBase {
     history: IRteCommand[]
     redoStack: IRteCommand[]
     currentIndex: number
+    activeFormat: IActiveFormatsState
     /**PUBLIC */
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
     undo: () => boolean

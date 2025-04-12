@@ -1,5 +1,14 @@
 import { NotifiableEntity } from '../../../../core/notifiableEntity/NotifiableEntity'
-import { IEditorState, IRteCommand } from '../rteInput.types'
+import {
+    activeFormatDefault,
+    FormatsEnum,
+    IEditorState,
+    IRteCommand,
+    RteCommandType,
+    tagMap,
+    TextEditEnum,
+    trackFormating
+} from '../rteInput.types'
 import { IRteCommandManager } from './rteCommandManager.types'
 
 export const RteCommandManager = function (this: IRteCommandManager, editorElement: HTMLElement) {
@@ -7,6 +16,7 @@ export const RteCommandManager = function (this: IRteCommandManager, editorEleme
     this.history = []
     this.redoStack = []
     this.currentIndex = -1
+    this.activeFormat = activeFormatDefault
 
     NotifiableEntity.call(this)
     this.setup()
@@ -133,22 +143,22 @@ export const applyCommand = function (this: IRteCommandManager, command: IRteCom
     const range = selection.getRangeAt(0)
 
     switch (command.type) {
-        case 'bold':
+        case FormatsEnum.bold:
             this.applyFormatting('strong', range, selection)
             break
-        case 'italic':
+        case FormatsEnum.italic:
             this.applyFormatting('em', range, selection)
             break
-        case 'underline':
+        case FormatsEnum.underline:
             this.applyFormatting('u', range, selection)
             break
-        case 'strikethrough':
+        case FormatsEnum.strikethrough:
             this.applyFormatting('s', range, selection)
             break
-        case 'insertText':
+        case TextEditEnum.insertText:
             this.insertText(command.payload, range, selection)
             break
-        case 'deleteText':
+        case TextEditEnum.deleteText:
             range.deleteContents()
             break
         default:
@@ -182,7 +192,8 @@ export const getState = function (this: IRteCommandManager): IEditorState {
         selection: selectionState,
         historyLength: this.history.length,
         canUndo: this.currentIndex >= 0,
-        canRedo: this.redoStack.length > 0
+        canRedo: this.redoStack.length > 0,
+        activeFormatState: this.activeFormat
     }
 }
 
@@ -208,14 +219,6 @@ export const isFormatApplied = function (this: IRteCommandManager, formatType: s
     // Get the common ancestor of the selection
     const container = range.commonAncestorContainer
 
-    // Map format types to tag names
-    const tagMap: Record<string, string> = {
-        bold: 'STRONG',
-        italic: 'EM',
-        underline: 'U',
-        strikethrough: 'S'
-    }
-
     const tagName = tagMap[formatType]
     if (!tagName) return false
 
@@ -223,6 +226,11 @@ export const isFormatApplied = function (this: IRteCommandManager, formatType: s
     let parent: Node | null = container
     while (parent && parent !== this.editorElement) {
         if (parent.nodeType === Node.ELEMENT_NODE && (parent as Element).tagName === tagName) {
+            this.activeFormat = trackFormating(
+                this.activeFormat,
+                tagName as RteCommandType,
+                (parent as Element).tagName === tagName
+            )
             return true
         }
         parent = parent.parentNode
@@ -238,13 +246,6 @@ export const removeFormatting = function (this: IRteCommandManager, formatType: 
 
     const range = selection.getRangeAt(0)
     if (range.collapsed) return
-
-    const tagMap: Record<string, string> = {
-        bold: 'STRONG',
-        italic: 'EM',
-        underline: 'U',
-        strikethrough: 'S'
-    }
 
     const tagName = tagMap[formatType]
     if (!tagName) return

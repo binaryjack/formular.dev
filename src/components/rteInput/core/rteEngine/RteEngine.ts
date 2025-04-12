@@ -1,4 +1,5 @@
 import { RteCommandManager } from '../rteCommandManager/RteCommandManager'
+import { IRteCommand } from '../rteInput.types'
 import { SelectionManager } from '../selectionManager/SelectionManager'
 import { IRteEngine } from './rteEngine.types'
 
@@ -42,9 +43,14 @@ export const handleMouseDownState = function (this: IRteEngine, mouseDown: boole
     this.commandManager.notifyStateChanges()
 }
 
+export const execute = function (this: IRteEngine, command: Omit<IRteCommand, 'timestamp'>) {
+    this.commandManager.execute(command)
+}
+
 Object.assign(RteEngine.prototype, {
     handleSelectionChanged,
     handleResetSelection,
     handleMouseMoveState,
-    handleMouseDownState
+    handleMouseDownState,
+    execute
 })
