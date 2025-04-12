@@ -14,6 +14,7 @@ export interface IRteCommandManagerBase {
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
     undo: () => boolean
     redo: () => boolean
+    input: (text: string) => void
     getHistory: () => IRteCommand[]
     /**PRIVATE */
     resetEditor: () => void
@@ -21,6 +22,9 @@ export interface IRteCommandManagerBase {
     applyFormatting: (tagName: string, range: Range, selection: Selection) => void
     insertText: (text: string, range: Range, selection: Selection) => void
     notifyStateChanges: () => void
+    isFormatApplied: (formatType: string) => boolean
+    removeFormatting: (formatType: string) => void
+    unwrapFormatting: (node: Node, tagName: string) => void
     getState: () => IEditorState
     setup: () => void
 }

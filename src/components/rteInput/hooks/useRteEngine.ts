@@ -1,18 +1,19 @@
-import { useEffect, useReducer, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { notify, TNotifierEventsType } from '../../../core/notifications/notifications.types'
 import { RteEngine } from '../core/rteEngine/RteEngine'
 import { IRteEngine } from '../core/rteEngine/rteEngine.types'
-import { IEditorState, ISelection } from '../core/rteInput.types'
+import { IEditorState } from '../core/rteInput.types'
 
 export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
-    const [, forceUpdate] = useReducer((x) => x + 1, 0)
-
     const rteEngine = useRef<IRteEngine | null>(null)
 
-    const [selection, setSelection] = useState<ISelection | null>(null)
-    const [htmlContent, setHtmlContent] = useState<string | null>(null)
-    const [textContent, setTextContent] = useState<string | null>(null)
-    const [jsonResult, setJsonResult] = useState<{ text: string }>({ text: '' })
+    const [editorState, setEditorState] = useState<IEditorState | null>(null)
+
+    const handleBoldSelection = () => {
+        if (rteEngine.current && editorState?.selection && !editorState.selection?.isCollapsed) {
+            rteEngine.current.commandManager.execute({ type: 'bold' })
+        }
+    }
 
     const handleResetSelectionOnMouseUp = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent> | MouseEvent
@@ -36,12 +37,7 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
         rteEngine.current.handleSelectionChanged()
     }
     const handleRefresh = (state?: IEditorState) => {
-        if (state) {
-            setHtmlContent(state.html)
-            setTextContent(state.text)
-            setSelection(state.selection)
-        }
-        forceUpdate()
+        setEditorState(state ?? null)
     }
 
     const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
@@ -58,8 +54,11 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     const handleInput = () => {
         if (editorRef?.current) {
             const content = editorRef.current.innerText
-            setTextContent(content)
-            setJsonResult({ text: content })
+            const cnt: IEditorState = editorState
+                ? ({ ...editorState, content: content ?? '' } as IEditorState)
+                : ({ content: content ?? '' } as IEditorState)
+
+            setEditorState(cnt)
         }
     }
 
@@ -96,10 +95,8 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
         handleMouseMove,
         handleResetSelectionOnMouseUp,
         handleSelectionChangeOnClick,
+        handleBoldSelection,
         handleInput,
-        textContent,
-        htmlContent,
-        jsonResult,
-        selection
+        editorState
     }
 }

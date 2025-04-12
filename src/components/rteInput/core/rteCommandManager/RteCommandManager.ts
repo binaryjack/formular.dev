@@ -32,6 +32,15 @@ export const execute = function (
     }
 
     try {
+        // For formatting commands, check if we should toggle instead of apply
+        if (['bold', 'italic', 'underline', 'strikethrough'].includes(command.type)) {
+            // If formatting already exists, remove it instead
+            if (this.isFormatApplied(command.type)) {
+                this.removeFormatting(command.type)
+                return true
+            }
+        }
+
         this.applyCommand(fullCommand)
 
         // Add to history and clear redo stack
@@ -169,7 +178,7 @@ export const getState = function (this: IRteCommandManager): IEditorState {
     return {
         html: this.editorElement.innerHTML,
         text: this.editorElement.textContent ?? '',
-        content: '',
+        content: this.editorElement.innerText,
         selection: selectionState,
         historyLength: this.history.length,
         canUndo: this.currentIndex >= 0,
@@ -184,6 +193,98 @@ export const getHistory = function (this: IRteCommandManager): IRteCommand[] {
 export const notifyStateChanges = function (this: IRteCommandManager) {
     const state = this.getState()
     this.notify('formattingStateChanged', state)
+}
+
+export const input = function (this: IRteCommandManager) {}
+
+// Add isFormatApplied method
+export const isFormatApplied = function (this: IRteCommandManager, formatType: string): boolean {
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return false
+
+    const range = selection.getRangeAt(0)
+    if (range.collapsed) return false
+
+    // Get the common ancestor of the selection
+    const container = range.commonAncestorContainer
+
+    // Map format types to tag names
+    const tagMap: Record<string, string> = {
+        bold: 'STRONG',
+        italic: 'EM',
+        underline: 'U',
+        strikethrough: 'S'
+    }
+
+    const tagName = tagMap[formatType]
+    if (!tagName) return false
+
+    // Check if the selection is inside the formatting element
+    let parent: Node | null = container
+    while (parent && parent !== this.editorElement) {
+        if (parent.nodeType === Node.ELEMENT_NODE && (parent as Element).tagName === tagName) {
+            return true
+        }
+        parent = parent.parentNode
+    }
+
+    return false
+}
+
+// Add removeFormatting method
+export const removeFormatting = function (this: IRteCommandManager, formatType: string) {
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return
+
+    const range = selection.getRangeAt(0)
+    if (range.collapsed) return
+
+    const tagMap: Record<string, string> = {
+        bold: 'STRONG',
+        italic: 'EM',
+        underline: 'U',
+        strikethrough: 'S'
+    }
+
+    const tagName = tagMap[formatType]
+    if (!tagName) return
+
+    // Create document fragment with the selection
+    const fragment = range.extractContents()
+
+    // Remove the formatting tags from the fragment
+    this.unwrapFormatting(fragment, tagName)
+
+    // Insert the clean fragment
+    range.insertNode(fragment)
+
+    // Update selection
+    selection.removeAllRanges()
+    selection.addRange(range)
+
+    // Notify observers about the change
+    this.notifyStateChanges()
+}
+
+// Helper method to recursively unwrap formatting
+export const unwrapFormatting = function (this: IRteCommandManager, node: Node, tagName: string) {
+    if (node.nodeType === Node.ELEMENT_NODE && (node as Element).tagName === tagName) {
+        // Replace this formatting element with its contents
+        const parent = node.parentNode
+        if (parent) {
+            while (node.firstChild) {
+                parent.insertBefore(node.firstChild, node)
+            }
+            parent.removeChild(node)
+        }
+        return
+    }
+
+    // Process child nodes
+    const childNodes = Array.from(node.childNodes)
+    childNodes.forEach((child) => {
+        this.unwrapFormatting(child, tagName)
+    })
 }
 
 RteCommandManager.prototype = {
@@ -201,5 +302,8 @@ Object.assign(RteCommandManager.prototype, {
     applyFormatting,
     insertText,
     notifyStateChanges,
+    isFormatApplied,
+    removeFormatting,
+    unwrapFormatting,
     getState
 })

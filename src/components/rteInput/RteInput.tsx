@@ -14,18 +14,18 @@ export const RteInput = ({ id }: IRteInputProps) => {
         handleResetSelectionOnMouseUp,
         handleSelectionChangeOnClick,
         handleInput,
-        jsonResult,
-        textContent,
-        htmlContent,
-        selection
+        handleBoldSelection,
+        editorState
     } = useRteEngine(editorRef)
 
-    const handleBoldSelection = () => {}
+    const handleBold = () => {
+        handleBoldSelection()
+    }
 
     return (
         <div id={id} className={`flex flex-col w-full h-full`}>
             <div className={`flex flex-row w-full h-auto`}>
-                <button type="button" title="Bold" onClick={handleBoldSelection}>
+                <button type="button" title="Bold" onClick={handleBold}>
                     <b>B</b>
                 </button>
             </div>
@@ -47,13 +47,13 @@ export const RteInput = ({ id }: IRteInputProps) => {
             ></div>
             <div className=" flex flex-col  max-w-[400px] h-full text-pretty text-wrap overflow-hidden">
                 <strong>Structure:</strong>
-                <pre>{JSON.stringify(jsonResult, null, 2)}</pre>
+                <pre>{JSON.stringify(editorState?.content, null, 2)}</pre>
             </div>
 
-            {selection && (
+            {editorState?.selection && (
                 <>
                     <strong>Selection:</strong>
-                    <pre>{JSON.stringify(selection, null, 2)}</pre>
+                    <pre>{JSON.stringify(editorState?.selection, null, 2)}</pre>
                 </>
             )}
         </div>
