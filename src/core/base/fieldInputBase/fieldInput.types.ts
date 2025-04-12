@@ -35,6 +35,7 @@ export interface IFieldInputBase {
     className: string
     valueStrategy: IValueStrategy | null
     checked?: boolean
+
     setup: () => void
     classNames: () => string
     getFlagsObject: () => IFlagsObject

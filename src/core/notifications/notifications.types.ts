@@ -6,8 +6,9 @@ export type TNotifierEventsType =
     | 'blurred'
     | 'focused'
     | 'selected'
+    | 'formattingStateChanged'
 
-export type TNotifierMethod = (data?: unknown) => void
+export type TNotifierMethod<T = any> = (data?: T) => void
 
 export interface INotifier {
     id: string
@@ -15,6 +16,6 @@ export interface INotifier {
     method: TNotifierMethod
 }
 
-export const notify = (id: string, method: TNotifierMethod, type: TNotifierEventsType) => {
+export const notify = <T>(id: string, method: TNotifierMethod<T>, type: TNotifierEventsType) => {
     return { id, method, type }
 }

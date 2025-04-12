@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
+import { useRteEngine } from './hooks/useRteEngine'
 
 export interface IRteInputProps {
     id: string
@@ -6,43 +7,55 @@ export interface IRteInputProps {
 
 export const RteInput = ({ id }: IRteInputProps) => {
     const editorRef = useRef<HTMLDivElement>(null)
-    const [jsonResult, setJsonResult] = useState<{ text: string }>({ text: '' })
-    const [content, setContent] = useState('')
-    const handleInput = () => {
-        const content = editorRef.current?.innerText ?? ''
-        setContent(content)
-        setJsonResult({ text: content })
-    }
 
-    useEffect(() => {
-        const editor = editorRef.current
-        if (editor) {
-            editor.contentEditable = 'true'
+    const {
+        handleMouseDown,
+        handleMouseMove,
+        handleResetSelectionOnMouseUp,
+        handleSelectionChangeOnClick,
+        handleInput,
+        jsonResult,
+        textContent,
+        htmlContent,
+        selection
+    } = useRteEngine(editorRef)
 
-            editor.addEventListener('input', handleInput)
-        }
-        return () => {
-            if (editor) {
-                editor.removeEventListener('input', handleInput)
-            }
-        }
-    }, [])
+    const handleBoldSelection = () => {}
 
     return (
-        <div id={id} className={`flex flex-row`}>
+        <div id={id} className={`flex flex-col w-full h-full`}>
+            <div className={`flex flex-row w-full h-auto`}>
+                <button type="button" title="Bold" onClick={handleBoldSelection}>
+                    <b>B</b>
+                </button>
+            </div>
+
             <div
                 contentEditable={true}
-                suppressContentEditableWarning={true}
+                suppressContentEditableWarning
                 ref={editorRef}
-                // onInput={handleInput}
+                onMouseUp={handleResetSelectionOnMouseUp}
+                onClick={handleSelectionChangeOnClick}
+                onInput={handleInput}
+                onMouseMove={handleMouseMove}
+                onMouseDown={handleMouseDown}
+                //onChange={handleInput}
+                // onSelectCapture={handleSelection}
                 // onChange={handleInput}
                 // dangerouslySetInnerHTML={{ __html: content }}
-                className={`flex w-[500px] h-full mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400`}
-            />
-            <div style={{ marginTop: '16px' }}>
+                className={`flex flex-col w-[500px] h-full mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap`}
+            ></div>
+            <div className=" flex flex-col  max-w-[400px] h-full text-pretty text-wrap overflow-hidden">
                 <strong>Structure:</strong>
                 <pre>{JSON.stringify(jsonResult, null, 2)}</pre>
             </div>
+
+            {selection && (
+                <>
+                    <strong>Selection:</strong>
+                    <pre>{JSON.stringify(selection, null, 2)}</pre>
+                </>
+            )}
         </div>
     )
 }
