@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { FormatsEnum } from './core/rteInput.types'
 import { useRteEngine } from './hooks/useRteEngine'
 
 export interface IRteInputProps {
@@ -25,7 +26,12 @@ export const RteInput = ({ id }: IRteInputProps) => {
     return (
         <div id={id} className={`flex flex-col w-full h-full`}>
             <div className={`flex flex-row w-full h-auto`}>
-                <button type="button" title="Bold" onClick={handleBold}>
+                <button
+                    type="button"
+                    title="Bold"
+                    onClick={handleBold}
+                    className={`${editorState?.activeFormatState?.find?.((o) => o.formatName === FormatsEnum.bold)?.active ? 'bg-amber-600' : ''}`}
+                >
                     <b>B</b>
                 </button>
             </div>
@@ -39,7 +45,7 @@ export const RteInput = ({ id }: IRteInputProps) => {
                 onInput={handleInput}
                 onMouseMove={handleMouseMove}
                 onMouseDown={handleMouseDown}
-                //onChange={handleInput}
+                // onChange={handleInput}
                 // onSelectCapture={handleSelection}
                 // onChange={handleInput}
                 // dangerouslySetInnerHTML={{ __html: content }}

@@ -35,6 +35,7 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     const handleSelectionChangeOnClick = () => {
         if (!rteEngine.current || !editorRef.current) return
         rteEngine.current.handleSelectionChanged()
+        rteEngine.current.commandManager.checkIfSelectionHasAppliedFormats()
     }
     const handleRefresh = (state?: IEditorState) => {
         setEditorState(state ?? null)

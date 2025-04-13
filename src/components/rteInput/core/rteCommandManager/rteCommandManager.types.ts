@@ -1,5 +1,5 @@
 import { INotifiableEntity } from '../../../../core/notifiableEntity/notifiableEntityBase.types'
-import { IActiveFormatsState, IEditorState, IRteCommand } from '../rteInput.types'
+import { IEditorState, IFormatDefinition, IRteCommand } from '../rteInput.types'
 
 export type IRteCommandManager = IRteCommandManagerBase & INotifiableEntity
 
@@ -10,7 +10,7 @@ export interface IRteCommandManagerBase {
     history: IRteCommand[]
     redoStack: IRteCommand[]
     currentIndex: number
-    activeFormat: IActiveFormatsState
+    activeFormat: IFormatDefinition[]
     /**PUBLIC */
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
     undo: () => boolean
@@ -24,6 +24,9 @@ export interface IRteCommandManagerBase {
     insertText: (text: string, range: Range, selection: Selection) => void
     notifyStateChanges: () => void
     isFormatApplied: (formatType: string) => boolean
+    updateActiveFormat: (tagName: string, active: boolean) => void
+    checkIfAnyAppliedFormat: () => void
+    checkIfSelectionHasAppliedFormats: () => void
     removeFormatting: (formatType: string) => void
     unwrapFormatting: (node: Node, tagName: string) => void
     getState: () => IEditorState

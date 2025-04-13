@@ -5,6 +5,16 @@ export interface ISelection {
     isCollapsed: boolean
 }
 
+export interface IFormatDefinition {
+    tagName: string
+    formatName: string
+    active: boolean
+}
+
+export const newFormatDefinition = (tagName: string, formatName: string, active: boolean) => {
+    return { tagName, formatName, active }
+}
+
 export enum TextEditEnum {
     insertText = 'insertText',
     deleteText = 'deleteText'
@@ -20,15 +30,28 @@ export enum FormatsEnum {
 export enum TagEnum {
     bold = 'STRONG',
     italic = 'EM',
-    undeline = 'U',
+    underline = 'U',
     strikethrough = 'S'
 }
+
+export type TagsType = keyof typeof TagEnum
+export const TagsArray: string[] = Object.values(TagEnum)
+
+export type FormatsType = keyof typeof FormatsEnum
+export const FormatsArray: string[] = Object.values(FormatsEnum)
+
+export const formatDefinitionMap: IFormatDefinition[] = [
+    newFormatDefinition(TagEnum.bold, FormatsEnum.bold, false),
+    newFormatDefinition(TagEnum.italic, FormatsEnum.italic, false),
+    newFormatDefinition(TagEnum.underline, FormatsEnum.underline, false),
+    newFormatDefinition(TagEnum.strikethrough, FormatsEnum.strikethrough, false)
+]?.sort((a, b) => a?.tagName?.toString?.().localeCompare(b?.tagName))
 
 // Map format types to tag names
 export const tagMap: Record<string, string> = {
     bold: TagEnum.bold,
     italic: TagEnum.italic,
-    underline: TagEnum.undeline,
+    underline: TagEnum.underline,
     strikethrough: TagEnum.strikethrough
 }
 
@@ -51,32 +74,24 @@ export interface IEditorState {
     text: string
     content: string
     selection: ISelection | null
-    activeFormatState: IActiveFormatsState
+    activeFormatState: IFormatDefinition[]
     historyLength: number
     canUndo: boolean
     canRedo: boolean
 }
 
-export interface IActiveFormatsState {
-    bold: boolean
-    italic: boolean
-    underline: boolean
-    strikethrough: boolean
-}
-
-export const activeFormatDefault: IActiveFormatsState = {
-    bold: false,
-    italic: false,
-    underline: false,
-    strikethrough: false
-}
-
-export const trackFormating = (
-    current: IActiveFormatsState,
-    commandName: RteCommandType,
+export const trackFormatingByTagName = (
+    current: IFormatDefinition[],
+    tagName: string,
     value: boolean
-): IActiveFormatsState => {
-    return { ...current, [commandName]: value }
+): IFormatDefinition[] => {
+    const currentDefinition = {
+        ...current.find?.((o) => o.tagName === tagName),
+        active: value
+    } as IFormatDefinition
+    return [...current.filter((o) => o.tagName !== tagName), currentDefinition]?.sort((a, b) =>
+        a?.tagName?.toString?.().localeCompare(b?.tagName)
+    )
 }
 
 export const newCommand = (type: RteCommandType): Omit<IRteCommand, 'timestamp'> => {
