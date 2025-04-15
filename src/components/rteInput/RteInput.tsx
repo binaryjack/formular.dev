@@ -1,10 +1,17 @@
 import { useRef } from 'react'
-import { FormatsEnum } from './core/rteInput.types'
+import { ToggleButton } from '../toggle/Toggle'
+import RteDebug from './core/debugger/RteDebug'
+import { FormatsEnum, IFormatDefinition } from './core/rteInput.types'
 import { useRteEngine } from './hooks/useRteEngine'
 
 export interface IRteInputProps {
     id: string
 }
+
+export const isFormatActive = (
+    activeFormatState: IFormatDefinition[] | undefined,
+    expectedFormat: FormatsEnum
+) => activeFormatState?.find?.((o) => o.formatName === expectedFormat)?.active ?? false
 
 export const RteInput = ({ id }: IRteInputProps) => {
     const editorRef = useRef<HTMLDivElement>(null)
@@ -12,11 +19,13 @@ export const RteInput = ({ id }: IRteInputProps) => {
     const {
         handleMouseDown,
         handleMouseMove,
-        handleResetSelectionOnMouseUp,
+        handleMouseLeave,
+        handleMouseUp,
         handleSelectionChangeOnClick,
         handleInput,
         handleBoldSelection,
-        editorState
+        editorState,
+        mouseState
     } = useRteEngine(editorRef)
 
     const handleBold = () => {
@@ -25,46 +34,39 @@ export const RteInput = ({ id }: IRteInputProps) => {
 
     return (
         <div id={id} className={`flex flex-col w-full h-full`}>
-            <div className={`flex flex-row w-full h-auto`}>
-                <button
-                    type="button"
-                    title="Bold"
-                    onClick={handleBold}
-                    className={`${editorState?.activeFormatState?.find?.((o) => o.formatName === FormatsEnum.bold)?.active ? 'bg-amber-600' : ''}`}
+            <div className={`flex flex-row w-full h-auto my-2`}>
+                <ToggleButton
+                    id={'boldCommand'}
+                    name={'B'}
+                    toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.bold)}
+                    onToggle={handleBold}
+                />
+
+                <div
+                    className={` w-[35px] h-[25px] mx-3 overflow-hidden ${mouseState?.down && !mouseState?.move ? 'bg-cyan-700 text-white' : mouseState?.down && mouseState?.move ? 'bg-red-500  text-white' : ''}`}
                 >
-                    <b>B</b>
-                </button>
+                    {mouseState?.down && !mouseState?.move
+                        ? 'V'
+                        : mouseState?.down && mouseState?.move
+                          ? '>>>'
+                          : ''}
+                </div>
             </div>
 
             <div
                 contentEditable={true}
                 suppressContentEditableWarning
                 ref={editorRef}
-                onMouseUp={handleResetSelectionOnMouseUp}
+                onMouseUp={handleMouseUp}
                 onClick={handleSelectionChangeOnClick}
                 onInput={handleInput}
                 onMouseMove={handleMouseMove}
                 onMouseDown={handleMouseDown}
-                // onChange={handleInput}
-                // onSelectCapture={handleSelection}
-                // onChange={handleInput}
-                // dangerouslySetInnerHTML={{ __html: content }}
-                className={`flex flex-col w-[500px] h-full mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap`}
+                onMouseLeave={handleMouseLeave}
+                className={`flex flex-col w-[700px] h-[300px] mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap overflow-y-auto`}
             ></div>
-            <div className=" flex flex-col  max-w-[400px] h-full text-pretty text-wrap overflow-hidden">
-                <strong>Structure:</strong>
-                <pre>{JSON.stringify(editorState?.content, null, 2)}</pre>
-            </div>
 
-            {editorState?.selection && (
-                <>
-                    <strong>Selection:</strong>
-                    <pre>{JSON.stringify(editorState?.selection, null, 2)}</pre>
-                </>
-            )}
-            {editorState?.activeFormatState && (
-                <pre>{JSON.stringify(editorState?.activeFormatState, null, 2)}</pre>
-            )}
+            <RteDebug editorRef={editorRef} editorState={editorState} />
         </div>
     )
 }

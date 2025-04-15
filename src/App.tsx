@@ -94,7 +94,6 @@ const App = () => {
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
             <RteDemo />
-            {formDemo()}
         </div>
     )
 }

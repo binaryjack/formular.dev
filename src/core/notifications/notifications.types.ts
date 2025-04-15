@@ -7,6 +7,7 @@ export type TNotifierEventsType =
     | 'focused'
     | 'selected'
     | 'formattingStateChanged'
+    | 'engineStateChanged'
 
 export type TNotifierMethod<T = any> = (data?: T) => void
 

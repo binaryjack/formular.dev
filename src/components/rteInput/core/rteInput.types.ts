@@ -1,3 +1,6 @@
+import { INotifiableEntity } from '../../../core/notifiableEntity/notifiableEntityBase.types'
+import { IRteEngineBase } from './rteEngine/rteEngine.types'
+
 export interface ISelection {
     text: string
     start: number
@@ -69,6 +72,10 @@ export interface IRteCommand {
     timestamp: number
 }
 
+export interface IEngineState {
+    mouseState: IMouseState
+}
+
 export interface IEditorState {
     html: string
     text: string
@@ -96,4 +103,9 @@ export const trackFormatingByTagName = (
 
 export const newCommand = (type: RteCommandType): Omit<IRteCommand, 'timestamp'> => {
     return { type } as Omit<IRteCommand, 'timestamp'>
+}
+
+export interface IMouseState {
+    move: boolean
+    down: boolean
 }

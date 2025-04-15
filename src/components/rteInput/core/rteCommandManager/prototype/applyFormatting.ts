@@ -8,6 +8,12 @@ export const applyFormatting = function (
 ) {
     if (range.collapsed) return // No selection
 
+    // Remember the original container and offsets
+    const startContainer = range.startContainer
+    const startOffset = range.startOffset
+    const endContainer = range.endContainer
+    const endOffset = range.endOffset
+
     // Create element with desired formatting
     const formattingElement = document.createElement(tagName)
 
@@ -17,9 +23,20 @@ export const applyFormatting = function (
     // Insert the formatted element
     range.insertNode(formattingElement)
 
-    // Update selection
-    selection.removeAllRanges()
-    const newRange = document.createRange()
-    newRange.selectNodeContents(formattingElement)
-    selection.addRange(newRange)
+    // Try to restore a similar selection
+    try {
+        const newRange = document.createRange()
+        newRange.setStart(startContainer, startOffset)
+        newRange.setEnd(endContainer, endOffset)
+        selection.removeAllRanges()
+        selection.addRange(newRange)
+    } catch (e) {
+        // Fallback to selecting the content
+        const newRange = document.createRange()
+        newRange.selectNodeContents(formattingElement)
+        selection.removeAllRanges()
+        selection.addRange(newRange)
+    }
+    this.updateActiveFormat(tagName.toUpperCase(), true)
+    this.notifyStateChanges()
 }

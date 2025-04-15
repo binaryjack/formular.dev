@@ -18,9 +18,13 @@
     "devDependencies": {
         "@babel/preset-typescript": "^7.26.0",
         "@emotion/babel-plugin": "^11.13.5",
+        "@emotion/css": "^11.13.5",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
         "@jest/globals": "^29.7.0",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.8.5",
+        "@types/prismjs": "^1.26.5",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
         "@vitejs/plugin-react-swc": "^3.7.1",
@@ -30,8 +34,10 @@
         "jest-playwright-preset": "^4.0.0",
         "playwright": "^1.51.0",
         "postcss": "^8.4.49",
+        "postcss-import": "^16.1.0",
         "postcss-nesting": "^13.0.1",
         "prettier": "^3.3.3",
+        "prismjs": "^1.30.0",
         "tailwindcss": "^3.4.16",
         "ts-jest": "^29.2.6",
         "ts-node": "^10.9.2",
@@ -41,11 +47,7 @@
         "vite-plugin-dts": "^4.3.0",
         "vite-plugin-eslint": "^1.8.1",
         "vite-plugin-static-copy": "^2.0.0",
-        "vite-plugin-svg": "^0.7.0",
-        "@emotion/css": "^11.13.5",
-        "@emotion/react": "^11.14.0",
-        "@emotion/styled": "^11.14.0",
-        "postcss-import": "^16.1.0"
+        "vite-plugin-svg": "^0.7.0"
     },
     "dependencies": {
         "react": "^18.3.1",

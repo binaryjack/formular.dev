@@ -1,21 +1,38 @@
+import { INotifiableEntity } from '../../../../core/notifiableEntity/notifiableEntityBase.types'
 import { IRteCommandManager } from '../rteCommandManager/rteCommandManager.types'
-import { IRteCommand } from '../rteInput.types'
+import { IEngineState, IRteCommand } from '../rteInput.types'
 import { ISelectionManager } from '../selectionManager/selectionManager.types'
 
-export interface IMouseState {
-    move: boolean
-    down: boolean
-}
+export type IRteEngine = IRteEngineBase & INotifiableEntity
 
-export interface IRteEngine {
+export interface IRteEngineBase {
     new (editorElement: HTMLElement): IRteEngine
     editorElement: HTMLElement
     commandManager: IRteCommandManager
     selectionManager: ISelectionManager
-    mouseState: IMouseState
+    isProcessingSelection: boolean
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
-    handleSelectionChanged: () => void
-    handleResetSelection: (currentTarget: HTMLElement) => void
-    handleMouseMoveState: (mouseMoving: boolean) => void
-    handleMouseDownState: (mouseDown: boolean) => void
+    selectionChanged: () => void
+    resetSelection: (event?: MouseEvent) => void
+
+    /** handle  mouse state */
+    mouseMoveState: (mouseMoving: boolean) => void
+    mouseDownState: (mouseDown: boolean) => void
+
+    /** public hanchors */
+    mouseLeave: () => void
+    mouseMove: () => void
+    mouseDown: () => void
+    mouseUp: (event?: MouseEvent) => void
+    mouseClick: () => void
+
+    /** setup */
+    setup: () => void
+    addListeners: () => void
+    removeListeners: () => void
+    /** Get current state */
+    getState: () => IEngineState
+    /** notifiers */
+    notifyStateChanges: () => void
+    notifyStateChangesAll: () => void
 }

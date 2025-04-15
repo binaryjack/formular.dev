@@ -11,8 +11,12 @@ export interface IRteCommandManagerBase {
     redoStack: IRteCommand[]
     currentIndex: number
     activeFormat: IFormatDefinition[]
+
     /**PUBLIC */
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
+    isFormatApplied: (formatOrTagName: string) => boolean
+    checkForAnyAppliedFormat: () => void
+
     undo: () => boolean
     redo: () => boolean
     input: (text: string) => void
@@ -22,13 +26,19 @@ export interface IRteCommandManagerBase {
     applyCommand: (command: IRteCommand) => void
     applyFormatting: (tagName: string, range: Range, selection: Selection) => void
     insertText: (text: string, range: Range, selection: Selection) => void
-    notifyStateChanges: () => void
-    isFormatApplied: (formatType: string) => boolean
     updateActiveFormat: (tagName: string, active: boolean) => void
-    checkIfAnyAppliedFormat: () => void
-    checkIfSelectionHasAppliedFormats: () => void
+    getAllNodesInRange: (range: Range) => Node[]
+
+    normalizeHtml: () => void
+    sanitizeHtml: () => void
+    sanitizeNode: () => void
+    cleanHtml: () => void
+
+    processFragmentFormatting: (fragment: DocumentFragment, tagName: string) => DocumentFragment
+    processFragment: (fragment: DocumentFragment, tagName: string) => DocumentFragment
     removeFormatting: (formatType: string) => void
     unwrapFormatting: (node: Node, tagName: string) => void
     getState: () => IEditorState
+    notifyStateChanges: () => void
     setup: () => void
 }

@@ -1,32 +1,36 @@
-import { FormatsArray, IRteCommand } from '../../rteInput.types'
+import { IRteCommand } from '../../rteInput.types'
 import { IRteCommandManager } from '../rteCommandManager.types'
 
 export const execute = function (
     this: IRteCommandManager,
     command: Omit<IRteCommand, 'timestamp'>
 ): boolean {
-    const fullCommand = {
-        ...command,
-        timestamp: Date.now()
-    }
+    // Capture the current selection before doing anything
+    const selection = window.getSelection()
+    if (!selection || selection.rangeCount === 0) return false
 
     try {
-        // For formatting commands, check if we should toggle instead of apply
-        if (FormatsArray.includes(command.type)) {
-            // If formatting already exists, remove it instead
-            if (this.isFormatApplied(command.type)) {
-                this.removeFormatting(command.type)
-                this.notifyStateChanges() // Make sure to notify here
-                return true
-            }
+        // Check formats
+        this.checkForAnyAppliedFormat()
+
+        // Delay format checking until after command execution
+        const wasFormatApplied = this.isFormatApplied(command.type)
+
+        // Wait for a microtask to ensure DOM is updated
+
+        if (wasFormatApplied) {
+            // Remove format
+            this.removeFormatting(command.type)
+        } else {
+            // Apply format
+            this.applyCommand({ ...command, timestamp: Date.now() })
         }
 
-        this.applyCommand(fullCommand)
+        // Clean HTML structure - sanitize and normalize
+        this.cleanHtml()
 
-        // Add to history and clear redo stack
-        this.history = [...this.history.slice(0, this.currentIndex + 1), fullCommand]
-        this.currentIndex = this.history.length - 1
-        this.redoStack = []
+        // Only notify once after everything is done
+        this.notifyStateChanges()
 
         return true
     } catch (error) {

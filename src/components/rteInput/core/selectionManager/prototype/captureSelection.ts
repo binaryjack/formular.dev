@@ -15,6 +15,7 @@ export const captureSelection = function (this: ISelectionManager): ISelection |
 
     this.currentSelection = {
         text: selection.toString(),
+
         start: range.startOffset,
         end: range.endOffset,
         isCollapsed: selection.isCollapsed

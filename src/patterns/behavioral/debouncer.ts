@@ -1,13 +1,11 @@
-
-
-const debounce = (fn: () => void, timeFrame: number) => {        
-    let timer: ReturnType<typeof setTimeout> 
+export const debounce = (fn: CallableFunction, timeFrame: number) => {
+    let timer: ReturnType<typeof setTimeout>
     return () => {
-        if(timer) {
+        if (timer) {
             clearTimeout(timer)
         }
-            timer = setTimeout(()=> {
+        timer = setTimeout(() => {
             fn()
         }, timeFrame)
     }
-} 
+}
