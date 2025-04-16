@@ -31,6 +31,7 @@ export const applyFormatting = function (
         selection.removeAllRanges()
         selection.addRange(newRange)
     } catch (e) {
+        console.warn(e)
         // Fallback to selecting the content
         const newRange = document.createRange()
         newRange.selectNodeContents(formattingElement)

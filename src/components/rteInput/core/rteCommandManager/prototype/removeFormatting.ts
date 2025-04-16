@@ -1,4 +1,4 @@
-import { tagMap } from '../../rteInput.types'
+import { FormatsEnum, tagMap } from '../../rteInput.types'
 import { IRteCommandManager } from '../rteCommandManager.types'
 
 export interface IRelatives {
@@ -19,6 +19,12 @@ export const removeFormatting = function (this: IRteCommandManager, formatType: 
     // Get the active range
     const range = selection.getRangeAt(0)
     if (range.collapsed) return
+
+    // Special case for lists
+    if (formatType === FormatsEnum.unorderedList) {
+        this.removeListFormatting(range, selection)
+        return
+    }
 
     // Get the tag name to remove
     const tagName = tagMap[formatType]

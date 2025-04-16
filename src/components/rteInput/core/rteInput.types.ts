@@ -1,6 +1,3 @@
-import { INotifiableEntity } from '../../../core/notifiableEntity/notifiableEntityBase.types'
-import { IRteEngineBase } from './rteEngine/rteEngine.types'
-
 export interface ISelection {
     text: string
     start: number
@@ -27,14 +24,16 @@ export enum FormatsEnum {
     bold = 'bold',
     italic = 'italic',
     underline = 'underline',
-    strikethrough = 'strikethrough'
+    strikethrough = 'strikethrough',
+    unorderedList = 'unorderedList'
 }
 
 export enum TagEnum {
     bold = 'STRONG',
     italic = 'EM',
     underline = 'U',
-    strikethrough = 'S'
+    strikethrough = 'S',
+    unorderedList = 'UL'
 }
 
 export type TagsType = keyof typeof TagEnum
@@ -47,7 +46,8 @@ export const formatDefinitionMap: IFormatDefinition[] = [
     newFormatDefinition(TagEnum.bold, FormatsEnum.bold, false),
     newFormatDefinition(TagEnum.italic, FormatsEnum.italic, false),
     newFormatDefinition(TagEnum.underline, FormatsEnum.underline, false),
-    newFormatDefinition(TagEnum.strikethrough, FormatsEnum.strikethrough, false)
+    newFormatDefinition(TagEnum.strikethrough, FormatsEnum.strikethrough, false),
+    newFormatDefinition(TagEnum.unorderedList, FormatsEnum.unorderedList, false)
 ]?.sort((a, b) => a?.tagName?.toString?.().localeCompare(b?.tagName))
 
 // Map format types to tag names
@@ -55,7 +55,8 @@ export const tagMap: Record<string, string> = {
     bold: TagEnum.bold,
     italic: TagEnum.italic,
     underline: TagEnum.underline,
-    strikethrough: TagEnum.strikethrough
+    strikethrough: TagEnum.strikethrough,
+    unorderedList: TagEnum.unorderedList
 }
 
 export type RteCommandType =
@@ -63,6 +64,7 @@ export type RteCommandType =
     | FormatsEnum.italic
     | FormatsEnum.underline
     | FormatsEnum.strikethrough
+    | FormatsEnum.unorderedList
     | TextEditEnum.insertText
     | TextEditEnum.deleteText
 
@@ -108,4 +110,11 @@ export const newCommand = (type: RteCommandType): Omit<IRteCommand, 'timestamp'>
 export interface IMouseState {
     move: boolean
     down: boolean
+}
+
+export interface IHistoryItem {
+    commandType: RteCommandType
+    timestamp: number
+    previousState: string
+    newState: string
 }

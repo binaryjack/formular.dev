@@ -8,7 +8,8 @@ import {
     IEditorState,
     IEngineState,
     IMouseState,
-    newCommand
+    newCommand,
+    TextEditEnum
 } from '../core/rteInput.types'
 
 export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
@@ -19,11 +20,11 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     })
     const [editorState, setEditorState] = useState<IEditorState | null>(null)
 
-    const handleBoldSelection = () => {
-        if (rteEngine.current && editorState?.selection && !editorState.selection?.isCollapsed) {
-            rteEngine.current.execute(newCommand(FormatsEnum.bold))
-        }
-    }
+    const handleUndo = () => rteEngine?.current?.undo?.()
+    const handleRedo = () => rteEngine?.current?.redo?.()
+
+    const handleCommand = (command: FormatsEnum) =>
+        rteEngine?.current?.execute?.(newCommand(command))
 
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent> | MouseEvent) => {
         // Check if it's a React synthetic event or a native MouseEvent
@@ -74,6 +75,24 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
 
     const handleInput = () => {
         if (editorRef?.current && rteEngine.current) {
+            // Create a history entry for text input
+            if (rteEngine.current.commandManager.editorElement) {
+                const newContent = JSON.stringify(editorRef.current.innerHTML)
+
+                // Only if content actually changed
+                if (rteEngine?.current?.commandManager?.lastContent !== newContent) {
+                    rteEngine.current.commandManager.addToHistory({
+                        commandType: TextEditEnum.insertText,
+                        timestamp: Date.now(),
+                        previousState: rteEngine?.current?.commandManager?.lastContent || '',
+                        newState: newContent
+                    })
+
+                    // Store last content for next comparison
+                    rteEngine.current.commandManager.lastContent = newContent
+                }
+            }
+
             // Normalize the HTML structure
             rteEngine.current.commandManager.cleanHtml?.()
 
@@ -120,8 +139,10 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
         handleMouseMove,
         handleMouseUp,
         handleSelectionChangeOnClick,
-        handleBoldSelection,
+        handleCommand,
         handleInput,
+        handleUndo,
+        handleRedo,
         mouseState,
         handleMouseLeave,
         editorState

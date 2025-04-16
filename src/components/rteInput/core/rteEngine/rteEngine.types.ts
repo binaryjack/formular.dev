@@ -26,6 +26,9 @@ export interface IRteEngineBase {
     mouseUp: (event?: MouseEvent) => void
     mouseClick: () => void
 
+    undo(): boolean
+    redo(): boolean
+
     /** setup */
     setup: () => void
     addListeners: () => void

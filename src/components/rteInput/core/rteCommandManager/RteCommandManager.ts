@@ -1,8 +1,10 @@
 import { NotifiableEntity } from '../../../../core/notifiableEntity/NotifiableEntity'
 
 import { formatDefinitionMap } from '../rteInput.types'
+import { addToHistory } from './prototype/addToHistory'
 import { applyCommand } from './prototype/applyCommand'
 import { applyFormatting } from './prototype/applyFormatting'
+import { applyListFormatting } from './prototype/applyListFormatting'
 import { checkForAnyAppliedFormat } from './prototype/checkForAnyAppliedFormat'
 import { cleanHtml } from './prototype/cleanHtml'
 // import { checkIfSelectionHasAppliedFormats } from './prototype/checkForAnyAppliedFormat'
@@ -19,6 +21,7 @@ import { processFragment } from './prototype/processFragment'
 import { processFragmentFormatting } from './prototype/processFragmentFormatting'
 import { redo } from './prototype/redo'
 import { removeFormatting } from './prototype/removeFormatting'
+import { removeListFormatting } from './prototype/removeListFormatting'
 import { resetEditor } from './prototype/resetEditor'
 import { sanitizeHtml } from './prototype/sanitizeHtml'
 import { setup } from './prototype/setup'
@@ -33,7 +36,7 @@ export const RteCommandManager = function (this: IRteCommandManager, editorEleme
     this.redoStack = []
     this.currentIndex = -1
     this.activeFormat = formatDefinitionMap
-
+    this.lastContent = ''
     NotifiableEntity.call(this)
     this.setup()
 } as any as IRteCommandManager
@@ -51,6 +54,7 @@ Object.assign(RteCommandManager.prototype, {
     redo,
     applyCommand,
     getHistory,
+    addToHistory,
     resetEditor,
     applyFormatting,
     processFragment,
@@ -64,5 +68,7 @@ Object.assign(RteCommandManager.prototype, {
     removeFormatting,
     unwrapFormatting,
     updateActiveFormat,
+    removeListFormatting,
+    applyListFormatting,
     getState
 })

@@ -1,6 +1,6 @@
-import { IRteCommand } from '../../rteInput.types'
+import { IHistoryItem } from '../../rteInput.types'
 import { IRteCommandManager } from '../rteCommandManager.types'
 
-export const getHistory = function (this: IRteCommandManager): IRteCommand[] {
+export const getHistory = function (this: IRteCommandManager): IHistoryItem[] {
     return [...this.history]
 }

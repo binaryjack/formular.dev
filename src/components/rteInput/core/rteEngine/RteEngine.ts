@@ -10,8 +10,10 @@ import { mouseMove } from './prototype/mouseMove'
 import { mouseMoveState } from './prototype/mouseMoveState'
 import { mouseUp } from './prototype/mouseUp'
 import { notifyStateChanges } from './prototype/notifyStateChanges'
+import { redo } from './prototype/redo'
 import { resetSelection } from './prototype/resetSelection'
 import { selectionChanged } from './prototype/selectionChanged'
+import { undo } from './prototype/undo'
 import { IRteEngine } from './rteEngine.types'
 
 export const RteEngine = function (this: IRteEngine, editorElement: HTMLElement) {
@@ -37,5 +39,7 @@ Object.assign(RteEngine.prototype, {
     mouseLeave,
     notifyStateChanges,
     getState,
-    execute
+    execute,
+    undo,
+    redo
 })

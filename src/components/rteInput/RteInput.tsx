@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { ToggleButton } from '../toggle/Toggle'
+import { RtbHeader } from './components/rtbHeader/RtbHeader'
 import RteDebug from './core/debugger/RteDebug'
 import { FormatsEnum, IFormatDefinition } from './core/rteInput.types'
 import { useRteEngine } from './hooks/useRteEngine'
@@ -23,35 +23,36 @@ export const RteInput = ({ id }: IRteInputProps) => {
         handleMouseUp,
         handleSelectionChangeOnClick,
         handleInput,
-        handleBoldSelection,
+        handleCommand,
         editorState,
-        mouseState
+        mouseState,
+        handleRedo,
+        handleUndo
     } = useRteEngine(editorRef)
 
-    const handleBold = () => {
-        handleBoldSelection()
+    // Add keyboard shortcut handler
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'z' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault()
+            if (e.shiftKey) {
+                handleRedo()
+            } else {
+                handleUndo()
+            }
+        } else if (e.key === 'y' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault()
+            handleRedo()
+        }
     }
-
     return (
-        <div id={id} className={`flex flex-col w-full h-full`}>
-            <div className={`flex flex-row w-full h-auto my-2`}>
-                <ToggleButton
-                    id={'boldCommand'}
-                    name={'B'}
-                    toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.bold)}
-                    onToggle={handleBold}
-                />
-
-                <div
-                    className={` w-[35px] h-[25px] mx-3 overflow-hidden ${mouseState?.down && !mouseState?.move ? 'bg-cyan-700 text-white' : mouseState?.down && mouseState?.move ? 'bg-red-500  text-white' : ''}`}
-                >
-                    {mouseState?.down && !mouseState?.move
-                        ? 'V'
-                        : mouseState?.down && mouseState?.move
-                          ? '>>>'
-                          : ''}
-                </div>
-            </div>
+        <div id={id} className={`rte-input flex flex-col w-full h-full`}>
+            <RtbHeader
+                editorState={editorState}
+                handleCommand={handleCommand}
+                mouseState={mouseState}
+                handleUndo={handleUndo}
+                handleRedo={handleRedo}
+            />
 
             <div
                 contentEditable={true}
@@ -63,8 +64,9 @@ export const RteInput = ({ id }: IRteInputProps) => {
                 onMouseMove={handleMouseMove}
                 onMouseDown={handleMouseDown}
                 onMouseLeave={handleMouseLeave}
-                className={`flex flex-col w-[700px] h-[300px] mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap overflow-y-auto`}
-            ></div>
+                onKeyDown={handleKeyDown}
+                className={`flex flex-col w-[700px] h-[300px] mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap overflow-y-auto list-decimal`}
+            />
 
             <RteDebug editorRef={editorRef} editorState={editorState} />
         </div>

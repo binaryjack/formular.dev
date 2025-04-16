@@ -16,6 +16,9 @@ export const execute = function (
         // Delay format checking until after command execution
         const wasFormatApplied = this.isFormatApplied(command.type)
 
+        // CRITICAL: Save the current editor HTML state BEFORE making changes
+        const previousState = JSON.stringify(this.editorElement.innerHTML)
+
         // Wait for a microtask to ensure DOM is updated
 
         if (wasFormatApplied) {
@@ -24,6 +27,20 @@ export const execute = function (
         } else {
             // Apply format
             this.applyCommand({ ...command, timestamp: Date.now() })
+        }
+
+        // Get the new state AFTER making changes
+        const newState = JSON.stringify(this.editorElement.innerHTML)
+
+        // Only record in history if the content actually changed
+        if (previousState !== newState) {
+            // Create history entry with both states for proper undo/redo
+            this.addToHistory({
+                commandType: command.type,
+                timestamp: Date.now(),
+                previousState: previousState,
+                newState: newState
+            })
         }
 
         // Clean HTML structure - sanitize and normalize

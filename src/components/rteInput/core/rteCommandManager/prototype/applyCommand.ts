@@ -1,4 +1,4 @@
-import { FormatsEnum, IRteCommand, TextEditEnum } from '../../rteInput.types'
+import { formatDefinitionMap, FormatsEnum, IRteCommand } from '../../rteInput.types'
 import { IRteCommandManager } from '../rteCommandManager.types'
 
 export const applyCommand = function (this: IRteCommandManager, command: IRteCommand) {
@@ -7,27 +7,25 @@ export const applyCommand = function (this: IRteCommandManager, command: IRteCom
 
     const range = selection.getRangeAt(0)
 
+    const tagName = formatDefinitionMap.find((o) => o.formatName === command.type)?.tagName
+    if (!tagName) return
+
     switch (command.type) {
         case FormatsEnum.bold:
-            this.applyFormatting('strong', range, selection)
-            break
         case FormatsEnum.italic:
-            this.applyFormatting('em', range, selection)
-            break
         case FormatsEnum.underline:
-            this.applyFormatting('u', range, selection)
+            // Inline formatting
+            this.applyFormatting(tagName, range, selection)
             break
-        case FormatsEnum.strikethrough:
-            this.applyFormatting('s', range, selection)
+
+        case FormatsEnum.unorderedList:
+            // List formatting - needs special handling
+            this.applyListFormatting(range, selection)
             break
-        case TextEditEnum.insertText:
-            this.insertText(command.payload, range, selection)
-            break
-        case TextEditEnum.deleteText:
-            range.deleteContents()
-            break
+
         default:
-            throw new Error(`Unknown command type: ${command.type}`)
+            console.warn(`Unhandled command type: ${command.type}`)
+            break
     }
 
     // Notify observers about the change
