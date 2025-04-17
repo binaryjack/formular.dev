@@ -1,31 +1,32 @@
 import { useMemo } from 'react'
 import { ToggleButton } from '../../../toggleButton/ToggleButton'
-import { FormatsEnum, IEditorState, IMouseState } from '../../core/rteInput.types'
-import { isFormatActive } from '../../RteInput'
+import { isFormatActive } from '../../core/helpers/isFormatActive'
+import { FormatsEnum, IEngineState, IMouseState } from '../../core/rteInput.types'
+
 interface IRtbHeader {
-    editorState: IEditorState | null
+    engineState: IEngineState | null
     handleCommand: (command: FormatsEnum) => boolean | undefined
     handleUndo: () => void // Add these
     handleRedo: () => void // Add these
     mouseState: IMouseState
 }
 export const RtbHeader = ({
-    editorState,
+    engineState,
     handleCommand,
     handleUndo,
     handleRedo,
     mouseState
 }: IRtbHeader) => {
     const hasSelection = useMemo(() => {
-        return (editorState?.text?.length ?? -1 > 0) ? true : false
-    }, [editorState?.text])
+        return (engineState?.text?.length ?? -1 > 0) ? true : false
+    }, [engineState?.text])
 
     return (
         <div className={`flex flex-row w-full h-auto my-2`}>
             <ToggleButton
                 id={'boldCommand'}
                 name={FormatsEnum.bold}
-                toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.bold)}
+                toggle={isFormatActive(engineState?.activeFormatState, FormatsEnum.bold)}
                 className={`flex mr-2`}
                 onToggle={() => handleCommand(FormatsEnum.bold)}
                 disabled={!hasSelection}
@@ -34,42 +35,50 @@ export const RtbHeader = ({
             <ToggleButton
                 id={'italicCommand'}
                 name={FormatsEnum.italic}
-                toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.italic)}
+                toggle={isFormatActive(engineState?.activeFormatState, FormatsEnum.italic)}
                 className={`flex mr-2`}
                 onToggle={() => handleCommand(FormatsEnum.italic)}
                 disabled={!hasSelection}
-                children={<em>i</em>}
+                children={
+                    <strong>
+                        <em>i</em>
+                    </strong>
+                }
             />
             <ToggleButton
                 id={'strikethroughCommand'}
-                name={FormatsEnum.italic}
-                toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.strikethrough)}
+                name={FormatsEnum.strikethrough}
+                toggle={isFormatActive(engineState?.activeFormatState, FormatsEnum.strikethrough)}
                 className={`flex mr-2`}
                 onToggle={() => handleCommand(FormatsEnum.strikethrough)}
                 disabled={!hasSelection}
-                children={<s>St</s>}
+                children={
+                    <strong>
+                        <s>St</s>
+                    </strong>
+                }
             />
             <ToggleButton
                 id={'underlineCommand'}
                 name={FormatsEnum.underline}
-                toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.underline)}
+                toggle={isFormatActive(engineState?.activeFormatState, FormatsEnum.underline)}
                 className={`flex mr-2 `}
                 onToggle={() => handleCommand(FormatsEnum.underline)}
                 disabled={!hasSelection}
-                children={<u>U</u>}
+                children={
+                    <strong>
+                        <u>U</u>
+                    </strong>
+                }
             />
             <ToggleButton
                 id={'unorderedListCommand'}
                 name={FormatsEnum.unorderedList}
-                toggle={isFormatActive(editorState?.activeFormatState, FormatsEnum.unorderedList)}
+                toggle={isFormatActive(engineState?.activeFormatState, FormatsEnum.unorderedList)}
                 className={`flex`}
                 onToggle={() => handleCommand(FormatsEnum.unorderedList)}
                 disabled={!hasSelection}
-                children={
-                    <ul>
-                        <li>LI</li>
-                    </ul>
-                }
+                children={<strong>LI</strong>}
             />
 
             <button

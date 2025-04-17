@@ -8,6 +8,7 @@ import InputText from '../../components/inputText/InputText'
 import RadioInput from '../../components/radioInput/RadioInput'
 
 import { RangeSlider } from '../../components/rangeSlider/RangeSlider'
+import RteInputField from '../../components/rteInput/RteInputField'
 import Select from '../../components/selectInput/Select'
 import { Signals } from '../../core/signals/signal'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
@@ -76,6 +77,8 @@ const FormDemo = () => {
                 handlerStyleWidth={15}
                 handlerStyleHeight={15}
             />
+
+            <RteInputField fieldName={'richTextField'} />
         </FormyForm>
     )
 }

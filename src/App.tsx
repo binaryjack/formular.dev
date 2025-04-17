@@ -1,7 +1,6 @@
 import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
 import FormDemo from './demo/forms/FormDemo'
 import Positionning from './demo/positionning/Positionning'
-import RteDemo from './demo/rte/RteDemo'
 import Counter from './demo/signals/counter/Counter'
 import TextInput from './demo/signals/text/TextInput'
 
@@ -93,7 +92,7 @@ const App = () => {
 
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            <RteDemo />
+            {formDemo()}
         </div>
     )
 }

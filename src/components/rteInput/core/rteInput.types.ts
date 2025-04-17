@@ -75,10 +75,6 @@ export interface IRteCommand {
 }
 
 export interface IEngineState {
-    mouseState: IMouseState
-}
-
-export interface IEditorState {
     html: string
     text: string
     content: string
@@ -87,6 +83,19 @@ export interface IEditorState {
     historyLength: number
     canUndo: boolean
     canRedo: boolean
+    mouseState: IMouseState
+}
+
+export const defaultEngineState: IEngineState = {
+    html: '',
+    text: '',
+    content: '',
+    selection: null,
+    activeFormatState: formatDefinitionMap,
+    historyLength: -1,
+    canUndo: false,
+    canRedo: false,
+    mouseState: { down: false, move: false }
 }
 
 export const trackFormatingByTagName = (

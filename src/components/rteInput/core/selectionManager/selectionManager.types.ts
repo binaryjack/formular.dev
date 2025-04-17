@@ -1,13 +1,16 @@
-import { IMouseState, ISelection } from '../rteInput.types'
+import { ISelection } from '../rteInput.types'
+import { IRtiEngine } from '../rtiEngine/rtiEngine.types'
 
 export interface ISelectionManager {
-    new (editorElement: HTMLElement): ISelectionManager
+    new (editorElement: HTMLElement, engine: IRtiEngine): ISelectionManager
     editorElement: HTMLElement
     currentSelection: ISelection | null
-    mouseState: IMouseState
+    engine: IRtiEngine
+    isProcessingSelection: boolean
 
     captureSelection: () => ISelection | null
     restoreSelection: (selection: ISelection) => void
     getCurrentSelection: () => ISelection | null
     resetSelection: () => void
+    getAllNodesInRange: (range: Range) => Node[]
 }

@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { notify, TNotifierEventsType } from '../../../core/notifications/notifications.types'
-import { RteEngine } from '../core/rteEngine/RteEngine'
+import { RtiEngine } from '../core/rtiEngine/RtiEngine'
 
-import { IRteEngine } from '../core/rteEngine/rteEngine.types'
 import {
+    defaultEngineState,
     FormatsEnum,
-    IEditorState,
     IEngineState,
-    IMouseState,
     newCommand,
     TextEditEnum
 } from '../core/rteInput.types'
+import { IRtiEngine } from '../core/rtiEngine/rtiEngine.types'
 
-export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
-    const rteEngine = useRef<IRteEngine | null>(null)
-    const [mouseState, setMouseState] = useState<IMouseState>({
-        down: false,
-        move: false
-    })
-    const [editorState, setEditorState] = useState<IEditorState | null>(null)
+export const useRteEngine = (
+    editorRef: React.RefObject<HTMLDivElement>,
+    initialState?: Partial<IEngineState>,
+    onStateChanged?: (state: IEngineState) => void
+) => {
+    const rteEngine = useRef<IRtiEngine | null>(null)
+
+    const [state, setState] = useState<IEngineState>(defaultEngineState)
 
     const handleUndo = () => rteEngine?.current?.undo?.()
     const handleRedo = () => rteEngine?.current?.redo?.()
@@ -44,23 +44,8 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     const handleSelectionChangeOnClick = () => rteEngine?.current?.mouseClick?.()
 
     /** State Refresh */
-    const handleCommandsRefresh = (state?: IEditorState) => setEditorState(state ?? null)
-    const handleEngineRefresh = (state?: IEngineState) =>
-        state?.mouseState && setMouseState(state?.mouseState)
 
-    const acceptCommandsNotificationStrategy = (
-        localName: string,
-        trigger: TNotifierEventsType
-    ) => {
-        if (!rteEngine.current || !editorRef.current) return
-        rteEngine.current.commandManager.accept(
-            notify(
-                `${editorRef.current.id}_${localName}_${handleCommandsRefresh.name}`,
-                handleCommandsRefresh.bind(useRteEngine),
-                trigger
-            )
-        )
-    }
+    const handleEngineRefresh = (state?: IEngineState) => setState(state ?? defaultEngineState)
 
     const acceptEngineNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
         if (!rteEngine.current || !editorRef.current) return
@@ -76,43 +61,57 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
     const handleInput = () => {
         if (editorRef?.current && rteEngine.current) {
             // Create a history entry for text input
-            if (rteEngine.current.commandManager.editorElement) {
+            if (editorRef?.current) {
                 const newContent = JSON.stringify(editorRef.current.innerHTML)
 
                 // Only if content actually changed
-                if (rteEngine?.current?.commandManager?.lastContent !== newContent) {
-                    rteEngine.current.commandManager.addToHistory({
+                if (rteEngine?.current?.lastContent !== newContent) {
+                    rteEngine.current.historyManager.addToHistory({
                         commandType: TextEditEnum.insertText,
                         timestamp: Date.now(),
-                        previousState: rteEngine?.current?.commandManager?.lastContent || '',
+                        previousState: rteEngine?.current?.lastContent || '',
                         newState: newContent
                     })
 
                     // Store last content for next comparison
-                    rteEngine.current.commandManager.lastContent = newContent
+                    rteEngine.current.lastContent = newContent
                 }
             }
 
             // Normalize the HTML structure
-            rteEngine.current.commandManager.cleanHtml?.()
+            rteEngine.current.cleanHtml?.()
 
             const content = editorRef.current.innerText
-            const cnt: IEditorState = editorState
-                ? ({ ...editorState, content: content ?? '' } as IEditorState)
-                : ({ content: content ?? '' } as IEditorState)
+            const cnt: IEngineState = state
+                ? ({ ...state, content: content ?? '' } as IEngineState)
+                : ({ content: content ?? '' } as IEngineState)
 
-            setEditorState(cnt)
+            setState(cnt)
         }
     }
+
+    // Add effect to call onStateChange when state changes
+    useEffect(() => {
+        if (onStateChanged && state) {
+            onStateChanged(state)
+        }
+    }, [state, onStateChanged])
+
+    // Add effect to apply initialState if provided
+    useEffect(() => {
+        if (initialState && rteEngine?.current) {
+            // Apply the initial state to the editor
+            // You'll need to implement this logic
+        }
+    }, [initialState])
 
     useEffect(() => {
         const editor = editorRef.current
         if (editor) {
-            const commandManager = new RteEngine(editorRef.current)
+            const commandManager = new RtiEngine(editorRef.current)
 
             rteEngine.current = commandManager
 
-            acceptCommandsNotificationStrategy('command_state_changed', 'formattingStateChanged')
             acceptEngineNotificationStrategy('engine_state_changed', 'engineStateChanged')
 
             editor.addEventListener('input', handleInput)
@@ -143,8 +142,8 @@ export const useRteEngine = (editorRef: React.RefObject<HTMLDivElement>) => {
         handleInput,
         handleUndo,
         handleRedo,
-        mouseState,
+        mouseState: state.mouseState,
         handleMouseLeave,
-        editorState
+        state
     }
 }

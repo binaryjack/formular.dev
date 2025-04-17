@@ -1,21 +1,23 @@
-import { useRef } from 'react'
+import RteDebug from './components/debugger/RteDebug'
 import { RtbHeader } from './components/rtbHeader/RtbHeader'
-import RteDebug from './core/debugger/RteDebug'
-import { FormatsEnum, IFormatDefinition } from './core/rteInput.types'
+import { IEngineState } from './core/rteInput.types'
 import { useRteEngine } from './hooks/useRteEngine'
 
 export interface IRteInputProps {
     id: string
+    onStateChange?: (state: IEngineState) => void
+    initialState?: Partial<IEngineState>
+    editorRef: React.RefObject<HTMLDivElement>
+    debug?: boolean
 }
 
-export const isFormatActive = (
-    activeFormatState: IFormatDefinition[] | undefined,
-    expectedFormat: FormatsEnum
-) => activeFormatState?.find?.((o) => o.formatName === expectedFormat)?.active ?? false
-
-export const RteInput = ({ id }: IRteInputProps) => {
-    const editorRef = useRef<HTMLDivElement>(null)
-
+export const RteInput = ({
+    id,
+    onStateChange,
+    initialState,
+    editorRef,
+    debug = false
+}: IRteInputProps) => {
     const {
         handleMouseDown,
         handleMouseMove,
@@ -24,11 +26,11 @@ export const RteInput = ({ id }: IRteInputProps) => {
         handleSelectionChangeOnClick,
         handleInput,
         handleCommand,
-        editorState,
+        state,
         mouseState,
         handleRedo,
         handleUndo
-    } = useRteEngine(editorRef)
+    } = useRteEngine(editorRef, initialState, onStateChange)
 
     // Add keyboard shortcut handler
     const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -44,10 +46,11 @@ export const RteInput = ({ id }: IRteInputProps) => {
             handleRedo()
         }
     }
+
     return (
         <div id={id} className={`rte-input flex flex-col w-full h-full`}>
             <RtbHeader
-                editorState={editorState}
+                engineState={state}
                 handleCommand={handleCommand}
                 mouseState={mouseState}
                 handleUndo={handleUndo}
@@ -65,10 +68,10 @@ export const RteInput = ({ id }: IRteInputProps) => {
                 onMouseDown={handleMouseDown}
                 onMouseLeave={handleMouseLeave}
                 onKeyDown={handleKeyDown}
-                className={`flex flex-col w-[700px] h-[300px] mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap overflow-y-auto list-decimal`}
+                className={`rte-input flex flex-col w-[700px] h-[300px] mr-3 cursor-text min-h-[100px] p-[8px] border-2 border-slate-400 text-wrap overflow-y-auto list-decimal`}
             />
 
-            <RteDebug editorRef={editorRef} editorState={editorState} />
+            {debug && <RteDebug editorRef={editorRef} engineState={state} />}
         </div>
     )
 }
