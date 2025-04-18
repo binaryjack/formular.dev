@@ -2,6 +2,7 @@ import { IRtiEngine } from '../rtiEngine/rtiEngine.types'
 import { captureSelection } from './prototype/captureSelection'
 import { getAllNodesInRange } from './prototype/getAllNodesInRange'
 import { getCurrentSelection } from './prototype/getCurrentSelection'
+import { getLinkAtSelection } from './prototype/getLinkAtSelection'
 import { resetSelection } from './prototype/resetSelection'
 import { restoreSelection } from './prototype/restoreSelection'
 import { ISelectionManager } from './selectionManager.types'
@@ -22,5 +23,6 @@ Object.assign(SelectionManager.prototype, {
     restoreSelection,
     getCurrentSelection,
     resetSelection,
-    getAllNodesInRange
+    getAllNodesInRange,
+    getLinkAtSelection
 })

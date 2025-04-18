@@ -24,7 +24,7 @@ export const undo = function (this: IHistoryManager): boolean {
         }
 
         // Set the editor content back to the previous state
-        this.editorElement.innerHTML = JSON.parse(lastItem.previousState)
+        this.editorElement.innerHTML = lastItem.previousState ?? ''
 
         // Try to restore selection
         if (savedRange) {

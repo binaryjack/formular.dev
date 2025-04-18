@@ -12,9 +12,11 @@ export interface IFormatManager {
 
     applyFormatting: (tagName: string, range: Range, selection: Selection) => void
     applyListFormatting: (range: Range, selection: Selection) => void
+    applyLinkFormatting: (url: string, text?: string) => void
 
     removeFormatting: (formatType: string) => void
     removeListFormatting: (range: Range, selection: Selection) => void
+    removeLinkFormatting: () => void
 
     updateActiveFormat: (tagName: string, active: boolean) => void
     processFragmentFormatting: (fragment: DocumentFragment, tagName: string) => DocumentFragment

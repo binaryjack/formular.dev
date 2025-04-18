@@ -24,7 +24,7 @@ export const redo = function (this: IHistoryManager): boolean {
         }
 
         // Set the editor content to the redo state
-        this.editorElement.innerHTML = JSON.parse(redoItem.newState)
+        this.editorElement.innerHTML = redoItem.newState ?? ''
 
         // Try to restore selection
         if (savedRange) {

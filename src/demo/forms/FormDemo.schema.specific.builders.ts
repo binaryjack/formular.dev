@@ -10,7 +10,11 @@ export const DateTimeBuilder = new FieldSchemaBuilder(7, 'dateTimeValue')
     .setTypeData('datetime')
     .setDefaultValue('24/10/1977')
 export const RadioBuilder = new FieldSchemaBuilder(8, 'selectedRadioId').setTypeData('radio')
-export const RteBuilder = new FieldSchemaBuilder(9, 'richTextField').setTypeData('textarea')
+export const RteBuilder = new FieldSchemaBuilder(9, 'richTextField')
+    .setTypeData('textarea')
+    .setDefaultValue(
+        'IjxlbT5qZSBTdWlzJm5ic3A7PC9lbT4gPHN0cm9uZz5WcmFpbWVudDwvc3Ryb25nPiA8cz5UcuhzIENvb2w8L3M+Ig=='
+    )
 export const RangeBuilder = new FieldSchemaBuilder(10, 'rangeSlider')
     .setTypeData('range')
     .setDefaultValue('25')

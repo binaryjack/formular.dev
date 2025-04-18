@@ -1,4 +1,4 @@
-import { ISelection } from '../rteInput.types'
+import { ILinkData, ISelection } from '../rteInput.types'
 import { IRtiEngine } from '../rtiEngine/rtiEngine.types'
 
 export interface ISelectionManager {
@@ -13,4 +13,5 @@ export interface ISelectionManager {
     getCurrentSelection: () => ISelection | null
     resetSelection: () => void
     getAllNodesInRange: (range: Range) => Node[]
+    getLinkAtSelection: () => ILinkData | null
 }

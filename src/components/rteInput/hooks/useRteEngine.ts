@@ -6,15 +6,16 @@ import {
     defaultEngineState,
     FormatsEnum,
     IEngineState,
+    IStateData,
     newCommand,
-    TextEditEnum
+    newStateData
 } from '../core/rteInput.types'
 import { IRtiEngine } from '../core/rtiEngine/rtiEngine.types'
 
 export const useRteEngine = (
     editorRef: React.RefObject<HTMLDivElement>,
-    initialState?: Partial<IEngineState>,
-    onStateChanged?: (state: IEngineState) => void
+    initialState: IStateData,
+    onStateChanged?: (state: IStateData) => void
 ) => {
     const rteEngine = useRef<IRtiEngine | null>(null)
 
@@ -43,9 +44,30 @@ export const useRteEngine = (
     // Handle text selection
     const handleSelectionChangeOnClick = () => rteEngine?.current?.mouseClick?.()
 
+    const handleOnBlur = () => {
+        if (!state || rteEngine?.current?.lastContent === state?.html) return
+        if (onStateChanged && state) {
+            onStateChanged(newStateData(state?.html))
+        }
+    }
+
+    // Add this function to your useRteEngine hook
+    const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+        // Prevent the default paste behavior
+        e.preventDefault()
+
+        if (!editorRef?.current || !rteEngine.current) return
+
+        // Get the clipboard data
+        const clipboard = e.clipboardData
+        rteEngine?.current?.handlePaste(clipboard)
+    }
+
     /** State Refresh */
 
     const handleEngineRefresh = (state?: IEngineState) => setState(state ?? defaultEngineState)
+
+    const normalizeStructure = () => rteEngine?.current?.normalizeStructure()
 
     const acceptEngineNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
         if (!rteEngine.current || !editorRef.current) return
@@ -60,22 +82,13 @@ export const useRteEngine = (
 
     const handleInput = () => {
         if (editorRef?.current && rteEngine.current) {
+            // Normalize structure first
+            rteEngine.current.normalizeStructure()
+
             // Create a history entry for text input
             if (editorRef?.current) {
-                const newContent = JSON.stringify(editorRef.current.innerHTML)
-
-                // Only if content actually changed
-                if (rteEngine?.current?.lastContent !== newContent) {
-                    rteEngine.current.historyManager.addToHistory({
-                        commandType: TextEditEnum.insertText,
-                        timestamp: Date.now(),
-                        previousState: rteEngine?.current?.lastContent || '',
-                        newState: newContent
-                    })
-
-                    // Store last content for next comparison
-                    rteEngine.current.lastContent = newContent
-                }
+                const content = editorRef.current.innerText
+                rteEngine?.current?.onExternalStateChanged(content)
             }
 
             // Normalize the HTML structure
@@ -90,20 +103,31 @@ export const useRteEngine = (
         }
     }
 
-    // Add effect to call onStateChange when state changes
+    // Add this to your useRteEngine hook initialization
     useEffect(() => {
-        if (onStateChanged && state) {
-            onStateChanged(state)
+        if (
+            editorRef.current &&
+            (!editorRef.current.innerHTML || editorRef.current.innerHTML === '<br>')
+        ) {
+            // Start with an empty paragraph to ensure proper structure
+            editorRef.current.innerHTML = '<p><br></p>'
         }
-    }, [state, onStateChanged])
+    }, [editorRef])
 
     // Add effect to apply initialState if provided
     useEffect(() => {
-        if (initialState && rteEngine?.current) {
-            // Apply the initial state to the editor
-            // You'll need to implement this logic
-        }
-    }, [initialState])
+        if (!rteEngine?.current || !editorRef?.current) return
+
+        rteEngine?.current?.onExternalStateChanged(initialState?.data)
+        // You'll need to implement this logic
+        rteEngine.current.setState?.(initialState?.data)
+
+        const cnt: IEngineState = state
+            ? ({ ...state, content: initialState?.data ?? '' } as IEngineState)
+            : ({ content: initialState?.data ?? '' } as IEngineState)
+
+        setState(cnt)
+    }, [initialState?.ts])
 
     useEffect(() => {
         const editor = editorRef.current
@@ -144,6 +168,9 @@ export const useRteEngine = (
         handleRedo,
         mouseState: state.mouseState,
         handleMouseLeave,
+        normalizeStructure,
+        handleOnBlur,
+        handlePaste,
         state
     }
 }

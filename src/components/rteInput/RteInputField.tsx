@@ -3,10 +3,10 @@ import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
 import { RteInput } from '../rteInput/RteInput'
-import { IEngineState } from '../rteInput/core/rteInput.types'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import { deserializeEngineState } from './core/io/deserializeEngineState'
 import { serializeEngineState } from './core/io/serializeEngineState '
+import { IStateData, newStateData } from './core/rteInput.types'
 
 interface IRteInputFieldProps {
     fieldName: string
@@ -19,35 +19,44 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
     const [editorId] = useState(`rte-${fieldName}-${Math.random().toString(36).substring(2, 9)}`)
 
     // Store the latest state to sync with field
-    const [lastState, setLastState] = useState<Partial<IEngineState> | undefined>()
+    const [lastState, setLastState] = useState<IStateData>({
+        data: null,
+        ts: ''
+    })
+    const [initialState, setInitialState] = useState<IStateData>({
+        data: null,
+        ts: ''
+    })
 
     // When editor state changes, serialize and update field value
-    const handleEditorStateChange = (state: IEngineState) => {
-        setLastState(state)
+    const handleEditorStateChange = (state: IStateData) => {
+        // setLastState(state)
 
         if (field) {
             // Serialize the state to a safe format and store in field
-            const serializedData = serializeEngineState(state)
+            const serializedData = serializeEngineState(state?.data)
+
+            if (lastState.data === serializedData) return
             field.setValue(serializedData)
+            setLastState(newStateData(serializedData))
         }
     }
 
     // When field value changes from outside, update editor
     useEffect(() => {
-        const fieldValue = field?.get()
+        const fieldValue = field?.defaultValue
         if (fieldValue && typeof fieldValue === 'string') {
             try {
                 // Deserialize from field value
                 const editorState = deserializeEngineState(fieldValue)
                 // Update editor (would need implementation in RteInput)
                 // This would require adding a "setState" prop to RteInput
-
-                setLastState(editorState)
+                setInitialState(newStateData(editorState))
             } catch (e) {
                 console.error('Failed to deserialize RTE content', e)
             }
         }
-    }, [field?.get()])
+    }, [field?.defaultValue])
 
     return (
         <FieldSet
@@ -64,16 +73,15 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
             }
             onClear={() => {
                 field?.clear()
-                // Also clear editor content
-                // This would require adding a "clear" prop to RteInput
+                setTimeout(() => setInitialState(newStateData(null)), 1)
             }}
         >
             <div className="w-full">
                 <RteInput
                     id={editorId}
                     onStateChange={handleEditorStateChange}
-                    initialState={lastState}
-                    editorRef={editorRef}
+                    initialState={initialState}
+                    externalEditorRef={editorRef}
                 />
             </div>
         </FieldSet>

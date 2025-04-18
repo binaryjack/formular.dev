@@ -25,7 +25,8 @@ export enum FormatsEnum {
     italic = 'italic',
     underline = 'underline',
     strikethrough = 'strikethrough',
-    unorderedList = 'unorderedList'
+    unorderedList = 'unorderedList',
+    link = 'link'
 }
 
 export enum TagEnum {
@@ -33,7 +34,8 @@ export enum TagEnum {
     italic = 'EM',
     underline = 'U',
     strikethrough = 'S',
-    unorderedList = 'UL'
+    unorderedList = 'UL',
+    link = 'A'
 }
 
 export type TagsType = keyof typeof TagEnum
@@ -47,7 +49,8 @@ export const formatDefinitionMap: IFormatDefinition[] = [
     newFormatDefinition(TagEnum.italic, FormatsEnum.italic, false),
     newFormatDefinition(TagEnum.underline, FormatsEnum.underline, false),
     newFormatDefinition(TagEnum.strikethrough, FormatsEnum.strikethrough, false),
-    newFormatDefinition(TagEnum.unorderedList, FormatsEnum.unorderedList, false)
+    newFormatDefinition(TagEnum.unorderedList, FormatsEnum.unorderedList, false),
+    newFormatDefinition(TagEnum.link, FormatsEnum.link, false)
 ]?.sort((a, b) => a?.tagName?.toString?.().localeCompare(b?.tagName))
 
 // Map format types to tag names
@@ -56,7 +59,8 @@ export const tagMap: Record<string, string> = {
     italic: TagEnum.italic,
     underline: TagEnum.underline,
     strikethrough: TagEnum.strikethrough,
-    unorderedList: TagEnum.unorderedList
+    unorderedList: TagEnum.unorderedList,
+    link: TagEnum.link
 }
 
 export type RteCommandType =
@@ -65,6 +69,7 @@ export type RteCommandType =
     | FormatsEnum.underline
     | FormatsEnum.strikethrough
     | FormatsEnum.unorderedList
+    | FormatsEnum.link
     | TextEditEnum.insertText
     | TextEditEnum.deleteText
 
@@ -124,6 +129,21 @@ export interface IMouseState {
 export interface IHistoryItem {
     commandType: RteCommandType
     timestamp: number
-    previousState: string
-    newState: string
+    previousState: string | null
+    newState: string | null
+}
+
+export interface IStateData {
+    data: string | null
+    ts: string
+}
+
+export const newStateData = (data: string | null): IStateData => {
+    return { data: data, ts: `${Math.random().toString(36).substring(2, 9)}` }
+}
+
+export interface ILinkData {
+    node: HTMLAnchorElement
+    url: string
+    text: string
 }

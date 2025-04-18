@@ -6,6 +6,7 @@ import { SelectionManager } from '../selectionManager/SelectionManager'
 import { cleanHtml } from './prototype/cleanHtml'
 import { execute } from './prototype/execute'
 import { getState } from './prototype/getState'
+import { handlePaste } from './prototype/handlePaste'
 import { mouseDown } from './prototype/mouseDown'
 import { mouseDownState } from './prototype/mouseDownState'
 import { mouseLeave } from './prototype/mouseLeave'
@@ -13,7 +14,9 @@ import { mouseMove } from './prototype/mouseMove'
 import { mouseMoveState } from './prototype/mouseMoveState'
 import { mouseUp } from './prototype/mouseUp'
 import { normalizeHtml } from './prototype/normalizeHtml'
+import { normalizeStructure } from './prototype/normalizeStructure'
 import { notifyStateChanges } from './prototype/notifyStateChanges'
+import { onExternalStateChanged } from './prototype/onExternalStateChanged'
 import { redo } from './prototype/redo'
 import { resetEditor } from './prototype/resetEditor'
 import { resetSelection } from './prototype/resetSelection'
@@ -21,6 +24,7 @@ import { sanitizeHtml } from './prototype/sanitizeHtml'
 import { selectionChanged } from './prototype/selectionChanged'
 import { setState } from './prototype/setState'
 import { undo } from './prototype/undo'
+import { wrapNodesInParagraph } from './prototype/wrapNodesInParagraph'
 import { IRtiEngine } from './rtiEngine.types'
 
 /**
@@ -69,5 +73,9 @@ Object.assign(RtiEngine.prototype, {
     normalizeHtml,
     sanitizeHtml,
     cleanHtml,
-    resetEditor
+    resetEditor,
+    handlePaste,
+    onExternalStateChanged,
+    normalizeStructure,
+    wrapNodesInParagraph
 })

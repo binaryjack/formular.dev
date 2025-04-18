@@ -18,7 +18,8 @@ export interface IRtiEngineBase {
     formatManager: IFormatManager
 
     /** State */
-    lastContent: string
+
+    lastContent: string | null
     mouseState: IMouseState
     /**command helper */
     execute: (command: Omit<IRteCommand, 'timestamp'>) => boolean
@@ -36,7 +37,8 @@ export interface IRtiEngineBase {
     removeListeners: () => void
     /** Get current state */
     getState: () => IEngineState
-    setState: (state: IEngineState) => void
+    setState: (state: string | null) => void
+    onExternalStateChanged: (htmlContent: string | null) => void
     /** notifiers */
     notifyStateChanges: () => void
     notifyStateChangesAll: () => void
@@ -52,7 +54,13 @@ export interface IRtiEngineBase {
     mouseUp: (event?: MouseEvent) => void
     mouseClick: () => void
 
+    handlePaste: (clipboard: DataTransfer) => void
+
     /** cleaners */
+
+    normalizeStructure: () => void
+    wrapNodesInParagraph: (nodes: Node[]) => void
+
     normalizeHtml: () => void
     sanitizeHtml: () => void
     sanitizeNode: () => void
