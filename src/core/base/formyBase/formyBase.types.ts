@@ -1,3 +1,4 @@
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { INotifiableEntity } from '../../notifiableEntity/notifiableEntityBase.types'
 import { LoadingStatus } from '../../status'
 import { IFieldInput } from '../fieldInputBase/fieldInput.types'
@@ -29,6 +30,7 @@ export interface IFormyBase {
     getField: (fieldName: string) => IFieldInput | undefined
     checkChanges: () => void
     hasChanges: (callback: () => void) => void
+    getData: () => Record<string, FieldValuesTypes>
 }
 
 export interface IFieldChange {

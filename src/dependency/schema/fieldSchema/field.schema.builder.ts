@@ -46,6 +46,18 @@ FieldSchemaBuilder.prototype = {
         this.defaultValue = defaultValue
         return this
     },
+    setPattern: function (pattern: RegExp | undefined) {
+        this.pattern = pattern
+        return this
+    },
+    setCustomError: function (customError: string) {
+        this.customError = customError
+        return this
+    },
+    setCustomGuider: function (customGuide: string) {
+        this.customGuide = customGuide
+        return this
+    },
     setValidationData: function (shouldValidate: boolean, validationData?: IValidationSchema) {
         this.pattern = validationData?.pattern
         this.min = validationData?.min

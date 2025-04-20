@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import FormyProvider, { newFormy } from '../../components/formy/Formy.context'
+import { newFormy } from '../../components/formy/Formy.context'
+import FormyForm from '../../components/formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
-import { FieldInput } from '../../core/base/fieldInputBase/FieldInput'
 import { Formy } from '../../core/base/formyBase/FormyBase'
 import { IFormy } from '../../core/base/formyBase/formyBase.types'
 import { SchemaDataTypes } from '../../dependency/form.common.enums'
 import { getTranslationBuilder, getTranslations } from '../../dependency/localize/localize.utils'
 import { FieldSchemaBuilder } from '../../dependency/schema/fieldSchema/field.schema.builder'
 import { IEntityScheme } from '../../dependency/schema/fieldSchema/field.schema.types'
-import { namesPattern } from '../../dependency/schema/validationSchema/validation.regex.patterns'
 import {
+    eMailPattern,
+    namesPattern
+} from '../../dependency/schema/validationSchema/validation.regex.patterns'
+import {
+    minMaxTypeMethodBuilder1,
     minMaxTypeMethodBuilder2,
     ValidationSchemaBuildersEnum
 } from '../../dependency/schema/validationSchema/validation.schema.builder.types'
 import validationSchemaFactory from '../../dependency/schema/validationSchema/validation.schema.factory'
 import { IValidationSchema } from '../../dependency/schema/validationSchema/validation.schema.types'
-import { hasMaxLength, hasMinLength, hasPattern, isRequired } from '../../dependency/validation'
 
 const fieldsIds: Record<string, number> = {
     'required-field': 0,
@@ -46,6 +49,14 @@ const minMaxNameBuilder =
     validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder2>(
         ValidationSchemaBuildersEnum.MinLengthAndMaxLengthBuilder
     )?.(3, 50)
+
+const minLengthBuilder = validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder1>(
+    ValidationSchemaBuildersEnum.MinLengthBuilder
+)?.(5)
+
+const maxLengthBuilder = validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder1>(
+    ValidationSchemaBuildersEnum.MaxLengthBuilder
+)?.(20)
 
 const setupForm = (
     id: number,
@@ -90,10 +101,10 @@ const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormy 
 const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
-        minMaxNameBuilder,
+        minLengthBuilder,
         namesPattern,
-        'This field is required',
-        'Please enter a value'
+        'Value is too short',
+        'Enter at least 5 characters'
     )
 
     setupForm(
@@ -104,6 +115,52 @@ const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy
         setForm,
         customValidator
     )
+}
+
+// Setup field with required validation
+const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+    const customValidator = validationSchemaFactory.finalizer(
+        true,
+        maxLengthBuilder,
+        namesPattern,
+        'Value is too long',
+        'Enter at most 20 characters'
+    )
+
+    setupForm(
+        fieldsIds['maxlength-field'],
+        'maxlength-field',
+        'text',
+        true,
+        setForm,
+        customValidator
+    )
+}
+
+// Setup field with required validation
+const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+    const customValidator = validationSchemaFactory.finalizer(
+        true,
+        minLengthBuilder,
+        eMailPattern,
+        'Invalid format',
+        'Enter a valid email address'
+    )
+
+    setupForm(fieldsIds['pattern-field'], ' pattern-field', 'text', true, setForm, customValidator)
+}
+
+// Setup field with required validation
+const setupMultipleValidations = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+    const customValidator = validationSchemaFactory.finalizer(
+        true,
+        minLengthBuilder,
+        eMailPattern,
+        'This field is required',
+        'Invalid format'
+    )
+
+    setupForm(fieldsIds['multiple-field'], 'multiple-field', 'text', true, setForm, customValidator)
 }
 
 const ValidationTestPage = () => {
@@ -118,96 +175,6 @@ const ValidationTestPage = () => {
             // Cleanup if needed
         }
     }, [formId])
-
-    // Setup field with minLength validation
-    const setupMinLengthField = () => {
-        const field = new FieldInput({
-            id: fieldsIds['minlength-field'],
-            name: 'minLengthField',
-            label: 'Min Length Field',
-            type: 'text',
-            value: '',
-            validationOptions: {
-                minLength: hasMinLength(5, 'Value is too short', 'Enter at least 5 characters')
-            },
-            ...fieldDescriptionValues
-        })
-        field.setValidationTriggerMode(['onBlur', 'onChange', 'onSubmit'])
-
-        if (form) {
-            form.addFields(field)
-            setForm({ ...form } as IFormy)
-        }
-    }
-
-    // Setup field with maxLength validation
-    const setupMaxLengthField = () => {
-        const field = new FieldInput({
-            id: fieldsIds['maxlength-field'],
-            name: 'maxLengthField',
-            label: 'Max Length Field',
-            type: 'text',
-            value: '',
-            validationOptions: {
-                maxLength: hasMaxLength(20, 'Value is too long', 'Enter at most 20 characters')
-            },
-            ...fieldDescriptionValues
-        })
-        field.setValidationTriggerMode(['onBlur', 'onChange', 'onSubmit'])
-
-        if (form) {
-            form.addFields(field)
-            setForm({ ...form } as IFormy)
-        }
-    }
-
-    // Setup field with pattern validation
-    const setupPatternField = () => {
-        const field = new FieldInput({
-            id: fieldsIds['pattern-field'],
-            name: 'patternField',
-            label: 'Email Field',
-            type: 'text',
-            value: '',
-            validationOptions: {
-                pattern: hasPattern(
-                    '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$',
-                    'Invalid format',
-                    'Enter a valid email address'
-                )
-            },
-            ...fieldDescriptionValues
-        })
-        field.setValidationTriggerMode(['onBlur', 'onChange', 'onSubmit'])
-
-        if (form) {
-            form.addFields(field)
-            setForm({ ...form } as IFormy)
-        }
-    }
-
-    // Setup field with multiple validations
-    const setupMultipleValidations = () => {
-        const field = new FieldInput({
-            id: fieldsIds['multiple-field'],
-            name: 'multipleField',
-            label: 'Email Field (Required, Min 5 chars)',
-            type: 'text',
-            value: '',
-            validationOptions: {
-                required: isRequired(true, 'This field is required'),
-                minLength: hasMinLength(5, 'Value is too short'),
-                pattern: hasPattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$', 'Invalid format')
-            },
-            ...fieldDescriptionValues
-        })
-        field.setValidationTriggerMode(['onBlur', 'onChange', 'onSubmit'])
-
-        if (form) {
-            form.addFields(field)
-            setForm({ ...form } as IFormy)
-        }
-    }
 
     // Handle form submission
     const handleSubmit = (e: React.FormEvent) => {
@@ -241,21 +208,21 @@ const ValidationTestPage = () => {
                     </button>
                     <button
                         data-test="setup-maxLength"
-                        onClick={setupMaxLengthField}
+                        onClick={() => setupMaxlengthField(setForm)}
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                     >
                         MaxLength Field
                     </button>
                     <button
                         data-test="setup-pattern"
-                        onClick={setupPatternField}
+                        onClick={() => setupPatternField(setForm)}
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                     >
                         Pattern Field
                     </button>
                     <button
                         data-test="setup-multiple"
-                        onClick={setupMultipleValidations}
+                        onClick={() => setupMultipleValidations(setForm)}
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                     >
                         Multiple Validations
@@ -264,7 +231,7 @@ const ValidationTestPage = () => {
             </div>
 
             {form && (
-                <FormyProvider formInstance={form}>
+                <FormyForm formy={form}>
                     <form onSubmit={handleSubmit} className="mb-6">
                         <div className="mb-4">
                             <InputText fieldName="requiredField" />
@@ -282,7 +249,7 @@ const ValidationTestPage = () => {
                             Submit
                         </button>
                     </form>
-                </FormyProvider>
+                </FormyForm>
             )}
         </div>
     )

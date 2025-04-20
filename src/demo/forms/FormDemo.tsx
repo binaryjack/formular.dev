@@ -38,6 +38,10 @@ interface IFieldDemoProps {
 }
 
 const FormDemo = () => {
+    const handleSubmit = (data: any) => {
+        console.log(data)
+    }
+
     const onSelectDate = (startDate?: INDate, endDate?: INDate) => {
         const sd = new DateObject()
         const ed = new DateObject()
@@ -52,7 +56,7 @@ const FormDemo = () => {
     }, [demoFormInstance])
 
     return (
-        <FormyForm formy={demoFormInstance}>
+        <FormyForm formy={demoFormInstance} onSubmit={handleSubmit}>
             {/* <DatePickerContentDrawer
                 onSelectDate={onSelectDate}
                 id={'DatePickerDrawerDemoStatic'}

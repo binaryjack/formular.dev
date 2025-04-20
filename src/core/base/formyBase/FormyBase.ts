@@ -1,3 +1,4 @@
+import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { DataMutationObserverSubject } from '../../dataMutationObserver/DataMutationObserverSubject'
 import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { LoadingStatus } from '../../status'
@@ -74,6 +75,13 @@ Formy.prototype = {
     },
     getField: function (fieldName: string) {
         return this.fields.find((field: IFieldInput) => field.name === fieldName)
+    },
+    getData: function () {
+        const output: Record<string, FieldValuesTypes> = {}
+        for (const f of this.fields) {
+            output[f.name] = f.get()
+        }
+        return output
     },
     setValidationTriggerMode: function (mode: ValidationTriggerModeType[]) {
         this.validationTriggerModeType = mode

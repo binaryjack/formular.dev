@@ -2,15 +2,19 @@ import React, { useMemo } from 'react'
 
 import { IFieldInput } from '../../core/base/fieldInputBase/fieldInput.types'
 import { IFormy, IFormyFlags } from '../../core/base/formyBase/formyBase.types'
+import { FieldValuesTypes } from '../../dependency/schema/descriptor/field.data.types'
+import { Button } from '../button/Button'
+import { conventions } from '../context/conventions/conventions'
 import { formyContext, IFormyContext, useForm } from './Formy.context'
 import FormyDebug from './Formy.debug'
 
 interface IFormyFormProps {
     formy: IFormy
     children: React.ReactNode
+    onSubmit?: (data: Record<string, FieldValuesTypes>) => void
 }
 
-const FormyForm = ({ formy, children }: IFormyFormProps) => {
+const FormyForm = ({ formy, children, onSubmit }: IFormyFormProps) => {
     // const [formInstance, setFormInstance] = useState<IFormy | undefined>()
 
     const formInstance = useMemo(() => {
@@ -25,6 +29,12 @@ const FormyForm = ({ formy, children }: IFormyFormProps) => {
     //     if (!formy) return
     //     setFormInstance(formy)
     // }, [schema, translationBuilder, validationLocalize])
+
+    const handleSubmit = () => {
+        formInstance.validateAll()
+        const data = formInstance.getData()
+        onSubmit?.(data)
+    }
 
     const output: IFormyContext = {
         getFields: () => {
@@ -50,6 +60,20 @@ const FormyForm = ({ formy, children }: IFormyFormProps) => {
             <form data-form-id={`${formInstance.id}`} className={`formy `}>
                 {children}
             </form>
+            {onSubmit && (
+                <Button
+                    id={`${formInstance?.id ?? conventions.IdIsEmpty()}-submit`}
+                    title={`Submit`}
+                    variantProperties={{
+                        rounded: true,
+                        size: 'md',
+                        width: '2em',
+                        height: '2em',
+                        className: 'ml-0'
+                    }}
+                    onClickCallback={handleSubmit}
+                />
+            )}
             <FormyDebug formy={formInstance} />
         </formyContext.Provider>
     )
