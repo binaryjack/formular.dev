@@ -16,7 +16,8 @@
         "noImplicitThis": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "jsxImportSource": "@emotion/react"
+        "jsxImportSource": "@emotion/react",
+        "types": ["cypress"]
     },
     "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
     "include": ["src", "tests"]

@@ -12,10 +12,15 @@ export interface IValidableField {
 }
 
 export interface IValidable {
+    isValidating: boolean
     validationTriggerModeType: ValidationTriggerModeType[]
     validationResults: IValidationResult[]
+
     setValidationTriggerMode: (mode: ValidationTriggerModeType[]) => void
     handleValidation: (origin?: any) => void
+    validateAsync: (
+        validators: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
+    ) => void
 }
 
 /** if no rule is applied the the field is never validated */
@@ -87,6 +92,7 @@ export interface IValidatorStrategyData {
     value: FieldValuesTypes | null
     expectedValue: FieldValuesTypes | null
     origin: IValidationOrigin | null
+    asyncValidators?: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
     toString: () => string
 }
 

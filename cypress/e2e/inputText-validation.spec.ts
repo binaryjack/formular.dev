@@ -1,3 +1,7 @@
+/// <reference types="cypress" />
+// Ensure Cypress is properly configured and the spec file is recognized
+// You may need to check your `cypress.json` or `cypress.config.ts` file for the `integrationFolder` path
+// Example: Ensure the `integrationFolder` includes the directory containing this spec file
 describe('InputText Validation Tests', () => {
     // Helper function to setup a form with specific validation
     const setupValidationTest = (validationType: string) => {

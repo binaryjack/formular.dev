@@ -1,7 +1,10 @@
+import { IValidationResult, IValidatorStrategyData } from '../base/validatiors/validator.types'
+
 export type TNotifierEventsType =
     | 'changed'
     | 'get'
     | 'validate'
+    | 'isValidating'
     | 'clicked'
     | 'blurred'
     | 'focused'
@@ -9,7 +12,13 @@ export type TNotifierEventsType =
     | 'formattingStateChanged'
     | 'engineStateChanged'
 
+export type dataStrategyResultAsyncType = (
+    data: IValidatorStrategyData
+) => Promise<IValidationResult>
+
 export type TNotifierMethod<T = any> = (data?: T) => void
+
+export type TNotifierMethodAsnyc<T = Array<dataStrategyResultAsyncType>> = (data?: T) => void
 
 export interface INotifier {
     id: string
@@ -17,6 +26,10 @@ export interface INotifier {
     method: TNotifierMethod
 }
 
-export const notify = <T>(id: string, method: TNotifierMethod<T>, type: TNotifierEventsType) => {
+export const notify = <T>(
+    id: string,
+    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>,
+    type: TNotifierEventsType
+) => {
     return { id, method, type }
 }

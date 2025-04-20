@@ -40,6 +40,7 @@ import { setOpenState } from './prototype/setOpenState'
 import { setValidationTriggerMode } from './prototype/setValidationTriggerMode'
 import { setValue } from './prototype/setValue'
 import { validate } from './prototype/validate'
+import { validateAsync } from './prototype/validateAsync'
 
 const defaultFieldInputCSSClassName = 'f-input'
 
@@ -283,5 +284,6 @@ Object.assign(FieldInput.prototype, {
     setOpenState,
     setValidationTriggerMode,
     setValue,
-    validate
+    validate,
+    validateAsync
 })
