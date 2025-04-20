@@ -1,3 +1,4 @@
+import { ValidationTriggerModeType } from '../../../core/base/validatiors/validator.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IOptionItem } from '../optionsSchema/options.scheme.types'
 import { IValidationSchema } from '../validationSchema/validation.schema.types'
@@ -24,6 +25,7 @@ export const FieldSchemaBuilder = function (
     this.options = []
     this.expectedValue = null
     this.shouldValidate = false
+    this.validationTriggerMode = []
 } as any as IFieldSchemaBuilder
 
 FieldSchemaBuilder.prototype = {
@@ -55,6 +57,9 @@ FieldSchemaBuilder.prototype = {
         this.customError = validationData?.customError
         this.shouldValidate = shouldValidate
         return this
+    },
+    setValidationTriggerMode: function (validationTriggerMode: ValidationTriggerModeType[]) {
+        this.validationTriggerMode = validationTriggerMode
     },
     build: function () {
         return {

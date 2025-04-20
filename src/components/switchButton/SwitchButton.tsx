@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { AppBreakPointSizesType, orientationTypes, VariantNameType } from '../../style/global.types'
+import { useEffect, useState } from 'react'
 import './SwitchButton.base.css'
 import './SwitchButton.danger.css'
 import './SwitchButton.info.css'
@@ -7,28 +6,38 @@ import './SwitchButton.primary.css'
 import './SwitchButton.secondary.css'
 import './SwitchButton.sizes.css'
 import './SwitchButton.success.css'
+import { ISwitchButtonOptions } from './SwitchButton.types'
 import './SwitchButton.warning.css'
 
 // filepath: e:/Sources/SignalsPatternsReact/src/components/switchButton/SwitchButton.tsx
 
 interface ISwitchButtonProps {
     fieldName: string
-    orientation?: orientationTypes
-    size?: AppBreakPointSizesType
-    variant?: VariantNameType
+    options: ISwitchButtonOptions
+    onToggle: (value: boolean) => void
+    isToggle: boolean
 }
 
 export const SwitchButton = ({
     fieldName,
-    orientation = 'horizontal',
-    size = 'md',
-    variant = 'primary'
+    options = {
+        orientation: 'horizontal',
+        size: 'md',
+        variant: 'primary'
+    },
+    onToggle,
+    isToggle
 }: ISwitchButtonProps) => {
+    const { orientation, size, variant } = options
     const [isOn, setIsOn] = useState(false)
-
     const handleToggle = () => {
-        setIsOn((prev) => !prev)
+        const output = !isOn
+        setIsOn(output)
+        onToggle(output)
     }
+    useEffect(() => {
+        setIsOn(isToggle)
+    }, [isToggle])
 
     const switchClasses = [
         'switch-button',

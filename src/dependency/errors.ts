@@ -22,28 +22,28 @@ export interface IGeneralError {
 export interface IFieldError {
     name: string
     code: string
-    text?: string
+    message?: string
 }
 
-export const newFieldError = (name: string, code: string, text?: string): IFieldError => {
+export const newFieldError = (name: string, code: string, message?: string): IFieldError => {
     return {
         name,
         code,
-        text
+        message
     } as IFieldError
 }
 
 export interface IFieldGuide {
     name: string
     code: string
-    text?: string
+    message?: string
 }
 
-export const newFieldGuide = (name: string, code: string, text?: string): IFieldGuide => {
+export const newFieldGuide = (name: string, code: string, message?: string): IFieldGuide => {
     return {
         name,
         code,
-        text
+        message
     } as IFieldGuide
 }
 
@@ -75,7 +75,7 @@ export class FieldError extends Error {
             super('unexpected Error')
             return
         }
-        super(error.text)
+        super(error.message)
         this.fieldError = error
         this.name = 'FieldError'
     }

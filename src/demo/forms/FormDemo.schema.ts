@@ -13,6 +13,7 @@ import {
     RteBuilder,
     SelectIdBuilder,
     ShowRoomsBuilder,
+    Toggle2Builder,
     ToggleBuilder,
     UserIdBuilder
 } from './FormDemo.schema.specific.builders'
@@ -53,6 +54,7 @@ export const controlsDemoSchema: IEntityScheme = {
         RangeBuilder.build(),
         UserIdBuilder.setValidationData(true, Validators.eMailRequiredValidator).build(),
         PasswordBuilder.setValidationData(true, Validators.baseRequiredValidator).build(),
-        ToggleBuilder.build()
+        ToggleBuilder.build(),
+        Toggle2Builder.build()
     ]
 }

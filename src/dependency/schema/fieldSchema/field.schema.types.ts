@@ -1,3 +1,4 @@
+import { ValidationTriggerModeType } from '../../../core/base/validatiors/validator.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../optionsSchema/options.scheme.types'
@@ -20,6 +21,7 @@ export interface IFieldSchema {
     defaultValue: string | null
     expectedValue: string | null
     shouldValidate: boolean
+    validationTriggerMode: ValidationTriggerModeType[] | never[]
 }
 
 type NewType = IValidationSchema
@@ -31,6 +33,9 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
     setExpectedValue: (expectedValue?: any) => IFieldSchemaBuilder
     setDefaultValue: (defaultValue?: any) => IFieldSchemaBuilder
     setValidationData: (shouldValidate: boolean, validationData?: NewType) => IFieldSchemaBuilder
+    setValidationTriggerMode: (
+        validationTriggerMode: ValidationTriggerModeType[]
+    ) => IFieldSchemaBuilder
     build: () => IFieldSchema
 }
 

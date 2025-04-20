@@ -23,3 +23,6 @@ export const PasswordBuilder = new FieldSchemaBuilder(12, 'password').setTypeDat
 export const ToggleBuilder = new FieldSchemaBuilder(13, 'toggle')
     .setTypeData('toggle')
     .setDefaultValue(true)
+export const Toggle2Builder = new FieldSchemaBuilder(14, 'toggle2')
+    .setTypeData('toggle')
+    .setDefaultValue(true)

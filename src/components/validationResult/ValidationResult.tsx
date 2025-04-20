@@ -39,11 +39,11 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
                     return (
                         <div key={`${result.fieldName}-${index}`}>
                             {showError && result.error && (
-                                <div className="error">{result.error?.text}</div>
+                                <div className="error">{result.error?.message}</div>
                             )}
 
                             {showGuide && result.guide && (
-                                <div className="guide">{result.guide?.text}</div>
+                                <div className="guide">{result.guide?.message}</div>
                             )}
                         </div>
                     )
