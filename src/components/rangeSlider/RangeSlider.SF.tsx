@@ -79,7 +79,7 @@ export const RangeSliderSF = ({
             }
             onClear={() => field?.clear()}
         >
-            <div className="w-full" onKeyDown={handleKeyDown}>
+            <div className="flex w-full min-h-[37px]" onKeyDown={handleKeyDown}>
                 <RangeSliderRaw
                     id={`${field?.name ?? 'range'}-slider`}
                     value={rangeValue}

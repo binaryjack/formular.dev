@@ -27,6 +27,8 @@ export const colorsCorrecpondance: Record<string, IColorCorrespondance> = {
     info: { bg: 'violet', fg: 'lightPink' }
 }
 
+export type orientationTypes = 'vertical' | 'horizontal'
+
 export const getCorrespondingVariantColors = (variant: VariantNameType) =>
     colorsCorrecpondance[variant]
 
