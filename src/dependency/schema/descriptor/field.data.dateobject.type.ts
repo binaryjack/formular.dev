@@ -1,4 +1,4 @@
-import { DatePickerOutputFormatType } from '../../../components/datePicker/core/DatePicker.types'
+import { DatePickerFormatsEnum } from '../../../components/datePicker/core/DatePicker.types'
 import { getPaddedNumber } from '../../../components/datePicker/core/getters/getPaddedNumber'
 
 import { INDate } from './field.data.date.struct'
@@ -52,7 +52,9 @@ export class DateObjectOld {
         return this.dateObject
     }
 
-    public toString(format: DatePickerOutputFormatType = 'dd/mm/yyyy'): string | null {
+    public toString(
+        format: DatePickerFormatsEnum = DatePickerFormatsEnum.DD_MM_YYYY
+    ): string | null {
         // console.log(
         //     'toString',
         //     format,
@@ -63,13 +65,13 @@ export class DateObjectOld {
         }
         if (!this.isDefined) throw new Error('UNABLE TO GET DATE')
 
-        if (format === 'dd/mm/yyyy')
+        if (format === DatePickerFormatsEnum.DD_MM_YYYY)
             return `${this.day}${this.separator}${this.month}${this.separator}${this.year}`
 
-        if (format === 'yyyy/mm/dd')
+        if (format === DatePickerFormatsEnum.YYYY_MM_DD)
             return `${this.year}${this.separator}${this.month}${this.separator}${this.day}`
 
-        if (format === 'mm/dd/yyyy')
+        if (format === DatePickerFormatsEnum.MM_DD_YYYY)
             return `${this.month}${this.separator}${this.day}${this.separator}${this.year}`
 
         return `${this.day}${this.separator}${this.month}${this.separator}${this.year}`
@@ -163,7 +165,10 @@ export class DateObjectOld {
         }
     }
 
-    public validateInput(date: string, format: DatePickerOutputFormatType = 'dd/mm/yyyy'): boolean {
+    public validateInput(
+        date: string,
+        format: DatePickerFormatsEnum = DatePickerFormatsEnum.YYYY_MM_DD
+    ): boolean {
         if (date.length === 0) return true
 
         if (date.length === 10) {
@@ -176,11 +181,14 @@ export class DateObjectOld {
         }
         if (date.length === 8) {
             let output = ''
-            if (format === 'dd/mm/yyyy' || format === 'mm/dd/yyyy')
+            if (
+                format === DatePickerFormatsEnum.DD_MM_YYYY ||
+                format === DatePickerFormatsEnum.MM_DD_YYYY
+            )
                 output = `${date.substring(0, 2)}${
                     this.separator
                 }${date.substring(2, 4)}${this.separator}${date.substring(4)}`
-            if (format === 'yyyy/mm/dd')
+            if (format === DatePickerFormatsEnum.YYYY_MM_DD)
                 output = `${date.substring(0, 4)}${
                     this.separator
                 }${date.substring(4, 6)}${this.separator}${date.substring(6)}`

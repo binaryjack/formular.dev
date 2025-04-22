@@ -5,6 +5,7 @@ import FormyForm from '../../components/formy/Formy.form'
 import InputText from '../../components/inputText/InputText'
 
 import CheckInput from '../../components/checkInput/CheckInput'
+import { DatePickerFormatsEnum } from '../../components/datePicker/core/DatePicker.types'
 import DatePicker from '../../components/datePicker/DatePicker'
 import RadioInput from '../../components/radioInput/RadioInput'
 import { RangeSlider } from '../../components/rangeSlider/RangeSlider'
@@ -48,7 +49,11 @@ const FormDemo = () => {
 
         if (sd && startDate) sd.setFromObject?.(startDate)
         if (ed && endDate) ed.setFromObject?.(endDate)
-        console.log('date selected', sd.toString?.('mm/dd/yyyy'), ed.toString?.('mm/dd/yyyy'))
+        console.log(
+            'date selected',
+            sd.toString?.(DatePickerFormatsEnum.YYYY_MM_DD),
+            ed.toString?.(DatePickerFormatsEnum.YYYY_MM_DD)
+        )
     }
 
     const fieldSelect = useMemo(() => {

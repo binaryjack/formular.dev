@@ -1,4 +1,5 @@
 import { DateObject } from '../../../components/datePicker/core/DateObject.object'
+import { DatePickerFormatsEnum } from '../../../components/datePicker/core/DatePicker.types'
 import { IDateObject } from '../../../components/datePicker/core/models/DateObject.models'
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
@@ -125,7 +126,7 @@ export const newValidatorStrategyData = (
                 return BigInt(this.value).toString()
             }
             if (value instanceof DateObject) {
-                return (this.value as IDateObject).toString?.('yyyy/mm/dd')
+                return (this.value as IDateObject).toString?.(DatePickerFormatsEnum.YYYY_MM_DD)
             }
             if (typeof this.value === 'object') {
                 if ('year' in this.value && 'day' in this.value && 'month' in this.value) {

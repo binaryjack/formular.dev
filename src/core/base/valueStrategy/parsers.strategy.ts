@@ -1,4 +1,5 @@
 import { DateObject } from '../../../components/datePicker/core/DateObject.object'
+import { DatePickerFormatsEnum } from '../../../components/datePicker/core/DatePicker.types'
 import { DateObjectTypes } from '../../../components/datePicker/core/models/DateObject.types'
 
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
@@ -17,7 +18,7 @@ export const DateOrTimeParserStrategy: TParserStrategy<string | null> = (
         const newDte = new DateObject(undefined, 'temp-date')
         if (!newDte?.toString || !newDte.isDefined || !newDte.parse) return null
         newDte.parse?.(value as DateObjectTypes)
-        return newDte.isDefined?.() ? newDte.toString('yyyy/mm/dd') : null
+        return newDte.isDefined?.() ? newDte.toString(DatePickerFormatsEnum.YYYY_MM_DD) : null
     }
     return null
 }

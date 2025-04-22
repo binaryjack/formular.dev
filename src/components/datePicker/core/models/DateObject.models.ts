@@ -1,5 +1,6 @@
 import { INDate } from '../../../../dependency/schema/descriptor/field.data.date.struct'
-import { DatePickerOutputFormatType } from '../DatePicker.types'
+import { DatePickerFormatsEnum } from '../DatePicker.types'
+
 import { DateObjectTypes } from './DateObject.types'
 
 export interface IDateObjectMethods {
@@ -15,13 +16,13 @@ export interface IDateObjectMethods {
     setFromNumber: (date: number) => void
     setFromObject: (date: INDate) => void
 
-    setFromString: (date: string, format: DatePickerOutputFormatType) => boolean
+    setFromString: (date: string, format: DatePickerFormatsEnum) => boolean
 
     isNullEmptyOrUndefined?: (dateObject: INDate | undefined | null) => boolean
 
     setCurrentDate: (year: number, month: number, day?: number) => void
 
-    toString: (format: DatePickerOutputFormatType) => string
+    toString: (format: DatePickerFormatsEnum) => string
     toDate: () => Date
     toINDate: () => INDate
     parse: (value: DateObjectTypes) => void

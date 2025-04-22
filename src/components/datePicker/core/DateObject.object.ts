@@ -1,5 +1,7 @@
 import { INDate } from '../../../dependency/schema/descriptor/field.data.date.struct'
-import { DatePickerOutputFormatType } from './DatePicker.types'
+import { DatePickerFormatsEnum } from './DatePicker.types'
+import { validateDateFormat } from './DatePicker.utils'
+
 import { getPaddedNumber } from './getters/getPaddedNumber'
 
 import { IDateObject } from './models/DateObject.models'
@@ -68,24 +70,24 @@ DateObject.prototype = {
     setFromObject: function (date: INDate) {
         this.dateObject = { ...date, month: date.month - 1 }
     },
-    setFromString: function (date: string, format: DatePickerOutputFormatType) {
+    setFromString: function (date: string, format: DatePickerFormatsEnum) {
         if (date.length === 10) {
             let _year = ''
             let _month = ''
             let _day = ''
-            if (format === 'mm/dd/yyyy') {
+            if (format === DatePickerFormatsEnum.MM_DD_YYYY) {
                 _month = date.substring(0, 2)
                 _day = date.substring(3, 5)
                 _year = date.substring(6)
             }
 
-            if (format === 'dd/mm/yyyy') {
+            if (format === DatePickerFormatsEnum.DD_MM_YYYY) {
                 _day = date.substring(0, 2)
                 _month = date.substring(3, 5)
                 _year = date.substring(6)
             }
 
-            if (format === 'yyyy/mm/dd') {
+            if (format === DatePickerFormatsEnum.YYYY_MM_DD) {
                 _year = date.substring(0, 4)
                 _month = date.substring(5, 7)
                 _day = date.substring(8)
@@ -103,16 +105,16 @@ DateObject.prototype = {
         this.setFromNumbers(day, month, year)
     },
     /** Note that  */
-    toString: function (format: DatePickerOutputFormatType) {
-        if (format === 'mm/dd/yyyy') {
+    toString: function (format: DatePickerFormatsEnum) {
+        if (format === DatePickerFormatsEnum.MM_DD_YYYY) {
             return `${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${this.dateObject.year}`
         }
 
-        if (format === 'dd/mm/yyyy') {
+        if (format === DatePickerFormatsEnum.DD_MM_YYYY) {
             return `${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${this.dateObject.year}`
         }
 
-        if (format === 'yyyy/mm/dd') {
+        if (format === DatePickerFormatsEnum.YYYY_MM_DD) {
             return `${this.dateObject.year}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}`
         }
         return ''
@@ -130,10 +132,8 @@ DateObject.prototype = {
     },
     parse: function (value: DateObjectTypes) {
         if (typeof value === 'string') {
-            const isValidFormat =
-                this.setFromString(value, 'yyyy/mm/dd') ||
-                this.setFromString(value, 'mm/dd/yyyy') ||
-                this.setFromString(value, 'dd/mm/yyyy')
+            const isValidFormat = validateDateFormat(value)
+            this.setFromString(value, isValidFormat)
             if (isValidFormat) return
         }
 

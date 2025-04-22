@@ -1,5 +1,5 @@
 import { INDate } from '../../../../dependency/schema/descriptor/field.data.date.struct'
-import { DatePickerOutputFormatType } from '../DatePicker.types'
+import { DatePickerFormatsEnum } from '../DatePicker.types'
 
 /**
  * Formats a given date object into a string based on the specified output format.
@@ -12,7 +12,7 @@ import { DatePickerOutputFormatType } from '../DatePicker.types'
  * @returns A formatted date string based on the specified format, or an empty string if
  *          either the date or format is not provided.
  */
-export const formatDate = (date?: INDate, format?: DatePickerOutputFormatType) => {
+export const formatDate = (date?: INDate, format?: DatePickerFormatsEnum) => {
     if (!date || !format) return ''
 
     switch (format) {

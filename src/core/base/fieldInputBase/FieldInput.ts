@@ -13,6 +13,7 @@ import { getAsString } from './prototype/getAsString'
 import { getFlagsObject } from './prototype/getFlagsObject'
 import { getOptionById } from './prototype/getOptionById'
 import { getOptionByValue } from './prototype/getOptionByValue'
+import { getSelectedValue } from './prototype/getSelectedValue'
 import { getValue } from './prototype/getValue'
 import {
     handleOnBlur,
@@ -163,6 +164,7 @@ Object.assign(FieldInput.prototype, {
     enable,
     focus,
     getValue,
+    getSelectedValue,
     getAsString,
     getFlagsObject,
     handleOnChanged,

@@ -1,28 +1,60 @@
+import { memo } from 'react'
 import { Toggleable } from '../toggleable/Toggleable'
-import { DatePickerOutputFormatType } from './core/DatePicker.types'
+import { DatePickerFormatsEnum } from './core/DatePicker.types'
 import { DatePickerSF } from './DatePicker.SF'
 
 interface DatePickerProps {
     fieldName: string
     separator?: string
-    dataFormat?: DatePickerOutputFormatType
-    displayFormat?: DatePickerOutputFormatType
+    dataFormat?: DatePickerFormatsEnum
+    displayFormat?: DatePickerFormatsEnum
 }
+/**
+ * A reusable DatePicker component with customizable formats and separators.
+ *
+ * @param {string} fieldName - The name of the field associated with the DatePicker.
+ * @param {string} [separator='-'] - The separator used in the date format.
+ * @param {DatePickerFormats} [dataFormat='yyyy/mm/dd'] - The format for storing the date.
+ * @param {DatePickerFormats} [displayFormat='dd/mm/yyyy'] - The format for displaying the date.
+ */
+const DatePicker = memo(
+    ({
+        fieldName,
+        separator = '-',
+        dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
+        displayFormat = DatePickerFormatsEnum.DD_MM_YYYY,
+        ...rest
+    }: DatePickerProps) => {
+        if (!fieldName) {
+            console.error('DatePicker: "fieldName" is required.')
+            return null
+        }
 
-const DatePicker = ({
-    fieldName,
-    separator = '-',
-    dataFormat = 'yyyy/mm/dd',
-    displayFormat = 'dd/mm/yyyy'
-}: DatePickerProps) => (
-    <Toggleable>
-        <DatePickerSF
-            fieldName={fieldName}
-            separator={separator}
-            dataFormat={dataFormat}
-            displayFormat={displayFormat}
-        />
-    </Toggleable>
+        const getDefaultSeparator = (format: DatePickerFormatsEnum): string => {
+            if (format.includes('/')) return '/'
+            if (format.includes('-')) return '-'
+            return ' '
+        }
+
+        const resolvedSeparator = separator || getDefaultSeparator(displayFormat)
+
+        return (
+            /**
+             * The `Toggleable` wrapper provides toggling behavior for the DatePicker,
+             * allowing it to open and close dynamically based on user interaction.
+             */
+            <Toggleable>
+                <DatePickerSF
+                    fieldName={fieldName}
+                    separator={resolvedSeparator}
+                    dataFormat={dataFormat}
+                    displayFormat={displayFormat}
+                    aria-label="Date Picker"
+                    {...rest}
+                />
+            </Toggleable>
+        )
+    }
 )
 
 export default DatePicker

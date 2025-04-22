@@ -11,8 +11,8 @@ import { computeYearsGrid } from './core/computed/computeYearsGrid'
 import { createCell } from './core/constructors/createCell'
 import { DateObject } from './core/DateObject.object'
 import {
+    DatePickerFormatsEnum,
     DatePickerGridModeType,
-    DatePickerOutputFormatType,
     DatePickerSelectionModeType
 } from './core/DatePicker.types'
 import { getNextDate } from './core/getters/getNextDate'
@@ -24,8 +24,8 @@ interface IDatePickerDrawerProps {
     id: string
     separator?: string
     defaultDate?: INDate | Date | string
-    dataFormat?: DatePickerOutputFormatType
-    displayFormat?: DatePickerOutputFormatType
+    dataFormat?: DatePickerFormatsEnum
+    displayFormat?: DatePickerFormatsEnum
     onSelectDate: (startDate?: INDate, endDate?: INDate) => void
     defaultSelectionMode?: DatePickerSelectionModeType
     defaultGridMode?: DatePickerGridModeType
@@ -187,7 +187,10 @@ const DatePickerContentDrawer = ({
             setInternalDate(defaultDate)
         } else if (typeof defaultDate === 'string') {
             const dateTemp = new DateObject(new Date(), 'default', separator)
-            dateTemp?.setFromString?.(defaultDate, displayFormat ?? 'dd/mm/yyyy')
+            dateTemp?.setFromString?.(
+                defaultDate,
+                displayFormat ?? DatePickerFormatsEnum.DD_MM_YYYY
+            )
             if (!dateTemp) {
                 console.error(new Error(`Provideed default date is not suitable`))
                 return

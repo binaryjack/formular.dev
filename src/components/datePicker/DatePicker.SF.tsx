@@ -6,26 +6,24 @@ import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
 import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 import ValidationResultComponent from '../validationResult/ValidationResult'
-import { DatePickerOutputFormatType } from './core/DatePicker.types'
 
 import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import DatePickerContentDrawer from './DatePicker.drawer.content'
+import { DatePickerFormatsEnum } from './core/DatePicker.types'
 import { formatDate } from './core/formatters/formatDate'
 
 interface DatePickerSFProps {
     fieldName: string
-    defaultDate?: string
     separator?: string
-    dataFormat?: DatePickerOutputFormatType
-    displayFormat?: DatePickerOutputFormatType
+    dataFormat?: DatePickerFormatsEnum
+    displayFormat?: DatePickerFormatsEnum
 }
 
 export const DatePickerSF = ({
     fieldName,
-    defaultDate,
     separator = '-',
-    dataFormat = 'yyyy/mm/dd',
-    displayFormat = 'dd/mm/yyyy'
+    dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
+    displayFormat = DatePickerFormatsEnum.DD_MM_YYYY
 }: DatePickerSFProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
