@@ -8,5 +8,5 @@ export const getOptionByValue = function (this: IFieldInput, value: string) {
         )
         return null
     }
-    return this.options.find((o) => o.value?.localeCompare?.(value))
+    return this.options.find((o) => o.value === value)
 }

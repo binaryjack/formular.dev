@@ -4,6 +4,7 @@ import { NotifiableEntity } from '../../notifiableEntity/NotifiableEntity'
 import { Dommable } from '../dommable/dommable'
 import { Tracker } from '../tracker/tracker'
 import { IFieldInput } from './fieldInput.types'
+import { checkOptionsInitialized } from './prototype/checkOptionsInitialized'
 import { classNames } from './prototype/classNames'
 import { clear } from './prototype/clear'
 import { enable } from './prototype/enable'
@@ -182,5 +183,6 @@ Object.assign(FieldInput.prototype, {
     setValidationTriggerMode,
     setValue,
     validate,
-    validateAsync
+    validateAsync,
+    checkOptionsInitialized
 })

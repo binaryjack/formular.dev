@@ -20,6 +20,12 @@ export const refOption = function (this: IFieldInput, ref: HTMLInputElement | nu
      * we expect to have only one ref and it could avoid bugs
      */
     this.dmRegister(ref)
+    if (this.optionsInitialized) return
+    if (this.checkOptionsInitialized()) {
+        this.setValue(this.defaultValue)
+        this.optionsInitialized = true
+    }
+
     // const existingRef = this.get(ref.id)
     // return existingRef
 

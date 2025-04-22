@@ -8,5 +8,5 @@ export const getOptionById = function (this: IFieldInput, id: string) {
         )
         return null
     }
-    return this.options.find((o) => o.id?.localeCompare?.(id))
+    return this.options.find((o) => o.id === id)
 }

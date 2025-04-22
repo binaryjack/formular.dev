@@ -6,6 +6,7 @@ const defaultFieldInputCSSClassName = 'f-input'
 
 export const initializeProperties = function (this: IFieldInput, descriptor: IFieldDescriptor) {
     this.id = descriptor.id
+    this.optionsInitialized = false
     this.name = descriptor.name
     this.label = descriptor.label
     this.value = descriptor.value ?? descriptor.defaultValue

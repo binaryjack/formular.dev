@@ -29,8 +29,18 @@ export const setValue = function (
         this.dmSetChecked(this.id.toString(), value as boolean)
         this.value = value
     } else if (this.type === 'radio') {
-        this.dmSetChecked(this.id.toString(), value as boolean)
-        this.value = value
+        const radioItem = this.tryGetOptionByIdOrValue(value as string, value as string)
+        if (!radioItem) {
+            this.internalWarning(
+                'IFieldInput.setValue',
+                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
+            )
+            return
+        }
+        this.value = radioItem.value
+        this.selectedOptionId = radioItem.id
+
+        this.dmSetChecked(radioItem.id, value as boolean)
     } else if (this.type === 'select') {
         const optionById = this.tryGetOptionByIdOrValue(value as string, value as string)
         if (!optionById) {

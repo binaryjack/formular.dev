@@ -1,5 +1,3 @@
-import { useRef } from 'react'
-
 import { IFieldInput } from '../../core/base/fieldInputBase/fieldInput.types'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { IOptionItem } from '../../dependency/schema/optionsSchema/options.scheme.types'
@@ -10,8 +8,6 @@ interface IRadioInputOptionProps {
 }
 
 const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
-    const ref = useRef<HTMLInputElement>(null)
-
     const handleDelete = () => {
         field?.clear()
     }
@@ -31,11 +27,7 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
                 ref={(r) => field.refOption(r)}
                 onKeyDown={handleKeyDown}
             />
-            <label
-                // {...field.registerLabel(ref)}
-                htmlFor={option.id}
-                className={`ml-2 cursor-pointer`}
-            >
+            <label htmlFor={option.id} className={`ml-2 cursor-pointer`}>
                 {option.text}
             </label>
         </div>

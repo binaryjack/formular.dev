@@ -32,6 +32,7 @@ export type IFieldInput = IFieldInputBase &
 
 export interface IFieldInputBase {
     new (descriptor: IFieldDescriptor): IFieldInput
+    optionsInitialized: boolean
     internalHTMLElementRef: HTMLInputElement[] | null
     originalValue: FieldValuesTypes | null
     enabled: boolean
@@ -70,6 +71,7 @@ export interface IFieldInputBase {
     getOptionByValue: (value: string) => IOptionItem | null
     getOptionById: (id: string) => IOptionItem | null
     tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+    checkOptionsInitialized: () => boolean
     focus: () => void
 }
 
