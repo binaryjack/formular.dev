@@ -1,3 +1,4 @@
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
@@ -25,6 +26,8 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
             field?.clear()
         }
     })
+
+    useFieldDefaultValue(field)
 
     return (
         <FieldSet
@@ -55,7 +58,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
                 tabIndex={0}
                 data-class="base-input"
                 {...field?.register()}
-                ref={field?.ref()}
+                ref={(r) => field?.ref(r)}
                 autoComplete="off"
                 onKeyDownCapture={handleKeyDown}
             />

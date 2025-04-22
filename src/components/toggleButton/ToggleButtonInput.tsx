@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
@@ -22,11 +23,11 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
         field?.setValue(newState)
     }
 
-    useEffect(() => {
-        if (field?.defaultValue !== undefined) {
-            setToggleState(field.defaultValue === true)
+    useFieldDefaultValue(field, (value) => {
+        if (value !== undefined) {
+            setToggleState(value === true)
         }
-    }, [field?.defaultValue])
+    })
 
     return (
         <FieldSet

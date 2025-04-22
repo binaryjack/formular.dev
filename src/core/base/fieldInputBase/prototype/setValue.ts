@@ -24,7 +24,29 @@ export const setValue = function (
     this: IFieldInput,
     value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null
 ) {
-    this.value = value
+    if (this.type === 'checkbox') {
+        this.checked = value as boolean
+        this.dmSetChecked(this.id.toString(), value as boolean)
+        this.value = value
+    } else if (this.type === 'radio') {
+        this.dmSetChecked(this.id.toString(), value as boolean)
+        this.value = value
+    } else if (this.type === 'select') {
+        const optionById = this.tryGetOptionByIdOrValue(value as string, value as string)
+        if (!optionById) {
+            this.internalWarning(
+                'IFieldInput.setValue',
+                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
+            )
+            return
+        }
+        this.value = optionById.value
+        this.selectedOptionId = optionById.id
+        this.dmSetValue(this.id.toString(), this.value as string)
+    } else {
+        this.value = value
+        this.dmSetValue(this.id.toString(), this.value as string)
+    }
 
     this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
@@ -39,9 +61,4 @@ export const setValue = function (
     })
 
     this.observers.trigger()
-
-    if (!this.internalHTMLElementRef?.current) {
-        return
-    }
-    this.internalHTMLElementRef.current.value = this.value as string
 }

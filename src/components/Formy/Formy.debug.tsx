@@ -29,9 +29,9 @@ const FormyDebug = ({ formy }: FormyDebugProps) => {
                         </div>
                         <div className={`debug-table-col auto-cols-min`}>
                             <div className={`text-elipsis`}>
-                                {field?.get() === 'object'
-                                    ? JSON.stringify(field.get())
-                                    : String(field?.get?.() ?? 'NO VALUE')}
+                                {field?.getValue() === 'object'
+                                    ? JSON.stringify(field.getValue())
+                                    : String(field?.getValue?.() ?? 'NO VALUE')}
                             </div>
                         </div>
                         <div className={`debug-table-col auto-cols-min`}>

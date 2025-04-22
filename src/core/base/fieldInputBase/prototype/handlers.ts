@@ -26,7 +26,10 @@ export const handleOnChanged = function (this: IFieldInput, data?: any) {
  */
 export const handleOnClicked = function (this: IFieldInput, data?: any) {
     console.log('value clicked', data, this.value)
-
+    this.internalInfo(
+        'IFieldInput.handleOnClicked',
+        `value clicked: ${this.type}, value: ${this.value} `
+    )
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)
 }
@@ -39,8 +42,10 @@ export const handleOnClicked = function (this: IFieldInput, data?: any) {
  * Logs the selected value, the provided data, and the current value of the field input.
  */
 export const handleOnSelected = function (this: IFieldInput, data?: any) {
-    console.log('value selected', data, this.value)
-
+    this.internalInfo(
+        'IFieldInput.handleOnSelected',
+        `value clicked: ${this.type}, value: ${this.value} `
+    )
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)
 }
@@ -53,8 +58,7 @@ export const handleOnSelected = function (this: IFieldInput, data?: any) {
  * Logs the blur event, the provided data, and the current value of the field input.
  */
 export const handleOnBlur = function (this: IFieldInput, data?: any) {
-    console.log('Blur', data, this.value)
-
+    this.internalInfo('IFieldInput.handleOnBlur', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)
 }
@@ -67,8 +71,7 @@ export const handleOnBlur = function (this: IFieldInput, data?: any) {
  * Logs the focus event details, including the optional data and the current value of the field input.
  */
 export const handleOnFocus = function (this: IFieldInput, data?: any) {
-    console.log('Focus', data, this.value)
-
+    this.internalInfo('IFieldInput.handleOnFocus', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)
 }

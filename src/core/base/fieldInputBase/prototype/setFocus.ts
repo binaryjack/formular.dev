@@ -11,8 +11,9 @@ import { IFieldInput } from '../fieldInput.types'
  * @this IFieldInput - The context of the field input instance.
  */
 export const setFocus = function (this: IFieldInput) {
-    if (this.internalHTMLElementRef?.current?.disabled) return
+    const element = this.dmGet(this.id.toString())
+    if (!element || element.disabled) return
     this.isFocus = true
     this.fieldStateStyle.update('focus', this.isFocus)
-    this.internalHTMLElementRef?.current?.focus()
+    this.dmSetFocus(this.id.toString())
 }

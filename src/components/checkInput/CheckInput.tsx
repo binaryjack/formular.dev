@@ -1,3 +1,4 @@
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
@@ -18,6 +19,11 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
+    useFieldDefaultValue(field, (value) => {
+        if (!field) return
+        field.checked = value
+    })
+
     return (
         <FieldSet
             inputId={field?.name ?? conventions.IdIsEmpty()}
@@ -36,11 +42,11 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
                 <input
                     tabIndex={0}
                     data-class="base-checkbox "
-                    {...field?.register()}
-                    ref={field?.ref()}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type="checkbox"
+                    {...field?.register()}
+                    ref={(r) => field?.ref(r)}
                 />
             </div>
         </FieldSet>

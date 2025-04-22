@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
@@ -30,11 +31,11 @@ const SwitchButtonInput = ({
         field?.setValue(value)
     }
 
-    useEffect(() => {
-        if (field?.defaultValue !== undefined) {
-            setIsOn(field.defaultValue === true)
+    useFieldDefaultValue(field, (value) => {
+        if (value !== undefined) {
+            setIsOn(value === true)
         }
-    }, [field?.defaultValue])
+    })
 
     return (
         <FieldSet

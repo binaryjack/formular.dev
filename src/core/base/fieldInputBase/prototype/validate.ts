@@ -31,17 +31,22 @@ import { IFieldInput } from '../fieldInput.types'
  */
 export const validate = function (this: IFieldInput, vtor: IValidator, origin?: IValidationOrigin) {
     let results: IValidationResult[] = []
-
+    if (!vtor) {
+        return {
+            state: true
+        }
+    }
     if (origin?.fieldState !== 'reset') {
         const validationstrategyData = newValidatorStrategyData(
             this.name,
             this.type,
             this.validationOptions,
-            this.get(),
+            this.getValue(),
             this.expectedValue,
             origin
         )
-        results = vtor.validate(validationstrategyData)
+
+        results = vtor?.validate?.(validationstrategyData)
     } else {
         // console.log('Validation skipped')
     }

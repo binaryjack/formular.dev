@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { conventions } from '../context/conventions/conventions'
@@ -9,6 +8,7 @@ import { useToggleableContext } from '../toggleable/Toggleable.context.hook'
 import ValidationResultComponent from '../validationResult/ValidationResult'
 import { DatePickerOutputFormatType } from './core/DatePicker.types'
 
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import DatePickerContentDrawer from './DatePicker.drawer.content'
 import { formatDate } from './core/formatters/formatDate'
 
@@ -51,9 +51,8 @@ export const DatePickerSF = ({
             field?.clear()
         }
     })
-    useEffect(() => {
-        console.log('FIELD HAS VALUE: ', field?.defaultValue)
-    }, [field?.defaultValue])
+
+    useFieldDefaultValue(field)
 
     return (
         <FieldSet
@@ -87,7 +86,7 @@ export const DatePickerSF = ({
                 tabIndex={0}
                 data-class="base-input"
                 {...field?.register()}
-                ref={field?.ref()}
+                ref={(r) => field?.ref(r)}
                 autoComplete="off"
                 onKeyDown={handleKeyDown}
             />

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
@@ -60,13 +61,11 @@ export const RangeSliderSF = ({
     useEffect(() => {
         setRangeValue(Number(field?.value))
         console.log('useEffect', field?.value)
-    }, [field?.get()])
+    }, [field?.getValue()])
 
-    useEffect(() => {
-        setRangeValue(Number(field?.defaultValue))
-        field?.setValue(field?.defaultValue)
-        console.log('.defaultValue', field?.defaultValue)
-    }, [field?.defaultValue])
+    useFieldDefaultValue(field, (value) => {
+        setRangeValue(Number(value))
+    })
 
     return (
         <FieldSet

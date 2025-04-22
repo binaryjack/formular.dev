@@ -43,6 +43,7 @@ Formy.prototype = {
     },
     validateAll: function () {
         const results: IValidationResult[] = []
+        if (!this.flags) return
         for (const fld of this.fields) {
             if (!fld.shouldValidate) {
                 continue
@@ -79,7 +80,7 @@ Formy.prototype = {
     getData: function () {
         const output: Record<string, FieldValuesTypes> = {}
         for (const f of this.fields) {
-            output[f.name] = f.get()
+            output[f.name] = f.getValue()
         }
         return output
     },

@@ -1,3 +1,4 @@
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import useKeyBindings from '../../core/hooks/useKeyBindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
@@ -18,6 +19,8 @@ const InputText = ({ fieldName }: IInputTextProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
+    useFieldDefaultValue(field)
+
     return (
         <FieldSet
             inputId={field?.name ?? conventions.IdIsEmpty()}
@@ -36,7 +39,7 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 tabIndex={0}
                 data-class="base-input"
                 {...field?.register()}
-                ref={field?.ref()}
+                ref={(r) => field?.ref(r)}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
                 type="text"

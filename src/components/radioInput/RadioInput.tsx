@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
@@ -14,6 +15,9 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
     const { formInstance } = useFormyContext()
     const { field, flags } = useField(formInstance?.getField(fieldName))
     const optionRefs = useRef<HTMLInputElement[]>([])
+
+    useFieldDefaultValue(field)
+
     return (
         <FieldSet
             inputId={field?.name ?? conventions.IdIsEmpty()}

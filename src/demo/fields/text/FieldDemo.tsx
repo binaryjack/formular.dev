@@ -43,7 +43,7 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
                 }
                 onClear={() => field?.clear()}
             >
-                <input data-class="base-input" {...field?.register()} ref={field?.ref()} />
+                <input data-class="base-input" {...field?.register()} ref={(r) => field?.ref(r)} />
             </FieldSet>
 
             <button onClick={() => field?.setFocus()}>focus Field</button>

@@ -12,7 +12,7 @@ import { IFieldInput } from '../fieldInput.types'
  */
 
 export const classNames = function (this: IFieldInput) {
-    const userClassName =
-        this.internalHTMLElementRef?.current?.attributes.getNamedItem('data-class')?.value
+    const ele = this.dmGet(this.id.toString())
+    const userClassName = ele?.attributes.getNamedItem('data-class')?.value
     return `${userClassName} ${this.className} ${this.fieldStateStyle.get()} `
 }

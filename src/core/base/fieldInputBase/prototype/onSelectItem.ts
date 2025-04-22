@@ -15,13 +15,16 @@ import { IFieldInput } from '../fieldInput.types'
  * - Notifies observers of the `validate` event to reset validation state.
  */
 export const onSelectItem = function (this: IFieldInput, option: IOptionItem) {
-    this.value = Number(option.id)
-    if (!this.internalHTMLElementRef?.current) {
+    if (!this.dmExists(this.id.toString())) {
         return
     }
+    const internlOption = this.getOptionByValue(option.value)
+    if (!internlOption) return
+    this.selectedOptionId = internlOption.id
+    this.value = internlOption.value
 
-    this.internalHTMLElementRef.current.value = option.text
-    this.internalHTMLElementRef.current.focus()
+    this.dmSetSelected(this.id.toString(), option.text)
+    this.dmSetFocus(this.id.toString())
     this.openState = 'closed'
     // this.observers.trigger()
     this.notify('changed', {

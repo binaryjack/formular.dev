@@ -20,7 +20,7 @@ export const validateAsync = async function (
         this.name,
         this.type,
         this.validationOptions,
-        this.get(),
+        this.getValue(),
         this.expectedValue
     )
 

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import { useFieldDefaultValue } from '../../core/hooks/useFieldDefaultValue'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../fieldset/FieldSet'
 import useFormyContext, { useField } from '../formy/Formy.context'
@@ -42,13 +43,11 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
         }
     }
 
-    // When field value changes from outside, update editor
-    useEffect(() => {
-        const fieldValue = field?.defaultValue
-        if (fieldValue && typeof fieldValue === 'string') {
+    useFieldDefaultValue(field, (value) => {
+        if (value && typeof value === 'string') {
             try {
                 // Deserialize from field value
-                const editorState = deserializeEngineState(fieldValue)
+                const editorState = deserializeEngineState(value)
                 // Update editor (would need implementation in RteInput)
                 // This would require adding a "setState" prop to RteInput
                 setInitialState(newStateData(editorState))
@@ -56,7 +55,7 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
                 console.error('Failed to deserialize RTE content', e)
             }
         }
-    }, [field?.defaultValue])
+    })
 
     return (
         <FieldSet

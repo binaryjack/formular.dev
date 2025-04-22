@@ -23,7 +23,7 @@ export const validateAll = (fields: IFieldInput[]): IValidationResults => {
             field.name,
             field.type,
             field.validationOptions,
-            field.get(),
+            field.getValue(),
             field.expectedValue
         )
         mainResults = [...mainResults, ...validator.validate(validationstrategyData)]
