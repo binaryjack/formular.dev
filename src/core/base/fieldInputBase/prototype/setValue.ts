@@ -39,7 +39,6 @@ export const setValue = function (
         }
         this.value = radioItem.value
         this.selectedOptionId = radioItem.id
-
         this.dmSetChecked(radioItem.id, value as boolean)
     } else if (this.type === 'select') {
         const optionById = this.tryGetOptionByIdOrValue(value as string, value as string)
@@ -50,7 +49,7 @@ export const setValue = function (
             )
             return
         }
-        this.value = optionById.value
+        this.value = optionById.id
         this.selectedOptionId = optionById.id
         this.dmSetValue(this.id.toString(), this.value as string)
     } else {

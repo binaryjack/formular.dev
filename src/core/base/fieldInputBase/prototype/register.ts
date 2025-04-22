@@ -114,6 +114,15 @@ export const register = function <FieldValuesTypes>(this: IFieldInput) {
     /** ARIA BASICS */
     this.dmAriaSet(this.id.toString(), this.name)
 
+    // const value = () => {
+    //     if (this.type === 'select') {
+    //         return this.selectedOptionId
+    //             ? this.getOptionById(this.selectedOptionId.toString())?.text
+    //             : ''
+    //     }
+    //     return this.value
+    // }
+
     return {
         id: `${this.id}`,
         type: this.type,

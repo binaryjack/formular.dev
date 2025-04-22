@@ -9,7 +9,7 @@ export const tryGetOptionByIdOrValue = function (this: IFieldInput, id: string, 
 
         return null
     }
-    const itemById = this.options.find((o) => o.id === id)
+    const itemById = this.options.find((o) => o.id === `${id}`)
     const itemByValue = this.options.find((o) => o.value === value)
     return itemById ?? itemByValue ?? null
 }

@@ -21,7 +21,7 @@ export const onSelectItem = function (this: IFieldInput, option: IOptionItem) {
     const internlOption = this.getOptionByValue(option.value)
     if (!internlOption) return
     this.selectedOptionId = internlOption.id
-    this.value = internlOption.value
+    this.value = internlOption.id
 
     this.dmSetSelected(this.id.toString(), option.text)
     this.dmSetFocus(this.id.toString())

@@ -59,6 +59,11 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
                 data-class="base-input"
                 {...field?.register()}
                 ref={(r) => field?.ref(r)}
+                value={
+                    field?.selectedOptionId
+                        ? field?.getOptionById(field?.selectedOptionId.toString())?.text
+                        : ''
+                }
                 autoComplete="off"
                 onKeyDownCapture={handleKeyDown}
             />
