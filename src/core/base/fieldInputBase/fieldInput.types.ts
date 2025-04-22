@@ -58,6 +58,7 @@ export interface IFieldInputBase {
     setFocus: () => void
     setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
     getValue: () => FieldValuesTypes | null
+    toString: () => string
     getSelectedValue: () => string | undefined
     enable: (enabled: boolean) => void
     show: (show: boolean) => void

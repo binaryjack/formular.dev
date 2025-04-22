@@ -15,11 +15,13 @@ import { DrawerSlot } from '../drawer/components/DrawerSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { conventions } from '../context/conventions/conventions'
+import { PasswordToggle } from '../password/password.toggle'
 
 interface IFieldSetProps<TType> {
     inputId: string
     label?: string
     type: TType
+    isPasswordVisible?: boolean
     flags: IFlagsObject
     children: React.ReactNode
     itemsChildren?: React.ReactNode
@@ -38,6 +40,7 @@ const FieldSet = <TType,>({
     inputId,
     label,
     type,
+    isPasswordVisible,
     flags,
     children,
     itemsChildren,
@@ -116,22 +119,24 @@ const FieldSet = <TType,>({
                     </div>
 
                     <div className={`input-commands flex flex-row `}>
-                        <Button
-                            id={`${inputId}-clear-field-btn`}
-                            title={'Clear'}
-                            variantProperties={{
-                                rounded: true,
-                                size: 'md',
-                                width: '2em',
-                                height: '2em',
-                                className: 'ml-0'
-                            }}
-                            onClickCallback={() => onClear?.()}
-                        >
-                            {<MdClose />}
-                        </Button>
+                        {onClear && (
+                            <Button
+                                id={`${inputId}-clear-field-btn`}
+                                title={'Clear'}
+                                variantProperties={{
+                                    rounded: true,
+                                    size: 'md',
+                                    width: '2em',
+                                    height: '2em',
+                                    className: 'ml-0'
+                                }}
+                                onClickCallback={() => onClear?.()}
+                            >
+                                {<MdClose />}
+                            </Button>
+                        )}
                         <DrawerToggle id={inputId} conditionnalShow={!!itemsChildren} />
-                        {type === 'password' && <button className={`btn-sm-p mr-1`}>(o)</button>}
+                        <PasswordToggle id={inputId} conditionnalShow={type === 'password'} />
                     </div>
                 </div>
 

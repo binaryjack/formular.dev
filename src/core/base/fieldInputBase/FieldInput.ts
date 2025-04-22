@@ -38,6 +38,7 @@ import { setOpenState } from './prototype/setOpenState'
 import { setup } from './prototype/setup'
 import { setValidationTriggerMode } from './prototype/setValidationTriggerMode'
 import { setValue } from './prototype/setValue'
+import { toString } from './prototype/toString'
 import { tryGetOptionByIdOrValue } from './prototype/tryGetOptionByIdOrValue'
 import { validate } from './prototype/validate'
 import { validateAsync } from './prototype/validateAsync'
@@ -185,6 +186,7 @@ Object.assign(FieldInput.prototype, {
     setValidationTriggerMode,
     setValue,
     validate,
+    toString,
     validateAsync,
     checkOptionsInitialized
 })

@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+    .read-only-input {
+        @apply flex h-full w-full select-none bg-transparent;
+    }
+}

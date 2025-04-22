@@ -17,10 +17,6 @@ import { IFieldInput } from '../fieldInput.types'
  * @returns The value of the field input as `FieldValuesTypes` or `null` if no value strategy is defined.
  */
 export const getValue = function (this: IFieldInput) {
-    if (this.type === 'datetime') {
-        console.log('')
-    }
-
     return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
     /** Let this comments below in order to debug when needed */
     // const output = this.valueStrategy?.getValue(this) as FieldValuesTypes | null

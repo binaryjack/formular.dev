@@ -7,8 +7,10 @@ import InputText from '../../components/inputText/InputText'
 import CheckInput from '../../components/checkInput/CheckInput'
 import { DatePickerFormatsEnum } from '../../components/datePicker/core/DatePicker.types'
 import DatePicker from '../../components/datePicker/DatePicker'
+import Password from '../../components/password/password'
 import RadioInput from '../../components/radioInput/RadioInput'
 import { RangeSlider } from '../../components/rangeSlider/RangeSlider'
+import { ReadOnlyField } from '../../components/readonly-field/readonly-field'
 import RteInputField from '../../components/rteInput/RteInputField'
 import Select from '../../components/selectInput/Select'
 import SwitchButtonInput from '../../components/switchButton/SwitchButtonInput'
@@ -71,9 +73,13 @@ const FormDemo = () => {
                 items={fieldSelect?.options ?? []}
                 onSelectItem={(value) => fieldSelect?.onSelectItem(value)}
             /> */}
+
+            <ReadOnlyField fieldName={'id'} />
+            <ReadOnlyField fieldName={'order'} />
+            <ReadOnlyField fieldName={'userName'} />
             <InputText fieldName={'inputControl'} />
             <Select fieldName={'selectOptionsId'} />
-
+            <Password fieldName={'password'} />
             <CheckInput fieldName={'trueFalseValue'} />
             <RadioInput fieldName={'selectedRadioId'} />
             <DatePicker fieldName={'dateTimeValue'} />
