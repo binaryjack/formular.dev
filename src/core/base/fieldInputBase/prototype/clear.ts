@@ -18,6 +18,13 @@ export const clear = function (this: IFieldInput) {
     this.errors = []
     this.guides = []
 
+    this.fieldStateStyle.update('clear', true)
+    this.value = null
+    this.checked = false
+    this.selectedOptionId = undefined
+    this.dmClear()
+    this.focus()
+
     this.notify('validate', {
         fieldName: this.name,
         fieldState: 'reset'
@@ -26,10 +33,4 @@ export const clear = function (this: IFieldInput) {
         fieldName: this.name,
         fieldState: 'onChange'
     })
-
-    this.fieldStateStyle.update('clear', true)
-    this.value = null
-    this.checked = false
-    this.dmClear()
-    this.focus()
 }

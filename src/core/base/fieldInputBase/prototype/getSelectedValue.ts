@@ -1,7 +1,9 @@
 import { IFieldInput } from '../fieldInput.types'
 
 export const getSelectedValue = function (this: IFieldInput) {
-    return this?.selectedOptionId
+    const value = this?.selectedOptionId
         ? this?.getOptionById(this?.selectedOptionId.toString())?.text
         : ''
+
+    return value
 }
