@@ -24,16 +24,12 @@ const ValidatorPattern = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.custom,
-                    data.validationOptions.pattern.error
-                        ? data.validationOptions.pattern.error
-                        : undefined
+                    data.validationOptions.pattern.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.custom,
-                    data.validationOptions.pattern?.guide
-                        ? data.validationOptions.pattern?.guide
-                        : undefined
+                    data.validationOptions.pattern?.guide ?? undefined
                 ),
                 data
             )

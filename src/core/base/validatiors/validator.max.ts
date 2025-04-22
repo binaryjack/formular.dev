@@ -25,14 +25,12 @@ const ValidatorMax = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.max,
-                    data.validationOptions.max.error ? data.validationOptions.max.error : undefined
+                    data.validationOptions.max.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.max,
-                    data.validationOptions.max?.guide
-                        ? data.validationOptions.max?.guide
-                        : undefined
+                    data.validationOptions.max?.guide ?? undefined
                 ),
                 data
             )

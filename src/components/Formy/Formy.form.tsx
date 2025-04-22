@@ -64,10 +64,11 @@ const FormyForm = ({ formy, children, onSubmit }: IFormyFormProps) => {
                 <Button
                     id={`${formInstance?.id ?? conventions.IdIsEmpty()}-submit`}
                     title={`Submit`}
+                    children={`Submit`}
                     variantProperties={{
                         rounded: true,
                         size: 'md',
-                        width: '2em',
+                        width: '6em',
                         height: '2em',
                         className: 'ml-0'
                     }}

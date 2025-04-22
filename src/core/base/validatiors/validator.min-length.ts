@@ -22,16 +22,12 @@ const ValidatorMinLength = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.minLength,
-                    data.validationOptions.minLength.error
-                        ? data.validationOptions.minLength.error
-                        : undefined
+                    data.validationOptions.minLength.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.minLength,
-                    data.validationOptions.minLength?.guide
-                        ? data.validationOptions.minLength?.guide
-                        : undefined
+                    data.validationOptions.minLength?.guide ?? undefined
                 ),
                 data
             )

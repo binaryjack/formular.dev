@@ -23,16 +23,12 @@ const ValidatorRequired = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.required,
-                    data.validationOptions.requiredData?.error
-                        ? data.validationOptions.requiredData?.error
-                        : undefined
+                    data.validationOptions.requiredData?.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.required,
-                    data.validationOptions.requiredData?.guide
-                        ? data.validationOptions.requiredData?.guide
-                        : undefined
+                    data.validationOptions.requiredData?.guide ?? undefined
                 ),
                 data
             )

@@ -24,8 +24,8 @@ const SelectDrawerContent = ({
     height
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
-    const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ? selectedItemId : 0)
-    const originalSelectedItemRef = useRef<number>(selectedItemId ? selectedItemId : 0)
+    const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ?? 0)
+    const originalSelectedItemRef = useRef<number>(selectedItemId ?? 0)
 
     const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()
 

@@ -22,16 +22,12 @@ const ValidatorMaxLength = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.maxLength,
-                    data.validationOptions.maxLength.error
-                        ? data.validationOptions.maxLength.error
-                        : undefined
+                    data.validationOptions.maxLength.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.maxLength,
-                    data.validationOptions.maxLength?.guide
-                        ? data.validationOptions.maxLength?.guide
-                        : undefined
+                    data.validationOptions.maxLength?.guide ?? undefined
                 ),
                 data
             )

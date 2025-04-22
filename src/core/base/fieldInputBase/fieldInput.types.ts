@@ -64,7 +64,7 @@ export interface IFieldInputBase {
     clear: () => void
     register: () => object
     registerOption: () => object | null
-    registerLabel: (refHtmlFor: HTMLInputElement) => object
+    registerLabel: (optionId: string) => object
     ref: (o: HTMLInputElement | null) => void
     refOption: (o: HTMLInputElement | null) => void
     getAsString: () => string | null

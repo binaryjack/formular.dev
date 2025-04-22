@@ -22,14 +22,12 @@ const ValidatorMin = function (this: IValidatorStrategy) {
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.min,
-                    data.validationOptions.min.error ? data.validationOptions.min.error : undefined
+                    data.validationOptions.min.error ?? undefined
                 ),
                 newFieldGuide(
                     data.fieldName,
                     ValidationErrorsCodes.min,
-                    data.validationOptions.min?.guide
-                        ? data.validationOptions.min?.guide
-                        : undefined
+                    data.validationOptions.min?.guide ?? undefined
                 ),
                 data
             )

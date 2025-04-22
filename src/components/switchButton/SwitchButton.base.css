@@ -3,7 +3,8 @@
 
 @layer components {
     .switch-button {
-        @apply flex items-center justify-center cursor-pointer select-none;
+        @apply flex items-center justify-start cursor-pointer select-none;
+        justify-content: flex-start;
     }
 
     .switch-button.switch-horizontal {

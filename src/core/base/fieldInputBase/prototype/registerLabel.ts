@@ -15,15 +15,14 @@ import { IFieldInput } from '../fieldInput.types'
  * - Triggers all registered observers.
  * - Stops the propagation of the click event.
  */
-export const registerLabel = function (
-    this: IFieldInput,
-    refHtmlFor: React.RefObject<HTMLInputElement>
-) {
-    const onClick = (e: MouseEvent | React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
-        const currentInputElement = refHtmlFor.current as unknown as HTMLInputElement
-
-        this.value = currentInputElement?.value ?? ''
-        currentInputElement.checked = true
+export const registerLabel = function (this: IFieldInput, optionId: string) {
+    const onClick = (e: Event) => {
+        const option = this.getOptionById(optionId)
+        if (option) {
+            this.value = option.id
+            this.selectedOptionId = option.id
+        }
+        this.dmSetChecked(optionId, true)
         this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
         this.observers.trigger()

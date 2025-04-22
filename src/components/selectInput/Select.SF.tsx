@@ -45,6 +45,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
                     filterTriggerDelay={500}
                     items={field?.options ?? []}
                     onSelectItem={(value) => field?.onSelectItem(value)}
+                    selectedItemId={Number(field?.selectedOptionId)}
                 />
             }
             itemsDrawerHeight="350px"

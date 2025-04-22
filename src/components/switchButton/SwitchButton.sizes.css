@@ -2,17 +2,6 @@
 @tailwind components;
 
 @layer components {
-    .switch-button {
-        @apply flex items-center justify-center cursor-pointer select-none;
-    }
-
-    .switch-button.switch-horizontal {
-        @apply rotate-0 h-10
-    }
-
-    .switch-button.switch-vertical {
-        @apply -rotate-90 h-14;
-    }
 
     /**2xs */
     .switch-button-2xs .switch-button-track {

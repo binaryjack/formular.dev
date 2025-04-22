@@ -24,20 +24,19 @@ export const registerOption = function (this: IFieldInput) {
     const updateUI = () => {
         this.observers.trigger()
     }
-    const onClick = (e: MouseEvent | React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-        this.value = (e.currentTarget as HTMLInputElement)?.value ?? ''
-        // console.log('onClick', this.value, (e.currentTarget as HTMLInputElement)?.value)
+    const onClick = (e: Event) => {
+        const inputElement = e.target as HTMLInputElement
+        this.value = inputElement?.value ?? ''
 
         this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
         updateUI()
 
-        e?.stopPropagation?.()
-
         this._notify('clicked', this.name, 'onChange')
+        e?.stopPropagation?.()
     }
 
-    const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const onBlur = (e: Event) => {
         this.isFocus = false
         this.fieldStateStyle.update('focus', this.isFocus)
 
@@ -49,7 +48,7 @@ export const registerOption = function (this: IFieldInput) {
         this._notify('blurred', this.name, 'onBlur')
     }
 
-    const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const onFocus = (e: Event) => {
         this.isFocus = true
         this.fieldStateStyle.update('focus', this.isFocus)
 
