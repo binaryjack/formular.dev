@@ -1,21 +1,21 @@
+import { IValidationSchema } from '../../validation.schema.types'
 import {
     IValidationSchemaBuilder,
-    minMaxMethodBuilderTypes
-} from './validation.schema.builder.types'
-import { IValidationSchema } from './validation.schema.types'
+    ValidationSchemaBuilderType
+} from '../builder/validation.schema.builder.types'
 
 export interface IValidationSchemaFactory {
     new (): IValidationSchemaFactory
-    builders: minMaxMethodBuilderTypes[]
-    addBuilders: (...builders: minMaxMethodBuilderTypes[]) => void
+    builders: ValidationSchemaBuilderType[]
+    addBuilders: (...builders: ValidationSchemaBuilderType[]) => void
     /** If we need a min max min length max length based validation we can start here
      *  put the name of desired combination or alone validation definition and get the builder
      *  then: use the builder to prep for the finalizer
      * if not found it returns an empty validation builder
      */
-    createMinMaxBasedBuilder: <minMaxMethodBuilderTypes>(
+    createValidationSchemaBuilder: <ValidationSchemaBuilderType>(
         builderName: string
-    ) => minMaxMethodBuilderTypes
+    ) => ValidationSchemaBuilderType
     /**
      * create or finalize previousely done with createMinMaxBasedBuilder
      * @param base  ()

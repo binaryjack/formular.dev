@@ -8,16 +8,15 @@ import { SchemaDataTypes } from '../../dependency/form.common.enums'
 import { getTranslationBuilder, getTranslations } from '../../dependency/localize/localize.utils'
 import { FieldSchemaBuilder } from '../../dependency/schema/fieldSchema/field.schema.builder'
 import { IEntityScheme } from '../../dependency/schema/fieldSchema/field.schema.types'
+import validationSchemaFactory from '../../dependency/schema/validationSchema/schema/factory/validation.schema.factory'
 import {
     eMailPattern,
     namesPattern
 } from '../../dependency/schema/validationSchema/validation.regex.patterns'
-import {
-    minMaxTypeMethodBuilder1,
-    minMaxTypeMethodBuilder2,
-    ValidationSchemaBuildersEnum
-} from '../../dependency/schema/validationSchema/validation.schema.builder.types'
-import validationSchemaFactory from '../../dependency/schema/validationSchema/validation.schema.factory'
+
+import { ValidationSchemaBuildersEnum } from '../../dependency/schema/validationSchema/builders/builders.types'
+
+import { ValidationSchemaBuilderType } from '../../dependency/schema/validationSchema/schema/builder/validation.schema.builder.types'
 import { IValidationSchema } from '../../dependency/schema/validationSchema/validation.schema.types'
 
 const fieldsIds: Record<string, number> = {
@@ -46,17 +45,19 @@ const fieldDescriptionValues = {
 }
 
 const minMaxNameBuilder =
-    validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder2>(
+    validationSchemaFactory.createValidationSchemaBuilder<ValidationSchemaBuilderType>(
         ValidationSchemaBuildersEnum.MinLengthAndMaxLengthBuilder
     )?.(3, 50)
 
-const minLengthBuilder = validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder1>(
-    ValidationSchemaBuildersEnum.MinLengthBuilder
-)?.(5)
+const minLengthBuilder =
+    validationSchemaFactory.createValidationSchemaBuilder<ValidationSchemaBuilderType>(
+        ValidationSchemaBuildersEnum.MinLengthBuilder
+    )?.(5)
 
-const maxLengthBuilder = validationSchemaFactory.createMinMaxBasedBuilder<minMaxTypeMethodBuilder1>(
-    ValidationSchemaBuildersEnum.MaxLengthBuilder
-)?.(20)
+const maxLengthBuilder =
+    validationSchemaFactory.createValidationSchemaBuilder<ValidationSchemaBuilderType>(
+        ValidationSchemaBuildersEnum.MaxLengthBuilder
+    )?.(20)
 
 const setupForm = (
     id: number,

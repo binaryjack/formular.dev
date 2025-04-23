@@ -1,6 +1,6 @@
 import { IEntityScheme, IFieldSchema } from '../../dependency/schema/fieldSchema/field.schema.types'
 import baseOptionSchemaItem from '../../dependency/schema/optionsSchema/options.scheme.function'
-import { Validators } from '../../dependency/schema/validationSchema/validation.schema.specific.validators'
+import { Validators } from '../../dependency/schema/validationSchema/validators'
 import {
     CheckBuilder,
     DateTimeBuilder,
