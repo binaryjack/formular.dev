@@ -46,7 +46,7 @@ export const sanitize = (content: string, isHtml: boolean): string => {
             ['DIV', 'P'].includes(tempDiv.children[0].tagName) &&
             !tempDiv.children[0].querySelector('b, strong, i, em, u, s')
         ) {
-            sanitized = tempDiv.textContent || ''
+            sanitized = tempDiv.textContent ?? ''
         }
     }
 

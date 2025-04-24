@@ -60,14 +60,14 @@ const RteDebug = (props: IRteDebugProps) => {
                 <div className=" flex flex-col w-[300px]  h-auto  text-wrap overflow-auto border-2 border-solid border-slate-300 m-1 p-1">
                     <strong>Selection:</strong>
                     {engineState?.selection && (
-                        <pre lang="">
+                        <pre>
                             <div>{JSON.stringify(engineState?.selection, null, 2)}</div>
                         </pre>
                     )}
                 </div>
                 <div className=" flex flex-col  w-full  h-auto  text-wrap overflow-auto border-2 border-solid border-slate-300 m-1 p-1">
                     <strong>HTML</strong>
-                    <pre lang="hmtl">{htmlOutput}</pre>
+                    <pre>{htmlOutput}</pre>
                 </div>
             </div>
         </div>

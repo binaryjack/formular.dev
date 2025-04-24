@@ -28,7 +28,7 @@ export const handleOnClicked = function (this: IFieldInput, data?: any) {
     console.log('value clicked', data, this.value)
     this.internalInfo(
         'IFieldInput.handleOnClicked',
-        `value clicked: ${this.type}, value: ${this.value} `
+        `value clicked: ${this.type}, value: ${this.toString()} `
     )
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)
@@ -44,7 +44,7 @@ export const handleOnClicked = function (this: IFieldInput, data?: any) {
 export const handleOnSelected = function (this: IFieldInput, data?: any) {
     this.internalInfo(
         'IFieldInput.handleOnSelected',
-        `value clicked: ${this.type}, value: ${this.value} `
+        `value clicked: ${this.type}, value: ${this.toString()} `
     )
     const validationOrigin = data as IValidationOrigin
     this.validate(validator, validationOrigin)

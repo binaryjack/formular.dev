@@ -55,7 +55,7 @@ const DelayInput = ({
         <input
             ref={inputRef}
             onChange={handleOnChanged}
-            className={classNames ? classNames : 'base-input'}
+            className={classNames ?? 'base-input'}
             onKeyDown={handleKeyDown}
             tabIndex={tabIndex}
             {...rest}

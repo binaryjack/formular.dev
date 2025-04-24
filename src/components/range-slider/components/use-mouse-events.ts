@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback, useEffect } from 'react'
+import { MouseEvent, useCallback } from 'react'
 
 // I intentionnaly use:
 // e.stopPropagation()

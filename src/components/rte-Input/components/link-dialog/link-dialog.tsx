@@ -55,7 +55,7 @@ export const LinkDialog: React.FC<LinkDialogProps> = ({
                             URL
                         </label>
                         <input
-                            id={`in-urlInputRef`}
+                            id="in-urlInputRef"
                             ref={urlInputRef}
                             type="text"
                             value={url}
