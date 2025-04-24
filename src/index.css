@@ -1,11 +1,9 @@
 /** base */
 @import "tailwindcss/base";
-@import './style/globals.css';
+@import "tailwindcss/utilities";
+@import "tailwindcss/screens";
 /** COMPONENTS */
 @import "tailwindcss/components";
-@import './style/index.root.components.css';
-/** utils */
-@import "tailwindcss/utilities";
+@import './style/globals.css';
 @import './components/button/button.css';
-/** screens */
-@import "tailwindcss/screens";
+/** utils */

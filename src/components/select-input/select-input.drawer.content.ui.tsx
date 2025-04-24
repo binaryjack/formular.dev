@@ -15,7 +15,7 @@ interface ISelectDrawerUIProps {
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         value: IOptionItem
     ) => void
-    selectedItemId: number
+    selectedItemId: string
     onFilterItems: (value: string) => void
     onClearFilter: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     width?: string

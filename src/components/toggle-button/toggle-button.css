@@ -1,0 +1,168 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import '../../style/globals.css';
+
+.toggle-button-wrapper {
+    z-index: 0;
+    @apply relative p-0 mx-1 flex flex-grow items-center justify-center w-full h-full overflow-hidden select-none transition-all duration-150 ease-in-out;
+}
+
+.toggle-button-wrapper .content {
+    @apply flex w-full items-center justify-center;
+}
+
+.toggle-button-wrapper.loading {
+    @apply cursor-not-allowed;
+}
+
+.toggle-button-wrapper.xxs {
+    @apply text-04;
+}
+
+.toggle-button-wrapper.xs {
+    @apply text-08;
+}
+
+.toggle-button-wrapper.sm {
+    @apply text-10;
+}
+
+.toggle-button-wrapper.md {
+    @apply text-115;
+}
+
+.toggle-button-wrapper.lg {
+    @apply text-135;
+}
+
+.toggle-button-wrapper.xl {
+    @apply text-165;
+}
+
+.toggle-button-wrapper.xxl {
+    @apply text-200;
+}
+
+.toggle-button-wrapper .icon {
+    @apply flex w-6 h-6 items-center justify-center mr-2;
+}
+
+.toggle-button-primary-active {
+    @apply primary-active;
+}
+
+.toggle-button-primary {
+    @apply primary;
+}
+
+.toggle-button-secondary-active {
+    @apply secondary-active;
+}
+
+.toggle-button-secondary {
+    @apply secondary;
+}
+
+.toggle-button-danger-active {
+    @apply danger-active;
+}
+
+.toggle-button-danger {
+    @apply danger;
+}
+
+.toggle-button-success-active {
+    @apply success-active;
+}
+
+.toggle-button-success {
+    @apply success;
+}
+
+.toggle-button-warning-active {
+    @apply warning-active;
+}
+
+.toggle-button-warning {
+    @apply warning;
+}
+
+.toggle-button-info-active {
+    @apply info-active;
+}
+
+.toggle-button-info {
+    @apply info;
+}
+
+.toggle-button-primary.disabled {
+    @apply bg-blue-200 hover:bg-blue-50 cursor-not-allowed;
+}
+
+.toggle-button-secondary.disabled {
+    @apply bg-gray-200 hover:bg-gray-50 cursor-not-allowed;
+}
+
+.toggle-button-danger.disabled {
+    @apply bg-red-200 hover:bg-red-50 cursor-not-allowed;
+}
+
+.toggle-button-success.disabled {
+    @apply bg-green-200 hover:bg-green-50 cursor-not-allowed;
+}
+
+.toggle-button-warning.disabled {
+    @apply bg-yellow-200 hover:bg-yellow-50 cursor-not-allowed;
+}
+
+.toggle-button-info.disabled {
+    @apply bg-violet-500 hover:bg-violet-50 cursor-not-allowed;
+}
+
+span.ripple.primary {
+    @apply bg-blue-200;
+}
+
+span.ripple.secondary {
+    @apply bg-gray-200;
+}
+
+span.ripple.danger {
+    @apply bg-red-200;
+}
+
+span.ripple.success {
+    @apply bg-green-200;
+}
+
+span.ripple.warning {
+    @apply bg-yellow-200;
+}
+
+span.ripple.info {
+    @apply bg-violet-200;
+}
+
+span.ripple {
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.toggle-button-wrapper .ripple.animate {
+    animation: makeRipple 300ms linear;
+}
+
+@keyframes makeRipple {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(2);
+        opacity: 1;
+    }
+}

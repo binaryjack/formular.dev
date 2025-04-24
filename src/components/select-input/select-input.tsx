@@ -1,6 +1,6 @@
 import { Toggleable } from '../toggleable/toggleable'
-import { SelectSF } from './select-input.sf'
 
+import { SelectSF } from './select-input.sf'
 interface ISelectProps {
     fieldName: string
 }

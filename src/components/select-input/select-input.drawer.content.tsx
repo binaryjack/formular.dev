@@ -9,7 +9,7 @@ import SelectDrawerContentUI from './select-input.drawer.content.ui'
 interface ISelectDrawerProps {
     items: IOptionItem[]
     filterTriggerDelay: number
-    selectedItemId?: number
+    selectedItemId?: string | null
     onSelectItem: (value: IOptionItem) => void
     width?: string
     height?: string
@@ -24,7 +24,7 @@ const SelectDrawerContent = ({
     height
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
-    const [currentItemId, setCurrentItemId] = useState<number>(selectedItemId ?? 0)
+    const [currentItemId, setCurrentItemId] = useState<string | null>(selectedItemId ?? null)
     const originalSelectedItemRef = useRef<number>(selectedItemId ?? 0)
 
     const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()

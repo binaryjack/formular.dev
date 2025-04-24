@@ -8,6 +8,8 @@ import {
     VariantNameType
 } from '../../style/global.types'
 
+import './toggle-button.css'
+
 interface IToggleButtonProps {
     id: string
     name: string
@@ -53,7 +55,9 @@ export const ToggleButton = ({
     }
 
     const btnBaseClasses = [
-        `btn-${variant}`,
+        isOn
+            ? `border-3 border-solid toggle-button-${variant}-active`
+            : `border-2 border-solid toggle-button-${variant}`,
         `${sizeConverter?.(size)}`,
         `${textCase}`,
         `${weight}`,
@@ -61,8 +65,7 @@ export const ToggleButton = ({
         'cursor-pointer',
         'transition-all',
         'duration-150',
-        'ease-in-out',
-        isOn ? 'bg-green-500 text-white' : 'bg-gray-300 text-black'
+        'ease-in-out'
     ].join(' ')
 
     return (
@@ -72,12 +75,12 @@ export const ToggleButton = ({
             id={id}
             title={name}
             type="button"
-            className={`btn-wrapper ${btnBaseClasses} ${className}`}
             onClick={handleToggle}
             style={{
                 maxWidth: width,
                 height: height
             }}
+            className={`toggle-button-wrapper ${btnBaseClasses} ${className}`}
         >
             {children}
         </button>

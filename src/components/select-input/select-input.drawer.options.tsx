@@ -3,7 +3,7 @@ import SelectDrawerOption from './select-input.drawer.option'
 
 interface ISelectDrawerOptionsProps {
     options: IOptionItem[]
-    selectedItemId: number
+    selectedItemId: string
     onHandleSelectItem: (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         value: IOptionItem
@@ -22,7 +22,7 @@ const SelectDrawerOptions = ({
                     <SelectDrawerOption
                         key={item.id}
                         option={item}
-                        isSelected={item.id === selectedItemId.toString()}
+                        isSelected={item.id === selectedItemId}
                         onHandleSelectItem={onHandleSelectItem}
                     />
                 )
