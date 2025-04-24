@@ -1,4 +1,4 @@
-import validator from '../validator.strategy'
+import validator from './validator.strategy'
 import {
     hasMax,
     hasMaxLength,
@@ -9,7 +9,7 @@ import {
     newValidatorStrategyData,
     ValidationErrorsCodes,
     ValidationTriggerModeType
-} from '../validator.types'
+} from './validator.types'
 
 describe('Validator Strategy Tests', () => {
     // Helper function to create validation data
@@ -32,9 +32,7 @@ describe('Validator Strategy Tests', () => {
             const results = validator.validate(data)
 
             // Find required validation result
-            const requiredResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.required
-            )
+            const requiredResult = results.find((r) => r?.code === ValidationErrorsCodes.required)
             expect(requiredResult?.state).toBe(true)
         })
 
@@ -44,9 +42,8 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const requiredResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.required
-            )
+            // Find required validation result
+            const requiredResult = results.find((r) => r?.code === ValidationErrorsCodes.required)
             expect(requiredResult?.state).toBe(false)
             expect(requiredResult?.error?.message).toBe('Field is required')
         })
@@ -57,9 +54,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const requiredResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.required
-            )
+            const requiredResult = results.find((r) => r?.code === ValidationErrorsCodes.required)
             expect(requiredResult?.state).toBe(true)
         })
 
@@ -84,9 +79,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const minLengthResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.minLength
-            )
+            const minLengthResult = results.find((r) => r?.code === ValidationErrorsCodes.minLength)
             expect(minLengthResult?.state).toBe(true)
         })
 
@@ -96,9 +89,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const minLengthResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.minLength
-            )
+            const minLengthResult = results.find((r) => r?.code === ValidationErrorsCodes.minLength)
             expect(minLengthResult?.state).toBe(false)
             expect(minLengthResult?.error?.message).toBe('Too short')
             expect(minLengthResult?.guide?.message).toBe('Should be at least 5 characters')
@@ -112,9 +103,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const maxLengthResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.maxLength
-            )
+            const maxLengthResult = results.find((r) => r?.code === ValidationErrorsCodes.maxLength)
             expect(maxLengthResult?.state).toBe(true)
         })
 
@@ -124,9 +113,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const maxLengthResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.maxLength
-            )
+            const maxLengthResult = results.find((r) => r?.code === ValidationErrorsCodes.maxLength)
             expect(maxLengthResult?.state).toBe(false)
             expect(maxLengthResult?.error?.message).toBe('Too long')
         })
@@ -139,7 +126,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const minResult = results.find((r) => r.error?.code === ValidationErrorsCodes.min)
+            const minResult = results.find((r) => r?.code === ValidationErrorsCodes.min)
             expect(minResult?.state).toBe(true)
         })
 
@@ -149,7 +136,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const minResult = results.find((r) => r.error?.code === ValidationErrorsCodes.min)
+            const minResult = results.find((r) => r?.code === ValidationErrorsCodes.min)
             expect(minResult?.state).toBe(false)
             expect(minResult?.error?.message).toBe('Too small')
         })
@@ -162,7 +149,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const maxResult = results.find((r) => r.error?.code === ValidationErrorsCodes.max)
+            const maxResult = results.find((r) => r?.code === ValidationErrorsCodes.max)
             expect(maxResult?.state).toBe(true)
         })
 
@@ -172,7 +159,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const maxResult = results.find((r) => r.error?.code === ValidationErrorsCodes.max)
+            const maxResult = results.find((r) => r?.code === ValidationErrorsCodes.max)
             expect(maxResult?.state).toBe(false)
             expect(maxResult?.error?.message).toBe('Too large')
         })
@@ -189,9 +176,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const patternResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.custom
-            )
+            const patternResult = results.find((r) => r?.code === ValidationErrorsCodes.custom)
             expect(patternResult?.state).toBe(true)
         })
 
@@ -205,9 +190,7 @@ describe('Validator Strategy Tests', () => {
             })
             const results = validator.validate(data)
 
-            const patternResult = results.find(
-                (r) => r.error?.code === ValidationErrorsCodes.custom
-            )
+            const patternResult = results.find((r) => r?.code === ValidationErrorsCodes.custom)
             expect(patternResult?.state).toBe(false)
             expect(patternResult?.error?.message).toBe('Invalid email')
         })
@@ -216,7 +199,7 @@ describe('Validator Strategy Tests', () => {
     describe('Validation Builder Tests', () => {
         it('should combine multiple validations correctly', () => {
             // Test case with multiple validation rules
-            const data = createTestData('test', {
+            const data = createTestData('100', {
                 requiredData: isRequired(true),
                 minLength: hasMinLength(3),
                 maxLength: hasMaxLength(10),
@@ -247,11 +230,9 @@ describe('Validator Strategy Tests', () => {
 
             // Check specific failures
             const minLengthFailure = failures.find(
-                (r) => r.error?.code === ValidationErrorsCodes.minLength
+                (r) => r?.code === ValidationErrorsCodes.minLength
             )
-            const patternFailure = failures.find(
-                (r) => r.error?.code === ValidationErrorsCodes.custom
-            )
+            const patternFailure = failures.find((r) => r?.code === ValidationErrorsCodes.custom)
 
             expect(minLengthFailure).toBeDefined()
             expect(patternFailure).toBeDefined()

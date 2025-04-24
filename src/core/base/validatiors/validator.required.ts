@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { isNullEmptyOrUndefined } from '../field-input-base/utils/is-null-empty-or-undefined'
+
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,17 +10,18 @@ import {
 
 const ValidatorRequired = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
-        const hasExpectedValue = !!data.expectedValue
-        const hasValue = !valueIsNullOrUndefined(data?.value)
-
         if (!data?.validationOptions?.requiredData?.required) {
-            return newValidationResult(true, data.fieldName)
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)
         }
+
+        const hasExpectedValue = !!data.expectedValue
+        const hasValue = !isNullEmptyOrUndefined(data?.value as string | null | undefined)
 
         if (!hasValue || (hasValue && hasExpectedValue && data.expectedValue !== data?.value)) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.required,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.required,
@@ -34,7 +36,7 @@ const ValidatorRequired = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)
     }
 } as any as IValidatorStrategy
 const validatorRequired = new ValidatorRequired()

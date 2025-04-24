@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { isNullEmptyOrUndefined } from '../field-input-base/utils/is-null-empty-or-undefined'
+
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,18 +10,18 @@ import {
 
 const ValidatorPattern = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
-        const hasValue = !valueIsNullOrUndefined(data?.value)
-
-        if (!hasValue || !data?.validationOptions?.pattern?.pattern) {
-            return newValidationResult(true, data.fieldName)
+        if (!data?.validationOptions?.pattern?.pattern) {
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
         }
+        const hasValue = !isNullEmptyOrUndefined(data?.value as string | null | undefined)
 
         const regexp = new RegExp(data.validationOptions.pattern.pattern)
         const valueToBeTested = data?.toString()
-        if (!regexp.test(valueToBeTested)) {
+        if (hasValue && !regexp.test(valueToBeTested)) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.custom,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.custom,
@@ -35,7 +36,7 @@ const ValidatorPattern = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
     }
 } as any as IValidatorStrategy
 const validatorPattern = new ValidatorPattern()

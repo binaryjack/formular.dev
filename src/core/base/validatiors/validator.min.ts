@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { valueIsNullOrUndefined } from '../field-input-base/utils/value-is-null-or-undefined'
+
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,16 +10,19 @@ import {
 
 const ValidatorMin = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
+        if (!data?.validationOptions?.min) {
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
+        }
         const hasValue = !valueIsNullOrUndefined(data?.value)
 
-        if (!hasValue || !data?.validationOptions?.min) {
-            return newValidationResult(true, data.fieldName)
-        }
-
-        if (isNaN(Number(data?.value)) || Number(data?.value) < data.validationOptions.min.min) {
+        if (
+            hasValue &&
+            (isNaN(Number(data?.value)) || Number(data?.value) < data.validationOptions.min.min)
+        ) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.min,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.min,
@@ -33,7 +37,7 @@ const ValidatorMin = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
     }
 } as any as IValidatorStrategy
 const validatorMin = new ValidatorMin()

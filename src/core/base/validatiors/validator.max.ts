@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { valueIsNullOrUndefined } from '../field-input-base/utils/value-is-null-or-undefined'
+
 import {
     IValidationResult,
     IValidatorStrategy,
@@ -12,16 +13,18 @@ type NewType = IValidationResult
 
 const ValidatorMax = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
-        const hasValue = !valueIsNullOrUndefined(data?.value)
-
-        if (!hasValue || !data?.validationOptions?.max) {
-            return newValidationResult(true, data.fieldName)
+        if (!data?.validationOptions?.max) {
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.max)
         }
-
-        if (isNaN(Number(data?.value)) || Number(data?.value) > data.validationOptions.max.max) {
+        const hasValue = !valueIsNullOrUndefined(data?.value)
+        if (
+            hasValue &&
+            (isNaN(Number(data?.value)) || Number(data?.value) > data.validationOptions.max.max)
+        ) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.max,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.max,
@@ -36,7 +39,7 @@ const ValidatorMax = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.max)
     }
 } as any as IValidatorStrategy
 

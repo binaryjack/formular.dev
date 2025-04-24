@@ -6,6 +6,6 @@
 @import './style/index.root.components.css';
 /** utils */
 @import "tailwindcss/utilities";
-/* @import './components/button/button.css'; */
+@import './components/button/button.css';
 /** screens */
 @import "tailwindcss/screens";

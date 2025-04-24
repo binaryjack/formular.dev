@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { valueIsNullOrUndefined } from '../field-input-base/utils/value-is-null-or-undefined'
+
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,16 +10,16 @@ import {
 
 const ValidatorMinLength = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
+        if (!data?.validationOptions?.minLength) {
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.minLength)
+        }
         const hasValue = !valueIsNullOrUndefined(data?.value)
 
-        if (!hasValue || !data?.validationOptions?.minLength) {
-            return newValidationResult(true, data.fieldName)
-        }
-
-        if (data.toString().length < data.validationOptions?.minLength.minLength) {
+        if (hasValue && data.toString().length < data.validationOptions?.minLength.minLength) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.minLength,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.minLength,
@@ -33,7 +34,7 @@ const ValidatorMinLength = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.minLength)
     }
 } as any as IValidatorStrategy
 

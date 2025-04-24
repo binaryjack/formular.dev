@@ -52,6 +52,7 @@ export interface IDoValidate {
 
 export interface IValidationResult {
     state: boolean
+    code: string
     fieldName: string
     error?: IFieldError
     guide?: IFieldGuide
@@ -79,11 +80,12 @@ export const newValidationResults = (
 export const newValidationResult = (
     state: boolean,
     fieldName: string,
+    code: string,
     error?: IFieldError,
     guide?: IFieldGuide,
     strategyData?: IValidatorStrategyData
 ): IValidationResult => {
-    return { state, fieldName, error, guide, strategyData }
+    return { state, fieldName, code, error, guide, strategyData }
 }
 
 export interface IValidatorStrategyData {

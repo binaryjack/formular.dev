@@ -1,5 +1,6 @@
 import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils'
+import { valueIsNullOrUndefined } from '../field-input-base/utils/value-is-null-or-undefined'
+
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
@@ -9,16 +10,17 @@ import {
 
 const ValidatorMaxLength = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
-        const hasValue = !valueIsNullOrUndefined(data?.value)
-
-        if (!hasValue || !data?.validationOptions?.maxLength) {
-            return newValidationResult(true, data.fieldName)
+        if (!data?.validationOptions?.maxLength) {
+            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.maxLength)
         }
 
-        if (data.toString().length > data.validationOptions?.maxLength?.maxLength) {
+        const hasValue = !valueIsNullOrUndefined(data?.value)
+
+        if (hasValue && data.toString().length > data.validationOptions?.maxLength?.maxLength) {
             return newValidationResult(
                 false,
                 data.fieldName,
+                ValidationErrorsCodes.maxLength,
                 newFieldError(
                     data.fieldName,
                     ValidationErrorsCodes.maxLength,
@@ -33,7 +35,7 @@ const ValidatorMaxLength = function (this: IValidatorStrategy) {
             )
         }
 
-        return newValidationResult(true, data.fieldName)
+        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.maxLength)
     }
 } as any as IValidatorStrategy
 const validatorMaxLength = new ValidatorMaxLength()
