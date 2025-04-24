@@ -1,5 +1,3 @@
-@tailwind components;
-
 .range-slider {
     position: relative;
     display: flex;

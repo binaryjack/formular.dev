@@ -17,6 +17,8 @@ import { ToggleableStateType } from '../toggleable/toggleable.types'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 
+import './drawer.css'
+
 interface IDrawerProps {
     id: string
     children: React.ReactNode

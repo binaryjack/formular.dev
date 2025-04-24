@@ -1,19 +1,15 @@
-@tailwind components;
+.radio-group {
+    @apply flex flex-col sm:flex-col md:flex-row items-start w-full;
+}
 
-@layer components {
-    .radio-group {
-        @apply flex flex-col sm:flex-col md:flex-row items-start w-full;
-    }
+.radio-item-group {
+    @apply flex flex-row items-center w-full;
+}
 
-    .radio-item-group {
-        @apply flex flex-row items-center w-full;
-    }
+.radio-item-group.mobile {
+    @apply flex flex-col items-start;
+}
 
-    .radio-item-group.mobile {
-        @apply flex flex-col items-start;
-    }
-
-    .base-radio {
-        @apply appearance-none h-[2em] w-[2em] sm:my-1 xs:my-1 2xs:my-[0.25em] md:mx-1 border-2 cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
-    }
+.base-radio {
+    @apply appearance-none h-[2em] w-[2em] sm:my-1 xs:my-1 2xs:my-[0.25em] md:mx-1 border-2 cursor-pointer border-gray-400 rounded-full items-center justify-start checked:bg-blue-500 checked:border-transparent;
 }

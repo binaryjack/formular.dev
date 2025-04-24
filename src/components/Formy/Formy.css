@@ -1,31 +1,27 @@
-@tailwind components;
+.formy {
+    @apply p-1 relative top-0 w-full;
+}
 
-@layer components {
-    .formy {
-        @apply p-1 relative top-0 w-full;
-    }
+.debug-table {
+    @apply border-2 border-gray-400 border-solid w-full;
+}
 
-    .debug-table {
-        @apply border-2 border-gray-400 border-solid w-full;
-    }
+.debug-table-row {
+    @apply border-b-2 border-gray-400 border-solid flex flex-row;
+}
 
-    .debug-table-row {
-        @apply border-b-2 border-gray-400 border-solid flex flex-row;
-    }
+.debug-table-row.valid {
+    @apply bg-green-200;
+}
 
-    .debug-table-row.valid {
-        @apply bg-green-200;
-    }
+.debug-table-row.invalid {
+    @apply bg-red-200;
+}
 
-    .debug-table-row.invalid {
-        @apply bg-red-200;
-    }
+.debug-table-row:last-child {
+    @apply border-b-0 flex border-gray-400 border-solid;
+}
 
-    .debug-table-row:last-child {
-        @apply border-b-0 flex border-gray-400 border-solid;
-    }
-
-    .debug-table-col {
-        @apply border-r-2 border-gray-400 border-solid flex flex-1 overflow-hidden;
-    }
+.debug-table-col {
+    @apply border-r-2 border-gray-400 border-solid flex flex-1 overflow-hidden;
 }

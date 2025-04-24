@@ -6,8 +6,8 @@ import { FieldValuesTypes } from '../../dependency/schema/descriptor/field.data.
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import { formyContext, IFormyContext, useForm } from './formy.context'
+import './formy.css'
 import FormyDebug from './formy.debug'
-
 interface IFormyFormProps {
     formy: IFormy
     children: React.ReactNode

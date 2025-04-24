@@ -9,9 +9,11 @@ import {
 } from '../../style/global.types'
 import Spinner from '../spinner/spinner'
 import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
+
+import './button.css'
+
 import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'
-
 export interface IButtonVariant {
     variant: VariantNameType
     size: AppBreakPointSizesType
