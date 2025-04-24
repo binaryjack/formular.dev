@@ -1,4 +1,4 @@
-import { IDataMutationObserverSubject } from '../dataMutationObserver/dataMutationObserverSubject.types'
+import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
 import { INotifier, TNotifierEventsType } from '../notifications/notifications.types'
 
 /**

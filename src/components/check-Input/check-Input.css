@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+    .base-checkbox {
+        @apply appearance-none h-[2em] w-[2em] border-2 cursor-pointer border-gray-400 rounded checked:bg-blue-500 checked:border-transparent select-none;
+    }
+}

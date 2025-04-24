@@ -1,6 +1,6 @@
 import { IFieldError, IFieldGuide } from '../../errors'
 import { IValidationOptions } from '../../validation'
-import { IOptionItem } from '../optionsSchema/options.scheme.types'
+import { IOptionItem } from '../options-schema/options.scheme.types'
 import { INDate } from './field.data.date.struct'
 import { FieldValuesTypes } from './field.data.types'
 

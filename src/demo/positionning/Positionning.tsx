@@ -1,4 +1,4 @@
-import { ScreenElement } from './ScreenElement'
+import { ScreenElement } from './screen-element'
 
 const Positionning = () => {
     return (

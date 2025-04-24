@@ -4,17 +4,8 @@
 /** COMPONENTS */
 @import "tailwindcss/components";
 @import './style/index.root.components.css';
-@import './components/fieldset/FieldSet.css';
-@import './components/rteInput/RteInput.css';
-@import './components/Formy/Formy.css';
-@import './components/checkInput/CheckInput.css';
-@import './components/radioInput/RadioInput.css';
-@import './components/button/Button.css';
-@import './components/datePicker/DatePicker.css';
-@import './components/selectInput/Select.css';
-@import './components/drawer/Drawer.css';
-@import './components/inputText/InputText.css';
 /** utils */
 @import "tailwindcss/utilities";
+@import './components/button/button.css';
 /** screens */
 @import "tailwindcss/screens";

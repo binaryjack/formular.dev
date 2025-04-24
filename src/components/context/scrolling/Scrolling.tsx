@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { VisualLandmark } from '../debug/VisualLandmark'
-import { IScreenProperties, IScrollingContext, ScrollContextProvider } from './Scrolling.context'
+import { VisualLandmark } from '../debug/visual-landmark'
+import { IScreenProperties, IScrollingContext, ScrollContextProvider } from './scrolling.context'
 
 interface IScrollContextProps {
     children: React.ReactNode

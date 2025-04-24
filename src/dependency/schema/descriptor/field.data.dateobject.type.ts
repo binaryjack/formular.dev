@@ -1,6 +1,5 @@
-import { DatePickerFormatsEnum } from '../../../components/datePicker/core/DatePicker.types'
-import { getPaddedNumber } from '../../../components/datePicker/core/getters/getPaddedNumber'
-
+import { DatePickerFormatsEnum } from '../../../components/date-picker/core/date-picker.types'
+import { getPaddedNumber } from '../../../components/date-picker/core/getters/get-padded-number'
 import { INDate } from './field.data.date.struct'
 
 export class DateObjectOld {

@@ -1,4 +1,4 @@
-import { ValidationLocalizeKeys } from '../schema/validationSchema/validation.localize.keys'
+import { ValidationLocalizeKeys } from '../schema/validation-schema/validation.localize.keys'
 import translations from './locale.en.json'
 import { IValidationLocalize } from './localize.type'
 

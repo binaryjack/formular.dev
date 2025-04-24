@@ -1,8 +1,8 @@
-import { ButtonsDemo } from './demo/buttons/ButtonsDemo'
-import FormDemo from './demo/forms/FormDemo'
-import Positionning from './demo/positionning/Positionning'
-import Counter from './demo/signals/counter/Counter'
-import TextInput from './demo/signals/text/TextInput'
+import { ButtonsDemo } from './demo/buttons/buttons-demo'
+import FormDemo from './demo/form-demo/form-demo'
+import Positionning from './demo/positionning/positionning'
+import Counter from './demo/signals/counter/counter'
+import TextInput from './demo/signals/text/text-input'
 
 interface IApp extends Node {
     testName?: string

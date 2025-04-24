@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import useAppContext from '../../../components/context/appContext/AppContext.context'
+import useAppContext from '../../../components/context/app-context/app-context.context'
 import {
     IScreenProperties,
     useScrollingContext
-} from '../../../components/context/scrolling/Scrolling.context'
+} from '../../../components/context/scrolling/scrolling.context'
 import { DrawerBreakPointType, ElementPositionOutputType } from '../../../style/global.types'
-import { useElementRef } from '../useElementRef'
+import { useElementRef } from '../use-element-ref'
 
 export const useCenterElementTrigger = <T extends HTMLElement>() => {
     /** gets the responsive media object handled through the application context */

@@ -1,0 +1,36 @@
+@tailwind components;
+
+@layer components {
+    .date-cell {
+        @apply flex flex-1 w-auto h-full justify-center items-center cursor-pointer flex-row border-cyan-800 border;
+    }
+
+    .date-cell:hover {
+        @apply border-cyan-300 bg-cyan-50 transition-all duration-100 ease-in-out;
+    }
+
+    .date-cell.selected {
+        @apply bg-blue-500 text-white;
+    }
+
+    .date-cell.is-weekend {
+        @apply bg-slate-500 text-white;
+    }
+
+    .date-cell.is-weekend.selected {
+        @apply bg-blue-400 text-white;
+    }
+
+    .date-cell.is-now {
+        @apply border-yellow-500;
+    }
+
+    .date-cell.is-now.selected {
+        @apply bg-blue-400 text-white;
+    }
+
+    .date-cell.previous,
+    .date-cell.next {
+        @apply bg-blue-950 text-white;
+    }
+}

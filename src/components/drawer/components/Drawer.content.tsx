@@ -1,4 +1,4 @@
-import { useDrawerContext } from './Drawer.context'
+import { useDrawerContext } from './drawer.context'
 
 interface DrawerContentProps {
     id: string

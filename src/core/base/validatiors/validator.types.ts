@@ -1,6 +1,6 @@
-import { DateObject } from '../../../components/datePicker/core/DateObject.object'
-import { DatePickerFormatsEnum } from '../../../components/datePicker/core/DatePicker.types'
-import { IDateObject } from '../../../components/datePicker/core/models/DateObject.models'
+import { DateObject } from '../../../components/date-picker/core/date-object.object'
+import { DatePickerFormatsEnum } from '../../../components/date-picker/core/date-picker.types'
+import { IDateObject } from '../../../components/date-picker/core/models/date-object.models'
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 

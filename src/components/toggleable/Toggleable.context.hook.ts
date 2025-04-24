@@ -3,7 +3,7 @@ import {
     IToggleableContextType,
     toggleableContext,
     toggleableContextTypeDefault
-} from './Toggleable.context'
+} from './toggleable.context'
 
 export const useToggleableContext = (): IToggleableContextType => {
     const context = useContext(toggleableContext)

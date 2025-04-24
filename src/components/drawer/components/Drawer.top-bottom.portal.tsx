@@ -1,6 +1,6 @@
 import { ElementPositionOutputType } from '../../../style/global.types'
-import { Portal } from '../../portals/Portal'
-import { ToggleableStateType } from '../../toggleable/Toggleable.types'
+import { Portal } from '../../portals/portals'
+import { ToggleableStateType } from '../../toggleable/toggleable.types'
 
 interface IDrawerTopBottomPortalProps {
     id: string

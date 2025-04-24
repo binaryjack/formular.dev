@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react'
 
-import { IFieldInput } from '../../core/base/fieldInputBase/fieldInput.types'
-import { IFormy, IFormyFlags } from '../../core/base/formyBase/formyBase.types'
+import { IFieldInput } from '../../core/base/field-input-base/field-input.types'
+import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
 import { FieldValuesTypes } from '../../dependency/schema/descriptor/field.data.types'
-import { Button } from '../button/Button'
+import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
-import { formyContext, IFormyContext, useForm } from './Formy.context'
-import FormyDebug from './Formy.debug'
+import { formyContext, IFormyContext, useForm } from './formy.context'
+import FormyDebug from './formy.debug'
 
 interface IFormyFormProps {
     formy: IFormy

@@ -1,0 +1,22 @@
+@tailwind components;
+
+.range-slider-debug {
+    font-size: 0.9em;
+    font-family: 'Courier New', Courier, monospace;
+    position: absolute;
+    top: -600px;
+    left: -50px;
+    z-index: 9999;
+    padding: 10px;
+    background: rgb(214, 214, 214);
+    color: rgb(0, 0, 0);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.debug-v {
+    font-size: 0.6em;
+}

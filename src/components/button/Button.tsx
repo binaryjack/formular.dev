@@ -1,16 +1,15 @@
 import { useEffect } from 'react'
-
 import { sizeConverter } from '../../core/hooks/screen/utils/screen.utils'
-import { conditionalClass } from '../../dependency/conditionalClass'
+import { conditionalClass } from '../../dependency/conditional-class'
 import {
     AppBreakPointSizesType,
     TextCaseType,
     TextWeightType,
     VariantNameType
 } from '../../style/global.types'
-import Spinner from '../spinner/Spinner'
+import Spinner from '../spinner/spinner'
 import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
-import useRippleEffect from './core/useRippleEffect'
+import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'
 
 export interface IButtonVariant {

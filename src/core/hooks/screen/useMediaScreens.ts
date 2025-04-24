@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import useThrottle from '../useThrottle'
+import useThrottle from '../use-throttle'
 import { getMediaBreakpoints, getMediaScreenAspectRatio } from './screen.constructors'
 import { IMedia, IMediaBreakpoints, IMediaScreenResult } from './screen.models'
 

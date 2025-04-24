@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components {
+    .date-picker-body {
+        @apply flex w-full h-[15em] m-0 p-0 justify-center items-center flex-col;
+    }
+
+    .date-picker-body-container {
+        @apply relative flex w-full h-full justify-center items-center;
+    }
+
+    .date-picker-body-wrapper {
+        @apply absolute w-full h-full flex flex-col justify-stretch items-stretch overflow-hidden;
+    }
+
+    .date-picker-body-row {
+        @apply flex flex-1 flex-row;
+    }
+}

@@ -1,4 +1,4 @@
-import { ToggleableStateType } from '../toggleable/Toggleable.types'
+import { ToggleableStateType } from '../toggleable/toggleable.types'
 
 export type DrawerDisplayStyleType = 'top' | 'bottom' | 'center'
 

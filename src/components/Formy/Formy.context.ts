@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { IFieldInput } from '../../core/base/fieldInputBase/fieldInput.types'
-import { FormCreator } from '../../core/base/formyBase/Formy.creator'
-import { IFormy, IFormyFlags } from '../../core/base/formyBase/formyBase.types'
+import { IFieldInput } from '../../core/base/field-input-base/field-input.types'
+import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
+import { FormCreator } from '../../core/base/formy-base/formy.creator'
 
 export interface IFormyContext {
     getFields: () => IFieldInput[]
@@ -27,7 +27,7 @@ export const useField = getFieldHook()
 
 export const formyContext = React.createContext<IFormyContext>(formyCotextDefault)
 
-const useFormyContext = (): IFormyContext => {
+export const useFormyContext = (): IFormyContext => {
     return React.useContext(formyContext)
 }
 export default useFormyContext

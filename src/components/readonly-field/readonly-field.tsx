@@ -1,6 +1,6 @@
 import { conventions } from '../context/conventions/conventions'
-import FieldSet from '../fieldset/FieldSet'
-import useFormyContext, { useField } from '../formy/Formy.context'
+import FieldSet from '../field-set/field-set'
+import useFormyContext, { useField } from '../formy/formy.context'
 import './readonly-field.css'
 // filepath: e:/Sources/SignalsPatternsReact/src/components/id-field/id-field.tsx
 

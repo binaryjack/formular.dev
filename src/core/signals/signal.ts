@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { DataMutationObserverSubject } from '../dataMutationObserver/DataMutationObserverSubject'
+import { DataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject'
 import { INotifier, notify, TNotifierEventsType } from '../notifications/notifications.types'
 import { ISignal, SignalType } from './signal.type'
 
