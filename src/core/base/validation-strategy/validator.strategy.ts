@@ -1,15 +1,15 @@
-import validatorMax from './validator.max'
-import validatorMaxLength from './validator.max-length'
-import validatorMin from './validator.min'
-import validatorMinLength from './validator.min-length'
-import validatorRequired from './validator.required'
+import { ValidatorMaxLengthStrategy } from './strategies/validator-max-length-strategy'
+import { ValidatorMaxStrategy } from './strategies/validator-max-strategy'
+import { ValidatorMinLengthStrategy } from './strategies/validator-min-length-strategy'
+import { ValidatorMinStrategy } from './strategies/validator-min-strategy'
+import { ValidatorRequiredStrategy } from './strategies/validator-required-strategy'
+import { ValidatorPatternStrategy } from './strategies/vaslidator-pattern-strategy'
 import {
     IValidationResult,
     IValidator,
     IValidatorStrategy,
     IValidatorStrategyData
 } from './validator.types'
-import validatorPattern from './vaslidator.pattern'
 
 /**
  * Validator class that implements the IValidator interface.
@@ -46,12 +46,12 @@ const Validator = function (this: IValidator) {
 const validator = new Validator()
 
 validator.addStrategies(
-    validatorMaxLength,
-    validatorMinLength,
-    validatorMax,
-    validatorMin,
-    validatorRequired,
-    validatorPattern
+    new ValidatorMaxLengthStrategy(),
+    new ValidatorMinLengthStrategy(),
+    new ValidatorMaxStrategy(),
+    new ValidatorMinStrategy(),
+    new ValidatorRequiredStrategy(),
+    new ValidatorPatternStrategy()
 )
 
 export default validator

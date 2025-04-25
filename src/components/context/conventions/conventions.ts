@@ -7,5 +7,9 @@ export const conventions = {
     },
     suffix: {
         labelId: '-label'
+    },
+    tokens: {
+        validationDataToken1: '|data|',
+        validationDataToken2: '|data2|'
     }
 }

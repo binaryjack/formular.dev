@@ -2,7 +2,7 @@ import {
     IValidationResult,
     IValidatorStrategyData,
     newValidatorStrategyData
-} from '../../validatiors/validator.types'
+} from '../../validation-strategy/validator.types'
 import { IFieldInput } from '../field-input.types'
 
 // // IValidatorStrategyData enhancement

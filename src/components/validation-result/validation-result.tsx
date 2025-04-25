@@ -2,7 +2,7 @@ import './validation-result.css'
 
 import React, { useMemo } from 'react'
 
-import { IValidationResult } from '../../core/base/validatiors/validator.types'
+import { IValidationResult } from '../../core/base/validation-strategy/validator.types'
 
 // Assuming IValidationResult is imported from the appropriate module
 

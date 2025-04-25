@@ -1,5 +1,5 @@
 import { TNotifierEventsType } from '../../notifications/notifications.types'
-import { ValidationTriggerModeType } from '../validatiors/validator.types'
+import { ValidationTriggerModeType } from '../validation-strategy/validator.types'
 
 export interface ITriggerableNotifiableEntity {
     _notify: (

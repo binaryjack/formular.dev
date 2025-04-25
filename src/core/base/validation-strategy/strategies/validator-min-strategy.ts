@@ -1,14 +1,14 @@
-import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../field-input-base/utils/value-is-null-or-undefined'
+import { newFieldError, newFieldGuide } from '../../../../dependency/errors'
+import { valueIsNullOrUndefined } from '../../field-input-base/utils/value-is-null-or-undefined'
 
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
     newValidationResult,
     ValidationErrorsCodes
-} from './validator.types'
+} from '../validator.types'
 
-const ValidatorMin = function (this: IValidatorStrategy) {
+export const ValidatorMinStrategy = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
         if (!data?.validationOptions?.min) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
@@ -40,5 +40,3 @@ const ValidatorMin = function (this: IValidatorStrategy) {
         return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
     }
 } as any as IValidatorStrategy
-const validatorMin = new ValidatorMin()
-export default validatorMin

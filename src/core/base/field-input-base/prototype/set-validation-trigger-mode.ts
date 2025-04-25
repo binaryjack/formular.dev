@@ -1,4 +1,4 @@
-import { ValidationTriggerModeType } from '../../validatiors/validator.types'
+import { ValidationTriggerModeType } from '../../validation-strategy/validator.types'
 import { IFieldInput } from '../field-input.types'
 
 /**

@@ -6,7 +6,7 @@ import { IEntityScheme } from '../../../dependency/schema/field-schema/field.sch
 import { mapSchemaToFieldDescriptor } from '../../../dependency/to-field-descriptor'
 import { notify, TNotifierEventsType } from '../../notifications/notifications.types'
 import { FieldInputCreator, useFieldHookType } from '../field-input-base/field-input.creator'
-import { ValidationTriggerModeType } from '../validatiors/validator.types'
+import { ValidationTriggerModeType } from '../validation-strategy/validator.types'
 import { Formy } from './formy-base'
 import { IFormy, IFormyFlags } from './formy-base.types'
 

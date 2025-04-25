@@ -3,7 +3,10 @@ import { DataMutationObserverSubject } from '../../data-mutation-observer/data-m
 import { NotifiableEntity } from '../../notifiable-entity/notifiable-entity'
 import { LoadingStatus } from '../../status'
 import { IFieldInput } from '../field-input-base/field-input.types'
-import { IValidationResult, ValidationTriggerModeType } from '../validatiors/validator.types'
+import {
+    IValidationResult,
+    ValidationTriggerModeType
+} from '../validation-strategy/validator.types'
 import { IFieldChange, IFormy } from './formy-base.types'
 
 export const Formy = function (this: IFormy, id: string) {

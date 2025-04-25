@@ -1,14 +1,14 @@
-import { newFieldError, newFieldGuide } from '../../../dependency/errors'
-import { isNullEmptyOrUndefined } from '../field-input-base/utils/is-null-empty-or-undefined'
+import { newFieldError, newFieldGuide } from '../../../../dependency/errors'
+import { isNullEmptyOrUndefined } from '../../field-input-base/utils/is-null-empty-or-undefined'
 
 import {
     IValidatorStrategy,
     IValidatorStrategyData,
     newValidationResult,
     ValidationErrorsCodes
-} from './validator.types'
+} from '../validator.types'
 
-const ValidatorPattern = function (this: IValidatorStrategy) {
+export const ValidatorPatternStrategy = function (this: IValidatorStrategy) {
     this.validate = function (data: IValidatorStrategyData) {
         if (!data?.validationOptions?.pattern?.pattern) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
@@ -39,5 +39,3 @@ const ValidatorPattern = function (this: IValidatorStrategy) {
         return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
     }
 } as any as IValidatorStrategy
-const validatorPattern = new ValidatorPattern()
-export default validatorPattern

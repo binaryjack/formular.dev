@@ -14,7 +14,7 @@ import {
     IValidable,
     IValidableField,
     ValidationTriggerModeType
-} from '../validatiors/validator.types'
+} from '../validation-strategy/validator.types'
 import { IValueStrategy } from '../value-strategy/value-strategy.types'
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor

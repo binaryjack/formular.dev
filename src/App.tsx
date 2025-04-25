@@ -3,6 +3,7 @@ import FormDemo from './demo/form-demo/form-demo'
 import Positionning from './demo/positionning/positionning'
 import Counter from './demo/signals/counter/counter'
 import TextInput from './demo/signals/text/text-input'
+import FieldInputValidationSandbox from './demo/validation-demo/ValidationDemo'
 
 interface IApp extends Node {
     testName?: string
@@ -75,6 +76,12 @@ const buttonsDemo = () => (
     </div>
 )
 
+const validationDemo = () => (
+    <div className={'app flex flex-col flex-1 items-center justify-center'}>
+        <FieldInputValidationSandbox />
+    </div>
+)
+
 const App = () => {
     // const [fields, setFields] = useState<IFieldDescriptor[]>([])
     // useEffect(() => {
@@ -92,7 +99,7 @@ const App = () => {
 
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            {formDemo()}
+            {validationDemo()}
         </div>
     )
 }

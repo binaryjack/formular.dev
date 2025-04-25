@@ -36,15 +36,11 @@ export interface IValidationOptions {
     pattern?: IPattern
 }
 
-export const isRequired = (
-    required: boolean,
-    error?: string,
-    guide?: string
-): IRequired => {
+export const isRequired = (required: boolean, error?: string, guide?: string): IRequired => {
     return {
         required,
         error,
-        guide,
+        guide
     }
 }
 
@@ -52,7 +48,7 @@ export const hasMin = (min: number, error?: string, guide?: string): IMin => {
     return {
         min,
         error,
-        guide,
+        guide
     }
 }
 
@@ -60,43 +56,31 @@ export const hasMax = (max: number, error?: string, guide?: string): IMax => {
     return {
         max,
         error,
-        guide,
+        guide
     }
 }
 
-export const hasMinLength = (
-    minLength: number,
-    error?: string,
-    guide?: string
-): IMinLength => {
+export const hasMinLength = (minLength: number, error?: string, guide?: string): IMinLength => {
     return {
         minLength,
         error,
-        guide,
+        guide
     }
 }
 
-export const hasMaxLength = (
-    maxLength: number,
-    error?: string,
-    guide?: string
-): IMaxLength => {
+export const hasMaxLength = (maxLength: number, error?: string, guide?: string): IMaxLength => {
     return {
         maxLength,
         error,
-        guide,
+        guide
     }
 }
 
-export const hasPattern = (
-    pattern: string,
-    error?: string,
-    guide?: string
-): IPattern => {
+export const hasPattern = (pattern: string, error?: string, guide?: string): IPattern => {
     return {
         pattern,
         error,
-        guide,
+        guide
     }
 }
 
@@ -106,5 +90,5 @@ export const ValidationErrorsCodes = {
     minLength: 'MIN_LENGTH_ERROR',
     maxLength: 'MAX_LENGTH_ERROR',
     required: 'REQUIRED',
-    custom: 'CUSTOM',
+    custom: 'CUSTOM'
 }

@@ -1,6 +1,6 @@
 import { TNotifierEventsType } from '../../../notifications/notifications.types'
-import { ValidationTriggerModeType } from '../../validatiors/validator.types'
-import { newValidationOrogin } from '../../validatiors/validators.constructors'
+import { ValidationTriggerModeType } from '../../validation-strategy/validator.types'
+import { newValidationOrogin } from '../../validation-strategy/validators.constructors'
 import { IFieldInput } from '../field-input.types'
 
 export const initializeNotifier = function (this: IFieldInput) {

@@ -32,7 +32,7 @@ export const setup = function (this: IFieldInput) {
     )
 
     /* sets the required flag indicator */
-    this.fieldStateStyle.update('required', this.validationOptions.required?.required === true)
+    this.fieldStateStyle.update('required', this.validationOptions.requiredData?.required === true)
 
     if (this.type === 'checkbox' || this.type === 'radio') {
         this.checked = this.value === 'true' || this.value === true

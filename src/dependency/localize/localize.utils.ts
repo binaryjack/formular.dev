@@ -1,3 +1,4 @@
+import { conventions } from '../../components/context/conventions/conventions'
 import { ValidationLocalizeKeys } from '../schema/validation-schema/validation.localize.keys'
 import translations from './locale.en.json'
 import { IValidationLocalize } from './localize.type'
@@ -13,10 +14,10 @@ export const getTranslationBuilder: TranslatioBuilderType =
         const translation = translations.validations.find((t) => t.key === key)
         if (translation) {
             return translation.value
-                .replace('|data|', data ?? '')
-                .replace('|data2|', data2 ?? '')
-                .replace('|data|', '')
-                .replace('|data2|', '')
+                .replace(conventions.tokens.validationDataToken1, data ?? '')
+                .replace(conventions.tokens.validationDataToken2, data2 ?? '')
+                .replace(conventions.tokens.validationDataToken1, '')
+                .replace(conventions.tokens.validationDataToken2, '')
         }
         return ''
     }

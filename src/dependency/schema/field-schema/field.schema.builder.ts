@@ -1,4 +1,4 @@
-import { ValidationTriggerModeType } from '../../../core/base/validatiors/validator.types'
+import { ValidationTriggerModeType } from '../../../core/base/validation-strategy/validator.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IValidationSchema } from '../validation-schema/validation.schema.types'

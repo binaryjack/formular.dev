@@ -1,5 +1,5 @@
-import validator from '../../validatiors/validator.strategy'
-import { IValidationOrigin } from '../../validatiors/validator.types'
+import validator from '../../validation-strategy/validator.strategy'
+import { IValidationOrigin } from '../../validation-strategy/validator.types'
 import { IFieldInput } from '../field-input.types'
 
 /**

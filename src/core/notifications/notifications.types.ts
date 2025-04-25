@@ -1,4 +1,7 @@
-import { IValidationResult, IValidatorStrategyData } from '../base/validatiors/validator.types'
+import {
+    IValidationResult,
+    IValidatorStrategyData
+} from '../base/validation-strategy/validator.types'
 
 export type TNotifierEventsType =
     | 'changed'
