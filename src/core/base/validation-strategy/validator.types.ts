@@ -40,10 +40,11 @@ export type ValidationTriggerModeType =
     | 'reset'
     /** Means that the very first validation will occurs only from the first submit attempt */
     | 'onFormFirstSubmit'
-
+/**TODO!!!! */
 export interface IValidationOrigin {
     fieldName: string
     fieldState: ValidationTriggerModeType
+    originHandler: ValidationTriggerModeType
 }
 
 export interface IDoValidate {

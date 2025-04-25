@@ -1,6 +1,6 @@
 import { TNotifierEventsType } from '../../../notifications/notifications.types'
 import { ValidationTriggerModeType } from '../../validation-strategy/validator.types'
-import { newValidationOrogin } from '../../validation-strategy/validators.constructors'
+import { newValidationOrigin } from '../../validation-strategy/validators.constructors'
 import { IFieldInput } from '../field-input.types'
 
 export const initializeNotifier = function (this: IFieldInput) {
@@ -12,7 +12,7 @@ export const initializeNotifier = function (this: IFieldInput) {
     ) {
         this.notify(
             type,
-            newValidationOrogin(
+            newValidationOrigin(
                 fieldState,
                 this.validationTriggerModeType.includes(trigger) ? trigger : 'reset'
             )

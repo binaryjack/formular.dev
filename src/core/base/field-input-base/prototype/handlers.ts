@@ -14,7 +14,7 @@ export const handleOnChanged = function (this: IFieldInput, data?: any) {
     // console.log('value changed', data, this.value)
 
     const validationOrigin = data as IValidationOrigin
-    this.validate(validator, validationOrigin)
+    // this.validate(validator, validationOrigin)
 }
 /**
  * Handles the click event for a field input.
@@ -31,7 +31,7 @@ export const handleOnClicked = function (this: IFieldInput, data?: any) {
         `value clicked: ${this.type}, value: ${this.toString()} `
     )
     const validationOrigin = data as IValidationOrigin
-    this.validate(validator, validationOrigin)
+    // this.validate(validator, validationOrigin)
 }
 
 /**
@@ -47,7 +47,7 @@ export const handleOnSelected = function (this: IFieldInput, data?: any) {
         `value clicked: ${this.type}, value: ${this.toString()} `
     )
     const validationOrigin = data as IValidationOrigin
-    this.validate(validator, validationOrigin)
+    // this.validate(validator, validationOrigin)
 }
 
 /**
@@ -60,7 +60,7 @@ export const handleOnSelected = function (this: IFieldInput, data?: any) {
 export const handleOnBlur = function (this: IFieldInput, data?: any) {
     this.internalInfo('IFieldInput.handleOnBlur', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IValidationOrigin
-    this.validate(validator, validationOrigin)
+    // this.validate(validator, validationOrigin)
 }
 
 /**
@@ -73,7 +73,7 @@ export const handleOnBlur = function (this: IFieldInput, data?: any) {
 export const handleOnFocus = function (this: IFieldInput, data?: any) {
     this.internalInfo('IFieldInput.handleOnFocus', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IValidationOrigin
-    this.validate(validator, validationOrigin)
+    // this.validate(validator, validationOrigin)
 }
 
 /**
