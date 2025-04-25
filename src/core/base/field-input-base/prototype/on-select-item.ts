@@ -20,7 +20,7 @@ export const onSelectItem = function (this: IFieldInput, option: IOptionItem) {
     }
     const internlOption = this.getOptionByValue(option.value)
     if (!internlOption) return
-    this.selectedOptionId = internlOption.id
+    this.selectedOptionId = internlOption.sequenceId
     this.value = internlOption.id
 
     this.dmSetSelected(this.id.toString(), option.text)

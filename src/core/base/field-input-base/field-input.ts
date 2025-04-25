@@ -12,6 +12,7 @@ import { focus } from './prototype/focus'
 import { getAsString } from './prototype/get-as-string'
 import { getFlagsObject } from './prototype/get-flags-object'
 import { getOptionById } from './prototype/get-option-by-id'
+import { getOptionBySequenceId } from './prototype/get-option-by-sequence-id'
 import { getOptionByValue } from './prototype/get-option-by-value'
 import { getSelectedValue } from './prototype/get-selected-value'
 import { getValue } from './prototype/get-value'
@@ -40,6 +41,7 @@ import { setValue } from './prototype/set-value'
 import { setup } from './prototype/setup'
 import { toString } from './prototype/to-string'
 import { tryGetOptionByIdOrValue } from './prototype/try-get-otion-by-id-or-value'
+import { tryGetOptionBySequenceIdThenIdOrValue } from './prototype/try-get-otion-by-sequence-id-then-id-or-value'
 import { validate } from './prototype/validate'
 import { validateAsync } from './prototype/validate-async'
 
@@ -177,7 +179,9 @@ Object.assign(FieldInput.prototype, {
     onSelectItem,
     getOptionByValue,
     getOptionById,
+    getOptionBySequenceId,
     tryGetOptionByIdOrValue,
+    tryGetOptionBySequenceIdThenIdOrValue,
     register,
     registerOption,
     registerLabel,

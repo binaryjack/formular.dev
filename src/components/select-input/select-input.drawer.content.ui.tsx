@@ -15,7 +15,7 @@ interface ISelectDrawerUIProps {
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         value: IOptionItem
     ) => void
-    selectedItemId: string
+    selectedItemSequenceId: number | null
     onFilterItems: (value: string) => void
     onClearFilter: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     width?: string
@@ -26,7 +26,7 @@ const SelectDrawerContentUI = ({
     items,
     handleKeyDown,
     onHandleSelectItem,
-    selectedItemId,
+    selectedItemSequenceId,
     filterTriggerDelay,
     onFilterItems,
     onClearFilter,
@@ -64,7 +64,7 @@ const SelectDrawerContentUI = ({
             <SelectDrawerOptions
                 options={items}
                 onHandleSelectItem={onHandleSelectItem}
-                selectedItemId={selectedItemId}
+                selectedItemSequenceId={selectedItemSequenceId}
             />
         </div>
     )

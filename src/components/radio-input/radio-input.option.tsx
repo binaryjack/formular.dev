@@ -19,6 +19,7 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
             <input
                 tabIndex={0}
                 id={option.id}
+                data-sequence-id={option.sequenceId}
                 className="base-radio "
                 type="radio"
                 name={field.name}

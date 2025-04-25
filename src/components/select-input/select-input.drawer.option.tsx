@@ -17,6 +17,7 @@ const SelectDrawerOption = ({
     return (
         <div
             id={option.id}
+            data-sequence-id={option.sequenceId}
             className={`select-item ${isSelected ? 'selected' : ''}`}
             onClick={(e) => onHandleSelectItem(e, option)}
         >

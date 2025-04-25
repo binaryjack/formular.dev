@@ -1,29 +1,34 @@
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldInputBase } from '../field-input-base/field-input.types'
 
-export type TParserStrategy<TOut> = (value: Partial<FieldValuesTypes>) => TOut | null
+export type TParser<TOut> = (value: Partial<FieldValuesTypes>) => TOut | null
 
-export interface IParser<TOut> {
+export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
+
+export interface IParserStrategy<TOut> {
     id: string
     concernedTypes: string[]
-    method: TParserStrategy<TOut>
+    fieldValueProperty: FieldValuePropertyType
+    method: TParser<TOut>
 }
 
-export const setParser = <TOut>(
+export const setParserStrategy = <TOut>(
     id: string,
     concernedTypes: string[],
-    method: TParserStrategy<TOut>
-): IParser<TOut> => {
+    fieldValueProperty: FieldValuePropertyType,
+    method: TParser<TOut>
+): IParserStrategy<TOut> => {
     return {
         id,
         concernedTypes,
+        fieldValueProperty,
         method
     }
 }
 
 export interface IValueStrategy {
-    new (...parser: IParser<any>[]): IValueStrategy
-    parsers: IParser<unknown>[]
-    addStrategy: (...parser: IParser<any>[]) => void
+    new (...parser: IParserStrategy<any>[]): IValueStrategy
+    strategies: IParserStrategy<unknown>[]
+    addStrategy: (...strategies: IParserStrategy<any>[]) => void
     getValue: (field: IFieldInputBase) => unknown | null
 }

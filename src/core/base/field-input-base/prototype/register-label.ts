@@ -20,7 +20,7 @@ export const registerLabel = function (this: IFieldInput, optionId: string) {
         const option = this.getOptionById(optionId)
         if (option) {
             this.value = option.id
-            this.selectedOptionId = option.id
+            this.selectedOptionId = option.sequenceId
         }
         this.dmSetChecked(optionId, true)
         this.fieldStateStyle.update('dirty', this.originalValue !== this.value)

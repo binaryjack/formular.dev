@@ -2,7 +2,7 @@ import { IFieldInput } from '../field-input.types'
 
 export const getSelectedValue = function (this: IFieldInput) {
     const value = this?.selectedOptionId
-        ? this?.getOptionById(this?.selectedOptionId.toString())?.text
+        ? this?.getOptionBySequenceId(this?.selectedOptionId)?.text
         : ''
 
     return value

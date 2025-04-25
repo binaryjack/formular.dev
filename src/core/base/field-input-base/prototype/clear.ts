@@ -21,7 +21,7 @@ export const clear = function (this: IFieldInput) {
     this.fieldStateStyle.update('clear', true)
     this.value = null
     this.checked = false
-    this.selectedOptionId = undefined
+    this.selectedOptionId = null
     this.dmClear()
     this.focus()
 

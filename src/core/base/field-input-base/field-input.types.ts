@@ -41,7 +41,7 @@ export interface IFieldInputBase {
     valueStrategy: IValueStrategy | null
     checked?: boolean
     /** works with IOptionItem[] and fields of type select*/
-    selectedOptionId?: string
+    selectedOptionId: number | null
     setup: () => void
     initializeProperties: (descriptor: IFieldDescriptor) => void
     initializeValidation: (descriptor: IFieldDescriptor) => void
@@ -72,7 +72,13 @@ export interface IFieldInputBase {
     onSelectItem: (option: IOptionItem) => void
     getOptionByValue: (value: string) => IOptionItem | null
     getOptionById: (id: string) => IOptionItem | null
+    getOptionBySequenceId: (sequenceId: number) => IOptionItem | null
     tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+    tryGetOptionBySequenceIdThenIdOrValue: (
+        sequenceId: number,
+        id: string,
+        value: string
+    ) => IOptionItem | null
     checkOptionsInitialized: () => boolean
     focus: () => void
 }
@@ -114,11 +120,12 @@ export const stringTypes = [
 ]
 
 export const numberTypes = [
-    FieldTypesNamesEnum.SELECT.toString(),
     FieldTypesNamesEnum.NUMBER.toString(),
     FieldTypesNamesEnum.BIGINT.toString(),
     FieldTypesNamesEnum.RANGE.toString()
 ]
+
+export const optionBaseedNumericTypes = [FieldTypesNamesEnum.SELECT.toString()]
 
 export const dateTypes = [
     FieldTypesNamesEnum.DATETIME.toString(),
@@ -130,3 +137,4 @@ export type fieldTypesConcatType =
     | typeof stringTypes
     | typeof numberTypes
     | typeof dateTypes
+    | typeof optionBaseedNumericTypes

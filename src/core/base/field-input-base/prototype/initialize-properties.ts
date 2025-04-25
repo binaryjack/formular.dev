@@ -27,6 +27,7 @@ export const initializeProperties = function (this: IFieldInput, descriptor: IFi
     this.changed = descriptor.changed ?? false
     this.shouldValidate = descriptor.shouldValidate ?? true
     this.fieldStateStyle = new FieldStateStyle()
+    this.selectedOptionId = null
     this.className = defaultFieldInputCSSClassName
     this.openState = 'closed'
     this.checked = undefined

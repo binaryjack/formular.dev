@@ -3,9 +3,9 @@ import { DatePickerFormatsEnum } from '../../../../components/date-picker/core/d
 import { DateObjectTypes } from '../../../../components/date-picker/core/models/date-object.types'
 import { FieldValuesTypes } from '../../../../dependency/schema/descriptor/field.data.types'
 import { isNDateNullOrUndefined } from '../../field-input-base/utils/is-ndate-null-or-undefined'
-import { TParserStrategy } from '../value-strategy.types'
+import { TParser } from '../value-strategy.types'
 
-export const dateOrTimeParserStrategy: TParserStrategy<string | null> = (
+export const dateOrTimeParser: TParser<string | null> = (
     value: Partial<FieldValuesTypes>
 ): string | null => {
     if (!isNDateNullOrUndefined(value as DateObjectTypes)) {

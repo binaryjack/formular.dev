@@ -1,0 +1,22 @@
+import { IFieldInput } from '../field-input.types'
+
+export const tryGetOptionBySequenceIdThenIdOrValue = function (
+    this: IFieldInput,
+    sequenceId: number,
+    id: string,
+    value: string
+) {
+    if (this.options?.length === 0) {
+        this.internalWarning(
+            'IFieldInput.tryGetOptionBySequenceIdThenIdOrValue',
+            `there is no options related to the field of type:  type: ${this.type}, name: ${this.name}, sequenceId: ${sequenceId}`
+        )
+
+        return null
+    }
+    return (
+        this.options.find(
+            (o) => o.sequenceId === sequenceId || o.id === `${id}` || o.value === value
+        ) ?? null
+    )
+}

@@ -38,10 +38,14 @@ export const setValue = function (
             return
         }
         this.value = radioItem.value
-        this.selectedOptionId = radioItem.id
+        this.selectedOptionId = radioItem.sequenceId
         this.dmSetChecked(radioItem.id, value as boolean)
     } else if (this.type === 'select') {
-        const optionById = this.tryGetOptionByIdOrValue(value as string, value as string)
+        const optionById = this.tryGetOptionBySequenceIdThenIdOrValue(
+            value as number,
+            value as string,
+            value as string
+        )
         if (!optionById) {
             this.internalWarning(
                 'IFieldInput.setValue',
@@ -50,7 +54,7 @@ export const setValue = function (
             return
         }
         this.value = optionById.id
-        this.selectedOptionId = optionById.id
+        this.selectedOptionId = optionById.sequenceId
         this.dmSetValue(this.id.toString(), this.value as string)
     } else {
         this.value = value

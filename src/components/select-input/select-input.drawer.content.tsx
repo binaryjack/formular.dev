@@ -9,7 +9,7 @@ import SelectDrawerContentUI from './select-input.drawer.content.ui'
 interface ISelectDrawerProps {
     items: IOptionItem[]
     filterTriggerDelay: number
-    selectedItemId?: string | null
+    selectedItemSequenceId: number | null
     onSelectItem: (value: IOptionItem) => void
     width?: string
     height?: string
@@ -18,14 +18,16 @@ interface ISelectDrawerProps {
 const SelectDrawerContent = ({
     items,
     filterTriggerDelay,
-    selectedItemId,
+    selectedItemSequenceId,
     onSelectItem,
     width,
     height
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
-    const [currentItemId, setCurrentItemId] = useState<string | null>(selectedItemId ?? null)
-    const originalSelectedItemRef = useRef<number>(selectedItemId ?? 0)
+    const [currentItemSequenceId, setCurrentItemSequenceId] = useState<number>(
+        selectedItemSequenceId ?? 0
+    )
+    const originalSelectedItemRef = useRef<number>(selectedItemSequenceId ?? 0)
 
     const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()
 
@@ -37,11 +39,11 @@ const SelectDrawerContent = ({
         e.preventDefault()
         onSelectItem(item)
         setOpenState?.(e, 'closed')
-        setCurrentItemId(Number(item.id))
+        setCurrentItemSequenceId(item.sequenceId)
     }
 
     const handleFilterItems = (value: string): void => {
-        originalSelectedItemRef.current = currentItemId
+        originalSelectedItemRef.current = currentItemSequenceId
         const newCollection = items.filter((item) =>
             item.text.toLocaleLowerCase().includes(value.toLocaleLowerCase())
         )
@@ -51,29 +53,30 @@ const SelectDrawerContent = ({
     const handleClearFilter = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
         e?.preventDefault?.()
         setFilteredItems(items)
-        setCurrentItemId(originalSelectedItemRef.current)
+        setCurrentItemSequenceId(originalSelectedItemRef.current)
     }
 
     const selectNextItem = () => {
         if (toggleState === 'closed') return
-        if (currentItemId === items.length - 1) {
-            setCurrentItemId(0)
+
+        if (currentItemSequenceId === items.length - 1) {
+            setCurrentItemSequenceId(0)
             return
         }
-        setCurrentItemId(currentItemId + 1)
+        setCurrentItemSequenceId(currentItemSequenceId + 1)
     }
 
     const selectPreviousItem = () => {
         if (toggleState === 'closed') return
-        if (currentItemId === 0) {
-            setCurrentItemId(items.length - 1)
+        if (currentItemSequenceId === 0) {
+            setCurrentItemSequenceId(items.length - 1)
             return
         }
-        setCurrentItemId(currentItemId - 1)
+        setCurrentItemSequenceId(currentItemSequenceId - 1)
     }
 
     const selectOnEnter = () => {
-        const selectedItem = items.find((item) => item.id === currentItemId.toString())
+        const selectedItem = items.find((item) => item.sequenceId === currentItemSequenceId)
         if (selectedItem) {
             onSelectItem(selectedItem)
             setOpenState?.({} as any, 'closed')
@@ -104,7 +107,7 @@ const SelectDrawerContent = ({
             filterTriggerDelay={filterTriggerDelay}
             items={filteredItems}
             handleKeyDown={handleKeyDown}
-            selectedItemId={currentItemId}
+            selectedItemSequenceId={currentItemSequenceId}
             onHandleSelectItem={handleSelectItem}
             onFilterItems={handleFilterItems}
             onClearFilter={handleClearFilter}
