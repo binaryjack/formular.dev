@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { newNotificationVisitorName } from '../base/field-input-base/utils/new-notification-visitor'
 import { DataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject'
-import { INotifier, notify, TNotifierEventsType } from '../notifications/notifications.types'
+import { INotifier, TNotifierEventsType } from '../notifiable-entity/notifications.types'
+import { newNotificationVisitor } from '../notifiable-entity/utils/new-notification-visitor'
 import { ISignal, SignalType } from './signal.type'
 
 /**
@@ -182,8 +184,8 @@ export const Signals = (function () {
             signalRef.current = [...signals]
             ;(signalRef.current as ISignal<SignalType>[]).forEach((s) => {
                 s.accept(
-                    notify(
-                        `${id}_${s.id}_hook_${handleRefresh.name}`,
+                    newNotificationVisitor(
+                        newNotificationVisitorName('changed', id, handleRefresh.name),
                         handleRefresh.bind(useSignal),
                         'changed'
                     )

@@ -77,7 +77,7 @@ const buttonsDemo = () => (
 )
 
 const validationDemo = () => (
-    <div className={'app flex flex-col flex-1 items-center justify-center'}>
+    <div className={'app flex flex-col w-full flex-1 items-center justify-center'}>
         <FieldInputValidationSandbox />
     </div>
 )

@@ -1,5 +1,5 @@
 .formy {
-    @apply p-1 relative top-0 w-full;
+    @apply flex p-1 relative top-0 w-full h-full;
 }
 
 .debug-table {

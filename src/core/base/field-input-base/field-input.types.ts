@@ -4,7 +4,7 @@ import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.de
 import { IEntityScheme } from '../../../dependency/schema/field-schema/field.schema.types'
 import { IOptionItem } from '../../../dependency/schema/options-schema/options.scheme.types'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
-import { TNotifierEventsType } from '../../notifications/notifications.types'
+import { TNotifierEventsType } from '../../notifiable-entity/notifications.types'
 import { IDommable } from '../dommable/dommable.types'
 import { IEventsHanlders } from '../events/events.types'
 import { IFieldStateStyle, IFlagsObject } from '../field-state-style/field-state-style.types'
@@ -31,7 +31,7 @@ export type IFieldInput = IFieldInputBase &
     ITracker
 
 export interface IFieldInputBase {
-    new (descriptor: IFieldDescriptor): IFieldInput
+    new (descriptor: IFieldDescriptor, autoTracker?: INotifiableEntity): IFieldInput
     optionsInitialized: boolean
     internalHTMLElementRef: HTMLInputElement[] | null
     originalValue: FieldValuesTypes | null
@@ -45,6 +45,7 @@ export interface IFieldInputBase {
     setup: () => void
     initializeProperties: (descriptor: IFieldDescriptor) => void
     initializeValidation: (descriptor: IFieldDescriptor) => void
+    initializeAutoTracker: (autoTracker?: INotifiableEntity) => void
     initializeValueStrategy: () => void
     initializeNotifier: () => (
         this: IFieldInput,

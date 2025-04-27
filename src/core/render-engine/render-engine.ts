@@ -1,4 +1,5 @@
-import { notify } from '../notifications/notifications.types'
+import { newNotificationVisitorName } from '../base/field-input-base/utils/new-notification-visitor'
+import { newNotificationVisitor } from '../notifiable-entity/utils/new-notification-visitor'
 import { ISignal } from '../signals/signal.type'
 import { INode, IRenderEngine } from './render-engine.types'
 
@@ -57,7 +58,11 @@ export const RenderApp = (function () {
             for (const signal of signals) {
                 console.log('SIGNAL', signal)
                 signal.accept(
-                    notify(`${this.id}_render_changed`, this.onChanged.bind(this), 'changed')
+                    newNotificationVisitor(
+                        newNotificationVisitorName('changed', this.id, this.name),
+                        this.onChanged.bind(this),
+                        'changed'
+                    )
                 )
             }
             for (const e of allChilds) {

@@ -3,10 +3,13 @@ import React, { useEffect } from 'react'
 import { newEntitySchemeObjectType } from '../../../demo/form-demo/form-demo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '../../../dependency/schema/field-schema/field.schema.types'
-import { notify, TNotifierEventsType } from '../../notifications/notifications.types'
+import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
+import { TNotifierEventsType } from '../../notifiable-entity/notifications.types'
+import { newNotificationVisitor } from '../../notifiable-entity/utils/new-notification-visitor'
 import { defaultFlagsObject, IFlagsObject } from '../field-state-style/field-state-style.types'
 import { FieldInput } from './field-input'
 import { IFieldInput, SchemeToDescriptorConverterType } from './field-input.types'
+import { newNotificationVisitorName } from './utils/new-notification-visitor'
 
 export interface IUseFieldHookReturn {
     field: IFieldInput | undefined
@@ -60,8 +63,8 @@ export const FieldInputCreator = (function () {
         const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
             if (!stableField) return
             stableField.accept(
-                notify(
-                    `${stableField.id}_${localName}_${handleRefresh.name}`,
+                newNotificationVisitor(
+                    newNotificationVisitorName(trigger, stableField.id, handleRefresh.name),
                     handleRefresh.bind(useField),
                     trigger
                 )
@@ -94,12 +97,13 @@ export const FieldInputCreator = (function () {
     const newFieldFromBuilder = (
         builder: IFieldSchemaBuilder,
         objectConverter: newEntitySchemeObjectType,
-        converter: SchemeToDescriptorConverterType
+        converter: SchemeToDescriptorConverterType,
+        autoTracker?: INotifiableEntity
     ) => {
         const _fieldBuild = builder.build()
         const newEntityScheme = objectConverter(`${_fieldBuild.name}-build`, _fieldBuild)
         const descriptor = converter(newEntityScheme)
-        return new FieldInput(descriptor)
+        return new FieldInput(descriptor, autoTracker)
     }
 
     /**
@@ -108,8 +112,11 @@ export const FieldInputCreator = (function () {
      * @param descriptor - The descriptor object that defines the properties of the field.
      * @returns A new instance of `_fieldInput` initialized with the provided descriptor.
      */
-    const newFieldFromDescriptor = (descriptor: IFieldDescriptor) => {
-        return new FieldInput(descriptor)
+    const newFieldFromDescriptor = (
+        descriptor: IFieldDescriptor,
+        autoTracker?: INotifiableEntity
+    ) => {
+        return new FieldInput(descriptor, autoTracker)
     }
 
     /**
@@ -118,10 +125,13 @@ export const FieldInputCreator = (function () {
      * @param descriptors - An array of field descriptors used to create the field inputs.
      * @returns An array of `IFieldInput` instances created from the provided descriptors.
      */
-    const newFieldFromDescriptors = (descriptors: IFieldDescriptor[]): IFieldInput[] => {
+    const newFieldFromDescriptors = (
+        descriptors: IFieldDescriptor[],
+        autoTracker?: INotifiableEntity
+    ): IFieldInput[] => {
         const output: IFieldInput[] = []
         for (const descriptor of descriptors) {
-            output.push(new FieldInput(descriptor))
+            output.push(new FieldInput(descriptor, autoTracker))
         }
         return output
     }

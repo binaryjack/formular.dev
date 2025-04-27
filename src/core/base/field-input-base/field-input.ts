@@ -1,6 +1,7 @@
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { NotifiableEntity } from '../../notifiable-entity/notifiable-entity'
+import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { Dommable } from '../dommable/dommable'
 import { Tracker } from '../tracker/tracker'
 import { IFieldInput } from './field-input.types'
@@ -24,6 +25,7 @@ import {
     handleOnSelected,
     handleValidation
 } from './prototype/handlers'
+import { initializeAutoTracker } from './prototype/initialize-auto-tracker'
 import { initializeNotifier } from './prototype/initialize-notifier'
 import { initializeProperties } from './prototype/initialize-properties'
 import { initializeValidation } from './prototype/initialize-validations'
@@ -124,7 +126,11 @@ import { validateAsync } from './prototype/validate-async'
  * @returns {ValueStrategy} The strategy for parsing the value of the field input.
  */
 
-export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescriptor) {
+export const FieldInput = function (
+    this: IFieldInput,
+    descriptor: IFieldDescriptor,
+    autoTracker?: INotifiableEntity
+) {
     if (!descriptor.id || !descriptor.name) {
         throw new Error('FieldInput descriptor must include "id" and "name".')
     }
@@ -137,6 +143,9 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 
     // Initialize value strategy
     this.initializeValueStrategy()
+
+    // will add autotracking Notifiable entity instance for devugging purposes
+    this.initializeAutoTracker(autoTracker)
 
     this._notify = this.initializeNotifier()
     // Call mixins
@@ -173,6 +182,7 @@ Object.assign(FieldInput.prototype, {
     handleOnChanged,
     handleOnClicked,
     handleOnSelected,
+    initializeAutoTracker,
     handleOnBlur,
     handleOnFocus,
     handleValidation,

@@ -2,7 +2,11 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '../../status'
 import { IFieldInput } from '../field-input-base/field-input.types'
-import { IValidable, IValidableForm } from '../validation-strategy/validator.types'
+import {
+    IValidable,
+    IValidableForm,
+    ValidationTriggerModeType
+} from '../validation-strategy/validator.types'
 
 export type IFormy = IFormyBase & INotifiableEntity & IFormyFlags & IValidable & IValidableForm
 
@@ -19,18 +23,22 @@ export interface IFormyFlags {
 }
 
 export interface IFormyBase {
-    new (id: string): IFormy
+    new (id: string, autoTracker?: INotifiableEntity): IFormy
     id: string
     fields: IFieldInput[]
     originFields: IFieldInput[]
     submitCount: number
     canValidate: boolean
-    setup: () => void
+    setup: (autoTracker?: INotifiableEntity) => void
+    handleValidation: (origin?: any) => void
+    validateAll: () => void
     addFields: (...flds: IFieldInput[]) => void
     getField: (fieldName: string) => IFieldInput | undefined
     checkChanges: () => void
+    setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void
     getData: () => Record<string, FieldValuesTypes>
+    setValidationTriggerMode: (mode: ValidationTriggerModeType[]) => void
 }
 
 export interface IFieldChange {

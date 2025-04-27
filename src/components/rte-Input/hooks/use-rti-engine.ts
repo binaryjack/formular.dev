@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { notify, TNotifierEventsType } from '../../../core/notifications/notifications.types'
+import { TNotifierEventsType } from '../../../core/notifiable-entity/notifications.types'
 import { RtiEngine } from '../core/rti-engine/rti-engine'
 
+import { newNotificationVisitorName } from '../../../core/base/field-input-base/utils/new-notification-visitor'
+import { newNotificationVisitor } from '../../../core/notifiable-entity/utils/new-notification-visitor'
 import {
     defaultEngineState,
     FormatsEnum,
@@ -72,8 +74,8 @@ export const useRtiEngine = (
     const acceptEngineNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
         if (!rteEngine.current || !editorRef.current) return
         rteEngine.current.accept(
-            notify(
-                `${editorRef.current.id}_${localName}_${handleEngineRefresh.name}`,
+            newNotificationVisitor(
+                newNotificationVisitorName(trigger, editorRef.current.id, handleEngineRefresh.name),
                 handleEngineRefresh.bind(useRtiEngine),
                 trigger
             )

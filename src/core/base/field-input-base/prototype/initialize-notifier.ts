@@ -1,4 +1,4 @@
-import { TNotifierEventsType } from '../../../notifications/notifications.types'
+import { TNotifierEventsType } from '../../../notifiable-entity/notifications.types'
 import { ValidationTriggerModeType } from '../../validation-strategy/validator.types'
 import { newValidationOrigin } from '../../validation-strategy/validators.constructors'
 import { IFieldInput } from '../field-input.types'

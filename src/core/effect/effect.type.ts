@@ -1,4 +1,4 @@
-import { TNotifierMethod } from '../notifications/notifications.types'
+import { TNotifierMethod } from '../notifiable-entity/notifications.types'
 import { ISignal } from '../signals/signal.type'
 
 export type TEffectBody = () => void

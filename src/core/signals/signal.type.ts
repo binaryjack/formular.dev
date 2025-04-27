@@ -1,5 +1,5 @@
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
-import { INotifier, TNotifierEventsType } from '../notifications/notifications.types'
+import { INotifier, TNotifierEventsType } from '../notifiable-entity/notifications.types'
 
 /**
  * Type for signal values

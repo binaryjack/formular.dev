@@ -23,11 +23,11 @@
  */
 
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
-import { INotifier, TNotifierEventsType } from '../notifications/notifications.types'
 import { ComputedSignalCallback } from '../signals/signal.type'
+import { INotifier, TNotifierEventsType } from './notifications.types'
 
 export interface INotifiableEntity {
-    new (): INotifiableEntity
+    new (autoTracker?: INotifiableEntity): INotifiableEntity
     notify: <T>(type: TNotifierEventsType, data?: T) => void
     accept: (notify: INotifier) => void
     init: () => void
@@ -35,4 +35,5 @@ export interface INotifiableEntity {
     notifiers: Map<string, INotifier>
     observers: IDataMutationObserverSubject
     computedSignalCallback: ComputedSignalCallback<unknown> | null
+    autoTracker?: INotifiableEntity
 }

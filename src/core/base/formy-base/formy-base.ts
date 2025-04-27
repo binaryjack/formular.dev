@@ -1,13 +1,18 @@
-import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
 import { DataMutationObserverSubject } from '../../data-mutation-observer/data-mutation-observer-subject'
 import { NotifiableEntity } from '../../notifiable-entity/notifiable-entity'
 import { LoadingStatus } from '../../status'
-import { IFieldInput } from '../field-input-base/field-input.types'
-import {
-    IValidationResult,
-    ValidationTriggerModeType
-} from '../validation-strategy/validator.types'
-import { IFieldChange, IFormy } from './formy-base.types'
+import { Tracker } from '../tracker/tracker'
+import { IFormy } from './formy-base.types'
+import { addFields } from './prototype/add-fields'
+import { checkChanges } from './prototype/check-changes'
+import { getData } from './prototype/get-data'
+import { getField } from './prototype/get-field'
+import { handleValidation } from './prototype/handle-validation'
+import { hasChanges } from './prototype/has-changes'
+import { setIsBusy } from './prototype/set-is-busy'
+import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
+import { setup } from './prototype/setup'
+import { validateAll } from './prototype/validate-all'
 
 export const Formy = function (this: IFormy, id: string) {
     this.id = id
@@ -24,70 +29,18 @@ export const Formy = function (this: IFormy, id: string) {
 
 Formy.prototype = {
     ...NotifiableEntity.prototype,
-    addFields: function (...flds: IFieldInput[]) {
-        this.originFields = []
-        for (const fld of flds) {
-            const existingFieldRef = this.fields.find((o: IFieldInput) => o.id === fld.id)
-            if (!existingFieldRef) {
-                /** update each field with the validation trigger mode form form  */
-                if (this.validationTriggerModeType.length > 1) {
-                    console.log('stop')
-                }
-
-                fld.setValidationTriggerMode(this.validationTriggerModeType)
-                fld.accept(this.checkChanges.bind(this))
-                this.fields.push(fld)
-                this.originFields.push(fld)
-            }
-        }
-    },
-    handleValidation: function (origin?: any) {
-        this.validateAll()
-    },
-    validateAll: function () {
-        const results: IValidationResult[] = []
-        if (!this.flags) return
-        for (const fld of this.fields) {
-            if (!fld.shouldValidate) {
-                continue
-            }
-            results.push(fld.validate())
-        }
-        this.flags.isValid = results?.every((o) => o.state) ?? false
-        this.errors = [...results.map((o) => o.error)]
-        this.observers.trigger()
-    },
-    checkChanges: function () {
-        const changes: IFieldChange[] = []
-        for (const fld of this.fields) {
-            const originalField = this.originFields.find((o: IFieldInput) => o.id === fld.id)
-            if (originalField.get() !== fld.get()) {
-                changes.push({ name: fld.name, hasChanges: true })
-                break
-            }
-        }
-        this.dirty = changes.some((o) => o.hasChanges)
-        this.isValid = this.fields.every((o: IFieldInput) => o.isValid)
-        this.observers.trigger()
-    },
-    setIsBusy: function (status: LoadingStatus) {
-        this.isBusy = status
-        this.observers.trigger()
-    },
-    hasChanges: function (callback: () => void) {
-        this.observers.subscribe(callback.bind(this))
-    },
-    getField: function (fieldName: string) {
-        return this.fields.find((field: IFieldInput) => field.name === fieldName)
-    },
-    getData: function () {
-        const output: Record<string, FieldValuesTypes> = {}
-        for (const f of this.fields) {
-            output[f.name] = f.getValue()
-        }
-        return output
-    },
-    setValidationTriggerMode: function (mode: ValidationTriggerModeType[]) {
-        this.validationTriggerModeType = mode
-    }
+    ...Tracker.prototype
 }
+
+Object.assign(Formy.prototype, {
+    setup,
+    addFields,
+    handleValidation,
+    validateAll,
+    checkChanges,
+    setIsBusy,
+    hasChanges,
+    getField,
+    getData,
+    setValidationTriggerMode
+})
