@@ -18,5 +18,6 @@ export function notify<T>(this: INotifiableEntity, type: TNotifierEventsType, da
 
     if (this.autoTracker) {
         this.autoTracker?.notify('autoTrack_accepted', newAutoTrackingData(`${''}`, `${''}`, data))
+        this.autoTracker?.observers.trigger()
     }
 }

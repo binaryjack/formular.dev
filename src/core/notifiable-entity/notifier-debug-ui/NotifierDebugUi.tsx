@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
 import { INotificationAutotrackingData } from '../notifications.types'
 import { nnv } from '../utils/new-notification-visitor'
@@ -10,9 +10,9 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
     const [logs, setLogs] = useState<INotificationAutotrackingData[]>([])
     const [notifierInstance, setNotifierInstance] = useState<INotifiableEntity | null>(null)
 
-    const handleEvent = useCallback((event: any) => {
+    const handleEvent = (event: any) => {
         setLogs((logs) => [{ timestamp: new Date().toISOString(), ...event }, ...logs])
-    }, [])
+    }
 
     useEffect(() => {
         setNotifierInstance(internalNotifierInstance)
@@ -24,10 +24,10 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
             nnv('DataMutationObserverSubject:created', handleEvent, 'autoTrack_accepted')
         )
         notifierInstance.accept(
-            nnv('DataMutationObserverSubject:subscribed', handleEvent, 'autoTrack_subscription')
+            nnv('DataMutationObserverSubject:subscribed', handleEvent, 'changed')
         )
         notifierInstance.accept(
-            nnv('DataMutationObserverSubject:unsubscribed', handleEvent, 'autoTrack_subscription')
+            nnv('DataMutationObserverSubject:unsubscribed', handleEvent, 'clicked')
         )
         notifierInstance.accept(
             nnv('DataMutationObserverSubject:triggered', handleEvent, 'autoTrack_subscription')

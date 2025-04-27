@@ -11,5 +11,6 @@ export function dispose(this: INotifiableEntity) {
             'autoTrack_accepted',
             newAutoTrackingData(`UNSUBSCRIPTION`, `ALL`, {})
         )
+        this.autoTracker?.observers.trigger()
     }
 }

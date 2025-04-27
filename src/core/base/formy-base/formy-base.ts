@@ -1,5 +1,6 @@
 import { DataMutationObserverSubject } from '../../data-mutation-observer/data-mutation-observer-subject'
 import { NotifiableEntity } from '../../notifiable-entity/notifiable-entity'
+import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '../../status'
 import { Tracker } from '../tracker/tracker'
 import { IFormy } from './formy-base.types'
@@ -14,7 +15,8 @@ import { setValidationTriggerMode } from './prototype/set-validation-trigger-mod
 import { setup } from './prototype/setup'
 import { validateAll } from './prototype/validate-all'
 
-export const Formy = function (this: IFormy, id: string) {
+export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiableEntity) {
+    this.autoTracker = autoTracker
     this.id = id
     this.fields = []
     this.originFields = []

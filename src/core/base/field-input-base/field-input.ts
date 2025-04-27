@@ -134,6 +134,8 @@ export const FieldInput = function (
     if (!descriptor.id || !descriptor.name) {
         throw new Error('FieldInput descriptor must include "id" and "name".')
     }
+    // will add autotracking Notifiable entity instance for devugging purposes
+    this.initializeAutoTracker(autoTracker)
 
     // Initialize properties
     this.initializeProperties(descriptor)
@@ -143,9 +145,6 @@ export const FieldInput = function (
 
     // Initialize value strategy
     this.initializeValueStrategy()
-
-    // will add autotracking Notifiable entity instance for devugging purposes
-    this.initializeAutoTracker(autoTracker)
 
     this._notify = this.initializeNotifier()
     // Call mixins

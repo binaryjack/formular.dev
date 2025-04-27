@@ -13,7 +13,8 @@ export function accept(this: INotifiableEntity, notify: INotifier) {
     if (this.autoTracker) {
         this.autoTracker?.notify(
             'autoTrack_accepted',
-            newAutoTrackingData(`${notify.id}`, `${notify.method.name}`, notify)
+            newAutoTrackingData(`NotifiableEntity:created`, `${notify.method.name}`, notify)
         )
+        this.autoTracker?.observers.trigger()
     }
 }

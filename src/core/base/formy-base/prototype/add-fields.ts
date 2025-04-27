@@ -27,6 +27,11 @@ export function addFields(this: IFormy, ...flds: IFieldInput[]) {
                     'changed'
                 )
             )
+
+            if (this.autoTracker) {
+                console.log(`add ${this.autoTracker.name} to ${fld.name}`)
+            }
+
             fld.autoTracker = this.autoTracker
             this.fields.push(fld)
             this.originFields.push(shallowCopy(fld))

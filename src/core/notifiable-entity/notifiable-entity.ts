@@ -15,10 +15,10 @@ export const NotifiableEntity = function (
     this: INotifiableEntity,
     autoTracker?: INotifiableEntity
 ) {
+    this.autoTracker = autoTracker
     this.notifiers = new Map<string, INotifier>()
     this.observers = new DataMutationObserverSubject()
     this.computedSignalCallback = null
-    this.autoTracker = autoTracker
 } as any as INotifiableEntity
 
 Object.assign(NotifiableEntity.prototype, {
