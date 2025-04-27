@@ -16,7 +16,6 @@ import { setup } from './prototype/setup'
 import { validateAll } from './prototype/validate-all'
 
 export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiableEntity) {
-    this.autoTracker = autoTracker
     this.id = id
     this.fields = []
     this.originFields = []
@@ -26,7 +25,7 @@ export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiab
     this.validationTriggerModeType = []
     this.isDirty = false
     this.observers = new DataMutationObserverSubject()
-    NotifiableEntity.call(this)
+    NotifiableEntity.call(this, autoTracker)
 } as any as IFormy
 
 Formy.prototype = {

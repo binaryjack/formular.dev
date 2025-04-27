@@ -20,9 +20,7 @@ const FormyForm = ({ formy, children, onSubmit }: IFormyFormProps) => {
     const formInstance = useMemo(() => {
         return formy
     }, [formy])
-
     useForm(formInstance)
-
     // useEffect(() => {
     //     if (formInstance) return
     //     const formy = newFormy(formId, schema, translationBuilder, validationLocalize)

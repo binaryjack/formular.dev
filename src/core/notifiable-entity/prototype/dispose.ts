@@ -6,11 +6,9 @@ import { newAutoTrackingData } from '../notifications.types'
  */
 export function dispose(this: INotifiableEntity) {
     this.observers.unSubscribeAll()
+
     if (this.autoTracker) {
-        this.autoTracker?.notify(
-            'autoTrack_accepted',
-            newAutoTrackingData(`UNSUBSCRIPTION`, `ALL`, {})
-        )
+        this.autoTracker?.notify('unsubscribe', newAutoTrackingData(`UNSUBSCRIPTION`, `ALL`, {}))
         this.autoTracker?.observers.trigger()
     }
 }

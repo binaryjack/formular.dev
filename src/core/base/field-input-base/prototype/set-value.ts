@@ -1,4 +1,5 @@
 import { FieldValuesTypes } from '../../../../dependency/schema/descriptor/field.data.types'
+import { IValidationOrigin } from '../../validation-strategy/validator.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -63,14 +64,16 @@ export const setValue = function (
 
     this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-    this.notify('changed', {
+    this.notify<IValidationOrigin>('changed', {
         fieldName: this.name,
-        fieldState: 'onChange'
+        fieldState: 'onChange',
+        originHandler: 'reset'
     })
 
-    this.notify('validate', {
+    this.notify<IValidationOrigin>('validate', {
         fieldName: this.name,
-        fieldState: 'reset'
+        fieldState: 'reset',
+        originHandler: 'reset'
     })
 
     this.observers.trigger()

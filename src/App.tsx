@@ -1,8 +1,3 @@
-import { ButtonsDemo } from './demo/buttons/buttons-demo'
-import FormDemo from './demo/form-demo/form-demo'
-import Positionning from './demo/positionning/positionning'
-import Counter from './demo/signals/counter/counter'
-import TextInput from './demo/signals/text/text-input'
 import FieldInputValidationSandbox from './demo/validation-demo/ValidationDemo'
 
 interface IApp extends Node {
@@ -43,7 +38,7 @@ const formDemo = () => (
     <>
         <h1>Forms Inputs using event driven design classes</h1>
         <h3>Patterns used: builder, strategy, observer, factory</h3>
-        <FormDemo />
+        {/* <FormDemo /> */}
     </>
 )
 const TextInputDemo = () => (
@@ -51,7 +46,7 @@ const TextInputDemo = () => (
         <br />
         <h1>Signals Text Input</h1>
         <h3>Patterns used: signals, observer </h3>
-        <TextInput />
+        {/* <TextInput /> */}
     </>
 )
 const CounterDemo = () => (
@@ -59,20 +54,20 @@ const CounterDemo = () => (
         <br />
         <h1>Signals Counter</h1>
         <h3>Patterns used: signals, observer </h3>
-        <Counter />
+        {/* <Counter /> */}
     </>
 )
 
 const PositioningDemo = () => (
     <>
         <br />
-        <Positionning />
+        {/* <Positionning /> */}
     </>
 )
 
 const buttonsDemo = () => (
     <div className={'app flex flex-col flex-1 items-center justify-center'}>
-        <ButtonsDemo />
+        {/* <ButtonsDemo /> */}
     </div>
 )
 

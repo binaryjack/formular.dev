@@ -16,6 +16,7 @@ import {
 
 import { ValidationSchemaBuildersEnum } from '../../dependency/schema/validation-schema/builders/builders.types'
 
+import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'
 import { ValidationSchemaBuilderType } from '../../dependency/schema/validation-schema/schema/builder/validation.schema.builder.types'
 import { IValidationSchema } from '../../dependency/schema/validation-schema/validation.schema.types'
 
@@ -78,11 +79,14 @@ const setupForm = (
         properties: [field]
     }
 
-    const formInstance = newFormy('demoForm', scheme, getTranslationBuilder, getTranslations, [
-        'onChange',
-        'onBlur',
-        'onSubmit'
-    ])
+    const formInstance = newFormy(
+        'demoForm',
+        scheme,
+        getTranslationBuilder,
+        getTranslations,
+        ['onChange', 'onBlur', 'onSubmit'],
+        _intNotificationTracker
+    )
     setForm(formInstance)
 }
 
@@ -170,7 +174,7 @@ const ValidationTestPage = () => {
 
     // Setup form on mount
     useEffect(() => {
-        const newForm = new Formy(formId)
+        const newForm = new Formy(formId, _intNotificationTracker)
         setForm(newForm)
         return () => {
             // Cleanup if needed

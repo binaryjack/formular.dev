@@ -26,7 +26,8 @@ export enum NotifierEventsEnum {
     engineStateChanged = 'engineStateChanged',
     autoTrack_accepted = 'autoTrack_accepted',
     autoTrack_subscription = 'autoTrack_subscription',
-    autoTrack_notification = 'autoTrack_notification'
+    autoTrack_notification = 'autoTrack_notification',
+    unsubscribe = 'unsubscribe'
 }
 
 export type TNotifierEventsType = keyof typeof NotifierEventsEnum
