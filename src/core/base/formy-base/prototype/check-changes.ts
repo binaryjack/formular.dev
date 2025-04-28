@@ -20,5 +20,5 @@ export function checkChanges(this: IFormy) {
     }
     this.isDirty = changes.some((o) => o.hasChanges)
     this.isValid = this.fields.every((o: IFieldInput) => o.isValid)
-    this.observers.trigger()
+    // this.observers.trigger()
 }

@@ -2,12 +2,20 @@ import './validation-result.css'
 
 import React, { useMemo } from 'react'
 
+import { EventsType } from '../../core/base/events/events.types'
 import { IValidationResult } from '../../core/base/validation-strategy/validator.types'
 
 // Assuming IValidationResult is imported from the appropriate module
 
 interface ValidationResultProps {
     validationResults: IValidationResult[]
+}
+
+const actionToDisplayError: EventsType[] = ['onBlur']
+const actionToDisplayGuide: EventsType[] = ['onFocus', 'onChange']
+
+const arrayHasOneOrMany = <T,>(source: T[], contains: T[]): boolean => {
+    return source.filter((o) => contains.includes(o)).length > 0
 }
 
 const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validationResults }) => {
@@ -20,22 +28,18 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <div className={`validation-result-drawer`}>
                 {validationResults.map((result, index) => {
-                    if (!result.strategyData?.origin?.fieldState) return null
+                    if (!result.strategyData?.origin?.types) return null
 
-                    const showError = ['onBlur'].includes(
-                        result.strategyData?.origin?.fieldState ?? ''
+                    const showError = arrayHasOneOrMany(
+                        result.strategyData?.origin?.types,
+                        actionToDisplayError
                     )
-                    const showGuide = ['onFocus', 'onChange'].includes(
-                        result.strategyData?.origin?.fieldState ?? ''
+
+                    const showGuide = arrayHasOneOrMany(
+                        result.strategyData?.origin?.types,
+                        actionToDisplayGuide
                     )
-                    // console.log(
-                    //     'result',
-                    //     result.strategyData?.origin?.fieldState,
-                    //     'showError',
-                    //     showError,
-                    //     'showGuide',
-                    //     showGuide
-                    // )
+
                     return (
                         <div key={`${result.fieldName}-${index}`}>
                             {showError && result.error && (

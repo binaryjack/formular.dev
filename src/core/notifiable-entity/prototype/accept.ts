@@ -1,5 +1,5 @@
 import { INotifiableEntity } from '../notifiable-entity-base.types'
-import { INotifier, newAutoTrackingData } from '../notifications.types'
+import { INotifier } from '../notifications.types'
 
 /**
  * Accepts a notifier and adds it to the notifiers map if it doesn't already exist.
@@ -7,14 +7,15 @@ import { INotifier, newAutoTrackingData } from '../notifications.types'
  * @param {INotifier} notify - The notifier to be added.
  */
 export function accept(this: INotifiableEntity, notify: INotifier) {
-    if (this.notifiers.has(notify.id)) return
+    const key = `${notify.method.name}`
 
-    this.notifiers.set(notify.id, notify)
-    if (this.autoTracker) {
-        this.autoTracker?.notify(
-            'autoTrack_accepted',
-            newAutoTrackingData(`NotifiableEntity:created`, `${notify.method.name}`, notify)
-        )
-        this.autoTracker?.observers.trigger()
+    const exisingNotifier = this.notifiers.get(key)
+    if (exisingNotifier) {
+        for (const t of notify.event.types) {
+            if (exisingNotifier.event.types.includes(t)) continue
+            exisingNotifier.event.types.push(t)
+        }
+    } else {
+        this.notifiers.set(key, notify)
     }
 }

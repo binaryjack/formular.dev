@@ -1,3 +1,5 @@
+import { defaultExtendsEventObject, IEvents } from '../../../core/base/events/events.types'
+
 export interface ISelection {
     text: string
     start: number
@@ -79,7 +81,7 @@ export interface IRteCommand {
     timestamp: number
 }
 
-export interface IEngineState {
+export interface IEngineState extends IEvents {
     html: string
     text: string
     content: string
@@ -100,7 +102,8 @@ export const defaultEngineState: IEngineState = {
     historyLength: -1,
     canUndo: false,
     canRedo: false,
-    mouseState: { down: false, move: false }
+    mouseState: { down: false, move: false },
+    ...defaultExtendsEventObject
 }
 
 export const trackFormatingByTagName = (

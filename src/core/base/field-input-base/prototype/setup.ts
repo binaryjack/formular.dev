@@ -1,61 +1,47 @@
-import { newNotificationVisitor } from '../../../notifiable-entity/utils/new-notification-visitor'
+import { nnv } from '../../../notifiable-entity/utils/new-notification-visitor'
+import { newEvent } from '../../events/events.types'
 import { consoleTrackingProvider } from '../../tracker/tracker.default.provider'
 import { IFieldInput } from '../field-input.types'
-import { newNotificationVisitorName } from '../utils/new-notification-visitor'
 /**
  * The setup function sets up the field input by subscribing to observers.
  * basic configuration for styles and validation
  */
 export const setup = function (this: IFieldInput) {
+    /** setup the internal information (info, warning, error etc.) tracking this is not the EVENT TRACKING! */
     this.outputProviderSetup([consoleTrackingProvider])
 
     this.observers.subscribe(this.classNames.bind(this))
     this.observers.subscribe(this.getFlagsObject.bind(this))
 
     this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('changed', this.id, this.name),
-            this.handleOnChanged.bind(this),
-            'changed'
+        nnv(
+            newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
+            this.handleOnChanged.bind(this)
         )
     )
     this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('clicked', this.id, this.name),
-            this.handleOnClicked.bind(this),
-            'clicked'
+        nnv(newEvent(this.name, 'setup', 'onClick', 'field.click'), this.handleOnClicked.bind(this))
+    )
+
+    this.accept(
+        nnv(
+            newEvent(this.name, 'setup', 'onValidate', 'field.validate'),
+            this.handleValidation.bind(this)
         )
     )
 
     this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('validate', this.id, this.name),
-            this.handleValidation.bind(this),
-            'validate'
-        )
+        nnv(newEvent(this.name, 'setup', 'onBlur', 'field.blur'), this.handleOnBlur.bind(this))
     )
 
     this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('blurred', this.id, this.name),
-            this.handleOnBlur.bind(this),
-            'blurred'
-        )
+        nnv(newEvent(this.name, 'setup', 'onFocus', 'field.focus'), this.handleOnFocus.bind(this))
     )
 
     this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('focused', this.id, this.name),
-            this.handleOnFocus.bind(this),
-            'focused'
-        )
-    )
-
-    this.accept(
-        newNotificationVisitor(
-            newNotificationVisitorName('selected', this.id, this.name),
-            this.handleOnSelected.bind(this),
-            'selected'
+        nnv(
+            newEvent(this.name, 'setup', 'onSelect', 'field.select'),
+            this.handleOnSelected.bind(this)
         )
     )
 

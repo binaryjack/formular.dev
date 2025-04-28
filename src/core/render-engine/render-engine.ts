@@ -1,5 +1,5 @@
-import { newNotificationVisitorName } from '../base/field-input-base/utils/new-notification-visitor'
-import { newNotificationVisitor } from '../notifiable-entity/utils/new-notification-visitor'
+import { newEvent } from '../base/events/events.types'
+import { nnv } from '../notifiable-entity/utils/new-notification-visitor'
 import { ISignal } from '../signals/signal.type'
 import { INode, IRenderEngine } from './render-engine.types'
 
@@ -58,10 +58,9 @@ export const RenderApp = (function () {
             for (const signal of signals) {
                 console.log('SIGNAL', signal)
                 signal.accept(
-                    newNotificationVisitor(
-                        newNotificationVisitorName('changed', this.id, this.name),
-                        this.onChanged.bind(this),
-                        'changed'
+                    nnv(
+                        newEvent(this.name, 'RenderApp.bind', 'onUiUpdate', `RenderApp.render`),
+                        this.onChanged.bind(this)
                     )
                 )
             }
@@ -80,9 +79,7 @@ export const RenderApp = (function () {
     }
 
     const getRender = (rootId: string): IRenderEngine => {
-        if (!_renderInstance) {
-            _renderInstance = new _RenderEngine(rootId)
-        }
+        _renderInstance ??= new _RenderEngine(rootId)
         return _renderInstance
     }
 

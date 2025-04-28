@@ -1,5 +1,5 @@
-import { newNotificationVisitorName } from '../base/field-input-base/utils/new-notification-visitor'
-import { newNotificationVisitor } from '../notifiable-entity/utils/new-notification-visitor'
+import { newEvent } from '../base/events/events.types'
+import { nnv } from '../notifiable-entity/utils/new-notification-visitor'
 import { ISignal } from '../signals/signal.type'
 import { IEffect, TEffectBody } from './effect.type'
 
@@ -18,10 +18,9 @@ export const Effects = (function () {
             if (this.dependencies)
                 for (const d of this.dependencies) {
                     d.accept(
-                        newNotificationVisitor(
-                            newNotificationVisitorName('changed', this.id, this.name),
-                            this.notify.bind(this),
-                            'changed'
+                        nnv(
+                            newEvent(this.name, 'Effect._init', 'onChange', `Effect.changed`),
+                            this.notify.bind(this)
                         )
                     )
                     this.initialized = true

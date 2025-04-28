@@ -1,3 +1,4 @@
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -21,18 +22,16 @@ import { IFieldInput } from '../field-input.types'
  *   triggers observers, and notifies listeners about the "focused" event.
  */
 export const registerOption = function (this: IFieldInput) {
-    const updateUI = () => {
-        this.observers.trigger()
-    }
     const onClick = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
         this.value = inputElement?.value ?? ''
 
         this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-        updateUI()
-
-        this._notify('clicked', this.name, 'onChange')
+        this.notify(
+            'onClick',
+            newEvent(this.name, onClick.name, 'onClick', `field.option.${onClick.name}`)
+        )
         e?.stopPropagation?.()
     }
 
@@ -40,24 +39,26 @@ export const registerOption = function (this: IFieldInput) {
         this.isFocus = false
         this.fieldStateStyle.update('focus', this.isFocus)
 
-        updateUI()
-
         e.stopPropagation()
         e.preventDefault()
 
-        this._notify('blurred', this.name, 'onBlur')
+        this.notify(
+            'onBlur',
+            newEvent(this.name, onBlur.name, 'onBlur', `field.option.${onBlur.name}`)
+        )
     }
 
     const onFocus = (e: Event) => {
         this.isFocus = true
         this.fieldStateStyle.update('focus', this.isFocus)
 
-        updateUI()
-
         e.stopPropagation()
         e.preventDefault()
 
-        this._notify('focused', this.name, 'onFocus')
+        this.notify(
+            'onFocus',
+            newEvent(this.name, onFocus.name, 'onFocus', `field.option.${onFocus.name}`)
+        )
     }
 
     return {

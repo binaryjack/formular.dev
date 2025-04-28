@@ -1,5 +1,6 @@
+import { EventsType } from '../base/events/events.types'
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
-import { INotifier, TNotifierEventsType } from '../notifiable-entity/notifications.types'
+import { INotifier } from '../notifiable-entity/notifications.types'
 
 /**
  * Type for signal values
@@ -45,7 +46,7 @@ export interface ISignal<SignalType> {
     update: (callback: (self: ISignal<SignalType>) => SignalType) => void
     computed: <SignalType>(callback: ComputedSignalCallback<SignalType>) => void
     accept: (notify: INotifier) => void
-    notify: (type: TNotifierEventsType) => void
+    notify: (type: EventsType) => void
     onChanged: (callback: () => void) => void
     init: () => void
     dispose: () => void

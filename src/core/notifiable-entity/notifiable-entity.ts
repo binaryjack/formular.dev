@@ -2,7 +2,9 @@ import { DataMutationObserverSubject } from '../data-mutation-observer/data-muta
 import { INotifiableEntity } from './notifiable-entity-base.types'
 import { INotifier } from './notifications.types'
 import { accept } from './prototype/accept'
+import { debounceNotify } from './prototype/debounce-notify'
 import { dispose } from './prototype/dispose'
+import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
 import { notify } from './prototype/notify'
 
 /**
@@ -22,6 +24,8 @@ export const NotifiableEntity = function (
 } as any as INotifiableEntity
 
 Object.assign(NotifiableEntity.prototype, {
+    debounceNotify,
+    getRegisteredNotifierNames,
     accept,
     notify,
     dispose

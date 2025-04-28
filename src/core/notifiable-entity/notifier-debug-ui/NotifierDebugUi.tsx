@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react'
-import { IValidationOrigin } from '../../base/validation-strategy/validator.types'
+import { IEvents, newEvent } from '../../base/events/events.types'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
-import { INotificationAutotrackingData } from '../notifications.types'
 import { nnv } from '../utils/new-notification-visitor'
 interface INotifierDebugUi {
     internalNotifierInstance: INotifiableEntity
 }
 
-interface ITrackLogin {
-    functionName: string
-    origin: string
+interface ITrackLog {
     timestamp: string
-    data: INotificationAutotrackingData
+    event?: IEvents
 }
 
 export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) => {
-    const [logs, setLogs] = useState<ITrackLogin[]>([])
+    const [logs, setLogs] = useState<ITrackLog[]>([])
     const [notifierInstance, setNotifierInstance] = useState<INotifiableEntity | null>(null)
 
-    const handleEvent = (e: any) => {
-        const event = e?.data as IValidationOrigin
-
+    const handleEvent = <T extends IEvents>(e?: T) => {
         const dte = new Date()
         const month = (dte.getMonth?.() + 1)?.toString?.()?.padStart?.(2, '0')
         const day = dte.getDate?.()?.toString?.()?.padStart?.(2, '0')
@@ -30,11 +25,10 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
         const sec = dte.getSeconds?.()?.toString?.()?.padStart?.(2, '0')
 
         const ts = `${year}${month}${day}${hour}${min}${sec}`
-        const newItem = {
+        const newItem: ITrackLog = {
             timestamp: ts,
-            functionName: event?.fieldName,
-            origin: event?.fieldState
-        } as ITrackLogin
+            event: e
+        }
 
         setLogs((_s: any) => {
             return [newItem, ..._s].sort((a, b) => b.timestamp.localeCompare(a.timestamp))
@@ -48,29 +42,16 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
     useEffect(() => {
         if (!notifierInstance) return
         notifierInstance.accept(
-            nnv('DataMutationObserverSubject:created', handleEvent, 'autoTrack_accepted')
+            nnv(
+                newEvent(
+                    'DataMutationObserverSubject:created',
+                    'useField.accept',
+                    'onAutoTrackNotified',
+                    `auto.tracking.notification`
+                ),
+                handleEvent
+            )
         )
-        // notifierInstance.accept(
-        //     nnv('DataMutationObserverSubject:subscribed', handleEvent, 'changed')
-        // )
-        // notifierInstance.accept(
-        //     nnv('DataMutationObserverSubject:unsubscribed', handleEvent, 'clicked')
-        // )
-        // notifierInstance.accept(
-        //     nnv('DataMutationObserverSubject:triggered', handleEvent, 'autoTrack_subscription')
-        // )
-        // notifierInstance.accept(
-        //     nnv('NotifiableEntity:created', handleEvent, 'autoTrack_subscription')
-        // )
-        // notifierInstance.accept(
-        //     nnv('NotifiableEntity:subscribed', handleEvent, 'autoTrack_subscription')
-        // )
-        // notifierInstance.accept(
-        //     nnv('NotifiableEntity:unsubscribed', handleEvent, 'autoTrack_subscription')
-        // )
-        // notifierInstance.accept(
-        //     nnv('NotifiableEntity:notified', handleEvent, 'autoTrack_subscription')
-        // )
 
         return () => {
             notifierInstance.dispose()
@@ -79,32 +60,78 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
 
     return (
         <div
-            style={{ padding: '1rem', backgroundColor: '#f9f9f9', border: '1px solid #ddd' }}
-            className={`flex flex-col w-full h-[300px]   `}
+            style={{ padding: '0.11rem', backgroundColor: '#f9f9f9', border: '1px solid #ddd' }}
+            className={`flex flex-col w-full h-[315px] text-[9px]  `}
         >
             <div className={`flex flex-col w-full h-auto overflow-y-scroll  `}>
                 <h2>Debug UI</h2>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
                         <tr>
-                            <th style={{ border: '1px solid #ddd', padding: '0.5rem' }}>
+                            <th
+                                style={{
+                                    border: '1px solid #ddd',
+                                    padding: '0.1rem',
+                                    width: '70px'
+                                }}
+                            >
                                 Timestamp
                             </th>
-                            <th style={{ border: '1px solid #ddd', padding: '0.5rem' }}>Event</th>
-                            <th style={{ border: '1px solid #ddd', padding: '0.5rem' }}>Details</th>
+                            <th
+                                style={{
+                                    border: '1px solid #ddd',
+                                    padding: '0.1rem',
+                                    width: '50px'
+                                }}
+                            >
+                                Origin
+                            </th>
+                            <th
+                                style={{
+                                    border: '1px solid #ddd',
+                                    padding: '0.1rem',
+                                    width: '50px'
+                                }}
+                            >
+                                Emitter Func
+                            </th>
+                            <th
+                                style={{
+                                    border: '1px solid #ddd',
+                                    padding: '0.1rem',
+                                    width: '50px'
+                                }}
+                            >
+                                Target Func
+                            </th>
+                            <th
+                                style={{
+                                    border: '1px solid #ddd',
+                                    padding: '0.1rem',
+                                    width: '180px'
+                                }}
+                            >
+                                Data
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {logs.map((log, index) => (
                             <tr key={index}>
-                                <td style={{ border: '1px solid #ddd', padding: '0.5rem' }}>
+                                <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
                                     {log?.timestamp}
                                 </td>
-                                <td style={{ border: '1px solid #ddd', padding: '0.5rem' }}>
-                                    {log?.origin}
+                                <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
+                                    {log?.event?.fieldName}
                                 </td>
-                                <td style={{ border: '1px solid #ddd', padding: '0.5rem' }}>
-                                    {log?.functionName}
+                                <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
+                                    {log?.event?.emitterName}
+                                </td>
+                                <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
+                                    {log?.event?.target}
+                                </td>
+                                <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
+                                    {log?.event?.toFlags?.() ?? ''}
                                 </td>
                             </tr>
                         ))}

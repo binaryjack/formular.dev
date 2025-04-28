@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { newNotificationVisitorName } from '../base/field-input-base/utils/new-notification-visitor'
+import { useRtiEngine } from '../../components/rte-Input/hooks/use-rti-engine'
+import { EventsType, newEvent } from '../base/events/events.types'
 import { DataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject'
-import { INotifier, TNotifierEventsType } from '../notifiable-entity/notifications.types'
-import { newNotificationVisitor } from '../notifiable-entity/utils/new-notification-visitor'
+import { INotifier } from '../notifiable-entity/notifications.types'
+import { nnv } from '../notifiable-entity/utils/new-notification-visitor'
 import { ISignal, SignalType } from './signal.type'
 
 /**
@@ -122,18 +123,20 @@ export const Signals = (function () {
          * @param {INotifier} notify - Notifier to accept
          */
         accept: function (notify: INotifier) {
-            if (this.notifiers.has(notify.id)) return
-            this.notifiers.set(notify.id, notify)
+            if (this.notifiers.has(notify.event.emitterName)) return
+            this.notifiers.set(notify.event.emitterName, notify)
         },
 
         /**
          * Notify observers of a change in the signal
          * @param {TNotifierEventsType} type - Type of notification
          */
-        notify: function (type: TNotifierEventsType) {
+        notify: function (type: EventsType) {
             this.notifiers.forEach((value: INotifier) => {
-                if (value.type === type) {
-                    console.log(`trigger - [${value.id}] on [${value.type}]`)
+                if (value.event.types.includes(type)) {
+                    console.log(
+                        `trigger - [${value.event.emitterName}] on [${value.event.types.join(',')}]`
+                    )
                     value.method(this)
                 }
             })
@@ -184,10 +187,14 @@ export const Signals = (function () {
             signalRef.current = [...signals]
             ;(signalRef.current as ISignal<SignalType>[]).forEach((s) => {
                 s.accept(
-                    newNotificationVisitor(
-                        newNotificationVisitorName('changed', id, handleRefresh.name),
-                        handleRefresh.bind(useSignal),
-                        'changed'
+                    nnv(
+                        newEvent(
+                            handleRefresh.name,
+                            'useSignal.accept',
+                            'onChange',
+                            `useSignal.${handleRefresh.name}`
+                        ),
+                        handleRefresh.bind(useRtiEngine)
                     )
                 )
             })

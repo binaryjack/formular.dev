@@ -26,7 +26,7 @@ export const validateAsync = async function (
 
     // Set loading state
     this.isValidating = true
-    this.observers.trigger()
+    // this.observers.trigger()
 
     try {
         const results = await Promise.all(validators.map((validator) => validator(data)))
@@ -46,6 +46,6 @@ export const validateAsync = async function (
         return results
     } finally {
         this.isValidating = false
-        this.observers.trigger()
+        // this.observers.trigger()
     }
 }

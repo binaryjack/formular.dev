@@ -1,3 +1,4 @@
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -25,12 +26,5 @@ export const clear = function (this: IFieldInput) {
     this.dmClear()
     this.focus()
 
-    this.notify('validate', {
-        fieldName: this.name,
-        fieldState: 'reset'
-    })
-    this.notify('changed', {
-        fieldName: this.name,
-        fieldState: 'onChange'
-    })
+    this.notify('onClear', newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`))
 }

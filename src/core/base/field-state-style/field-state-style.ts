@@ -32,7 +32,7 @@ export const FieldStateStyle = function (this: IFieldStateStyle) {
         ['valid', 'is-valid'],
         ['required', 'required']
     ])
-    this.update = function (type: FieldInputStateType, state: boolean) {
+    this.update = function (this: IFieldStateStyle, type: FieldInputStateType, state: boolean) {
         switch (type) {
             case 'errors':
                 this.classesList.set(type, state ? `has-${type}` : `no-${type}`)
@@ -62,17 +62,17 @@ export const FieldStateStyle = function (this: IFieldStateStyle) {
             }
         }
     }
-    this.get = function () {
+    this.get = function (this: IFieldStateStyle) {
         return Array.from(this.classesList.values()).join(' ')
     }
-    this.getFlagsList = function () {
+    this.getFlagsList = function (this: IFieldStateStyle) {
         const output: IFlags[] = []
         this.classesList.forEach((value, key) => {
             output.push({ state: key, value })
         })
         return output
     }
-    this.getFlagsObject = function () {
+    this.getFlagsObject = function (this: IFieldStateStyle) {
         return {
             isDirty: this.classesList.get('dirty') === 'has-dirty',
             hasErrors: this.classesList.get('errors') === 'has-errors',

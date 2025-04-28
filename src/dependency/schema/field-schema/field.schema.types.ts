@@ -1,4 +1,4 @@
-import { ValidationTriggerModeType } from '../../../core/base/validation-strategy/validator.types'
+import { EventsType } from '../../../core/base/events/events.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../options-schema/options.scheme.types'
@@ -21,7 +21,7 @@ export interface IFieldSchema {
     defaultValue: string | null
     expectedValue: string | null
     shouldValidate: boolean
-    validationTriggerMode: ValidationTriggerModeType[] | never[]
+    validationTriggerMode: EventsType[] | never[]
 }
 
 type TValidationType = IValidationSchema
@@ -36,9 +36,7 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
         shouldValidate: boolean,
         validationData?: TValidationType
     ) => IFieldSchemaBuilder
-    setValidationTriggerMode: (
-        validationTriggerMode: ValidationTriggerModeType[]
-    ) => IFieldSchemaBuilder
+    setValidationTriggerMode: (validationTriggerMode: EventsType[]) => IFieldSchemaBuilder
     build: () => IFieldSchema
 }
 

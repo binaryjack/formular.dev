@@ -1,4 +1,5 @@
 import { ToggleableStateType } from '../../../../components/toggleable/toggleable.types'
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -16,8 +17,8 @@ import { IFieldInput } from '../field-input.types'
 export const setOpenState = function (this: IFieldInput, state: ToggleableStateType) {
     this.openState = state
     //this.observers.trigger()
-    this.notify('changed', {
-        fieldName: this.name,
-        fieldState: 'reset'
-    })
+    this.notify(
+        'onOpen',
+        newEvent(this.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
+    )
 }

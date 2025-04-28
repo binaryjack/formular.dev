@@ -15,5 +15,5 @@ export function validateAll(this: IFormy) {
         // results.push(...fld.))
     }
     this.isValid = results?.every((o) => o.state) ?? false
-    this.observers.trigger()
+    // this.observers.trigger()
 }

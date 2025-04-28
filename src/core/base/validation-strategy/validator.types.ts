@@ -3,48 +3,26 @@ import { DatePickerFormatsEnum } from '../../../components/date-picker/core/date
 import { IDateObject } from '../../../components/date-picker/core/models/date-object.models'
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
+import { EventsType, IEvents } from '../events/events.types'
 
 export interface IValidableForm {
     validateAll: () => void
 }
 
 export interface IValidableField {
-    validate: (vtor: IValidator, origin?: IValidationOrigin) => IValidationResult[]
+    validate: (vtor: IValidator, event?: IEvents) => IValidationResult[]
 }
 
 export interface IValidable {
     isValidating: boolean
-    validationTriggerModeType: ValidationTriggerModeType[]
+    validationTriggerModeType: EventsType[]
     validationResults: IValidationResult[]
 
-    setValidationTriggerMode: (mode: ValidationTriggerModeType[]) => void
-    handleValidation: (origin?: any) => void
+    setValidationTriggerMode: (mode: EventsType[]) => void
+    handleValidation: <T extends IEvents>(event?: T) => void
     validateAsync: (
         validators: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
     ) => void
-}
-
-/** if no rule is applied the the field is never validated */
-export type ValidationTriggerModeType =
-    /** will validate on field blur (lost focus) */
-    | 'onBlur'
-    /** will validate on field value is changed */
-    | 'onChange'
-    /** will validate on form submit */
-    | 'onSubmit'
-    /** will validate on field got focus */
-    | 'onFocus'
-    /** will validate on field load */
-    | 'onLoad'
-    /** will reset validation */
-    | 'reset'
-    /** Means that the very first validation will occurs only from the first submit attempt */
-    | 'onFormFirstSubmit'
-/**TODO!!!! */
-export interface IValidationOrigin {
-    fieldName: string
-    fieldState: ValidationTriggerModeType
-    originHandler: ValidationTriggerModeType
 }
 
 export interface IDoValidate {
@@ -95,7 +73,7 @@ export interface IValidatorStrategyData {
     validationOptions: IValidationOptions
     value: FieldValuesTypes | null
     expectedValue: FieldValuesTypes | null
-    origin: IValidationOrigin | null
+    origin: IEvents | null
     asyncValidators?: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
     toString: () => string
 }
@@ -106,7 +84,7 @@ export const newValidatorStrategyData = (
     validationOptions: IValidationOptions,
     value: FieldValuesTypes | null,
     expectedValue?: FieldValuesTypes | null,
-    origin?: IValidationOrigin
+    origin?: IEvents
 ) => {
     return {
         fieldName: fieldName,

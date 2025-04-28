@@ -1,5 +1,6 @@
+import { EventsType, IEvents } from '../../base/events/events.types'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
-import { INotifier, newAutoTrackingData, TNotifierEventsType } from '../notifications.types'
+import { INotifier } from '../notifications.types'
 
 /**
  * Notifies all notifiers of a specific type with optional data.
@@ -8,16 +9,18 @@ import { INotifier, newAutoTrackingData, TNotifierEventsType } from '../notifica
  * @param {TNotifierEventsType} type - The type of notification.
  * @param {T} [data] - Optional data to be passed to the notifier's method.
  */
-export function notify<T>(this: INotifiableEntity, type: TNotifierEventsType, data?: T) {
-    this.notifiers.forEach((value: INotifier) => {
-        if (value.type === type) {
-            value.method(data)
+export function notify<T extends IEvents>(this: INotifiableEntity, type: EventsType, data?: T) {
+    this.notifiers.forEach((notifier: INotifier) => {
+        if (notifier.event.types.includes(type)) {
+            notifier.method(data)
+
+            if (this.autoTracker) {
+                this.autoTracker?.notify('onAutoTrackNotified', {
+                    ...data,
+                    target: notifier.event.action
+                } as IEvents)
+            }
         }
     })
-    this.observers?.trigger()
-
-    if (this.autoTracker) {
-        this.autoTracker?.notify('autoTrack_accepted', newAutoTrackingData(`${''}`, `${''}`, data))
-        this.autoTracker?.observers.trigger()
-    }
+    // this.observers?.trigger()
 }

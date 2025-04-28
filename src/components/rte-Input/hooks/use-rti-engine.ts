@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import { TNotifierEventsType } from '../../../core/notifiable-entity/notifications.types'
+
 import { RtiEngine } from '../core/rti-engine/rti-engine'
 
-import { newNotificationVisitorName } from '../../../core/base/field-input-base/utils/new-notification-visitor'
-import { newNotificationVisitor } from '../../../core/notifiable-entity/utils/new-notification-visitor'
+import { EventsType, newEvent } from '../../../core/base/events/events.types'
+import { nnv } from '../../../core/notifiable-entity/utils/new-notification-visitor'
 import {
     defaultEngineState,
     FormatsEnum,
@@ -71,13 +71,17 @@ export const useRtiEngine = (
 
     const normalizeStructure = () => rteEngine?.current?.normalizeStructure()
 
-    const acceptEngineNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
+    const acceptEngineNotificationStrategy = (localName: string, event: EventsType) => {
         if (!rteEngine.current || !editorRef.current) return
         rteEngine.current.accept(
-            newNotificationVisitor(
-                newNotificationVisitorName(trigger, editorRef.current.id, handleEngineRefresh.name),
-                handleEngineRefresh.bind(useRtiEngine),
-                trigger
+            nnv(
+                newEvent(
+                    localName,
+                    acceptEngineNotificationStrategy.name,
+                    event,
+                    `${localName}.${event}`
+                ),
+                handleEngineRefresh.bind(useRtiEngine)
             )
         )
     }
@@ -138,7 +142,7 @@ export const useRtiEngine = (
 
             rteEngine.current = commandManager
 
-            acceptEngineNotificationStrategy('engine_state_changed', 'engineStateChanged')
+            acceptEngineNotificationStrategy('engine_state_changed', 'onEngineStateChanger')
 
             editor.addEventListener('input', handleInput)
             editor.addEventListener('click', handleSelectionChangeOnClick)

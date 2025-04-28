@@ -25,13 +25,13 @@ import {
  * @returns {IValidationResult[]} An array of validation results from the applied strategies.
  */
 const Validator = function (this: IValidator) {
-    this.addStrategies = function (...strategies: IValidatorStrategy[]) {
+    this.addStrategies = function (this: IValidator, ...strategies: IValidatorStrategy[]) {
         this.strategies = strategies
     }
-    this.validate = function (data: IValidatorStrategyData) {
+    this.validate = function (this: IValidator, data: IValidatorStrategyData) {
         const output: IValidationResult[] = []
 
-        if (data.origin?.fieldState === 'reset') {
+        if (data.origin?.types.includes('onResetValidation')) {
             return output
         }
 

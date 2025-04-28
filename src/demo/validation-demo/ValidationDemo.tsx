@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { conventions } from '../../components/context/conventions/conventions'
 import FormyForm from '../../components/formy/formy.form'
 import InputText from '../../components/input-text/input-text'
+import { EventsType } from '../../core/base/events/events.types'
 import { FieldInputCreator } from '../../core/base/field-input-base/field-input.creator'
 import { Formy } from '../../core/base/formy-base/formy-base'
 import { IFormy } from '../../core/base/formy-base/formy-base.types'
 import {
     IValidationOptions,
-    ValidationErrorsCodes,
-    ValidationTriggerModeType
+    ValidationErrorsCodes
 } from '../../core/base/validation-strategy/validator.types'
 import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'
 import { NotifierDebugUi } from '../../core/notifiable-entity/notifier-debug-ui/NotifierDebugUi'
@@ -53,9 +53,10 @@ const FieldInputValidationSandbox = () => {
 
     const [internalForm, setInternalForm] = useState<IFormy | null>(null)
 
-    const [validationTriggerMode, setValidationTriggerMode] = useState<ValidationTriggerModeType[]>(
-        ['onBlur', 'onChange']
-    )
+    const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
+        'onBlur',
+        'onChange'
+    ])
 
     const field = FieldInputCreator.newFieldFromDescriptor({
         id: 1,
@@ -84,6 +85,12 @@ const FieldInputValidationSandbox = () => {
         setInternalForm(validationDemoForm)
     }, [])
 
+    useEffect(() => {
+        if (!internalForm) return
+
+        internalForm?.setValidationTriggerMode(validationTriggerMode)
+    }, [internalForm, validationTriggerMode])
+
     const handleValidationOptionChange = (key: keyof IValidationOptions, value: any) => {
         setValidationOptions((prev) => ({
             ...prev,
@@ -95,7 +102,7 @@ const FieldInputValidationSandbox = () => {
         })
     }
 
-    const handleTriggerModeChange = (mode: ValidationTriggerModeType[]) => {
+    const handleTriggerModeChange = (mode: EventsType[]) => {
         setValidationTriggerMode(mode)
         field.setValidationTriggerMode(mode)
     }
@@ -260,8 +267,7 @@ const FieldInputValidationSandbox = () => {
                                             handleTriggerModeChange(
                                                 Array.from(
                                                     e.target.selectedOptions,
-                                                    (option) =>
-                                                        option.value as ValidationTriggerModeType
+                                                    (option) => option.value as EventsType
                                                 )
                                             )
                                         }

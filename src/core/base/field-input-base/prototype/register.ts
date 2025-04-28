@@ -1,3 +1,4 @@
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -45,18 +46,9 @@ import { IFieldInput } from '../field-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(this: IFieldInput) {
-    const updateUI = () => {
-        this.observers.trigger()
-    }
-
     const onChange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
         if (this.type === 'checkbox' || this.type === 'radio') {
-            // if (this?.internalHTMLElementRef?.current?.disabled) {
-            //     this.value = this.internalHTMLElementRef.current.checked
-            //     this.checked = this.value as boolean
-            // }
-            // this._notify('clicked', this.name, 'onChange')
             return
         } else {
             this.value = inputElement.value
@@ -66,9 +58,10 @@ export const register = function <FieldValuesTypes>(this: IFieldInput) {
         this.isDirty = this.originalValue !== this.value
         this.fieldStateStyle.update('dirty', this.isDirty)
 
-        updateUI()
-
-        this._notify('changed', this.name, 'onChange')
+        this.notify(
+            'onChange',
+            newEvent(this.name, onChange.name, 'onChange', `field.${onChange.name}`)
+        )
 
         e.stopPropagation()
     }
@@ -77,24 +70,23 @@ export const register = function <FieldValuesTypes>(this: IFieldInput) {
         this.isFocus = false
         this.fieldStateStyle.update('focus', this.isFocus)
 
-        updateUI()
-
         e.stopPropagation()
         e.preventDefault()
 
-        this._notify('blurred', this.name, 'onBlur')
+        this.notify('onBlur', newEvent(this.name, onBlur.name, 'onBlur', `field.${onBlur.name}`))
     }
 
     const onFocus = (e: Event) => {
         this.isFocus = true
         this.fieldStateStyle.update('focus', this.isFocus)
 
-        updateUI()
-
         e.stopPropagation()
         e.preventDefault()
 
-        this._notify('focused', this.name, 'onFocus')
+        this.notify(
+            'onFocus',
+            newEvent(this.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
+        )
     }
 
     const onClick = (e: MouseEvent) => {
@@ -108,20 +100,14 @@ export const register = function <FieldValuesTypes>(this: IFieldInput) {
 
         e?.stopPropagation?.()
 
-        this._notify('clicked', this.name, 'onChange')
+        this.notify(
+            'onClick',
+            newEvent(this.name, onClick.name, 'onClick', `field.${onClick.name}`)
+        )
     }
 
     /** ARIA BASICS */
     this.dmAriaSet(this.id.toString(), this.name)
-
-    // const value = () => {
-    //     if (this.type === 'select') {
-    //         return this.selectedOptionId
-    //             ? this.getOptionById(this.selectedOptionId.toString())?.text
-    //             : ''
-    //     }
-    //     return this.value
-    // }
 
     return {
         id: `${this.id}`,

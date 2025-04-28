@@ -1,4 +1,3 @@
-import { DataMutationObserverSubject } from '../../data-mutation-observer/data-mutation-observer-subject'
 import { NotifiableEntity } from '../../notifiable-entity/notifiable-entity'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '../../status'
@@ -24,7 +23,6 @@ export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiab
     this.isBusy = LoadingStatus.Loaded
     this.validationTriggerModeType = []
     this.isDirty = false
-    this.observers = new DataMutationObserverSubject()
     NotifiableEntity.call(this, autoTracker)
 } as any as IFormy
 

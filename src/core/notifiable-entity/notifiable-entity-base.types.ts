@@ -22,13 +22,16 @@
  * Disposes of the notifiable entity, performing any necessary cleanup.
  */
 
+import { EventsType, IEvents } from '../base/events/events.types'
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
 import { ComputedSignalCallback } from '../signals/signal.type'
-import { INotifier, TNotifierEventsType } from './notifications.types'
+import { INotifier } from './notifications.types'
 
 export interface INotifiableEntity {
     new (autoTracker?: INotifiableEntity): INotifiableEntity
-    notify: <T>(type: TNotifierEventsType, data?: T) => void
+    getRegisteredNotifierNames: () => string[]
+    notify: <T extends IEvents>(type: EventsType, data?: T) => void
+    debounceNotify: <T extends IEvents>(type: EventsType, delay: number, data?: T) => void
     accept: (notify: INotifier) => void
     init: () => void
     dispose: () => void

@@ -1,3 +1,4 @@
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -25,9 +26,12 @@ export const registerLabel = function (this: IFieldInput, optionId: string) {
         this.dmSetChecked(optionId, true)
         this.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-        this.observers.trigger()
+        // this.observers.trigger()
 
-        this._notify('clicked', this.name, 'onChange')
+        this.notify(
+            'onClick',
+            newEvent(this.name, onClick.name, 'onClick', `field.option.label.${onClick.name}`)
+        )
         e?.stopPropagation?.()
     }
 

@@ -1,3 +1,4 @@
+import { defaultExtendsEventObject } from '../../../../../core/base/events/events.types'
 import { IEngineState } from '../../rti-engine.types'
 import { IRtiEngine } from '../rti-engine.types'
 
@@ -24,6 +25,7 @@ export const getState = function (this: IRtiEngine): IEngineState {
         canUndo: this.historyManager.currentIndex >= 0,
         canRedo: this.historyManager.redoStack.length > 0,
         activeFormatState: this.formatManager.activeFormat,
-        mouseState: this.mouseState
+        mouseState: this.mouseState,
+        ...defaultExtendsEventObject
     }
 }

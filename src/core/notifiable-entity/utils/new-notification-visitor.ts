@@ -1,15 +1,12 @@
-import { TNotifierEventsType, TNotifierMethod, TNotifierMethodAsnyc } from '../notifications.types'
+import { IEvents } from '../../base/events/events.types'
+import { TNotifierMethod, TNotifierMethodAsnyc } from '../notifications.types'
 
 export const newNotificationVisitor = <T>(
-    id: string,
-    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>,
-    type: TNotifierEventsType
+    event: IEvents,
+    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>
 ) => {
-    return { id, method, type }
+    return { event, method }
 }
 
-export const nnv = <T>(
-    id: string,
-    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>,
-    type: TNotifierEventsType
-) => newNotificationVisitor(id, method, type)
+export const nnv = <T>(event: IEvents, method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>) =>
+    newNotificationVisitor(event, method)

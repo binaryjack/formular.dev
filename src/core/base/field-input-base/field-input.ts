@@ -17,16 +17,14 @@ import { getOptionBySequenceId } from './prototype/get-option-by-sequence-id'
 import { getOptionByValue } from './prototype/get-option-by-value'
 import { getSelectedValue } from './prototype/get-selected-value'
 import { getValue } from './prototype/get-value'
-import {
-    handleOnBlur,
-    handleOnChanged,
-    handleOnClicked,
-    handleOnFocus,
-    handleOnSelected,
-    handleValidation
-} from './prototype/handlers'
+import { handleOnBlur } from './prototype/handle-on-blur'
+import { handleOnChanged } from './prototype/handle-on-changed'
+import { handleOnClicked } from './prototype/handle-on-clicked'
+import { handleOnFocus } from './prototype/handle-on-focus'
+import { handleOnSelected } from './prototype/handle-on-selected'
+import { handleValidation } from './prototype/handle-validation'
+
 import { initializeAutoTracker } from './prototype/initialize-auto-tracker'
-import { initializeNotifier } from './prototype/initialize-notifier'
 import { initializeProperties } from './prototype/initialize-properties'
 import { initializeValidation } from './prototype/initialize-validations'
 import { initializeValueStrategy } from './prototype/initialize-value-strategy'
@@ -146,7 +144,6 @@ export const FieldInput = function (
     // Initialize value strategy
     this.initializeValueStrategy()
 
-    this._notify = this.initializeNotifier()
     // Call mixins
     Tracker.call(this)
     NotifiableEntity.call(this)
@@ -166,7 +163,6 @@ Object.assign(FieldInput.prototype, {
     initializeProperties,
     initializeValueStrategy,
     initializeValidation,
-    initializeNotifier,
     setup,
     ref,
     refOption,

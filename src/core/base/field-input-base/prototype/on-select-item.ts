@@ -1,4 +1,5 @@
 import { IOptionItem } from '../../../../dependency/schema/options-schema/options.scheme.types'
+import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../field-input.types'
 
 /**
@@ -26,14 +27,6 @@ export const onSelectItem = function (this: IFieldInput, option: IOptionItem) {
     this.dmSetSelected(this.id.toString(), option.text)
     this.dmSetFocus(this.id.toString())
     this.openState = 'closed'
-    // this.observers.trigger()
-    this.notify('changed', {
-        fieldName: this.name,
-        fieldState: 'onChange'
-    })
 
-    this.notify('validate', {
-        fieldName: this.name,
-        fieldState: 'reset'
-    })
+    this.notify('onSelect', newEvent(this.name, onSelectItem.name, 'onSelect', 'field.selected'))
 }

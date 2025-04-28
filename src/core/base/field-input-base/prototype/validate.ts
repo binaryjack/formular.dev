@@ -1,10 +1,10 @@
+import { IEvents } from '../../events/events.types'
 import {
-    IValidationOrigin,
     IValidationResult,
     IValidator,
     newValidatorStrategyData
 } from '../../validation-strategy/validator.types'
-import { IFieldInput } from '../field-input.types'
+import { IFieldInput } from '../factory/abstract-base-input/field-input-base-types'
 
 /**
  * Validates the current field input using the provided validator and optional validation origin.
@@ -29,7 +29,7 @@ import { IFieldInput } from '../field-input.types'
  * console.log(validationResults);
  * ```
  */
-export const validate = function (this: IFieldInput, vtor: IValidator, origin?: IValidationOrigin) {
+export const validate = function (this: IFieldInput, vtor: IValidator, event?: IEvents) {
     let results: IValidationResult[] = []
     if (!vtor) {
         return {
@@ -37,14 +37,14 @@ export const validate = function (this: IFieldInput, vtor: IValidator, origin?: 
         }
     }
 
-    if (origin?.fieldState !== 'reset') {
+    if (event?.types.includes('onValidate')) {
         const validationstrategyData = newValidatorStrategyData(
-            this.name,
+            this?.name,
             this.type,
             this.validationOptions,
-            this.getValue(),
+            this?.getValue(),
             this.expectedValue,
-            origin
+            event
         )
 
         results = vtor?.validate?.(validationstrategyData)

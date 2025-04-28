@@ -1,9 +1,3 @@
-import { TNotifierEventsType } from '../../../notifiable-entity/notifications.types'
+import { IEvents } from '../../events/events.types'
 
-export const newNotificationVisitorName = (
-    type: TNotifierEventsType,
-    fieldId: number | string,
-    fieldName: string
-) => {
-    return `${fieldId}_${type}_${fieldName}`
-}
+export const newNotificationVisitorName = (event: IEvents) => event.toFlags()

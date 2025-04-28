@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 
+import { useRtiEngine } from '../../../components/rte-Input/hooks/use-rti-engine'
 import { newEntitySchemeObjectType } from '../../../demo/form-demo/form-demo.schema'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '../../../dependency/schema/field-schema/field.schema.types'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
-import { TNotifierEventsType } from '../../notifiable-entity/notifications.types'
-import { newNotificationVisitor } from '../../notifiable-entity/utils/new-notification-visitor'
+import { nnv } from '../../notifiable-entity/utils/new-notification-visitor'
+import { EventsType, newEvent } from '../events/events.types'
 import { defaultFlagsObject, IFlagsObject } from '../field-state-style/field-state-style.types'
 import { FieldInput } from './field-input'
 import { IFieldInput, SchemeToDescriptorConverterType } from './field-input.types'
-import { newNotificationVisitorName } from './utils/new-notification-visitor'
 
 export interface IUseFieldHookReturn {
     field: IFieldInput | undefined
@@ -60,24 +60,20 @@ export const FieldInputCreator = (function () {
 
         /** Bind the function handleRefresh to field events*
          */
-        const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
+        const acceptNotificationStrategy = (localName: string, event: EventsType) => {
             if (!stableField) return
             stableField.accept(
-                newNotificationVisitor(
-                    newNotificationVisitorName(trigger, stableField.id, handleRefresh.name),
-                    handleRefresh.bind(useField),
-                    trigger
+                nnv(
+                    newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
+                    handleRefresh.bind(useRtiEngine)
                 )
             )
         }
 
         useEffect(() => {
             if (!stableField) return
-
             /** Bind the function handleRefresh to followng field events*/
-            acceptNotificationStrategy('changed_hook_field', 'changed')
-            acceptNotificationStrategy('clicked_hook_field', 'clicked')
-            acceptNotificationStrategy('validate_hook_field', 'validate')
+            acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
         }, [stableField])
 
         return {

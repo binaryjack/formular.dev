@@ -9,5 +9,5 @@ import { IFormy } from '../formy-base.types'
  */
 export function setIsBusy(this: IFormy, status: LoadingStatus) {
     this.isBusy = status
-    this.observers.trigger()
+    // this.observers.trigger()
 }

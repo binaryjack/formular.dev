@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 
+import { useRtiEngine } from '../../../components/rte-Input/hooks/use-rti-engine'
 import { IValidationLocalize } from '../../../dependency/localize/localize.type'
 import { TranslatioBuilderType } from '../../../dependency/localize/localize.utils'
 import { IEntityScheme } from '../../../dependency/schema/field-schema/field.schema.types'
 import { mapSchemaToFieldDescriptor } from '../../../dependency/to-field-descriptor'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
-import { TNotifierEventsType } from '../../notifiable-entity/notifications.types'
-import { newNotificationVisitor } from '../../notifiable-entity/utils/new-notification-visitor'
+import { nnv } from '../../notifiable-entity/utils/new-notification-visitor'
+import { EventsType, newEvent } from '../events/events.types'
 import { FieldInputCreator, useFieldHookType } from '../field-input-base/field-input.creator'
-import { ValidationTriggerModeType } from '../validation-strategy/validator.types'
 import { Formy } from './formy-base'
 import { IFormy, IFormyFlags } from './formy-base.types'
 
@@ -22,21 +22,24 @@ export const FormCreator = (function () {
             return form
         }, [form])
 
-        const acceptNotificationStrategy = (localName: string, trigger: TNotifierEventsType) => {
+        const acceptNotificationStrategy = (localName: string, event: EventsType) => {
             if (!stableForm) return
             stableForm.accept(
-                newNotificationVisitor(
-                    '', //   newNotificationVisitorName(trigger, stableForm.id, handleRefresh.name),
-                    handleRefresh.bind(useForm),
-                    trigger
+                nnv(
+                    newEvent(localName, 'useForm.accept', event, `${localName}.${event}`),
+                    handleRefresh.bind(useRtiEngine)
                 )
             )
             stableForm.fields.forEach((field) => {
                 field.accept(
-                    newNotificationVisitor(
-                        '', //   newNotificationVisitorName(trigger, field.id, handleRefresh.name),
-                        handleRefresh.bind(useForm),
-                        trigger
+                    nnv(
+                        newEvent(
+                            localName,
+                            'useForm.fields.accept',
+                            event,
+                            `${localName}.${event}`
+                        ),
+                        handleRefresh.bind(useRtiEngine)
                     )
                 )
             })
@@ -48,9 +51,7 @@ export const FormCreator = (function () {
 
         useEffect(() => {
             if (!stableForm) return
-            acceptNotificationStrategy('', 'changed')
-            acceptNotificationStrategy('', 'clicked')
-            // acceptNotificationStrategy('validate_hook_form', 'validate')
+            acceptNotificationStrategy('useForm.ui.update', 'onUiUpdate')
         }, [stableForm])
     }
 
@@ -78,7 +79,7 @@ export const FormCreator = (function () {
         schema: IEntityScheme,
         translationBuilder: TranslatioBuilderType,
         validationLocalize: () => IValidationLocalize,
-        validationTriggerModeType: ValidationTriggerModeType[],
+        validationTriggerModeType: EventsType[],
         autoTracker?: INotifiableEntity
     ) {
         const fieldDescriptors = mapSchemaToFieldDescriptor(
