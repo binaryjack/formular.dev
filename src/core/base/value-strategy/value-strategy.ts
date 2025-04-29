@@ -1,5 +1,5 @@
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
-import { IFieldInput } from '../field-input-base/factory/abstract-base-input/field-input-base-types'
+import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 
 import { IParserStrategy, IValueStrategy } from './value-strategy.types'
 

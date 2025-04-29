@@ -9,10 +9,6 @@ export interface IValidableForm {
     validateAll: () => void
 }
 
-export interface IValidableField {
-    validate: (vtor: IValidator, event?: IEvents) => IValidationResult[]
-}
-
 export interface IValidable {
     isValidating: boolean
     validationTriggerModeType: EventsType[]
@@ -23,6 +19,7 @@ export interface IValidable {
     validateAsync: (
         validators: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
     ) => void
+    validate: (vtor: IValidator, event?: IEvents) => IValidationResult[]
 }
 
 export interface IDoValidate {

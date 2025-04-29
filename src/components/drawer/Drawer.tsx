@@ -13,10 +13,11 @@ import { useCallback, useEffect } from 'react'
 import useMediaScreens from '../../core/hooks/screen/useMediaScreens'
 import useAppContext from '../context/app-context/app-context.context'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
-import { ToggleableStateType } from '../toggleable/toggleable.types'
+
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 
+import { ToggleableStateType } from '../../core/base/toggleable-based-element/toggleable-based-element'
 import './drawer.css'
 
 interface IDrawerProps {

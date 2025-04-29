@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 
+import { ToggleableStateType } from '../../core/base/toggleable-based-element/toggleable-based-element'
 import { toggleableContext } from './toggleable.context'
-import { ToggleableStateType } from './toggleable.types'
 
 interface ToggleableProviderProps {
     children: ReactNode

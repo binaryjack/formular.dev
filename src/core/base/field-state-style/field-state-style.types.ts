@@ -27,9 +27,12 @@ export const defaultFlagsObject: IFlagsObject = {
 
 export interface IFieldStateStyle {
     new (): IFieldStateStyle
+    className: string
+    fieldStateStyle: IFieldStateStyle
     classesList: Map<FieldInputStateType, string>
     update: (type: FieldInputStateType, state: boolean) => void
     get: () => string
     getFlagsList: () => IFlags[]
     getFlagsObject: () => IFlagsObject
+    classNames: () => string
 }

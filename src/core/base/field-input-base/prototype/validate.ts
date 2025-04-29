@@ -1,10 +1,10 @@
+import { IFieldInput } from '../../abstract-base-input/field-input-base-types'
 import { IEvents } from '../../events/events.types'
 import {
     IValidationResult,
     IValidator,
     newValidatorStrategyData
 } from '../../validation-strategy/validator.types'
-import { IFieldInput } from '../factory/abstract-base-input/field-input-base-types'
 
 /**
  * Validates the current field input using the provided validator and optional validation origin.
