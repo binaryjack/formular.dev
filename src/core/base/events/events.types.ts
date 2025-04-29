@@ -2,10 +2,6 @@ import { TNotifierMethod } from '../../notifiable-entity/notifications.types'
 
 export interface IBaseEventsHanlders {
     handleOnChanged: <T extends IEvents>(data?: T) => void
-
-    handleOnBlur: <T extends IEvents>(data?: T) => void
-    handleOnFocus: <T extends IEvents>(data?: T) => void
-    handleOnClear: <T extends IEvents>(data?: T) => void
 }
 
 export interface IOptionBaseEventsHanlders {

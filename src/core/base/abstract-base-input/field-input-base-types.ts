@@ -4,54 +4,48 @@ import { IEntityScheme } from '../../../dependency/schema/field-schema/field.sch
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { IClickBasedInput } from '../click-based-input/click-based-input.types'
 import { IDommable } from '../dommable/dommable.types'
-import { IDrawerBase } from '../drawer-based-input/drawer-based-input'
-import { IBaseEventsHanlders } from '../events/events.types'
+import { IDrawerBase } from '../drawer-based-input/drawer-based-input.types'
+import { IEvents } from '../events/events.types'
+import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
 import { IOptionBaseInput } from '../option-based-input/option-based-input'
 import { ITracker } from '../tracker/tracker.types'
-import { IValidable } from '../validation-strategy/validator.types'
-import { IParserStrategy, IValueStrategy } from '../value-strategy/value-strategy.types'
+import { IValidator } from '../validation-strategy/validator.types'
+import { IValueStrategy } from '../value-strategy/value-strategy.types'
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
 
-export type IFieldInput = IFieldInputBase &
-    IFieldDescriptor &
-    IDommable<HTMLInputElement> &
-    IValidable &
-    IBaseEventsHanlders
+export type IFieldInput = IFieldInputBase & IFieldDescriptor & IDommable<HTMLInputElement>
 
 export interface IFieldInputBase {
     new (descriptor: IFieldDescriptor, autoTracker?: INotifiableEntity): IFieldInput
     originalValue: FieldValuesTypes | null
     enabled: boolean
-    _valueStrategy: IValueStrategy | null
-    _notifier: INotifiableEntity | null
-    _tracker: ITracker | null
-    _drawer: IDrawerBase | null
-    _optionBase: IOptionBaseInput | null
-    _clickBased: IClickBasedInput | null
+    _valueStrategy?: IValueStrategy
+    _notifier?: INotifiableEntity
+    _tracker?: ITracker
+    _drawer?: IDrawerBase
+    _optionBased?: IOptionBaseInput
+    _clickBased?: IClickBasedInput
+    _style?: IFieldStateStyle
+    _validator?: IValidator
 
-    intitialize: () => void
-    setup: () => void
-
-    initializeProperties: (descriptor: IFieldDescriptor) => void
-    initializeValidation: (descriptor: IFieldDescriptor) => void
-    initializeAutoTracker: (autoTracker?: INotifiableEntity) => void
-    initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => void
-
+    initializeEvents: () => void
+    initializeFieldProperties: (descriptor: IFieldDescriptor) => void
     hasChanges: (callback: () => void) => void
     setFocus: () => void
-    setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
-    getValue: () => FieldValuesTypes | null
-    toString: () => string
-
     enable: (enabled: boolean) => void
     show: (show: boolean) => void
     clear: () => void
-    register: () => object
-
-    getAsString: () => string | null
-
     focus: () => void
+    handleValidation: <T extends IEvents>(event?: T) => void
+
+    handleOnBlur: <T extends IEvents>(data?: T) => void
+    handleOnFocus: <T extends IEvents>(data?: T) => void
+    handleOnClear: <T extends IEvents>(data?: T) => void
+
+    // setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
+    // getValue: () => FieldValuesTypes | null
+    // register: () => object
 }
 
 export enum FieldTypesNamesEnum {

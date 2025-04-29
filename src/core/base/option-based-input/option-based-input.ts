@@ -1,11 +1,12 @@
 import { IOptionItem } from '../../../dependency/schema/options-schema/options.scheme.types'
+import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 
 export interface IOptionBaseInput {
-    new (): IOptionBaseInput
+    new (field: IFieldInput): IOptionBaseInput
+    field: IFieldInput
     optionsInitialized: boolean
     /** works with IOptionItem[] and fields of type select*/
     selectedOptionId: number | null
-
     onSelectItem: (option: IOptionItem) => void
     checkOptionsInitialized: () => boolean
 
@@ -14,8 +15,9 @@ export interface IOptionBaseInput {
     refOption: (o: HTMLInputElement | null) => void
 
     setValue: (value: IOptionItem | string | number | null) => void
-
     getValue: () => string | undefined
+    getSelectedValue: () => string | undefined
+
     getOptionByValue: (value: string) => IOptionItem | null
     getOptionById: (id: string) => IOptionItem | null
     getOptionBySequenceId: (sequenceId: number) => IOptionItem | null

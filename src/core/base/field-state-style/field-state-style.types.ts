@@ -1,4 +1,7 @@
+import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 import { FieldInputStateType } from '../common.types'
+
+export const defaultFieldInputCSSClassName = 'f-input'
 
 export interface IFlags {
     state: FieldInputStateType
@@ -26,7 +29,8 @@ export const defaultFlagsObject: IFlagsObject = {
 }
 
 export interface IFieldStateStyle {
-    new (): IFieldStateStyle
+    new (field: IFieldInput): IFieldStateStyle
+    field: IFieldInput
     className: string
     fieldStateStyle: IFieldStateStyle
     classesList: Map<FieldInputStateType, string>

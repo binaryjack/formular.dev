@@ -1,5 +1,7 @@
+import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 import { FieldInputStateType } from '../common.types'
 import { IFieldStateStyle } from './field-state-style.types'
+import { classNames } from './prototype/class-names'
 import { get } from './prototype/get'
 import { getFlagsList } from './prototype/get-flags-list'
 import { getFlagsObject } from './prototype/get-flags-object'
@@ -13,7 +15,8 @@ import { update } from './prototype/update'
  *
  * @property {Map<FieldInputStateType, string>} classesList - A map that holds the class names for different field states.
  */
-export const FieldStateStyle = function (this: IFieldStateStyle) {
+export const FieldStateStyle = function (this: IFieldStateStyle, field: IFieldInput) {
+    this.field = field
     this.classesList = new Map<FieldInputStateType, string>([
         ['dirty', 'is-not-dirty'],
         ['errors', 'no-errors'],
@@ -26,6 +29,7 @@ export const FieldStateStyle = function (this: IFieldStateStyle) {
 }
 
 Object.assign(FieldStateStyle.prototype, {
+    classNames,
     update,
     get,
     getFlagsList,

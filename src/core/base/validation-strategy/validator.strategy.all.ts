@@ -1,5 +1,5 @@
 import { IFieldInput } from '../field-input-base/field-input.types'
-import validator from './validator.strategy'
+import validator from './validator'
 import {
     IValidationResult,
     IValidationResults,

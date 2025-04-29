@@ -3,23 +3,12 @@ import { DatePickerFormatsEnum } from '../../../components/date-picker/core/date
 import { IDateObject } from '../../../components/date-picker/core/models/date-object.models'
 import { IFieldError, IFieldGuide } from '../../../dependency/errors'
 import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.data.types'
+import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
+import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 import { EventsType, IEvents } from '../events/events.types'
 
 export interface IValidableForm {
     validateAll: () => void
-}
-
-export interface IValidable {
-    isValidating: boolean
-    validationTriggerModeType: EventsType[]
-    validationResults: IValidationResult[]
-
-    setValidationTriggerMode: (mode: EventsType[]) => void
-    handleValidation: <T extends IEvents>(event?: T) => void
-    validateAsync: (
-        validators: Array<(data: IValidatorStrategyData) => Promise<IValidationResult>>
-    ) => void
-    validate: (vtor: IValidator, event?: IEvents) => IValidationResult[]
 }
 
 export interface IDoValidate {
@@ -125,10 +114,17 @@ export interface IValidatorStrategy {
 export type IValidatorStrategyType = (data: IValidatorStrategyData) => IValidatorStrategy
 
 export interface IValidator {
-    new (): IValidator
+    new (field: IFieldInput): IValidator
+    field: IFieldInput
     strategies: IValidatorStrategy[]
+    isValidating: boolean
+    validationTriggerModeType: EventsType[]
+    validationResults: IValidationResult[]
+    initializeValidation: (descriptor: IFieldDescriptor) => void
     addStrategies: (...strategies: IValidatorStrategy[]) => void
+    setValidationTriggerMode: (mode: EventsType[]) => void
     validate: (data: IValidatorStrategyData) => IValidationResult[]
+    validateAll: () => void
 }
 
 export interface IValidationTextBase {
