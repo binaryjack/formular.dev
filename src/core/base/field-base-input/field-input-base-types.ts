@@ -2,12 +2,15 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/field-schema/field.schema.types'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
-import { IClickBasedInput } from '../click-base-input/click-base-input.types'
+import { IClickBaseInput } from '../click-base-input/click-base-input.types'
+
 import { IDommable } from '../dommable/dommable.types'
-import { IDrawerBase } from '../drawer-based-input/drawer-based-input.types'
+import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
+
 import { IEvents } from '../events/events.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
 import { IOptionBaseInput } from '../option-based-input/option-based-input'
+import { ITextBaseInput } from '../text-base-input/text-base-input.types'
 import { ITracker } from '../tracker/tracker.types'
 import { IValidator } from '../validation-strategy/validator.types'
 import { IValueStrategy } from '../value-strategy/value-strategy.types'
@@ -23,9 +26,10 @@ export interface IFieldInputBase {
     _valueStrategy?: IValueStrategy
     _notifier?: INotifiableEntity
     _tracker?: ITracker
-    _drawer?: IDrawerBase
-    _optionBased?: IOptionBaseInput
-    _clickBased?: IClickBasedInput
+    _drawerable?: IDrawerBaseInput
+    _optionable?: IOptionBaseInput
+    _clickable?: IClickBaseInput
+    _texable?: ITextBaseInput
     _style?: IFieldStateStyle
     _validator?: IValidator
 
@@ -37,11 +41,11 @@ export interface IFieldInputBase {
     show: (show: boolean) => void
     clear: () => void
     focus: () => void
-    handleValidation: <T extends IEvents>(event?: T) => void
 
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
+    handleValidation: <T extends IEvents>(event?: T) => void
 
     setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
     getValue: () => FieldValuesTypes | null

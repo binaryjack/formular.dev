@@ -1,3 +1,4 @@
+import { IEvents } from '../events/events.types'
 import { IFieldInput } from '../field-base-input/field-input-base-types'
 
 export interface ITextBaseInput {
@@ -8,7 +9,7 @@ export interface ITextBaseInput {
 
     setValue: (value: string | null) => void
     getValue: () => string | null
-
+    handleOnChanged: <T extends IEvents>(data?: T) => void
     register: () => object
     getAsString: () => string | null
 }

@@ -9,7 +9,7 @@ import { IFieldInput } from '../field-input-base-types'
  * Logs the blur event, the provided data, and the current value of the field input.
  */
 export const handleOnBlur = function <T extends IEvents>(this: IFieldInput, data?: T) {
-    if (!this.validationTriggerModeType.includes('onBlur')) return
+    if (!this._validator?.validationTriggerModeType.includes('onBlur')) return
     this.internalInfo('IFieldInput.handleOnBlur', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IEvents
     this._notifier?.debounceNotify(

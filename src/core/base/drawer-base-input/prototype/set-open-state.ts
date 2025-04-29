@@ -1,7 +1,7 @@
 import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../../field-base-input/field-input-base-types'
 import { ToggleableStateType } from '../../toggleable-base-element/toggleable-base-element'
-import { IDrawerBase } from '../drawer-based-input.types'
+import { IDrawerBase } from '../drawer-base-input.types'
 
 /**
  * Sets the open state of the field input and notifies observers of the change.

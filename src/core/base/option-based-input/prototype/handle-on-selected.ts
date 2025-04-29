@@ -1,5 +1,6 @@
 import { IEvents, newEvent } from '../../events/events.types'
 import { IFieldInput } from '../../field-base-input/field-input-base-types'
+import { IOptionBaseInput } from '../option-based-input.types'
 
 /**
  * Handles the event when a value is selected.
@@ -8,14 +9,14 @@ import { IFieldInput } from '../../field-base-input/field-input-base-types'
  * @param data - Optional parameter representing the selected data.
  * Logs the selected value, the provided data, and the current value of the field input.
  */
-export const handleOnSelected = function <T extends IEvents>(this: IFieldInput, data?: T) {
-    if (!this._validator?.validationTriggerModeType.includes('onSelect')) return
-    this.internalInfo(
+export const handleOnSelected = function <T extends IEvents>(this: IOptionBaseInput, data?: T) {
+    if (!this.field._validator?.validationTriggerModeType.includes('onSelect')) return
+    this.field.internalInfo(
         'IFieldInput.handleOnSelected',
-        `value clicked: ${this.type}, value: ${this.toString()} `
+        `value clicked: ${this.field.type}, value: ${this.toString()} `
     )
 
-    this._notifier?.debounceNotify(
+    this.field._notifier?.debounceNotify(
         'onValidate',
         500,
         newEvent(

@@ -1,6 +1,6 @@
 import { newEvent } from '../../events/events.types'
 import { IFieldInput } from '../../field-base-input/field-input-base-types'
-import { IOptionBaseInput } from '../option-based-input'
+import { IOptionBaseInput } from '../option-based-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
