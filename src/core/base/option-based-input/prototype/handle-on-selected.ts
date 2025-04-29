@@ -1,5 +1,5 @@
 import { IEvents, newEvent } from '../../events/events.types'
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldInput } from '../../field-base-input/field-input-base-types'
 
 /**
  * Handles the event when a value is selected.

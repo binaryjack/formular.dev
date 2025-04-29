@@ -17,7 +17,7 @@ import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 
-import { ToggleableStateType } from '../../core/base/toggleable-based-element/toggleable-based-element'
+import { ToggleableStateType } from '../../core/base/toggleable-base-element/toggleable-base-element'
 import './drawer.css'
 
 interface IDrawerProps {

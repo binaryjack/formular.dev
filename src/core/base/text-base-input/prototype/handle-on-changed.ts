@@ -1,5 +1,6 @@
 import { IEvents, newEvent } from '../../events/events.types'
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldInput } from '../../field-base-input/field-input-base-types'
+import { ITextBaseInput } from '../text-base-input.types'
 
 /**
  * Handles the change event for a field input.
@@ -9,10 +10,10 @@ import { IFieldInput } from '../field-input-base-types'
  *
  * Logs the updated value and the provided data to the console.
  */
-export const handleOnChanged = function <T extends IEvents>(this: IFieldInput, data?: T) {
-    if (!this.validationTriggerModeType.includes('onChange')) return
+export const handleOnChanged = function <T extends IEvents>(this: ITextBaseInput, data?: T) {
+    if (!this.field._validator?.validationTriggerModeType.includes('onChange')) return
 
-    this._notifier?.debounceNotify(
+    this.field._notifier?.debounceNotify(
         'onValidate',
         500,
         newEvent(

@@ -2,7 +2,7 @@ import { DateObject } from '../../../../components/date-picker/core/date-object.
 import { DatePickerFormatsEnum } from '../../../../components/date-picker/core/date-picker.types'
 import { DateObjectTypes } from '../../../../components/date-picker/core/models/date-object.types'
 import { FieldValuesTypes } from '../../../../dependency/schema/descriptor/field.data.types'
-import { isNDateNullOrUndefined } from '../../field-input-base/utils/is-ndate-null-or-undefined'
+import { isNDateNullOrUndefined } from '../../field-input/utils/is-ndate-null-or-undefined'
 import { TParser } from '../value-strategy.types'
 
 export const dateOrTimeParser: TParser<string | null> = (

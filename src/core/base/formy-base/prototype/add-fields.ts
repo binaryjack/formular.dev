@@ -1,7 +1,7 @@
 // add-fields.ts
 
 import { shallowCopy } from '../../../utility/shallow-copy'
-import { IFieldInput } from '../../field-input-base/field-input.types'
+import { IFieldInput } from '../../field-input/field-input.types'
 import { IFormy } from '../formy-base.types'
 
 /**

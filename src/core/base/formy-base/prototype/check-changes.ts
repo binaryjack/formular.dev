@@ -1,6 +1,6 @@
 // check-changes.ts
 
-import { IFieldInput } from '../../field-input-base/field-input.types'
+import { IFieldInput } from '../../field-input/field-input.types'
 import { IFieldChange, IFormy } from '../formy-base.types'
 
 /**

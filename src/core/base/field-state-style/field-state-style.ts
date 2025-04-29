@@ -1,5 +1,5 @@
-import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 import { FieldInputStateType } from '../common.types'
+import { IFieldInput } from '../field-base-input/field-input-base-types'
 import { IFieldStateStyle } from './field-state-style.types'
 import { classNames } from './prototype/class-names'
 import { get } from './prototype/get'

@@ -2,7 +2,7 @@
 
 import { nnv } from '../../../notifiable-entity/utils/new-notification-visitor'
 import { EventsType, newEvent } from '../../events/events.types'
-import { IFieldInput } from '../../field-input-base/field-input.types'
+import { IFieldInput } from '../../field-input/field-input.types'
 import { IFormy } from '../formy-base.types'
 
 /**

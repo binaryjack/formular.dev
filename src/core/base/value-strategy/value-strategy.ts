@@ -1,4 +1,4 @@
-import { IFieldInput } from '../abstract-base-input/field-input-base-types'
+import { IFieldInput } from '../field-base-input/field-input-base-types'
 import { accept } from './prototype/accept'
 import { addStrategy } from './prototype/add-strategy'
 import { getValue } from './prototype/get-value'

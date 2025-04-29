@@ -1,5 +1,5 @@
 import { newFieldError, newFieldGuide } from '../../../../dependency/errors'
-import { valueIsNullOrUndefined } from '../../field-input-base/utils/value-is-null-or-undefined'
+import { valueIsNullOrUndefined } from '../../field-input/utils/value-is-null-or-undefined'
 
 import {
     IValidatorStrategy,

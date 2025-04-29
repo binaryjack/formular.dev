@@ -1,4 +1,4 @@
-import { stringTypes } from '../../field-input-base/field-input.types'
+import { stringTypes } from '../../field-input/field-input.types'
 import { stringParser } from '../parsers/string-parser'
 import { setParserStrategy } from '../value-strategy.types'
 

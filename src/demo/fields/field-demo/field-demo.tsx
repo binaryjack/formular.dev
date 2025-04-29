@@ -1,7 +1,7 @@
 import { conventions } from '../../../components/context/conventions/conventions'
 import FieldSet from '../../../components/field-set/field-set'
 import ValidationResultComponent from '../../../components/validation-result/validation-result'
-import { FieldInputCreator } from '../../../core/base/field-input-base/field-input.creator'
+import { FieldInputCreator } from '../../../core/base/field-base-input/field-input.creator'
 import { Signals } from '../../../core/signals/signal'
 import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'

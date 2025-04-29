@@ -85,6 +85,7 @@ import { Tracker } from '../tracker/tracker'
 import { IFieldInput } from './field-input-base-types'
 import { clear } from './prototype/clear'
 import { enable } from './prototype/enable'
+import { getValue } from './prototype/get-value'
 import { handleOnBlur } from './prototype/handle-on-blur'
 import { handleOnClear } from './prototype/handle-on-clear'
 import { handleOnFocus } from './prototype/handle-on-focus'
@@ -122,5 +123,6 @@ Object.assign(FieldInput.prototype, {
     handleOnBlur,
     handleOnFocus,
     handleOnClear,
-    handleValidation
+    handleValidation,
+    getValue
 })

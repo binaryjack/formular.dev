@@ -2,7 +2,7 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '../../status'
 import { EventsType } from '../events/events.types'
-import { IFieldInput } from '../field-input-base/field-input.types'
+import { IFieldInput } from '../field-input/field-input.types'
 import { IValidable, IValidableForm } from '../validation-strategy/validator.types'
 
 export type IFormy = IFormyBase & INotifiableEntity & IFormyFlags & IValidable & IValidableForm

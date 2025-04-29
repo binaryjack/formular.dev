@@ -1,5 +1,5 @@
 import { FieldValuesTypes } from '../../../../dependency/schema/descriptor/field.data.types'
-import { IFieldInput } from '../field-input.types'
+import { IFieldInput } from '../field-input-base-types'
 
 /**
  * Retrieves the value of the field input using the associated value strategy.
@@ -17,7 +17,7 @@ import { IFieldInput } from '../field-input.types'
  * @returns The value of the field input as `FieldValuesTypes` or `null` if no value strategy is defined.
  */
 export const getValue = function (this: IFieldInput) {
-    return this.valueStrategy?.getValue(this) as FieldValuesTypes | null
+    return this._valueStrategy?.getValue() as FieldValuesTypes | null
     /** Let this comments below in order to debug when needed */
     // const output = this.valueStrategy?.getValue(this) as FieldValuesTypes | null
     // console.log(output)

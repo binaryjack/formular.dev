@@ -1,5 +1,5 @@
 import { FieldValuesTypes } from '../../../../dependency/schema/descriptor/field.data.types'
-import { isNullEmptyOrUndefined } from '../../field-input-base/utils/is-null-empty-or-undefined'
+import { isNullEmptyOrUndefined } from '../../field-input/utils/is-null-empty-or-undefined'
 import { TParser } from '../value-strategy.types'
 
 export const stringParser: TParser<string | null> = (

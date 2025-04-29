@@ -1,4 +1,4 @@
-import { dateTypes } from '../../field-input-base/field-input.types'
+import { dateTypes } from '../../field-input/field-input.types'
 import { dateOrTimeParser } from '../parsers/date-or-time-parser'
 import { setParserStrategy } from '../value-strategy.types'
 

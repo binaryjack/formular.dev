@@ -1,5 +1,5 @@
-import { IFieldInput } from '../../abstract-base-input/field-input-base-types'
 import { EventsType } from '../../events/events.types'
+import { IFieldInput } from '../../field-base-input/field-input-base-types'
 
 /**
  * Sets the validation trigger mode for the field input.

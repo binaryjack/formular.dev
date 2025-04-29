@@ -3,7 +3,7 @@ import { conventions } from '../../components/context/conventions/conventions'
 import FormyForm from '../../components/formy/formy.form'
 import InputText from '../../components/input-text/input-text'
 import { EventsType } from '../../core/base/events/events.types'
-import { FieldInputCreator } from '../../core/base/field-input-base/field-input.creator'
+import { FieldInputCreator } from '../../core/base/field-base-input/field-input.creator'
 import { Formy } from '../../core/base/formy-base/formy-base'
 import { IFormy } from '../../core/base/formy-base/formy-base.types'
 import {

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { IFieldInput } from '../base/field-input-base/field-input.types'
+import { IFieldInput } from '../base/field-input/field-input.types'
 
 export const useFieldDefaultValue = (field?: IFieldInput, action?: (value: any) => void) => {
     useEffect(() => {

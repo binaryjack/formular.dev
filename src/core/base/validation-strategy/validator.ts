@@ -1,4 +1,4 @@
-import { IFieldInput } from '../abstract-base-input/field-input-base-types'
+import { IFieldInput } from '../field-base-input/field-input-base-types'
 import { addStrategies } from './prototype/add-strategies'
 import { initializeValidation } from './prototype/initialize-validations'
 import { validate } from './prototype/validate'

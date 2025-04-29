@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IFieldInput } from '../../core/base/field-input-base/field-input.types'
+import { IFieldInput } from '../../core/base/field-input/field-input.types'
 import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
 import { FormCreator } from '../../core/base/formy-base/formy.creator'
 

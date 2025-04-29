@@ -1,6 +1,6 @@
-import { IFieldInput } from '../../abstract-base-input/field-input-base-types'
 import { newEvent } from '../../events/events.types'
-import { ToggleableStateType } from '../../toggleable-based-element/toggleable-based-element'
+import { IFieldInput } from '../../field-base-input/field-input-base-types'
+import { ToggleableStateType } from '../../toggleable-base-element/toggleable-base-element'
 import { IDrawerBase } from '../drawer-based-input.types'
 
 /**

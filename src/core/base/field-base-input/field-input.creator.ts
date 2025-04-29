@@ -8,8 +8,8 @@ import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-bas
 import { nnv } from '../../notifiable-entity/utils/new-notification-visitor'
 import { EventsType, newEvent } from '../events/events.types'
 import { defaultFlagsObject, IFlagsObject } from '../field-state-style/field-state-style.types'
-import { FieldInput } from './field-input'
-import { IFieldInput, SchemeToDescriptorConverterType } from './field-input.types'
+import { FieldInput } from './field-input-base'
+import { IFieldInput, SchemeToDescriptorConverterType } from './field-input-base-types'
 
 export interface IUseFieldHookReturn {
     field: IFieldInput | undefined
@@ -54,15 +54,15 @@ export const FieldInputCreator = (function () {
         }
 
         useEffect(() => {
-            if (!stableField?.getFlagsObject?.()) return
-            setFlags(stableField?.getFlagsObject?.())
-        }, [stableField?.classNames()])
+            if (!stableField?._style?.getFlagsObject?.()) return
+            setFlags(stableField?._style?.getFlagsObject?.())
+        }, [stableField?._style?.classNames()])
 
         /** Bind the function handleRefresh to field events*
          */
         const acceptNotificationStrategy = (localName: string, event: EventsType) => {
             if (!stableField) return
-            stableField.accept(
+            stableField._notifier?.accept(
                 nnv(
                     newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
                     handleRefresh.bind(useRtiEngine)

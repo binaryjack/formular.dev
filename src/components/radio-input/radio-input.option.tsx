@@ -1,4 +1,4 @@
-import { IFieldInput } from '../../core/base/field-input-base/field-input.types'
+import { IFieldInput } from '../../core/base/field-input/field-input.types'
 import useKeyBindings from '../../core/hooks/use-key-bindings'
 import { IOptionItem } from '../../dependency/schema/options-schema/options.scheme.types'
 

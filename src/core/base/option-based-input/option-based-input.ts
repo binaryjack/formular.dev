@@ -1,5 +1,5 @@
 import { IOptionItem } from '../../../dependency/schema/options-schema/options.scheme.types'
-import { IFieldInput } from '../abstract-base-input/field-input-base-types'
+import { IFieldInput } from '../field-base-input/field-input-base-types'
 
 export interface IOptionBaseInput {
     new (field: IFieldInput): IOptionBaseInput

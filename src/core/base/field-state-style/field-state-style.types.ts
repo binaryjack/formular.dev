@@ -1,5 +1,5 @@
-import { IFieldInput } from '../abstract-base-input/field-input-base-types'
 import { FieldInputStateType } from '../common.types'
+import { IFieldInput } from '../field-base-input/field-input-base-types'
 
 export const defaultFieldInputCSSClassName = 'f-input'
 

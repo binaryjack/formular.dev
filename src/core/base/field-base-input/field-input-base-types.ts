@@ -2,7 +2,7 @@ import { FieldValuesTypes } from '../../../dependency/schema/descriptor/field.da
 import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../../../dependency/schema/field-schema/field.schema.types'
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
-import { IClickBasedInput } from '../click-based-input/click-based-input.types'
+import { IClickBasedInput } from '../click-base-input/click-base-input.types'
 import { IDommable } from '../dommable/dommable.types'
 import { IDrawerBase } from '../drawer-based-input/drawer-based-input.types'
 import { IEvents } from '../events/events.types'
@@ -43,9 +43,8 @@ export interface IFieldInputBase {
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
 
-    // setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
-    // getValue: () => FieldValuesTypes | null
-    // register: () => object
+    setValue: (value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null) => void
+    getValue: () => FieldValuesTypes | null
 }
 
 export enum FieldTypesNamesEnum {

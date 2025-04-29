@@ -8,7 +8,7 @@ import { mapSchemaToFieldDescriptor } from '../../../dependency/to-field-descrip
 import { INotifiableEntity } from '../../notifiable-entity/notifiable-entity-base.types'
 import { nnv } from '../../notifiable-entity/utils/new-notification-visitor'
 import { EventsType, newEvent } from '../events/events.types'
-import { FieldInputCreator, useFieldHookType } from '../field-input-base/field-input.creator'
+import { FieldInputCreator, useFieldHookType } from '../field-base-input/field-input.creator'
 import { Formy } from './formy-base'
 import { IFormy, IFormyFlags } from './formy-base.types'
 
