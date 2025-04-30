@@ -1,3 +1,5 @@
+import { RangeSliderRaw } from '@components/range-slider.raw'
+import { RangeSlideBehavior, RangeSliderHandleStyle } from '@components/range-slider.types'
 import { useCallback, useEffect, useState } from 'react'
 import { useFieldDefaultValue } from '../../core/hooks/use-field-default-value'
 import useKeyBindings from '../../core/hooks/use-key-bindings'
@@ -5,8 +7,6 @@ import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormyContext, { useField } from '../formy/formy.context'
 import ValidationResultComponent from '../validation-result/validation-result'
-import { RangeSliderRaw } from './components/range-slider.raw'
-import { RangeSlideBehavior, RangeSliderHandleStyle } from './components/range-slider.types'
 
 interface RangeSliderSFProps {
     fieldName: string

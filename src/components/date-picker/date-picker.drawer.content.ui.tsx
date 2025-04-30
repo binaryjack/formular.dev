@@ -1,14 +1,14 @@
 import { BsCalendar3, BsCalendar3Event, BsCalendar3Range, BsCalendarDate } from 'react-icons/bs'
 import { TbWorld } from 'react-icons/tb'
 
+import DatePickerBodyDays from '@components/date-picker.body.days'
+import DatePickerBodyMonths from '@components/date-picker.body.months'
+import DatePickerBodyYears from '@components/date-picker.body.years'
+import DatePickerDrawerHeader from '@components/date-picker.header'
+import DatePickerSwitch from '@components/date-picker.switch'
 import { useEffect } from 'react'
 import { useObjectRef } from '../../core/hooks/use-object-ref'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
-import DatePickerBodyDays from './components/date-picker.body.days'
-import DatePickerBodyMonths from './components/date-picker.body.months'
-import DatePickerBodyYears from './components/date-picker.body.years'
-import DatePickerDrawerHeader from './components/date-picker.header'
-import DatePickerSwitch from './components/date-picker.switch'
 import { DatePickerSelectionModeType } from './core/date-picker.types'
 
 interface IDatePickerDrawerProps {

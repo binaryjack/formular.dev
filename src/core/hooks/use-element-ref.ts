@@ -1,5 +1,5 @@
+import { useScrollingContext } from '@components/context/scrolling/scrolling.context'
 import { useCallback, useEffect, useState } from 'react'
-import { useScrollingContext } from '../../components/context/scrolling/scrolling.context'
 
 export interface IElementRef {
     height: number

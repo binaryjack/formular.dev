@@ -1,10 +1,10 @@
-import { CenterElementDebug } from '../../components/context/debug/center-element-debug'
-import { Drawer } from '../../components/drawer/drawer'
+import { CenterElementDebug } from '@components/context/debug/center-element-debug'
+import { Drawer } from '@components/drawer/drawer'
 
-import { DrawerSlot } from '../../components/drawer/components/drawer-slot'
-import { DrawerContent } from '../../components/drawer/components/drawer.content'
-import { DrawerToggle } from '../../components/drawer/components/drawer.toggle'
-import { Toggleable } from '../../components/toggleable/toggleable'
+import { DrawerSlot } from '@components/drawer/components/drawer-slot'
+import { DrawerContent } from '@components/drawer/components/drawer.content'
+import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
+import { Toggleable } from '@components/toggleable/toggleable'
 import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
 
 interface ScreenElementProps {

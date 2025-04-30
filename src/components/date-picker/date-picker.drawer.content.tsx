@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
+import { INDate } from '@dependency/schema/descriptor/field.data.date.struct'
 
+import { DatePickerContext, IDatePickerContext } from '@components/date-picker.context'
 import useKeyBindings from '../../core/hooks/use-key-bindings'
 import { useDrawerContext } from '../drawer/components/drawer.context'
-import { DatePickerContext, IDatePickerContext } from './components/date-picker.context'
 import { computeDaysGrid } from './core/computed/compute-days-grid'
 import { computeMonthsGrid } from './core/computed/compute-months-grid'
 import { computeYearsGrid } from './core/computed/compute-years-grid'

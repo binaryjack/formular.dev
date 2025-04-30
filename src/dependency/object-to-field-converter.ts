@@ -1,4 +1,4 @@
-import { DateObject } from '../components/date-picker/core/date-object.object'
+import { DateObject } from '@components/date-picker/core/date-object.object'
 import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
 
 export const mapObjectToFields = (

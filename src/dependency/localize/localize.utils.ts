@@ -1,4 +1,4 @@
-import { conventions } from '../../components/context/conventions/conventions'
+import { conventions } from '@components/context/conventions/conventions'
 import { ValidationLocalizeKeys } from '../schema/validation-schema/validation.localize.keys'
 import translations from './locale.en.json'
 import { IValidationLocalize } from './localize.type'

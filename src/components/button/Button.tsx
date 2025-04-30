@@ -1,6 +1,6 @@
+import { conditionalClass } from '@dependency/conditional-class'
 import { useEffect } from 'react'
 import { sizeConverter } from '../../core/hooks/screen/utils/screen.utils'
-import { conditionalClass } from '../../dependency/conditional-class'
 import {
     AppBreakPointSizesType,
     TextCaseType,

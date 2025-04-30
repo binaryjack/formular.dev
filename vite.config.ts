@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import { checker } from 'vite-plugin-checker'
 import dts from 'vite-plugin-dts'
@@ -26,5 +27,16 @@ export default defineConfig(() => ({
     build: {
         outDir: 'dist',
         chunkSizeWarningLimit: 1600
+    },
+    resolve: {
+        alias: {
+            '@components': resolve(__dirname, 'src/components'),
+            '@core': resolve(__dirname, 'src/core'),
+            '@dependency': resolve(__dirname, 'src/dependency'),
+            '@demo': resolve(__dirname, 'src/demo'),
+            '@patterns': resolve(__dirname, 'src/patterns'),
+            '@style': resolve(__dirname, 'src/style'),
+            '@utils': resolve(__dirname, 'src/utils')
+        }
     }
 }))

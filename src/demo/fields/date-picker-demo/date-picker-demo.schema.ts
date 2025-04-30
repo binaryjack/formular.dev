@@ -1,5 +1,5 @@
-import { IEntityScheme } from '../../../dependency/schema/field-schema/field.schema.types'
-import { Validators } from '../../../dependency/schema/validation-schema/validators'
+import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.types'
+import { Validators } from '@dependency/schema/validation-schema/validators'
 import { DatePickerBuilder } from './date-picker-demo.schema.specific.builders'
 
 export const dateTimeSchema: IEntityScheme = {

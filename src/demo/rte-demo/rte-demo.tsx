@@ -1,5 +1,5 @@
-import { IStateData } from '../../components/rte-Input/core/rti-engine.types'
-import { RteInput } from '../../components/rte-Input/rte-input'
+import { IStateData } from '@components/rte-Input/core/rti-engine.types'
+import { RteInput } from '@components/rte-Input/rte-input'
 
 const RteDemo = () => {
     return (

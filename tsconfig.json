@@ -17,7 +17,17 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
-        "types": ["cypress"]
+        "types": ["cypress"],
+        "baseUrl": ".",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@core/*": ["src/core/*"],
+            "@dependency/*": ["src/dependency/*"],
+            "@demo/*": ["src/demo/*"],
+            "@patterns/*": ["src/patterns/*"],
+            "@style/*": ["src/style/*"],
+            "@utils/*": ["src/utils/*"]
+        }
     },
     "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
     "include": ["src", "tests"]

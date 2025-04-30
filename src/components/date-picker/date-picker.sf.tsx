@@ -1,5 +1,5 @@
+import { INDate } from '@dependency/schema/descriptor/field.data.date.struct'
 import useKeyBindings from '../../core/hooks/use-key-bindings'
-import { INDate } from '../../dependency/schema/descriptor/field.data.date.struct'
 import { conventions } from '../context/conventions/conventions'
 
 import FieldSet from '../field-set/field-set'

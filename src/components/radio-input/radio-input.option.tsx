@@ -1,6 +1,6 @@
+import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IFieldInput } from '../../core/base/field-input/field-input.types'
 import useKeyBindings from '../../core/hooks/use-key-bindings'
-import { IOptionItem } from '../../dependency/schema/options-schema/options.scheme.types'
 
 interface IRadioInputOptionProps {
     field: IFieldInput

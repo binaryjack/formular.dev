@@ -1,4 +1,4 @@
-import { DateObjectTypes } from '../../../../components/date-picker/core/models/date-object.types'
+import { DateObjectTypes } from '@components/date-picker/core/models/date-object.types'
 
 /**
  * Checks if a given INDate or DateObject is null or undefined.

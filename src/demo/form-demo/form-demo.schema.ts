@@ -1,9 +1,6 @@
-import {
-    IEntityScheme,
-    IFieldSchema
-} from '../../dependency/schema/field-schema/field.schema.types'
-import baseOptionSchemaItem from '../../dependency/schema/options-schema/options.scheme.function'
-import { Validators } from '../../dependency/schema/validation-schema/validators'
+import { IEntityScheme, IFieldSchema } from '@dependency/schema/field-schema/field.schema.types'
+import baseOptionSchemaItem from '@dependency/schema/options-schema/options.scheme.function'
+import { Validators } from '@dependency/schema/validation-schema/validators'
 import {
     CheckBuilder,
     DateTimeBuilder,

@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { newFormy } from '../../components/formy/formy.context'
-import FormyForm from '../../components/formy/formy.form'
-import InputText from '../../components/input-text/input-text'
-import { Formy } from '../../core/base/formy-base/formy-base'
-import { IFormy } from '../../core/base/formy-base/formy-base.types'
-import { SchemaDataTypes } from '../../dependency/form.common.enums'
-import { getTranslationBuilder, getTranslations } from '../../dependency/localize/localize.utils'
-import { FieldSchemaBuilder } from '../../dependency/schema/field-schema/field.schema.builder'
-import { IEntityScheme } from '../../dependency/schema/field-schema/field.schema.types'
-import validationSchemaFactory from '../../dependency/schema/validation-schema/schema/factory/validation.schema.factory'
+import { newFormy } from '@components/formy/formy.context'
+import FormyForm from '@components/formy/formy.form'
+import InputText from '@components/input-text/input-text'
+import { SchemaDataTypes } from '@dependency/form.common.enums'
+import { getTranslationBuilder, getTranslations } from '@dependency/localize/localize.utils'
+import { FieldSchemaBuilder } from '@dependency/schema/field-schema/field.schema.builder'
+import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.types'
+import validationSchemaFactory from '@dependency/schema/validation-schema/schema/factory/validation.schema.factory'
 import {
     eMailPattern,
     namesPattern
-} from '../../dependency/schema/validation-schema/validation.regex.patterns'
+} from '@dependency/schema/validation-schema/validation.regex.patterns'
+import React, { useEffect, useState } from 'react'
+import { Formy } from '../../core/base/formy-base/formy-base'
+import { IFormy } from '../../core/base/formy-base/formy-base.types'
 
-import { ValidationSchemaBuildersEnum } from '../../dependency/schema/validation-schema/builders/builders.types'
+import { ValidationSchemaBuildersEnum } from '@dependency/schema/validation-schema/builders/builders.types'
 
+import { ValidationSchemaBuilderType } from '@dependency/schema/validation-schema/schema/builder/validation.schema.builder.types'
+import { IValidationSchema } from '@dependency/schema/validation-schema/validation.schema.types'
 import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'
-import { ValidationSchemaBuilderType } from '../../dependency/schema/validation-schema/schema/builder/validation.schema.builder.types'
-import { IValidationSchema } from '../../dependency/schema/validation-schema/validation.schema.types'
 
 const fieldsIds: Record<string, number> = {
     'required-field': 0,

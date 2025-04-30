@@ -5,5 +5,5 @@
 /** COMPONENTS */
 @import "tailwindcss/components";
 @import './style/globals.css';
-@import './components/button/button.css';
+@import '@components/button/button.css';
 /** utils */

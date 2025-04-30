@@ -1,11 +1,11 @@
-import { conventions } from '../../../components/context/conventions/conventions'
-import FieldSet from '../../../components/field-set/field-set'
-import ValidationResultComponent from '../../../components/validation-result/validation-result'
-import { FieldInputCreator } from '../../../core/base/field-base-input/field-input.creator'
+import { conventions } from '@components/context/conventions/conventions'
+import FieldSet from '@components/field-set/field-set'
+import ValidationResultComponent from '@components/validation-result/validation-result'
+import { FieldInputCreator } from '@core/fields/field-base-input/field-input.creator'
+import { getTranslationBuilder, getTranslations } from '@dependency/localize/localize.utils'
+import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { mapSchemaToFieldDescriptor } from '@dependency/to-field-descriptor'
 import { Signals } from '../../../core/signals/signal'
-import { getTranslationBuilder, getTranslations } from '../../../dependency/localize/localize.utils'
-import { IFieldDescriptor } from '../../../dependency/schema/descriptor/field.descriptor'
-import { mapSchemaToFieldDescriptor } from '../../../dependency/to-field-descriptor'
 import { controlsDemoSchema } from '../../form-demo/form-demo.schema'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

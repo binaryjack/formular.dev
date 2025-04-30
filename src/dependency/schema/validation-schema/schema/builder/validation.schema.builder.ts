@@ -1,4 +1,4 @@
-import { conventions } from '../../../../../components/context/conventions/conventions'
+import { conventions } from '@components/context/conventions/conventions'
 import { IValidationSchema } from '../../validation.schema.types'
 import { IValidationSchemaBuilder } from './validation.schema.builder.types'
 

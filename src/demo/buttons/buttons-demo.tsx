@@ -1,5 +1,5 @@
+import { Button, IButtonVariant } from '@components/button/button'
 import { useState } from 'react'
-import { Button, IButtonVariant } from '../../components/button/button'
 import {
     AppBreakPointSizesArray,
     getSizeTypeName,

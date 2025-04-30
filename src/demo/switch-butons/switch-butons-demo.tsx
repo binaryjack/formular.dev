@@ -1,4 +1,4 @@
-import { SwitchButton } from '../../components/switch-button/switch-button'
+import { SwitchButton } from '@components/switch-button/switch-button'
 
 export const SwitchButtonsDemo = () => {
     return (

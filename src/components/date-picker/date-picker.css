@@ -1,7 +1,7 @@
 @tailwind components;
-@import './components/date-picker.header.css';
-@import './components/date-picker.body.css';
-@import './components/date-picker.cell.css';
+@import '@components/date-picker.header.css';
+@import '@components/date-picker.body.css';
+@import '@components/date-picker.cell.css';
 
 @layer components {
     .date-picker-container {

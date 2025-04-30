@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { ifClass, newIFClass } from '../../../dependency/if-class'
+import { ifClass, newIFClass } from '@dependency/if-class'
 import { DatePickerDisplayType } from '../core/date-picker.types'
 import { IDatePickerCell } from '../core/models/date-picker.models'
 import './date-picker.cell.css'

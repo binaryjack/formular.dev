@@ -2,7 +2,7 @@ import './range-slider-debug.css'
 
 import { MutableRefObject } from 'react'
 
-import { RangePosition, SnapPoint } from '../components/range-slider.types'
+import { RangePosition, SnapPoint } from '@components/range-slider.types'
 
 interface RangeSliderDebugProps {
     stepDecimals: number

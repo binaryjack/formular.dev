@@ -1,3 +1,8 @@
+import { IValidationLocalize } from '@dependency/localize/localize.type'
+import { TranslatioBuilderType } from '@dependency/localize/localize.utils'
+import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.types'
+import { ValidationLocalizeKeys } from '@dependency/schema/validation-schema/validation.localize.keys'
 import {
     IMax,
     IMaxLength,
@@ -7,11 +12,6 @@ import {
     IRequired,
     IValidationOptions
 } from '../core/base/validation-strategy/validator.types'
-import { IValidationLocalize } from './localize/localize.type'
-import { TranslatioBuilderType } from './localize/localize.utils'
-import { IFieldDescriptor } from './schema/descriptor/field.descriptor'
-import { IEntityScheme } from './schema/field-schema/field.schema.types'
-import { ValidationLocalizeKeys } from './schema/validation-schema/validation.localize.keys'
 
 export const mapSchemaToFieldDescriptor = (
     scheme: IEntityScheme,

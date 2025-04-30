@@ -1,6 +1,6 @@
 import { SlMagnifier } from 'react-icons/sl'
 
-import { IOptionItem } from '../../dependency/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import DelayInput from '../delay-input/delay-input'
 
 import { useDrawerContext } from '../drawer/components/drawer.context'

@@ -1,4 +1,4 @@
-import { RangeSlideBehavior, RangeSliderHandleStyle } from './components/range-slider.types'
+import { RangeSlideBehavior, RangeSliderHandleStyle } from '@components/range-slider.types'
 import { RangeSliderSF } from './range-slider.sf'
 
 interface RangeSliderProps {
