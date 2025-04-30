@@ -1,14 +1,15 @@
 import { newFieldError, newFieldGuide } from '@dependency/errors'
-import { valueIsNullOrUndefined } from '../../field-input/utils/value-is-null-or-undefined'
 
+import { valueIsNullOrUndefined } from '@core/utility/value-is-null-or-undefined'
 import {
+    IValidationMethodStrategy,
     IValidationStrategy,
     IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
 } from '../validation-strategy.types'
 
-export const ValidatorMaxStrategy = function (this: IValidationStrategy) {
+export const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
     this.validate = function (data: IValidationStrategyData) {
         if (!data?.validationOptions?.max) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.max)

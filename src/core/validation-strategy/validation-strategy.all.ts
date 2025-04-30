@@ -25,7 +25,7 @@ export const validateAll = (fields: IFieldInput[]): IValidationResults => {
             field.getValue(),
             field.expectedValue
         )
-        mainResults = [...mainResults, ...validator.validate(validationstrategyData)]
+        mainResults = [...mainResults, ...validate(validationstrategyData)]
     }
     const output = newValidationResults(false)
     output.isValid = mainResults?.every((o) => o.state) ?? false

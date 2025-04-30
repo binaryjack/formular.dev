@@ -1,7 +1,7 @@
 import { ValueStrategy } from '@core/value-strategy/value-strategy'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
 import { IFieldInput } from '../field-input-base-types'
-import { Validator } from '@core/validation-strategy/validator'
+import { Validator } from '@core/validation-strategy/validation-strategy'
 
 export const initializeValidationStrategy = function (
     this: IFieldInput,

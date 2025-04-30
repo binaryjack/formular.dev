@@ -5,7 +5,6 @@ import { IFieldError, IFieldGuide } from '@dependency/errors'
 import { FieldValuesTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
 import { EventsType, IEvents } from '../events/events.types'
-import { IFieldInput } from '../fields/field-base-input/field-input-base-types'
 
 export interface IValidableForm {
     validateAll: () => void
@@ -106,22 +105,24 @@ export const newValidationStrategyData = (
     } as IValidationStrategyData
 }
 
-export interface IValidationStrategy {
-    new (): IValidationStrategy
+export type IValidationStrategyType = (data: IValidationStrategyData) => IValidationStrategy
+
+export interface IValidationMethodStrategy {
+    new (): IValidationMethodStrategy
     validate: (data: IValidationStrategyData) => IValidationResult
 }
 
-export type IValidationStrategyType = (data: IValidationStrategyData) => IValidationStrategy
-
 export interface IValidationStrategy {
-    new (field: IFieldInput): IValidationStrategy
-    field: IFieldInput
-    strategies: IValidationStrategy[]
+    new (): IValidationStrategy
+
+    validationStrategies: IValidationStrategy[]
+    validationOptions: IValidationOptions
     isValidating: boolean
+    shouldValidate: boolean
     validationTriggerModeType: EventsType[]
     validationResults: IValidationResult[]
-    initializeValidation: (descriptor: IFieldDescriptor) => void
-    addStrategies: (...strategies: IValidationStrategy[]) => void
+    initializeValidationStrategy: (descriptor: IFieldDescriptor) => void
+    addValidationStrategies: (...strategies: IValidationStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
     validate: (data: IValidationStrategyData) => IValidationResult[]
     validateAll: () => void

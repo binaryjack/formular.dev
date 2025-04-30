@@ -1,14 +1,15 @@
 import { newFieldError, newFieldGuide } from '@dependency/errors'
-import { isNullEmptyOrUndefined } from '../../field-input/utils/is-null-empty-or-undefined'
 
+import { isNullEmptyOrUndefined } from '@core/utility/is-null-empty-or-undefined'
 import {
+    IValidationMethodStrategy,
     IValidationStrategy,
     IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
 } from '../validation-strategy.types'
 
-export const ValidatorRequiredStrategy = function (this: IValidationStrategy) {
+export const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
     this.validate = function (data: IValidationStrategyData) {
         if (!data?.validationOptions?.requiredData?.required) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)

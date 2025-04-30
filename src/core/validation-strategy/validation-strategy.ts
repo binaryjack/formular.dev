@@ -1,8 +1,8 @@
-import { IFieldInput } from '../fields/field-base-input/field-input-base-types'
-import { addStrategies } from './prototype/add-strategies'
-import { initializeValidation } from './prototype/initialize-validations'
+import { addValidationStrategies } from './prototype/add-validation-strategies'
+
+import { initializeValidationStrategy } from './prototype/initialize-validation-strategy'
 import { validate } from './prototype/validate'
-import { IValidator } from './validation-strategy.types'
+import { IValidationStrategy } from './validation-strategy.types'
 
 /**
  * Validator class that implements the IValidator interface.
@@ -17,15 +17,12 @@ import { IValidator } from './validation-strategy.types'
  * @param {IValidatorStrategyData} data - The data to be validated.
  * @returns {IValidationResult[]} An array of validation results from the applied strategies.
  */
-export const Validator = function (this: IValidator, field: IFieldInput) {
-    this.field = field
-    this.isValidating = false
-    this.validationTriggerModeType = []
-    this.validationResults = []
-} as any as IValidator
+export const ValidationStrategy = function (
+    this: IValidationStrategy
+) {} as any as IValidationStrategy
 
-Object.assign(Validator.prototype, {
-    initializeValidation,
-    addStrategies,
+Object.assign(ValidationStrategy.prototype, {
+    initializeValidationStrategy,
+    addValidationStrategies,
     validate
 })
