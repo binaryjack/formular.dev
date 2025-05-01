@@ -10,7 +10,10 @@ import { IFieldInput } from '../field-input-base-types'
  */
 export const handleOnFocus = function <T extends IEvents>(this: IFieldInput, data?: T) {
     if (!this?.validationTriggerModeType.includes('onFocus')) return
-    this.internalInfo('IFieldInput.handleOnFocus', `value clicked: ${this.type}, data: ${data} `)
+    this.internalInfo(
+        'IFieldInput.handleOnFocus',
+        `value clicked: ${this.type}, data: ${JSON.stringify(data)} `
+    )
     const validationOrigin = data as IEvents
     this?.debounceNotify(
         'onValidate',

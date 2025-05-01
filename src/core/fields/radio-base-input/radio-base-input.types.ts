@@ -1,17 +1,14 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
-import { IClickInput } from '../click-base-input/click-base-input.types'
+import { IClickBaseInput } from '../click-base-input/click-base-input.types'
 import { IFieldInput } from '../field-base-input/field-input-base-types'
-import { IOptionInput } from '../option-based-input/option-base-input.types'
 
-export type IDropDownInput = IDropDownBaseInput & IOptionInput & IClickInput
+export type IRadioInput = IRadioBaseInput & IClickBaseInput
 
-export interface IDropDownBaseInput {
-    new (): IDropDownBaseInput
+export interface IRadioBaseInput {
+    new (): IRadioBaseInput
 
-    initializeClickOptionsBased: (fieldInput: IFieldInput) => void
-    initializeOptionBasedOnly: (fieldInput: IFieldInput) => void
-
+    initialize: (fieldInput: IFieldInput) => void
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void
     handleOnSelected: <T extends IEvents>(data?: T) => void
@@ -25,4 +22,7 @@ export interface IDropDownBaseInput {
     onSelectItem: (option: IOptionItem) => void
     setValue: (value: IOptionItem | string | number | null) => void
     getValue: () => unknown | null
+
+    /** willl be moved to radio kind of input */
+    registerLabel: (optionId: string) => Partial<HTMLInputElement>
 }

@@ -1,5 +1,5 @@
-import { OptionBaseInput } from '@core/fields/option-based-input/option-base-input'
-import { IOptionInput } from '@core/fields/option-based-input/option-base-input.types'
+import { ClickBaseInput } from '@core/fields/click-base-input/click-base-input'
+import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
 import { newEvent } from '../../../events/events.types'
 import { IDropDownInput } from '../drop-down-base-input.types'
@@ -7,12 +7,15 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * The setup function sets up the field input by subscribing to observers.
  * basic configuration for styles and validation
  */
-export const initialize = function (this: IDropDownInput, optionInput: IOptionInput) {
+export const initializeClickOptionsBased = function (
+    this: IDropDownInput,
+    fieldInput: IFieldInput
+) {
     try {
-        this.prototype = { ...OptionBaseInput.prototype, ...this.prototype }
+        this.prototype = { ...ClickBaseInput.prototype, ...this.prototype }
 
-        OptionBaseInput.call(this)
-        OptionBaseInput.initialize(optionInput)
+        ClickBaseInput.call(this, fieldInput)
+        ClickBaseInput.initializeOptionsBased(fieldInput)
 
         this.accept(
             nnv(
@@ -27,16 +30,9 @@ export const initialize = function (this: IDropDownInput, optionInput: IOptionIn
                 this.handleOnSelected.bind(this)
             )
         )
-
-        this.accept(
-            nnv(
-                newEvent(this.name, 'setup', 'onClick', 'field.select'),
-                this.handleOnSelected.bind(this)
-            )
-        )
     } catch (e: any) {
         throw Error(
-            `${initialize.name} - an error has occured when initializing ${this.name} class: ${e.message}`
+            `${initializeClickOptionsBased.name} - an error has occured when initializing ${this.name} class: ${e.message}`
         )
     }
 }

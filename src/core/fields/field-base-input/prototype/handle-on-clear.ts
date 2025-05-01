@@ -10,7 +10,10 @@ import { IFieldInput } from '../field-input-base-types'
  */
 export const handleOnClear = function <T extends IEvents>(this: IFieldInput, data?: T) {
     if (!this?.validationTriggerModeType.includes('onClear')) return
-    this.internalInfo('IFieldInput.handleOnBlur', `value clicked: ${this.type}, data: ${data} `)
+    this.internalInfo(
+        'IFieldInput.handleOnBlur',
+        `value clicked: ${this.type}, data: ${JSON.stringify(data)} `
+    )
 
     this?.debounceNotify(
         'onValidate',
