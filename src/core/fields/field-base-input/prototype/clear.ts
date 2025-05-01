@@ -16,18 +16,16 @@ import { IFieldInput } from '../field-input-base-types'
  * @this IFieldInput - The field input instance on which the method is called.
  */
 export const clear = function (this: IFieldInput) {
-    this.errors = []
-    this.guides = []
+    /**need to be implemented in variants imputs */
+    // this.errors = []
+    // this.guides = []
 
-    this._style?.fieldStateStyle.update('clear', true)
-    this.value = null
-    if (this._clickable) this._clickable.checked = false
-    if (this._optionable) this._optionable.selectedOptionId = null
-    this.dmClear()
-    this.focus()
+    // this._style?.fieldStateStyle.update('clear', true)
+    // this.value = null
+    // if (this._clickable) this._clickable.checked = false
+    // if (this._optionable) this._optionable.selectedOptionId = null
+    // this.dmClear()
+    // this.focus()
 
-    this._notifier?.notify(
-        'onClear',
-        newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`)
-    )
+    this?.notify('onClear', newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`))
 }

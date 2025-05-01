@@ -1,6 +1,6 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { newEvent } from '../../../events/events.types'
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
  * Handles the selection of an item in a field input component.
@@ -15,21 +15,18 @@ import { IOptionBaseInput } from '../option-based-input.types'
  * - Notifies observers of the `changed` event with the field name and state.
  * - Notifies observers of the `validate` event to reset validation state.
  */
-export const onSelectItem = function (this: IOptionBaseInput, option: IOptionItem) {
-    if (!this.field.dmExists(this.field.id.toString())) {
+export const onSelectItem = function (this: IDropDownInput, option: IOptionItem) {
+    if (!this.dmExists(this.id.toString())) {
         return
     }
     const internlOption = this.getOptionByValue(option.value)
     if (!internlOption) return
     this.selectedOptionId = internlOption.sequenceId
-    this.field.value = internlOption.id
+    this.value = internlOption.id
 
-    this.field.dmSetSelected(this.field.id.toString(), option.text)
-    this.field.dmSetFocus(this.field.id.toString())
-    if (this.field._drawerable?.openState) this.field._drawerable.openState = 'closed'
+    this.dmSetSelected(this.id.toString(), option.text)
+    this.dmSetFocus(this.id.toString())
+    if (this._drawerable?.openState) this._drawerable.openState = 'closed'
 
-    this.field._notifier?.notify(
-        'onSelect',
-        newEvent(this.name, onSelectItem.name, 'onSelect', 'field.selected')
-    )
+    this?.notify('onSelect', newEvent(this.name, onSelectItem.name, 'onSelect', 'field.selected'))
 }

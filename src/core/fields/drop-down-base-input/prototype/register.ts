@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { IClickBaseInput } from '../click-base-input.types'
+import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -45,47 +45,46 @@ import { IClickBaseInput } from '../click-base-input.types'
  * />
  * ```
  */
-export const register = function <FieldValuesTypes>(this: IClickBaseInput) {
-    const onBlur = (e: Event) => {
-        this.field.isFocus = false
-        this.field._style?.fieldStateStyle.update('focus', this.field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this.field._notifier?.notify(
-            'onBlur',
-            newEvent(this.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
-        )
-    }
-
-    const onFocus = (e: Event) => {
-        this.field.isFocus = true
-        this.field._style?.fieldStateStyle.update('focus', this.field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this.field._notifier?.notify(
-            'onFocus',
-            newEvent(this.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
-        )
-    }
-
-    const onClick = (e: MouseEvent) => {
+export const register = function <FieldValuesTypes>(
+    this: IDropDownInput
+): Partial<HTMLInputElement> {
+    const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
-        if (!this.field.dmExists(this.field.id.toString())) return
 
-        if (this.field.type !== 'checkbox' && this.field.type !== 'radio') return
+        this.value = inputElement.value
+        this.isPristine = this.originalValue === this.value
+        this._style?.fieldStateStyle.update('pristine', this.isPristine)
+        this.isDirty = this.originalValue !== this.value
+        this._style?.fieldStateStyle.update('dirty', this.isDirty)
 
-        this.field.value = inputElement.checked
-        this.checked = this.field.value as boolean
+        this?.notify(
+            'onChange',
+            newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
+        )
 
-        e?.stopPropagation?.()
+        e.stopPropagation()
+    }
 
-        this.field._notifier?.notify(
-            'onClick',
-            newEvent(this.name, onClick.name, 'onClick', `field.${onClick.name}`)
+    const onblur = (e: Event) => {
+        this.isFocus = false
+        this._style?.fieldStateStyle.update('focus', this.isFocus)
+
+        e.stopPropagation()
+        e.preventDefault()
+
+        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
+    }
+
+    const onfocus = (e: Event) => {
+        this.isFocus = true
+        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
+
+        e.stopPropagation()
+        e.preventDefault()
+
+        this?.notify(
+            'onFocus',
+            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
         )
     }
 
@@ -93,12 +92,15 @@ export const register = function <FieldValuesTypes>(this: IClickBaseInput) {
     this.field.dmAriaSet(this.field.id.toString(), this.name)
 
     return {
-        id: `${this.field.id}`,
-        type: this.field.type,
-        className: this.field._style?.classNames(),
-        label: this.field.label,
-        onBlur,
-        onFocus,
-        onClick
+        id: `${this.id}`,
+        type: this.type,
+        className: this._style?.classNames() ?? '',
+        title: this.label ?? '',
+        ariaDescription: `${this.name}`,
+        ariaLabel: this.label ?? '',
+        ariaValueText: this.getAsString(),
+        onchange,
+        onblur,
+        onfocus
     }
 }

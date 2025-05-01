@@ -1,12 +1,12 @@
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IOptionInput } from '../option-base-input.types'
 
-export const getOptionByValue = function (this: IOptionBaseInput, value: string) {
-    if (this.field.options?.length === 0) {
-        this.field.internalWarning(
+export const getOptionByValue = function (this: IOptionInput, value: string) {
+    if (this.options?.length === 0) {
+        this.internalWarning(
             'IFieldInput.getOptionByValue',
-            `there is no options related to the field of type: ${this.field.type}, name: ${this.name} `
+            `there is no options related to the field of type: ${this.type}, name: ${this.name} `
         )
         return null
     }
-    return this.field.options.find((o) => o.value === value)
+    return this.options.find((o) => o.value === value)
 }

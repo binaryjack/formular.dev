@@ -7,5 +7,5 @@ import { IFieldInput } from '../field-input-base-types'
  * @this IFieldInput - The context in which this function is called, representing the field input instance.
  */
 export const hasChanges = function (this: IFieldInput, callback: () => void) {
-    this._notifier?.observers.subscribe(callback)
+    this?.observers.subscribe(callback)
 }

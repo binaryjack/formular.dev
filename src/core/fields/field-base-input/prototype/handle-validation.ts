@@ -23,18 +23,18 @@ export const handleValidation = function <T extends IEvents>(this: IFieldInput, 
             this?.name,
             this.type,
             this.validationOptions,
-            this._valueStrategy?.getAsString(),
+            this?.getAsString(),
             this.expectedValue,
             data
         )
 
-        results = this._validator?.validate?.(validationstrategyData) ?? []
+        results = this?.validate?.(validationstrategyData) ?? []
     } else {
         // console.log('Validation skipped')
     }
 
     // keep the validation results for the field
-    if (this._validator) this._validator.validationResults = results
+    this.validationResults = results
 
     this._style?.fieldStateStyle.update(
         'valid',

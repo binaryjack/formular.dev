@@ -1,6 +1,7 @@
 import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { IDateObject } from '@components/date-picker/core/models/date-object.models'
+import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { IFieldError, IFieldGuide } from '@dependency/errors'
 import { FieldValuesTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
@@ -115,17 +116,17 @@ export interface IValidationMethodStrategy {
 export interface IValidationStrategy {
     new (): IValidationStrategy
 
-    validationStrategies: IValidationStrategy[]
+    validationStrategies: IValidationMethodStrategy[]
     validationOptions: IValidationOptions
     isValidating: boolean
     shouldValidate: boolean
     validationTriggerModeType: EventsType[]
     validationResults: IValidationResult[]
     initializeValidationStrategy: (descriptor: IFieldDescriptor) => void
-    addValidationStrategies: (...strategies: IValidationStrategy[]) => void
+    addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
     validate: (data: IValidationStrategyData) => IValidationResult[]
-    validateAll: () => void
+    validateAll: (fields: IFieldInput[]) => void
 }
 
 export interface IValidationTextBase {

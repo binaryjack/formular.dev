@@ -1,6 +1,6 @@
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IOptionInput } from '../option-base-input.types'
 
-export const getSelectedValue = function (this: IOptionBaseInput) {
+export const getSelectedValue = function (this: IOptionInput) {
     const value = this?.selectedOptionId
         ? this?.getOptionBySequenceId(this?.selectedOptionId)?.text
         : ''

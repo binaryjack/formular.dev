@@ -1,16 +1,16 @@
-import { IValidationOptions } from '../../../core/base/validation-strategy/validator.types'
+import { IValidationOptions } from '@core/validation-strategy/validation-strategy.types'
 import { IFieldError, IFieldGuide } from '../../errors'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { INDate } from './field.data.date.struct'
-import { FieldValuesTypes } from './field.data.types'
+import { IFValueTypes } from './field.data.types'
 
 export interface IFieldDescriptor {
     id: number
     name: string
     label: string
-    value: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null
+    value: IFValueTypes
     objectValue: INDate | null
-    defaultValue: Omit<FieldValuesTypes, 'object' | 'INDate' | 'DateObject'> | null
+    defaultValue: IFValueTypes
     type: string
     errors: IFieldError[]
     guides: IFieldGuide[]
@@ -21,7 +21,7 @@ export interface IFieldDescriptor {
     isDirty: boolean
     isPristine: boolean
     isFocus: boolean
-    expectedValue?: FieldValuesTypes
+    expectedValue?: IFValueTypes
     loaded?: boolean
     changed?: boolean
     // defined in backend : describes if the field should be validated

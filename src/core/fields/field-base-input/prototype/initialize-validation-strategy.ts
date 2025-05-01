@@ -1,11 +1,10 @@
-import { ValueStrategy } from '@core/value-strategy/value-strategy'
-import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
+import { ValidationStrategy } from '@core/validation-strategy/validation-strategy'
+import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IFieldInput } from '../field-input-base-types'
-import { Validator } from '@core/validation-strategy/validation-strategy'
 
 export const initializeValidationStrategy = function (
     this: IFieldInput,
-    ...parsers: IParserStrategy<any>[]
+    ...parsers: IValidationMethodStrategy[]
 ) {
     if (!this.prototype) {
         throw Error(
@@ -13,9 +12,9 @@ export const initializeValidationStrategy = function (
         )
     }
     try {
-        this.prototype = { ...this.prototype, ...Validator.prototype }
-        ValueStrategy.call(this, this)
-        this.acceptValueStrategies(...parsers)
+        this.prototype = { ...this.prototype, ...ValidationStrategy.prototype }
+        ValidationStrategy.call(this)
+        this.addValidationStrategies(...parsers)
     } catch (e: any) {
         console.error(initializeValidationStrategy.name, e.message)
     }

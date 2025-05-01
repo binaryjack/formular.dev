@@ -1,5 +1,5 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IDropDownInput } from '../drop-down-base-input.types'
 
 /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
  * I guess (not sure at this point!) but I believe tha's because of the render nature.
@@ -9,7 +9,7 @@ import { IOptionBaseInput } from '../option-based-input.types'
  * In this case we provide a ref from the component itself and we add to the collection only if the ref has already
  * been created and the value (current) is referencing the input.
  *  */
-export const refOption = function (this: IOptionBaseInput, ref: HTMLInputElement | null) {
+export const refOption = function (this: IDropDownInput, ref: HTMLInputElement | null) {
     if (!ref) return null
     /** Okay this following check after investigating is useless
      * I will keep it anyways because for me
@@ -20,10 +20,10 @@ export const refOption = function (this: IOptionBaseInput, ref: HTMLInputElement
      * by the StrictMode of something else like that
      * we expect to have only one ref and it could avoid bugs
      */
-    this.field.dmRegister(ref)
+    this.dmRegister(ref)
     if (this.optionsInitialized) return
     if (this.checkOptionsInitialized()) {
-        this.setValue(this.field.defaultValue as IOptionItem | string | number | null)
+        this.setValue(this.defaultValue as IOptionItem | string | number | null)
         this.optionsInitialized = true
     }
 

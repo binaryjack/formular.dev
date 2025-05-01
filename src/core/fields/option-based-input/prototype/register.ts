@@ -1,6 +1,6 @@
 import { newEvent } from '../../../events/events.types'
 
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IOptionInput } from '../option-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -46,48 +46,44 @@ import { IOptionBaseInput } from '../option-based-input.types'
  * />
  * ```
  */
-export const register = function <FieldValuesTypes>(this: IOptionBaseInput) {
-    const onChange = (e: Event) => {
+export const register = function <FieldValuesTypes>(this: IOptionInput): Partial<HTMLInputElement> {
+    const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
 
-        this.field.value = inputElement.value
+        this.value = inputElement.value
+        this.isPristine = this.originalValue === this.value
+        this._style?.fieldStateStyle.update('pristine', this.isPristine)
+        this.isDirty = this.originalValue !== this.value
+        this._style?.fieldStateStyle.update('dirty', this.isDirty)
 
-        this.field.isPristine = this.field.originalValue === this.field.value
-        this.field._style?.fieldStateStyle.update('pristine', this.field.isPristine)
-        this.field.isDirty = this.field.originalValue !== this.field.value
-        this.field._style?.fieldStateStyle.update('dirty', this.field.isDirty)
-
-        this.field._notifier?.notify(
+        this?.notify(
             'onChange',
-            newEvent(this.name, onChange.name, 'onChange', `field.${onChange.name}`)
+            newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
         )
 
         e.stopPropagation()
     }
 
-    const onBlur = (e: Event) => {
-        this.field.isFocus = false
-        this.field._style?.fieldStateStyle.update('focus', this.field.isFocus)
+    const onblur = (e: Event) => {
+        this.isFocus = false
+        this._style?.fieldStateStyle.update('focus', this.isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this.field._notifier?.notify(
-            'onBlur',
-            newEvent(this.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
-        )
+        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
     }
 
-    const onFocus = (e: Event) => {
-        this.field.isFocus = true
-        this.field._style?.fieldStateStyle.update('focus', this.field.isFocus)
+    const onfocus = (e: Event) => {
+        this.isFocus = true
+        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this.field._notifier?.notify(
+        this?.notify(
             'onFocus',
-            newEvent(this.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
+            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
         )
     }
 
@@ -95,12 +91,15 @@ export const register = function <FieldValuesTypes>(this: IOptionBaseInput) {
     this.field.dmAriaSet(this.field.id.toString(), this.name)
 
     return {
-        id: `${this.field.id}`,
-        type: this.field.type,
-        className: this.field._style?.classNames(),
-        label: this.field.label,
-        onChange,
-        onBlur,
-        onFocus
+        id: `${this.id}`,
+        type: this.type,
+        className: this._style?.classNames() ?? '',
+        title: this.label ?? '',
+        ariaDescription: `${this.name}`,
+        ariaLabel: this.label ?? '',
+        ariaValueText: this.getAsString(),
+        onchange,
+        onblur,
+        onfocus
     }
 }

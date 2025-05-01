@@ -9,10 +9,10 @@ import { IFieldInput } from '../field-input-base-types'
  * Logs the focus event details, including the optional data and the current value of the field input.
  */
 export const handleOnFocus = function <T extends IEvents>(this: IFieldInput, data?: T) {
-    if (!this._validator?.validationTriggerModeType.includes('onFocus')) return
+    if (!this?.validationTriggerModeType.includes('onFocus')) return
     this.internalInfo('IFieldInput.handleOnFocus', `value clicked: ${this.type}, data: ${data} `)
     const validationOrigin = data as IEvents
-    this._notifier?.debounceNotify(
+    this?.debounceNotify(
         'onValidate',
         500,
         newEvent(this.name, handleOnFocus.name, 'onValidate', `field.state.${handleOnFocus.name}`)

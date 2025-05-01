@@ -27,7 +27,7 @@ export const FieldStateStyle = function (this: IFieldStateStyle, field: IFieldIn
         ['valid', 'is-valid'],
         ['required', 'required']
     ])
-}
+} as any as IFieldStateStyle
 
 Object.assign(FieldStateStyle.prototype, {
     initialize,

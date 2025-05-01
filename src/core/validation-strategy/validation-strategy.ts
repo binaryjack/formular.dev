@@ -1,7 +1,9 @@
 import { addValidationStrategies } from './prototype/add-validation-strategies'
+import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
 
 import { initializeValidationStrategy } from './prototype/initialize-validation-strategy'
 import { validate } from './prototype/validate'
+import { validateAll } from './prototype/validate-all'
 import { IValidationStrategy } from './validation-strategy.types'
 
 /**
@@ -24,5 +26,7 @@ export const ValidationStrategy = function (
 Object.assign(ValidationStrategy.prototype, {
     initializeValidationStrategy,
     addValidationStrategies,
-    validate
+    setValidationTriggerMode,
+    validate,
+    validateAll
 })

@@ -17,7 +17,6 @@ export const initializeFieldProperties = function (
     this.defaultValue = descriptor.defaultValue
     this.objectValue = descriptor.objectValue
     this.type = descriptor.type
-    this.options = descriptor.options
     this.target = descriptor.target
     this.isValid = descriptor.isValid ?? true
     this.isDirty = descriptor.isDirty ?? false

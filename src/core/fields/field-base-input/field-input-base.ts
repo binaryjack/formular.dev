@@ -90,10 +90,12 @@ import { handleOnFocus } from './prototype/handle-on-focus'
 import { hasChanges } from './prototype/has-changes'
 import { initializeDommable } from './prototype/initialize-dommable'
 import { initializeTracking } from './prototype/initialize-tracking'
+import { initializeValidationStrategy } from './prototype/initialize-validation-strategy'
 import { initializeValueStrategy } from './prototype/initialize-value-strategy'
 import { initializeEvents } from './prototype/intialize-events'
 import { initializeFieldProperties } from './prototype/intialize-field-properties'
 import { setFocus } from './prototype/set-focus'
+import { initializeStyle } from './prototype/intialize-style'
 
 export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescriptor) {
     if (!descriptor.id || !descriptor.name) {
@@ -103,11 +105,13 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
 } as any as IFieldInput
 
 Object.assign(FieldInput.prototype, {
-    initializeDommable,
+    initializeValidationStrategy,
+    initializeFieldProperties,
     initializeValueStrategy,
+    initializeDommable,
     initializeTracking,
     initializeEvents,
-    initializeFieldProperties,
+    initializeStyle,
     hasChanges,
     setFocus,
     enable,

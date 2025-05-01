@@ -1,7 +1,7 @@
-import { FieldValuesTypes } from '@dependency/schema/descriptor/field.data.types'
+import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IFieldInput } from '../fields/field-base-input/field-input-base-types'
 
-export type TParser<TOut> = (value: Partial<FieldValuesTypes>) => TOut | null
+export type TParser<TOut> = (value: Partial<IFValueTypes>) => TOut | null
 
 export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
 
@@ -33,6 +33,4 @@ export interface IValueStrategy {
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null
-    getValue: () => unknown | null
-    toString: () => string
 }

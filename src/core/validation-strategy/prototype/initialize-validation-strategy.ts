@@ -12,5 +12,5 @@ export const initializeValidationStrategy = function (
     this.validationTriggerModeType = []
     this.validationResults = []
     /** the On form request will be trigger by the form! It should remains as the basic one in this list */
-    this.validationTriggerModeType = ['onBlur', 'onSubmit']
+    this.validationTriggerModeType = []
 }

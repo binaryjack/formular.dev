@@ -1,7 +1,7 @@
 import {
     IValidationResult,
-    IValidationStrategyData,
-    IValidator
+    IValidationStrategy,
+    IValidationStrategyData
 } from '../validation-strategy.types'
 
 /**
@@ -9,14 +9,17 @@ import {
  * @param {IValidationStrategyData} data - The data to be validated.
  * @returns {IValidationResult[]} An array of validation results from the applied strategies.
  */
-export function validate(this: IValidator, data: IValidationStrategyData): IValidationResult[] {
+export function validate(
+    this: IValidationStrategy,
+    data: IValidationStrategyData
+): IValidationResult[] {
     const output: IValidationResult[] = []
 
     if (data.origin?.types.includes('onResetValidation')) {
         return output
     }
 
-    for (const strategy of this.strategies) {
+    for (const strategy of this.validationStrategies) {
         output.push(strategy.validate(data))
     }
 

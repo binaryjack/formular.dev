@@ -34,6 +34,7 @@ export interface IFieldStateStyle {
     className: string
     fieldStateStyle: IFieldStateStyle
     classesList: Map<FieldInputStateType, string>
+    initialize: () => void
     update: (type: FieldInputStateType, state: boolean) => void
     get: () => string
     getFlagsList: () => IFlags[]

@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
  * Registers a label click handler for a field input component.
@@ -16,29 +16,29 @@ import { IOptionBaseInput } from '../option-based-input.types'
  * - Triggers all registered observers.
  * - Stops the propagation of the click event.
  */
-export const registerLabel = function (this: IOptionBaseInput, optionId: string) {
-    const onClick = (e: Event) => {
+
+/** NEED TO BE MOVED TO RADIO KIND CONTROL */
+export const registerLabel = function (
+    this: IDropDownInput,
+    optionId: string
+): Partial<HTMLInputElement> {
+    const onclick = (e: Event) => {
         const option = this.getOptionById(optionId)
         if (option) {
-            this.field.value = option.id
+            this.value = option.id
             this.selectedOptionId = option.sequenceId
         }
-        this.field.dmSetChecked(optionId, true)
-        this.field._style?.fieldStateStyle.update(
-            'dirty',
-            this.field.originalValue !== this.field.value
-        )
+        this.dmSetChecked(optionId, true)
+        this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-        // this.observers.trigger()
-
-        this.field?._notifier?.notify(
+        this.notify(
             'onClick',
-            newEvent(this.name, onClick.name, 'onClick', `field.option.label.${onClick.name}`)
+            newEvent(this.name, onclick.name, 'onClick', `field.option.label.${onclick.name}`)
         )
         e?.stopPropagation?.()
     }
 
     return {
-        onClick
+        onclick
     }
 }

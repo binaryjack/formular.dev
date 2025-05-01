@@ -1,4 +1,4 @@
-import { IValidationStrategy } from '../validation-strategy.types'
+import { IValidationMethodStrategy, IValidationStrategy } from '../validation-strategy.types'
 
 /**
  * Adds one or more validation strategies to the Validator instance.
@@ -6,7 +6,7 @@ import { IValidationStrategy } from '../validation-strategy.types'
  */
 export function addValidationStrategies(
     this: IValidationStrategy,
-    ...strategies: IValidationStrategy[]
+    ...strategies: IValidationMethodStrategy[]
 ) {
     this.validationStrategies = strategies
 }

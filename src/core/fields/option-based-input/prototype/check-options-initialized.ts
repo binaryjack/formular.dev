@@ -1,11 +1,11 @@
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IOptionInput } from '../option-base-input.types'
 
-export const checkOptionsInitialized = function (this: IOptionBaseInput) {
+export const checkOptionsInitialized = function (this: IOptionInput) {
     const intitializedOptions: boolean[] = []
-    this.field.options.forEach((element) => {
-        if (this.field.dmExists(element.id)) {
+    this.options.forEach((element) => {
+        if (this.dmExists(element.id)) {
             intitializedOptions.push(true)
         }
     })
-    return intitializedOptions.filter((o) => o).length === this.field.options.length
+    return intitializedOptions.filter((o) => o).length === this.options.length
 }

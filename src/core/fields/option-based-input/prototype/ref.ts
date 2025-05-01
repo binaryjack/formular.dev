@@ -1,5 +1,5 @@
-import { IOptionBaseInput } from '../option-based-input.types'
+import { IOptionInput } from '../option-base-input.types'
 
-export const ref = function (this: IOptionBaseInput, ref: HTMLInputElement | null) {
-    this.field.dmRegister(ref)
+export const ref = function (this: IOptionInput, ref: HTMLInputElement | null) {
+    this.dmRegister(ref)
 }
