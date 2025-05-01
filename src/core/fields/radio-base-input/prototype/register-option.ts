@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
 /**
  * Registers event handlers for a field's children options input components
@@ -21,7 +21,7 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * - `onFocus`: Handles focus events on the input element. Updates the focus state,
  *   triggers observers, and notifies listeners about the "focused" event.
  */
-export const registerOption = function (this: IDropDownInput): Partial<HTMLInputElement> {
+export const registerOption = function (this: IRadioInput): Partial<HTMLInputElement> {
     const onclick = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
         this.value = inputElement?.value ?? ''

@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -45,9 +45,7 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * />
  * ```
  */
-export const register = function <FieldValuesTypes>(
-    this: IDropDownInput
-): Partial<HTMLInputElement> {
+export const register = function <FieldValuesTypes>(this: IRadioInput): Partial<HTMLInputElement> {
     const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
 

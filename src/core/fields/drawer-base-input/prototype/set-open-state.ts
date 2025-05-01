@@ -1,6 +1,6 @@
 import { newEvent } from '../../../events/events.types'
 import { ToggleableStateType } from '../../toggleable-base-element/toggleable-base-element'
-import { IDrawerBaseInput } from '../drawer-base-input.types'
+import { IDrawerInput } from '../drawer-base-input.types'
 
 /**
  * Sets the open state of the field input and notifies observers of the change.
@@ -14,10 +14,10 @@ import { IDrawerBaseInput } from '../drawer-base-input.types'
  * to observers with the event type `'changed'`. The notification includes the field name and
  * a field state of `'reset'`.
  */
-export const setOpenState = function (this: IDrawerBaseInput, state: ToggleableStateType) {
+export const setOpenState = function (this: IDrawerInput, state: ToggleableStateType) {
     this.openState = state
     //this.observers.trigger()
-    this.field._notifier?.notify(
+    this.notify(
         'onOpen',
         newEvent(this.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
     )

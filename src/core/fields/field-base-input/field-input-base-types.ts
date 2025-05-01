@@ -37,6 +37,7 @@ export interface IFieldInputBase {
     initializeTracking: (providers?: ITrackingOutputProvider[]) => void
     initializeValueStrategy: (providers?: ITrackingOutputProvider[]) => void
     initializeValidationStrategy: (...parsers: IParserStrategy<any>[]) => void
+    initializeDrawerableState: () => void
     initializeStyle: () => void
 
     hasChanges: (callback: () => void) => void

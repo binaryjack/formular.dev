@@ -1,5 +1,5 @@
-import { ITextInput } from '../check-box-base-input.types'
+import { ICheckBoxInput } from '../check-box-base-input.types'
 
-export const ref = function (this: ITextInput, ref: HTMLInputElement | null) {
+export const ref = function (this: ICheckBoxInput, ref: HTMLInputElement | null) {
     this.dmRegister(ref)
 }

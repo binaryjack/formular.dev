@@ -1,5 +1,5 @@
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
-export const ref = function (this: IDropDownInput, ref: HTMLInputElement | null) {
+export const ref = function (this: IRadioInput, ref: HTMLInputElement | null) {
     this.dmRegister(ref)
 }

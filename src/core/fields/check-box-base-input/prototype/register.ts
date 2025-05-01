@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { ITextInput } from '../check-box-base-input.types'
+import { ICheckBoxInput } from '../check-box-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -45,7 +45,9 @@ import { ITextInput } from '../check-box-base-input.types'
  * />
  * ```
  */
-export const register = function <FieldValuesTypes>(this: ITextInput): Partial<HTMLInputElement> {
+export const register = function <FieldValuesTypes>(
+    this: ICheckBoxInput
+): Partial<HTMLInputElement> {
     const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
 

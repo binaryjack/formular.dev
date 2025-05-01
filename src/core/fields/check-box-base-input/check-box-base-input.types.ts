@@ -1,11 +1,12 @@
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IEvents } from '../../events/events.types'
+import { IClickBaseInput } from '../click-base-input/click-base-input.types'
 import { IFieldInput } from '../field-base-input/field-input-base-types'
 
-export type ITextInput = ITextBaseInput & IFieldInput
+export type ICheckBoxInput = ICheckBoxBaseInput & IClickBaseInput & IFieldInput
 
-export interface ITextBaseInput {
-    new (): ITextBaseInput
+export interface ICheckBoxBaseInput {
+    new (): ICheckBoxBaseInput
 
     initialize: (fieldInput: IFieldInput) => void
     ref: (ref: HTMLInputElement | null) => void

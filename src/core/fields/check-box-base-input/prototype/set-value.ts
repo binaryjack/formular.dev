@@ -1,7 +1,6 @@
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
-
 import { newEvent } from '@core/events/events.types'
-import { ITextInput } from '../check-box-base-input.types'
+import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+import { ICheckBoxInput } from '../check-box-base-input.types'
 
 /**
  * Sets the value of the field input and updates its state, notifies observers,
@@ -22,13 +21,21 @@ import { ITextInput } from '../check-box-base-input.types'
  * - If the internal HTML element reference exists, synchronizes its value with
  *   the new field value.
  */
-export const setValue = function (this: ITextInput, value: IFValueTypes) {
+export const setValue = function (this: ICheckBoxInput, value: IFValueTypes) {
+    if (this.type !== 'checkbox') {
+        this.internalCritical(
+            setValue.name,
+            'this field can only be initialized by a check box type'
+        )
+        return
+    }
+    if (this) this.checked = value as boolean
+    this.dmSetChecked(this.field.id.toString(), value as boolean)
     this.value = value
-    this.dmSetValue(this.field.id.toString(), this.field.value as string)
 
-    this._style?.fieldStateStyle.update('dirty', this.field.originalValue !== this.field.value)
+    this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
-    this?.notify(
+    this.notify(
         'onChange',
         newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
     )

@@ -1,5 +1,5 @@
 import { IEvents, newEvent } from '../../../events/events.types'
-import { ITextInput } from '../check-box-base-input.types'
+import { ICheckBoxInput } from '../check-box-base-input.types'
 
 /**
  * Handles the change event for a field input.
@@ -9,7 +9,7 @@ import { ITextInput } from '../check-box-base-input.types'
  *
  * Logs the updated value and the provided data to the console.
  */
-export const handleOnChanged = function <T extends IEvents>(this: ITextInput, data?: T) {
+export const handleOnChanged = function <T extends IEvents>(this: ICheckBoxInput, data?: T) {
     if (!this.validationTriggerModeType.includes('onChange')) return
 
     this.debounceNotify(

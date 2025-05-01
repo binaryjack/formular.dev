@@ -1,5 +1,5 @@
 import { newEvent } from '../../../events/events.types'
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
 /**
  * Registers a label click handler for a field input component.
@@ -19,7 +19,7 @@ import { IDropDownInput } from '../drop-down-base-input.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */
 export const registerLabel = function (
-    this: IDropDownInput,
+    this: IRadioInput,
     optionId: string
 ): Partial<HTMLInputElement> {
     const onclick = (e: Event) => {

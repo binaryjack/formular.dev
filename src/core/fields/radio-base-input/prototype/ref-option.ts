@@ -1,5 +1,5 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
 /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
  * I guess (not sure at this point!) but I believe tha's because of the render nature.
@@ -9,7 +9,7 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * In this case we provide a ref from the component itself and we add to the collection only if the ref has already
  * been created and the value (current) is referencing the input.
  *  */
-export const refOption = function (this: IDropDownInput, ref: HTMLInputElement | null) {
+export const refOption = function (this: IRadioInput, ref: HTMLInputElement | null) {
     if (!ref) return null
     /** Okay this following check after investigating is useless
      * I will keep it anyways because for me

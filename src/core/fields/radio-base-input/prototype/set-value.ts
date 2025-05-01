@@ -1,6 +1,6 @@
 import { newEvent } from '@core/events/events.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
-import { IDropDownInput } from '../drop-down-base-input.types'
+import { IRadioInput } from '../radio-base-input.types'
 
 /**
  * Sets the value of the field input and updates its state, notifies observers,
@@ -21,45 +21,24 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * - If the internal HTML element reference exists, synchronizes its value with
  *   the new field value.
  */
-export const setValue = function (this: IDropDownInput, value: IFValueTypes) {
+export const setValue = function (this: IRadioInput, value: IFValueTypes) {
     /** NEED TO BE MOVED TO CHECK BOX KIND ONLY  */
-    if (this.type === 'checkbox') {
-        if (this) this.checked = value as boolean
-        this.dmSetChecked(this.field.id.toString(), value as boolean)
-        this.value = value
-
-        /** NEED TO BE MOVED TO RADIO BOX KIND ONLY  */
-    } else if (this.type === 'radio') {
-        const radioItem = this?.tryGetOptionByIdOrValue(value as string, value as string)
-        if (!radioItem) {
-            this.internalWarning(
-                'IFieldInput.setValue',
-                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
-            )
-            return
-        }
-        this.value = radioItem.value
-        this.selectedOptionId = radioItem.sequenceId
-        this.dmSetChecked(radioItem.id, value as boolean)
+    if (this.type !== 'radio') {
+        this.internalCritical(setValue.name, 'this field can only be initialized by a radio type')
+        return
     }
 
-    if (this.type === 'select') {
-        const optionById = this.tryGetOptionBySequenceIdThenIdOrValue(
-            value as number,
-            value as string,
-            value as string
+    const radioItem = this?.tryGetOptionByIdOrValue(value as string, value as string)
+    if (!radioItem) {
+        this.internalWarning(
+            'IFieldInput.setValue',
+            `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
         )
-        if (!optionById) {
-            this.internalWarning(
-                'IFieldInput.setValue',
-                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
-            )
-            return
-        }
-        this.value = optionById.id
-        this.selectedOptionId = optionById.sequenceId
-        this.dmSetValue(this.id.toString(), this.value as string)
+        return
     }
+    this.value = radioItem.value
+    this.selectedOptionId = radioItem.sequenceId
+    this.dmSetChecked(radioItem.id, value as boolean)
 
     this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
 
