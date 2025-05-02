@@ -1,5 +1,6 @@
 import { INotifier } from '@core/notifiable-entity/notifications.types'
-import { EventsType } from '../base/events/events.types'
+
+import { EventsType } from '@core/events/events.types'
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
 
 /**

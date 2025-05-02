@@ -1,5 +1,6 @@
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
-import { newEvent } from '../base/events/events.types'
+
+import { newEvent } from '@core/events/events.types'
 import { ISignal } from '../signals/signal.type'
 import { INode, IRenderEngine } from './render-engine.types'
 

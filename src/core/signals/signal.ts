@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { INotifier } from '@core/notifiable-entity/notifications.types'
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
-import { EventsType, newEvent } from '../base/events/events.types'
+
+import { EventsType, newEvent } from '@core/events/events.types'
 import { DataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject'
 import { ISignal, SignalType } from './signal.type'
 

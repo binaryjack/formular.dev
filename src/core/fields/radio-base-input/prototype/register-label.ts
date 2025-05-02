@@ -1,4 +1,4 @@
-import { newEvent } from '../../../events/events.types'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { IRadioInput } from '../radio-base-input.types'
 
 /**
@@ -22,27 +22,5 @@ export const registerLabel = function (
     this: IRadioInput,
     optionId: string
 ): Partial<HTMLInputElement> {
-    const onclick = (e: Event) => {
-        const option = this.field().getOptionById(optionId)
-        if (option) {
-            this.field().value = option.id
-            this.field().selectedOptionId = option.sequenceId
-        }
-        this.field().dom()?.dmSetChecked(optionId, true)
-        this.field()
-            .style()
-            ?.fieldStateStyle.update('dirty', this.field().originalValue !== this.field().value)
-
-        this.field()
-            ?.notifier()
-            ?.notify(
-                'onClick',
-                newEvent(this.name, onclick.name, 'onClick', `field.option.label.${onclick.name}`)
-            )
-        e?.stopPropagation?.()
-    }
-
-    return {
-        onclick
-    }
+    return new domRegister(this).registerClickLabel(optionId).registerAria().build()
 }

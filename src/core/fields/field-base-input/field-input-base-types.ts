@@ -8,18 +8,25 @@ import { IDommable } from '@core/dommable/dommable.types'
 import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
 import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
 import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
 import { IClickInput } from '../click-base-input/click-base-input.types'
 import { IDrawerInput } from '../drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
-import { ITextInput } from '../text-base-input/text-base-input.types'
+import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
-export type IInitializerType = IClickInput & ITextInput & IFieldInput
+export type IInitializerType = IFieldInputBase | IOptionBaseInput | IFieldInput | IClickInput
 
 export interface IFieldInputExtended<Tfi extends IFieldInputBase> {
     id: number
     name: string
+
+    optionsInitialized: boolean
+    options: IOptionItem[]
+    /** works with IOptionItem[] and fields of type select*/
+    selectedOptionId: number | null
+
     _field: Tfi
     field: () => Tfi
 
@@ -30,6 +37,7 @@ export interface IFieldInputExtended<Tfi extends IFieldInputBase> {
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void
     handleValidation: <T extends IEvents>(event?: T) => void
+    getOptionById: (id: string) => IOptionItem | null
 }
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
@@ -62,6 +70,7 @@ export interface IFieldInputBase {
     /** Dependency accessors */
     dom(): IDommable<HTMLInputElement> | undefined
     notifier: () => INotifiableEntity | undefined
+    drawer: () => IDrawerInput | undefined
     style: () => IFieldStateStyle | undefined
     track: () => ITracker | undefined
     validationStrategy: () => IValidationStrategy | undefined

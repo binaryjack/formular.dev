@@ -1,8 +1,8 @@
-import { EventsType, IEvents } from '../../base/events/events.types'
+// Map to store the latest calls for each EventType
+
+import { EventsType, IEvents } from '@core/events/events.types'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
 import { INotifier } from '../notifications.types'
-
-// Map to store the latest calls for each EventType
 
 export interface ILatestCall {
     data?: IEvents

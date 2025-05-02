@@ -1,3 +1,4 @@
+import { getValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IRadioInput } from '../radio-base-input.types'
 
@@ -7,5 +8,5 @@ import { IRadioInput } from '../radio-base-input.types'
  * @returns The value of the field or null if no strategy matches.
  */
 export function getValue(this: IRadioInput): IFValueTypes {
-    return this.field()._value?.getValue() ?? null
+    return getValueAccessor(this.field())
 }

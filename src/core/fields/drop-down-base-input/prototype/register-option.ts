@@ -1,4 +1,4 @@
-import { newEvent } from '../../../events/events.types'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
@@ -22,55 +22,11 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  *   triggers observers, and notifies listeners about the "focused" event.
  */
 export const registerOption = function (this: IDropDownInput): Partial<HTMLInputElement> {
-    const onclick = (e: Event) => {
-        const inputElement = e.target as HTMLInputElement
-        this.value = inputElement?.value ?? ''
-
-        this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.field.value)
-
-        this.notify(
-            'onClick',
-            newEvent(this.name, onclick.name, 'onClick', `field.option.${onclick.name}`)
-        )
-        e?.stopPropagation?.()
-    }
-
-    const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
-    }
-
-    const onfocus = (e: Event) => {
-        this.isFocus = true
-        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify(
-            'onFocus',
-            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
-        )
-    }
-
-    /** ARIA BASICS */
-    this.field.dmAriaSet(this.field.id.toString(), this.name)
-
-    return {
-        id: `${this.id}`,
-        type: this.type,
-        className: this._style?.classNames() ?? '',
-        title: this.label ?? '',
-        ariaDescription: `${this.name}`,
-        ariaLabel: this.label ?? '',
-        ariaValueText: this.getAsString(),
-        onclick,
-        onblur,
-        onfocus
-    }
+    return new domRegister(this)
+        .registerChange()
+        .registerBlur()
+        .registerFocus()
+        .registerClick()
+        .registerAria()
+        .build()
 }

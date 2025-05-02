@@ -1,5 +1,6 @@
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 
+import { setValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { ITextInput } from '../text-base-input.types'
 
 /**
@@ -22,5 +23,5 @@ import { ITextInput } from '../text-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: ITextInput, value: IFValueTypes) {
-    this._field._value?.setValue(value)
+    setValueAccessor(this.field())?.(value)
 }

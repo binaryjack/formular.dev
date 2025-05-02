@@ -1,4 +1,5 @@
 import { IDommable } from '@core/dommable/dommable.types'
+import { IDrawerInput } from '@core/fields/drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '@core/fields/field-state-style/field-state-style.types'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { preExceptionHandler } from '@core/tracker/pre-exception-handler/pre-exception-handler'
@@ -16,6 +17,7 @@ export interface IAccessors {
     notifier: () => INotifiableEntity | undefined
     style: () => IFieldStateStyle | undefined
     track: () => ITracker | undefined
+    drawer: () => IDrawerInput | undefined
     validationStrategy: () => IValidationStrategy | undefined
     valueStrategy: () => IValueStrategy | undefined
 
@@ -26,6 +28,7 @@ export interface IAccessors {
 export const Accessors = (field: IFieldInput): IAccessors => {
     return {
         dom: domAccessor(field),
+        drawer: drawerAccessor(field),
         notifier: notifierAccessor(field),
         style: styleAccessor(field),
         track: trackAccessor(field),
@@ -35,6 +38,14 @@ export const Accessors = (field: IFieldInput): IAccessors => {
         getValue: getValueAccessor(field),
         message: messageAccessor(field)
     }
+}
+
+export const drawerAccessor = (field: IFieldInput) => (): IDrawerInput | undefined => {
+    if (!field._drawer) {
+        field.message('critical', field.name, '_drawer must be initialized')
+        return undefined
+    }
+    return field._drawer
 }
 
 export const domAccessor = (field: IFieldInput) => (): IDommable<HTMLInputElement> | undefined => {

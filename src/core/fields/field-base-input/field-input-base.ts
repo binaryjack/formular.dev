@@ -83,6 +83,7 @@ import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor
 
 import {
     domAccessor,
+    drawerAccessor,
     getValueAccessor,
     notifierAccessor,
     setValueAccessor,
@@ -115,6 +116,7 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
     this.initializeFieldProperties(descriptor)
 
     this.dom = domAccessor(this)
+    this.drawer = drawerAccessor(this)
     this.notifier = notifierAccessor(this)
     this.style = styleAccessor(this)
     this.track = trackAccessor(this)

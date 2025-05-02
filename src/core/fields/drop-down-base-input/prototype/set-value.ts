@@ -1,5 +1,6 @@
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 
+import { setValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
@@ -22,5 +23,5 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: IDropDownInput, value: IFValueTypes) {
-    this._field._value?.setValue(value)
+    setValueAccessor(this.field())?.(value)
 }

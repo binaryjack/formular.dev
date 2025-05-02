@@ -1,5 +1,5 @@
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { preExceptionHandler } from '@core/tracker/pre-exception-handler/pre-exception-handler'
+import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { IOptionBaseInput } from '../option-base-input.types'
 
 /**
@@ -7,20 +7,9 @@ import { IOptionBaseInput } from '../option-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IOptionBaseInput, fieldInput: IFieldInput) {
-    try {
-        this._field = fieldInput
-
-        this.options = []
-        this.optionsInitialized = false
-        this.selectedOptionId = null
-
-        /** to move to specifics */
-    } catch (e: any) {
-        preExceptionHandler(
-            undefined,
-            'critical',
-            initialize.name,
-            `an error has occured when initializing ${this.name} class: ${e.message}`
-        )
-    }
+    initializer(initialize.name, this, fieldInput, [], (context) => {
+        context.options = []
+        context.optionsInitialized = false
+        context.selectedOptionId = null
+    })
 }

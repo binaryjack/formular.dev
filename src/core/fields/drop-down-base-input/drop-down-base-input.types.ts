@@ -1,18 +1,17 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
 import { IClickInput } from '../click-base-input/click-base-input.types'
-import { IFieldInput } from '../field-base-input/field-input-base-types'
+import { IFieldInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
 import { IOptionInput } from '../option-based-input/option-base-input.types'
 
 export type IDropDownInput = IDropDownBaseInput & IOptionInput & IClickInput
 
-export interface IDropDownBaseInput {
+export interface IDropDownBaseInput extends IFieldInputExtended<IFieldInput> {
     new (): IDropDownBaseInput
-    _field: IClickInput
-    field: () => IField
+    _field: IDropDownInput
+    field: () => IDropDownInput
 
-    initializeClickOptionsBased: (fieldInput: IFieldInput) => void
-    initializeOptionBasedOnly: (fieldInput: IFieldInput) => void
+    initialize: (fieldInput: IFieldInput) => void
 
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void

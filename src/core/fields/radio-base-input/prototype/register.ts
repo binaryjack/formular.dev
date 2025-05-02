@@ -1,4 +1,4 @@
-import { newEvent } from '../../../events/events.types'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { IRadioInput } from '../radio-base-input.types'
 
 /**
@@ -46,59 +46,11 @@ import { IRadioInput } from '../radio-base-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(this: IRadioInput): Partial<HTMLInputElement> {
-    const onchange = (e: Event) => {
-        const inputElement = e.target as HTMLInputElement
-
-        this.field().value = inputElement.value
-        this.field().isPristine = this.field().originalValue === this.field().value
-        this.field().style()?.fieldStateStyle.update('pristine', this.field().isPristine)
-        this.field().isDirty = this.field().originalValue !== this.field().value
-        this.field().style()?.fieldStateStyle.update('dirty', this.field().isDirty)
-
-        this?.field().notify(
-            'onChange',
-            newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
-        )
-
-        e.stopPropagation()
-    }
-
-    const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
-    }
-
-    const onfocus = (e: Event) => {
-        this.isFocus = true
-        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify(
-            'onFocus',
-            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
-        )
-    }
-
-    /** ARIA BASICS */
-    this.field.dmAriaSet(this.field.id.toString(), this.name)
-
-    return {
-        id: `${this.id}`,
-        type: this.type,
-        className: this._style?.classNames() ?? '',
-        title: this.label ?? '',
-        ariaDescription: `${this.name}`,
-        ariaLabel: this.label ?? '',
-        ariaValueText: this.getAsString(),
-        onchange,
-        onblur,
-        onfocus
-    }
+    return new domRegister(this)
+        .registerChange()
+        .registerBlur()
+        .registerClick()
+        .registerFocus()
+        .registerAria()
+        .build()
 }

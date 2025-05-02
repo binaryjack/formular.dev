@@ -1,4 +1,4 @@
-import { newEvent } from '../../../events/events.types'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { ICheckBoxInput } from '../check-box-base-input.types'
 
 /**
@@ -48,62 +48,11 @@ import { ICheckBoxInput } from '../check-box-base-input.types'
 export const register = function <FieldValuesTypes>(
     this: ICheckBoxInput
 ): Partial<HTMLInputElement> {
-    const onchange = (e: Event) => {
-        const inputElement = e.target as HTMLInputElement
-
-        this._field.value = inputElement.value
-        this._field.isPristine = this._field.originalValue === this._field.value
-        this._field._style?.fieldStateStyle.update('pristine', this._field.isPristine)
-        this._field.isDirty = this._field.originalValue !== this._field.value
-        this._field._style?.fieldStateStyle.update('dirty', this._field.isDirty)
-
-        this._field._notifier?.notify(
-            'onChange',
-            newEvent(this._field.name, onchange.name, 'onChange', `field.${onchange.name}`)
-        )
-
-        e.stopPropagation()
-    }
-
-    const onblur = (e: Event) => {
-        this._field.isFocus = false
-        this._field._style?.fieldStateStyle.update('focus', this._field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this._field._notifier?.notify(
-            'onBlur',
-            newEvent(this._field.name, onblur.name, 'onBlur', `field.${onblur.name}`)
-        )
-    }
-
-    const onfocus = (e: Event) => {
-        this._field.isFocus = true
-        this._field._style?.fieldStateStyle.update('focus', this._field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this._field._notifier?.notify(
-            'onFocus',
-            newEvent(this._field.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
-        )
-    }
-
-    /** ARIA BASICS */
-    this._field._dom?.dmAriaSet(this._field.id.toString(), this.name)
-
-    return {
-        id: `${this._field.id}`,
-        type: this._field.type,
-        className: this._field._style?.classNames() ?? '',
-        title: this._field.label ?? '',
-        ariaDescription: `${this._field.name}`,
-        ariaLabel: this._field.label ?? '',
-        ariaValueText: this._field._value?.getAsString(),
-        onchange,
-        onblur,
-        onfocus
-    }
+    return new domRegister(this)
+        .registerChange()
+        .registerBlur()
+        .registerFocus()
+        .registerClick()
+        .registerAria()
+        .build()
 }

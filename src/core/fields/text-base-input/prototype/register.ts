@@ -1,7 +1,4 @@
-import { AriaHelper } from '@core/fields/field-base-input/accessibility/arias'
-import { onBlur } from '@core/fields/field-base-input/events/on-blur'
-import { onChange } from '@core/fields/field-base-input/events/on-changed'
-import { onFocus } from '@core/fields/field-base-input/events/on-focus'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { ITextInput } from '../text-base-input.types'
 
 /**
@@ -49,23 +46,10 @@ import { ITextInput } from '../text-base-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(this: ITextInput): Partial<HTMLInputElement> {
-    const onchange = (e: Event) => onChange(this.field(), e)
-    const onblur = (e: Event) => onBlur(this.field(), e)
-    const onfocus = (e: Event) => onFocus(this.field(), e)
-
-    const ah = new AriaHelper()
-    ah.applyNameAndLabel(this.field())
-
-    return {
-        id: `${this.field().id}`,
-        type: this.field().type,
-        className: this.field().style()?.classNames() ?? '',
-        title: this.field().label ?? '',
-        ariaDescription: `${this.field().name}`,
-        ariaLabel: this.field().label ?? '',
-        ariaValueText: this.field()?.validationStrategy()?.getAsString(),
-        onchange,
-        onblur,
-        onfocus
-    }
+    return new domRegister(this)
+        .registerChange()
+        .registerBlur()
+        .registerFocus()
+        .registerAria()
+        .build()
 }

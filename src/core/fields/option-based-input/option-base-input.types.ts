@@ -1,10 +1,10 @@
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
-import { IFieldInput } from '../field-base-input/field-input-base-types'
+import { IFieldInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
 import { IRadioCombinedBaseInput } from '../radio-base-input/radio-base-input.types'
 
 export type IOptionInput = IOptionBaseInput & IFieldInput
 
-export interface IOptionBaseInput {
+export interface IOptionBaseInput extends IFieldInputExtended<IFieldInput> {
     new (): IOptionBaseInput
     _field: IRadioCombinedBaseInput
     field: () => IRadioCombinedBaseInput

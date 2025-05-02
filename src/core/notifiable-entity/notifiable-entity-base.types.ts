@@ -22,7 +22,7 @@
  * Disposes of the notifiable entity, performing any necessary cleanup.
  */
 
-import { EventsType, IEvents } from '../base/events/events.types'
+import { EventsType, IEvents } from '@core/events/events.types'
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
 import { ComputedSignalCallback } from '../signals/signal.type'
 import { INotifier } from './notifications.types'

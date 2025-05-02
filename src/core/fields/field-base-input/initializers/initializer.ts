@@ -1,11 +1,15 @@
 import { INotifier } from '@core/notifiable-entity/notifications.types'
 import { IFieldInputBase, IFieldInputExtended } from '../field-input-base-types'
 
-export const initializer = <T extends IFieldInputBase>(
+export const initializer = <
+    TFieldInput extends IFieldInputBase,
+    TContext extends IFieldInputExtended<TFieldInput>
+>(
     caller: string,
-    context: IFieldInputExtended<T>,
-    fieldInput: T,
-    notifiers: INotifier[]
+    context: TContext,
+    fieldInput: TFieldInput,
+    notifiers?: INotifier[],
+    nextInitializations?: (context: TContext) => void
 ) => {
     if (!context?.field) {
         return
@@ -13,9 +17,13 @@ export const initializer = <T extends IFieldInputBase>(
     try {
         context._field = fieldInput
 
-        for (const n of notifiers) {
-            context?.field()?.notifier()?.accept(n)
+        if (notifiers) {
+            for (const n of notifiers) {
+                context?.field()?.notifier()?.accept(n)
+            }
         }
+
+        nextInitializations?.(context)
     } catch (e: any) {
         context
             .field()

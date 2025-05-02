@@ -1,3 +1,4 @@
+import { getValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IDropDownInput } from '../drop-down-base-input.types'
 
@@ -7,5 +8,5 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * @returns The value of the field or null if no strategy matches.
  */
 export function getValue(this: IDropDownInput): IFValueTypes {
-    return this._field._value?.getValue() ?? null
+    return getValueAccessor(this.field())
 }

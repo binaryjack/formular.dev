@@ -1,4 +1,4 @@
-import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
+import { optionReferencer } from '@core/fields/field-base-input/referencers/referencer'
 import { IDropDownInput } from '../drop-down-base-input.types'
 
 /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
@@ -10,27 +10,5 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * been created and the value (current) is referencing the input.
  *  */
 export const refOption = function (this: IDropDownInput, ref: HTMLInputElement | null) {
-    if (!ref) return null
-    /** Okay this following check after investigating is useless
-     * I will keep it anyways because for me
-     * it makes the code more readable and understandable
-     * but it's does nothing at all since refs comes not null and only once
-     *
-     * I guessing that maybe a day if the render is dubbled
-     * by the StrictMode of something else like that
-     * we expect to have only one ref and it could avoid bugs
-     */
-    this._field._dom?.dmRegister(ref)
-    if (this.optionsInitialized) return
-    if (this.checkOptionsInitialized()) {
-        this._field._value?.setValue(
-            this._field.defaultValue as IOptionItem | string | number | null
-        )
-        this.optionsInitialized = true
-    }
-
-    // const existingRef = this.get(ref.id)
-    // return existingRef
-
-    // console.log('refOption', this.internalHTMLElementRefs)
+    optionReferencer(this, ref)
 }

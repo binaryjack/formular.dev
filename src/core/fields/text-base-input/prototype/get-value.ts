@@ -1,3 +1,4 @@
+import { getValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { ITextInput } from '../text-base-input.types'
 
@@ -7,5 +8,5 @@ import { ITextInput } from '../text-base-input.types'
  * @returns The value of the field or null if no strategy matches.
  */
 export function getValue(this: ITextInput): IFValueTypes {
-    return this.field()?._value?.getValue() ?? null
+    return getValueAccessor(this.field())
 }

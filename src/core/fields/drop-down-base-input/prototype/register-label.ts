@@ -1,4 +1,4 @@
-import { newEvent } from '../../../events/events.types'
+import { domRegister } from '@core/fields/field-base-input/registers/registers'
 import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
@@ -22,23 +22,5 @@ export const registerLabel = function (
     this: IDropDownInput,
     optionId: string
 ): Partial<HTMLInputElement> {
-    const onclick = (e: Event) => {
-        const option = this.getOptionById(optionId)
-        if (option) {
-            this.value = option.id
-            this.selectedOptionId = option.sequenceId
-        }
-        this.dmSetChecked(optionId, true)
-        this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-
-        this.notify(
-            'onClick',
-            newEvent(this.name, onclick.name, 'onClick', `field.option.label.${onclick.name}`)
-        )
-        e?.stopPropagation?.()
-    }
-
-    return {
-        onclick
-    }
+    return new domRegister(this).registerClickLabel(optionId).registerAria().build()
 }

@@ -1,4 +1,4 @@
-import { EventsType, IEvents } from '../../base/events/events.types'
+import { EventsType, IEvents } from '@core/events/events.types'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
 import { INotifier } from '../notifications.types'
 
