@@ -9,7 +9,7 @@ import { IDommable } from '@core/dommable/dommable.types'
 export function dmAriaSet<T extends HTMLElement>(this: IDommable<T>, id: string, name: string) {
     const element = this.dmGet(id)
     if (!element) {
-        this.tracker?.internalError(
+        this._tracker?.internalError(
             'Dommable.dmAriaSet',
             `The element does not exist in references: ${id}`
         )

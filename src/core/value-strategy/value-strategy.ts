@@ -19,6 +19,5 @@ export const ValueStrategy = function (this: IValueStrategy, field: IFieldInput)
 
 Object.assign(ValueStrategy.prototype, {
     acceptValueStrategies,
-    addValueStrategies,
-    getValue
+    addValueStrategies
 })

@@ -43,7 +43,7 @@ export interface ITracker {
     _outputProviders: ITrackingOutputProvider[]
     setTrackingActive: (active: boolean) => void
     getTrackingDate: () => ITrackingData[]
-    outputProviderSetup: (providers?: ITrackingOutputProvider[]) => void
+    addProviders: (providers?: ITrackingOutputProvider[]) => void
     internalCritical: (source: string, message: string) => void
     internalError: (source: string, message: string) => void
     internalWarning: (source: string, message: string) => void

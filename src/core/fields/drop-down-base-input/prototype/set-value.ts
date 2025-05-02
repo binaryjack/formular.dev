@@ -1,5 +1,5 @@
-import { newEvent } from '@core/events/events.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+
 import { IDropDownInput } from '../drop-down-base-input.types'
 
 /**
@@ -22,51 +22,5 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: IDropDownInput, value: IFValueTypes) {
-    /** NEED TO BE MOVED TO CHECK BOX KIND ONLY  */
-    if (this.type === 'checkbox') {
-        if (this) this.checked = value as boolean
-        this.dmSetChecked(this.field.id.toString(), value as boolean)
-        this.value = value
-
-        /** NEED TO BE MOVED TO RADIO BOX KIND ONLY  */
-    } else if (this.type === 'radio') {
-        const radioItem = this?.tryGetOptionByIdOrValue(value as string, value as string)
-        if (!radioItem) {
-            this.internalWarning(
-                'IFieldInput.setValue',
-                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
-            )
-            return
-        }
-        this.value = radioItem.value
-        this.selectedOptionId = radioItem.sequenceId
-        this.dmSetChecked(radioItem.id, value as boolean)
-    }
-
-    if (this.type === 'select') {
-        const optionById = this.tryGetOptionBySequenceIdThenIdOrValue(
-            value as number,
-            value as string,
-            value as string
-        )
-        if (!optionById) {
-            this.internalWarning(
-                'IFieldInput.setValue',
-                `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
-            )
-            return
-        }
-        this.value = optionById.id
-        this.selectedOptionId = optionById.sequenceId
-        this.dmSetValue(this.id.toString(), this.value as string)
-    }
-
-    this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-
-    this.notify(
-        'onChange',
-        newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-    )
-
-    // this.observers.trigger()
+    this._field._value?.setValue(value)
 }

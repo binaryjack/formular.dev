@@ -6,16 +6,28 @@ export const initializeValueStrategy = function (
     this: IFieldInput,
     ...parsers: IParserStrategy<any>[]
 ) {
-    if (!this.prototype) {
+    if (!this._tracker) {
         throw Error(
-            `${initializeValueStrategy.name}: the prototype of ${this.name} is not yes defined`
+            `${this.name} ${initializeValueStrategy.name} needs to have field's traker preinitialized!`
         )
     }
+
+    if (!this.prototype) {
+        this.message(
+            'critical',
+            initializeValueStrategy.name,
+            `the prototype of ${this.name} is not yes defined`
+        )
+        return
+    }
     try {
-        this.prototype = { ...this.prototype, ...ValueStrategy.prototype }
-        ValueStrategy.call(this, this)
-        this.acceptValueStrategies(...parsers)
+        this._value = new ValueStrategy(this)
+        this._value?.acceptValueStrategies(...parsers)
     } catch (e: any) {
-        console.error(initializeValueStrategy.name, e.message)
+        this.message(
+            'critical',
+            initializeValueStrategy.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
+        )
     }
 }

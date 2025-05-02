@@ -5,5 +5,5 @@ import { IFieldInput } from '../field-input-base-types'
  * it will try to focus the first child option item.
  */
 export const focus = function (this: IFieldInput) {
-    this.dmSetFocus(this.id.toString())
+    this.dom()?.dmSetFocus(this.id.toString())
 }

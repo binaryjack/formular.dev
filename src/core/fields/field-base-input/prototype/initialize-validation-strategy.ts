@@ -6,16 +6,35 @@ export const initializeValidationStrategy = function (
     this: IFieldInput,
     ...parsers: IValidationMethodStrategy[]
 ) {
-    if (!this.prototype) {
+    if (!this._tracker) {
         throw Error(
-            `${initializeValidationStrategy.name}: the prototype of ${this.name} is not yes defined`
+            `${this.name} ${initializeValidationStrategy.name} needs to have field's traker preinitialized!`
         )
     }
+    if (!this.prototype) {
+        this.message(
+            'critical',
+            initializeValidationStrategy.name,
+            `the prototype of ${this.name} is not yes defined`
+        )
+        return
+    }
     try {
-        this.prototype = { ...this.prototype, ...ValidationStrategy.prototype }
-        ValidationStrategy.call(this)
-        this.addValidationStrategies(...parsers)
+        if (parsers.length === 0) {
+            this.message(
+                'warning',
+                initializeValidationStrategy.name,
+                `an error has occured when initializing ${this.name}`
+            )
+        }
+
+        this._validation = new ValidationStrategy()
+        this._validation.addValidationStrategies(...parsers)
     } catch (e: any) {
-        console.error(initializeValidationStrategy.name, e.message)
+        this.message(
+            'critical',
+            initializeValidationStrategy.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
+        )
     }
 }

@@ -51,54 +51,57 @@ export const register = function <FieldValuesTypes>(
     const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
 
-        this.value = inputElement.value
-        this.isPristine = this.originalValue === this.value
-        this._style?.fieldStateStyle.update('pristine', this.isPristine)
-        this.isDirty = this.originalValue !== this.value
-        this._style?.fieldStateStyle.update('dirty', this.isDirty)
+        this._field.value = inputElement.value
+        this._field.isPristine = this._field.originalValue === this._field.value
+        this._field._style?.fieldStateStyle.update('pristine', this._field.isPristine)
+        this._field.isDirty = this._field.originalValue !== this._field.value
+        this._field._style?.fieldStateStyle.update('dirty', this._field.isDirty)
 
-        this?.notify(
+        this._field._notifier?.notify(
             'onChange',
-            newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
+            newEvent(this._field.name, onchange.name, 'onChange', `field.${onchange.name}`)
         )
 
         e.stopPropagation()
     }
 
     const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
+        this._field.isFocus = false
+        this._field._style?.fieldStateStyle.update('focus', this._field.isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
+        this._field._notifier?.notify(
+            'onBlur',
+            newEvent(this._field.name, onblur.name, 'onBlur', `field.${onblur.name}`)
+        )
     }
 
     const onfocus = (e: Event) => {
-        this.isFocus = true
-        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
+        this._field.isFocus = true
+        this._field._style?.fieldStateStyle.update('focus', this._field.isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this?.notify(
+        this._field._notifier?.notify(
             'onFocus',
-            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
+            newEvent(this._field.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
         )
     }
 
     /** ARIA BASICS */
-    this.field.dmAriaSet(this.field.id.toString(), this.name)
+    this._field._dom?.dmAriaSet(this._field.id.toString(), this.name)
 
     return {
-        id: `${this.id}`,
-        type: this.type,
-        className: this._style?.classNames() ?? '',
-        title: this.label ?? '',
-        ariaDescription: `${this.name}`,
-        ariaLabel: this.label ?? '',
-        ariaValueText: this.getAsString(),
+        id: `${this._field.id}`,
+        type: this._field.type,
+        className: this._field._style?.classNames() ?? '',
+        title: this._field.label ?? '',
+        ariaDescription: `${this._field.name}`,
+        ariaLabel: this._field.label ?? '',
+        ariaValueText: this._field._value?.getAsString(),
         onchange,
         onblur,
         onfocus

@@ -49,13 +49,13 @@ export const register = function <FieldValuesTypes>(this: IRadioInput): Partial<
     const onchange = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
 
-        this.value = inputElement.value
-        this.isPristine = this.originalValue === this.value
-        this._style?.fieldStateStyle.update('pristine', this.isPristine)
-        this.isDirty = this.originalValue !== this.value
-        this._style?.fieldStateStyle.update('dirty', this.isDirty)
+        this.field().value = inputElement.value
+        this.field().isPristine = this.field().originalValue === this.field().value
+        this.field().style()?.fieldStateStyle.update('pristine', this.field().isPristine)
+        this.field().isDirty = this.field().originalValue !== this.field().value
+        this.field().style()?.fieldStateStyle.update('dirty', this.field().isDirty)
 
-        this?.notify(
+        this?.field().notify(
             'onChange',
             newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
         )

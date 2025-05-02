@@ -18,30 +18,39 @@ import { IFieldInput } from '../field-input-base-types'
 export const handleValidation = function <T extends IEvents>(this: IFieldInput, data?: T) {
     let results: IValidationResult[] = []
 
+    if (!this.validationStrategy()) {
+        this.message(
+            'critical',
+            this.name,
+            `${handleValidation.name} has no validationOptions in order to proceed to any validation please provide valid ValidationStrategy ant the initializazion of the field. process ended`
+        )
+        return
+    }
+
     if (data?.types.includes('onValidate')) {
         const validationstrategyData = newValidationStrategyData(
-            this?.name,
+            this.name,
             this.type,
-            this.validationOptions,
-            this?.getAsString(),
+            this.validationStrategy()!.validationOptions,
+            this.valueStrategy()?.getAsString(),
             this.expectedValue,
             data
         )
 
-        results = this?.validate?.(validationstrategyData) ?? []
+        results = this.validationStrategy()!.validate(validationstrategyData) ?? []
     } else {
         // console.log('Validation skipped')
     }
 
     // keep the validation results for the field
-    this.validationResults = results
+    this.validationStrategy()!.validationResults = results
 
-    this._style?.fieldStateStyle.update(
+    this.style()?.fieldStateStyle.update(
         'valid',
         results.every((result) => result.state)
     )
 
-    this._style?.fieldStateStyle.update(
+    this.style()?.fieldStateStyle.update(
         'errors',
         results.some((result) => !result.state)
     )

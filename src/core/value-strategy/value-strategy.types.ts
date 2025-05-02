@@ -33,4 +33,6 @@ export interface IValueStrategy {
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null
+    setValue: (value: IFValueTypes) => void
+    getValue: () => IFValueTypes
 }

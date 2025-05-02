@@ -23,18 +23,22 @@ export const registerLabel = function (
     optionId: string
 ): Partial<HTMLInputElement> {
     const onclick = (e: Event) => {
-        const option = this.getOptionById(optionId)
+        const option = this.field().getOptionById(optionId)
         if (option) {
-            this.value = option.id
-            this.selectedOptionId = option.sequenceId
+            this.field().value = option.id
+            this.field().selectedOptionId = option.sequenceId
         }
-        this.dmSetChecked(optionId, true)
-        this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
+        this.field().dom()?.dmSetChecked(optionId, true)
+        this.field()
+            .style()
+            ?.fieldStateStyle.update('dirty', this.field().originalValue !== this.field().value)
 
-        this.notify(
-            'onClick',
-            newEvent(this.name, onclick.name, 'onClick', `field.option.label.${onclick.name}`)
-        )
+        this.field()
+            ?.notifier()
+            ?.notify(
+                'onClick',
+                newEvent(this.name, onclick.name, 'onClick', `field.option.label.${onclick.name}`)
+            )
         e?.stopPropagation?.()
     }
 

@@ -1,7 +1,7 @@
-import { FieldInput } from '@core/fields/field-base-input/field-input-base'
+import { newEvent } from '@core/events/events.types'
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
-import { newEvent } from '../../../events/events.types'
 import { ITextInput } from '../text-base-input.types'
 
 /**
@@ -9,20 +9,10 @@ import { ITextInput } from '../text-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: ITextInput, fieldInput: IFieldInput) {
-    try {
-        this.prototype = { ...FieldInput.prototype }
-
-        FieldInput.call(this, fieldInput)
-
-        this.accept(
-            nnv(
-                newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
-                this.handleOnChanged.bind(this)
-            )
+    initializer(initialize.name, this, fieldInput, [
+        nnv(
+            newEvent(this.name, initialize.name, 'onChange', 'field.changed'),
+            this.handleOnChanged.bind(this)
         )
-    } catch (e: any) {
-        throw Error(
-            `${initialize.name} - an error has occured when initializing ${this.name} class: ${e.message}`
-        )
-    }
+    ])
 }

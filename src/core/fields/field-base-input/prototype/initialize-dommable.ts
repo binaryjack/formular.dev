@@ -2,13 +2,26 @@ import { Dommable } from '@core/dommable/dommable'
 import { IFieldInput } from '../field-input-base-types'
 
 export const initializeDommable = function (this: IFieldInput) {
+    if (!this._tracker) {
+        throw Error(
+            `${this.name} ${initializeDommable.name} needs to have field's traker preinitialized!`
+        )
+    }
     if (!this.prototype) {
-        throw Error(`${initializeDommable.name}: the prototype of ${this.name} is not yes defined`)
+        this.message(
+            'critical',
+            initializeDommable.name,
+            `the prototype of ${this.name} is not yes defined`
+        )
+        return
     }
     try {
-        this.prototype = { ...this.prototype, ...Dommable.prototype }
-        Dommable.call(this)
+        this._dom = new Dommable(this._tracker)
     } catch (e: any) {
-        console.error(initializeDommable.name, e.message)
+        this.message(
+            'critical',
+            initializeDommable.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
+        )
     }
 }

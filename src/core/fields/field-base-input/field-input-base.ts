@@ -80,10 +80,20 @@
 import { handleValidation } from '@core/formy-base/prototype/handle-validation'
 import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
-import { IFieldInput } from './field-input-base-types'
+
+import {
+    domAccessor,
+    getValueAccessor,
+    notifierAccessor,
+    setValueAccessor,
+    styleAccessor,
+    trackAccessor,
+    validationStrategyAccessor,
+    valueStrategyAccessor
+} from './accessors/accessors'
+import { IField, IFieldInput } from './field-input-base-types'
 import { clear } from './prototype/clear'
 import { enable } from './prototype/enable'
-import { getValue } from './prototype/get-value'
 import { handleOnBlur } from './prototype/handle-on-blur'
 import { handleOnClear } from './prototype/handle-on-clear'
 import { handleOnFocus } from './prototype/handle-on-focus'
@@ -94,14 +104,24 @@ import { initializeValidationStrategy } from './prototype/initialize-validation-
 import { initializeValueStrategy } from './prototype/initialize-value-strategy'
 import { initializeEvents } from './prototype/intialize-events'
 import { initializeFieldProperties } from './prototype/intialize-field-properties'
-import { setFocus } from './prototype/set-focus'
 import { initializeStyle } from './prototype/intialize-style'
+import { message } from './prototype/message'
+import { setFocus } from './prototype/set-focus'
 
 export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescriptor) {
     if (!descriptor.id || !descriptor.name) {
         throw new Error('FieldInput descriptor must include "id" and "name".')
     }
     this.initializeFieldProperties(descriptor)
+
+    this.dom = domAccessor(this)
+    this.notifier = notifierAccessor(this)
+    this.style = styleAccessor(this)
+    this.track = trackAccessor(this)
+    this.validationStrategy = validationStrategyAccessor(this)
+    this.valueStrategy = valueStrategyAccessor(this)
+    this.setValue = setValueAccessor(this)
+    this.getValue = getValueAccessor(this)
 } as any as IFieldInput
 
 Object.assign(FieldInput.prototype, {
@@ -121,5 +141,10 @@ Object.assign(FieldInput.prototype, {
     handleOnFocus,
     handleOnClear,
     handleValidation,
-    getValue
+    message
 })
+
+/** usable field */
+export const Field = function (this: IField, descriptor: IFieldDescriptor) {
+    return new FieldInput(descriptor)
+} as any as IField

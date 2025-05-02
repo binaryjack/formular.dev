@@ -1,3 +1,4 @@
+import { AriaHelper } from '@core/fields/field-base-input/accessibility/arias'
 import { newEvent } from '../../../events/events.types'
 import { IRadioInput } from '../radio-base-input.types'
 
@@ -24,51 +25,60 @@ import { IRadioInput } from '../radio-base-input.types'
 export const registerOption = function (this: IRadioInput): Partial<HTMLInputElement> {
     const onclick = (e: Event) => {
         const inputElement = e.target as HTMLInputElement
-        this.value = inputElement?.value ?? ''
+        this.field().value = inputElement?.value ?? ''
 
-        this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.field.value)
+        this.field()
+            .style()
+            ?.fieldStateStyle.update('dirty', this.field().originalValue !== this.field().value)
 
-        this.notify(
-            'onClick',
-            newEvent(this.name, onclick.name, 'onClick', `field.option.${onclick.name}`)
-        )
+        this.field()
+            .notifier()
+            ?.notify(
+                'onClick',
+                newEvent(this.name, onclick.name, 'onClick', `field.option.${onclick.name}`)
+            )
         e?.stopPropagation?.()
     }
 
     const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
+        this.field().isFocus = false
+        this.field().style()?.fieldStateStyle.update('focus', this.field().isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
+        this?.field()
+            .notifier()
+            ?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
     }
 
     const onfocus = (e: Event) => {
-        this.isFocus = true
-        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
+        this.field().isFocus = true
+        this.field().style()?.fieldStateStyle.update('focus', this.field().isFocus)
 
         e.stopPropagation()
         e.preventDefault()
 
-        this?.notify(
-            'onFocus',
-            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
-        )
+        this.field()
+            ?.notifier()
+            ?.notify(
+                'onFocus',
+                newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
+            )
     }
-
+    const ah = new AriaHelper()
+    ah.add('')
     /** ARIA BASICS */
-    this.field.dmAriaSet(this.field.id.toString(), this.name)
+    this.field()?.dom()?.dmAriaSet(this.field()?.id.toString(), this.name)
 
     return {
-        id: `${this.id}`,
-        type: this.type,
-        className: this._style?.classNames() ?? '',
-        title: this.label ?? '',
-        ariaDescription: `${this.name}`,
-        ariaLabel: this.label ?? '',
-        ariaValueText: this.getAsString(),
+        id: `${this.field()?.id}`,
+        type: this.field()?.type,
+        className: this.field()?.style()?.classNames() ?? '',
+        title: this.field()?.label ?? '',
+        ariaDescription: `${this.field()?.name}`,
+        ariaLabel: this.field()?.label ?? '',
+        ariaValueText: this.field()?.getAsString(),
         onclick,
         onblur,
         onfocus

@@ -1,8 +1,0 @@
-import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
-import { IFieldInput } from '../../field-base-input/field-input-base-types'
-
-const defaultFieldInputCSSClassName = 'f-input'
-
-export const initializeAutoTracker = function (this: IFieldInput, autoTracker?: INotifiableEntity) {
-    this.autoTracker = autoTracker
-}

@@ -1,5 +1,6 @@
 import { IDommable } from '@core/dommable/dommable.types'
 import { ITracker } from '@core/tracker/tracker.types'
+import { dmAddArias } from './prototype/dm-add-arias'
 import { dmAriaSet } from './prototype/dm-aria-set'
 import { dmClear } from './prototype/dm-clear'
 import { dmExists } from './prototype/dm-exists'
@@ -18,7 +19,7 @@ export const Dommable = function <T extends HTMLElement>(
     tracker: ITracker | null
 ) {
     this.elements = []
-    this.tracker = tracker
+    this._tracker = tracker
 } as any as IDommable<any>
 
 Object.assign(Dommable.prototype, {
@@ -33,5 +34,6 @@ Object.assign(Dommable.prototype, {
     dmSetChecked,
     dmSetClass,
     dmSetSelected,
-    dmAriaSet
+    dmAriaSet,
+    dmAddArias
 })

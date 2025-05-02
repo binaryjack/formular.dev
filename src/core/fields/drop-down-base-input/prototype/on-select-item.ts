@@ -16,17 +16,20 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * - Notifies observers of the `validate` event to reset validation state.
  */
 export const onSelectItem = function (this: IDropDownInput, option: IOptionItem) {
-    if (!this.dmExists(this.id.toString())) {
+    if (!this._field._dom?.dmExists(this._field.id.toString())) {
         return
     }
     const internlOption = this.getOptionByValue(option.value)
     if (!internlOption) return
     this.selectedOptionId = internlOption.sequenceId
-    this.value = internlOption.id
+    this._field.value = internlOption.id
 
-    this.dmSetSelected(this.id.toString(), option.text)
-    this.dmSetFocus(this.id.toString())
-    if (this._drawerable?.openState) this._drawerable.openState = 'closed'
+    this._field._dom?.dmSetSelected(this._field.id.toString(), option.text)
+    this._field._dom?.dmSetFocus(this._field.id.toString())
+    if (this._field?._drawer?.openState) this._field._drawer.openState = 'closed'
 
-    this?.notify('onSelect', newEvent(this.name, onSelectItem.name, 'onSelect', 'field.selected'))
+    this._field._notifier?.notify(
+        'onSelect',
+        newEvent(this._field.name, onSelectItem.name, 'onSelect', 'field.selected')
+    )
 }

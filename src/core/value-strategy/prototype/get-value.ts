@@ -21,7 +21,7 @@ export function getValue(this: IValueStrategy, field: IFieldInput): unknown | nu
             case 'id':
                 return strategy.method(field.id as FieldValuesTypes)
             case 'selectedOptionId':
-                return strategy.method(field._optionable?.selectedOptionId as FieldValuesTypes)
+                return strategy.method(field?.selectedOptionId as FieldValuesTypes)
             case 'value':
             default:
                 return strategy.method(field.value as FieldValuesTypes)

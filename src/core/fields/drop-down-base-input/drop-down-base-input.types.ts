@@ -8,6 +8,8 @@ export type IDropDownInput = IDropDownBaseInput & IOptionInput & IClickInput
 
 export interface IDropDownBaseInput {
     new (): IDropDownBaseInput
+    _field: IClickInput
+    field: () => IField
 
     initializeClickOptionsBased: (fieldInput: IFieldInput) => void
     initializeOptionBasedOnly: (fieldInput: IFieldInput) => void

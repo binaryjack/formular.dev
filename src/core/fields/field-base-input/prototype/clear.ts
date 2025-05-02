@@ -27,5 +27,8 @@ export const clear = function (this: IFieldInput) {
     // this.dmClear()
     // this.focus()
 
-    this?.notify('onClear', newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`))
+    this?.notifier()?.notify(
+        'onClear',
+        newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`)
+    )
 }

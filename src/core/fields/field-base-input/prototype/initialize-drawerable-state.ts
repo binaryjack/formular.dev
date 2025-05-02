@@ -1,14 +1,27 @@
 import { DrawerBaseInput } from '@core/fields/drawer-base-input/drawer-base-input'
 import { IFieldInput } from '../field-input-base-types'
-import { initializeDommable } from './initialize-dommable'
 
 export const initializeDrawerableState = function (this: IFieldInput) {
+    if (!this._tracker) {
+        throw Error(
+            `${this.name} ${initializeDrawerableState.name} needs to have field's traker preinitialized!`
+        )
+    }
     if (!this.prototype) {
-        throw Error(`${initializeDommable.name}: the prototype of ${this.name} is not yes defined`)
+        this.message(
+            'critical',
+            initializeDrawerableState.name,
+            `the prototype of ${this.name} is not yes defined`
+        )
+        return
     }
     try {
-        this._drawerable = new DrawerBaseInput()
+        this._drawer = new DrawerBaseInput()
     } catch (e: any) {
-        console.error(initializeDommable.name, e.message)
+        this.message(
+            'critical',
+            initializeDrawerableState.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
+        )
     }
 }

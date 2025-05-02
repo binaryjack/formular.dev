@@ -17,8 +17,8 @@ import { IDrawerInput } from '../drawer-base-input.types'
 export const setOpenState = function (this: IDrawerInput, state: ToggleableStateType) {
     this.openState = state
     //this.observers.trigger()
-    this.notify(
+    this._field._notifier?.notify(
         'onOpen',
-        newEvent(this.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
+        newEvent(this._field.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
     )
 }

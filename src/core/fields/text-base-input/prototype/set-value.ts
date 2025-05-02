@@ -1,6 +1,5 @@
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 
-import { newEvent } from '@core/events/events.types'
 import { ITextInput } from '../text-base-input.types'
 
 /**
@@ -23,15 +22,5 @@ import { ITextInput } from '../text-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: ITextInput, value: IFValueTypes) {
-    this.value = value
-    this.dmSetValue(this.field.id.toString(), this.field.value as string)
-
-    this._style?.fieldStateStyle.update('dirty', this.field.originalValue !== this.field.value)
-
-    this?.notify(
-        'onChange',
-        newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-    )
-
-    // this.observers.trigger()
+    this._field._value?.setValue(value)
 }

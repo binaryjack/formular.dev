@@ -20,10 +20,12 @@ export const refOption = function (this: IDropDownInput, ref: HTMLInputElement |
      * by the StrictMode of something else like that
      * we expect to have only one ref and it could avoid bugs
      */
-    this.dmRegister(ref)
+    this._field._dom?.dmRegister(ref)
     if (this.optionsInitialized) return
     if (this.checkOptionsInitialized()) {
-        this.setValue(this.defaultValue as IOptionItem | string | number | null)
+        this._field._value?.setValue(
+            this._field.defaultValue as IOptionItem | string | number | null
+        )
         this.optionsInitialized = true
     }
 

@@ -11,25 +11,26 @@ export const initializeOptionBasedOnly = function (this: IDropDownInput, fieldIn
     try {
         this.prototype = { ...OptionBaseInput.prototype, ...this.prototype }
 
-        OptionBaseInput.call(this)
+        OptionBaseInput.call(this, fieldInput)
         OptionBaseInput.initialize(fieldInput)
 
-        this.accept(
+        this._field._notifier?.accept(
             nnv(
                 newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
                 this.handleOnChanged.bind(this)
             )
         )
 
-        this.accept(
+        this._field._notifier?.accept(
             nnv(
                 newEvent(this.name, 'setup', 'onSelect', 'field.select'),
                 this.handleOnSelected.bind(this)
             )
         )
     } catch (e: any) {
-        throw Error(
-            `${initializeOptionBasedOnly.name} - an error has occured when initializing ${this.name} class: ${e.message}`
+        this._field._tracker?.internalCritical(
+            initializeOptionBasedOnly.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
         )
     }
 }

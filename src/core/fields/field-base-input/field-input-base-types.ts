@@ -5,34 +5,74 @@ import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.type
 
 import { IDommable } from '@core/dommable/dommable.types'
 
-import { ITracker, ITrackingOutputProvider } from '@core/tracker/tracker.types'
+import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
 import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IEvents } from '../../events/events.types'
 import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
-import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
+import { IClickInput } from '../click-base-input/click-base-input.types'
+import { IDrawerInput } from '../drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
+import { ITextInput } from '../text-base-input/text-base-input.types'
+
+export type IInitializerType = IClickInput & ITextInput & IFieldInput
+
+export interface IFieldInputExtended<Tfi extends IFieldInputBase> {
+    id: number
+    name: string
+    _field: Tfi
+    field: () => Tfi
+
+    hasChange: (callback: () => void) => void
+    handleOnBlur: <T extends IEvents>(data?: T) => void
+    handleOnFocus: <T extends IEvents>(data?: T) => void
+    handleOnClear: <T extends IEvents>(data?: T) => void
+    handleOnChanged: <T extends IEvents>(data?: T) => void
+    handleOnClick: <T extends IEvents>(data?: T) => void
+    handleValidation: <T extends IEvents>(event?: T) => void
+}
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
+/** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
+export type IFieldInput = IFieldInputBase & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
 
-export type IFieldInput = IFieldInputBase &
-    Omit<IFieldDescriptor, 'validationOptions' | 'options'> &
-    IDommable<HTMLInputElement> &
-    INotifiableEntity &
-    ITracker &
-    IValidationStrategy &
-    IValueStrategy
+export interface IField
+    extends Omit<
+        IFieldInput,
+        '_dom' | '_drawer' | '_style' | '_notifier' | '_tracker' | '_validation' | '_value'
+    > {
+    new (descriptor: IFieldDescriptor): IField
+}
 
 export interface IFieldInputBase {
     new (descriptor: IFieldDescriptor): IFieldInput
     originalValue: IFValueTypes
     enabled: boolean
-    _drawerable?: IDrawerBaseInput
-    _style?: IFieldStateStyle
 
+    /** dependencies */
+    _dom?: IDommable<HTMLInputElement>
+    _drawer?: IDrawerInput
+    _style?: IFieldStateStyle
+    _notifier?: INotifiableEntity
+    _tracker?: ITracker
+    _validation?: IValidationStrategy
+    _value?: IValueStrategy
+    /** message helper method : uses treacker and fallbacks to console */
+    message: (type: TrackingType, source: string, message: string) => void
+    /** Dependency accessors */
+    dom(): IDommable<HTMLInputElement> | undefined
+    notifier: () => INotifiableEntity | undefined
+    style: () => IFieldStateStyle | undefined
+    track: () => ITracker | undefined
+    validationStrategy: () => IValidationStrategy | undefined
+    valueStrategy: () => IValueStrategy | undefined
+
+    setValue: (value: IFValueTypes) => void
+    getValue: () => IFValueTypes
+
+    /** initializers */
     initializeEvents: () => void
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
-
     initializeDommable: () => void
     initializeTracking: (providers?: ITrackingOutputProvider[]) => void
     initializeValueStrategy: (providers?: ITrackingOutputProvider[]) => void
@@ -40,19 +80,17 @@ export interface IFieldInputBase {
     initializeDrawerableState: () => void
     initializeStyle: () => void
 
-    hasChanges: (callback: () => void) => void
+    /** Events */
     setFocus: () => void
     enable: (enabled: boolean) => void
     show: (show: boolean) => void
     clear: () => void
     focus: () => void
 
+    /** Event handlers */
+    hasChanges: (callback: () => void) => void
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
     handleValidation: <T extends IEvents>(event?: T) => void
-
-    /** To remove */
-    setValue: (value: IFValueTypes) => void
-    getValue: () => IFValueTypes
 }

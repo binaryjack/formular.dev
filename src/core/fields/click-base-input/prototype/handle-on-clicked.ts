@@ -1,4 +1,5 @@
-import { IEvents, newEvent } from '../../../events/events.types'
+import { onClickHandle } from '@core/fields/field-base-input/events/on-click-handle'
+import { IEvents } from '../../../events/events.types'
 import { IClickInput } from '../click-base-input.types'
 
 /**
@@ -10,20 +11,5 @@ import { IClickInput } from '../click-base-input.types'
  * Logs the clicked value, the provided data, and the current value of the field input.
  */
 export const handleOnClicked = function <T extends IEvents>(this: IClickInput, data?: T) {
-    if (!this.validationTriggerModeType.includes('onClick')) return
-    this.field.internalInfo(
-        'IFieldInput.handleOnClicked',
-        `value clicked: ${this.field.type}, value: ${this.toString()} `
-    )
-
-    this.debounceNotify(
-        'onValidate',
-        500,
-        newEvent(
-            this.name,
-            handleOnClicked.name,
-            'onValidate',
-            `field.state.${handleOnClicked.name}`
-        )
-    )
+    onClickHandle(this.field())
 }

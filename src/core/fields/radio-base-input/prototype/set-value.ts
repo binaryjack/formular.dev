@@ -1,5 +1,5 @@
-import { newEvent } from '@core/events/events.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+
 import { IRadioInput } from '../radio-base-input.types'
 
 /**
@@ -22,30 +22,5 @@ import { IRadioInput } from '../radio-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: IRadioInput, value: IFValueTypes) {
-    /** NEED TO BE MOVED TO CHECK BOX KIND ONLY  */
-    if (this.type !== 'radio') {
-        this.internalCritical(setValue.name, 'this field can only be initialized by a radio type')
-        return
-    }
-
-    const radioItem = this?.tryGetOptionByIdOrValue(value as string, value as string)
-    if (!radioItem) {
-        this.internalWarning(
-            'IFieldInput.setValue',
-            `Unable to find the option for this field:  type: ${this.type}, name: ${this.name} option Id or Value: ${value as string}`
-        )
-        return
-    }
-    this.value = radioItem.value
-    this.selectedOptionId = radioItem.sequenceId
-    this.dmSetChecked(radioItem.id, value as boolean)
-
-    this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-
-    this.notify(
-        'onChange',
-        newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-    )
-
-    // this.observers.trigger()
+    this._field._value?.setValue(value)
 }

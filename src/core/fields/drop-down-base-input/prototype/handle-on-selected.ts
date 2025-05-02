@@ -10,17 +10,17 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * Logs the selected value, the provided data, and the current value of the field input.
  */
 export const handleOnSelected = function <T extends IEvents>(this: IDropDownInput, data?: T) {
-    if (!this?.validationTriggerModeType.includes('onSelect')) return
-    this.internalInfo(
+    if (!this._field._validation?.validationTriggerModeType.includes('onSelect')) return
+    this._field._tracker?.internalInfo(
         'IFieldInput.handleOnSelected',
-        `value selected: ${this.type}, value: ${this.toString()} `
+        `value selected: ${this._field.type}, value: ${this._field._value?.toString()} `
     )
 
-    this?.debounceNotify(
+    this._field._notifier?.debounceNotify(
         'onValidate',
         500,
         newEvent(
-            this.name,
+            this._field.name,
             handleOnSelected.name,
             'onValidate',
             `field.state.${handleOnSelected.name}`

@@ -66,8 +66,8 @@ export const register = function <FieldValuesTypes>(
     }
 
     const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
+        this._field.isFocus = false
+        this._field._style?.fieldStateStyle.update('focus', this._field.isFocus)
 
         e.stopPropagation()
         e.preventDefault()

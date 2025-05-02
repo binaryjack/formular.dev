@@ -10,9 +10,9 @@ import { ICheckBoxInput } from '../check-box-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function <T extends IEvents>(this: ICheckBoxInput, data?: T) {
-    if (!this.validationTriggerModeType.includes('onChange')) return
+    if (!this._field._validation?.validationTriggerModeType.includes('onChange')) return
 
-    this.debounceNotify(
+    this._field._notifier?.debounceNotify(
         'onValidate',
         500,
         newEvent(

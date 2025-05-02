@@ -1,5 +1,6 @@
-import { newEvent } from '@core/events/events.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+
+import { setValueAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { ICheckBoxInput } from '../check-box-base-input.types'
 
 /**
@@ -22,23 +23,5 @@ import { ICheckBoxInput } from '../check-box-base-input.types'
  *   the new field value.
  */
 export const setValue = function (this: ICheckBoxInput, value: IFValueTypes) {
-    if (this.type !== 'checkbox') {
-        this.internalCritical(
-            setValue.name,
-            'this field can only be initialized by a check box type'
-        )
-        return
-    }
-    if (this) this.checked = value as boolean
-    this.dmSetChecked(this.field.id.toString(), value as boolean)
-    this.value = value
-
-    this._style?.fieldStateStyle.update('dirty', this.originalValue !== this.value)
-
-    this.notify(
-        'onChange',
-        newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-    )
-
-    // this.observers.trigger()
+    setValueAccessor(this.field())?.(value)
 }

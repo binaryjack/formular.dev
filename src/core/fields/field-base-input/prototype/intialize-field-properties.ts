@@ -1,4 +1,3 @@
-import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
 import { IFieldInput } from '../field-input-base-types'
 
@@ -6,9 +5,6 @@ export const initializeFieldProperties = function (
     this: IFieldInput,
     descriptor: IFieldDescriptor
 ) {
-    /** setup the internal information (info, warning, error etc.) tracking this is not the EVENT TRACKING! */
-    this.outputProviderSetup([consoleTrackingProvider])
-
     this.id = descriptor.id
     this.name = descriptor.name
     this.label = descriptor.label

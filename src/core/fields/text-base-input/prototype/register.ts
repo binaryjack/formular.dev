@@ -1,4 +1,7 @@
-import { newEvent } from '../../../events/events.types'
+import { AriaHelper } from '@core/fields/field-base-input/accessibility/arias'
+import { onBlur } from '@core/fields/field-base-input/events/on-blur'
+import { onChange } from '@core/fields/field-base-input/events/on-changed'
+import { onFocus } from '@core/fields/field-base-input/events/on-focus'
 import { ITextInput } from '../text-base-input.types'
 
 /**
@@ -46,57 +49,21 @@ import { ITextInput } from '../text-base-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(this: ITextInput): Partial<HTMLInputElement> {
-    const onchange = (e: Event) => {
-        const inputElement = e.target as HTMLInputElement
+    const onchange = (e: Event) => onChange(this.field(), e)
+    const onblur = (e: Event) => onBlur(this.field(), e)
+    const onfocus = (e: Event) => onFocus(this.field(), e)
 
-        this.value = inputElement.value
-        this.isPristine = this.originalValue === this.value
-        this._style?.fieldStateStyle.update('pristine', this.isPristine)
-        this.isDirty = this.originalValue !== this.value
-        this._style?.fieldStateStyle.update('dirty', this.isDirty)
-
-        this?.notify(
-            'onChange',
-            newEvent(this.name, onchange.name, 'onChange', `field.${onchange.name}`)
-        )
-
-        e.stopPropagation()
-    }
-
-    const onblur = (e: Event) => {
-        this.isFocus = false
-        this._style?.fieldStateStyle.update('focus', this.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify('onBlur', newEvent(this.name, onblur.name, 'onBlur', `field.${onblur.name}`))
-    }
-
-    const onfocus = (e: Event) => {
-        this.isFocus = true
-        this._style?.fieldStateStyle.update('focus', this.field.isFocus)
-
-        e.stopPropagation()
-        e.preventDefault()
-
-        this?.notify(
-            'onFocus',
-            newEvent(this.name, onfocus.name, 'onFocus', `field.${onfocus.name}`)
-        )
-    }
-
-    /** ARIA BASICS */
-    this.field.dmAriaSet(this.field.id.toString(), this.name)
+    const ah = new AriaHelper()
+    ah.applyNameAndLabel(this.field())
 
     return {
-        id: `${this.id}`,
-        type: this.type,
-        className: this._style?.classNames() ?? '',
-        title: this.label ?? '',
-        ariaDescription: `${this.name}`,
-        ariaLabel: this.label ?? '',
-        ariaValueText: this.getAsString(),
+        id: `${this.field().id}`,
+        type: this.field().type,
+        className: this.field().style()?.classNames() ?? '',
+        title: this.field().label ?? '',
+        ariaDescription: `${this.field().name}`,
+        ariaLabel: this.field().label ?? '',
+        ariaValueText: this.field()?.validationStrategy()?.getAsString(),
         onchange,
         onblur,
         onfocus

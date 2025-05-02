@@ -1,4 +1,5 @@
-import { IEvents, newEvent } from '../../../events/events.types'
+import { IEvents } from '../../../events/events.types'
+import { onClearHandle } from '../events/on-clear-handle'
 import { IFieldInput } from '../field-input-base-types'
 
 /**
@@ -9,15 +10,5 @@ import { IFieldInput } from '../field-input-base-types'
  * Logs the blur event, the provided data, and the current value of the field input.
  */
 export const handleOnClear = function <T extends IEvents>(this: IFieldInput, data?: T) {
-    if (!this?.validationTriggerModeType.includes('onClear')) return
-    this.internalInfo(
-        'IFieldInput.handleOnBlur',
-        `value clicked: ${this.type}, data: ${JSON.stringify(data)} `
-    )
-
-    this?.debounceNotify(
-        'onValidate',
-        500,
-        newEvent(this.name, handleOnClear.name, 'onValidate', `field.state.${handleOnClear.name}`)
-    )
+    onClearHandle(this)
 }

@@ -1,15 +1,23 @@
-import { IFieldInput } from '../field-base-input/field-input-base-types'
+import { preExceptionHandler } from '@core/tracker/pre-exception-handler/pre-exception-handler'
 import { IClickInput } from './click-base-input.types'
 import { handleOnClicked } from './prototype/handle-on-clicked'
-import { initializeInputBased } from './prototype/initialize-input-based'
-import { initializeOptionsBased } from './prototype/initialize-option-based'
+import { initialize } from './prototype/initialize'
 
-export const ClickBaseInput = function (this: IClickInput, field: IFieldInput) {
-    this.field = field
+export const ClickBaseInput = function (this: IClickInput) {
+    this.field = function (this: IClickInput) {
+        if (!this._field) {
+            preExceptionHandler(
+                undefined,
+                'critical',
+                this.name,
+                `Unable to instanciate ${this.name} no fieldInput was provided!`
+            )
+        }
+        return this._field
+    }
 } as any as IClickInput
 
 Object.assign(ClickBaseInput.prototype, {
     handleOnClicked,
-    initializeInputBased,
-    initializeOptionsBased
+    initialize
 })
