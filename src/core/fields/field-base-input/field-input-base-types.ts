@@ -16,9 +16,38 @@ import { IDrawerInput } from '../drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
 import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
+export interface IBaseField {
+    id: number
+    name: string
+    label?: string
+    value: any
+    defaultValue?: any
+    isValid: boolean
+    isDirty: boolean
+    isPristine: boolean
+    isFocus: boolean
+
+    /** Dependency accessors */
+    dom?: () => IDommable<HTMLInputElement> | undefined
+    notifier?: () => INotifiableEntity | undefined
+    style?: () => IFieldStateStyle | undefined
+    track?: () => ITracker | undefined
+    validationStrategy?: () => IValidationStrategy | undefined
+    valueStrategy?: () => IValueStrategy | undefined
+
+    /** Core methods */
+    setValue: (value: any) => void
+    getValue: () => any
+    setFocus: () => void
+    clear: () => void
+    enable: (enabled: boolean) => void
+    hasChanges: (callback: () => void) => void
+    handleValidation: <T extends IEvents>(event?: T) => void
+}
+
 export type IInitializerType = IFieldInputBase | IOptionBaseInput | IFieldInput | IClickInput
 
-export interface IFieldInputExtended<Tfi extends IFieldInputBase> {
+export interface IFieldInputExtended<Tfi extends IBaseField> {
     id: number
     name: string
 
@@ -52,7 +81,7 @@ export interface IField
     new (descriptor: IFieldDescriptor): IField
 }
 
-export interface IFieldInputBase {
+export interface IFieldInputBase extends IBaseField {
     new (descriptor: IFieldDescriptor): IFieldInput
     originalValue: IFValueTypes
     enabled: boolean
