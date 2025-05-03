@@ -4,6 +4,7 @@ import { ToggleableStateType } from '../toggleable-base-element/toggleable-base-
 export interface IDrawerInput {
     new (): IDrawerInput
     _field: IFieldInput
+    field: () => IFieldInput
     openState: ToggleableStateType
     setOpenState: (state: ToggleableStateType) => void
 }

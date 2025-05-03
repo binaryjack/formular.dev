@@ -1,4 +1,5 @@
 import { newEvent } from '@core/events/events.types'
+import { createAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
@@ -9,10 +10,21 @@ import { ITextInput } from '../text-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: ITextInput, fieldInput: IFieldInput) {
-    initializer(initialize.name, this, fieldInput, [
-        nnv(
-            newEvent(this.name, initialize.name, 'onChange', 'field.changed'),
-            this.handleOnChanged.bind(this)
-        )
-    ])
+    initializer(
+        initialize.name,
+        this,
+        fieldInput,
+        [
+            nnv(
+                newEvent(this.name, initialize.name, 'onChange', 'field.changed'),
+                this.handleOnChanged.bind(this)
+            )
+        ],
+
+        (e) => {
+            const fieldAccessors = createAccessor(e.field())
+            e.setValue = fieldAccessors.setValue
+            e.getValue = fieldAccessors.getValue
+        }
+    )
 }

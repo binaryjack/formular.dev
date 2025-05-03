@@ -1,3 +1,4 @@
+import { createAccessor } from '@core/fields/field-base-input/accessors/accessors'
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
@@ -8,14 +9,24 @@ import { IDropDownInput } from '../drop-down-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IDropDownInput, fieldInput: IFieldInput) {
-    initializer(initialize.name, this, fieldInput, [
-        nnv(
-            newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
-            this.handleOnChanged.bind(this)
-        ),
-        nnv(
-            newEvent(this.name, 'setup', 'onSelect', 'field.select'),
-            this.handleOnSelected.bind(this)
-        )
-    ])
+    initializer(
+        initialize.name,
+        this,
+        fieldInput,
+        [
+            nnv(
+                newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
+                this.handleOnChanged.bind(this)
+            ),
+            nnv(
+                newEvent(this.name, 'setup', 'onSelect', 'field.select'),
+                this.handleOnSelected.bind(this)
+            )
+        ],
+        (e) => {
+            const fieldAccessors = createAccessor(e.field())
+            e.setValue = fieldAccessors.setValue
+            e.getValue = fieldAccessors.getValue
+        }
+    )
 }

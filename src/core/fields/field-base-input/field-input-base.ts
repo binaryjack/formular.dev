@@ -81,17 +81,6 @@ import { handleValidation } from '@core/formy-base/prototype/handle-validation'
 import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
 
-import {
-    domAccessor,
-    drawerAccessor,
-    getValueAccessor,
-    notifierAccessor,
-    setValueAccessor,
-    styleAccessor,
-    trackAccessor,
-    validationStrategyAccessor,
-    valueStrategyAccessor
-} from './accessors/accessors'
 import { IField, IFieldInput } from './field-input-base-types'
 import { clear } from './prototype/clear'
 import { enable } from './prototype/enable'
@@ -114,16 +103,6 @@ export const FieldInput = function (this: IFieldInput, descriptor: IFieldDescrip
         throw new Error('FieldInput descriptor must include "id" and "name".')
     }
     this.initializeFieldProperties(descriptor)
-
-    this.dom = domAccessor(this)
-    this.drawer = drawerAccessor(this)
-    this.notifier = notifierAccessor(this)
-    this.style = styleAccessor(this)
-    this.track = trackAccessor(this)
-    this.validationStrategy = validationStrategyAccessor(this)
-    this.valueStrategy = valueStrategyAccessor(this)
-    this.setValue = setValueAccessor(this)
-    this.getValue = getValueAccessor(this)
 } as any as IFieldInput
 
 Object.assign(FieldInput.prototype, {

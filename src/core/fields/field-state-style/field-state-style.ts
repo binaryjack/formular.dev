@@ -17,7 +17,6 @@ import { update } from './prototype/update'
  * @property {Map<FieldInputStateType, string>} classesList - A map that holds the class names for different field states.
  */
 export const FieldStateStyle = function (this: IFieldStateStyle, field: IFieldInput) {
-    this.field = field
     this.classesList = new Map<FieldInputStateType, string>([
         ['dirty', 'is-not-dirty'],
         ['errors', 'no-errors'],

@@ -1,4 +1,5 @@
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { createAccessor } from '../accessors/accessors'
 import { IFieldInput } from '../field-input-base-types'
 
 export const initializeFieldProperties = function (
@@ -21,4 +22,15 @@ export const initializeFieldProperties = function (
     this.expectedValue = descriptor.expectedValue
     this.loaded = descriptor.loaded ?? false
     this.changed = descriptor.changed ?? false
+
+    const fieldAccessors = createAccessor(this)
+    this.dom = fieldAccessors.dom
+    this.drawer = fieldAccessors.drawer
+    this.notifier = fieldAccessors.notifier
+    this.style = fieldAccessors.style
+    this.track = fieldAccessors.track
+    this.validationStrategy = fieldAccessors.validationStrategy
+    this.valueStrategy = fieldAccessors.valueStrategy
+    this.setValue = fieldAccessors.setValue
+    this.getValue = fieldAccessors.getValue
 }

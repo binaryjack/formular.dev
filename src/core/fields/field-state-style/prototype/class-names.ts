@@ -12,7 +12,7 @@ import { IFieldStateStyle } from '../field-state-style.types'
  */
 
 export const classNames = function (this: IFieldStateStyle) {
-    const ele = this.field?.dom()?.dmGet(this.field.id.toString())
+    const ele = this.field()?.dom()?.dmGet(this.field().id.toString())
     const userClassName = ele?.attributes.getNamedItem('data-class')?.value
     return `${userClassName} ${this.className} ${this.get()} `
 }

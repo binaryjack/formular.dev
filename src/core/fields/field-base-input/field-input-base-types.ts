@@ -17,6 +17,7 @@ import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
 import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
 export interface IBaseField {
+    [key: string]: any
     id: number
     name: string
     label?: string
@@ -83,6 +84,7 @@ export interface IField
 
 export interface IFieldInputBase extends IBaseField {
     new (descriptor: IFieldDescriptor): IFieldInput
+
     originalValue: IFValueTypes
     enabled: boolean
 
