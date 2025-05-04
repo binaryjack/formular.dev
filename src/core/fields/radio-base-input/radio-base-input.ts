@@ -6,11 +6,11 @@ import { register } from './prototype/register'
 import { registerLabel } from './prototype/register-label'
 import { registerOption } from './prototype/register-option'
 
-import { IRadioInput } from './radio-base-input.types'
+import { IRadioBaseInput } from './radio-base-input.types'
 
-export const RadioInput = function (this: IRadioInput) {
+export const RadioInput = function (this: IRadioBaseInput) {
     /** */
-} as any as IRadioInput
+} as any as IRadioBaseInput
 
 Object.assign(RadioInput.prototype, {
     initialize,

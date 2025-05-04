@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { INDate } from '@dependency/schema/descriptor/field.data.date.struct'
+import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
 
 import { DatePickerContext, IDatePickerContext } from '@components/date-picker.context'
 import useKeyBindings from '../../core/hooks/use-key-bindings'

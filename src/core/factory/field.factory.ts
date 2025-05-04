@@ -1,7 +1,11 @@
-import { FieldTypes } from '@core/common.types'
 import { FieldInput } from '@core/fields/field-base-input/field-input-base'
-import { IBaseField } from '@core/fields/field-base-input/field-input-base-types'
+import {
+    IFieldInput,
+    IFieldInputExtended
+} from '@core/fields/field-base-input/field-input-base-types'
 import { TextBaseInput } from '@core/fields/text-base-input/text-base-input'
+import { FieldTypeNames } from '@core/framework/common/common.field.types'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { ValidatorMaxLengthStrategy } from '@core/validation-strategy/strategies/validator-max-length-strategy'
 import { ValidatorMaxStrategy } from '@core/validation-strategy/strategies/validator-max-strategy'
 import { ValidatorMinLengthStrategy } from '@core/validation-strategy/strategies/validator-min-length-strategy'
@@ -15,11 +19,13 @@ import { numericParserStrategy } from '@core/value-strategy/strategies/numeric-b
 import { numericOptionBasedParserStrategy } from '@core/value-strategy/strategies/numeric-option-based-parser-strategy'
 import { stringParserStrategy } from '@core/value-strategy/strategies/string-based-parser-strategy'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
 
 export interface IFieldFactory {
     new (): IFieldFactory
-    create: (type: FieldTypes, descriptor: IFieldDescriptor) => IBaseField
+    create: <T extends IFieldInputExtended<IFieldInput>>(
+        type: FieldTypeNames,
+        descriptor: IFieldDescriptor
+    ) => T
 }
 
 const valueParsers: IParserStrategy<any>[] = [
@@ -39,12 +45,12 @@ const validationStrategies: IValidationMethodStrategy[] = [
     ValidatorPatternStrategy
 ]
 
-export const FieldFactory = function (this: IFieldFactory) {
+export const FieldFactory = function <T>(this: IFieldFactory) {
     this.create = function (
         this: IFieldFactory,
-        type: FieldTypes,
+        type: FieldTypeNames,
         descriptor: IFieldDescriptor
-    ): IBaseField {
+    ): T {
         const _baseInput = new FieldInput(descriptor)
         _baseInput.initializeEvents()
         _baseInput.initializeDommable()
@@ -54,7 +60,7 @@ export const FieldFactory = function (this: IFieldFactory) {
         _baseInput.initializeValueStrategy(...valueParsers)
 
         switch (type) {
-            case 'STRING':
+            case 'text':
                 const _textField = new TextBaseInput()
                 _textField.initialize(_baseInput)
                 return _textField

@@ -1,6 +1,6 @@
-import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
-import { IClickInput } from '../click-base-input/click-base-input.types'
+import { IClickBaseInput } from '../click-base-input/click-base-input.types'
 import {
     IBaseField,
     IFieldInput,
@@ -8,13 +8,13 @@ import {
 } from '../field-base-input/field-input-base-types'
 import { IOptionInput } from '../option-based-input/option-base-input.types'
 
-export type IRadioCombinedBaseInput = IOptionInput & IFieldInput & IClickInput
+export type IRadioInput = IOptionInput & IFieldInput & IClickBaseInput
 
-export interface IRadioInput extends IFieldInputExtended<IBaseField> {
-    new (): IRadioInput
-    _field: IRadioCombinedBaseInput
-    field: () => IRadioCombinedBaseInput
-    initialize: (fieldInput: IRadioCombinedBaseInput) => void
+export interface IRadioBaseInput extends IFieldInputExtended<IBaseField> {
+    new (): IRadioBaseInput
+    _field: IRadioInput
+    field: () => IRadioInput
+    initialize: (fieldInput: IRadioInput) => void
     handleOnChanged: <T extends IEvents>(data?: T) => void
 
     ref: (ref: HTMLInputElement | null) => void

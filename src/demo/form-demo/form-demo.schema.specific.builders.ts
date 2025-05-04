@@ -1,4 +1,4 @@
-import { FieldSchemaBuilder } from '@dependency/schema/field-schema/field.schema.builder'
+import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 
 export const IdBuilder = new FieldSchemaBuilder(1, 'id').setTypeData('string').setDefaultValue(23)
 export const OrderBuilder = new FieldSchemaBuilder(2, 'order')

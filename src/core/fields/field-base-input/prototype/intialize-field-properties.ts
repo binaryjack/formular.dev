@@ -1,4 +1,4 @@
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { createAccessor } from '../accessors/accessors'
 import { IFieldInput } from '../field-input-base-types'
 

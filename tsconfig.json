@@ -22,11 +22,14 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@core/*": ["src/core/*"],
-            "@dependency/*": ["src/dependency/*"],
+            "@fields/*": ["src/core/fields/*"],
+            "@factory*": ["src/core/factory/*"],
+            "@framework/*": ["src/core/framework/*"],
+            "@utility*": ["src/core/framework/utility/*"],
+            "@common*": ["src/core/framework/common/*"],
             "@demo/*": ["src/demo/*"],
             "@patterns/*": ["src/patterns/*"],
-            "@style/*": ["src/style/*"],
-            "@utils/*": ["src/utils/*"]
+            "@style/*": ["src/style/*"]
         }
     },
     "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],

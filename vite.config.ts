@@ -32,7 +32,11 @@ export default defineConfig(() => ({
         alias: {
             '@components': resolve(__dirname, 'src/components'),
             '@core': resolve(__dirname, 'src/core'),
-            '@dependency': resolve(__dirname, 'src/dependency'),
+            '@fields': resolve(__dirname, 'src/core/fields'),
+            '@factory': resolve(__dirname, 'src/core/factory'),
+            '@framework': resolve(__dirname, 'src/core/framework'),
+            '@utility': resolve(__dirname, 'src/core/framework/utility'),
+            '@common': resolve(__dirname, 'src/core/framework/common'),
             '@demo': resolve(__dirname, 'src/demo'),
             '@patterns': resolve(__dirname, 'src/patterns'),
             '@style': resolve(__dirname, 'src/style'),

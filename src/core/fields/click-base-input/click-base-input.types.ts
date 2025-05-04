@@ -9,8 +9,8 @@ export interface IClickField extends IBaseField {
     checked: boolean
     handleOnClick: <T extends IEvents>(data?: T) => void
 }
-export interface IClickInput extends IFieldInputExtended<IBaseField> {
-    new (): IClickInput
+export interface IClickBaseInput extends IFieldInputExtended<IBaseField> {
+    new (): IClickBaseInput
     _field: IFieldInput
     field: () => IFieldInput
     checked?: boolean

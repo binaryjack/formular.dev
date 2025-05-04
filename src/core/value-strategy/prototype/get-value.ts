@@ -1,4 +1,4 @@
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IFieldInput } from '../../fields/field-base-input/field-input-base-types'
 
 import { IValueStrategy } from '../value-strategy.types'
@@ -19,12 +19,12 @@ export function getValue(this: IValueStrategy, field: IFieldInput): unknown | nu
         /** Factory */
         switch (strategy.fieldValueProperty) {
             case 'id':
-                return strategy.method(field.id as IFValueTypes)
+                return strategy.method(field.id as FieldDataTypes)
             case 'selectedOptionId':
-                return strategy.method(field?.selectedOptionId as IFValueTypes)
+                return strategy.method(field?.selectedOptionId as FieldDataTypes)
             case 'value':
             default:
-                return strategy.method(field.value as IFValueTypes)
+                return strategy.method(field.value as FieldDataTypes)
         }
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${field.type} in field: ${field.name} `, e)

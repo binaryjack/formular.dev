@@ -1,5 +1,5 @@
+import { FieldDataTypes } from '@core/framework/schema/descriptor/field.data.types'
 import { ITracker } from '@core/tracker/tracker.types'
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 
 export interface IAria {
     name: string
@@ -19,7 +19,7 @@ export interface IDommableBase<T extends HTMLElement> {
     dmRegisterById: (id: string) => void
     dmGet: (id: string) => T | null
     dmExists: (id: string) => boolean
-    dmSetValue: (id: string, value: IFValueTypes) => void
+    dmSetValue: (id: string, value: FieldDataTypes) => void
     dmClear: () => void
     dmSetChecked: (id: string, value: boolean) => void
     dmSetClass: (id: string, rules: CSSPropertyRule) => void

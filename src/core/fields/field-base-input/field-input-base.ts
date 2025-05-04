@@ -1,5 +1,5 @@
 import { handleValidation } from '@core/formy-base/prototype/handle-validation'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 
 import { IField, IFieldInput } from './field-input-base-types'
 import { clear } from './prototype/clear'

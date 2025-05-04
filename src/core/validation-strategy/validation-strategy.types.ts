@@ -2,9 +2,9 @@ import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { IDateObject } from '@components/date-picker/core/models/date-object.models'
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { IFieldError, IFieldGuide } from '@dependency/errors'
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { IFieldError, IFieldGuide } from '@core/framework/errors'
+import { FieldDataTypes } from '@core/framework/schema/descriptor/field.data.types'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { EventsType, IEvents } from '../events/events.types'
 
 export interface IValidableForm {
@@ -57,8 +57,8 @@ export interface IValidationStrategyData {
     fieldName: string
     type: string
     validationOptions: IValidationOptions
-    value: IFValueTypes
-    expectedValue: IFValueTypes
+    value: FieldDataTypes
+    expectedValue: FieldDataTypes
     origin: IEvents | null
     asyncValidators?: Array<(data: IValidationStrategyData) => Promise<IValidationResult>>
     toString: () => string
@@ -68,8 +68,8 @@ export const newValidationStrategyData = (
     fieldName: string,
     type: string,
     validationOptions: IValidationOptions,
-    value: IFValueTypes,
-    expectedValue?: IFValueTypes,
+    value: FieldDataTypes,
+    expectedValue?: FieldDataTypes,
     origin?: IEvents
 ) => {
     return {

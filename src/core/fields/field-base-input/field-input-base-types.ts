@@ -1,21 +1,21 @@
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
-import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.types'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
 
 import { IDommable } from '@core/dommable/dommable.types'
 
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
 import {
     IValidationMethodStrategy,
     IValidationStrategy
 } from '@core/validation-strategy/validation-strategy.types'
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
-import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
 import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
-import { IClickInput } from '../click-base-input/click-base-input.types'
-import { IDrawerInput } from '../drawer-base-input/drawer-base-input.types'
+import { IClickBaseInput } from '../click-base-input/click-base-input.types'
+import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
 import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
@@ -49,16 +49,16 @@ export interface IBaseField {
     handleValidation: <T extends IEvents>(event?: T) => void
 }
 
-export type IInitializerType = IFieldInputBase | IOptionBaseInput | IFieldInput | IClickInput
+export type IInitializerType = IFieldInputBase | IOptionBaseInput | IFieldInput | IClickBaseInput
 
 export interface IFieldInputExtended<Tfi extends IBaseField> {
     id: number
     name: string
-
+    checked?: boolean
     optionsInitialized: boolean
-    options: IOptionItem[]
     /** works with IOptionItem[] and fields of type select*/
     selectedOptionId: number | null
+    valueStrategies: IParserStrategy<unknown>[]
 
     _field: Tfi
     field: () => Tfi
@@ -88,12 +88,12 @@ export interface IField
 export interface IFieldInputBase extends IBaseField {
     new (descriptor: IFieldDescriptor): IFieldInput
 
-    originalValue: IFValueTypes
+    originalValue: FieldDataTypes
     enabled: boolean
 
     /** dependencies */
     _dom?: IDommable<HTMLInputElement>
-    _drawer?: IDrawerInput
+    _drawer?: IDrawerBaseInput
     _style?: IFieldStateStyle
     _notifier?: INotifiableEntity
     _tracker?: ITracker
@@ -104,14 +104,14 @@ export interface IFieldInputBase extends IBaseField {
     /** Dependency accessors */
     dom(): IDommable<HTMLInputElement> | undefined
     notifier: () => INotifiableEntity | undefined
-    drawer: () => IDrawerInput | undefined
+    drawer: () => IDrawerBaseInput | undefined
     style: () => IFieldStateStyle | undefined
     track: () => ITracker | undefined
     validationStrategy: () => IValidationStrategy | undefined
     valueStrategy: () => IValueStrategy | undefined
 
-    setValue: (value: IFValueTypes) => void
-    getValue: () => IFValueTypes
+    setValue: (value: FieldDataTypes) => void
+    getValue: () => FieldDataTypes
 
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
     /** initializer builders */

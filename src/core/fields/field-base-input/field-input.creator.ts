@@ -1,7 +1,7 @@
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IFieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.types'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { newEntitySchemeObjectType } from '@demo/form-demo/form-demo.schema'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
-import { IFieldSchemaBuilder } from '@dependency/schema/field-schema/field.schema.types'
 import { FieldInput } from './field-input-base'
 import { IFieldInput, SchemeToDescriptorConverterType } from './field-input-base-types'
 

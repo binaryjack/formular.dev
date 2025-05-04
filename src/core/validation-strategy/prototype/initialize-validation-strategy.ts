@@ -1,4 +1,4 @@
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IValidationStrategy } from '../validation-strategy.types'
 
 export const initializeValidationStrategy = function (

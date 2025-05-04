@@ -1,4 +1,4 @@
-import { FieldInputStateType } from '../../common.types'
+import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
 import {
     IBaseField,
     IFieldInput,
@@ -12,7 +12,7 @@ export interface IFlags {
     value: string
 }
 
-export interface IFlagsObject {
+export interface IStateFlags {
     isDirty: boolean
     hasErrors: boolean
     isFocus: boolean
@@ -22,7 +22,7 @@ export interface IFlagsObject {
     required: boolean
 }
 
-export const defaultFlagsObject: IFlagsObject = {
+export const defaultFlagsObject: IStateFlags = {
     isDirty: false,
     hasErrors: false,
     isFocus: false,
@@ -43,6 +43,6 @@ export interface IFieldStateStyle extends IFieldInputExtended<IBaseField> {
     update: (type: FieldInputStateType, state: boolean) => void
     get: () => string
     getFlagsList: () => IFlags[]
-    getFlagsObject: () => IFlagsObject
+    getFlagsObject: () => IStateFlags
     classNames: () => string
 }

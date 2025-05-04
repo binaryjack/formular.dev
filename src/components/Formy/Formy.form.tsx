@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { FieldValuesTypes } from '@dependency/schema/descriptor/field.data.types'
+import { FieldValuesTypes } from '@core/framework/schema/descriptor/field.data.types'
 import { IFieldInput } from '../../core/base/field-input/field-input.types'
 import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
 import { Button } from '../button/button'

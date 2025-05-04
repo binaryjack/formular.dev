@@ -1,5 +1,5 @@
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { ICheckBoxInput } from '../check-box-base-input.types'
+import { ICheckBoxBaseInput } from '../check-box-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -46,7 +46,7 @@ import { ICheckBoxInput } from '../check-box-base-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(
-    this: ICheckBoxInput
+    this: ICheckBoxBaseInput
 ): Partial<HTMLInputElement> {
     return new domRegister(this)
         .registerChange()

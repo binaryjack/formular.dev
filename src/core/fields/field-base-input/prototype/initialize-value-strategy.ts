@@ -10,8 +10,10 @@ export const initializeValueStrategy = function (
         if (!this._tracker) {
             throw Error('tracker must be initialized')
         }
-        this._value = new ValueStrategy(this)
-        this._value?.acceptValueStrategies(...parsers)
+
+        this._value = new ValueStrategy()
+        this._value.initialize(this)
+        this._value.acceptValueStrategies(...parsers)
         return this
     } catch (e: any) {
         this.message(

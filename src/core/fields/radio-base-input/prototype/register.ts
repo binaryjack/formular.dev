@@ -1,5 +1,5 @@
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { IRadioInput } from '../radio-base-input.types'
+import { IRadioBaseInput } from '../radio-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -45,7 +45,9 @@ import { IRadioInput } from '../radio-base-input.types'
  * />
  * ```
  */
-export const register = function <FieldValuesTypes>(this: IRadioInput): Partial<HTMLInputElement> {
+export const register = function <FieldValuesTypes>(
+    this: IRadioBaseInput
+): Partial<HTMLInputElement> {
     return new domRegister(this)
         .registerChange()
         .registerBlur()

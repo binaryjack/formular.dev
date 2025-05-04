@@ -116,8 +116,8 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
                         </tr>
                     </thead>
                     <tbody>
-                        {logs.map((log, index) => (
-                            <tr key={index}>
+                        {logs.map((log) => (
+                            <tr key={log.timestamp}>
                                 <td style={{ border: '1px solid #ddd', padding: '0.1rem' }}>
                                     {log?.timestamp}
                                 </td>

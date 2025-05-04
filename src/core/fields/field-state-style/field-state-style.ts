@@ -1,4 +1,4 @@
-import { FieldInputStateType } from '../../common.types'
+import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
 import { IFieldInput } from '../field-base-input/field-input-base-types'
 import { IFieldStateStyle } from './field-state-style.types'
 import { classNames } from './prototype/class-names'

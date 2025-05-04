@@ -1,12 +1,12 @@
 import { IDommable } from '@core/dommable/dommable.types'
-import { IDrawerInput } from '@core/fields/drawer-base-input/drawer-base-input.types'
+import { IDrawerBaseInput } from '@core/fields/drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '@core/fields/field-state-style/field-state-style.types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { ITracker, TrackingType } from '@core/tracker/tracker.types'
 import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IValueStrategy } from '@core/value-strategy/value-strategy.types'
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IFieldInput } from '../field-input-base-types'
 
 export interface IDefaultDependency {}
@@ -29,7 +29,7 @@ export type AccessorsTypes =
     | IFieldStateStyle
     | IValidationStrategy
     | IValueStrategy
-    | IFValueTypes
+    | FieldDataTypes
     | undefined
 
 export const handleMissingDependency = (field: IFieldInput, dependencyKey: string): void => {
@@ -45,11 +45,11 @@ export interface IAccessors {
     notifier: () => INotifiableEntity | undefined
     style: () => IFieldStateStyle | undefined
     track: () => ITracker | undefined
-    drawer: () => IDrawerInput | undefined
+    drawer: () => IDrawerBaseInput | undefined
     validationStrategy: () => IValidationStrategy | undefined
     valueStrategy: () => IValueStrategy | undefined
-    setValue: (value: IFValueTypes) => void
-    getValue: () => IFValueTypes
+    setValue: (value: FieldDataTypes) => void
+    getValue: () => FieldDataTypes
 }
 
 export const createDependentAccessor =
@@ -85,7 +85,7 @@ export const createAccessor = (field: IFieldInput): IAccessors => {
     }
     return {
         ...accessors,
-        setValue: (value: IFValueTypes) => {
+        setValue: (value: FieldDataTypes) => {
             field.valueStrategy()?.setValue(value)
         },
         getValue: () => {

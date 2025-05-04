@@ -1,5 +1,5 @@
 import { IOptionInput } from '@core/fields/option-based-input/option-base-input.types'
-import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
 
 export const referencer = function (

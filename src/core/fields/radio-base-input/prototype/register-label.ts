@@ -1,5 +1,5 @@
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { IRadioInput } from '../radio-base-input.types'
+import { IRadioBaseInput } from '../radio-base-input.types'
 
 /**
  * Registers a label click handler for a field input component.
@@ -19,7 +19,7 @@ import { IRadioInput } from '../radio-base-input.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */
 export const registerLabel = function (
-    this: IRadioInput,
+    this: IRadioBaseInput,
     optionId: string
 ): Partial<HTMLInputElement> {
     return new domRegister(this).registerClickLabel(optionId).registerAria().build()

@@ -1,11 +1,18 @@
 import { EventsType } from '@core/events/events.types'
 import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '@core/status'
-import { IValidableForm, IValidator } from '@core/validation-strategy/validation-strategy.types'
-import { FieldValuesTypes } from '@dependency/schema/descriptor/field.data.types'
+import {
+    IValidableForm,
+    IValidationStrategy
+} from '@core/validation-strategy/validation-strategy.types'
 
-export type IFormy = IFormyBase & INotifiableEntity & IFormyFlags & IValidator & IValidableForm
+export type IFormy = IFormyBase &
+    INotifiableEntity &
+    IFormyFlags &
+    IValidationStrategy &
+    IValidableForm
 
 export interface IFormyFlags {
     isBusy: LoadingStatus
@@ -34,7 +41,7 @@ export interface IFormyBase {
     checkChanges: () => void
     setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void
-    getData: () => Record<string, FieldValuesTypes>
+    getData: () => Record<string, FieldDataTypes>
     setValidationTriggerMode: (mode: EventsType[]) => void
 }
 

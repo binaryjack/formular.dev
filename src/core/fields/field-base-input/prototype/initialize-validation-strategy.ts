@@ -11,12 +11,7 @@ export const initializeValidationStrategy = function (
             throw Error('tracker must be initialized')
         }
         if (parsers.length === 0) {
-            throw Error('tracker must be initialized')
-            this.message(
-                'warning',
-                initializeValidationStrategy.name,
-                `an error has occured when initializing ${this.name}`
-            )
+            throw Error('IValidationMethodStrategy: No parsers where setted')
         }
 
         this._validation = new ValidationStrategy()

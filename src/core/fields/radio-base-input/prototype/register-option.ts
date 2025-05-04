@@ -1,5 +1,5 @@
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { IRadioInput } from '../radio-base-input.types'
+import { IRadioBaseInput } from '../radio-base-input.types'
 
 /**
  * Registers event handlers for a field's children options input components
@@ -21,7 +21,7 @@ import { IRadioInput } from '../radio-base-input.types'
  * - `onFocus`: Handles focus events on the input element. Updates the focus state,
  *   triggers observers, and notifies listeners about the "focused" event.
  */
-export const registerOption = function (this: IRadioInput): Partial<HTMLInputElement> {
+export const registerOption = function (this: IRadioBaseInput): Partial<HTMLInputElement> {
     return new domRegister(this)
         .registerChange()
         .registerBlur()

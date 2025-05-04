@@ -1,6 +1,10 @@
-import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
+import {
+    IFieldInput,
+    IFieldInputExtended
+} from '@core/fields/field-base-input/field-input-base-types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
-export type TParser<TOut> = (value: Partial<IFValueTypes>) => TOut | null
+export type TParser<TOut> = (value: Partial<FieldDataTypes>) => TOut | null
 
 export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
 
@@ -25,12 +29,19 @@ export const setParserStrategy = <TOut>(
     }
 }
 
-export interface IValueStrategy {
+export interface IValueStrategy extends IFieldInputExtended<IFieldInput> {
     new (): IValueStrategy
+    _field: IFieldInput
+    field: <T extends IFieldInput>() => T
     valueStrategies: IParserStrategy<unknown>[]
+    initialize: (fieldInput: IFieldInput) => void
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null
-    setValue: (value: IFValueTypes) => void
-    getValue: () => IFValueTypes
+    setValue: (value: FieldDataTypes) => void
+    getValue: () => FieldDataTypes
+    setValueCheckBox: (value: boolean) => void
+    setValueSelect: (value: string) => void
+    setValueText: (value: string) => void
+    setValueRadio: (value: string) => void
 }

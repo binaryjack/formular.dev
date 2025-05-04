@@ -1,6 +1,6 @@
 import { onChangedHandle } from '@core/fields/field-base-input/events/on-changed-handle'
 import { IEvents } from '../../../events/events.types'
-import { IRadioInput } from '../radio-base-input.types'
+import { IRadioBaseInput } from '../radio-base-input.types'
 
 /**
  * Handles the change event for a field input.
@@ -10,6 +10,6 @@ import { IRadioInput } from '../radio-base-input.types'
  *
  * Logs the updated value and the provided data to the console.
  */
-export const handleOnChanged = function <T extends IEvents>(this: IRadioInput, data?: T) {
+export const handleOnChanged = function <T extends IEvents>(this: IRadioBaseInput, data?: T) {
     onChangedHandle(this.field())
 }

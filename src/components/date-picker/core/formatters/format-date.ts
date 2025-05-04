@@ -1,4 +1,4 @@
-import { INDate } from '@dependency/schema/descriptor/field.data.date.struct'
+import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
 import { DatePickerFormatsEnum } from '../date-picker.types'
 
 /**
