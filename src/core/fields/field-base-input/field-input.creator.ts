@@ -1,22 +1,9 @@
-import React, { useEffect } from 'react'
-
-import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
-import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
 import { newEntitySchemeObjectType } from '@demo/form-demo/form-demo.schema'
 import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
 import { IFieldSchemaBuilder } from '@dependency/schema/field-schema/field.schema.types'
-import { EventsType, newEvent } from '../../events/events.types'
-import { defaultFlagsObject, IFlagsObject } from '../field-state-style/field-state-style.types'
 import { FieldInput } from './field-input-base'
 import { IFieldInput, SchemeToDescriptorConverterType } from './field-input-base-types'
-
-export interface IUseFieldHookReturn {
-    field: IFieldInput | undefined
-    flags: IFlagsObject
-}
-
-export type useFieldHookType = (field?: IFieldInput) => IUseFieldHookReturn
 
 export const FieldInputCreator = (function () {
     /**
@@ -42,45 +29,6 @@ export const FieldInputCreator = (function () {
                 console.log('Field updated', field)
             }, [field?.get()])
      */
-    const useField = (field?: IFieldInput): IUseFieldHookReturn => {
-        const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
-        const [flags, setFlags] = React.useState<IFlagsObject>(defaultFlagsObject)
-        const stableField = React.useMemo(() => {
-            return field
-        }, [field])
-
-        const handleRefresh = () => {
-            forceUpdate()
-        }
-
-        useEffect(() => {
-            if (!stableField?._style?.getFlagsObject?.()) return
-            setFlags(stableField?._style?.getFlagsObject?.())
-        }, [stableField?._style?.classNames()])
-
-        /** Bind the function handleRefresh to field events*
-         */
-        const acceptNotificationStrategy = (localName: string, event: EventsType) => {
-            if (!stableField) return
-            stableField._notifier?.accept(
-                nnv(
-                    newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
-                    handleRefresh.bind(useRtiEngine)
-                )
-            )
-        }
-
-        useEffect(() => {
-            if (!stableField) return
-            /** Bind the function handleRefresh to followng field events*/
-            acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
-        }, [stableField])
-
-        return {
-            field: stableField,
-            flags: flags
-        }
-    }
 
     /**
      * Creates a new field from the provided builder, object converter, and scheme to descriptor converter.
@@ -134,7 +82,6 @@ export const FieldInputCreator = (function () {
     return {
         newFieldFromBuilder,
         newFieldFromDescriptor,
-        newFieldFromDescriptors,
-        useField
+        newFieldFromDescriptors
     }
 })()

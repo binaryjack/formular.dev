@@ -1,4 +1,4 @@
-import FieldInputValidationSandbox from './demo/validation-demo/ValidationDemo'
+import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
     testName?: string

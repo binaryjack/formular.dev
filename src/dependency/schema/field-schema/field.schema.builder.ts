@@ -1,4 +1,4 @@
-import { EventsType } from '../../../core/base/events/events.types'
+import { EventsType } from '@core/events/events.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IValidationSchema } from '../validation-schema/validation.schema.types'

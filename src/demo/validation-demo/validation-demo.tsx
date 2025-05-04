@@ -3,16 +3,17 @@ import FormyForm from '@components/formy/formy.form'
 import InputText from '@components/input-text/input-text'
 import { newFieldError, newFieldGuide } from '@dependency/errors'
 import { useEffect, useState } from 'react'
-import { EventsType } from '../../core/base/events/events.types'
-import { FieldInputCreator } from '../../core/base/fields/field-base-input/field-input.creator'
-import { Formy } from '../../core/base/formy-base/formy-base'
-import { IFormy } from '../../core/base/formy-base/formy-base.types'
+
+import { EventsType } from '@core/events/events.types'
+import { FieldInputCreator } from '@core/fields/field-base-input/field-input.creator'
+import { Formy } from '@core/formy-base/formy-base'
+import { IFormy } from '@core/formy-base/formy-base.types'
 import {
     IValidationOptions,
     ValidationErrorsCodes
-} from '../../core/base/validation-strategy/validator.types'
+} from '@core/validation-strategy/validation-strategy.types'
 import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'
-import { NotifierDebugUi } from '../../core/notifiable-entity/notifier-debug-ui/NotifierDebugUi'
+import { NotifierDebugUi } from '../../core/notifiable-entity/notifier-debug-ui/notifier-debug-ui'
 
 const defaultValidation = {
     max: {

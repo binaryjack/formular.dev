@@ -5,22 +5,13 @@ import { IFieldInput } from '../field-input-base-types'
 export const initializeValidationStrategy = function (
     this: IFieldInput,
     ...parsers: IValidationMethodStrategy[]
-) {
-    if (!this._tracker) {
-        throw Error(
-            `${this.name} ${initializeValidationStrategy.name} needs to have field's traker preinitialized!`
-        )
-    }
-    if (!this.prototype) {
-        this.message(
-            'critical',
-            initializeValidationStrategy.name,
-            `the prototype of ${this.name} is not yes defined`
-        )
-        return
-    }
+): IFieldInput {
     try {
+        if (!this._tracker) {
+            throw Error('tracker must be initialized')
+        }
         if (parsers.length === 0) {
+            throw Error('tracker must be initialized')
             this.message(
                 'warning',
                 initializeValidationStrategy.name,
@@ -30,11 +21,13 @@ export const initializeValidationStrategy = function (
 
         this._validation = new ValidationStrategy()
         this._validation.addValidationStrategies(...parsers)
+        return this
     } catch (e: any) {
         this.message(
             'critical',
             initializeValidationStrategy.name,
             `an error has occured when initializing ${this.name} class: ${e.message}`
         )
+        return this
     }
 }

@@ -10,7 +10,7 @@ import { Button } from '../button/button'
 import { Portal } from '../portals/portals'
 
 import { useCallback, useEffect } from 'react'
-import useMediaScreens from '../../core/hooks/screen/useMediaScreens'
+import useMediaScreens from '../../core/hooks/screen/use-media-screens'
 import useAppContext from '../context/app-context/app-context.context'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 

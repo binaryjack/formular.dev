@@ -11,11 +11,11 @@ import {
     namesPattern
 } from '@dependency/schema/validation-schema/validation.regex.patterns'
 import React, { useEffect, useState } from 'react'
-import { Formy } from '../../core/base/formy-base/formy-base'
-import { IFormy } from '../../core/base/formy-base/formy-base.types'
 
 import { ValidationSchemaBuildersEnum } from '@dependency/schema/validation-schema/builders/builders.types'
 
+import { Formy } from '@core/formy-base/formy-base'
+import { IFormy } from '@core/formy-base/formy-base.types'
 import { ValidationSchemaBuilderType } from '@dependency/schema/validation-schema/schema/builder/validation.schema.builder.types'
 import { IValidationSchema } from '@dependency/schema/validation-schema/validation.schema.types'
 import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'

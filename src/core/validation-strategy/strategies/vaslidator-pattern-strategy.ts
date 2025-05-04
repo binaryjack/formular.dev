@@ -3,7 +3,6 @@ import { newFieldError, newFieldGuide } from '@dependency/errors'
 import { isNullEmptyOrUndefined } from '@core/utility/is-null-empty-or-undefined'
 import {
     IValidationMethodStrategy,
-    IValidationStrategy,
     IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
@@ -39,4 +38,4 @@ export const ValidatorPatternStrategy = function (this: IValidationMethodStrateg
 
         return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
     }
-} as any as IValidationStrategy
+} as any as IValidationMethodStrategy

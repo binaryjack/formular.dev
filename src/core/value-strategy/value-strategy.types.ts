@@ -1,5 +1,4 @@
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
-import { IFieldInput } from '../fields/field-base-input/field-input-base-types'
 
 export type TParser<TOut> = (value: Partial<IFValueTypes>) => TOut | null
 
@@ -27,8 +26,7 @@ export const setParserStrategy = <TOut>(
 }
 
 export interface IValueStrategy {
-    new (field: IFieldInput): IValueStrategy
-    field: IFieldInput
+    new (): IValueStrategy
     valueStrategies: IParserStrategy<unknown>[]
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void

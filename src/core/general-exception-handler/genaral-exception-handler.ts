@@ -1,6 +1,6 @@
-import { ITracker, TrackingType } from '../tracker.types'
+import { ITracker, TrackingType } from '../tracker/tracker.types'
 
-export const preExceptionHandler = function (
+export const generalExceptionHandler = function (
     tracker: ITracker | undefined,
     type: TrackingType,
     source: string,
@@ -13,7 +13,7 @@ export const preExceptionHandler = function (
         }
         _messageTrackerFactory(tracker, type, source, message)
     } catch (e: any) {
-        console.error(`${preExceptionHandler.name}: unexpected error. ${e?.message}`)
+        console.error(`${generalExceptionHandler.name}: unexpected error. ${e?.message}`)
     }
 }
 

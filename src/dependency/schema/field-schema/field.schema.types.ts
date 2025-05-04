@@ -1,4 +1,5 @@
-import { EventsType } from '../../../core/base/events/events.types'
+import { FieldTypesNamesEnum } from '@core/common.types'
+import { EventsType } from '@core/events/events.types'
 import { SchemaDataTypes } from '../../form.common.enums'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../options-schema/options.scheme.types'
@@ -7,7 +8,7 @@ import { IValidationSchema } from '../validation-schema/validation.schema.types'
 export interface IFieldSchema {
     id: number
     name: string
-    type: string
+    type: FieldTypesNamesEnum
     pattern: string | null
     min: number | null
     max: number | null

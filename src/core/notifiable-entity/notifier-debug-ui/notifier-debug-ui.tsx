@@ -1,5 +1,5 @@
+import { IEvents, newEvent } from '@core/events/events.types'
 import { useEffect, useState } from 'react'
-import { IEvents, newEvent } from '../../base/events/events.types'
 import { INotifiableEntity } from '../notifiable-entity-base.types'
 import { nnv } from '../utils/new-notification-visitor'
 interface INotifierDebugUi {

@@ -2,7 +2,7 @@
 //     () => import('@components/portals/DropdownButtonPortal')
 // )
 
-import useMediaScreens from '../../../core/hooks/screen/useMediaScreens'
+import useMediaScreens from '../../../core/hooks/screen/use-media-screens'
 import { AppContext, IAppContext } from './app-context.context'
 
 import { useState } from 'react'

@@ -5,29 +5,20 @@ import { IFieldInput } from '../field-input-base-types'
 export const initializeValueStrategy = function (
     this: IFieldInput,
     ...parsers: IParserStrategy<any>[]
-) {
-    if (!this._tracker) {
-        throw Error(
-            `${this.name} ${initializeValueStrategy.name} needs to have field's traker preinitialized!`
-        )
-    }
-
-    if (!this.prototype) {
-        this.message(
-            'critical',
-            initializeValueStrategy.name,
-            `the prototype of ${this.name} is not yes defined`
-        )
-        return
-    }
+): IFieldInput {
     try {
+        if (!this._tracker) {
+            throw Error('tracker must be initialized')
+        }
         this._value = new ValueStrategy(this)
         this._value?.acceptValueStrategies(...parsers)
+        return this
     } catch (e: any) {
         this.message(
             'critical',
             initializeValueStrategy.name,
             `an error has occured when initializing ${this.name} class: ${e.message}`
         )
+        return this
     }
 }

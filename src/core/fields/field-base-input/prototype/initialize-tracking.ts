@@ -6,17 +6,16 @@ import { IFieldInput } from '../field-input-base-types'
 export const initializeTracking = function (
     this: IFieldInput,
     providers?: ITrackingOutputProvider[]
-) {
-    if (!this.prototype) {
-        /** here I cannot yet use the internal tracking  */
-        throw Error(`${initializeTracking.name}: the prototype of ${this.name} is not yes defined`)
-    }
+): IFieldInput {
     try {
         this._tracker = new Tracker([...(providers ?? []), consoleTrackingProvider])
+        return this
     } catch (e: any) {
-        /** here I cannot yet use the internal tracking  */
-        throw Error(
-            `${initializeTracking.name}: an error has occured when initializing ${this.name} class: ${e.message}`
+        this.message(
+            'critical',
+            initializeTracking.name,
+            `an error has occured when initializing ${this.name} class: ${e.message}`
         )
+        return this
     }
 }

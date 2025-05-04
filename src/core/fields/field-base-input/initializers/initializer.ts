@@ -1,5 +1,5 @@
+import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { INotifier } from '@core/notifiable-entity/notifications.types'
-import { preExceptionHandler } from '@core/tracker/pre-exception-handler/pre-exception-handler'
 import { IFieldInput, IFieldInputBase, IFieldInputExtended } from '../field-input-base-types'
 
 export const initializer = <
@@ -44,7 +44,7 @@ export const registerNewField = function <TContext extends IFieldInputExtended<I
     this: TContext
 ) {
     if (!this._field) {
-        preExceptionHandler(
+        generalExceptionHandler(
             undefined,
             'critical',
             this.name,

@@ -1,4 +1,4 @@
-import { optionBaseedNumericTypes } from '../../field-input/field-input.types'
+import { optionBaseedNumericTypes } from '@core/common.types'
 import { numericParser } from '../parsers/numeric-parser'
 import { setParserStrategy } from '../value-strategy.types'
 

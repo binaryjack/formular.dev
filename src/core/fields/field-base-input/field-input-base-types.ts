@@ -6,7 +6,10 @@ import { IEntityScheme } from '@dependency/schema/field-schema/field.schema.type
 import { IDommable } from '@core/dommable/dommable.types'
 
 import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
-import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
+import {
+    IValidationMethodStrategy,
+    IValidationStrategy
+} from '@core/validation-strategy/validation-strategy.types'
 import { IFValueTypes } from '@dependency/schema/descriptor/field.data.types'
 import { IOptionItem } from '@dependency/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
@@ -110,15 +113,15 @@ export interface IFieldInputBase extends IBaseField {
     setValue: (value: IFValueTypes) => void
     getValue: () => IFValueTypes
 
-    /** initializers */
-    initializeEvents: () => void
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
-    initializeDommable: () => void
-    initializeTracking: (providers?: ITrackingOutputProvider[]) => void
-    initializeValueStrategy: (providers?: ITrackingOutputProvider[]) => void
-    initializeValidationStrategy: (...parsers: IParserStrategy<any>[]) => void
-    initializeDrawerableState: () => void
-    initializeStyle: () => void
+    /** initializer builders */
+    initializeEvents: () => IFieldInput
+    initializeDommable: () => IFieldInput
+    initializeTracking: (providers?: ITrackingOutputProvider[]) => IFieldInput
+    initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => IFieldInput
+    initializeValidationStrategy: (...parsers: IValidationMethodStrategy[]) => IFieldInput
+    initializeDrawerableState: () => IFieldInput
+    initializeStyle: () => IFieldInput
 
     /** Events */
     setFocus: () => void

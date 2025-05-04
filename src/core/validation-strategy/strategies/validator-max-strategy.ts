@@ -3,7 +3,6 @@ import { newFieldError, newFieldGuide } from '@dependency/errors'
 import { valueIsNullOrUndefined } from '@core/utility/value-is-null-or-undefined'
 import {
     IValidationMethodStrategy,
-    IValidationStrategy,
     IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
@@ -39,4 +38,4 @@ export const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
 
         return newValidationResult(true, data.fieldName, ValidationErrorsCodes.max)
     }
-} as any as IValidationStrategy
+} as any as IValidationMethodStrategy

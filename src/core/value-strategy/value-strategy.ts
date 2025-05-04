@@ -1,7 +1,5 @@
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { acceptValueStrategies } from './prototype/accept-value-strategies'
 import { addValueStrategies } from './prototype/add-value-strategies'
-import { getValue } from './prototype/get-value'
 import { IValueStrategy } from './value-strategy.types'
 
 /*
@@ -12,8 +10,7 @@ import { IValueStrategy } from './value-strategy.types'
         numericOptionBasedParserStrategy,
 */
 
-export const ValueStrategy = function (this: IValueStrategy, field: IFieldInput) {
-    this.field = field
+export const ValueStrategy = function (this: IValueStrategy) {
     this.valueStrategies = []
 } as any as IValueStrategy
 

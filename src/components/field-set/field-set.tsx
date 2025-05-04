@@ -6,7 +6,7 @@ import { MdClose } from 'react-icons/md'
 import { IFlagsObject } from '../../core/base/field-state-style/field-state-style.types'
 import { Button } from '../button/button'
 
-import { useCenterElementTrigger } from '../../core/hooks/screen/useCenterElement'
+import { useCenterElementTrigger } from '../../core/hooks/screen/use-center-element'
 import { CenterElementDebug } from '../context/debug/center-element-debug'
 import { Drawer } from '../drawer/drawer'
 

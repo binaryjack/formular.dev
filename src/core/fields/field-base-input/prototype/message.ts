@@ -1,5 +1,5 @@
+import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { TrackingType } from '@core/tracker/tracker.types'
-import { messageAccessor } from '../accessors/accessors'
 import { IFieldInput } from '../field-input-base-types'
 export const message = function (
     this: IFieldInput,
@@ -7,5 +7,5 @@ export const message = function (
     source: string,
     message: string
 ) {
-    return messageAccessor(this)?.(type, source, message)
+    generalExceptionHandler(this._tracker, type, source, message)
 }

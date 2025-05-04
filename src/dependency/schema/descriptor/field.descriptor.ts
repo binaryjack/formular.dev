@@ -1,3 +1,4 @@
+import { FieldTypesNamesEnum } from '@core/common.types'
 import { IValidationOptions } from '@core/validation-strategy/validation-strategy.types'
 import { IFieldError, IFieldGuide } from '../../errors'
 import { IOptionItem } from '../options-schema/options.scheme.types'
@@ -11,7 +12,7 @@ export interface IFieldDescriptor {
     value: IFValueTypes
     objectValue: INDate | null
     defaultValue: IFValueTypes
-    type: string
+    type: FieldTypesNamesEnum
     errors: IFieldError[]
     guides: IFieldGuide[]
     validationOptions: IValidationOptions
