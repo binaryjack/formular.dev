@@ -1,6 +1,7 @@
 import { EventsType } from '@core/events/events.types'
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
 
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IValidationSchema } from '../validation-schema/validation.schema.types'
@@ -29,7 +30,7 @@ type TValidationType = IValidationSchema
 
 export interface IFieldSchemaBuilder extends IFieldSchema {
     new (id: number, name: string): IFieldSchemaBuilder
-    setTypeData: (type: FieldTypeNames) => IFieldSchemaBuilder
+    setTypeData: (type: FieldDataTypes) => IFieldSchemaBuilder
     setOptionData: (target: string | null, options?: IOptionItem[]) => IFieldSchemaBuilder
     setExpectedValue: (expectedValue?: any) => IFieldSchemaBuilder
     setDefaultValue: (defaultValue?: any) => IFieldSchemaBuilder

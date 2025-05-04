@@ -1,5 +1,5 @@
+import { ToggleableStateType } from '@core/fields/toggleable-base-element/toggleable-base-element'
 import { createContext, useContext } from 'react'
-import { ToggleableStateType } from '../../toggleable/toggleable.types'
 
 export interface IDrawerContext {
     setOpenState: (e: React.MouseEvent<HTMLElement, MouseEvent>, state: ToggleableStateType) => void

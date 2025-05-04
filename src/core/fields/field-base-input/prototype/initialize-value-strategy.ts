@@ -1,6 +1,6 @@
 import { ValueStrategy } from '@core/value-strategy/value-strategy'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
 
 export const initializeValueStrategy = function (
     this: IFieldInput,
@@ -12,7 +12,7 @@ export const initializeValueStrategy = function (
         }
 
         this._value = new ValueStrategy()
-        this._value.initialize(this)
+        this._value.initialize(this as IFieldInputExtended)
         this._value.acceptValueStrategies(...parsers)
         return this
     } catch (e: any) {

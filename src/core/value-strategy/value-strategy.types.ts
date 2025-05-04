@@ -29,12 +29,12 @@ export const setParserStrategy = <TOut>(
     }
 }
 
-export interface IValueStrategy extends IFieldInputExtended<IFieldInput> {
+export interface IValueStrategy extends IFieldInputExtended {
     new (): IValueStrategy
     _field: IFieldInput
     field: <T extends IFieldInput>() => T
     valueStrategies: IParserStrategy<unknown>[]
-    initialize: (fieldInput: IFieldInput) => void
+    initialize: (fieldInput: IFieldInputExtended) => void
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null

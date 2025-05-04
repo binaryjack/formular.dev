@@ -8,11 +8,11 @@ import { registerOption } from './prototype/register-option'
 
 import { IRadioBaseInput } from './radio-base-input.types'
 
-export const RadioInput = function (this: IRadioBaseInput) {
+export const RadioBaseInput = function (this: IRadioBaseInput) {
     /** */
 } as any as IRadioBaseInput
 
-Object.assign(RadioInput.prototype, {
+Object.assign(RadioBaseInput.prototype, {
     initialize,
     handleOnChanged,
     ref,

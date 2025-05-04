@@ -1,17 +1,16 @@
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import { IFieldInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
+import { IFieldInputExtended } from '../field-base-input/field-input-base-types'
 import { IOptionInput } from '../option-based-input/option-base-input.types'
 
 export type ISelectInput = ISelectBaseInput & IOptionInput & IClickBaseInput
 
-export interface ISelectBaseInput extends IFieldInputExtended<IFieldInput> {
+export interface ISelectBaseInput extends IFieldInputExtended {
     new (): ISelectBaseInput
-    _field: ISelectInput
-    field: () => ISelectInput
 
-    initialize: (fieldInput: IFieldInput) => void
+    initialize: (fieldInput: IFieldInputExtended) => void
 
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void
@@ -24,6 +23,6 @@ export interface ISelectBaseInput extends IFieldInputExtended<IFieldInput> {
     registerOption: () => Partial<HTMLInputElement>
 
     onSelectItem: (option: IOptionItem) => void
-    setValue: (value: IOptionItem | string | number | null) => void
-    getValue: () => unknown | null
+    setValue: (value: FieldDataTypes | null) => void
+    getValue: () => FieldDataTypes
 }

@@ -1,6 +1,6 @@
-import RteDebug from '@components/debugger/rte-debug'
-import { RtbHeader } from '@components/rtb-header/rtb-header'
 import { useCallback, useRef } from 'react'
+import RteDebug from './components/debugger/rte-debug'
+import { RtbHeader } from './components/rtb-header/rtb-header'
 import { IStateData } from './core/rti-engine.types'
 import { useRtiEngine } from './hooks/use-rti-engine'
 import './rte-input.css'

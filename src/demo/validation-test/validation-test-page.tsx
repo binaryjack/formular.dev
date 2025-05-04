@@ -3,6 +3,7 @@ import FormyForm from '@components/formy/formy.form'
 import InputText from '@components/input-text/input-text'
 import { Formy } from '@core/formy-base/formy-base'
 import { IFormy } from '@core/formy-base/formy-base.types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
@@ -60,7 +61,7 @@ const maxLengthBuilder =
 const setupForm = (
     id: number,
     name: string,
-    type: SchemaDataTypes,
+    type: FieldDataTypes,
     required: boolean,
     setForm: React.Dispatch<React.SetStateAction<IFormy | null>>,
     customValidator: IValidationSchema | undefined

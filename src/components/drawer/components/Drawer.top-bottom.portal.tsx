@@ -1,6 +1,6 @@
+import { ToggleableStateType } from '@core/fields/toggleable-base-element/toggleable-base-element'
 import { ElementPositionOutputType } from '../../../style/global.types'
 import { Portal } from '../../portals/portals'
-import { ToggleableStateType } from '../../toggleable/toggleable.types'
 
 interface IDrawerTopBottomPortalProps {
     id: string

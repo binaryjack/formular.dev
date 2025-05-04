@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/schema/descriptor/field.data.types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { ITracker } from '@core/tracker/tracker.types'
 
 export interface IAria {

@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
-import { FieldValuesTypes } from '@core/framework/schema/descriptor/field.data.types'
-import { IFieldInput } from '../../core/base/field-input/field-input.types'
-import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
+import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
+import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import { formyContext, IFormyContext, useForm } from './formy.context'
@@ -11,7 +11,7 @@ import FormyDebug from './formy.debug'
 interface IFormyFormProps {
     formy: IFormy
     children: React.ReactNode
-    onSubmit?: (data: Record<string, FieldValuesTypes>) => void
+    onSubmit?: (data: Record<string, FieldDataTypes>) => void
 }
 
 const FormyForm = ({ formy, children, onSubmit }: IFormyFormProps) => {

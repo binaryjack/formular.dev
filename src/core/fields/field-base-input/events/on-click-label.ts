@@ -1,11 +1,7 @@
 import { newEvent } from '@core/events/events.types'
-import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
+import { IFieldInputExtended } from '../field-input-base-types'
 
-export const onClickLabel = <T extends IFieldInputExtended<IFieldInput>>(
-    f: T,
-    optionId: string,
-    e: Event
-) => {
+export const onClickLabel = <T extends IFieldInputExtended>(f: T, optionId: string, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     const option = f.getOptionById(optionId)
     if (option) {

@@ -1,9 +1,8 @@
+import { EventsType } from '@core/events/events.types'
+import { IValidationResult } from '@core/validation-strategy/validation-strategy.types'
 import './validation-result.css'
 
 import React, { useMemo } from 'react'
-
-import { EventsType } from '../../core/base/events/events.types'
-import { IValidationResult } from '../../core/base/validation-strategy/validator.types'
 
 // Assuming IValidationResult is imported from the appropriate module
 

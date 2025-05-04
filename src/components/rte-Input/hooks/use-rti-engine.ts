@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { RtiEngine } from '../core/rti-engine/rti-engine'
 
-import { EventsType, newEvent } from '../../../core/base/events/events.types'
+import { EventsType, newEvent } from '@core/events/events.types'
 import { nnv } from '../../../core/notifiable-entity/utils/new-notification-visitor'
 import {
     defaultEngineState,

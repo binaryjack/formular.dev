@@ -1,16 +1,12 @@
-import { IOptionInput } from '@core/fields/option-based-input/option-base-input.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
+import { IFieldInputExtended } from '../field-input-base-types'
 
-export const referencer = function (
-    context: IFieldInputExtended<IFieldInput>,
-    ref: HTMLInputElement | null
-) {
+export const referencer = function (context: IFieldInputExtended, ref: HTMLInputElement | null) {
     context.field().dom()?.dmRegister(ref)
 }
 
 export const optionReferencer = function (
-    context: IFieldInputExtended<IOptionInput>,
+    context: IFieldInputExtended,
     ref: HTMLInputElement | null
 ) {
     if (!ref) return null

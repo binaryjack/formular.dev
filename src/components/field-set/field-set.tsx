@@ -3,7 +3,6 @@ import './field-set.css'
 import React from 'react'
 import { MdClose } from 'react-icons/md'
 
-import { IFlagsObject } from '../../core/base/field-state-style/field-state-style.types'
 import { Button } from '../button/button'
 
 import { useCenterElementTrigger } from '../../core/hooks/screen/use-center-element'
@@ -14,6 +13,7 @@ import { DrawerSlot } from '../drawer/components/drawer-slot'
 import { DrawerToggle } from '../drawer/components/drawer.toggle'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { IStateFlags } from '@core/fields/field-state-style/field-state-style.types'
 import { conventions } from '../context/conventions/conventions'
 import { PasswordToggle } from '../password/password.toggle'
 
@@ -22,7 +22,7 @@ interface IFieldSetProps<TType> {
     label?: string
     type: TType
     isPasswordVisible?: boolean
-    flags: IFlagsObject
+    flags: IStateFlags
     children: React.ReactNode
     itemsChildren?: React.ReactNode
     itemsDrawerWidth?: string

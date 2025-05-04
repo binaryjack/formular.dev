@@ -1,9 +1,10 @@
 import { handleValidation } from '@core/formy-base/prototype/handle-validation'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 
-import { IField, IFieldInput } from './field-input-base-types'
+import { IFieldInput } from './field-input-base-types'
 import { clear } from './prototype/clear'
 import { enable } from './prototype/enable'
+import { focus } from './prototype/focus'
 import { handleOnBlur } from './prototype/handle-on-blur'
 import { handleOnClear } from './prototype/handle-on-clear'
 import { handleOnFocus } from './prototype/handle-on-focus'
@@ -44,8 +45,3 @@ Object.assign(FieldInput.prototype, {
     handleValidation,
     message
 })
-
-/** usable field */
-export const Field = function (this: IField, descriptor: IFieldDescriptor) {
-    return new FieldInput(descriptor)
-} as any as IField

@@ -1,5 +1,4 @@
-import { newFieldError, newFieldGuide } from '@dependency/errors'
-
+import { newFieldError, newFieldGuide } from '@core/framework/errors'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
 import {
     IValidationMethodStrategy,

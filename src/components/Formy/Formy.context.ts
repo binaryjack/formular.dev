@@ -1,8 +1,7 @@
+import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
+import { FormCreator } from '@core/formy-base/formy.creator'
 import React from 'react'
-
-import { IFieldInput } from '../../core/base/field-input/field-input.types'
-import { IFormy, IFormyFlags } from '../../core/base/formy-base/formy-base.types'
-import { FormCreator } from '../../core/base/formy-base/formy.creator'
 
 export interface IFormyContext {
     getFields: () => IFieldInput[]

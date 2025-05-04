@@ -1,4 +1,4 @@
-import { IFormy } from '../../core/base/formy-base/formy-base.types'
+import { IFormy } from '@core/formy-base/formy-base.types'
 import useFormyContext, { useForm } from './formy.context'
 
 interface FormyDebugProps {

@@ -4,10 +4,10 @@ import { onChange } from '../events/on-changed'
 import { onClick } from '../events/on-click'
 import { onClickLabel } from '../events/on-click-label'
 import { onFocus } from '../events/on-focus'
-import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
+import { IFieldInputExtended } from '../field-input-base-types'
 
 export interface IDomRegisterBuilder {
-    new (context: IFieldInputExtended<IFieldInput>): IDomRegisterBuilder
+    new (context: IFieldInputExtended): IDomRegisterBuilder
     onchange: (e: Event) => void
     onblur: (e: Event) => void
     onfocus: (e: Event) => void
@@ -22,10 +22,7 @@ export interface IDomRegisterBuilder {
     build: () => Partial<HTMLInputElement>
 }
 
-export const domRegister = function (
-    this: IDomRegisterBuilder,
-    context: IFieldInputExtended<IFieldInput>
-) {
+export const domRegister = function (this: IDomRegisterBuilder, context: IFieldInputExtended) {
     this.registerChange = function (this: IDomRegisterBuilder) {
         this.onchange = (e: Event) => onChange(context.field(), e)
         return this

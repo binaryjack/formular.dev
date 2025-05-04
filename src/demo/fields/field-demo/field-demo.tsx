@@ -3,8 +3,10 @@ import FieldSet from '@components/field-set/field-set'
 import ValidationResultComponent from '@components/validation-result/validation-result'
 import { FieldInputCreator } from '@core/fields/field-base-input/field-input.creator'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
-import { mapSchemaToFieldDescriptor } from '@dependency/to-field-descriptor'
+
+import { useField } from '@core/factory/react/hooks/use-field'
+import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { Signals } from '../../../core/signals/signal'
 import { controlsDemoSchema } from '../../form-demo/form-demo.schema'
 
@@ -16,7 +18,7 @@ const item = controlsDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
-const { newFieldFromDescriptors, useField } = FieldInputCreator
+const { newFieldFromDescriptors } = FieldInputCreator
 
 const outSideFields = newFieldFromDescriptors(fieldDescriptors)
 

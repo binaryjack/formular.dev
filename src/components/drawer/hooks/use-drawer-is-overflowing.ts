@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { ToggleableStateType } from '@core/fields/toggleable-base-element/toggleable-base-element'
 import useThrottle from '../../../core/hooks/use-throttle'
 import { ElementPositionOutputType } from '../../../style/global.types'
 import useAppContext from '../../context/app-context/app-context.context'
 import { useScrollingContext } from '../../context/scrolling/scrolling.context'
-import { ToggleableStateType } from '../../toggleable/toggleable.types'
 
 export type OverflowingEdgeType = 'top' | 'bottom' | 'none'
 

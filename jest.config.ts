@@ -6,6 +6,31 @@
 import type { Config } from 'jest'
 
 const config: Config = {
+    preset: 'ts-jest',
+    // Automatically clear mock calls, instances, contexts and results before every test
+    clearMocks: true,
+    // Indicates whether the coverage information should be collected while executing the test
+    collectCoverage: true,
+    // The directory where Jest should output its coverage files
+    coverageDirectory: 'coverage',
+    // Indicates which provider should be used to instrument code for coverage
+    coverageProvider: 'v8',
+    // An array of directory names to be searched recursively up from the requiring module's location
+    // moduleDirectories: ['node_modules'],
+    // An array of file extensions your modules use
+    moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
+    // The test environment that will be used for testing
+    testEnvironment: 'node',
+    injectGlobals: true,
+    // moduleNameMapper: {
+    //     '^@core/(.*)$': '<rootDir>/src/core/$1',
+    //     '^@components/(.*)$': '<rootDir>/src/components/$1'
+    // },
+    // transform: {
+    //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
+    // },
+    testMatch: ['<rootDir>/src/__tests__/**/*.(spec|test).ts?(x)'], // Only look in the __tests__ folder
+    setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'] // Optional: Jest setup file
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -15,25 +40,13 @@ const config: Config = {
     // The directory where Jest should store its cached dependency information
     // cacheDirectory: "C:\\Users\\piana\\AppData\\Local\\Temp\\jest",
 
-    // Automatically clear mock calls, instances, contexts and results before every test
-    clearMocks: true,
-
-    // Indicates whether the coverage information should be collected while executing the test
-    collectCoverage: true,
-
     // An array of glob patterns indicating a set of files for which coverage information should be collected
     // collectCoverageFrom: undefined,
-
-    // The directory where Jest should output its coverage files
-    coverageDirectory: 'coverage',
 
     // An array of regexp pattern strings used to skip coverage collection
     // coveragePathIgnorePatterns: [
     //   "\\\\node_modules\\\\"
     // ],
-
-    // Indicates which provider should be used to instrument code for coverage
-    coverageProvider: 'v8',
 
     // A list of reporter names that Jest uses when writing coverage reports
     // coverageReporters: [
@@ -71,12 +84,6 @@ const config: Config = {
 
     // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
     // maxWorkers: "50%",
-
-    // An array of directory names to be searched recursively up from the requiring module's location
-    moduleDirectories: ['node_modules'],
-
-    // An array of file extensions your modules use
-    moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     // moduleNameMapper: {},
@@ -134,9 +141,6 @@ const config: Config = {
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
 
-    // The test environment that will be used for testing
-    testEnvironment: 'node',
-    injectGlobals: true
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},
 

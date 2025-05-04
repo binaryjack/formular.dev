@@ -1,8 +1,8 @@
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { IFieldInputExtended } from '@core/fields/field-base-input/field-input-base-types'
 import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { IFieldStateStyle } from '../field-state-style.types'
 
-export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldInput) {
+export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldInputExtended) {
     initializer(initialize.name, this, fieldInput, [], (e) => {
         if (!e.field().validationStrategy()?.validationOptions) {
             throw Error(

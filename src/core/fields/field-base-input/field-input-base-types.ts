@@ -14,83 +14,58 @@ import {
 } from '@core/validation-strategy/validation-strategy.types'
 import { IEvents } from '../../events/events.types'
 import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
-import { IClickBaseInput } from '../click-base-input/click-base-input.types'
 import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
 import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
-import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
+import { ToggleableStateType } from '../toggleable-base-element/toggleable-base-element'
 
-export interface IBaseField {
+/**
+ * Should be the root base of a field's properties
+ */
+export interface IFieldBaseProperties {
     [key: string]: any
     id: number
     name: string
-    label?: string
-    value: any
-    defaultValue?: any
+    label: string
+
+    enabled: boolean
     isValid: boolean
     isDirty: boolean
     isPristine: boolean
     isFocus: boolean
 
-    /** Dependency accessors */
-    dom?: () => IDommable<HTMLInputElement> | undefined
-    notifier?: () => INotifiableEntity | undefined
-    style?: () => IFieldStateStyle | undefined
-    track?: () => ITracker | undefined
-    validationStrategy?: () => IValidationStrategy | undefined
-    valueStrategy?: () => IValueStrategy | undefined
+    value: FieldDataTypes
+    originalValue: FieldDataTypes
+}
 
+/**
+ * Should be the base of a field's methods
+ */
+export interface IFieldBaseMethods extends IFieldBaseProperties {
+    [key: string]: any
+
+    /** message helper method : uses treacker and fallbacks to console */
+    message: (type: TrackingType, source: string, message: string) => void
     /** Core methods */
-    setValue: (value: any) => void
-    getValue: () => any
+    setValue: (value: FieldDataTypes) => void
+    getValue: () => FieldDataTypes
+
     setFocus: () => void
     clear: () => void
     enable: (enabled: boolean) => void
+
     hasChanges: (callback: () => void) => void
     handleValidation: <T extends IEvents>(event?: T) => void
-}
 
-export type IInitializerType = IFieldInputBase | IOptionBaseInput | IFieldInput | IClickBaseInput
-
-export interface IFieldInputExtended<Tfi extends IBaseField> {
-    id: number
-    name: string
-    checked?: boolean
-    optionsInitialized: boolean
-    /** works with IOptionItem[] and fields of type select*/
-    selectedOptionId: number | null
-    valueStrategies: IParserStrategy<unknown>[]
-
-    _field: Tfi
-    field: () => Tfi
-
-    hasChange: (callback: () => void) => void
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
-    handleOnChanged: <T extends IEvents>(data?: T) => void
-    handleOnClick: <T extends IEvents>(data?: T) => void
-    handleValidation: <T extends IEvents>(event?: T) => void
-    getOptionById: (id: string) => IOptionItem | null
 }
 
-export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
-/** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
-export type IFieldInput = IFieldInputBase & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
-
-export interface IField
-    extends Omit<
-        IFieldInput,
-        '_dom' | '_drawer' | '_style' | '_notifier' | '_tracker' | '_validation' | '_value'
-    > {
-    new (descriptor: IFieldDescriptor): IField
-}
-
-export interface IFieldInputBase extends IBaseField {
-    new (descriptor: IFieldDescriptor): IFieldInput
-
-    originalValue: FieldDataTypes
-    enabled: boolean
-
+/**
+ * Should be the base of a private implementation of a Field Input
+ */
+export interface IFieldPrivateAccessors extends IFieldBaseMethods {
+    [key: string]: any
     /** dependencies */
     _dom?: IDommable<HTMLInputElement>
     _drawer?: IDrawerBaseInput
@@ -99,21 +74,24 @@ export interface IFieldInputBase extends IBaseField {
     _tracker?: ITracker
     _validation?: IValidationStrategy
     _value?: IValueStrategy
-    /** message helper method : uses treacker and fallbacks to console */
-    message: (type: TrackingType, source: string, message: string) => void
+}
+
+/**
+ * Should be the base of a public implementation of a Field Input
+ */
+export interface IFieldPublicAccessors extends IFieldBaseMethods {
+    [key: string]: any
+
     /** Dependency accessors */
-    dom(): IDommable<HTMLInputElement> | undefined
-    notifier: () => INotifiableEntity | undefined
-    drawer: () => IDrawerBaseInput | undefined
-    style: () => IFieldStateStyle | undefined
-    track: () => ITracker | undefined
-    validationStrategy: () => IValidationStrategy | undefined
-    valueStrategy: () => IValueStrategy | undefined
+    dom?: () => IDommable<HTMLInputElement> | undefined
+    notifier?: () => INotifiableEntity | undefined
+    style?: () => IFieldStateStyle | undefined
+    track?: () => ITracker | undefined
+    validationStrategy?: () => IValidationStrategy | undefined
+    valueStrategy?: () => IValueStrategy | undefined
+}
 
-    setValue: (value: FieldDataTypes) => void
-    getValue: () => FieldDataTypes
-
-    initializeFieldProperties: (descriptor: IFieldDescriptor) => void
+export interface IPrivateBaseField extends IFieldPrivateAccessors {
     /** initializer builders */
     initializeEvents: () => IFieldInput
     initializeDommable: () => IFieldInput
@@ -122,18 +100,64 @@ export interface IFieldInputBase extends IBaseField {
     initializeValidationStrategy: (...parsers: IValidationMethodStrategy[]) => IFieldInput
     initializeDrawerableState: () => IFieldInput
     initializeStyle: () => IFieldInput
+}
 
-    /** Events */
-    setFocus: () => void
-    enable: (enabled: boolean) => void
-    show: (show: boolean) => void
-    clear: () => void
-    focus: () => void
+export interface IPublicBaseField extends IFieldPublicAccessors {
+    /** */
+}
 
-    /** Event handlers */
-    hasChanges: (callback: () => void) => void
+export interface IExtendedFieldBase extends IFieldBaseInput {
+    id: number
+    name: string
+    valueStrategies: IParserStrategy<unknown>[]
+    _field: IFieldInput
+    field: () => IFieldInput
+}
+
+export interface IDrawerExtendedField extends IExtendedFieldBase {
+    openState: ToggleableStateType
+}
+
+export interface IClickExtendedField extends IExtendedFieldBase {
+    checked?: boolean
+}
+
+export interface IOptionExtendedField extends IExtendedFieldBase {
+    options: IOptionItem[]
+    optionsInitialized: boolean
+    /** works with IOptionItem[] and fields of type select*/
+    selectedOptionId: number | null
+
+    getOptionById: (id: string) => IOptionItem | null
+    getOptionByValue: (value: string) => IOptionItem | null
+    tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+}
+
+export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
+
+/** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
+export type IFieldInput = IFieldBaseInput & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
+
+export interface IFieldBaseInput extends IPrivateBaseField {
+    new (descriptor: IFieldDescriptor): IFieldInput
+
+    initializeFieldProperties: (descriptor: IFieldDescriptor) => void
+}
+
+export interface FieldsExtensionsTypes
+    extends IExtendedFieldBase,
+        IDrawerExtendedField,
+        IClickExtendedField,
+        IOptionExtendedField,
+        IFieldInput {}
+
+export interface IFieldInputExtended extends FieldsExtensionsTypes {
+    hasChange: (callback: () => void) => void
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
+    handleOnChanged: <T extends IEvents>(data?: T) => void
+    handleOnClick: <T extends IEvents>(data?: T) => void
     handleValidation: <T extends IEvents>(event?: T) => void
+    getOptionById: (id: string) => IOptionItem | null
 }

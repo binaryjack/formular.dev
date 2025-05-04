@@ -17,8 +17,8 @@ import RteInputField from '@components/rte-Input/rte-input-field'
 import Select from '@components/select-input/select-input'
 import SwitchButtonInput from '@components/switch-button/switch-button-input'
 import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
-import { INDate } from '@dependency/schema/descriptor/field.data.date.struct'
-import { IFieldDescriptor } from '@dependency/schema/descriptor/field.descriptor'
+import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { Signals } from '../../core/signals/signal'
 import { demoFormInstance } from './form-demo.instance'
 
@@ -61,7 +61,7 @@ const FormDemo = () => {
     }
 
     const fieldSelect = useMemo(() => {
-        return demoFormInstance?.fields.find((o) => o.name === 'selectOptionsId')
+        return demoFormInstance?.fields.find((o: any) => o.name === 'selectOptionsId')
     }, [demoFormInstance])
 
     return (

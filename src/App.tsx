@@ -77,26 +77,21 @@ const validationDemo = () => (
     </div>
 )
 
+// const [fields, setFields] = useState<IFieldDescriptor[]>([])
+// useEffect(() => {
+// build a schema for the fields to be used
+// const item = controlDemoSchema
+// // map schema to fieldsDescriptors collection from schema
+// const fieldDescriptors = mapSchemaToFieldDescriptor(item)
+
+// setFields(fieldDescriptors)
+//     // map object values to fieldsDescriptors collection
+//     // const fields = mapObjectToFields(fieldDescriptors, newFormObject)
+
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [])
 const App = () => {
-    // const [fields, setFields] = useState<IFieldDescriptor[]>([])
-    // useEffect(() => {
-    // build a schema for the fields to be used
-    // const item = controlDemoSchema
-    // // map schema to fieldsDescriptors collection from schema
-    // const fieldDescriptors = mapSchemaToFieldDescriptor(item)
-
-    // setFields(fieldDescriptors)
-    //     // map object values to fieldsDescriptors collection
-    //     // const fields = mapObjectToFields(fieldDescriptors, newFormObject)
-
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
-
-    return (
-        <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            {validationDemo()}
-        </div>
-    )
+    return <div className={`app flex flex-col items-center justify-center min-w-[300px]`}></div>
 }
 
 export default App

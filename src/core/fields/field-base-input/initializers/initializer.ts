@@ -1,11 +1,8 @@
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { INotifier } from '@core/notifiable-entity/notifications.types'
-import { IFieldInput, IFieldInputBase, IFieldInputExtended } from '../field-input-base-types'
+import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
 
-export const initializer = <
-    TFieldInput extends IFieldInputBase,
-    TContext extends IFieldInputExtended<IFieldInputBase>
->(
+export const initializer = <TFieldInput extends IFieldInput, TContext extends IFieldInputExtended>(
     caller: string,
     context: TContext,
     fieldInput: TFieldInput,
@@ -40,9 +37,7 @@ export const initializer = <
     }
 }
 
-export const registerNewField = function <TContext extends IFieldInputExtended<IFieldInput>>(
-    this: TContext
-) {
+export const registerNewField = function <TContext extends IFieldInputExtended>(this: TContext) {
     if (!this._field) {
         generalExceptionHandler(
             undefined,
