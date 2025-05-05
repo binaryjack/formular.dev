@@ -1,3 +1,4 @@
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { ICheckBoxBaseInput } from './check-box-base-input.types'
 
 import { handleOnChanged } from './prototype/handle-on-changed'
@@ -9,9 +10,13 @@ export const CheckBoxInput = function (this: ICheckBoxBaseInput) {
     /** */
 } as any as ICheckBoxBaseInput
 
-Object.assign(CheckBoxInput.prototype, {
-    initialize,
-    handleOnChanged,
-    ref,
-    register
-})
+export const CheckBoxInputInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initialize,
+        handleOnChanged,
+        ref,
+        register
+    })
+}
+
+CheckBoxInputInstance(CheckBoxInput.prototype)

@@ -1,12 +1,16 @@
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IEvents } from '../../events/events.types'
-import { IFieldInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
+import {
+    IFieldBaseInput,
+    IFieldInput,
+    IFieldInputExtended
+} from '../field-base-input/field-input-base-types'
 
 export interface ICheckBoxBaseInput extends IFieldInputExtended {
     new (): ICheckBoxBaseInput
     _field: IFieldInput
     field: () => IFieldInput
-    initialize: (fieldInput: IFieldInputExtended) => void
+    initialize: (fieldInput: IFieldBaseInput) => void
     ref: (ref: HTMLInputElement | null) => void
     register: () => void
     setValue: (value: FieldDataTypes) => void

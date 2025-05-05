@@ -1,5 +1,6 @@
 import { ISelectBaseInput } from './select-base-input.types'
 
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { handleOnChanged } from './prototype/handle-on-changed'
 import { handleOnSelected } from './prototype/handle-on-selected'
 import { initialize } from './prototype/initialize'
@@ -13,13 +14,17 @@ export const SelectBaseInput = function (this: ISelectBaseInput) {
     /** */
 } as any as ISelectBaseInput
 
-Object.assign(SelectBaseInput.prototype, {
-    initialize,
-    handleOnChanged,
-    handleOnSelected,
-    ref,
-    register,
-    refOption,
-    registerOption,
-    onSelectItem
-})
+export const SelectBaseInputInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initialize,
+        handleOnChanged,
+        handleOnSelected,
+        ref,
+        register,
+        refOption,
+        registerOption,
+        onSelectItem
+    })
+}
+
+SelectBaseInputInstance(SelectBaseInput.prototype)

@@ -1,9 +1,8 @@
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { createAccessor } from '../accessors/accessors'
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldInputExtended } from '../field-input-base-types'
 
 export const initializeFieldProperties = function (
-    this: IFieldInput,
+    this: IFieldInputExtended,
     descriptor: IFieldDescriptor
 ) {
     this.id = descriptor.id
@@ -22,15 +21,4 @@ export const initializeFieldProperties = function (
     this.expectedValue = descriptor.expectedValue
     this.loaded = descriptor.loaded ?? false
     this.changed = descriptor.changed ?? false
-
-    const fieldAccessors = createAccessor(this)
-    this.dom = fieldAccessors.dom
-    this.drawer = fieldAccessors.drawer
-    this.notifier = fieldAccessors.notifier
-    this.style = fieldAccessors.style
-    this.track = fieldAccessors.track
-    this.validationStrategy = fieldAccessors.validationStrategy
-    this.valueStrategy = fieldAccessors.valueStrategy
-    this.setValue = fieldAccessors.setValue
-    this.getValue = fieldAccessors.getValue
 }

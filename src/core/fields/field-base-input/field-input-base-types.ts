@@ -7,11 +7,8 @@ import { IDommable } from '@core/dommable/dommable.types'
 
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
-import {
-    IValidationMethodStrategy,
-    IValidationStrategy
-} from '@core/validation-strategy/validation-strategy.types'
+import { ITracker, TrackingType } from '@core/tracker/tracker.types'
+import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IEvents } from '../../events/events.types'
 import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
 import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
@@ -21,7 +18,7 @@ import { ToggleableStateType } from '../toggleable-base-element/toggleable-base-
 /**
  * Should be the root base of a field's properties
  */
-export interface IFieldBaseProperties {
+export interface IField extends IFieldDescriptor {
     [key: string]: any
     id: number
     name: string
@@ -35,13 +32,6 @@ export interface IFieldBaseProperties {
 
     value: FieldDataTypes
     originalValue: FieldDataTypes
-}
-
-/**
- * Should be the base of a field's methods
- */
-export interface IFieldBaseMethods extends IFieldBaseProperties {
-    [key: string]: any
 
     /** message helper method : uses treacker and fallbacks to console */
     message: (type: TrackingType, source: string, message: string) => void
@@ -59,78 +49,27 @@ export interface IFieldBaseMethods extends IFieldBaseProperties {
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
-}
-
-/**
- * Should be the base of a private implementation of a Field Input
- */
-export interface IFieldPrivateAccessors extends IFieldBaseMethods {
-    [key: string]: any
-    /** dependencies */
-    _dom?: IDommable<HTMLInputElement>
-    _drawer?: IDrawerBaseInput
-    _style?: IFieldStateStyle
-    _notifier?: INotifiableEntity
-    _tracker?: ITracker
-    _validation?: IValidationStrategy
-    _value?: IValueStrategy
-}
-
-/**
- * Should be the base of a public implementation of a Field Input
- */
-export interface IFieldPublicAccessors extends IFieldBaseMethods {
-    [key: string]: any
 
     /** Dependency accessors */
-    dom?: () => IDommable<HTMLInputElement> | undefined
-    notifier?: () => INotifiableEntity | undefined
-    style?: () => IFieldStateStyle | undefined
-    track?: () => ITracker | undefined
-    validationStrategy?: () => IValidationStrategy | undefined
-    valueStrategy?: () => IValueStrategy | undefined
+    dom: () => IDommable<HTMLInputElement>
+    notifier: () => INotifiableEntity
+    drawer: () => IDrawerBaseInput
+    style: () => IFieldStateStyle
+    track: () => ITracker
+    validationStrategy: () => IValidationStrategy
+    valueStrategy: () => IValueStrategy
 }
 
-export interface IPrivateBaseField extends IFieldPrivateAccessors {
-    /** initializer builders */
-    initializeEvents: () => IFieldInput
-    initializeDommable: () => IFieldInput
-    initializeTracking: (providers?: ITrackingOutputProvider[]) => IFieldInput
-    initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => IFieldInput
-    initializeValidationStrategy: (...parsers: IValidationMethodStrategy[]) => IFieldInput
-    initializeDrawerableState: () => IFieldInput
-    initializeStyle: () => IFieldInput
-}
-
-export interface IPublicBaseField extends IFieldPublicAccessors {
-    /** */
-}
-
-export interface IExtendedFieldBase extends IFieldBaseInput {
-    id: number
-    name: string
-    valueStrategies: IParserStrategy<unknown>[]
-    _field: IFieldInput
-    field: () => IFieldInput
-}
-
-export interface IDrawerExtendedField extends IExtendedFieldBase {
-    openState: ToggleableStateType
-}
-
-export interface IClickExtendedField extends IExtendedFieldBase {
-    checked?: boolean
-}
-
-export interface IOptionExtendedField extends IExtendedFieldBase {
-    options: IOptionItem[]
-    optionsInitialized: boolean
-    /** works with IOptionItem[] and fields of type select*/
-    selectedOptionId: number | null
-
-    getOptionById: (id: string) => IOptionItem | null
-    getOptionByValue: (value: string) => IOptionItem | null
-    tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+export interface IFieldExtensions {
+    [key: string]: any
+    /** dependencies */
+    _dom: IDommable<HTMLInputElement>
+    _drawer: IDrawerBaseInput
+    _style: IFieldStateStyle
+    _notifier: INotifiableEntity
+    _tracker: ITracker
+    _validation: IValidationStrategy
+    _value: IValueStrategy
 }
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
@@ -138,26 +77,29 @@ export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldD
 /** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
 export type IFieldInput = IFieldBaseInput & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
 
-export interface IFieldBaseInput extends IPrivateBaseField {
-    new (descriptor: IFieldDescriptor): IFieldInput
-
+export interface IFieldBaseInput extends IField, IFieldExtensions {
+    new (descriptor: IFieldDescriptor): IFieldBaseInput
+    /** initializer builders */
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
+    checkInitialized: () => boolean
 }
 
-export interface FieldsExtensionsTypes
-    extends IExtendedFieldBase,
-        IDrawerExtendedField,
-        IClickExtendedField,
-        IOptionExtendedField,
-        IFieldInput {}
+export interface IFieldInputExtended extends IFieldBaseInput {
+    valueStrategies: IParserStrategy<unknown>[]
+    _field: IFieldInput
+    field: () => IFieldInput
+    options: IOptionItem[]
+    optionsInitialized: boolean
+    /** works with IOptionItem[] and fields of type select*/
+    selectedOptionId: number | null
+    checked?: boolean
+    openState: ToggleableStateType
 
-export interface IFieldInputExtended extends FieldsExtensionsTypes {
-    hasChange: (callback: () => void) => void
-    handleOnBlur: <T extends IEvents>(data?: T) => void
-    handleOnFocus: <T extends IEvents>(data?: T) => void
-    handleOnClear: <T extends IEvents>(data?: T) => void
+    getOptionByValue: (value: string) => IOptionItem | null
+    tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void
-    handleValidation: <T extends IEvents>(event?: T) => void
+
     getOptionById: (id: string) => IOptionItem | null
 }

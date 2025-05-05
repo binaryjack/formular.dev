@@ -1,4 +1,5 @@
 import {
+    IFieldBaseInput,
     IFieldInput,
     IFieldInputExtended
 } from '@core/fields/field-base-input/field-input-base-types'
@@ -34,7 +35,7 @@ export interface IValueStrategy extends IFieldInputExtended {
     _field: IFieldInput
     field: <T extends IFieldInput>() => T
     valueStrategies: IParserStrategy<unknown>[]
-    initialize: (fieldInput: IFieldInputExtended) => void
+    initialize: (fieldInput: IFieldBaseInput) => void
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null

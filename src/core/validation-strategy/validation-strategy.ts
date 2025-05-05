@@ -1,6 +1,7 @@
 import { addValidationStrategies } from './prototype/add-validation-strategies'
 import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
 
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { initializeValidationStrategy } from './prototype/initialize-validation-strategy'
 import { validate } from './prototype/validate'
 import { validateAll } from './prototype/validate-all'
@@ -23,10 +24,14 @@ export const ValidationStrategy = function (
     this: IValidationStrategy
 ) {} as any as IValidationStrategy
 
-Object.assign(ValidationStrategy.prototype, {
-    initializeValidationStrategy,
-    addValidationStrategies,
-    setValidationTriggerMode,
-    validate,
-    validateAll
-})
+export const ValidationStrategyInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initializeValidationStrategy,
+        addValidationStrategies,
+        setValidationTriggerMode,
+        validate,
+        validateAll
+    })
+}
+
+ValidationStrategyInstance(ValidationStrategy.prototype)

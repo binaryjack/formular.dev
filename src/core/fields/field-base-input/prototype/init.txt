@@ -1,0 +1,27 @@
+ const fieldAccessors = createAccessor(this as IFieldInputExtended)
+    this._tracker = fieldAccessors.tracker()!
+    this._dom = fieldAccessors.dom()!
+    this._notifier = fieldAccessors.notifier()!
+    this._drawer = fieldAccessors.drawer()!
+    this._style = fieldAccessors.style()!
+    this._validation = fieldAccessors.validationStrategy()!
+    this._value = fieldAccessors.valueStrategy()!
+    this._setValue = fieldAccessors.setValue
+    this._getValue = fieldAccessors.getValue
+
+    if (
+        !this._tracker ||
+        !this._dom ||
+        !this._notifier ||
+        !this._drawer ||
+        !this._style ||
+        !this._validation ||
+        !this._value
+    ) {
+        generalExceptionHandler(
+            undefined,
+            'critical',
+            initializeFieldProperties.name,
+            `extensions must be initialized`
+        )
+    }

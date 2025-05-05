@@ -1,3 +1,4 @@
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { DataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject'
 import { INotifiableEntity } from './notifiable-entity-base.types'
 import { INotifier } from './notifications.types'
@@ -23,12 +24,16 @@ export const NotifiableEntity = function (
     this.computedSignalCallback = null
 } as any as INotifiableEntity
 
-Object.assign(NotifiableEntity.prototype, {
-    debounceNotify,
-    getRegisteredNotifierNames,
-    accept,
-    notify,
-    dispose
-})
+export const NotifiableEntityInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        debounceNotify,
+        getRegisteredNotifierNames,
+        accept,
+        notify,
+        dispose
+    })
+}
+
+NotifiableEntityInstance(NotifiableEntity.prototype)
 
 export const _intNotificationTracker = new NotifiableEntity()

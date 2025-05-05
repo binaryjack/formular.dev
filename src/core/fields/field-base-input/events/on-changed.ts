@@ -6,9 +6,9 @@ export const onChange = (f: IFieldInput, e: Event) => {
 
     f.value = inputElement.value
     f.isPristine = f.originalValue === f.value
-    f.style()?.fieldStateStyle.update('pristine', f.isPristine)
+    f.style()?.update('pristine', f.isPristine)
     f.isDirty = f.originalValue !== f.value
-    f.style()?.fieldStateStyle.update('dirty', f.isDirty)
+    f.style()?.update('dirty', f.isDirty)
 
     f
         ?.notifier()

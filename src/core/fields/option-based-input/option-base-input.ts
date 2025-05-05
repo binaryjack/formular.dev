@@ -1,3 +1,4 @@
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { IOptionBaseInput } from './option-base-input.types'
 import { checkOptionsInitialized } from './prototype/check-options-initialized'
 import { getOptionById } from './prototype/get-option-by-id'
@@ -12,13 +13,17 @@ export const OptionBaseInput = function (this: IOptionBaseInput) {
     /** */
 } as any as IOptionBaseInput
 
-Object.assign(OptionBaseInput.prototype, {
-    initialize,
-    checkOptionsInitialized,
-    getSelectedValue,
-    getOptionByValue,
-    getOptionById,
-    getOptionBySequenceId,
-    tryGetOptionByIdOrValue,
-    tryGetOptionBySequenceIdThenIdOrValue
-})
+export const OptionBaseInputInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initialize,
+        checkOptionsInitialized,
+        getSelectedValue,
+        getOptionByValue,
+        getOptionById,
+        getOptionBySequenceId,
+        tryGetOptionByIdOrValue,
+        tryGetOptionBySequenceIdThenIdOrValue
+    })
+}
+
+OptionBaseInputInstance(OptionBaseInput.prototype)

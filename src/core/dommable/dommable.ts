@@ -1,5 +1,5 @@
 import { IDommable } from '@core/dommable/dommable.types'
-import { ITracker } from '@core/tracker/tracker.types'
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { dmAddArias } from './prototype/dm-add-arias'
 import { dmAriaSet } from './prototype/dm-aria-set'
 import { dmClear } from './prototype/dm-clear'
@@ -13,27 +13,30 @@ import { dmSetEnabled } from './prototype/dm-set-enabled'
 import { dmSetFocus } from './prototype/dm-set-focus'
 import { dmSetSelected } from './prototype/dm-set-selected'
 import { dmSetValue } from './prototype/dm-set-value'
+import { initialize } from './prototype/initialize'
 
-export const Dommable = function <T extends HTMLElement>(
-    this: IDommable<T>,
-    tracker: ITracker | null
-) {
+export const Dommable = function <T extends HTMLElement>(this: IDommable<T>) {
     this.elements = []
-    this._tracker = tracker
+    this._tracker = null
 } as any as IDommable<any>
 
-Object.assign(Dommable.prototype, {
-    dmGet,
-    dmExists,
-    dmRegister,
-    dmRegisterById,
-    dmSetFocus,
-    dmSetEnabled,
-    dmSetValue,
-    dmClear,
-    dmSetChecked,
-    dmSetClass,
-    dmSetSelected,
-    dmAriaSet,
-    dmAddArias
-})
+export const DommableInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initialize,
+        dmGet,
+        dmExists,
+        dmRegister,
+        dmRegisterById,
+        dmSetFocus,
+        dmSetEnabled,
+        dmSetValue,
+        dmClear,
+        dmSetChecked,
+        dmSetClass,
+        dmSetSelected,
+        dmAddArias,
+        dmAriaSet
+    })
+}
+
+DommableInstance(Dommable.prototype)

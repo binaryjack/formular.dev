@@ -5,7 +5,7 @@ export const onBlur = (f: IFieldInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
     f.isFocus = false
-    f.style()?.fieldStateStyle.update('focus', f.isFocus)
+    f.style()?.update('focus', f.isFocus)
 
     e.stopPropagation()
     e.preventDefault()

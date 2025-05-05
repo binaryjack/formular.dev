@@ -3,7 +3,7 @@ import { IFieldInput } from '../field-input-base-types'
 
 export const onFocus = (f: IFieldInput, e: Event) => {
     f.isFocus = true
-    f.style()?.fieldStateStyle.update('focus', f.isFocus)
+    f.style()?.update('focus', f.isFocus)
 
     e.stopPropagation()
     e.preventDefault()

@@ -1,3 +1,4 @@
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { acceptValueStrategies } from './prototype/accept-value-strategies'
 import { addValueStrategies } from './prototype/add-value-strategies'
 import { getValue } from './prototype/get-value'
@@ -10,27 +11,23 @@ import { setValueText } from './prototype/set-value-text'
 import { toString } from './prototype/to-string'
 import { IValueStrategy } from './value-strategy.types'
 
-/*
-        booleanParserStrategy,
-        stringParserStrategy,
-        numericParserStrategy,
-        dateOrTimeParserStrategy,
-        numericOptionBasedParserStrategy,
-*/
-
 export const ValueStrategy = function (this: IValueStrategy) {
     this.valueStrategies = []
 } as any as IValueStrategy
 
-Object.assign(ValueStrategy.prototype, {
-    initialize,
-    acceptValueStrategies,
-    addValueStrategies,
-    getValue,
-    setValue,
-    toString,
-    setValueCheckBox,
-    setValueSelect,
-    setValueText,
-    setValueRadio
-})
+export const ValueStrategyInstance = function (prototype: object) {
+    assignToInstance(prototype, {
+        initialize,
+        acceptValueStrategies,
+        addValueStrategies,
+        getValue,
+        setValue,
+        toString,
+        setValueCheckBox,
+        setValueSelect,
+        setValueText,
+        setValueRadio
+    })
+}
+
+ValueStrategyInstance(ValueStrategy.prototype)

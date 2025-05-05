@@ -9,10 +9,11 @@ export interface IAria {
 export type IDommable<T extends HTMLElement> = IDommableBase<T> & ITracker
 
 export interface IDommableBase<T extends HTMLElement> {
-    new (tracker: ITracker | null): IDommable<T>
+    new (): IDommable<T>
     elements: T[]
     _tracker: ITracker | null
     internalHTMLElementRef: HTMLInputElement[] | null
+    initialize: (tracker: ITracker) => void
     ref: (o: HTMLInputElement | null) => void
     dmSetFocus: (id: string) => void
     dmRegister: (element: T | null) => void

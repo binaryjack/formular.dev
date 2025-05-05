@@ -13,7 +13,7 @@ export const onClickLabel = <T extends IFieldInputExtended>(f: T, optionId: stri
     f
         .field()
         .style()
-        ?.fieldStateStyle.update('dirty', f.field().originalValue !== f.field().value)
+        ?.update('dirty', f.field().originalValue !== f.field().value)
 
     f
         .field()

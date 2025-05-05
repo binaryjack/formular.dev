@@ -1,3 +1,7 @@
+import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
+import { FieldFactory } from '@core/factory/field-factory'
+import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -90,8 +94,60 @@ const validationDemo = () => (
 
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [])
+
+const mockDescriptor: IFieldDescriptor = {
+    id: 0,
+    name: 'testField',
+    label: 'Test Field',
+    value: '',
+    defaultValue: '',
+    isValid: true,
+    isDirty: false,
+    isPristine: true,
+    isFocus: false,
+    objectValue: null,
+    type: 'text',
+    errors: [],
+    guides: [],
+    validationOptions: {
+        requiredData: {
+            required: true,
+            error: 'This field is required.',
+            guide: 'Please provide a value for this field.'
+        },
+        minLength: {
+            minLength: 3,
+            error: 'The value must be at least 3 characters long.',
+            guide: 'Enter at least 3 characters.'
+        },
+        maxLength: {
+            maxLength: 10,
+            error: 'The value must not exceed 10 characters.',
+            guide: 'Enter no more than 10 characters.'
+        },
+        pattern: {
+            pattern: '\\d+',
+            error: 'Only numeric values are allowed.',
+            guide: 'Enter numbers only.'
+        }
+    },
+    options: [],
+    shouldValidate: true
+}
+
 const App = () => {
-    return <div className={`app flex flex-col items-center justify-center min-w-[300px]`}></div>
+    const factory = new FieldFactory()
+    const input = factory.create<ITextBaseInput>('text', mockDescriptor)
+    return (
+        <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
+            {input && <input title={`inp`} {...input?.register()} ref={(r) => input?.ref(r)} />}
+            <BoundaryErrorCatcher fallback={<div>ERROR</div>}>
+                {input.field()?.name}
+
+                {JSON.stringify(input.field()?.getValue?.())}
+            </BoundaryErrorCatcher>
+        </div>
+    )
 }
 
 export default App

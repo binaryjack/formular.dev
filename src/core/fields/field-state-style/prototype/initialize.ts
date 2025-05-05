@@ -1,8 +1,8 @@
-import { IFieldInputExtended } from '@core/fields/field-base-input/field-input-base-types'
+import { IFieldBaseInput } from '@core/fields/field-base-input/field-input-base-types'
 import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { IFieldStateStyle } from '../field-state-style.types'
 
-export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldInputExtended) {
+export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldBaseInput) {
     initializer(initialize.name, this, fieldInput, [], (e) => {
         if (!e.field().validationStrategy()?.validationOptions) {
             throw Error(
@@ -11,10 +11,12 @@ export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldIn
         }
         this.field()?.notifier()?.observers.subscribe(this.classNames.bind(this))
         this.field()?.notifier()?.observers.subscribe(this.getFlagsObject.bind(this))
-
-        this.fieldStateStyle.update(
-            'required',
-            this.field()?.validationStrategy()?.validationOptions.requiredData?.required === true
-        )
+        this.field()
+            ?.style()
+            .update(
+                'required',
+                this.field()?.validationStrategy()?.validationOptions.requiredData?.required ===
+                    true
+            )
     })
 }

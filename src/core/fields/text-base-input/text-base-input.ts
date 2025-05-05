@@ -1,3 +1,4 @@
+import { assignToInstance } from '@core/framework/utility/assign-to-instance'
 import { handleOnChanged } from './prototype/handle-on-changed'
 import { initialize } from './prototype/initialize'
 import { ref } from './prototype/ref'
@@ -8,9 +9,8 @@ export const TextBaseInput = function (this: ITextBaseInput) {
     /** */
 } as any as ITextBaseInput
 
-Object.assign(TextBaseInput.prototype, {
-    initialize,
-    handleOnChanged,
-    ref,
-    register
-})
+export const TextBaseInputInstance = function (prototype: object) {
+    assignToInstance(prototype, { initialize, handleOnChanged, ref, register })
+}
+
+TextBaseInputInstance(TextBaseInput.prototype)

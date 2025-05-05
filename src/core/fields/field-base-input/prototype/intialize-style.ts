@@ -1,10 +1,10 @@
 import { FieldStateStyle } from '@core/fields/field-state-style/field-state-style'
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldBaseInput } from '../field-input-base-types'
 
-export const initializeStyle = function (this: IFieldInput) {
+export const initializeStyle = function (this: IFieldBaseInput) {
     try {
-        this._style = new FieldStateStyle(this)
-        this.style()?.initialize()
+        this._style = new FieldStateStyle()
+        this.style()?.initialize(this)
     } catch (e: any) {
         this.message(
             'critical',

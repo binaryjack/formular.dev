@@ -1,6 +1,10 @@
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import { IFieldInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
+import {
+    IFieldBaseInput,
+    IFieldInput,
+    IFieldInputExtended
+} from '../field-base-input/field-input-base-types'
 
 export type IOptionInput = IOptionBaseInput & IClickBaseInput & IFieldInput
 
@@ -12,7 +16,7 @@ export interface IOptionBaseInput extends IFieldInputExtended {
     /** works with IOptionItem[] and fields of type select*/
     selectedOptionId: number | null
 
-    initialize: (fieldInput: IFieldInputExtended) => void
+    initialize: (fieldInput: IFieldBaseInput) => void
     checkOptionsInitialized: () => boolean
 
     getOptionByValue: (value: string) => IOptionItem | null

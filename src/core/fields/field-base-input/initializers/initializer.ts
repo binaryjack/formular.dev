@@ -9,9 +9,6 @@ export const initializer = <TFieldInput extends IFieldInput, TContext extends IF
     notifiers?: INotifier[],
     nextInitializations?: (context: TContext) => void
 ) => {
-    if (!context?.field) {
-        return
-    }
     try {
         /** Initialize backing field  */
         context._field = fieldInput

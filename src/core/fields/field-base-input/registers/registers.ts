@@ -19,7 +19,7 @@ export interface IDomRegisterBuilder {
     registerClick: () => IDomRegisterBuilder
     registerClickLabel: (optionId: string) => IDomRegisterBuilder
     registerAria: () => IDomRegisterBuilder
-    build: () => Partial<HTMLInputElement>
+    build: () => any
 }
 
 export const domRegister = function (this: IDomRegisterBuilder, context: IFieldInputExtended) {
@@ -48,19 +48,16 @@ export const domRegister = function (this: IDomRegisterBuilder, context: IFieldI
         ah.applyNameAndLabel(context.field())
         return this
     }
-    this.build = function (this: IDomRegisterBuilder): Partial<HTMLInputElement> {
+    this.build = function (this: IDomRegisterBuilder): any {
         return {
             id: `${context.field().id}`,
             type: context.field().type,
             className: context.field().style()?.classNames() ?? '',
             title: context.field().label ?? '',
-            ariaDescription: `${context.field().name}`,
-            ariaLabel: context.field().label ?? '',
-            ariaValueText: context.field()?.validationStrategy()?.toString(),
-            onchange: this.onchange,
-            onblur: this.onblur,
-            onfocus: this.onfocus,
-            onclick: this.onclick
+            onChange: this.onchange,
+            onBlur: this.onblur,
+            onFocus: this.onfocus,
+            onClick: this.onclick
         }
     }
 } as any as IDomRegisterBuilder
