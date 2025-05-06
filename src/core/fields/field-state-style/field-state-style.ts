@@ -1,5 +1,8 @@
 import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
-import { assignToInstance } from '@core/framework/utility/assign-to-instance'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { FieldInput } from '../field-base-input/field-input-base'
+import { IFieldBaseInput } from '../field-base-input/field-input-base-types'
 import { IFieldStateStyle } from './field-state-style.types'
 import { classNames } from './prototype/class-names'
 import { get } from './prototype/get'
@@ -16,7 +19,16 @@ import { update } from './prototype/update'
  *
  * @property {Map<FieldInputStateType, string>} classesList - A map that holds the class names for different field states.
  */
-export const FieldStateStyle = function (this: IFieldStateStyle) {
+export const FieldStateStyle = function (this: IFieldStateStyle, constructor: IConstructor) {
+    if (constructor.type === 'new') {
+        this.field = new FieldInput(constructor.output as IFieldDescriptor)
+    }
+    if (constructor.type === 'inherits') {
+        this.field = constructor.output as IFieldBaseInput
+    }
+    this.initialize()
+
+    this.className = ''
     this.classesList = new Map<FieldInputStateType, string>([
         ['dirty', 'is-not-dirty'],
         ['errors', 'no-errors'],
@@ -26,17 +38,15 @@ export const FieldStateStyle = function (this: IFieldStateStyle) {
         ['valid', 'is-valid'],
         ['required', 'required']
     ])
+    // Extend the prototype of FieldStateStyle with FieldInput's prototype
+    Object.setPrototypeOf(FieldStateStyle.prototype, FieldInput.prototype)
 } as any as IFieldStateStyle
 
-export const FieldStateStyleInstance = function (prototype: object) {
-    assignToInstance(prototype, {
-        initialize,
-        classNames,
-        update,
-        get,
-        getFlagsList,
-        getFlagsObject
-    })
-}
-
-FieldStateStyleInstance(FieldStateStyle.prototype)
+Object.assign(FieldStateStyle.prototype, {
+    initialize,
+    classNames,
+    update,
+    get,
+    getFlagsList,
+    getFlagsObject
+})

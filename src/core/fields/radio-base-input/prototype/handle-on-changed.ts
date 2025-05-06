@@ -11,5 +11,5 @@ import { IRadioBaseInput } from '../radio-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function <T extends IEvents>(this: IRadioBaseInput, data?: T) {
-    onChangedHandle(this.field())
+    onChangedHandle(this.field)
 }

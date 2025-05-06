@@ -1,7 +1,13 @@
-import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
+import { conventions } from '@components/context/conventions/conventions'
+import FieldSet from '@components/field-set/field-set'
+import { useField } from '@components/formy/formy.context'
+import ValidationResultComponent from '@components/validation-result/validation-result'
 import { FieldFactory } from '@core/factory/field-factory'
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
 import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -95,12 +101,39 @@ const validationDemo = () => (
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [])
 
+const mockOptions: IOptionItem[] = [
+    {
+        id: '1',
+        sequenceId: 1,
+        value: 'option1',
+        text: 'Option 1',
+        disabled: false,
+        selected: false
+    },
+    {
+        id: '2',
+        sequenceId: 2,
+        value: 'option2',
+        text: 'Option 2',
+        disabled: false,
+        selected: false
+    },
+    {
+        id: '3',
+        sequenceId: 3,
+        value: 'option3',
+        text: 'Option 3',
+        disabled: false,
+        selected: false
+    }
+]
+
 const mockDescriptor: IFieldDescriptor = {
     id: 0,
     name: 'testField',
     label: 'Test Field',
-    value: '',
-    defaultValue: '',
+    value: 'test',
+    defaultValue: 'super',
     isValid: true,
     isDirty: false,
     isPristine: true,
@@ -131,21 +164,43 @@ const mockDescriptor: IFieldDescriptor = {
             guide: 'Enter numbers only.'
         }
     },
-    options: [],
+    options: mockOptions,
     shouldValidate: true
 }
 
 const App = () => {
     const factory = new FieldFactory()
     const input = factory.create<ITextBaseInput>('text', mockDescriptor)
+    const select = factory.create<ISelectBaseInput>('select', mockDescriptor)
+
+    const { instance: field, flags } = useField(input as IExtendedFieldInput)
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            {input && <input title={`inp`} {...input?.register()} ref={(r) => input?.ref(r)} />}
-            <BoundaryErrorCatcher fallback={<div>ERROR</div>}>
-                {input.field()?.name}
+            <div>
+                <FieldSet
+                    inputId={field?.field.name ?? conventions.IdIsEmpty()}
+                    label={field?.field.label}
+                    type={field?.field.type}
+                    flags={flags}
+                    validationChildren={
+                        <ValidationResultComponent
+                            validationResults={field?.field.validationResults ?? []}
+                        />
+                    }
+                    onClear={() => field?.field.clear()}
+                >
+                    <input
+                        data-class="base-input"
+                        {...field?.register()}
+                        ref={(r) => field?.ref(r)}
+                    />
+                </FieldSet>
 
-                {JSON.stringify(input.field()?.getValue?.())}
-            </BoundaryErrorCatcher>
+                <button onClick={() => field?.field.setFocus()}>focus Field</button>
+                <button onClick={() => field?.field.enable(true)}>enable</button>
+                <button onClick={() => field?.field.enable(false)}>disable</button>
+                <button onClick={() => field?.field.clear()}>clear</button>
+            </div>
         </div>
     )
 }

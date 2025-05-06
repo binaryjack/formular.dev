@@ -1,5 +1,5 @@
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { ITextBaseInput } from '../text-base-input.types'
 
 /**
  * The register function is used to register the event handlers for the field input.
@@ -46,7 +46,7 @@ import { ITextBaseInput } from '../text-base-input.types'
  * ```
  */
 export const register = function <FieldValuesTypes>(
-    this: ITextBaseInput
+    this: IExtendedFieldInput
 ): Partial<HTMLInputElement> {
     return new domRegister(this)
         .registerChange()

@@ -5,6 +5,7 @@ import { FieldInputCreator } from '@core/fields/field-base-input/field-input.cre
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 
 import { useField } from '@core/factory/react/hooks/use-field'
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { Signals } from '../../../core/signals/signal'
@@ -31,27 +32,35 @@ interface IFieldDemoProps {
 }
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
-    const { field, flags } = useField(outSideFields.find((o) => o.name === 'inputControl'))
+    const { instance, flags } = useField(
+        outSideFields.find((o) => o.name === 'inputControl') as unknown as IExtendedFieldInput
+    )
 
     return (
         <div>
             <FieldSet
-                inputId={field?.name ?? conventions.IdIsEmpty()}
-                label={field?.label}
-                type={field?.type}
+                inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+                label={instance?.field?.label}
+                type={instance?.field?.type}
                 flags={flags}
                 validationChildren={
-                    <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                    <ValidationResultComponent
+                        validationResults={instance?.field?.validationResults ?? []}
+                    />
                 }
-                onClear={() => field?.clear()}
+                onClear={() => instance?.field?.clear()}
             >
-                <input data-class="base-input" {...field?.register()} ref={(r) => field?.ref(r)} />
+                <input
+                    data-class="base-input"
+                    {...instance?.field?.register()}
+                    ref={(r) => instance?.field?.ref(r)}
+                />
             </FieldSet>
 
-            <button onClick={() => field?.setFocus()}>focus Field</button>
-            <button onClick={() => field?.enable(true)}>enable</button>
-            <button onClick={() => field?.enable(false)}>disable</button>
-            <button onClick={() => field?.clear()}>clear</button>
+            <button onClick={() => instance?.field?.setFocus()}>focus Field</button>
+            <button onClick={() => instance?.field?.enable(true)}>enable</button>
+            <button onClick={() => instance?.field?.enable(false)}>disable</button>
+            <button onClick={() => instance?.field?.clear()}>clear</button>
         </div>
     )
 }

@@ -6,25 +6,25 @@ export const checkInitialized = function (this: IFieldBaseInput): boolean {
         if (!this) {
             throw Error('_baseInput must be initialized')
         }
-        if (!this._tracker || !this.track()) {
+        if (!this.tracker) {
             throw Error('tracker must be initialized')
         }
-        if (!this._notifier || !this.notifier()) {
+        if (!this.notifier) {
             throw Error('notifier must be initialized')
         }
-        if (!this._dom || !this.dom()) {
+        if (!this.dom) {
             throw Error('dom must be initialized')
         }
-        if (!this._style || !this.style()) {
+        if (!this.styler) {
             throw Error('style must be initialized')
         }
-        if (!this._validation || !this.validationStrategy()) {
+        if (!this.validationStrategy) {
             throw Error('validation strategy must be initialized')
         }
-        if (!this._value || !this.valueStrategy()) {
+        if (!this.valueStrategy) {
             throw Error('value strategy must be initialized')
         }
-        if (this.validationStrategy()?.validationStrategies?.length === 0) {
+        if (this.validationStrategy?.validationStrategies?.length === 0) {
             generalExceptionHandler(
                 undefined,
                 'warning',
@@ -35,7 +35,7 @@ export const checkInitialized = function (this: IFieldBaseInput): boolean {
                 `
             )
         }
-        if (this.valueStrategy()?.valueStrategies?.length === 0) {
+        if (this.valueStrategy?.valueStrategies?.length === 0) {
             generalExceptionHandler(
                 undefined,
                 'error',

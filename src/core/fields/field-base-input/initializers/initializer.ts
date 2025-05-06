@@ -1,8 +1,7 @@
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { INotifier } from '@core/notifiable-entity/notifications.types'
-import { IFieldInput, IFieldInputExtended } from '../field-input-base-types'
+import { IExtendedInputBase, IFieldInput } from '../field-input-base-types'
 
-export const initializer = <TFieldInput extends IFieldInput, TContext extends IFieldInputExtended>(
+export const initializer = <TFieldInput extends IFieldInput, TContext extends IExtendedInputBase>(
     caller: string,
     context: TContext,
     fieldInput: TFieldInput,
@@ -11,37 +10,19 @@ export const initializer = <TFieldInput extends IFieldInput, TContext extends IF
 ) => {
     try {
         /** Initialize backing field  */
-        context._field = fieldInput
-
-        /** initialize function that's uses the field above and returns if nstancied */
-        context.field = registerNewField
+        context.field = fieldInput
 
         if (notifiers) {
             for (const n of notifiers) {
-                context?.field()?.notifier()?.accept(n)
+                context?.field?.notifier?.accept(n)
             }
         }
 
         nextInitializations?.(context)
     } catch (e: any) {
-        context
-            .field()
-            .track()
-            ?.internalCritical(
-                caller,
-                `an error has occured when initializing ${context.name} class: ${e.message}`
-            )
-    }
-}
-
-export const registerNewField = function <TContext extends IFieldInputExtended>(this: TContext) {
-    if (!this._field) {
-        generalExceptionHandler(
-            undefined,
-            'critical',
-            this.name,
-            `Unable to instanciate ${this.name} no fieldInput was provided!`
+        context.field.tracker?.internalCritical(
+            caller,
+            `an error has occured when initializing ${context.field.name} class: ${e.message}`
         )
     }
-    return this._field
 }

@@ -7,5 +7,5 @@ export const message = function (
     source: string,
     message: string
 ) {
-    generalExceptionHandler(this._tracker, type, source, message)
+    generalExceptionHandler(this.tracker, type, source, message)
 }

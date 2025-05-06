@@ -18,7 +18,7 @@ import { IFieldInput } from '../field-input-base-types'
 export const handleValidation = function <T extends IEvents>(this: IFieldInput, data?: T) {
     let results: IValidationResult[] = []
 
-    if (!this.validationStrategy()) {
+    if (!this.validationStrategy) {
         this.message(
             'critical',
             this.name,
@@ -31,26 +31,26 @@ export const handleValidation = function <T extends IEvents>(this: IFieldInput, 
         const validationstrategyData = newValidationStrategyData(
             this.name,
             this.type,
-            this.validationStrategy()!.validationOptions,
-            this.valueStrategy()?.getAsString(),
+            this.validationStrategy!.validationOptions,
+            this.valueStrategy?.getAsString(),
             this.expectedValue,
             data
         )
 
-        results = this.validationStrategy()!.validate(validationstrategyData) ?? []
+        results = this.validationStrategy!.validate(validationstrategyData) ?? []
     } else {
         // console.log('Validation skipped')
     }
 
     // keep the validation results for the field
-    this.validationStrategy()!.validationResults = results
+    this.validationStrategy!.validationResults = results
 
-    this.style()?.fieldStateStyle.update(
+    this.styler?.update(
         'valid',
         results.every((result) => result.state)
     )
 
-    this.style()?.fieldStateStyle.update(
+    this.styler?.update(
         'errors',
         results.some((result) => !result.state)
     )

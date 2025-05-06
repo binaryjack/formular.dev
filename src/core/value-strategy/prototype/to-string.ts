@@ -5,7 +5,7 @@ import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct
 import { IValueStrategy } from '../value-strategy.types'
 
 export const toString = function (this: IValueStrategy) {
-    const value = this.field().value as any
+    const value = this.field.value as any
     if (!value) return ''
     if (typeof value === 'object') {
         if ('day' in value && 'month' in value && 'year' in value) {

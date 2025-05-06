@@ -1,9 +1,9 @@
-import { IOptionInput } from '../option-base-input.types'
+import { IOptionBaseInput } from '../option-base-input.types'
 
-export const checkOptionsInitialized = function (this: IOptionInput) {
+export const checkOptionsInitialized = function (this: IOptionBaseInput) {
     const intitializedOptions: boolean[] = []
     this.options.forEach((element) => {
-        if (this.field().dom()?.dmExists(element.id)) {
+        if (this.field.dom?.dmExists(element.id)) {
             intitializedOptions.push(true)
         }
     })

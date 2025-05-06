@@ -1,26 +1,22 @@
-import { genericAccsssor } from '@core/fields/field-base-input/accessors/generic-accessor'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { ValueStrategy, ValueStrategyInstance } from '@core/value-strategy/value-strategy'
-import { IParserStrategy, IValueStrategy } from '@core/value-strategy/value-strategy.types'
-import { IFieldBuilder } from '../field-builder'
+import { ValueStrategy } from '@core/value-strategy/value-strategy'
+import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
+import { Constructor } from '../constructors/constructors'
+import { IFieldBaseInput } from '../field-input-base-types'
 
 export const initializeValueStrategy = function (
-    this: IFieldBuilder,
+    this: IFieldBaseInput,
     ...parsers: IParserStrategy<any>[]
-): IFieldBuilder {
+): IFieldBaseInput {
     try {
         if (!this.name) {
             throw Error('properties must be initialized')
         }
-        if (!this?._tracker) {
+        if (!this?.tracker) {
             throw Error('tracker must be initialized')
         }
-        this._value = new ValueStrategy()
-        ValueStrategyInstance(this._value)
-
-        this.valueStrategy = genericAccsssor<IValueStrategy>('_value')
-        this.valueStrategy().initialize(this)
-        this.valueStrategy().acceptValueStrategies(...parsers)
+        this.valueStrategy = new ValueStrategy(new Constructor(undefined, this))
+        this.valueStrategy.acceptValueStrategies(...parsers)
 
         return this
     } catch (e: any) {

@@ -1,6 +1,6 @@
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newEvent } from '../../../events/events.types'
-import { ISelectInput } from '../select-base-input.types'
 
 /**
  * Handles the selection of an item in a field input component.
@@ -15,23 +15,21 @@ import { ISelectInput } from '../select-base-input.types'
  * - Notifies observers of the `changed` event with the field name and state.
  * - Notifies observers of the `validate` event to reset validation state.
  */
-export const onSelectItem = function (this: ISelectInput, option: IOptionItem) {
-    if (!this.field().dom()?.dmExists(this._field.id.toString())) {
+export const onSelectItem = function (this: IExtendedFieldInput, option: IOptionItem) {
+    if (!this.field.dom?.dmExists(this.field.id.toString())) {
         return
     }
-    const internlOption = this.getOptionByValue(option.value)
+    const internlOption = this.optionBase.getOptionByValue(option.value)
     if (!internlOption) return
     this.selectedOptionId = internlOption.sequenceId
-    this.field().value = internlOption.id
+    this.field.value = internlOption.id
 
-    this.field().dom()?.dmSetSelected(this.field().id.toString(), option.text)
-    this.field().dom()?.dmSetFocus(this.field().id.toString())
-    if (this.field()?.drawer()) this.field().drawer()!.openState = 'closed'
+    this.field.dom?.dmSetSelected(this.field.id.toString(), option.text)
+    this.field.dom?.dmSetFocus(this.field.id.toString())
+    if (this.field?.drawer) this.field.drawer!.openState = 'closed'
 
-    this.field()
-        .notifier()
-        ?.notify(
-            'onSelect',
-            newEvent(this.field().name, onSelectItem.name, 'onSelect', 'field.selected')
-        )
+    this.field.notifier?.notify(
+        'onSelect',
+        newEvent(this.field.name, onSelectItem.name, 'onSelect', 'field.selected')
+    )
 }

@@ -1,11 +1,11 @@
-import { IOptionInput } from '../option-base-input.types'
+import { IOptionBaseInput } from '../option-base-input.types'
 
-export const getOptionBySequenceId = function (this: IOptionInput, sequenceId: number) {
+export const getOptionBySequenceId = function (this: IOptionBaseInput, sequenceId: number) {
     if (this.options?.length === 0) {
-        this.field().message(
+        this.field.message(
             'warning',
             'IFieldInput.getOptionById',
-            `there is no options related to the field of type: ${this.type}, name: ${this.name} SequenceId: ${sequenceId}`
+            `there is no options related to the field of type: ${this.field.type}, name: ${this.name} SequenceId: ${sequenceId}`
         )
         return null
     }

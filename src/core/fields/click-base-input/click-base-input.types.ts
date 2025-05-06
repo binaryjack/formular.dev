@@ -1,15 +1,10 @@
 import { IEvents } from '../../events/events.types'
-import {
-    IFieldBaseInput,
-    IFieldInput,
-    IFieldInputExtended
-} from '../field-base-input/field-input-base-types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
+export interface IClickBaseInputProperties {}
 
-export interface IClickBaseInput extends IFieldInputExtended {
-    new (): IClickBaseInput
-    _field: IFieldInput
-    field: () => IFieldInput
-    checked?: boolean
-    initialize: (fieldInput: IFieldBaseInput) => void
+export interface IClickBaseInput extends IClickBaseInputProperties, IExtendedInputBase {
+    new (constructor: IConstructor): IClickBaseInput
+    initialize: () => void
     handleOnClicked: <T extends IEvents>(data?: T) => void
 }

@@ -8,5 +8,5 @@ import { IValueStrategy } from '../value-strategy.types'
  * @returns {string | null} The value of the field input as a string, or `null` if the value is not a string.
  */
 export const getAsString = function (this: IValueStrategy) {
-    return this.field().value ?? null
+    return this.field.value ?? null
 }

@@ -4,10 +4,10 @@ import { onChange } from '../events/on-changed'
 import { onClick } from '../events/on-click'
 import { onClickLabel } from '../events/on-click-label'
 import { onFocus } from '../events/on-focus'
-import { IFieldInputExtended } from '../field-input-base-types'
+import { IExtendedFieldInput } from '../field-input-base-types'
 
 export interface IDomRegisterBuilder {
-    new (context: IFieldInputExtended): IDomRegisterBuilder
+    new (context: IExtendedFieldInput): IDomRegisterBuilder
     onchange: (e: Event) => void
     onblur: (e: Event) => void
     onfocus: (e: Event) => void
@@ -22,21 +22,21 @@ export interface IDomRegisterBuilder {
     build: () => any
 }
 
-export const domRegister = function (this: IDomRegisterBuilder, context: IFieldInputExtended) {
+export const domRegister = function (this: IDomRegisterBuilder, context: IExtendedFieldInput) {
     this.registerChange = function (this: IDomRegisterBuilder) {
-        this.onchange = (e: Event) => onChange(context.field(), e)
+        this.onchange = (e: Event) => onChange(context.field, e)
         return this
     }
     this.registerBlur = function (this: IDomRegisterBuilder) {
-        this.onblur = (e: Event) => onBlur(context.field(), e)
+        this.onblur = (e: Event) => onBlur(context.field, e)
         return this
     }
     this.registerFocus = function (this: IDomRegisterBuilder) {
-        this.onfocus = (e: Event) => onFocus(context.field(), e)
+        this.onfocus = (e: Event) => onFocus(context.field, e)
         return this
     }
     this.registerClick = function (this: IDomRegisterBuilder) {
-        this.onclick = (e: Event) => onClick(context.field(), e)
+        this.onclick = (e: Event) => onClick(context.field, e)
         return this
     }
     this.registerClickLabel = function (this: IDomRegisterBuilder, optionId: string) {
@@ -45,15 +45,15 @@ export const domRegister = function (this: IDomRegisterBuilder, context: IFieldI
     }
     this.registerAria = function (this: IDomRegisterBuilder) {
         const ah = new AriaHelper()
-        ah.applyNameAndLabel(context.field())
+        ah.applyNameAndLabel(context.field)
         return this
     }
     this.build = function (this: IDomRegisterBuilder): any {
         return {
-            id: `${context.field().id}`,
-            type: context.field().type,
-            className: context.field().style()?.classNames() ?? '',
-            title: context.field().label ?? '',
+            id: `${context.field.id}`,
+            type: context.field.type,
+            className: context.field.styler?.classNames() ?? '',
+            title: context.field.label ?? '',
             onChange: this.onchange,
             onBlur: this.onblur,
             onFocus: this.onfocus,

@@ -1,22 +1,21 @@
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import {
-    IFieldBaseInput,
-    IFieldInput,
-    IFieldInputExtended
-} from '../field-base-input/field-input-base-types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase, IFieldInput } from '../field-base-input/field-input-base-types'
 
 export type IOptionInput = IOptionBaseInput & IClickBaseInput & IFieldInput
 
-export interface IOptionBaseInput extends IFieldInputExtended {
-    new (): IOptionBaseInput
-
+export interface IOptionBaseInputProperties {
     optionsInitialized: boolean
     options: IOptionItem[]
     /** works with IOptionItem[] and fields of type select*/
     selectedOptionId: number | null
+}
 
-    initialize: (fieldInput: IFieldBaseInput) => void
+export interface IOptionBaseInput extends IOptionBaseInputProperties, IExtendedInputBase {
+    new (constructor: IConstructor): IOptionBaseInput
+
+    initialize: () => void
     checkOptionsInitialized: () => boolean
 
     getOptionByValue: (value: string) => IOptionItem | null

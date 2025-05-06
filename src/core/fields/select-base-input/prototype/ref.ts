@@ -1,6 +1,6 @@
 import { referencer } from '@core/fields/field-base-input/referencers/referencer'
-import { ISelectInput } from '../select-base-input.types'
+import { ISelectBaseInput } from '../select-base-input.types'
 
-export const ref = function (this: ISelectInput, ref: HTMLInputElement | null) {
-    referencer(this, ref)
+export const ref = function (this: ISelectBaseInput, ref: HTMLInputElement | null) {
+    referencer(this.field, ref)
 }

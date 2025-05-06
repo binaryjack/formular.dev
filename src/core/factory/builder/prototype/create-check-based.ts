@@ -1,29 +1,38 @@
-import {
-    CheckBoxInput,
-    CheckBoxInputInstance
-} from '@core/fields/check-box-base-input/check-box-base-input'
+import { CheckBoxInput } from '@core/fields/check-box-base-input/check-box-base-input'
 import { ICheckBoxBaseInput } from '@core/fields/check-box-base-input/check-box-base-input.types'
-import {
-    ClickBaseInput,
-    ClickBaseInputInstance
-} from '@core/fields/click-base-input/click-base-input'
+import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
+import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
+import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
+import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
 import { IFieldBuilder } from '../field-builder'
 
-export const createCheckBased = function (this: IFieldBuilder): ICheckBoxBaseInput | undefined {
+export const createCheckBased = function (
+    this: IFieldBuilder,
+    descriptor: IFieldDescriptor,
+    validationStrategies: IValidationMethodStrategy[],
+    trackingStrategies: ITrackingOutputProvider[],
+    valueStrategies: IParserStrategy<any>[]
+): ICheckBoxBaseInput | undefined {
     try {
-        if (!this.checkInitialized() || !this) {
-            return undefined
+        const _checkInput = new CheckBoxInput(new Constructor(descriptor, undefined))
+
+        if (
+            _checkInput.field.initializeBase(
+                descriptor,
+                validationStrategies,
+                trackingStrategies,
+                valueStrategies
+            )
+        ) {
+            throw Error(`The initialization failed ${CheckBoxInput.name}`)
         }
-        const _clickInput = new ClickBaseInput()
-        ClickBaseInputInstance(_clickInput)
 
-        _clickInput.initialize(this)
-        const _checkInput = new CheckBoxInput()
-        CheckBoxInputInstance(_checkInput)
-
-        this._checkInput.initialize(_clickInput)
-        return { ..._checkInput } as ICheckBoxBaseInput
+        if (!(_checkInput instanceof CheckBoxInput)) {
+            throw Error(`The immediate clone of ${CheckBoxInput.name} is not well formed!`)
+        }
+        return _checkInput
     } catch (e: any) {
         generalExceptionHandler(
             undefined,

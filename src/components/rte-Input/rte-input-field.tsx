@@ -16,7 +16,7 @@ interface IRteInputFieldProps {
 
 const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
     const editorRef = useRef<HTMLDivElement>(null)
     const [editorId] = useState(`rte-${fieldName}-${Math.random().toString(36).substring(2, 9)}`)
 
@@ -34,17 +34,17 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
     const handleEditorStateChange = (state: IStateData) => {
         // setLastState(state)
 
-        if (field) {
+        if (instance?.field) {
             // Serialize the state to a safe format and store in field
             const serializedData = serializeEngineState(state?.data)
 
             if (lastState.data === serializedData) return
-            field.setValue(serializedData)
+            instance?.field.setValue(serializedData)
             setLastState(newStateData(serializedData))
         }
     }
 
-    useFieldDefaultValue(field, (value) => {
+    useFieldDefaultValue(instance?.field, (value) => {
         if (value && typeof value === 'string') {
             try {
                 // Deserialize from field value
@@ -60,8 +60,8 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
             type="richtext"
             flags={flags}
             onClick={() => {
@@ -69,10 +69,12 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
                 editorRef.current?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
             onClear={() => {
-                field?.clear()
+                instance?.field?.clear()
                 setTimeout(() => setInitialState(newStateData(null)), 1)
             }}
         >

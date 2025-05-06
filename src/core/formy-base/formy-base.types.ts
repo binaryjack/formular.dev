@@ -1,5 +1,8 @@
 import { EventsType } from '@core/events/events.types'
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import {
+    IExtendedFieldInput,
+    IFieldInput
+} from '@core/fields/field-base-input/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { LoadingStatus } from '@core/status'
@@ -37,7 +40,7 @@ export interface IFormyBase {
     handleValidation: (origin?: any) => void
     validateAll: () => void
     addFields: (...flds: IFieldInput[]) => void
-    getField: (fieldName: string) => IFieldInput | undefined
+    getField: (fieldName: string) => IExtendedFieldInput | undefined
     checkChanges: () => void
     setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void

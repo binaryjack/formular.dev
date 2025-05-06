@@ -1,3 +1,3 @@
-import { IFieldInput } from '../field-input-base-types'
+import { IFieldBaseInput } from '../field-input-base-types'
 
-export const onClear = (f: IFieldInput, e: Event) => {}
+export const onClear = (f: IFieldBaseInput, e: Event) => {}

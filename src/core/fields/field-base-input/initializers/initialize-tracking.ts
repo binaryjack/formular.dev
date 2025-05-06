@@ -1,22 +1,18 @@
-import { genericAccsssor } from '@core/fields/field-base-input/accessors/generic-accessor'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { Tracker, TrackerInstance } from '@core/tracker/tracker'
+import { Tracker } from '@core/tracker/tracker'
 import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
-import { ITracker, ITrackingOutputProvider } from '@core/tracker/tracker.types'
-import { IFieldBuilder } from '../field-builder'
+import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
+import { IFieldBaseInput } from '../field-input-base-types'
 
 export const initializeTracking = function (
-    this: IFieldBuilder,
+    this: IFieldBaseInput,
     providers?: ITrackingOutputProvider[]
-): IFieldBuilder {
+): IFieldBaseInput {
     try {
         if (!this.name) {
             throw Error('properties must be initialized')
         }
-        this._tracker = new Tracker([...(providers ?? []), consoleTrackingProvider])
-        TrackerInstance(this._tracker)
-
-        this.track = genericAccsssor<ITracker>('_tracker')
+        this.tracker = new Tracker([...(providers ?? []), consoleTrackingProvider])
         return this
     } catch (e: any) {
         generalExceptionHandler(

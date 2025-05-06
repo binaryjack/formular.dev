@@ -1,4 +1,7 @@
-import { assignToInstance } from '@core/framework/utility/assign-to-instance'
+import { IConstructor } from '@core/fields/field-base-input/constructors/constructors'
+import { FieldInput } from '@core/fields/field-base-input/field-input-base'
+import { IFieldBaseInput } from '@core/fields/field-base-input/field-input-base-types'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { acceptValueStrategies } from './prototype/accept-value-strategies'
 import { addValueStrategies } from './prototype/add-value-strategies'
 import { getValue } from './prototype/get-value'
@@ -11,23 +14,29 @@ import { setValueText } from './prototype/set-value-text'
 import { toString } from './prototype/to-string'
 import { IValueStrategy } from './value-strategy.types'
 
-export const ValueStrategy = function (this: IValueStrategy) {
+export const ValueStrategy = function (this: IValueStrategy, constructor: IConstructor) {
+    if (constructor.type === 'new') {
+        this.field = new FieldInput(constructor.output as IFieldDescriptor)
+    }
+    if (constructor.type === 'inherits') {
+        this.field = constructor.output as IFieldBaseInput
+    }
+
+    this.initialize()
     this.valueStrategies = []
+    // Extend the prototype of FieldStateStyle with FieldInput's prototype
+    Object.setPrototypeOf(ValueStrategy.prototype, FieldInput.prototype)
 } as any as IValueStrategy
 
-export const ValueStrategyInstance = function (prototype: object) {
-    assignToInstance(prototype, {
-        initialize,
-        acceptValueStrategies,
-        addValueStrategies,
-        getValue,
-        setValue,
-        toString,
-        setValueCheckBox,
-        setValueSelect,
-        setValueText,
-        setValueRadio
-    })
-}
-
-ValueStrategyInstance(ValueStrategy.prototype)
+Object.assign(ValueStrategy.prototype, {
+    initialize,
+    acceptValueStrategies,
+    addValueStrategies,
+    getValue,
+    setValue,
+    toString,
+    setValueCheckBox,
+    setValueSelect,
+    setValueText,
+    setValueRadio
+})

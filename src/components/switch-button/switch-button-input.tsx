@@ -23,15 +23,15 @@ const SwitchButtonInput = ({
     }
 }: ISwitchButtonInputProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [isOn, setIsOn] = useState<boolean>(false)
 
     const handleToggleChange = (value: boolean) => {
         setIsOn(value)
-        field?.setValue(value)
+        instance?.field?.setValue(value)
     }
 
-    useFieldDefaultValue(field, (value) => {
+    useFieldDefaultValue(instance?.field, (value) => {
         if (value !== undefined) {
             setIsOn(value === true)
         }
@@ -39,23 +39,25 @@ const SwitchButtonInput = ({
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
             onClear={() => {
-                field?.clear()
+                instance?.field?.clear()
                 setIsOn(false)
             }}
         >
             <SwitchButton
-                fieldName={field?.name ?? conventions.IdIsEmpty()}
+                fieldName={instance?.field?.name ?? conventions.IdIsEmpty()}
                 options={options}
                 onToggle={handleToggleChange}
                 isToggle={isOn}

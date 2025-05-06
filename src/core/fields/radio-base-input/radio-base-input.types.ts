@@ -1,18 +1,18 @@
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IEvents } from '../../events/events.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import {
-    IFieldBaseInput,
-    IFieldInput,
-    IFieldInputExtended
-} from '../field-base-input/field-input-base-types'
-import { IOptionInput } from '../option-based-input/option-base-input.types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
+import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
-export type IRadioInput = IOptionInput & IFieldInput & IClickBaseInput
+export interface IRadioBaseInputProperties {
+    optionBase: IOptionBaseInput
+    clickBase: IClickBaseInput
+}
 
-export interface IRadioBaseInput extends IFieldInputExtended {
-    new (): IRadioBaseInput
-    initialize: (fieldInput: IFieldBaseInput) => void
+export interface IRadioBaseInput extends IRadioBaseInputProperties, IExtendedInputBase {
+    new (constructor: IConstructor): IRadioBaseInput
+    initialize: () => void
     handleOnChanged: <T extends IEvents>(data?: T) => void
 
     ref: (ref: HTMLInputElement | null) => void

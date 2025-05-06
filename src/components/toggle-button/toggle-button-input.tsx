@@ -15,15 +15,15 @@ interface IToggleButtonInputProps {
 
 const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [toggleState, setToggleState] = useState<boolean>(false)
 
     const handleToggleChange = (id: string, newState: boolean) => {
         setToggleState(newState)
-        field?.setValue(newState)
+        instance?.field?.setValue(newState)
     }
 
-    useFieldDefaultValue(field, (value) => {
+    useFieldDefaultValue(instance?.field, (value) => {
         if (value !== undefined) {
             setToggleState(value === true)
         }
@@ -31,26 +31,28 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
             onClear={() => {
-                field?.clear()
+                instance?.field?.clear()
                 setToggleState(false)
             }}
         >
             <ToggleButton
-                id={`${field?.name ?? conventions.IdIsEmpty()}-toggle`}
+                id={`${instance?.field?.name ?? conventions.IdIsEmpty()}-toggle`}
                 toggle={toggleState}
                 onToggle={handleToggleChange}
-                name={field?.name ?? conventions.NameIsEmpty()}
+                name={instance?.field?.name ?? conventions.NameIsEmpty()}
                 children={children}
             />
         </FieldSet>

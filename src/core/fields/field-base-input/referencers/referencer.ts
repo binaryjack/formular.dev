@@ -1,12 +1,12 @@
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { IFieldBaseInput, IFieldInputExtended } from '../field-input-base-types'
+import { IExtendedFieldInput, IFieldBaseInput } from '../field-input-base-types'
 
 export const referencer = function (context: IFieldBaseInput, ref: HTMLInputElement | null) {
-    context.dom()?.dmRegister(ref)
+    context.dom?.dmRegister(ref)
 }
 
 export const optionReferencer = function (
-    context: IFieldInputExtended,
+    context: IExtendedFieldInput,
     ref: HTMLInputElement | null
 ) {
     if (!ref) return null
@@ -19,14 +19,13 @@ export const optionReferencer = function (
      * by the StrictMode of something else like that
      * we expect to have only one ref and it could avoid bugs
      */
-    context.field().dom()?.dmRegister(ref)
-    if (context.field().optionsInitialized) return
-    if (context.field().checkOptionsInitialized()) {
-        context
-            .field()
-            .valueStrategy()
-            ?.setValue(context.field().defaultValue as IOptionItem | string | number | null)
-        context.field().optionsInitialized = true
+    context.field.dom?.dmRegister(ref)
+    if (context.field.optionsInitialized) return
+    if (context.field.checkOptionsInitialized()) {
+        context.field.valueStrategy?.setValue(
+            context.field.defaultValue as IOptionItem | string | number | null
+        )
+        context.field.optionsInitialized = true
     }
 
     // const existingRef = this.get(ref.id)

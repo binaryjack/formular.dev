@@ -14,5 +14,5 @@ import { IFieldInput } from '../field-input-base-types'
  */
 export const enable = function (this: IFieldInput, enabled: boolean) {
     this.enabled = enabled
-    this.dom()?.dmSetEnabled(this.id.toString(), enabled)
+    this.dom?.dmSetEnabled(this.id.toString(), enabled)
 }

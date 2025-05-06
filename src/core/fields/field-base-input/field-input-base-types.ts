@@ -6,14 +6,31 @@ import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.
 import { IDommable } from '@core/dommable/dommable.types'
 
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { ITracker, TrackingType } from '@core/tracker/tracker.types'
-import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
+import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
+import {
+    IValidationMethodStrategy,
+    IValidationStrategy
+} from '@core/validation-strategy/validation-strategy.types'
 import { IEvents } from '../../events/events.types'
-import { IParserStrategy, IValueStrategy } from '../../value-strategy/value-strategy.types'
-import { IDrawerBaseInput } from '../drawer-base-input/drawer-base-input.types'
-import { IFieldStateStyle } from '../field-state-style/field-state-style.types'
-import { ToggleableStateType } from '../toggleable-base-element/toggleable-base-element'
+import {
+    IParserStrategy,
+    IValueStrategy,
+    IValueStrategyProperties
+} from '../../value-strategy/value-strategy.types'
+import { ICheckBoxBaseInputProperties } from '../check-box-base-input/check-box-base-input.types'
+import { IClickBaseInputProperties } from '../click-base-input/click-base-input.types'
+import {
+    IDrawerBaseInput,
+    IDrawerBaseInputProperties
+} from '../drawer-base-input/drawer-base-input.types'
+import {
+    IFieldStateStyle,
+    IFieldStateStyleProperties
+} from '../field-state-style/field-state-style.types'
+import { IOptionBaseInputProperties } from '../option-based-input/option-base-input.types'
+import { IRadioBaseInputProperties } from '../radio-base-input/radio-base-input.types'
+import { ISelectBaseInputProperties } from '../select-base-input/select-base-input.types'
+import { ITextBaseInput } from '../text-base-input/text-base-input.types'
 
 /**
  * Should be the root base of a field's properties
@@ -51,25 +68,13 @@ export interface IField extends IFieldDescriptor {
     handleOnClear: <T extends IEvents>(data?: T) => void
 
     /** Dependency accessors */
-    dom: () => IDommable<HTMLInputElement>
-    notifier: () => INotifiableEntity
-    drawer: () => IDrawerBaseInput
-    style: () => IFieldStateStyle
-    track: () => ITracker
-    validationStrategy: () => IValidationStrategy
-    valueStrategy: () => IValueStrategy
-}
-
-export interface IFieldExtensions {
-    [key: string]: any
-    /** dependencies */
-    _dom: IDommable<HTMLInputElement>
-    _drawer: IDrawerBaseInput
-    _style: IFieldStateStyle
-    _notifier: INotifiableEntity
-    _tracker: ITracker
-    _validation: IValidationStrategy
-    _value: IValueStrategy
+    dom: IDommable<HTMLInputElement>
+    drawer: IDrawerBaseInput
+    styler: IFieldStateStyle
+    notifier: INotifiableEntity
+    tracker: ITracker
+    validationStrategy: IValidationStrategy
+    valueStrategy: IValueStrategy
 }
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor
@@ -77,29 +82,50 @@ export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldD
 /** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
 export type IFieldInput = IFieldBaseInput & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
 
-export interface IFieldBaseInput extends IField, IFieldExtensions {
+export interface IFieldBaseInput extends IField {
     new (descriptor: IFieldDescriptor): IFieldBaseInput
     /** initializer builders */
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
     checkInitialized: () => boolean
+    initializeBase: (
+        descriptor: IFieldDescriptor,
+        validationStrategies: IValidationMethodStrategy[],
+        trackingStrategies: ITrackingOutputProvider[],
+        valueStrategies: IParserStrategy<any>[]
+    ) => boolean
+    initializeDommable: () => IFieldBaseInput
+    initializeNotifier: () => IFieldBaseInput
+    initializeTracking: (providers?: ITrackingOutputProvider[]) => IFieldBaseInput
+    initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => IFieldBaseInput
+    initializeValidationStrategy: (
+        descriptor: IFieldDescriptor,
+        ...parsers: IValidationMethodStrategy[]
+    ) => IFieldBaseInput
+    initializeDrawerableState: () => IFieldBaseInput
+    initializeStyle: () => IFieldBaseInput
+    initializeEvents: () => IFieldBaseInput
 }
 
-export interface IFieldInputExtended extends IFieldBaseInput {
-    valueStrategies: IParserStrategy<unknown>[]
-    _field: IFieldInput
-    field: () => IFieldInput
-    options: IOptionItem[]
-    optionsInitialized: boolean
-    /** works with IOptionItem[] and fields of type select*/
-    selectedOptionId: number | null
-    checked?: boolean
-    openState: ToggleableStateType
-
-    getOptionByValue: (value: string) => IOptionItem | null
-    tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
-
-    handleOnChanged: <T extends IEvents>(data?: T) => void
-    handleOnClick: <T extends IEvents>(data?: T) => void
-
-    getOptionById: (id: string) => IOptionItem | null
+export interface IExtendedInputBase {
+    field: IFieldBaseInput
 }
+
+export interface IExtendedFieldInput
+    extends IFieldStateStyleProperties,
+        IOptionBaseInputProperties,
+        IDrawerBaseInputProperties,
+        IClickBaseInputProperties,
+        ICheckBoxBaseInputProperties,
+        IRadioBaseInputProperties,
+        ISelectBaseInputProperties,
+        IValueStrategyProperties,
+        ITextBaseInput,
+        IExtendedInputBase {
+    // getOptionByValue: (value: string) => IOptionItem | null
+    // tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
+    // handleOnChanged: <T extends IEvents>(data?: T) => void
+    // handleOnClick: <T extends IEvents>(data?: T) => void
+    // getOptionById: (id: string) => IOptionItem | null
+}
+
+const i: IExtendedFieldInput = {} as IExtendedFieldInput

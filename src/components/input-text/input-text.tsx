@@ -12,35 +12,37 @@ interface IInputTextProps {
 
 const InputText = ({ fieldName }: IInputTextProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const handleDelete = () => {
-        field?.clear()
+        instance?.field?.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(field)
+    useFieldDefaultValue(instance?.field)
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...field?.register()}
-                ref={(r) => field?.ref(r)}
+                {...instance?.field?.register()}
+                ref={(r) => instance?.field?.ref(r)}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
                 type="text"

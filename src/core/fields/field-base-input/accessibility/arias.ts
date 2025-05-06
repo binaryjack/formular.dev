@@ -22,9 +22,9 @@ export const AriaHelper = function (this: IAriaHelper) {
         this.arias.push(newAria(name, value))
     }
     this.applyNameAndLabel = function (this: IAriaHelper, f: IFieldInput) {
-        f.dom()?.dmAriaSet(f.id.toString(), f.name)
+        f.dom?.dmAriaSet(f.id.toString(), f.name)
     }
     this.apply = function (this: IAriaHelper, f: IFieldInput) {
-        f.dom()?.dmAddArias(f.id.toString(), this.arias)
+        f.dom?.dmAddArias(f.id.toString(), this.arias)
     }
 } as any as IAriaHelper

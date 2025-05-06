@@ -11,32 +11,34 @@ interface ICheckInputProps {
 
 const CheckInput = ({ fieldName }: ICheckInputProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const handleDelete = () => {
-        field?.clear()
+        instance?.field.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(field, (value) => {
-        if (!field) return
-        field.checked = value
+    useFieldDefaultValue(instance?.field, (value) => {
+        if (!instance?.field) return
+        instance.field.checked = value
     })
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <div className={`flex flex-1 items-center ml-1`}>
                 <input
@@ -45,8 +47,8 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type="checkbox"
-                    {...field?.register()}
-                    ref={(r) => field?.ref(r)}
+                    {...instance?.field?.register()}
+                    ref={(r) => instance?.field?.ref(r)}
                 />
             </div>
         </FieldSet>

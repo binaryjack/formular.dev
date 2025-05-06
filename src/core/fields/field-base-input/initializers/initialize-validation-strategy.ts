@@ -1,26 +1,19 @@
-import { genericAccsssor } from '@core/fields/field-base-input/accessors/generic-accessor'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import {
-    ValidationStrategy,
-    ValidationStrategyInstance
-} from '@core/validation-strategy/validation-strategy'
-import {
-    IValidationMethodStrategy,
-    IValidationStrategy
-} from '@core/validation-strategy/validation-strategy.types'
-import { IFieldBuilder } from '../field-builder'
+import { ValidationStrategy } from '@core/validation-strategy/validation-strategy'
+import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
+import { IFieldBaseInput } from '../field-input-base-types'
 
 export const initializeValidationStrategy = function (
-    this: IFieldBuilder,
+    this: IFieldBaseInput,
     descriptor: IFieldDescriptor,
     ...parsers: IValidationMethodStrategy[]
-): IFieldBuilder {
+): IFieldBaseInput {
     try {
         if (!this.name) {
             throw Error('properties must be initialized')
         }
-        if (!this?._tracker) {
+        if (!this?.tracker) {
             throw Error('tracker must be initialized')
         }
 
@@ -31,12 +24,9 @@ export const initializeValidationStrategy = function (
         if (Object.keys(descriptor?.validationOptions).length === 0) {
             throw Error('descriptor: validationOptions should not be empty')
         }
-        this._validation = new ValidationStrategy()
-        ValidationStrategyInstance(this._validation)
-
-        this.validationStrategy = genericAccsssor<IValidationStrategy>('_validation')
-        this?.validationStrategy().initializeValidationStrategy(descriptor)
-        this?.validationStrategy().addValidationStrategies(...parsers)
+        this.validationStrategy = new ValidationStrategy()
+        this?.validationStrategy.initializeValidationStrategy(descriptor)
+        this?.validationStrategy.addValidationStrategies(...parsers)
         return this
     } catch (e: any) {
         generalExceptionHandler(

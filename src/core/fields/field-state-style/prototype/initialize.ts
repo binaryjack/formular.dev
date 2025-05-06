@@ -1,22 +1,14 @@
-import { IFieldBaseInput } from '@core/fields/field-base-input/field-input-base-types'
 import { initializer } from '@core/fields/field-base-input/initializers/initializer'
 import { IFieldStateStyle } from '../field-state-style.types'
 
-export const initialize = function (this: IFieldStateStyle, fieldInput: IFieldBaseInput) {
-    initializer(initialize.name, this, fieldInput, [], (e) => {
-        if (!e.field().validationStrategy()?.validationOptions) {
+export const initialize = function (this: IFieldStateStyle) {
+    initializer(initialize.name, this, this.field, [], (e) => {
+        if (!e.field.validationStrategy?.validationOptions) {
             throw Error(
                 `${initialize.name}: unable to intialize Styles you must provide validationOptions before invoking this.`
             )
         }
-        this.field()?.notifier()?.observers.subscribe(this.classNames.bind(this))
-        this.field()?.notifier()?.observers.subscribe(this.getFlagsObject.bind(this))
-        this.field()
-            ?.style()
-            .update(
-                'required',
-                this.field()?.validationStrategy()?.validationOptions.requiredData?.required ===
-                    true
-            )
+        this.field?.notifier?.observers.subscribe(this.classNames.bind(this))
+        this.field?.notifier?.observers.subscribe(this.getFlagsObject.bind(this))
     })
 }

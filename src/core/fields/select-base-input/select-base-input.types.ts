@@ -2,15 +2,19 @@ import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IEvents } from '../../events/events.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import { IFieldBaseInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
-import { IOptionInput } from '../option-based-input/option-base-input.types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
+import { IOptionBaseInput } from '../option-based-input/option-base-input.types'
 
-export type ISelectInput = ISelectBaseInput & IOptionInput & IClickBaseInput
+export interface ISelectBaseInputProperties {
+    optionBase: IOptionBaseInput
+    clickBase: IClickBaseInput
+}
 
-export interface ISelectBaseInput extends IFieldInputExtended {
-    new (): ISelectBaseInput
+export interface ISelectBaseInput extends ISelectBaseInputProperties, IExtendedInputBase {
+    new (constructor: IConstructor): ISelectBaseInput
 
-    initialize: (fieldInput: IFieldBaseInput) => void
+    initialize: () => void
 
     handleOnChanged: <T extends IEvents>(data?: T) => void
     handleOnClick: <T extends IEvents>(data?: T) => void

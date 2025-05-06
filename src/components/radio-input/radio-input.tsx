@@ -10,30 +10,32 @@ interface IRadioInputProps {
 
 const RadioInput = ({ fieldName }: IRadioInputProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     // useFieldDefaultValue(field)
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <ul className={`radio-group`}>
-                {field?.options?.map((option: any) => {
+                {instance?.field?.options?.map((option: any) => {
                     return (
                         <RadioInputOption
-                            key={`${field.id}-${option.id}`}
-                            field={field}
+                            key={`${instance?.field.id}-${option.id}`}
+                            field={instance?.field}
                             option={option}
                         />
                     )

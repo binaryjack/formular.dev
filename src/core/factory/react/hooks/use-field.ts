@@ -1,6 +1,6 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { EventsType, newEvent } from '@core/events/events.types'
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import {
     IStateFlags,
     defaultFlagsObject
@@ -9,13 +9,13 @@ import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
 import React, { useEffect } from 'react'
 
 export interface IUseFieldHookReturn {
-    field: IFieldInput | undefined
+    instance: IExtendedFieldInput | undefined
     flags: IStateFlags
 }
 
-export type useFieldHookType = (field?: IFieldInput) => IUseFieldHookReturn
+export type useFieldHookType = (field?: IExtendedFieldInput) => IUseFieldHookReturn
 
-export const useField = (field?: IFieldInput): IUseFieldHookReturn => {
+export const useField = (field?: IExtendedFieldInput): IUseFieldHookReturn => {
     const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
     const [flags, setFlags] = React.useState<IStateFlags>(defaultFlagsObject)
     const stableField = React.useMemo(() => {
@@ -27,15 +27,15 @@ export const useField = (field?: IFieldInput): IUseFieldHookReturn => {
     }
 
     useEffect(() => {
-        if (!stableField?._style?.getFlagsObject?.()) return
-        setFlags(stableField?._style?.getFlagsObject?.())
-    }, [stableField?._style?.classNames()])
+        if (!stableField?.field.styler?.getFlagsObject?.()) return
+        setFlags(stableField?.field.styler?.getFlagsObject?.())
+    }, [stableField?.field.styler?.classNames()])
 
     /** Bind the function handleRefresh to field events*
      */
     const acceptNotificationStrategy = (localName: string, event: EventsType) => {
         if (!stableField) return
-        stableField._notifier?.accept(
+        stableField.field.notifier?.accept(
             nnv(
                 newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
                 handleRefresh.bind(useRtiEngine)
@@ -50,7 +50,7 @@ export const useField = (field?: IFieldInput): IUseFieldHookReturn => {
     }, [stableField])
 
     return {
-        field: stableField,
+        instance: stableField,
         flags: flags
     }
 }

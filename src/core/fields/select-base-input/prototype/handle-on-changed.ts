@@ -1,6 +1,6 @@
 import { onChangedHandle } from '@core/fields/field-base-input/events/on-changed-handle'
 import { IEvents } from '../../../events/events.types'
-import { ISelectInput } from '../select-base-input.types'
+import { ISelectBaseInput } from '../select-base-input.types'
 
 /**
  * Handles the change event for a field input.
@@ -10,6 +10,6 @@ import { ISelectInput } from '../select-base-input.types'
  *
  * Logs the updated value and the provided data to the console.
  */
-export const handleOnChanged = function <T extends IEvents>(this: ISelectInput, data?: T) {
-    onChangedHandle(this.field())
+export const handleOnChanged = function <T extends IEvents>(this: ISelectBaseInput, data?: T) {
+    onChangedHandle(this.field)
 }

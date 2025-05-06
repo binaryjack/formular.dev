@@ -14,7 +14,7 @@ interface ISelectProps {
 export const SelectSF = ({ fieldName }: ISelectProps) => {
     const { formInstance } = useFormyContext()
 
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const { setToggleState } = useToggleableContext()
 
@@ -23,44 +23,46 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
             setToggleState('open')
         },
         onDeleteCallback: () => {
-            field?.clear()
+            instance?.field?.clear()
         }
     })
 
-    useFieldDefaultValue(field)
+    useFieldDefaultValue(instance?.field)
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
-                field?.focus()
+                instance?.field?.focus()
             }}
             itemsChildren={
                 <SelectDrawerContent
                     filterTriggerDelay={500}
-                    items={field?.options ?? []}
-                    onSelectItem={(value) => field?.onSelectItem(value)}
-                    selectedItemSequenceId={field?.selectedOptionId ?? null}
+                    items={instance?.field?.options ?? []}
+                    onSelectItem={(value) => instance?.field?.onSelectItem(value)}
+                    selectedItemSequenceId={instance?.field?.selectedOptionId ?? null}
                 />
             }
             itemsDrawerHeight="350px"
             itemsDrawerWidth="250px"
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...field?.register()}
-                ref={(r) => field?.ref(r)}
-                value={field?.getSelectedValue?.()}
+                {...instance?.field?.register()}
+                ref={(r) => instance?.field?.ref(r)}
+                value={instance?.field?.getSelectedValue?.()}
                 autoComplete="off"
                 onKeyDownCapture={handleKeyDown}
             />

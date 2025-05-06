@@ -6,7 +6,7 @@ export const setValue = function (
     this: IValueStrategy,
     value: Omit<FieldDataTypes, 'object' | 'INDate' | 'DateObject'> | null
 ) {
-    switch (this.field().type) {
+    switch (this.field.type) {
         case 'checkbox':
             this.setValueCheckBox(value as boolean)
             break
@@ -32,16 +32,12 @@ export const setValue = function (
             break
     }
 
-    this.field()
-        .style()
-        ?.fieldStateStyle.update('dirty', this.field().originalValue !== this.field().value)
+    this.field.styler?.update('dirty', this.field.originalValue !== this.field.value)
 
-    this.field()
-        .notifier()
-        ?.notify(
-            'onChange',
-            newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-        )
+    this.field.notifier?.notify(
+        'onChange',
+        newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
+    )
 
     // this.observers.trigger()
 }

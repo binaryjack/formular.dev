@@ -1,16 +1,11 @@
 import { IEvents } from '@core/events/events.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import {
-    IFieldBaseInput,
-    IFieldInput,
-    IFieldInputExtended
-} from '../field-base-input/field-input-base-types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
 
-export interface ITextBaseInput extends IFieldInputExtended {
-    new (): ITextBaseInput
-    _field: IFieldInput
-    field: () => IFieldInput
-    initialize: (fieldInput: IFieldBaseInput) => void
+export interface ITextBaseInput extends IExtendedInputBase {
+    new (constructor: IConstructor): ITextBaseInput
+    initialize: () => void
     ref: (ref: HTMLInputElement | null) => void
     register: () => any
     setValue: (value: FieldDataTypes) => void

@@ -1,22 +1,17 @@
-import { Dommable, DommableInstance } from '@core/dommable/dommable'
-import { IDommable } from '@core/dommable/dommable.types'
-import { genericAccsssor } from '@core/fields/field-base-input/accessors/generic-accessor'
+import { Dommable } from '@core/dommable/dommable'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { IFieldBuilder } from '../field-builder'
+import { IFieldBaseInput } from '../field-input-base-types'
 
-export const initializeDommable = function (this: IFieldBuilder): IFieldBuilder {
+export const initializeDommable = function (this: IFieldBaseInput): IFieldBaseInput {
     try {
         if (!this.name) {
             throw Error('properties must be initialized')
         }
-        if (!this?._tracker) {
+        if (!this?.tracker) {
             throw Error('tracker must be initialized')
         }
-        this._dom = new Dommable()
-        DommableInstance(this._dom)
-
-        this.dom = genericAccsssor<IDommable<HTMLInputElement>>('_dom')
-        this?.dom()?.initialize(this?.track())
+        this.dom = new Dommable()
+        this?.dom?.initialize(this?.tracker)
         return this
     } catch (e: any) {
         generalExceptionHandler(

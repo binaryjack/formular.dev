@@ -1,21 +1,38 @@
-import {
-    ClickBaseInput,
-    ClickBaseInputInstance
-} from '@core/fields/click-base-input/click-base-input'
+import { ClickBaseInput } from '@core/fields/click-base-input/click-base-input'
 import { IClickBaseInput } from '@core/fields/click-base-input/click-base-input.types'
+import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
+import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
+import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
+import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
 import { IFieldBuilder } from '../field-builder'
 
-export const createClickBased = function (this: IFieldBuilder): IClickBaseInput | undefined {
+export const createClickBased = function (
+    this: IFieldBuilder,
+    descriptor: IFieldDescriptor,
+    validationStrategies: IValidationMethodStrategy[],
+    trackingStrategies: ITrackingOutputProvider[],
+    valueStrategies: IParserStrategy<any>[]
+): IClickBaseInput | undefined {
     try {
-        if (!this.checkInitialized() || !this) {
-            return undefined
-        }
-        const _clickInput = new ClickBaseInput()
-        ClickBaseInputInstance(_clickInput)
+        const _clickInput = new ClickBaseInput(new Constructor(descriptor, undefined))
 
-        _clickInput.initialize(this)
-        return { ..._clickInput } as IClickBaseInput
+        if (
+            _clickInput.field.initializeBase(
+                descriptor,
+                validationStrategies,
+                trackingStrategies,
+                valueStrategies
+            )
+        ) {
+            throw Error(`The initialization failed ${ClickBaseInput.name}`)
+        }
+
+        if (!(_clickInput instanceof ClickBaseInput)) {
+            throw Error(`The immediate clone of ${ClickBaseInput.name} is not well formed!`)
+        }
+        return _clickInput
     } catch (e: any) {
         generalExceptionHandler(
             undefined,

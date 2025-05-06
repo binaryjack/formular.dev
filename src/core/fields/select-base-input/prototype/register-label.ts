@@ -1,5 +1,5 @@
+import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { domRegister } from '@core/fields/field-base-input/registers/registers'
-import { ISelectInput } from '../select-base-input.types'
 
 /**
  * Registers a label click handler for a field input component.
@@ -19,7 +19,7 @@ import { ISelectInput } from '../select-base-input.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */
 export const registerLabel = function (
-    this: ISelectInput,
+    this: IExtendedFieldInput,
     optionId: string
 ): Partial<HTMLInputElement> {
     return new domRegister(this).registerClickLabel(optionId).registerAria().build()

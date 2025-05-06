@@ -1,8 +1,5 @@
-import {
-    IFieldBaseInput,
-    IFieldInput,
-    IFieldInputExtended
-} from '@core/fields/field-base-input/field-input-base-types'
+import { IConstructor } from '@core/fields/field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '@core/fields/field-base-input/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
 export type TParser<TOut> = (value: Partial<FieldDataTypes>) => TOut | null
@@ -30,12 +27,14 @@ export const setParserStrategy = <TOut>(
     }
 }
 
-export interface IValueStrategy extends IFieldInputExtended {
-    new (): IValueStrategy
-    _field: IFieldInput
-    field: <T extends IFieldInput>() => T
+export interface IValueStrategyProperties {
     valueStrategies: IParserStrategy<unknown>[]
-    initialize: (fieldInput: IFieldBaseInput) => void
+}
+
+export interface IValueStrategy extends IValueStrategyProperties, IExtendedInputBase {
+    new (constructor: IConstructor): IValueStrategy
+
+    initialize: () => void
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null

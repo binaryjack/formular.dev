@@ -2,6 +2,7 @@ import { FieldTypeNames } from '@core/framework/common/common.field.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { FieldTypeMap } from '@core/mapping/field-type-maps'
 import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
+import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
 import { ValidatorMaxLengthStrategy } from '@core/validation-strategy/strategies/validator-max-length-strategy'
 import { ValidatorMaxStrategy } from '@core/validation-strategy/strategies/validator-max-strategy'
 import { ValidatorMinLengthStrategy } from '@core/validation-strategy/strategies/validator-min-length-strategy'
@@ -19,10 +20,57 @@ import { FieldBuilder, IFieldBuilder } from './builder/field-builder'
 
 export interface IFieldFactory {
     new (): IFieldFactory
-    create: <T>(type: FieldTypeNames, descriptor: IFieldDescriptor) => T
+    create: <T>(
+        type: FieldTypeNames,
+        descriptor: IFieldDescriptor,
+        validationStrategies?: IValidationMethodStrategy[],
+        trackingStrategies?: ITrackingOutputProvider[],
+        valueStrategies?: IParserStrategy<any>[]
+    ) => T
 }
 
-const valueParsers: IParserStrategy<any>[] = [
+const fieldRegistry = <T>(
+    builder: IFieldBuilder,
+    type: keyof FieldTypeMap,
+    descriptor: IFieldDescriptor,
+    validationStrategies?: IValidationMethodStrategy[],
+    trackingStrategies?: ITrackingOutputProvider[],
+    valueStrategies?: IParserStrategy<any>[]
+): T | undefined => {
+    switch (type) {
+        case 'toggle':
+        case 'checkbox':
+            return builder.createCheckBased(
+                descriptor,
+                validationStrategies ?? [],
+                trackingStrategies ?? [],
+                valueStrategies ?? []
+            ) as T
+        case 'select':
+            return builder.createSelectBased(
+                descriptor,
+                validationStrategies ?? [],
+                trackingStrategies ?? [],
+                valueStrategies ?? []
+            ) as T
+        case 'radio':
+            return builder.createRadioBased(
+                descriptor,
+                validationStrategies ?? [],
+                trackingStrategies ?? [],
+                valueStrategies ?? []
+            ) as T
+        case 'text':
+        default:
+            return builder.createTextBased(
+                descriptor,
+                validationStrategies ?? [],
+                trackingStrategies ?? [],
+                valueStrategies ?? []
+            ) as T
+    }
+}
+const defaultValueParsersStrategies: IParserStrategy<any>[] = [
     booleanParserStrategy,
     stringParserStrategy,
     numericParserStrategy,
@@ -30,7 +78,7 @@ const valueParsers: IParserStrategy<any>[] = [
     numericOptionBasedParserStrategy
 ]
 
-const validationStrategies: IValidationMethodStrategy[] = [
+const defaultValidationStrategies: IValidationMethodStrategy[] = [
     ValidatorMaxLengthStrategy,
     ValidatorMaxStrategy,
     ValidatorMinLengthStrategy,
@@ -41,37 +89,24 @@ const validationStrategies: IValidationMethodStrategy[] = [
 
 const defaultOutputTracker = consoleTrackingProvider
 
-const fieldRegistry = <T>(builder: IFieldBuilder, type: keyof FieldTypeMap): T | undefined => {
-    switch (type) {
-        case 'toggle':
-        case 'checkbox':
-            return builder.createCheckBased() as T
-        case 'select':
-            return builder.createSelectBased() as T
-        case 'radio':
-            return builder.createRadioBased() as T
-        case 'text':
-        default:
-            return builder.createTextBased() as T
-    }
-}
-
 export const FieldFactory = function (this: IFieldFactory) {
     this.create = function <T>(
         this: IFieldFactory,
         type: FieldTypeNames,
-        descriptor: IFieldDescriptor
+        descriptor: IFieldDescriptor,
+        validationStrategies?: IValidationMethodStrategy[],
+        trackingStrategies?: ITrackingOutputProvider[],
+        valueStrategies?: IParserStrategy<any>[]
     ): T {
-        const builder = new FieldBuilder(descriptor)
-            .initialize()
-            .initializeTracking([defaultOutputTracker])
-            .initializeDommable()
-            .initializeNotifier()
-            .initializeValidationStrategy(descriptor, ...validationStrategies)
-            .initializeValueStrategy(...valueParsers)
-            .initializeEvents()
-            .initializeStyle()
+        const builder = new FieldBuilder()
 
-        return fieldRegistry<T>(builder, type) as T
+        return fieldRegistry<T>(
+            builder,
+            type,
+            descriptor,
+            [...defaultValidationStrategies, ...(validationStrategies ?? [])],
+            [defaultOutputTracker, ...(trackingStrategies ?? [])],
+            [...defaultValueParsersStrategies, ...(valueStrategies ?? [])]
+        ) as T
     }
 } as any as IFieldFactory

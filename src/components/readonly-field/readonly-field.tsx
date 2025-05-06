@@ -10,24 +10,24 @@ interface IReadOnlyFieldProps {
 
 export const ReadOnlyField = ({ fieldName }: IReadOnlyFieldProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
         >
             <input
                 tabIndex={-1}
                 data-class="base-input read-only-input"
-                {...field?.register()}
-                ref={(r) => field?.ref(r)}
-                value={field?.toString() ?? ''}
+                {...instance?.field?.register()}
+                ref={(r) => instance?.field?.ref(r)}
+                value={instance?.field?.toString() ?? ''}
                 readOnly
                 autoComplete="off"
                 type="text"

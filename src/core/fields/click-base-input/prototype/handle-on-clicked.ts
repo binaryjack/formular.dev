@@ -11,5 +11,5 @@ import { IClickBaseInput } from '../click-base-input.types'
  * Logs the clicked value, the provided data, and the current value of the field input.
  */
 export const handleOnClicked = function <T extends IEvents>(this: IClickBaseInput, data?: T) {
-    onClickHandle(this.field())
+    onClickHandle(this.field)
 }

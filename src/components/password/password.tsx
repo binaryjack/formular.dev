@@ -17,43 +17,45 @@ interface IPasswordProps {
 
 const Password = ({ fieldName }: IPasswordProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const handleDelete = () => {
-        field?.clear()
+        instance?.field?.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(field)
+    useFieldDefaultValue(instance?.field)
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible((prev) => !prev)
     }
 
-    const fieldId = field?.name ?? conventions.IdIsEmpty()
+    const fieldId = instance?.field?.name ?? conventions.IdIsEmpty()
 
     return (
         <FieldSet
             inputId={fieldId}
-            label={field?.label}
+            label={instance?.field?.label}
             type="password"
             flags={flags}
             onClick={() => {
-                field?.focus()
+                instance?.field?.focus()
             }}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <div className="relative flex items-center w-full">
                 <input
                     tabIndex={0}
                     data-class="base-input "
-                    {...field?.register()}
-                    ref={(r) => field?.ref(r)}
+                    {...instance?.field?.register()}
+                    ref={(r) => instance?.field?.ref(r)}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type={isPasswordVisible ? 'text' : 'password'}

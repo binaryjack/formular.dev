@@ -1,9 +1,13 @@
-import { IFieldBaseInput, IFieldInputExtended } from '../field-base-input/field-input-base-types'
+import { IConstructor } from '../field-base-input/constructors/constructors'
+import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
 import { ToggleableStateType } from '../toggleable-base-element/toggleable-base-element'
 
-export interface IDrawerBaseInput extends IFieldInputExtended {
-    new (): IDrawerBaseInput
+export interface IDrawerBaseInputProperties {
     openState: ToggleableStateType
+}
+
+export interface IDrawerBaseInput extends IDrawerBaseInputProperties, IExtendedInputBase {
+    new (constructor: IConstructor): IDrawerBaseInput
     setOpenState: (state: ToggleableStateType) => void
-    initialize: (fieldInput: IFieldBaseInput) => void
+    initialize: () => void
 }

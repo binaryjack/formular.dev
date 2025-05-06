@@ -11,5 +11,5 @@ import { ICheckBoxBaseInput } from '../check-box-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function <T extends IEvents>(this: ICheckBoxBaseInput, data?: T) {
-    onChangedHandle(this.field())
+    onChangedHandle(this.field)
 }

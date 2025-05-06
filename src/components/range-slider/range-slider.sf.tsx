@@ -40,47 +40,49 @@ export const RangeSliderSF = ({
     debug = false
 }: RangeSliderSFProps) => {
     const { formInstance } = useFormyContext()
-    const { field, flags } = useField(formInstance?.getField(fieldName))
+    const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [rangeValue, setRangeValue] = useState<number>(0)
     // Handle slider value change
     const handleChange = useCallback(
         (value: number) => {
-            field?.setValue(value.toString())
-            console.log('handleChange', value, field?.value)
+            instance?.field?.setValue(value.toString())
+            console.log('handleChange', value, instance?.field?.value)
         },
-        [field]
+        [instance?.field]
     )
 
     // Key bindings for accessibility
     const { handleKeyDown } = useKeyBindings({
         onDeleteCallback: () => {
-            field?.clear()
+            instance?.field?.clear()
         }
     })
 
     useEffect(() => {
-        setRangeValue(Number(field?.value))
-        console.log('useEffect', field?.value)
-    }, [field?.getValue()])
+        setRangeValue(Number(instance?.field?.value))
+        console.log('useEffect', instance?.field?.value)
+    }, [instance?.field?.getValue()])
 
-    useFieldDefaultValue(field, (value) => {
+    useFieldDefaultValue(instance?.field, (value) => {
         setRangeValue(Number(value))
     })
 
     return (
         <FieldSet
-            inputId={field?.name ?? conventions.IdIsEmpty()}
-            label={field?.label}
-            type={field?.type}
+            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
+            label={instance?.field?.label}
+            type={instance?.field?.type}
             flags={flags}
             validationChildren={
-                <ValidationResultComponent validationResults={field?.validationResults ?? []} />
+                <ValidationResultComponent
+                    validationResults={instance?.field?.validationResults ?? []}
+                />
             }
-            onClear={() => field?.clear()}
+            onClear={() => instance?.field?.clear()}
         >
             <div className="flex w-full min-h-[37px]" onKeyDown={handleKeyDown}>
                 <RangeSliderRaw
-                    id={`${field?.name ?? 'range'}-slider`}
+                    id={`${instance?.field?.name ?? 'range'}-slider`}
                     value={rangeValue}
                     min={min}
                     max={max}
