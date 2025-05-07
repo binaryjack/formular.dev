@@ -7,20 +7,14 @@ import { ISelectBaseInput } from '../select-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: ISelectBaseInput) {
-    initializer(
-        initialize.name,
-        this,
-        this.field,
-        [
-            nnv(
-                newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
-                this.handleOnChanged.bind(this)
-            ),
-            nnv(
-                newEvent(this.name, 'setup', 'onSelect', 'field.select'),
-                this.handleOnSelected.bind(this)
-            )
-        ],
-        (e) => {}
-    )
+    initializer(initialize.name, this.field, [
+        nnv(
+            newEvent(this.field.name, initialize.name, 'onChange', this.handleOnChanged.name),
+            this.handleOnChanged.bind(this)
+        ),
+        nnv(
+            newEvent(this.field.name, initialize.name, 'onSelect', this.handleOnSelected.name),
+            this.handleOnSelected.bind(this)
+        )
+    ])
 }

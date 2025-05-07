@@ -13,4 +13,5 @@ export function update(
     className: string
 ): void {
     this.classesList.set(state, className)
+    this.field.notifier.observers.trigger()
 }

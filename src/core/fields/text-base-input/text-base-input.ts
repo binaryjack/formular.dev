@@ -15,9 +15,13 @@ export const TextBaseInput = function (this: ITextBaseInput, constructor: IConst
     if (constructor.type === 'inherits') {
         this.field = constructor.output as IFieldBaseInput
     }
-    this.initialize()
-    // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(TextBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${TextBaseInput.name}`)
+    }
 } as any as ITextBaseInput
 
 Object.assign(TextBaseInput.prototype, {

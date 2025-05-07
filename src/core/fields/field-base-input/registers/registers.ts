@@ -8,10 +8,11 @@ import { IExtendedFieldInput } from '../field-input-base-types'
 
 export interface IDomRegisterBuilder {
     new (context: IExtendedFieldInput): IDomRegisterBuilder
-    onchange: (e: Event) => void
-    onblur: (e: Event) => void
-    onfocus: (e: Event) => void
-    onclick: (e: Event) => void
+    onChange: (e: Event) => void
+    onBlur: (e: Event) => void
+    onFocus: (e: Event) => void
+    onClick: (e: Event) => void
+    onClickLabel: (e: Event) => void
 
     registerChange: () => IDomRegisterBuilder
     registerBlur: () => IDomRegisterBuilder
@@ -24,23 +25,23 @@ export interface IDomRegisterBuilder {
 
 export const domRegister = function (this: IDomRegisterBuilder, context: IExtendedFieldInput) {
     this.registerChange = function (this: IDomRegisterBuilder) {
-        this.onchange = (e: Event) => onChange(context.field, e)
+        this.onChange = (e: Event) => onChange(context.field, e)
         return this
     }
     this.registerBlur = function (this: IDomRegisterBuilder) {
-        this.onblur = (e: Event) => onBlur(context.field, e)
+        this.onBlur = (e: Event) => onBlur(context.field, e)
         return this
     }
     this.registerFocus = function (this: IDomRegisterBuilder) {
-        this.onfocus = (e: Event) => onFocus(context.field, e)
+        this.onFocus = (e: Event) => onFocus(context.field, e)
         return this
     }
     this.registerClick = function (this: IDomRegisterBuilder) {
-        this.onclick = (e: Event) => onClick(context.field, e)
+        this.onClick = (e: Event) => onClick(context.field, e)
         return this
     }
     this.registerClickLabel = function (this: IDomRegisterBuilder, optionId: string) {
-        this.onclick = (e: Event) => onClickLabel(context, optionId, e)
+        this.onClickLabel = (e: Event) => onClickLabel(context, optionId, e)
         return this
     }
     this.registerAria = function (this: IDomRegisterBuilder) {
@@ -54,10 +55,10 @@ export const domRegister = function (this: IDomRegisterBuilder, context: IExtend
             type: context.field.type,
             className: context.field.styler?.classNames() ?? '',
             title: context.field.label ?? '',
-            onChange: this.onchange,
-            onBlur: this.onblur,
-            onFocus: this.onfocus,
-            onClick: this.onclick
+            onChange: this.onChange,
+            onBlur: this.onBlur,
+            onFocus: this.onFocus,
+            onClick: this.onClick
         }
     }
 } as any as IDomRegisterBuilder

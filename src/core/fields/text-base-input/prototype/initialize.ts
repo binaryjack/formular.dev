@@ -8,17 +8,15 @@ import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IExtendedFieldInput) {
-    initializer(
-        initialize.name,
-        this,
-        this.field,
-        [
-            nnv(
-                newEvent(this.name, initialize.name, 'onChange', 'field.changed'),
-                this.handleOnChanged.bind(this)
-            )
-        ],
-
-        (e) => {}
-    )
+    initializer(initialize.name, this.field, [
+        nnv(
+            newEvent(
+                this.field.name,
+                this.handleOnChanged.name,
+                'onChange',
+                this.handleOnChanged.name
+            ),
+            this.handleOnChanged.bind(this.field)
+        )
+    ])
 }

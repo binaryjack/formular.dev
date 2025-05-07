@@ -25,9 +25,15 @@ export const RadioBaseInput = function (this: IRadioBaseInput, constructor: ICon
         this.clickBase = new ClickBaseInput(constructor)
         this.optionBase = new OptionBaseInput(constructor)
     }
-    this.initialize()
+
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(RadioBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${RadioBaseInput.name}`)
+    }
 } as any as IRadioBaseInput
 
 Object.assign(RadioBaseInput.prototype, {

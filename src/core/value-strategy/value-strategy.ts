@@ -22,10 +22,15 @@ export const ValueStrategy = function (this: IValueStrategy, constructor: IConst
         this.field = constructor.output as IFieldBaseInput
     }
 
-    this.initialize()
-    this.valueStrategies = []
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(ValueStrategy.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+        this.valueStrategies = []
+    } else {
+        throw Error(`The initialization failed ${ValueStrategy.name}`)
+    }
 } as any as IValueStrategy
 
 Object.assign(ValueStrategy.prototype, {

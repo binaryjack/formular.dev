@@ -17,10 +17,15 @@ export const CheckBoxInput = function (this: ICheckBoxBaseInput, constructor: IC
         this.field = constructor.output as IFieldBaseInput
         this.clickBase = new ClickBaseInput(constructor)
     }
-    this.initialize()
-    this.checked = undefined
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(CheckBoxInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+        this.checked = undefined
+    } else {
+        throw Error(`The initialization failed ${ClickBaseInput.name}`)
+    }
 } as any as ICheckBoxBaseInput
 
 Object.assign(CheckBoxInput.prototype, {

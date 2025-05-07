@@ -6,5 +6,5 @@ import { IValueStrategy } from '../value-strategy.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IValueStrategy) {
-    initializer(initialize.name, this, this.field)
+    initializer(initialize.name, this.field)
 }

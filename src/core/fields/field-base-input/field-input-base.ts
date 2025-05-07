@@ -1,5 +1,4 @@
 import { handleValidation } from '@core/formy-base/prototype/handle-validation'
-import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 
 import { IFieldBaseInput } from './field-input-base-types'
 import { initializeBase } from './initializers/initialize-base'
@@ -18,6 +17,7 @@ import { handleOnFocus } from './prototype/handle-on-focus'
 import { hasChanges } from './prototype/has-changes'
 import { initializeFieldProperties } from './prototype/intialize-field-properties'
 
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { initializeDrawerableState } from './initializers/initialize-drawerable-state'
 import { initializeNotifier } from './initializers/initialize-notifier'
 import { initializeStyle } from './initializers/initialize-style'

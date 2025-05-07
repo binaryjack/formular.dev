@@ -5,6 +5,7 @@ import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.
 
 import { IDommable } from '@core/dommable/dommable.types'
 
+import { IBuilderParams } from '@core/factory/builder/field-builder'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
 import {
@@ -31,6 +32,7 @@ import { IOptionBaseInputProperties } from '../option-based-input/option-base-in
 import { IRadioBaseInputProperties } from '../radio-base-input/radio-base-input.types'
 import { ISelectBaseInputProperties } from '../select-base-input/select-base-input.types'
 import { ITextBaseInput } from '../text-base-input/text-base-input.types'
+import { IInitilizationCheckResult } from './prototype/check-initialized'
 
 /**
  * Should be the root base of a field's properties
@@ -86,15 +88,10 @@ export interface IFieldBaseInput extends IField {
     new (descriptor: IFieldDescriptor): IFieldBaseInput
     /** initializer builders */
     initializeFieldProperties: (descriptor: IFieldDescriptor) => void
-    checkInitialized: () => boolean
-    initializeBase: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => boolean
+    checkInitialized: () => IInitilizationCheckResult
+    initializeBase: (params: IBuilderParams) => boolean
     initializeDommable: () => IFieldBaseInput
-    initializeNotifier: () => IFieldBaseInput
+    initializeNotifier: (notifierInstance: INotifiableEntity) => IFieldBaseInput
     initializeTracking: (providers?: ITrackingOutputProvider[]) => IFieldBaseInput
     initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => IFieldBaseInput
     initializeValidationStrategy: (

@@ -8,9 +8,9 @@ import { IClickBaseInput } from '../click-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IClickBaseInput) {
-    initializer(initialize.name, this, this.field, [
+    initializer(initialize.name, this.field, [
         nnv(
-            newEvent(this.name, initialize.name, 'onClick', 'field.click'),
+            newEvent(this.field.name, initialize.name, 'onClick', this.handleOnClicked.name),
             this.handleOnClicked.bind(this)
         )
     ])

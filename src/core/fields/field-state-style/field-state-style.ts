@@ -26,20 +26,26 @@ export const FieldStateStyle = function (this: IFieldStateStyle, constructor: IC
     if (constructor.type === 'inherits') {
         this.field = constructor.output as IFieldBaseInput
     }
-    this.initialize()
 
-    this.className = ''
-    this.classesList = new Map<FieldInputStateType, string>([
-        ['dirty', 'is-not-dirty'],
-        ['errors', 'no-errors'],
-        ['focus', 'is-not-focus'],
-        ['open', 'is-closed'],
-        ['pristine', 'is-pristine'],
-        ['valid', 'is-valid'],
-        ['required', 'required']
-    ])
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(FieldStateStyle.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+
+        this.className = ''
+        this.classesList = new Map<FieldInputStateType, string>([
+            ['dirty', 'is-not-dirty'],
+            ['errors', 'no-errors'],
+            ['focus', 'is-not-focus'],
+            ['open', 'is-closed'],
+            ['pristine', 'is-pristine'],
+            ['valid', 'is-valid'],
+            ['required', 'required']
+        ])
+    } else {
+        throw Error(`The initialization failed ${FieldStateStyle.name}`)
+    }
 } as any as IFieldStateStyle
 
 Object.assign(FieldStateStyle.prototype, {

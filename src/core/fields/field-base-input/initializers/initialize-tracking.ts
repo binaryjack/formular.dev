@@ -19,7 +19,7 @@ export const initializeTracking = function (
             undefined,
             'critical',
             initializeTracking.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeTracking ${this.name} class: ${e.message}`
         )
         return this
     }

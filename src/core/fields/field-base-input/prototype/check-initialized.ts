@@ -1,34 +1,39 @@
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
 import { IFieldBaseInput } from '../field-input-base-types'
 
-export const checkInitialized = function (this: IFieldBaseInput): boolean {
+export interface IInitilizationCheckResult {
+    success: boolean
+    errors: string[]
+}
+
+export const defaultPrecheck: IInitilizationCheckResult = { success: true, errors: [] }
+
+export const checkInitialized = function (this: IFieldBaseInput): IInitilizationCheckResult {
+    const output: string[] = []
     try {
         if (!this) {
-            throw Error('_baseInput must be initialized')
+            output.push('_baseInput must be initialized')
         }
         if (!this.tracker) {
-            throw Error('tracker must be initialized')
+            output.push('tracker must be initialized')
         }
         if (!this.notifier) {
-            throw Error('notifier must be initialized')
+            output.push('notifier must be initialized')
         }
         if (!this.dom) {
-            throw Error('dom must be initialized')
+            output.push('dom must be initialized')
         }
         if (!this.styler) {
-            throw Error('style must be initialized')
+            output.push('style must be initialized')
         }
         if (!this.validationStrategy) {
-            throw Error('validation strategy must be initialized')
+            output.push('validation strategy must be initialized')
         }
         if (!this.valueStrategy) {
-            throw Error('value strategy must be initialized')
+            output.push('value strategy must be initialized')
         }
         if (this.validationStrategy?.validationStrategies?.length === 0) {
-            generalExceptionHandler(
-                undefined,
-                'warning',
-                checkInitialized.name,
+            output.push(
                 `validation strategy needs at least one strategy in order to make it's work.
                 Solution:
                 - add a validation stategy
@@ -36,24 +41,21 @@ export const checkInitialized = function (this: IFieldBaseInput): boolean {
             )
         }
         if (this.valueStrategy?.valueStrategies?.length === 0) {
-            generalExceptionHandler(
-                undefined,
-                'error',
-                checkInitialized.name,
+            output.push(
                 `value strategy needs at least one strategy in order to persist and get data back.
                 Solution:
                 - add a value stategy
                 `
             )
         }
-        return true
+        return { success: output.length === 0, errors: output }
     } catch (e: any) {
         generalExceptionHandler(
             undefined,
             'critical',
             checkInitialized.name,
-            `an error has occured when initializing ${this.name} class: ${e.message}`
+            `A Criticla error has occured when initializing ${this.name} class: ${e.message}`
         )
-        return false
+        return { success: output.length === 0, errors: output }
     }
 }

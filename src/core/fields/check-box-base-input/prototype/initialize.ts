@@ -10,11 +10,10 @@ import { ICheckBoxBaseInput } from '../check-box-base-input.types'
 export const initialize = function (this: ICheckBoxBaseInput) {
     initializer(
         initialize.name,
-        this,
         this.field,
         [
             nnv(
-                newEvent(this.name, setup.name, 'onChange', this.handleOnChanged.name),
+                newEvent(this.field.name, initialize.name, 'onChange', this.handleOnChanged.name),
                 this.handleOnChanged.bind(this)
             )
         ],

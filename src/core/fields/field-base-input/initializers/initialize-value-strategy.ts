@@ -24,7 +24,7 @@ export const initializeValueStrategy = function (
             undefined,
             'critical',
             initializeValueStrategy.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeValueStrategy ${this.name} class: ${e.message}`
         )
         return this
     }

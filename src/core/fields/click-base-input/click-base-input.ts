@@ -13,9 +13,14 @@ export const ClickBaseInput = function (this: IClickBaseInput, constructor: ICon
     if (constructor.type === 'inherits') {
         this.field = constructor.output as IFieldBaseInput
     }
-    this.initialize()
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(ClickBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${ClickBaseInput.name}`)
+    }
 } as any as IClickBaseInput
 
 Object.assign(ClickBaseInput.prototype, {

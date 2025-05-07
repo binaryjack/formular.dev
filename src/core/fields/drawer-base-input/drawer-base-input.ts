@@ -13,9 +13,14 @@ export const DrawerBaseInput = function (this: IDrawerBaseInput, constructor: IC
     if (constructor.type === 'inherits') {
         this.field = constructor.output as IFieldBaseInput
     }
-    this.initialize()
-    // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(DrawerBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${DrawerBaseInput.name}`)
+    }
+    // Extend the prototype of FieldStateStyle with FieldInput's prototype
 } as any as IDrawerBaseInput
 
 Object.assign(DrawerBaseInput.prototype, {

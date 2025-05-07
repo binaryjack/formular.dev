@@ -15,7 +15,7 @@ export const initializeStyle = function (this: IFieldBaseInput): IFieldBaseInput
 
         this.styler.update(
             'required',
-            this.field?.validationStrategy?.validationOptions.requiredData?.required === true
+            this.validationStrategy?.validationOptions.requiredData?.required === true
         )
         return this
     } catch (e: any) {
@@ -23,7 +23,7 @@ export const initializeStyle = function (this: IFieldBaseInput): IFieldBaseInput
             undefined,
             'critical',
             initializeStyle.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeStyle ${this.name} class: ${e.message}`
         )
         return this
     }

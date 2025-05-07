@@ -33,7 +33,7 @@ export const initializeValidationStrategy = function (
             undefined,
             'critical',
             initializeValidationStrategy.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeValidationStrategy ${this.name} class: ${e.message}`
         )
         return this
     }

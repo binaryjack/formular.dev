@@ -6,6 +6,7 @@ import { IRadioBaseInput } from '@core/fields/radio-base-input/radio-base-input.
 import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
 import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
 import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
@@ -16,47 +17,38 @@ import { createRadioBased } from './prototype/create-radio-based'
 import { createSelectBased } from './prototype/create-select-based'
 import { createTextBased } from './prototype/create-text-based'
 
+export interface IBuilderParams {
+    [key: string]: any
+    descriptor: IFieldDescriptor
+    validationStrategies: IValidationMethodStrategy[]
+    trackingStrategies: ITrackingOutputProvider[]
+    valueStrategies: IParserStrategy<any>[]
+    notifierInstance: INotifiableEntity
+}
+
+export type IBuilderMethod<T> = (params: IBuilderParams) => T
+
+export function createField<T>(builderMethod: IBuilderMethod<T>, params: IBuilderParams): T {
+    return builderMethod({
+        descriptor: params.descriptor,
+        validationStrategies: params.validationStrategies ?? [],
+        trackingStrategies: params.trackingStrategies ?? [],
+        valueStrategies: params.valueStrategies ?? [],
+        notifierInstance: params.notifierInstance
+    })
+}
+
 export interface IFieldBuilder {
     new (): IFieldBuilder
 
     /** concrete */
-    createClickBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => IClickBaseInput | undefined
-    createOptionBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => IOptionBaseInput | undefined
-    createCheckBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => ICheckBoxBaseInput | undefined
-    createSelectBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => ISelectBaseInput | undefined
-    createRadioBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => IRadioBaseInput | undefined
-    createTextBased: (
-        descriptor: IFieldDescriptor,
-        validationStrategies: IValidationMethodStrategy[],
-        trackingStrategies: ITrackingOutputProvider[],
-        valueStrategies: IParserStrategy<any>[]
-    ) => ITextBaseInput | undefined
-    createFieldInput: () => IFieldBaseInput | undefined
+    createClickBased: IBuilderMethod<IClickBaseInput>
+    createOptionBased: IBuilderMethod<IOptionBaseInput>
+    createCheckBased: IBuilderMethod<ICheckBoxBaseInput>
+    createSelectBased: IBuilderMethod<ISelectBaseInput>
+    createRadioBased: IBuilderMethod<IRadioBaseInput>
+    createTextBased: IBuilderMethod<ITextBaseInput>
+    createFieldInput: IBuilderMethod<IFieldBaseInput>
 }
 
 export type FieldBuilderConstructor = new () => IFieldBuilder

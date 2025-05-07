@@ -1,8 +1,11 @@
 import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
+import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { IFieldBaseInput } from '../field-input-base-types'
 
-export const initializeNotifier = function (this: IFieldBaseInput): IFieldBaseInput {
+export const initializeNotifier = function (
+    this: IFieldBaseInput,
+    notifierInstance: INotifiableEntity
+): IFieldBaseInput {
     try {
         if (!this.name) {
             throw Error('properties must be initialized')
@@ -10,14 +13,19 @@ export const initializeNotifier = function (this: IFieldBaseInput): IFieldBaseIn
         if (!this?.tracker) {
             throw Error('tracker must be initialized')
         }
-        this.notifier = new NotifiableEntity()
+
+        if (!notifierInstance) {
+            throw Error('notifierInstance must be initialized globaly.')
+        }
+
+        this.notifier = notifierInstance
         return this
     } catch (e: any) {
         generalExceptionHandler(
             undefined,
             'critical',
             initializeNotifier.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeNotifier ${this.name} class: ${e.message}`
         )
         return this
     }

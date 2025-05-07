@@ -16,6 +16,7 @@ export function accept(this: INotifiableEntity, notify: INotifier) {
             exisingNotifier.event.types.push(t)
         }
     } else {
+        console.log('NOTIFIER REGISTERS', key, notify.method.name)
         this.notifiers.set(key, notify)
     }
 }

@@ -19,9 +19,16 @@ export const OptionBaseInput = function (this: IOptionBaseInput, constructor: IC
     if (constructor.type === 'inherits') {
         this.field = constructor.output as IFieldBaseInput
     }
-    this.initialize()
+
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(OptionBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.options = constructor.output?.options ?? []
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${OptionBaseInput.name}`)
+    }
 } as any as IOptionBaseInput
 
 Object.assign(OptionBaseInput.prototype, {

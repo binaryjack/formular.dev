@@ -7,6 +7,6 @@ export const onChangedHandle = (f: IFieldBaseInput) => {
     f.notifier?.debounceNotify(
         'onValidate',
         500,
-        newEvent(f.name, onChangedHandle.name, 'onValidate', `field.state.${onChangedHandle.name}`)
+        newEvent(f.name, onChangedHandle.name, 'onValidate', onChangedHandle.name)
     )
 }

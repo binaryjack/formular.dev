@@ -26,9 +26,15 @@ export const SelectBaseInput = function (this: ISelectBaseInput, constructor: IC
         this.clickBase = new ClickBaseInput(constructor)
         this.optionBase = new OptionBaseInput(constructor)
     }
-    this.initialize()
+
     // Extend the prototype of FieldStateStyle with FieldInput's prototype
     Object.setPrototypeOf(SelectBaseInput.prototype, FieldInput.prototype)
+
+    if (this.field.initializeBase(constructor.configuration)) {
+        this.initialize()
+    } else {
+        throw Error(`The initialization failed ${SelectBaseInput.name}`)
+    }
 } as any as ISelectBaseInput
 
 Object.assign(SelectBaseInput.prototype, {

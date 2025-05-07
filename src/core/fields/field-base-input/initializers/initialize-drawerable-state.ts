@@ -18,7 +18,7 @@ export const initializeDrawerableState = function (this: IFieldBaseInput): IFiel
             undefined,
             'critical',
             initializeDrawerableState.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeDrawerableState ${this.name} class: ${e.message}`
         )
         return this
     }

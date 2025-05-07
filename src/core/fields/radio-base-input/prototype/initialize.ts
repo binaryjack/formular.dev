@@ -8,9 +8,9 @@ import { IRadioBaseInput } from '../radio-base-input.types'
  * basic configuration for styles and validation
  */
 export const initialize = function (this: IRadioBaseInput) {
-    initializer(initialize.name, this, this.field, [
+    initializer(initialize.name, this.field, [
         nnv(
-            newEvent(this.name, initialize.name, 'onChange', 'field.changed'),
+            newEvent(this.field.name, initialize.name, 'onChange', this.handleOnChanged.name),
             this.handleOnChanged.bind(this)
         )
     ])

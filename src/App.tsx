@@ -8,6 +8,8 @@ import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-inp
 import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
+import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -168,10 +170,12 @@ const mockDescriptor: IFieldDescriptor = {
     shouldValidate: true
 }
 
+const notifierInstance: INotifiableEntity = new NotifiableEntity()
+
 const App = () => {
     const factory = new FieldFactory()
-    const input = factory.create<ITextBaseInput>('text', mockDescriptor)
-    const select = factory.create<ISelectBaseInput>('select', mockDescriptor)
+    const input = factory.create<ITextBaseInput>('text', mockDescriptor, notifierInstance)
+    const select = factory.create<ISelectBaseInput>('select', mockDescriptor, notifierInstance)
 
     const { instance: field, flags } = useField(input as IExtendedFieldInput)
     return (

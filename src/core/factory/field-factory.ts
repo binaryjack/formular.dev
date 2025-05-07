@@ -1,6 +1,7 @@
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { FieldTypeMap } from '@core/mapping/field-type-maps'
+import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
 import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
 import { ValidatorMaxLengthStrategy } from '@core/validation-strategy/strategies/validator-max-length-strategy'
@@ -16,13 +17,14 @@ import { numericParserStrategy } from '@core/value-strategy/strategies/numeric-b
 import { numericOptionBasedParserStrategy } from '@core/value-strategy/strategies/numeric-option-based-parser-strategy'
 import { stringParserStrategy } from '@core/value-strategy/strategies/string-based-parser-strategy'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
-import { FieldBuilder, IFieldBuilder } from './builder/field-builder'
+import { createField, FieldBuilder, IBuilderParams, IFieldBuilder } from './builder/field-builder'
 
 export interface IFieldFactory {
     new (): IFieldFactory
     create: <T>(
         type: FieldTypeNames,
         descriptor: IFieldDescriptor,
+        notifierInstance: INotifiableEntity,
         validationStrategies?: IValidationMethodStrategy[],
         trackingStrategies?: ITrackingOutputProvider[],
         valueStrategies?: IParserStrategy<any>[]
@@ -33,41 +35,30 @@ const fieldRegistry = <T>(
     builder: IFieldBuilder,
     type: keyof FieldTypeMap,
     descriptor: IFieldDescriptor,
+    notifierInstance: INotifiableEntity,
     validationStrategies?: IValidationMethodStrategy[],
     trackingStrategies?: ITrackingOutputProvider[],
     valueStrategies?: IParserStrategy<any>[]
 ): T | undefined => {
+    const params: IBuilderParams = {
+        descriptor: descriptor,
+        validationStrategies: validationStrategies ?? [],
+        trackingStrategies: trackingStrategies ?? [],
+        valueStrategies: valueStrategies ?? [],
+        notifierInstance: notifierInstance
+    }
+
     switch (type) {
         case 'toggle':
         case 'checkbox':
-            return builder.createCheckBased(
-                descriptor,
-                validationStrategies ?? [],
-                trackingStrategies ?? [],
-                valueStrategies ?? []
-            ) as T
+            return createField(builder.createCheckBased, params) as T
         case 'select':
-            return builder.createSelectBased(
-                descriptor,
-                validationStrategies ?? [],
-                trackingStrategies ?? [],
-                valueStrategies ?? []
-            ) as T
+            return createField(builder.createSelectBased, params) as T
         case 'radio':
-            return builder.createRadioBased(
-                descriptor,
-                validationStrategies ?? [],
-                trackingStrategies ?? [],
-                valueStrategies ?? []
-            ) as T
+            return createField(builder.createRadioBased, params) as T
         case 'text':
         default:
-            return builder.createTextBased(
-                descriptor,
-                validationStrategies ?? [],
-                trackingStrategies ?? [],
-                valueStrategies ?? []
-            ) as T
+            return createField(builder.createTextBased, params) as T
     }
 }
 const defaultValueParsersStrategies: IParserStrategy<any>[] = [
@@ -94,6 +85,7 @@ export const FieldFactory = function (this: IFieldFactory) {
         this: IFieldFactory,
         type: FieldTypeNames,
         descriptor: IFieldDescriptor,
+        notifierInstance: INotifiableEntity,
         validationStrategies?: IValidationMethodStrategy[],
         trackingStrategies?: ITrackingOutputProvider[],
         valueStrategies?: IParserStrategy<any>[]
@@ -104,6 +96,7 @@ export const FieldFactory = function (this: IFieldFactory) {
             builder,
             type,
             descriptor,
+            notifierInstance,
             [...defaultValidationStrategies, ...(validationStrategies ?? [])],
             [defaultOutputTracker, ...(trackingStrategies ?? [])],
             [...defaultValueParsersStrategies, ...(valueStrategies ?? [])]

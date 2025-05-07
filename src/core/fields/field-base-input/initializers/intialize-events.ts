@@ -11,18 +11,26 @@ export const initializeEvents = function (this: IFieldBaseInput): IFieldBaseInpu
 
         this.notifier?.accept(
             nnv(
-                newEvent(this.name, 'setup', 'onValidate', 'field.validate'),
+                newEvent(
+                    this.name,
+                    this.handleValidation.name,
+                    'onValidate',
+                    this.handleValidation.name
+                ),
                 this.handleValidation.bind(this)
             )
         )
 
         this.notifier?.accept(
-            nnv(newEvent(this.name, 'setup', 'onBlur', 'field.blur'), this.handleOnBlur.bind(this))
+            nnv(
+                newEvent(this.name, this.handleOnBlur.name, 'onBlur', this.handleOnBlur.name),
+                this.handleOnBlur.bind(this)
+            )
         )
 
         this.notifier?.accept(
             nnv(
-                newEvent(this.name, 'setup', 'onFocus', 'field.focus'),
+                newEvent(this.name, this.handleOnFocus.name, 'onFocus', this.handleOnFocus.name),
                 this.handleOnFocus.bind(this)
             )
         )
@@ -33,7 +41,7 @@ export const initializeEvents = function (this: IFieldBaseInput): IFieldBaseInpu
             undefined,
             'critical',
             initializeEvents.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeEvents ${this.name} class: ${e.message}`
         )
         return this
     }
