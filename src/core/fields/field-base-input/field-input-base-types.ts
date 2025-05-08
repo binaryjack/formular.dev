@@ -5,19 +5,12 @@ import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.
 
 import { IDommable } from '@core/dommable/dommable.types'
 
-import { IBuilderParams } from '@core/factory/builder/field-builder'
+import { IFieldInitializationParameters } from '@core/factory/builder/field-builder'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import { ITracker, ITrackingOutputProvider, TrackingType } from '@core/tracker/tracker.types'
-import {
-    IValidationMethodStrategy,
-    IValidationStrategy
-} from '@core/validation-strategy/validation-strategy.types'
+import { ITracker, TrackingType } from '@core/tracker/tracker.types'
+import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IEvents } from '../../events/events.types'
-import {
-    IParserStrategy,
-    IValueStrategy,
-    IValueStrategyProperties
-} from '../../value-strategy/value-strategy.types'
+import { IValueStrategy, IValueStrategyProperties } from '../../value-strategy/value-strategy.types'
 import { ICheckBoxBaseInputProperties } from '../check-box-base-input/check-box-base-input.types'
 import { IClickBaseInputProperties } from '../click-base-input/click-base-input.types'
 import {
@@ -84,27 +77,32 @@ export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldD
 /** @warning: should not being used outside it's main implementation prefer the use of @Ifield */
 export type IFieldInput = IFieldBaseInput & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
 
-export interface IFieldBaseInput extends IField {
+export interface IFieldBaseInput extends IField, IInitializableDependency {
     new (descriptor: IFieldDescriptor): IFieldBaseInput
+
     /** initializer builders */
-    initializeFieldProperties: (descriptor: IFieldDescriptor) => void
+    initializeProperties: (descriptor: IFieldDescriptor) => void
     checkInitialized: () => IInitilizationCheckResult
-    initializeBase: (params: IBuilderParams) => boolean
-    initializeDommable: () => IFieldBaseInput
-    initializeNotifier: (notifierInstance: INotifiableEntity) => IFieldBaseInput
-    initializeTracking: (providers?: ITrackingOutputProvider[]) => IFieldBaseInput
-    initializeValueStrategy: (...parsers: IParserStrategy<any>[]) => IFieldBaseInput
-    initializeValidationStrategy: (
-        descriptor: IFieldDescriptor,
-        ...parsers: IValidationMethodStrategy[]
-    ) => IFieldBaseInput
-    initializeDrawerableState: () => IFieldBaseInput
-    initializeStyle: () => IFieldBaseInput
-    initializeEvents: () => IFieldBaseInput
+    useDommable: (dommableInstance?: IDommable<HTMLInputElement>) => IFieldBaseInput
+    useNotifier: (notifierInstance?: INotifiableEntity) => IFieldBaseInput
+    useTracking: (trackerInstance?: ITracker) => IFieldBaseInput
+    useValueStrategy: (valueStrategyInstance?: IValueStrategy) => IFieldBaseInput
+    useValidationStrategy: (validationStrategyInstance?: IValidationStrategy) => IFieldBaseInput
+    useDrawerableState: (drawerableInstance?: IDrawerBaseInput) => IFieldBaseInput
+    useStyler: (stylerInstance?: IFieldStateStyle) => IFieldBaseInput
 }
 
-export interface IExtendedInputBase {
+export interface IExtendedInputBase extends IInitializableDependency {
     field: IFieldBaseInput
+}
+
+export interface IInitializableDependency {
+    /*Discriminator Property*/
+    dependencyName: string
+    /** says if the dependency has been initialized */
+    isInitialized: boolean
+    /** initializes the dependency */
+    initialize: (params: IFieldInitializationParameters) => void
 }
 
 export interface IExtendedFieldInput
@@ -117,7 +115,8 @@ export interface IExtendedFieldInput
         ISelectBaseInputProperties,
         IValueStrategyProperties,
         ITextBaseInput,
-        IExtendedInputBase {
+        IExtendedInputBase,
+        IInitializableDependency {
     // getOptionByValue: (value: string) => IOptionItem | null
     // tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
     // handleOnChanged: <T extends IEvents>(data?: T) => void

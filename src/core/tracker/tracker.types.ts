@@ -1,3 +1,5 @@
+import { IInitializableDependency } from '@core/fields/field-base-input/field-input-base-types'
+
 export type TrackingType = 'warning' | 'info' | 'error' | 'critical'
 
 export interface ITrackingOutputProvider {
@@ -36,7 +38,7 @@ export const newTrackingData = (
     }
 }
 
-export interface ITracker {
+export interface ITracker extends IInitializableDependency {
     new (providers?: ITrackingOutputProvider[]): ITracker
     _trackingData: ITrackingData[]
     _trackingIsActive: boolean

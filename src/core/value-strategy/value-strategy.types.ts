@@ -1,4 +1,3 @@
-import { IConstructor } from '@core/fields/field-base-input/constructors/constructors'
 import { IExtendedInputBase } from '@core/fields/field-base-input/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
@@ -32,9 +31,7 @@ export interface IValueStrategyProperties {
 }
 
 export interface IValueStrategy extends IValueStrategyProperties, IExtendedInputBase {
-    new (constructor: IConstructor): IValueStrategy
-
-    initialize: () => void
+    new (): IValueStrategy
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null

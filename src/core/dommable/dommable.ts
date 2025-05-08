@@ -17,7 +17,9 @@ import { initialize } from './prototype/initialize'
 
 export const Dommable = function <T extends HTMLElement>(this: IDommable<T>) {
     this.elements = []
-    this._tracker = null
+    this.tracker = null
+    this.isInitialized = false
+    this.dependencyName = Dommable.name
 } as any as IDommable<any>
 
 export const DommableInstance = function (prototype: object) {

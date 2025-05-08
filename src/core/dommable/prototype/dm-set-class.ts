@@ -8,7 +8,7 @@ import { IDommable } from '@core/dommable/dommable.types'
 export function dmSetClass<T extends HTMLElement>(this: IDommable<T>, id: string, rules: string) {
     const element = this.dmGet(id)
     if (!element) {
-        this._tracker?.internalError(
+        this.tracker?.internalError(
             'Dommable.dmSetClass',
             `The element does not exist in references: ${id}`
         )

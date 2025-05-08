@@ -1,6 +1,6 @@
 import { ITracker, TrackingType } from '../tracker/tracker.types'
 
-export const generalExceptionHandler = function (
+export const logManager = function (
     tracker: ITracker | undefined,
     type: TrackingType,
     source: string,
@@ -13,7 +13,7 @@ export const generalExceptionHandler = function (
         }
         _messageTrackerFactory(tracker, type, source, message)
     } catch (e: any) {
-        console.error(`${generalExceptionHandler.name}: unexpected error. ${e?.message}`)
+        console.error(`${logManager.name}: unexpected error. ${e?.message}`)
     }
 }
 

@@ -1,5 +1,4 @@
 import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
-import { IConstructor } from '../field-base-input/constructors/constructors'
 import { IExtendedInputBase } from '../field-base-input/field-input-base-types'
 
 export const defaultFieldInputCSSClassName = 'f-input'
@@ -35,8 +34,8 @@ export interface IFieldStateStyleProperties {
 }
 
 export interface IFieldStateStyle extends IFieldStateStyleProperties, IExtendedInputBase {
-    new (constructor: IConstructor): IFieldStateStyle
-    initialize: () => void
+    new (): IFieldStateStyle
+
     update: (type: FieldInputStateType, state: boolean) => void
     get: () => string
     getFlagsList: () => IFlags[]

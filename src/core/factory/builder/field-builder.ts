@@ -1,5 +1,7 @@
+import { EventsType } from '@core/events/events.types'
 import { ICheckBoxBaseInput } from '@core/fields/check-box-base-input/check-box-base-input.types'
 import { IClickBaseInput } from '@core/fields/click-base-input/click-base-input.types'
+import { IDependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { IFieldBaseInput } from '@core/fields/field-base-input/field-input-base-types'
 import { IOptionBaseInput } from '@core/fields/option-based-input/option-base-input.types'
 import { IRadioBaseInput } from '@core/fields/radio-base-input/radio-base-input.types'
@@ -17,25 +19,23 @@ import { createRadioBased } from './prototype/create-radio-based'
 import { createSelectBased } from './prototype/create-select-based'
 import { createTextBased } from './prototype/create-text-based'
 
-export interface IBuilderParams {
+export interface IFieldInitializationParameters {
     [key: string]: any
     descriptor: IFieldDescriptor
     validationStrategies: IValidationMethodStrategy[]
     trackingStrategies: ITrackingOutputProvider[]
     valueStrategies: IParserStrategy<any>[]
     notifierInstance: INotifiableEntity
+    validationTriggerModeType: EventsType[]
 }
 
-export type IBuilderMethod<T> = (params: IBuilderParams) => T
+export type IBuilderMethod<T> = (config: IDependencyConfiguration) => T
 
-export function createField<T>(builderMethod: IBuilderMethod<T>, params: IBuilderParams): T {
-    return builderMethod({
-        descriptor: params.descriptor,
-        validationStrategies: params.validationStrategies ?? [],
-        trackingStrategies: params.trackingStrategies ?? [],
-        valueStrategies: params.valueStrategies ?? [],
-        notifierInstance: params.notifierInstance
-    })
+export function createField<T>(
+    builderMethod: IBuilderMethod<T>,
+    config: IDependencyConfiguration
+): T {
+    return builderMethod(config)
 }
 
 export interface IFieldBuilder {

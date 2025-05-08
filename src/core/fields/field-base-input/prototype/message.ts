@@ -1,4 +1,4 @@
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
+import { logManager } from '@core/general-logging-manager/log-manager'
 import { TrackingType } from '@core/tracker/tracker.types'
 import { IFieldInput } from '../field-input-base-types'
 export const message = function (
@@ -7,5 +7,5 @@ export const message = function (
     source: string,
     message: string
 ) {
-    generalExceptionHandler(this.tracker, type, source, message)
+    logManager(this.tracker, type, source, message)
 }

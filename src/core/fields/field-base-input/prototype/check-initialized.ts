@@ -1,4 +1,4 @@
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
+import { logManager } from '@core/general-logging-manager/log-manager'
 import { IFieldBaseInput } from '../field-input-base-types'
 
 export interface IInitilizationCheckResult {
@@ -50,7 +50,7 @@ export const checkInitialized = function (this: IFieldBaseInput): IInitilization
         }
         return { success: output.length === 0, errors: output }
     } catch (e: any) {
-        generalExceptionHandler(
+        logManager(
             undefined,
             'critical',
             checkInitialized.name,

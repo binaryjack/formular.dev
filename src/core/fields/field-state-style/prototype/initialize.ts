@@ -1,14 +1,49 @@
-import { initializer } from '@core/fields/field-base-input/initializers/initializer'
+import { IFieldInitializationParameters } from '@core/factory/builder/field-builder'
+import { abstractInitializer } from '@core/fields/field-base-input/abstract/abstract-initializer'
+import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
+import { logManager } from '@core/general-logging-manager/log-manager'
 import { IFieldStateStyle } from '../field-state-style.types'
 
-export const initialize = function (this: IFieldStateStyle) {
-    initializer(initialize.name, this.field, [], (e) => {
-        if (!e.validationStrategy?.validationOptions) {
-            throw Error(
-                `${initialize.name}: unable to intialize Styles you must provide validationOptions before invoking this.`
-            )
+export const initialize = async function (
+    this: IFieldStateStyle,
+    params: IFieldInitializationParameters
+) {
+    try {
+        const em = new ExceptionManager(
+            ...[
+                newAssert(
+                    this.field.isInitialized,
+                    `The dependency field is not properly initialized`
+                ),
+                newAssert(
+                    this.field.styler.isInitialized,
+                    `The dependency field.styler is not properly initialized`
+                ),
+                newAssert(
+                    params.descriptor?.options?.length > 0,
+                    `None options were provided. this feature will not work properly`
+                )
+            ]
+        )
+        em.process()
+        if (em.hasErrors()) {
+            logManager(undefined, 'critical', 'initialize', em.toString())
         }
-        e?.notifier?.observers.subscribe(this.classNames.bind(this))
-        e?.notifier?.observers.subscribe(this.getFlagsObject.bind(this))
-    })
+
+        const success = await abstractInitializer(initialize.name, this.field, (e) => {
+            e.styler.update(
+                'required',
+                params.descriptor.validationOptions.requiredData?.required === true
+            )
+            e?.notifier?.observers.subscribe(this.classNames.bind(this))
+            e?.notifier?.observers.subscribe(this.getFlagsObject.bind(this))
+        })
+
+        if (success) {
+            logManager(undefined, 'info', this.dependencyName, 'Initialized')
+            this.isInitialized = true
+        }
+    } catch (e: any) {
+        logManager(undefined, 'critical', this.dependencyName, e)
+    }
 }

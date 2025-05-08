@@ -12,7 +12,7 @@ export function dmRegisterById<T extends HTMLElement>(this: IDommable<T>, id: st
     }
     const _tmpElement = document.getElementById(id) as T
     if (!_tmpElement) {
-        this._tracker?.internalError(
+        this.tracker?.internalError(
             'Dommable.registerById',
             `The element you try to reference doesn't exist in the DOM: ${id}`
         )

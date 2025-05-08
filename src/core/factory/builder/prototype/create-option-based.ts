@@ -1,22 +1,25 @@
-import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
+import {
+    DependencyConfiguration,
+    IDependencyConfiguration
+} from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { OptionBaseInput } from '@core/fields/option-based-input/option-base-input'
 import { IOptionBaseInput } from '@core/fields/option-based-input/option-base-input.types'
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { IBuilderParams, IFieldBuilder } from '../field-builder'
+import { logManager } from '@core/general-logging-manager/log-manager'
+import { IFieldBuilder } from '../field-builder'
 
 export const createOptionBased = function (
     this: IFieldBuilder,
-    params: IBuilderParams
+    config: IDependencyConfiguration
 ): IOptionBaseInput | undefined {
     try {
-        const _optionInput = new OptionBaseInput(new Constructor(params, undefined))
+        const _optionInput = new OptionBaseInput(new DependencyConfiguration(params, undefined))
 
         if (!(_optionInput instanceof OptionBaseInput)) {
             throw Error(`The immediate clone of ${OptionBaseInput.name} is not well formed!`)
         }
         return _optionInput
     } catch (e: any) {
-        generalExceptionHandler(
+        logManager(
             undefined,
             'critical',
             createOptionBased.name,

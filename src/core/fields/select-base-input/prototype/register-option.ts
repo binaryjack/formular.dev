@@ -1,5 +1,5 @@
+import { DomRegisterBuilder } from '@core/fields/field-base-input/abstract/dom-registers-builder'
 import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { domRegister } from '@core/fields/field-base-input/registers/registers'
 
 /**
  * Registers event handlers for a field's children options input components
@@ -22,7 +22,7 @@ import { domRegister } from '@core/fields/field-base-input/registers/registers'
  *   triggers observers, and notifies listeners about the "focused" event.
  */
 export const registerOption = function (this: IExtendedFieldInput): Partial<HTMLInputElement> {
-    return new domRegister(this)
+    return new DomRegisterBuilder(this)
         .registerChange()
         .registerBlur()
         .registerFocus()

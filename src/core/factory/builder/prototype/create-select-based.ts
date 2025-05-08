@@ -1,22 +1,25 @@
-import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
+import {
+    DependencyConfiguration,
+    IDependencyConfiguration
+} from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { SelectBaseInput } from '@core/fields/select-base-input/select-base-input'
 import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { IBuilderParams, IFieldBuilder } from '../field-builder'
+import { logManager } from '@core/general-logging-manager/log-manager'
+import { IFieldBuilder, IFieldInitializationParameters } from '../field-builder'
 
 export const createSelectBased = function (
     this: IFieldBuilder,
-    params: IBuilderParams
+    config: IDependencyConfiguration
 ): ISelectBaseInput | undefined {
     try {
-        const _selectInput = new SelectBaseInput(new Constructor(params, undefined))
+        const _selectInput = new SelectBaseInput(new DependencyConfiguration(params, undefined))
 
         if (!(_selectInput instanceof SelectBaseInput)) {
             throw Error(`The immediate clone of ${SelectBaseInput.name} is not well formed!`)
         }
         return _selectInput
     } catch (e: any) {
-        generalExceptionHandler(
+        logManager(
             undefined,
             'critical',
             createSelectBased.name,

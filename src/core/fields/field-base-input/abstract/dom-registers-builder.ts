@@ -23,7 +23,10 @@ export interface IDomRegisterBuilder {
     build: () => any
 }
 
-export const domRegister = function (this: IDomRegisterBuilder, context: IExtendedFieldInput) {
+export const DomRegisterBuilder = function (
+    this: IDomRegisterBuilder,
+    context: IExtendedFieldInput
+) {
     this.registerChange = function (this: IDomRegisterBuilder) {
         this.onChange = (e: Event) => onChange(context.field, e)
         return this

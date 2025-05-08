@@ -1,10 +1,12 @@
 import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { IDateObject } from '@components/date-picker/core/models/date-object.models'
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import {
+    IFieldInput,
+    IInitializableDependency
+} from '@core/fields/field-base-input/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IFieldError, IFieldGuide } from '@core/framework/errors'
-import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { EventsType, IEvents } from '../events/events.types'
 
 export interface IValidableForm {
@@ -57,6 +59,7 @@ export interface IValidationStrategyData {
     fieldName: string
     type: string
     validationOptions: IValidationOptions
+    shouldValidate: boolean
     value: FieldDataTypes
     expectedValue: FieldDataTypes
     origin: IEvents | null
@@ -68,6 +71,7 @@ export const newValidationStrategyData = (
     fieldName: string,
     type: string,
     validationOptions: IValidationOptions,
+    shouldValidate: boolean,
     value: FieldDataTypes,
     expectedValue?: FieldDataTypes,
     origin?: IEvents
@@ -76,6 +80,7 @@ export const newValidationStrategyData = (
         fieldName: fieldName,
         type: type,
         validationOptions: validationOptions,
+        shouldValidate: shouldValidate,
         value: value,
         expectedValue: expectedValue !== undefined ? expectedValue : null,
         origin: origin ?? null,
@@ -113,20 +118,15 @@ export interface IValidationMethodStrategy {
     validate: (data: IValidationStrategyData) => IValidationResult
 }
 
-export interface IValidationStrategy {
+export interface IValidationStrategy extends IInitializableDependency {
     new (): IValidationStrategy
-
     validationStrategies: IValidationMethodStrategy[]
-    validationOptions: IValidationOptions
     isValidating: boolean
-    shouldValidate: boolean
     validationTriggerModeType: EventsType[]
-    validationResults: IValidationResult[]
-    initializeValidationStrategy: (descriptor: IFieldDescriptor) => void
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
     validate: (data: IValidationStrategyData) => IValidationResult[]
-    validateAll: (fields: IFieldInput[]) => void
+    validateAll: (fields: IFieldInput[]) => IValidationResults[]
 }
 
 export interface IValidationTextBase {

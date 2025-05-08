@@ -1,5 +1,5 @@
+import { DomRegisterBuilder } from '@core/fields/field-base-input/abstract/dom-registers-builder'
 import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { domRegister } from '@core/fields/field-base-input/registers/registers'
 
 /**
  * Registers a label click handler for a field input component.
@@ -22,5 +22,5 @@ export const registerLabel = function (
     this: IExtendedFieldInput,
     optionId: string
 ): Partial<HTMLInputElement> {
-    return new domRegister(this).registerClickLabel(optionId).registerAria().build()
+    return new DomRegisterBuilder(this).registerClickLabel(optionId).registerAria().build()
 }

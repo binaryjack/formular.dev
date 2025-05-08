@@ -1,3 +1,4 @@
+import { IInitializableDependency } from '@core/fields/field-base-input/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { ITracker } from '@core/tracker/tracker.types'
 
@@ -8,12 +9,11 @@ export interface IAria {
 
 export type IDommable<T extends HTMLElement> = IDommableBase<T> & ITracker
 
-export interface IDommableBase<T extends HTMLElement> {
+export interface IDommableBase<T extends HTMLElement> extends IInitializableDependency {
     new (): IDommable<T>
     elements: T[]
-    _tracker: ITracker | null
+    tracker: ITracker | null
     internalHTMLElementRef: HTMLInputElement[] | null
-    initialize: (tracker: ITracker) => void
     ref: (o: HTMLInputElement | null) => void
     dmSetFocus: (id: string) => void
     dmRegister: (element: T | null) => void

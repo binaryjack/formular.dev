@@ -1,8 +1,7 @@
 import { addValidationStrategies } from './prototype/add-validation-strategies'
 import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
 
-import { assignToInstance } from '@core/framework/utility/assign-to-instance'
-import { initializeValidationStrategy } from './prototype/initialize-validation-strategy'
+import { initialize } from './prototype/initialize'
 import { validate } from './prototype/validate'
 import { validateAll } from './prototype/validate-all'
 import { IValidationStrategy } from './validation-strategy.types'
@@ -20,18 +19,18 @@ import { IValidationStrategy } from './validation-strategy.types'
  * @param {IValidatorStrategyData} data - The data to be validated.
  * @returns {IValidationResult[]} An array of validation results from the applied strategies.
  */
-export const ValidationStrategy = function (
-    this: IValidationStrategy
-) {} as any as IValidationStrategy
+export const ValidationStrategy = function (this: IValidationStrategy) {
+    this.isInitialized = false
+    this.isValidating = false
+    this.validationStrategies = []
+    this.validationTriggerModeType = []
+    this.dependencyName = ValidationStrategy.name
+} as any as IValidationStrategy
 
-export const ValidationStrategyInstance = function (prototype: object) {
-    assignToInstance(prototype, {
-        initializeValidationStrategy,
-        addValidationStrategies,
-        setValidationTriggerMode,
-        validate,
-        validateAll
-    })
-}
-
-ValidationStrategyInstance(ValidationStrategy.prototype)
+Object.assign(ValidationStrategy.prototype, {
+    initialize,
+    addValidationStrategies,
+    setValidationTriggerMode,
+    validate,
+    validateAll
+})

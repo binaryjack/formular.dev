@@ -1,22 +1,25 @@
 import { ClickBaseInput } from '@core/fields/click-base-input/click-base-input'
 import { IClickBaseInput } from '@core/fields/click-base-input/click-base-input.types'
-import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { IBuilderParams, IFieldBuilder } from '../field-builder'
+import {
+    DependencyConfiguration,
+    IDependencyConfiguration
+} from '@core/fields/field-base-input/configuration/dependency-configuration'
+import { logManager } from '@core/general-logging-manager/log-manager'
+import { IFieldBuilder, IFieldInitializationParameters } from '../field-builder'
 
 export const createClickBased = function (
     this: IFieldBuilder,
-    params: IBuilderParams
+    config: IDependencyConfiguration
 ): IClickBaseInput | undefined {
     try {
-        const _clickInput = new ClickBaseInput(new Constructor(params, undefined))
+        const _clickInput = new ClickBaseInput(new DependencyConfiguration(params, undefined))
 
         if (!(_clickInput instanceof ClickBaseInput)) {
             throw Error(`The immediate clone of ${ClickBaseInput.name} is not well formed!`)
         }
         return _clickInput
     } catch (e: any) {
-        generalExceptionHandler(
+        logManager(
             undefined,
             'critical',
             createClickBased.name,

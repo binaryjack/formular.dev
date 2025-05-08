@@ -23,11 +23,12 @@
  */
 
 import { EventsType, IEvents } from '@core/events/events.types'
+import { IInitializableDependency } from '@core/fields/field-base-input/field-input-base-types'
 import { IDataMutationObserverSubject } from '../data-mutation-observer/data-mutation-observer-subject.types'
 import { ComputedSignalCallback } from '../signals/signal.type'
 import { INotifier } from './notifications.types'
 
-export interface INotifiableEntity {
+export interface INotifiableEntity extends IInitializableDependency {
     new (autoTracker?: INotifiableEntity): INotifiableEntity
     getRegisteredNotifierNames: () => string[]
     notify: <T extends IEvents>(type: EventsType, data?: T) => void

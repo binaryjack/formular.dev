@@ -1,6 +1,5 @@
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IClickBaseInput } from '../click-base-input/click-base-input.types'
-import { IConstructor } from '../field-base-input/constructors/constructors'
 import { IExtendedInputBase, IFieldInput } from '../field-base-input/field-input-base-types'
 
 export type IOptionInput = IOptionBaseInput & IClickBaseInput & IFieldInput
@@ -13,9 +12,8 @@ export interface IOptionBaseInputProperties {
 }
 
 export interface IOptionBaseInput extends IOptionBaseInputProperties, IExtendedInputBase {
-    new (constructor: IConstructor): IOptionBaseInput
+    new (): IOptionBaseInput
 
-    initialize: () => void
     checkOptionsInitialized: () => boolean
 
     getOptionByValue: (value: string) => IOptionItem | null
@@ -28,6 +26,4 @@ export interface IOptionBaseInput extends IOptionBaseInputProperties, IExtendedI
         value: string
     ) => IOptionItem | null
     getSelectedValue: () => string | undefined
-
-    /** to move to specifics*/
 }

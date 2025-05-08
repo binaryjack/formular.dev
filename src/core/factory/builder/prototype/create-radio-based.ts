@@ -1,22 +1,25 @@
-import { Constructor } from '@core/fields/field-base-input/constructors/constructors'
+import {
+    DependencyConfiguration,
+    IDependencyConfiguration
+} from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { RadioBaseInput } from '@core/fields/radio-base-input/radio-base-input'
 import { IRadioBaseInput } from '@core/fields/radio-base-input/radio-base-input.types'
-import { generalExceptionHandler } from '@core/general-exception-handler/genaral-exception-handler'
-import { IBuilderParams, IFieldBuilder } from '../field-builder'
+import { logManager } from '@core/general-logging-manager/log-manager'
+import { IFieldBuilder } from '../field-builder'
 
 export const createRadioBased = function (
     this: IFieldBuilder,
-    params: IBuilderParams
+    config: IDependencyConfiguration
 ): IRadioBaseInput | undefined {
     try {
-        const _radioInput = new RadioBaseInput(new Constructor(params, undefined))
+        const _radioInput = new RadioBaseInput(new DependencyConfiguration(params, undefined))
 
         if (!(_radioInput instanceof RadioBaseInput)) {
             throw Error(`The immediate clone of ${RadioBaseInput.name} is not well formed!`)
         }
         return _radioInput
     } catch (e: any) {
-        generalExceptionHandler(
+        logManager(
             undefined,
             'critical',
             createRadioBased.name,
