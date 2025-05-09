@@ -2,7 +2,10 @@ import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
 import { useField } from '@components/formy/formy.context'
 import ValidationResultComponent from '@components/validation-result/validation-result'
+import { Dommable } from '@core/dommable/dommable'
+import { IDommable } from '@core/dommable/dommable.types'
 import { FieldFactory } from '@core/factory/field-factory'
+import { DependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
 import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
 import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
@@ -10,6 +13,26 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
 import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
+import { Tracker } from '@core/tracker/tracker'
+import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
+import { ITracker } from '@core/tracker/tracker.types'
+import { ValidatorMaxLengthStrategy } from '@core/validation-strategy/strategies/validator-max-length-strategy'
+import { ValidatorMaxStrategy } from '@core/validation-strategy/strategies/validator-max-strategy'
+import { ValidatorMinLengthStrategy } from '@core/validation-strategy/strategies/validator-min-length-strategy'
+import { ValidatorMinStrategy } from '@core/validation-strategy/strategies/validator-min-strategy'
+import { ValidatorRequiredStrategy } from '@core/validation-strategy/strategies/validator-required-strategy'
+import { ValidatorPatternStrategy } from '@core/validation-strategy/strategies/vaslidator-pattern-strategy'
+import { ValidationStrategy } from '@core/validation-strategy/validation-strategy'
+import {
+    IValidationMethodStrategy,
+    IValidationStrategy
+} from '@core/validation-strategy/validation-strategy.types'
+import { booleanParserStrategy } from '@core/value-strategy/strategies/boolean-based-parser-strategy'
+import { dateOrTimeParserStrategy } from '@core/value-strategy/strategies/date-or-time-based-parser-strategy'
+import { numericParserStrategy } from '@core/value-strategy/strategies/numeric-based-parser-strategy'
+import { numericOptionBasedParserStrategy } from '@core/value-strategy/strategies/numeric-option-based-parser-strategy'
+import { stringParserStrategy } from '@core/value-strategy/strategies/string-based-parser-strategy'
+import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -170,12 +193,47 @@ const mockDescriptor: IFieldDescriptor = {
     shouldValidate: true
 }
 
+const defaultValueParsersStrategies: IParserStrategy<any>[] = [
+    booleanParserStrategy,
+    stringParserStrategy,
+    numericParserStrategy,
+    dateOrTimeParserStrategy,
+    numericOptionBasedParserStrategy
+]
+
+const defaultValidationStrategies: IValidationMethodStrategy[] = [
+    ValidatorMaxLengthStrategy,
+    ValidatorMaxStrategy,
+    ValidatorMinLengthStrategy,
+    ValidatorMinStrategy,
+    ValidatorRequiredStrategy,
+    ValidatorPatternStrategy
+]
+
+const defaultOutputTracker = consoleTrackingProvider
+
 const notifierInstance: INotifiableEntity = new NotifiableEntity()
+const dommable: IDommable<HTMLInputElement> = new Dommable()
+const tracker: ITracker = new Tracker()
+
+const validationStrategy: IValidationStrategy = new ValidationStrategy()
+
+const dependencyConfiguration = new DependencyConfiguration(
+    {
+        descriptor: mockDescriptor,
+        trackingStrategies: [defaultOutputTracker],
+        validationStrategies: defaultValidationStrategies,
+        validationTriggerModeType: ['onChange', 'onBlur', 'onFocus'],
+        valueStrategies: defaultValueParsersStrategies
+    },
+    [notifierInstance, dommable, tracker, validationStrategy]
+)
 
 const App = () => {
     const factory = new FieldFactory()
-    const input = factory.create<ITextBaseInput>('text', mockDescriptor, notifierInstance)
-    const select = factory.create<ISelectBaseInput>('select', mockDescriptor, notifierInstance)
+    const input = factory.create<ITextBaseInput>('text')(dependencyConfiguration)
+
+    const select = factory.create<ISelectBaseInput>('select')(dependencyConfiguration)
 
     const { instance: field, flags } = useField(input as IExtendedFieldInput)
     return (

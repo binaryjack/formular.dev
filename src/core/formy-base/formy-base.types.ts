@@ -8,7 +8,8 @@ import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-bas
 import { LoadingStatus } from '@core/status'
 import {
     IValidableForm,
-    IValidationStrategy
+    IValidationStrategy,
+    IValidationStrategyData
 } from '@core/validation-strategy/validation-strategy.types'
 
 export type IFormy = IFormyBase &
@@ -37,8 +38,8 @@ export interface IFormyBase {
     submitCount: number
     canValidate: boolean
     setup: (autoTracker?: INotifiableEntity) => void
-    handleValidation: (origin?: any) => void
-    validateAll: () => void
+    handleValidation: (data?: IValidationStrategyData) => void
+    validateAll: (data?: IValidationStrategyData) => void
     addFields: (...flds: IFieldInput[]) => void
     getField: (fieldName: string) => IExtendedFieldInput | undefined
     checkChanges: () => void

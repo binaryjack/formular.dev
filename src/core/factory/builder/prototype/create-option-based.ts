@@ -1,7 +1,4 @@
-import {
-    DependencyConfiguration,
-    IDependencyConfiguration
-} from '@core/fields/field-base-input/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { OptionBaseInput } from '@core/fields/option-based-input/option-base-input'
 import { IOptionBaseInput } from '@core/fields/option-based-input/option-base-input.types'
 import { logManager } from '@core/general-logging-manager/log-manager'
@@ -12,7 +9,7 @@ export const createOptionBased = function (
     config: IDependencyConfiguration
 ): IOptionBaseInput | undefined {
     try {
-        const _optionInput = new OptionBaseInput(new DependencyConfiguration(params, undefined))
+        const _optionInput = new OptionBaseInput()
 
         if (!(_optionInput instanceof OptionBaseInput)) {
             throw Error(`The immediate clone of ${OptionBaseInput.name} is not well formed!`)

@@ -5,6 +5,7 @@ import { accept } from './prototype/accept'
 import { debounceNotify } from './prototype/debounce-notify'
 import { dispose } from './prototype/dispose'
 import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
+import { initialize } from './prototype/initialize'
 import { notify } from './prototype/notify'
 
 /**
@@ -21,12 +22,15 @@ export const NotifiableEntity = function (
     this.notifiers = new Map<string, INotifier>()
     this.observers = new DataMutationObserverSubject()
     this.computedSignalCallback = null
+    this.dependencyName = NotifiableEntity.name
+    this.isInitialized = false
 } as any as INotifiableEntity
 
 Object.assign(NotifiableEntity.prototype, {
     debounceNotify,
     getRegisteredNotifierNames,
     accept,
+    initialize,
     notify,
     dispose
 })

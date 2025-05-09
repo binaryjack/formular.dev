@@ -59,6 +59,7 @@ export interface IValidationStrategyData {
     fieldName: string
     type: string
     validationOptions: IValidationOptions
+    validationTriggerModeType: EventsType[]
     shouldValidate: boolean
     value: FieldDataTypes
     expectedValue: FieldDataTypes
@@ -71,6 +72,7 @@ export const newValidationStrategyData = (
     fieldName: string,
     type: string,
     validationOptions: IValidationOptions,
+    validationTriggerModeType: EventsType[],
     shouldValidate: boolean,
     value: FieldDataTypes,
     expectedValue?: FieldDataTypes,
@@ -80,6 +82,7 @@ export const newValidationStrategyData = (
         fieldName: fieldName,
         type: type,
         validationOptions: validationOptions,
+        validationTriggerModeType: validationTriggerModeType,
         shouldValidate: shouldValidate,
         value: value,
         expectedValue: expectedValue !== undefined ? expectedValue : null,

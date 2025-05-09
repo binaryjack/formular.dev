@@ -19,7 +19,6 @@ export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiab
     this.id = id
     this.fields = []
     this.originFields = []
-    this.validationResults = []
     this.isValid = true
     this.isBusy = LoadingStatus.Loaded
     this.validationTriggerModeType = []

@@ -11,6 +11,7 @@ export const useDrawerableState = function (this: IFieldBaseInput): IFieldBaseIn
         //     throw Error('tracker must be initialized')
         // }
         this.drawer = new DrawerBaseInput()
+        this.drawer.field = this
         return this
     } catch (e: any) {
         logManager(

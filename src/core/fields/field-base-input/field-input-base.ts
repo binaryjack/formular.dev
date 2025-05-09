@@ -1,5 +1,3 @@
-import { handleValidation } from '@core/formy-base/prototype/handle-validation'
-
 import { useDommable } from './dependencies/use-dommable'
 import { useTracking } from './dependencies/use-tracking'
 import { useValidationStrategy } from './dependencies/use-validation-strategy'
@@ -12,6 +10,7 @@ import { focus } from './prototype/focus'
 import { handleOnBlur } from './prototype/handle-on-blur'
 import { handleOnClear } from './prototype/handle-on-clear'
 import { handleOnFocus } from './prototype/handle-on-focus'
+import { handleValidation } from './prototype/handle-validation'
 import { hasChanges } from './prototype/has-changes'
 import { initialize } from './prototype/intialize'
 import { initializeProperties } from './prototype/intialize-properties'
@@ -29,7 +28,7 @@ export const FieldInput = function (this: IFieldBaseInput, descriptor: IFieldDes
     }
     this.isInitialized = false
     this.dependencyName = FieldInput.name
-    this.initializeFieldProperties(descriptor)
+    this.initializeProperties(descriptor)
 } as any as IFieldBaseInput
 
 Object.assign(FieldInput.prototype, {

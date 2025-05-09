@@ -11,6 +11,7 @@ export const useStyler = function (this: IFieldBaseInput): IFieldBaseInput {
         //     throw Error('validationStrategy must be initialized beefore styles')
         // }
         this.styler = new FieldStateStyle()
+        this.styler.field = this
 
         return this
     } catch (e: any) {

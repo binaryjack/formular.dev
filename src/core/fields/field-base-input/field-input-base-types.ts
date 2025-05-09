@@ -8,7 +8,10 @@ import { IDommable } from '@core/dommable/dommable.types'
 import { IFieldInitializationParameters } from '@core/factory/builder/field-builder'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { ITracker, TrackingType } from '@core/tracker/tracker.types'
-import { IValidationStrategy } from '@core/validation-strategy/validation-strategy.types'
+import {
+    IValidationStrategy,
+    IValidationStrategyData
+} from '@core/validation-strategy/validation-strategy.types'
 import { IEvents } from '../../events/events.types'
 import { IValueStrategy, IValueStrategyProperties } from '../../value-strategy/value-strategy.types'
 import { ICheckBoxBaseInputProperties } from '../check-box-base-input/check-box-base-input.types'
@@ -56,7 +59,7 @@ export interface IField extends IFieldDescriptor {
     enable: (enabled: boolean) => void
 
     hasChanges: (callback: () => void) => void
-    handleValidation: <T extends IEvents>(event?: T) => void
+    handleValidation: <T extends IEvents>(event?: T, data?: IValidationStrategyData) => void
 
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
@@ -86,8 +89,8 @@ export interface IFieldBaseInput extends IField, IInitializableDependency {
     useDommable: (dommableInstance?: IDommable<HTMLInputElement>) => IFieldBaseInput
     useNotifier: (notifierInstance?: INotifiableEntity) => IFieldBaseInput
     useTracking: (trackerInstance?: ITracker) => IFieldBaseInput
-    useValueStrategy: (valueStrategyInstance?: IValueStrategy) => IFieldBaseInput
     useValidationStrategy: (validationStrategyInstance?: IValidationStrategy) => IFieldBaseInput
+    useValueStrategy: (valueStrategyInstance?: IValueStrategy) => IFieldBaseInput
     useDrawerableState: (drawerableInstance?: IDrawerBaseInput) => IFieldBaseInput
     useStyler: (stylerInstance?: IFieldStateStyle) => IFieldBaseInput
 }

@@ -3,8 +3,7 @@ import {
     IValidationResult,
     IValidationResults,
     IValidationStrategy,
-    newValidationResults,
-    newValidationStrategyData
+    newValidationResults
 } from '../validation-strategy.types'
 
 /**
@@ -18,16 +17,19 @@ export const validateAll = function (this: IValidationStrategy, fields: IFieldIn
 
     let mainResults: IValidationResult[] = []
 
-    for (const field of fields) {
-        const validationstrategyData = newValidationStrategyData(
-            field.name,
-            field.type,
-            field.validationOptions,
-            field.getValue(),
-            field.expectedValue
-        )
-        mainResults = [...mainResults, ...field.validate(validationstrategyData)]
-    }
+    // for (const field of fields) {
+    //     const validationstrategyData = newValidationStrategyData(
+    //         this.name,
+    //         this.type,
+    //         this.validationOptions,
+    //         this.valueStrategy?.toString(),
+    //         this.expectedValue,
+    //         this.validationTriggerModeType,
+    //         this.shouldValidate,
+    //         this.name
+    //     )
+    //     mainResults = [...mainResults, ...field.validate(validationstrategyData)]
+    // }
     const output = newValidationResults(false)
     output.isValid = mainResults?.every((o) => o.state) ?? false
     return output

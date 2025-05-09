@@ -1,5 +1,6 @@
 import { addProviders } from './prototype/add-providers'
 import { getTrackingDate } from './prototype/get-tracking-date'
+import { initialize } from './prototype/initialize'
 import { internalCritical } from './prototype/internal-critical'
 import { internalError } from './prototype/internal-error'
 import { internalInfo } from './prototype/internal-info'
@@ -24,6 +25,7 @@ Object.assign(Tracker.prototype, {
     setTrackingActive,
     getTrackingDate,
     addProviders,
+    initialize,
     internalCritical,
     internalError,
     internalWarning,

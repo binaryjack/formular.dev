@@ -25,28 +25,64 @@ export const createTextBased = function (
     config: IDependencyConfiguration
 ): ITextBaseInput | undefined {
     try {
+        if (!config.verify()) {
+            return undefined
+        }
         /** First entry point */
-        const _baseInput = new FieldInput(config.initialization.descriptor)
+        const _baseInput = new FieldInput(config?.initialization?.descriptor!)
 
         _baseInput.useNotifier(config.getDependency<INotifiableEntity>(NotifiableEntity.name))
         _baseInput.useTracking(config.getDependency<ITracker>(Tracker.name))
         _baseInput.useDommable(config.getDependency<IDommable<HTMLInputElement>>(Dommable.name))
-        _baseInput.useDrawerableState(config.getDependency<IDrawerBaseInput>(DrawerBaseInput.name))
-        _baseInput.useStyler(config.getDependency<IFieldStateStyle>(FieldStateStyle.name))
         _baseInput.useValidationStrategy(
             config.getDependency<IValidationStrategy>(ValidationStrategy.name)
         )
-        _baseInput.useValueStrategy(config.getDependency<IValueStrategy>(ValueStrategy.name))
 
         const _textInput = new TextBaseInput()
 
         /** Assign base field dependency */
         _textInput.field = _baseInput
 
-        const IM = new InitializationManager(config.initialization)
+        const drawerable: IDrawerBaseInput = new DrawerBaseInput()
+        const styler: IFieldStateStyle = new FieldStateStyle()
+        const valueStrategy: IValueStrategy = new ValueStrategy()
 
-        IM.addInitializer(_baseInput.dependencyName, _baseInput.initialize)
-        IM.addInitializer(_textInput.dependencyName, _textInput.initialize)
+        _baseInput.useDrawerableState(drawerable)
+        _baseInput.useStyler(styler)
+        _baseInput.useValueStrategy(valueStrategy)
+
+        const IM = new InitializationManager(config?.initialization!)
+
+        IM.addInitializer(
+            _baseInput.dom.dependencyName,
+            _baseInput.dom.initialize.bind(_baseInput.dom)
+        )
+        IM.addInitializer(
+            _baseInput.tracker.dependencyName,
+            _baseInput.tracker.initialize.bind(_baseInput.tracker)
+        )
+        IM.addInitializer(
+            _baseInput.drawer.dependencyName,
+            _baseInput.drawer.initialize.bind(_baseInput.drawer)
+        )
+        IM.addInitializer(
+            _baseInput.styler.dependencyName,
+            _baseInput.styler.initialize.bind(_baseInput.styler)
+        )
+        IM.addInitializer(
+            _baseInput.notifier.dependencyName,
+            _baseInput.notifier.initialize.bind(_baseInput.notifier)
+        )
+        IM.addInitializer(
+            _baseInput.validationStrategy.dependencyName,
+            _baseInput.validationStrategy.initialize.bind(_baseInput.validationStrategy)
+        )
+        IM.addInitializer(
+            _baseInput.valueStrategy.dependencyName,
+            _baseInput.valueStrategy.initialize.bind(_baseInput.valueStrategy)
+        )
+        IM.addInitializer(_baseInput.dependencyName, _baseInput.initialize.bind(_baseInput))
+        IM.addInitializer(_textInput.dependencyName, _textInput.initialize.bind(_textInput))
         IM.executeSequences()
 
         if (!(_textInput instanceof TextBaseInput)) {

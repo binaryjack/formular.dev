@@ -8,7 +8,6 @@ import { IRadioBaseInput } from '@core/fields/radio-base-input/radio-base-input.
 import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
 import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
 import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
 import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
@@ -25,30 +24,26 @@ export interface IFieldInitializationParameters {
     validationStrategies: IValidationMethodStrategy[]
     trackingStrategies: ITrackingOutputProvider[]
     valueStrategies: IParserStrategy<any>[]
-    notifierInstance: INotifiableEntity
     validationTriggerModeType: EventsType[]
 }
 
-export type IBuilderMethod<T> = (config: IDependencyConfiguration) => T
+export type IBuilder<T> = (config: IDependencyConfiguration) => T
 
-export function createField<T>(
-    builderMethod: IBuilderMethod<T>,
-    config: IDependencyConfiguration
-): T {
-    return builderMethod(config)
+export function createField<T>(builderMethod: IBuilder<T>): IBuilder<T> {
+    return builderMethod
 }
 
 export interface IFieldBuilder {
     new (): IFieldBuilder
 
     /** concrete */
-    createClickBased: IBuilderMethod<IClickBaseInput>
-    createOptionBased: IBuilderMethod<IOptionBaseInput>
-    createCheckBased: IBuilderMethod<ICheckBoxBaseInput>
-    createSelectBased: IBuilderMethod<ISelectBaseInput>
-    createRadioBased: IBuilderMethod<IRadioBaseInput>
-    createTextBased: IBuilderMethod<ITextBaseInput>
-    createFieldInput: IBuilderMethod<IFieldBaseInput>
+    createClickBased: IBuilder<IClickBaseInput>
+    createOptionBased: IBuilder<IOptionBaseInput>
+    createCheckBased: IBuilder<ICheckBoxBaseInput>
+    createSelectBased: IBuilder<ISelectBaseInput>
+    createRadioBased: IBuilder<IRadioBaseInput>
+    createTextBased: IBuilder<ITextBaseInput>
+    createFieldInput: IBuilder<IFieldBaseInput>
 }
 
 export type FieldBuilderConstructor = new () => IFieldBuilder

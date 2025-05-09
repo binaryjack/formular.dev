@@ -1,11 +1,11 @@
 export interface IAssertor {
-    isValid: boolean
+    isTrue: boolean
     message: string
 }
 
-export const newAssert = (isValid: boolean, message: string) => {
+export const newAssert = (isTrue: boolean, message: string) => {
     return {
-        isValid,
+        isTrue,
         message
     }
 }
@@ -34,7 +34,7 @@ export const toString = function (this: IExceptionManager) {
 
 export const process = function (this: IExceptionManager) {
     for (const a of this.assertors) {
-        if (a.isValid) continue
+        if (a.isTrue) continue
         this.errors.push(a.message)
     }
 }
@@ -45,4 +45,5 @@ export const ExceptionManager = function (this: IExceptionManager, ...assertions
     this.accept = accept
     this.process = process
     this.toString = toString
+    this.hasErrors = hasErrors
 } as any as IExceptionManager

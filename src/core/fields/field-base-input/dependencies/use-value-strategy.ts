@@ -15,6 +15,7 @@ export const useValueStrategy = function (
         //     throw Error('tracker must be initialized')
         // }
         this.valueStrategy = valueStrategyInstance
+        this.valueStrategy.field = this
         // this.valueStrategy.acceptValueStrategies(...parsers)
 
         return this

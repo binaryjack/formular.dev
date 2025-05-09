@@ -35,7 +35,6 @@ export interface IFieldStateStyleProperties {
 
 export interface IFieldStateStyle extends IFieldStateStyleProperties, IExtendedInputBase {
     new (): IFieldStateStyle
-
     update: (type: FieldInputStateType, state: boolean) => void
     get: () => string
     getFlagsList: () => IFlags[]

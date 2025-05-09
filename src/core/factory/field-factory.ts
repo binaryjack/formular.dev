@@ -1,4 +1,3 @@
-import { IDependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
 import { FieldTypeMap } from '@core/mapping/field-type-maps'
 import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
@@ -15,29 +14,28 @@ import { numericParserStrategy } from '@core/value-strategy/strategies/numeric-b
 import { numericOptionBasedParserStrategy } from '@core/value-strategy/strategies/numeric-option-based-parser-strategy'
 import { stringParserStrategy } from '@core/value-strategy/strategies/string-based-parser-strategy'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
-import { createField, FieldBuilder, IFieldBuilder } from './builder/field-builder'
+import { createField, FieldBuilder, IBuilder, IFieldBuilder } from './builder/field-builder'
 
 export interface IFieldFactory {
-    new (config: IDependencyConfiguration): IFieldFactory
-    create: <T>(type: FieldTypeNames, config: IDependencyConfiguration) => T
+    new (): IFieldFactory
+    create: <T>(type: FieldTypeNames) => IBuilder<T>
 }
 
 const fieldRegistry = <T>(
     builder: IFieldBuilder,
-    type: keyof FieldTypeMap,
-    config: IDependencyConfiguration
-): T | undefined => {
+    type: keyof FieldTypeMap
+): IBuilder<T> | undefined => {
     switch (type) {
         case 'toggle':
         case 'checkbox':
-            return createField(builder.createCheckBased, config) as T
+            return createField(builder.createCheckBased) as IBuilder<T>
         case 'select':
-            return createField(builder.createSelectBased, config) as T
+            return createField(builder.createSelectBased) as IBuilder<T>
         case 'radio':
-            return createField(builder.createRadioBased, config) as T
+            return createField(builder.createRadioBased) as IBuilder<T>
         case 'text':
         default:
-            return createField(builder.createTextBased, config) as T
+            return createField(builder.createTextBased) as IBuilder<T>
     }
 }
 const defaultValueParsersStrategies: IParserStrategy<any>[] = [
@@ -60,12 +58,8 @@ const defaultValidationStrategies: IValidationMethodStrategy[] = [
 const defaultOutputTracker = consoleTrackingProvider
 
 export const FieldFactory = function (this: IFieldFactory) {
-    this.create = function <T>(
-        this: IFieldFactory,
-        type: FieldTypeNames,
-        config: IDependencyConfiguration
-    ): T {
+    this.create = function <T>(this: IFieldFactory, type: FieldTypeNames): IBuilder<T> {
         const builder = new FieldBuilder()
-        return fieldRegistry<T>(builder, type, config) as T
+        return fieldRegistry<T>(builder, type) as IBuilder<T>
     }
 } as any as IFieldFactory

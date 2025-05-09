@@ -1,18 +1,15 @@
-import {
-    DependencyConfiguration,
-    IDependencyConfiguration
-} from '@core/fields/field-base-input/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { SelectBaseInput } from '@core/fields/select-base-input/select-base-input'
 import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
 import { logManager } from '@core/general-logging-manager/log-manager'
-import { IFieldBuilder, IFieldInitializationParameters } from '../field-builder'
+import { IFieldBuilder } from '../field-builder'
 
 export const createSelectBased = function (
     this: IFieldBuilder,
     config: IDependencyConfiguration
 ): ISelectBaseInput | undefined {
     try {
-        const _selectInput = new SelectBaseInput(new DependencyConfiguration(params, undefined))
+        const _selectInput = new SelectBaseInput()
 
         if (!(_selectInput instanceof SelectBaseInput)) {
             throw Error(`The immediate clone of ${SelectBaseInput.name} is not well formed!`)

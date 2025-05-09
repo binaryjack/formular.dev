@@ -1,7 +1,4 @@
-import {
-    DependencyConfiguration,
-    IDependencyConfiguration
-} from '@core/fields/field-base-input/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
 import { RadioBaseInput } from '@core/fields/radio-base-input/radio-base-input'
 import { IRadioBaseInput } from '@core/fields/radio-base-input/radio-base-input.types'
 import { logManager } from '@core/general-logging-manager/log-manager'
@@ -12,7 +9,7 @@ export const createRadioBased = function (
     config: IDependencyConfiguration
 ): IRadioBaseInput | undefined {
     try {
-        const _radioInput = new RadioBaseInput(new DependencyConfiguration(params, undefined))
+        const _radioInput = new RadioBaseInput()
 
         if (!(_radioInput instanceof RadioBaseInput)) {
             throw Error(`The immediate clone of ${RadioBaseInput.name} is not well formed!`)

@@ -7,11 +7,20 @@ import { IDrawerBaseInput } from '../drawer-base-input.types'
  * The setup function sets up the field input by subscribing to observers.
  * basic configuration for styles and validation
  */
-export const initialize = function (
+export const initialize = async function (
     this: IDrawerBaseInput,
     params: IFieldInitializationParameters
 ) {
-    abstractInitializer(initialize.name, this.field, (e) => {
-        logManager(undefined, 'info', 'initialize', e.name)
-    })
+    try {
+        const success = await abstractInitializer(this.field, (e) => {
+            logManager(undefined, 'info', 'initialize', e.name)
+        })
+
+        if (success) {
+            logManager(this.field.tracker, 'info', this.dependencyName, 'Initialized')
+            this.isInitialized = true
+        }
+    } catch (e: any) {
+        logManager(this.field.tracker, 'critical', this.dependencyName, e)
+    }
 }

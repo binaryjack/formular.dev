@@ -1,5 +1,6 @@
 // handle-validation.ts
 
+import { IValidationStrategyData } from '@core/validation-strategy/validation-strategy.types'
 import { IFormy } from '../formy-base.types'
 
 /**
@@ -11,6 +12,6 @@ import { IFormy } from '../formy-base.types'
  * @param origin - An optional parameter to specify the origin of the validation process.
  *                 This can be used to track or log the source of the validation trigger.
  */
-export function handleValidation(this: IFormy, origin?: any) {
-    this.validateAll()
+export function handleValidation(this: IFormy, data?: IValidationStrategyData) {
+    this.validateAll(data)
 }

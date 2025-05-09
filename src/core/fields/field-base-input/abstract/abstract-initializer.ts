@@ -2,7 +2,6 @@ import { INotifier } from '@core/notifiable-entity/notifications.types'
 import { IFieldBaseInput } from '../field-input-base-types'
 
 export type abstractInitializerSignatureType = <TFieldInput extends IFieldBaseInput>(
-    caller: string,
     fieldInput: TFieldInput,
     setup?: (fieldInput: TFieldInput) => void,
     notifiers?: INotifier[]
@@ -11,24 +10,21 @@ export type abstractInitializerSignatureType = <TFieldInput extends IFieldBaseIn
 export const abstractInitializer: abstractInitializerSignatureType = <
     TFieldInput extends IFieldBaseInput
 >(
-    caller: string,
     fieldInput: TFieldInput,
     setup?: (fieldInput: TFieldInput) => void,
     notifiers?: INotifier[]
 ) =>
     new Promise<boolean>((resolve, reject) => {
-        return function () {
-            try {
-                setup?.(fieldInput)
+        try {
+            setup?.(fieldInput)
 
-                if (notifiers) {
-                    for (const n of notifiers) {
-                        fieldInput.notifier?.accept(n)
-                    }
+            if (notifiers) {
+                for (const n of notifiers) {
+                    fieldInput.notifier?.accept(n)
                 }
-                resolve(true)
-            } catch (e: any) {
-                reject(new Error(e.message))
             }
+            resolve(true)
+        } catch (e: any) {
+            reject(new Error(e.message))
         }
     })
