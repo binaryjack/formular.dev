@@ -28,14 +28,14 @@ const fieldRegistry = <T>(
     switch (type) {
         case 'toggle':
         case 'checkbox':
-            return createField(builder.createCheckBased) as IBuilder<T>
+            return createField(builder.createCheckBased.bind(builder)) as IBuilder<T>
         case 'select':
-            return createField(builder.createSelectBased) as IBuilder<T>
+            return createField(builder.createSelectBased.bind(builder)) as IBuilder<T>
         case 'radio':
-            return createField(builder.createRadioBased) as IBuilder<T>
+            return createField(builder.createRadioBased.bind(builder)) as IBuilder<T>
         case 'text':
         default:
-            return createField(builder.createTextBased) as IBuilder<T>
+            return createField(builder.createTextBased.bind(builder)) as IBuilder<T>
     }
 }
 const defaultValueParsersStrategies: IParserStrategy<any>[] = [

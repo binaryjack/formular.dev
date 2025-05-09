@@ -11,6 +11,7 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { ITrackingOutputProvider } from '@core/tracker/tracker.types'
 import { IValidationMethodStrategy } from '@core/validation-strategy/validation-strategy.types'
 import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
+import { createBaseInput } from './prototype/create-base-input'
 import { createCheckBased } from './prototype/create-check-based'
 import { createClickBased } from './prototype/create-click-based'
 import { createOptionBased } from './prototype/create-option-based'
@@ -37,13 +38,13 @@ export interface IFieldBuilder {
     new (): IFieldBuilder
 
     /** concrete */
+    createBaseInput: IBuilder<IFieldBaseInput>
     createClickBased: IBuilder<IClickBaseInput>
     createOptionBased: IBuilder<IOptionBaseInput>
     createCheckBased: IBuilder<ICheckBoxBaseInput>
     createSelectBased: IBuilder<ISelectBaseInput>
     createRadioBased: IBuilder<IRadioBaseInput>
     createTextBased: IBuilder<ITextBaseInput>
-    createFieldInput: IBuilder<IFieldBaseInput>
 }
 
 export type FieldBuilderConstructor = new () => IFieldBuilder
@@ -58,5 +59,6 @@ Object.assign(FieldBuilder.prototype, {
     createCheckBased,
     createSelectBased,
     createRadioBased,
-    createTextBased
+    createTextBased,
+    createBaseInput
 })
