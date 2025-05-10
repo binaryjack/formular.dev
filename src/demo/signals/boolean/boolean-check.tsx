@@ -1,5 +1,5 @@
-import { Signals } from '../../../core/signals/signal'
-import { ISignal } from '../../../core/signals/signal.type'
+import { Signals } from '../../../core/observers/signals/signal'
+import { ISignal } from '../../../core/observers/signals/signal.type'
 import BooleanChild from './boolean-child'
 import BooleanWithSignal from './boolean-with-signal'
 

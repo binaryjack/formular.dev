@@ -1,19 +1,14 @@
-/** @jsxImportSource @emotion/react */
-
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
-
-import { useObjectRef } from '../../core/hooks/use-object-ref'
-import { useOnClickOutside } from '../../core/hooks/use-on-click-outside'
-import { ElementPositionOutputType } from '../../style/global.types'
-import { Button } from '../button/button'
-import { Portal } from '../portals/portals'
-
+import { Button } from '@components/button/button'
+import useAppContext from '@components/context/app-context/app-context.context'
+import { Portal } from '@components/portals/portals'
+import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
+import { ToggleableStateType } from '@core/framework/common/common.toggleable'
+import useMediaScreens from '@core/framework/react/hooks/screen/use-media-screens'
+import { useObjectRef } from '@core/framework/react/hooks/use-object-ref'
+import { useOnClickOutside } from '@core/framework/react/hooks/use-on-click-outside'
+import { ElementPositionOutputType } from '@style/global.types'
 import { useCallback, useEffect } from 'react'
-import useMediaScreens from '../../core/hooks/screen/use-media-screens'
-import useAppContext from '../context/app-context/app-context.context'
-import { useToggleableContext } from '../toggleable/toggleable.context.hook'
-
-import { ToggleableStateType } from '@core/fields/toggleable-base-element/toggleable-base-element'
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 import { DrawerTopBottomPortal } from './components/drawer.top-bottom.portal'

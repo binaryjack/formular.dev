@@ -1,4 +1,4 @@
-import { defaultExtendsEventObject, IEvents } from '@core/events/events.types'
+import { defaultExtendsEventObject, IEvents } from '@core/framework/events/events.types'
 
 export interface ISelection {
     text: string

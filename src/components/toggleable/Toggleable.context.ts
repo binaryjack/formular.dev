@@ -1,4 +1,4 @@
-import { ToggleableStateType } from '@core/fields/toggleable-base-element/toggleable-base-element'
+import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { createContext } from 'react'
 
 export interface IToggleableContextType {

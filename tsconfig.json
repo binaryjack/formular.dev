@@ -20,10 +20,12 @@
         "types": ["cypress", "jest", "node"],
         "baseUrl": "./",
         "paths": {
+            "@tests/*": ["src/__tests__/*"],
+            "@mocks/*": ["src/mocks/*"],
             "@core/*": ["src/core/*"],
             "@components/*": ["src/components/*"],
             "@fields/*": ["src/core/fields/*"],
-            "@factory*": ["src/core/factory/*"],
+            "@factory*": ["src/core/field-engine/generator/factory/*"],
             "@framework/*": ["src/core/framework/*"],
             "@utility*": ["src/core/framework/utility/*"],
             "@common*": ["src/core/framework/common/*"],

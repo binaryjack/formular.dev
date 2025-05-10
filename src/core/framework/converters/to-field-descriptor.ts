@@ -6,7 +6,7 @@ import {
     IPattern,
     IRequired,
     IValidationOptions
-} from '@core/validation-strategy/validation-strategy.types'
+} from '@core/managers/validation-manager/validation-manager.types'
 import { IValidationLocalize } from '../localize/localize.type'
 import { TranslatioBuilderType } from '../localize/localize.utils'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'

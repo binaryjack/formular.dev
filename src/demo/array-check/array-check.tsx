@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
-import { Signals } from '../../core/signals/signal'
-import { ISignal } from '../../core/signals/signal.type'
+import { Signals } from '../../core/observers/signals/signal'
+import { ISignal } from '../../core/observers/signals/signal.type'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
 const { Signal, useSignal } = Signals

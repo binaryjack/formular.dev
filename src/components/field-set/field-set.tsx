@@ -1,28 +1,20 @@
-import './field-set.css'
-
-import React from 'react'
+import { Button } from '@components/button/button'
+import { conventions } from '@components/context/conventions/conventions'
+import { CenterElementDebug } from '@components/context/debug/center-element-debug'
+import { DrawerSlot } from '@components/drawer/components/drawer-slot'
+import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
+import { Drawer } from '@components/drawer/drawer'
+import { PasswordToggle } from '@components/password/password.toggle'
+import { useCenterElementTrigger } from '@core/framework/react/hooks/screen/use-center-element'
+import { IFieldStateFlags } from '@core/managers/style-manager/style-manager.types'
 import { MdClose } from 'react-icons/md'
-
-import { Button } from '../button/button'
-
-import { useCenterElementTrigger } from '../../core/hooks/screen/use-center-element'
-import { CenterElementDebug } from '../context/debug/center-element-debug'
-import { Drawer } from '../drawer/drawer'
-
-import { DrawerSlot } from '../drawer/components/drawer-slot'
-import { DrawerToggle } from '../drawer/components/drawer.toggle'
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IStateFlags } from '@core/fields/field-state-style/field-state-style.types'
-import { conventions } from '../context/conventions/conventions'
-import { PasswordToggle } from '../password/password.toggle'
 
 interface IFieldSetProps<TType> {
     inputId: string
     label?: string
     type: TType
     isPasswordVisible?: boolean
-    flags: IStateFlags
+    flags: IFieldStateFlags
     children: React.ReactNode
     itemsChildren?: React.ReactNode
     itemsDrawerWidth?: string

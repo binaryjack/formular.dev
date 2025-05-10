@@ -5,7 +5,7 @@ import { DrawerSlot } from '@components/drawer/components/drawer-slot'
 import { DrawerContent } from '@components/drawer/components/drawer.content'
 import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
 import { Toggleable } from '@components/toggleable/toggleable'
-import { useCenterElementTrigger } from '../../core/hooks/screen/use-center-element'
+import { useCenterElementTrigger } from '@core/framework/react/hooks/screen/use-center-element'
 
 interface ScreenElementProps {
     id: string

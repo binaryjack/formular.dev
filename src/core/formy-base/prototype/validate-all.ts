@@ -1,6 +1,6 @@
 // validate-all.ts
 
-import { IValidationResult } from '@core/validation-strategy/validation-strategy.types'
+import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
 import { IFormy } from '../formy-base.types'
 
 /**

@@ -1,5 +1,5 @@
+import { useObjectRef } from '@core/framework/react/hooks/use-object-ref'
 import React, { CSSProperties, useState } from 'react'
-import { useObjectRef } from '../../../core/hooks/use-object-ref'
 
 const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEvent>>(
     // buttonRef: React.RefObject<HTMLButtonElement>,

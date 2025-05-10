@@ -1,14 +1,14 @@
 import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
 import ValidationResultComponent from '@components/validation-result/validation-result'
-import { FieldInputCreator } from '@core/fields/field-base-input/field-input.creator'
-import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 
-import { useField } from '@core/factory/react/hooks/use-field'
-import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
+import { useField } from '@components/formy/formy.context'
+import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { FieldInputCreator } from '@core/field-engine/core/input-base/field-input.creator'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
+import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { Signals } from '../../../core/signals/signal'
+import { Signals } from '../../../core/observers/signals/signal'
 import { controlsDemoSchema } from '../../form-demo/form-demo.schema'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import { useFieldDefaultValue } from '../../core/hooks/use-field-default-value'
-import useKeyBindings from '../../core/hooks/use-key-bindings'
+
+import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'

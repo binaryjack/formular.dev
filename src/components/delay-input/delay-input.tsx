@@ -1,7 +1,6 @@
+import useDebouncer from '@core/framework/react/hooks/use-debouncer'
+import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { useEffect, useRef, useState } from 'react'
-
-import useDebouncer from '../../core/hooks/use-debouncer'
-import useKeyBindings from '../../core/hooks/use-key-bindings'
 
 interface IDelayInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     delay: number

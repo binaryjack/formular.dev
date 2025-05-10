@@ -1,7 +1,6 @@
-import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
-
-import { newEvent } from '@core/events/events.types'
-import { ISignal } from '../signals/signal.type'
+import { newEvent } from '@core/framework/events/events.types'
+import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { ISignal } from '../observers/signals/signal.type'
 import { INode, IRenderEngine } from './render-engine.types'
 
 const createElements = (nodes: INode<unknown>[], rootElement: Element | null) => {

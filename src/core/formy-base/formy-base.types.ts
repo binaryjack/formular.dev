@@ -1,21 +1,21 @@
-import { EventsType } from '@core/events/events.types'
 import {
     IExtendedFieldInput,
     IFieldInput
-} from '@core/fields/field-base-input/field-input-base-types'
+} from '@core/field-engine/core/input-base/field-input-base-types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
-import { LoadingStatus } from '@core/status'
+import { EventsType } from '@core/framework/events/events.types'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import {
     IValidableForm,
-    IValidationStrategy,
+    IValidationManager,
     IValidationStrategyData
-} from '@core/validation-strategy/validation-strategy.types'
+} from '@core/managers/validation-manager/validation-manager.types'
+import { LoadingStatus } from '@core/status'
 
 export type IFormy = IFormyBase &
-    INotifiableEntity &
+    INotificationManager &
     IFormyFlags &
-    IValidationStrategy &
+    IValidationManager &
     IValidableForm
 
 export interface IFormyFlags {
@@ -31,13 +31,13 @@ export interface IFormyFlags {
 }
 
 export interface IFormyBase {
-    new (id: string, autoTracker?: INotifiableEntity): IFormy
+    new (id: string, autoTracker?: INotificationManager): IFormy
     id: string
     fields: IFieldInput[]
     originFields: IFieldInput[]
     submitCount: number
     canValidate: boolean
-    setup: (autoTracker?: INotifiableEntity) => void
+    setup: (autoTracker?: INotificationManager) => void
     handleValidation: (data?: IValidationStrategyData) => void
     validateAll: (data?: IValidationStrategyData) => void
     addFields: (...flds: IFieldInput[]) => void

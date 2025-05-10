@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useFieldDefaultValue } from '../../core/hooks/use-field-default-value'
-import useKeyBindings from '../../core/hooks/use-key-bindings'
+
+import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormyContext, { useField } from '../formy/formy.context'

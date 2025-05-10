@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
 
 import { useMemo } from 'react'
-import { useTriggerOnAddOrRemoveChildren } from '../../../core/hooks/use-trigger-on-add-or-remove-children'
+
+import { useTriggerOnAddOrRemoveChildren } from '@core/framework/react/hooks/use-trigger-on-add-or-remove-children'
 import { ElementPositionOutputType } from '../../../style/global.types'
 import { useVisualDebugContext } from '../../context/debug/visual-debug.context'
 import { useScrollingContext } from '../../context/scrolling/scrolling.context'

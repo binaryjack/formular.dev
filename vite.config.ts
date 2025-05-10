@@ -30,6 +30,8 @@ export default defineConfig(() => ({
     },
     resolve: {
         alias: {
+            '@tests': resolve(__dirname, 'src/__tests__'),
+            '@mocks': resolve(__dirname, 'src/mocks'),
             '@components': resolve(__dirname, 'src/components'),
             '@core': resolve(__dirname, 'src/core'),
             '@fields': resolve(__dirname, 'src/core/fields'),

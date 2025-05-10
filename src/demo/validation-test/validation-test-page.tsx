@@ -15,7 +15,8 @@ import {
     namesPattern
 } from '@core/framework/schema/validation-schema/validation.regex.patterns'
 import { IValidationSchema } from '@core/framework/schema/validation-schema/validation.schema.types'
-import { _intNotificationTracker } from '@core/notifiable-entity/notifiable-entity'
+import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
+
 import { useEffect, useState } from 'react'
 
 const fieldsIds: Record<string, number> = {

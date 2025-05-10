@@ -1,6 +1,6 @@
 // handle-validation.ts
 
-import { IValidationStrategyData } from '@core/validation-strategy/validation-strategy.types'
+import { IValidationStrategyData } from '@core/managers/validation-manager/validation-manager.types'
 import { IFormy } from '../formy-base.types'
 
 /**

@@ -1,4 +1,4 @@
-import { Signals } from '../../../core/signals/signal'
+import { Signals } from '../../../core/observers/signals/signal'
 import { counter2, counter2Computed, counter2Computed2, counter2Computed3 } from './counter'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

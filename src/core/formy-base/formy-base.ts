@@ -1,7 +1,7 @@
-import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
-import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
-import { Tracker } from '@core/tracker/tracker'
+import { TrackingManager } from '@core/managers/tracking-manager/tracker-manager'
 
+import { NotifiableEntity } from '@core/managers/notification-manager/notification-manager'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { LoadingStatus } from '@core/status'
 import { IFormy } from './formy-base.types'
 import { addFields } from './prototype/add-fields'
@@ -15,7 +15,7 @@ import { setValidationTriggerMode } from './prototype/set-validation-trigger-mod
 import { setup } from './prototype/setup'
 import { validateAll } from './prototype/validate-all'
 
-export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiableEntity) {
+export const Formy = function (this: IFormy, id: string, autoTracker?: INotificationManager) {
     this.id = id
     this.fields = []
     this.originFields = []
@@ -28,7 +28,7 @@ export const Formy = function (this: IFormy, id: string, autoTracker?: INotifiab
 
 Formy.prototype = {
     ...NotifiableEntity.prototype,
-    ...Tracker.prototype
+    ...TrackingManager.prototype
 }
 
 Object.assign(Formy.prototype, {

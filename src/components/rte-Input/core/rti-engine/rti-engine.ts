@@ -1,4 +1,4 @@
-import { NotifiableEntity } from '../../../../core/notifiable-entity/notifiable-entity'
+import { NotifiableEntity } from '@core/managers/notification-manager/notification-manager'
 import { CommandManager } from '../command-manager/command-manager'
 import { FormatManager } from '../format-manager/format-manager'
 import { HistoryManager } from '../history-manager/history-manager'

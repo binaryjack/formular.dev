@@ -19,7 +19,7 @@ import SwitchButtonInput from '@components/switch-button/switch-button-input'
 import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
 import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { Signals } from '../../core/signals/signal'
+import { Signals } from '../../core/observers/signals/signal'
 import { demoFormInstance } from './form-demo.instance'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

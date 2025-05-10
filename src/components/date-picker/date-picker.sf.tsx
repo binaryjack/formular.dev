@@ -1,5 +1,5 @@
 import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
-import useKeyBindings from '../../core/hooks/use-key-bindings'
+
 import { conventions } from '../context/conventions/conventions'
 
 import FieldSet from '../field-set/field-set'
@@ -7,7 +7,8 @@ import useFormyContext, { useField } from '../formy/formy.context'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import ValidationResultComponent from '../validation-result/validation-result'
 
-import { useFieldDefaultValue } from '../../core/hooks/use-field-default-value'
+import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { DatePickerFormatsEnum } from './core/date-picker.types'
 import { formatDate } from './core/formatters/format-date'
 import DatePickerContentDrawer from './date-picker.drawer.content'

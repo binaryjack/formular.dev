@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
 
-import useKeyBindings from '../../core/hooks/use-key-bindings'
+import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { useDrawerContext } from '../drawer/components/drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/date-picker.context'
 import { computeDaysGrid } from './core/computed/compute-days-grid'

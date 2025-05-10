@@ -1,4 +1,4 @@
-import { EventsType } from '@core/events/events.types'
+import { EventsType } from '@core/framework/events/events.types'
 
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'

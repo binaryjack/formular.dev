@@ -1,8 +1,8 @@
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
-import { IValidationOptions } from '@core/validation-strategy/validation-strategy.types'
 
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IFieldError, IFieldGuide } from '@core/framework/errors'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { INDate } from './field.data.date.struct'
 

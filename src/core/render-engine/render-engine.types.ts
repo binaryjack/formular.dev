@@ -1,4 +1,4 @@
-import { ISignal } from '../signals/signal.type'
+import { ISignal } from '../observers/signals/signal.type'
 
 export type TNodeValue = undefined | null | unknown | string | number | boolean | bigint | Element
 

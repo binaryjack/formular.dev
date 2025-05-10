@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { Effects } from '../../../core/effect/effect'
-import { Signals } from '../../../core/signals/signal'
+import { Effects } from '../../../core/observers/signals/effect/effect'
+import { Signals } from '../../../core/observers/signals/signal'
 import ChildComponent from './child-component'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

@@ -1,4 +1,4 @@
-import { Signals } from '../../../core/signals/signal'
+import { Signals } from '../../../core/observers/signals/signal'
 import { booleanSignal } from './boolean-check'
 
 //https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md

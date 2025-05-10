@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { sizeConverter } from '../../core/hooks/screen/utils/screen.utils'
+
 import {
     // filepath: e:/Sources/SignalsPatternsReact/src/components/toggle/Toggle.tsx
     AppBreakPointSizesType,
@@ -8,6 +8,7 @@ import {
     VariantNameType
 } from '../../style/global.types'
 
+import { sizeConverter } from '@core/framework/react/hooks/screen/utils/screen.utils'
 import './toggle-button.css'
 
 interface IToggleButtonProps {

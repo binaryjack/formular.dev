@@ -1,8 +1,8 @@
 // set-validation-trigger-mode.ts
 
-import { IFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { nnv } from '@core/notifiable-entity/utils/new-notification-visitor'
-import { EventsType, newEvent } from '../../events/events.types'
+import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { EventsType, newEvent } from '../../framework/events/events.types'
 import { IFormy } from '../formy-base.types'
 
 /**

@@ -2,37 +2,12 @@ import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
 import { useField } from '@components/formy/formy.context'
 import ValidationResultComponent from '@components/validation-result/validation-result'
-import { Dommable } from '@core/dommable/dommable'
-import { IDommable } from '@core/dommable/dommable.types'
-import { FieldFactory } from '@core/factory/field-factory'
-import { DependencyConfiguration } from '@core/fields/field-base-input/configuration/dependency-configuration'
-import { IExtendedFieldInput } from '@core/fields/field-base-input/field-input-base-types'
-import { ISelectBaseInput } from '@core/fields/select-base-input/select-base-input.types'
-import { ITextBaseInput } from '@core/fields/text-base-input/text-base-input.types'
-import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { NotifiableEntity } from '@core/notifiable-entity/notifiable-entity'
-import { INotifiableEntity } from '@core/notifiable-entity/notifiable-entity-base.types'
-import { Tracker } from '@core/tracker/tracker'
-import { consoleTrackingProvider } from '@core/tracker/tracker.default.provider'
-import { ITracker } from '@core/tracker/tracker.types'
-import { ValidatorMaxLengthStrategy } from '@core/validation-strategy/strategies/validator-max-length-strategy'
-import { ValidatorMaxStrategy } from '@core/validation-strategy/strategies/validator-max-strategy'
-import { ValidatorMinLengthStrategy } from '@core/validation-strategy/strategies/validator-min-length-strategy'
-import { ValidatorMinStrategy } from '@core/validation-strategy/strategies/validator-min-strategy'
-import { ValidatorRequiredStrategy } from '@core/validation-strategy/strategies/validator-required-strategy'
-import { ValidatorPatternStrategy } from '@core/validation-strategy/strategies/vaslidator-pattern-strategy'
-import { ValidationStrategy } from '@core/validation-strategy/validation-strategy'
-import {
-    IValidationMethodStrategy,
-    IValidationStrategy
-} from '@core/validation-strategy/validation-strategy.types'
-import { booleanParserStrategy } from '@core/value-strategy/strategies/boolean-based-parser-strategy'
-import { dateOrTimeParserStrategy } from '@core/value-strategy/strategies/date-or-time-based-parser-strategy'
-import { numericParserStrategy } from '@core/value-strategy/strategies/numeric-based-parser-strategy'
-import { numericOptionBasedParserStrategy } from '@core/value-strategy/strategies/numeric-option-based-parser-strategy'
-import { stringParserStrategy } from '@core/value-strategy/strategies/string-based-parser-strategy'
-import { IParserStrategy } from '@core/value-strategy/value-strategy.types'
+import { FieldFactory } from '@core/field-engine/generator/factory/field-factory'
+
+import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { ISelectBaseInput } from '@core/field-engine/variants/select-base/select-base-input.types'
+import { ITextBaseInput } from '@core/field-engine/variants/text-base/text-base-input.types'
+import { dependencyConfiguration } from '@demo/settings/basic.setting'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -126,142 +101,47 @@ const validationDemo = () => (
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [])
 
-const mockOptions: IOptionItem[] = [
-    {
-        id: '1',
-        sequenceId: 1,
-        value: 'option1',
-        text: 'Option 1',
-        disabled: false,
-        selected: false
-    },
-    {
-        id: '2',
-        sequenceId: 2,
-        value: 'option2',
-        text: 'Option 2',
-        disabled: false,
-        selected: false
-    },
-    {
-        id: '3',
-        sequenceId: 3,
-        value: 'option3',
-        text: 'Option 3',
-        disabled: false,
-        selected: false
-    }
-]
-
-const mockDescriptor: IFieldDescriptor = {
-    id: 0,
-    name: 'testField',
-    label: 'Test Field',
-    value: 'test',
-    defaultValue: 'super',
-    isValid: true,
-    isDirty: false,
-    isPristine: true,
-    isFocus: false,
-    objectValue: null,
-    type: 'text',
-    errors: [],
-    guides: [],
-    validationOptions: {
-        requiredData: {
-            required: true,
-            error: 'This field is required.',
-            guide: 'Please provide a value for this field.'
-        },
-        minLength: {
-            minLength: 3,
-            error: 'The value must be at least 3 characters long.',
-            guide: 'Enter at least 3 characters.'
-        },
-        maxLength: {
-            maxLength: 10,
-            error: 'The value must not exceed 10 characters.',
-            guide: 'Enter no more than 10 characters.'
-        },
-        pattern: {
-            pattern: '\\d+',
-            error: 'Only numeric values are allowed.',
-            guide: 'Enter numbers only.'
-        }
-    },
-    options: mockOptions,
-    shouldValidate: true
-}
-
-const defaultValueParsersStrategies: IParserStrategy<any>[] = [
-    booleanParserStrategy,
-    stringParserStrategy,
-    numericParserStrategy,
-    dateOrTimeParserStrategy,
-    numericOptionBasedParserStrategy
-]
-
-const defaultValidationStrategies: IValidationMethodStrategy[] = [
-    ValidatorMaxLengthStrategy,
-    ValidatorMaxStrategy,
-    ValidatorMinLengthStrategy,
-    ValidatorMinStrategy,
-    ValidatorRequiredStrategy,
-    ValidatorPatternStrategy
-]
-
-const defaultOutputTracker = consoleTrackingProvider
-
-const notifierInstance: INotifiableEntity = new NotifiableEntity()
-const dommable: IDommable<HTMLInputElement> = new Dommable()
-const tracker: ITracker = new Tracker()
-
-const validationStrategy: IValidationStrategy = new ValidationStrategy()
-
-const dependencyConfiguration = new DependencyConfiguration(
-    {
-        descriptor: mockDescriptor,
-        trackingStrategies: [defaultOutputTracker],
-        validationStrategies: defaultValidationStrategies,
-        validationTriggerModeType: ['onChange', 'onBlur', 'onFocus'],
-        valueStrategies: defaultValueParsersStrategies
-    },
-    [notifierInstance, dommable, tracker, validationStrategy]
-)
-
 const App = () => {
     const factory = new FieldFactory()
     const input = factory.create<ITextBaseInput>('text')(dependencyConfiguration)
 
     const select = factory.create<ISelectBaseInput>('select')(dependencyConfiguration)
 
-    const { instance: field, flags } = useField(input as IExtendedFieldInput)
+    const { instance, flags } = useField(input as IExtendedFieldInput)
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
             <div>
                 <FieldSet
-                    inputId={field?.field.name ?? conventions.IdIsEmpty()}
-                    label={field?.field.label}
-                    type={field?.field.type}
+                    inputId={instance?.field.name ?? conventions.IdIsEmpty()}
+                    label={instance?.field.label}
+                    type={instance?.field.type}
                     flags={flags}
                     validationChildren={
                         <ValidationResultComponent
-                            validationResults={field?.field.validationResults ?? []}
+                            validationResults={instance?.field.validationResults ?? []}
                         />
                     }
-                    onClear={() => field?.field.clear()}
+                    onClear={() => instance?.field.clear()}
                 >
                     <input
                         data-class="base-input"
-                        {...field?.register()}
-                        ref={(r) => field?.ref(r)}
+                        {...instance?.register()}
+                        ref={(r) => instance?.ref(r)}
                     />
                 </FieldSet>
 
-                <button onClick={() => field?.field.setFocus()}>focus Field</button>
-                <button onClick={() => field?.field.enable(true)}>enable</button>
-                <button onClick={() => field?.field.enable(false)}>disable</button>
-                <button onClick={() => field?.field.clear()}>clear</button>
+                <button type="button" onClick={() => instance?.field.setFocus()}>
+                    focus Field
+                </button>
+                <button type="button" onClick={() => instance?.field.enable(true)}>
+                    enable
+                </button>
+                <button type="button" onClick={() => instance?.field.enable(false)}>
+                    disable
+                </button>
+                <button type="button" onClick={() => instance?.field.clear()}>
+                    clear
+                </button>
             </div>
         </div>
     )

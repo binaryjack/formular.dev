@@ -1,11 +1,11 @@
-import { INotifiableEntity } from '../../../../core/notifiable-entity/notifiable-entity-base.types'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { ICommandManager } from '../command-manager/command-manager.types'
 import { IFormatManager } from '../format-manager/format-manager.types'
 import { IHistoryManager } from '../history-manager/history-manager.types'
 import { IEngineState, IMouseState, IRteCommand } from '../rti-engine.types'
 import { ISelectionManager } from '../selection-manager/selection-manager.types'
 
-export type IRtiEngine = IRtiEngineBase & INotifiableEntity
+export type IRtiEngine = IRtiEngineBase & INotificationManager
 
 export interface IRtiEngineBase {
     new (editorElement: HTMLElement): IRtiEngine

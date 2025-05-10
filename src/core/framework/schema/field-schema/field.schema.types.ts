@@ -1,5 +1,5 @@
-import { EventsType } from '@core/events/events.types'
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
+import { EventsType } from '@core/framework/events/events.types'
 
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'

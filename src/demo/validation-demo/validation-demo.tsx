@@ -1,19 +1,18 @@
 import { conventions } from '@components/context/conventions/conventions'
 import FormyForm from '@components/formy/formy.form'
 import InputText from '@components/input-text/input-text'
-import { useEffect, useState } from 'react'
-
-import { EventsType } from '@core/events/events.types'
-import { FieldInputCreator } from '@core/fields/field-base-input/field-input.creator'
+import { FieldInputCreator } from '@core/field-engine/core/input-base/field-input.creator'
 import { Formy } from '@core/formy-base/formy-base'
 import { IFormy } from '@core/formy-base/formy-base.types'
 import { newFieldError, newFieldGuide } from '@core/framework/errors'
+import { EventsType } from '@core/framework/events/events.types'
+import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
+import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
 import {
     IValidationOptions,
     ValidationErrorsCodes
-} from '@core/validation-strategy/validation-strategy.types'
-import { _intNotificationTracker } from '../../core/notifiable-entity/notifiable-entity'
-import { NotifierDebugUi } from '../../core/notifiable-entity/notifier-debug-ui/notifier-debug-ui'
+} from '@core/managers/validation-manager/validation-manager.types'
+import { useEffect, useState } from 'react'
 
 const defaultValidation = {
     max: {
