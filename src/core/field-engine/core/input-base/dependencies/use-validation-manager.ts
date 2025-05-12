@@ -3,14 +3,14 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { ValidationManager } from '@core/managers/validation-manager/validation-manager'
 import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 export const useValidationManager = function (
-    this: IFieldBaseInput,
+    this: IInputBase,
     descriptor: IFieldDescriptor,
     validationStrategyInstance: IValidationManager
     // ...parsers: IValidationMethodStrategy[]
-): IFieldBaseInput {
+): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')

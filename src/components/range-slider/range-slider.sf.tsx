@@ -46,44 +46,44 @@ export const RangeSliderSF = ({
     // Handle slider value change
     const handleChange = useCallback(
         (value: number) => {
-            instance?.field?.setValue(value.toString())
-            console.log('handleChange', value, instance?.field?.value)
+            instance?.input?.setValue(value.toString())
+            console.log('handleChange', value, instance?.input?.value)
         },
-        [instance?.field]
+        [instance?.input]
     )
 
     // Key bindings for accessibility
     const { handleKeyDown } = useKeyBindings({
         onDeleteCallback: () => {
-            instance?.field?.clear()
+            instance?.input?.clear()
         }
     })
 
     useEffect(() => {
-        setRangeValue(Number(instance?.field?.value))
-        console.log('useEffect', instance?.field?.value)
-    }, [instance?.field?.getValue()])
+        setRangeValue(Number(instance?.input?.value))
+        console.log('useEffect', instance?.input?.value)
+    }, [instance?.input?.getValue()])
 
-    useFieldDefaultValue(instance?.field, (value) => {
+    useFieldDefaultValue(instance?.input, (value) => {
         setRangeValue(Number(value))
     })
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <div className="flex w-full min-h-[37px]" onKeyDown={handleKeyDown}>
                 <RangeSliderRaw
-                    id={`${instance?.field?.name ?? 'range'}-slider`}
+                    id={`${instance?.input?.name ?? 'range'}-slider`}
                     value={rangeValue}
                     min={min}
                     max={max}

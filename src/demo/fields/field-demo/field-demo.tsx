@@ -3,8 +3,8 @@ import FieldSet from '@components/field-set/field-set'
 import ValidationResultComponent from '@components/validation-result/validation-result'
 
 import { useField } from '@components/formy/formy.context'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
-import { FieldInputCreator } from '@core/field-engine/core/input-base/field-input.creator'
+import { InputBaseCreator } from '@core/field-engine/core/input-base/input-base.creator'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
@@ -19,7 +19,7 @@ const item = controlsDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
-const { newFieldFromDescriptors } = FieldInputCreator
+const { newFieldFromDescriptors } = InputBaseCreator
 
 const outSideFields = newFieldFromDescriptors(fieldDescriptors)
 
@@ -33,34 +33,34 @@ interface IFieldDemoProps {
 
 const FieldDemo = ({ fields }: IFieldDemoProps) => {
     const { instance, flags } = useField(
-        outSideFields.find((o) => o.name === 'inputControl') as unknown as IExtendedFieldInput
+        outSideFields.find((o) => o.name === 'inputControl') as unknown as IExtendedInput
     )
 
     return (
         <div>
             <FieldSet
-                inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-                label={instance?.field?.label}
-                type={instance?.field?.type}
+                inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+                label={instance?.input?.label}
+                type={instance?.input?.type}
                 flags={flags}
                 validationChildren={
                     <ValidationResultComponent
-                        validationResults={instance?.field?.validationResults ?? []}
+                        validationResults={instance?.input?.validationResults ?? []}
                     />
                 }
-                onClear={() => instance?.field?.clear()}
+                onClear={() => instance?.input?.clear()}
             >
                 <input
                     data-class="base-input"
-                    {...instance?.field?.register()}
-                    ref={(r) => instance?.field?.ref(r)}
+                    {...instance?.input?.register()}
+                    ref={(r) => instance?.input?.ref(r)}
                 />
             </FieldSet>
 
-            <button onClick={() => instance?.field?.setFocus()}>focus Field</button>
-            <button onClick={() => instance?.field?.enable(true)}>enable</button>
-            <button onClick={() => instance?.field?.enable(false)}>disable</button>
-            <button onClick={() => instance?.field?.clear()}>clear</button>
+            <button onClick={() => instance?.input?.setFocus()}>focus Field</button>
+            <button onClick={() => instance?.input?.enable(true)}>enable</button>
+            <button onClick={() => instance?.input?.enable(false)}>disable</button>
+            <button onClick={() => instance?.input?.clear()}>clear</button>
         </div>
     )
 }

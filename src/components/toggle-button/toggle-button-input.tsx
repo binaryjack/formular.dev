@@ -21,10 +21,10 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     const handleToggleChange = (id: string, newState: boolean) => {
         setToggleState(newState)
-        instance?.field?.setValue(newState)
+        instance?.input?.setValue(newState)
     }
 
-    useFieldDefaultValue(instance?.field, (value) => {
+    useFieldDefaultValue(instance?.input, (value) => {
         if (value !== undefined) {
             setToggleState(value === true)
         }
@@ -32,28 +32,28 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
             onClear={() => {
-                instance?.field?.clear()
+                instance?.input?.clear()
                 setToggleState(false)
             }}
         >
             <ToggleButton
-                id={`${instance?.field?.name ?? conventions.IdIsEmpty()}-toggle`}
+                id={`${instance?.input?.name ?? conventions.IdIsEmpty()}-toggle`}
                 toggle={toggleState}
                 onToggle={handleToggleChange}
-                name={instance?.field?.name ?? conventions.NameIsEmpty()}
+                name={instance?.input?.name ?? conventions.NameIsEmpty()}
                 children={children}
             />
         </FieldSet>

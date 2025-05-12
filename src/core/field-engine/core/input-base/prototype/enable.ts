@@ -1,4 +1,4 @@
-import { IFieldInput } from '../field-input-base-types'
+import { IInput } from '../input-base.types'
 
 /**
  * Toggles the enabled state of the field input and updates the associated HTML element.
@@ -10,9 +10,9 @@ import { IFieldInput } from '../field-input-base-types'
  * - The `disabled` property of the associated HTML element is updated to reflect the enabled state.
  * - If the internal HTML element reference (`internalHTMLElementRef`) is not available, the method exits early.
  *
- * @this IFieldInput - The field input instance on which the method is invoked.
+ * @this IInput - The field input instance on which the method is invoked.
  */
-export const enable = function (this: IFieldInput, enabled: boolean) {
+export const enable = function (this: IInput, enabled: boolean) {
     this.enabled = enabled
     this.domManager?.dmSetEnabled(this.id.toString(), enabled)
 }

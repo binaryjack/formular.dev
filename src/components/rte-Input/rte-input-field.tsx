@@ -35,17 +35,17 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
     const handleEditorStateChange = (state: IStateData) => {
         // setLastState(state)
 
-        if (instance?.field) {
+        if (instance?.input) {
             // Serialize the state to a safe format and store in field
             const serializedData = serializeEngineState(state?.data)
 
             if (lastState.data === serializedData) return
-            instance?.field.setValue(serializedData)
+            instance?.input.setValue(serializedData)
             setLastState(newStateData(serializedData))
         }
     }
 
-    useFieldDefaultValue(instance?.field, (value) => {
+    useFieldDefaultValue(instance?.input, (value) => {
         if (value && typeof value === 'string') {
             try {
                 // Deserialize from field value
@@ -61,8 +61,8 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
             type="richtext"
             flags={flags}
             onClick={() => {
@@ -71,11 +71,11 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
             onClear={() => {
-                instance?.field?.clear()
+                instance?.input?.clear()
                 setTimeout(() => setInitialState(newStateData(null)), 1)
             }}
         >

@@ -1,7 +1,9 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
-import { FieldInputCreator } from '@core/field-engine/core/input-base/field-input.creator'
+import { InputBaseCreator } from '@core/field-engine/core/input-base/input-base.creator'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
-import { EventsType, newEvent } from '@core/framework/events/events.types'
+
+import { EventsType } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { IValidationLocalize } from '@core/framework/localize/localize.type'
 import { TranslatioBuilderType } from '@core/framework/localize/localize.utils'
 import { useField, useFieldHookType } from '@core/framework/react/fields/hooks/use-field'
@@ -86,7 +88,7 @@ export const FormCreator = (function () {
             translationBuilder,
             validationLocalize()
         )
-        const { newFieldFromDescriptors } = FieldInputCreator
+        const { newFieldFromDescriptors } = InputBaseCreator
         const formyTemp = new Formy(id, autoTracker)
         formyTemp.setValidationTriggerMode(validationTriggerModeType)
         formyTemp.addFields(...newFieldFromDescriptors(fieldDescriptors))

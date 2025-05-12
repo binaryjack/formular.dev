@@ -1,13 +1,13 @@
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
-import { newEvent } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { IValueManager } from '../value-manager.types'
 
 export const setValue = function (
     this: IValueManager,
     value: Omit<FieldDataTypes, 'object' | 'INDate' | 'DateObject'> | null
 ) {
-    switch (this.field.type) {
+    switch (this.input.type) {
         case 'checkbox':
             this.setValueCheckBox(value as boolean)
             break
@@ -33,9 +33,9 @@ export const setValue = function (
             break
     }
 
-    this.field.styleManager?.update('dirty', this.field.originalValue !== this.field.value)
+    this.input.styleManager?.update('dirty', this.input.originalValue !== this.input.value)
 
-    this.field.notificationManager?.notify(
+    this.input.notificationManager?.notify(
         'onChange',
         newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
     )

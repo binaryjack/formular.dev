@@ -1,23 +1,23 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IExtendedFieldInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IExtendedInput } from '../input-base.types'
 
-export const onClickLabel = <T extends IExtendedFieldInput>(f: T, optionId: string, e: Event) => {
+export const onClickLabel = <T extends IExtendedInput>(f: T, optionId: string, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
     console.log('onClickLabel', f.name, optionId, inputElement.value)
     const option = f.optionBase.getOptionById(optionId)
     if (option) {
-        f.field.value = option.id
+        f.input.value = option.id
         f.optionBase.selectedOptionId = option.sequenceId
     }
-    f.field.domManager.dmSetChecked(optionId, true)
+    f.input.domManager.dmSetChecked(optionId, true)
 
-    f.field.styleManager.update('dirty', f.field.originalValue !== f.field.value)
+    f.input.styleManager.update('dirty', f.input.originalValue !== f.input.value)
 
-    f.field?.notificationManager?.notify(
+    f.input?.notificationManager?.notify(
         'onClick',
         newEvent(
-            f.field.name,
+            f.input.name,
             onClickLabel.name,
             'onClick',
             `field.option.label.${onClickLabel.name}`

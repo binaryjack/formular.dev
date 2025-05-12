@@ -1,5 +1,6 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
-import { EventsType, newEvent } from '@core/framework/events/events.types'
+import { EventsType } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { INotifier } from '@core/managers/notification-manager/notification-manager.types'
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { useEffect, useRef, useState } from 'react'

@@ -1,8 +1,8 @@
 import { DrawerBaseInput } from '@core/field-engine/variants/drawer-base/drawer-base-input'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
-export const useDrawerManager = function (this: IFieldBaseInput): IFieldBaseInput {
+export const useDrawerManager = function (this: IInputBase): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')
@@ -11,7 +11,7 @@ export const useDrawerManager = function (this: IFieldBaseInput): IFieldBaseInpu
         //     throw Error('tracker must be initialized')
         // }
         this.drawer = new DrawerBaseInput()
-        this.drawer.field = this
+        this.drawer.input = this
         return this
     } catch (e: any) {
         logManager(

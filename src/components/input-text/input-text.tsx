@@ -15,34 +15,34 @@ const InputText = ({ fieldName }: IInputTextProps) => {
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const handleDelete = () => {
-        instance?.field?.clear()
+        instance?.input?.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.field)
+    useFieldDefaultValue(instance?.input)
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.field?.register()}
-                ref={(r) => instance?.field?.ref(r)}
+                {...instance?.input?.register()}
+                ref={(r) => instance?.input?.ref(r)}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
                 type="text"

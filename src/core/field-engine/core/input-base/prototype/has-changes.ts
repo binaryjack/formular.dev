@@ -1,11 +1,11 @@
-import { IFieldInput } from '../field-input-base-types'
+import { IInput } from '../input-base.types'
 
 /**
  * Subscribes a callback function to observe changes in the field input.
  *
  * @param callback - The function to be called whenever a change is observed.
- * @this IFieldInput - The context in which this function is called, representing the field input instance.
+ * @this IInput - The context in which this function is called, representing the field input instance.
  */
-export const hasChanges = function (this: IFieldInput, callback: () => void) {
+export const hasChanges = function (this: IInput, callback: () => void) {
     this?.notificationManager?.observers.subscribe(callback)
 }

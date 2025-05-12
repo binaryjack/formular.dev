@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { Button } from '../button/button'
@@ -38,7 +38,7 @@ const FormyForm = ({ formy, children, onSubmit }: IFormyFormProps) => {
         getFields: () => {
             return formInstance?.fields ?? []
         },
-        getField: (fieldName: string): IFieldInput | undefined => {
+        getField: (fieldName: string): IInput | undefined => {
             return formInstance?.fields?.find((field) => field.name === fieldName)
         },
         formInstance: formInstance,

@@ -1,6 +1,6 @@
 import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
 
-import { abstractInitializer } from '@core/field-engine/core/input-base/abstract/abstract-initializer'
+import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { IClickBaseInput } from '../click-base-input.types'
@@ -15,7 +15,7 @@ export const initialize = async function (
 ) {
     try {
         const success = await abstractInitializer(
-            this.field,
+            this.input,
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
             },
@@ -23,11 +23,11 @@ export const initialize = async function (
         )
 
         if (success) {
-            logManager(this.field.trackingManager, 'info', this.dependencyName, 'Initialized')
+            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             // Object.setPrototypeOf(ClickBaseInput.prototype, FieldInput.prototype)
             this.isInitialized = true
         }
     } catch (e: any) {
-        logManager(this.field.trackingManager, 'critical', this.dependencyName, e)
+        logManager(this.input.trackingManager, 'critical', this.dependencyName, e)
     }
 }

@@ -1,4 +1,4 @@
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import {
     IValidationManager,
     IValidationResult,
@@ -9,10 +9,10 @@ import {
 /**
  * Validates all fields using the provided validation strategies.
  *
- * @param {IFieldInput[]} fields - An array of field inputs to be validated.
+ * @param {IInput[]} fields - An array of field inputs to be validated.
  * @returns {IValidationResults} The validation results, including the overall validity state.
  */
-export const validateAll = function (this: IValidationManager, fields: IFieldInput[]) {
+export const validateAll = function (this: IValidationManager, fields: IInput[]) {
     if (fields?.length === 0) return newValidationResults(false)
 
     let mainResults: IValidationResult[] = []

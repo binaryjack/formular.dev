@@ -1,6 +1,6 @@
 import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
 
-import { abstractInitializer } from '@core/field-engine/core/input-base/abstract/abstract-initializer'
+import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IDrawerBaseInput } from '../drawer-base-input.types'
 
@@ -13,15 +13,15 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const success = await abstractInitializer(this.field, (e) => {
+        const success = await abstractInitializer(this.input, (e) => {
             logManager(undefined, 'info', 'initialize', e.name)
         })
 
         if (success) {
-            logManager(this.field.trackingManager, 'info', this.dependencyName, 'Initialized')
+            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             this.isInitialized = true
         }
     } catch (e: any) {
-        logManager(this.field.trackingManager, 'critical', this.dependencyName, e)
+        logManager(this.input.trackingManager, 'critical', this.dependencyName, e)
     }
 }

@@ -1,4 +1,5 @@
-import { IEvents, newEvent } from '@core/framework/events/events.types'
+import { IEvents } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { useEffect, useState } from 'react'
 import { INotificationManager } from '../notification-manager-base.types'
 import { nnv } from '../utils/new-notification-visitor'

@@ -1,8 +1,10 @@
 // set-validation-trigger-mode.ts
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
-import { EventsType, newEvent } from '../../framework/events/events.types'
+
+import { EventsType } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { IFormy } from '../formy-base.types'
 
 /**
@@ -13,7 +15,7 @@ export function setValidationTriggerMode(this: IFormy, mode: EventsType[]) {
     this.validationTriggerModeType = mode
     const checkChangesOn: string[] = Object.values(mode)
 
-    this.fields.forEach((f: IFieldInput) => {
+    this.fields.forEach((f: IInput) => {
         checkChangesOn.forEach((action) => {
             f.setValidationTriggerMode(mode)
             f.accept(

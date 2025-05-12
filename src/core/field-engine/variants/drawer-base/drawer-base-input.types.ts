@@ -1,4 +1,4 @@
-import { IExtendedInputBase } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IExtendedInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 
 export interface IDrawerBaseInputProperties {

@@ -7,10 +7,10 @@ export const tryGetOptionBySequenceIdThenIdOrValue = function (
     value: string
 ) {
     if (this.options?.length === 0) {
-        this.field.message(
+        this.input.message(
             'warning',
             'IFieldInput.tryGetOptionBySequenceIdThenIdOrValue',
-            `there is no options related to the field of type:  type: ${this.field.type}, name: ${this.name}, sequenceId: ${sequenceId}`
+            `there is no options related to the field of type:  type: ${this.input.type}, name: ${this.name}, sequenceId: ${sequenceId}`
         )
 
         return null

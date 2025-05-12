@@ -1,5 +1,5 @@
-import { abstractInitializer } from '@core/field-engine/core/input-base/abstract/abstract-initializer'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 import { logManager } from '@core/managers/log-manager/log-manager'
@@ -10,15 +10,15 @@ import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new
  * basic configuration for styles and validation
  */
 export const initialize = async function (
-    this: IExtendedFieldInput,
+    this: IExtendedInput,
     params: IFieldInitializationParameters
 ) {
     try {
         const em = new ExceptionManager(
             ...[
-                newAssert(this.field !== undefined, `The dependency field is not instanciated`),
+                newAssert(this.input !== undefined, `The dependency field is not instanciated`),
                 newAssert(
-                    this.field.isInitialized,
+                    this.input.isInitialized,
                     `${this.dependencyName}: The dependency field is not properly initialized`
                 )
             ]
@@ -29,7 +29,7 @@ export const initialize = async function (
         }
 
         const success = await abstractInitializer(
-            this.field,
+            this.input,
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
             },
@@ -40,10 +40,10 @@ export const initialize = async function (
         )
 
         if (success) {
-            logManager(this.field.trackingManager, 'info', this.dependencyName, 'Initialized')
+            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             this.isInitialized = true
         }
     } catch (e: any) {
-        logManager(this.field.trackingManager, 'critical', this.dependencyName, e)
+        logManager(this.input.trackingManager, 'critical', this.dependencyName, e)
     }
 }

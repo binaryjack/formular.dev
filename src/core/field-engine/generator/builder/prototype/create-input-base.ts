@@ -1,6 +1,6 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/input-base/configuration/dependency-configuration'
-import { FieldInput } from '@core/field-engine/core/input-base/field-input-base'
-import { IFieldBaseInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
+import { InputBase } from '@core/field-engine/core/input-base/input-base'
+import { IInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { DrawerBaseInput } from '@core/field-engine/variants/drawer-base/drawer-base-input'
 import { IDrawerBaseInput } from '@core/field-engine/variants/drawer-base/drawer-base-input.types'
 import { DomManager } from '@core/managers/dom-manager/dom-manager'
@@ -21,8 +21,8 @@ import { IFieldBuilder } from '../field-builder'
 export const createBaseInput = function (
     this: IFieldBuilder,
     config: IDependencyConfiguration
-): IFieldBaseInput | undefined {
-    const baseInput = new FieldInput(config?.initialization?.descriptor!)
+): IInputBase | undefined {
+    const baseInput = new InputBase(config?.initialization?.descriptor!)
 
     baseInput.useNotificationManager(
         config.getDependency<INotificationManager>(NotifiableEntity.name)

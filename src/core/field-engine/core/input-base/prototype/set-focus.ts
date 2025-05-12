@@ -1,4 +1,4 @@
-import { IFieldInput } from '../field-input-base-types'
+import { IInput } from '../input-base.types'
 
 /**
  * Sets the focus state for the field input.
@@ -8,9 +8,9 @@ import { IFieldInput } from '../field-input-base-types'
  * applies the focus state style to the field, and sets focus on the
  * internal HTML element.
  *
- * @this IFieldInput - The context of the field input instance.
+ * @this IInput - The context of the field input instance.
  */
-export const setFocus = function (this: IFieldInput) {
+export const setFocus = function (this: IInput) {
     const element = this.domManager?.dmGet(this.id.toString())
     if (!element || element.disabled) return
     this.isFocus = true

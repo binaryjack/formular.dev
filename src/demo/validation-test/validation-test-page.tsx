@@ -7,7 +7,7 @@ import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
-import { ValidationSchemaBuildersEnum } from '@core/framework/schema/validation-schema/builders/builders.types'
+import { ValidationSchemaBuildersEnum } from '@core/framework/schema/validation-schema/presets/builders.enum'
 import { ValidationSchemaBuilderType } from '@core/framework/schema/validation-schema/schema/builder/validation.schema.builder.types'
 import validationSchemaFactory from '@core/framework/schema/validation-schema/schema/factory/validation.schema.factory'
 import {

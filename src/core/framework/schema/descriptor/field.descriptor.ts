@@ -1,10 +1,11 @@
 import { FieldTypeNames } from '@core/framework/common/common.field.types'
 
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import { IFieldError, IFieldGuide } from '@core/framework/errors'
+import { IFieldError } from '@core/framework/models/errors/i-field-error'
+import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
-import { INDate } from './field.data.date.struct'
+import { INDate } from './i-n-date'
 
 export interface IFieldDescriptor {
     id: number

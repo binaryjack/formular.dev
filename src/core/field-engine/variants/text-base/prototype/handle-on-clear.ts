@@ -11,5 +11,5 @@ import { ITextBaseInput } from '../text-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnClear = function <T extends IEvents>(this: ITextBaseInput, data?: T) {
-    onClearHandle(this.field)
+    onClearHandle(this.input)
 }

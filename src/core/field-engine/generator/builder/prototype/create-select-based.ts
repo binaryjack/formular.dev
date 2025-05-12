@@ -1,4 +1,4 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/input-base/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
 import { SelectBaseInput } from '@core/field-engine/variants/select-base/select-base-input'
 import { ISelectBaseInput } from '@core/field-engine/variants/select-base/select-base-input.types'
 import { logManager } from '@core/managers/log-manager/log-manager'

@@ -14,12 +14,12 @@
  * - Stops the propagation of the click event.
  */
 
-import { DomRegisterBuilder } from '@core/field-engine/core/input-base/abstract/dom-registers-builder'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { DomRegisterBuilder } from '@core/field-engine/core/abstract/dom-registers-builder'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */
 export const registerLabel = function (
-    this: IExtendedFieldInput,
+    this: IExtendedInput,
     optionId: string
 ): Partial<HTMLInputElement> {
     return new DomRegisterBuilder(this).registerClickLabel(optionId).registerAria().build()

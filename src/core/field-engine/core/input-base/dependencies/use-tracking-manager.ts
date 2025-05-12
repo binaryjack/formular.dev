@@ -1,12 +1,12 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { TrackingManager } from '@core/managers/tracking-manager/tracker-manager'
 import { ITrackingOutputProvider } from '@core/managers/tracking-manager/tracker-manager.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 export const useTrackingManager = function (
-    this: IFieldBaseInput,
+    this: IInputBase,
     providers?: ITrackingOutputProvider[]
-): IFieldBaseInput {
+): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')

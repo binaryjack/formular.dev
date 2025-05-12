@@ -1,4 +1,4 @@
-import { IExtendedInputBase } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IExtendedInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'

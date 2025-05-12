@@ -1,4 +1,4 @@
-import { minMaxDatesBuilder } from '../builders/min-max-dates-builder'
+import { minMaxDatesBuilder } from '../presets/min-max-dates-builder'
 import validationSchemaFactory from '../schema/factory/validation.schema.factory'
 import { dateIso8601Pattern } from '../validation.regex.patterns'
 

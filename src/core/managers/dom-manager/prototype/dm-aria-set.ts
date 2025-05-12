@@ -10,7 +10,7 @@ export function dmAriaSet<T extends HTMLElement>(this: IDomManager<T>, id: strin
     const element = this.dmGet(id)
     if (!element) {
         this.tracker?.internalWarning(
-            'Dommable.dmAriaSet',
+            'DomManager.dmAriaSet',
             `The element does not exist in references: ${id}`
         )
         return

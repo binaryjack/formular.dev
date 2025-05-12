@@ -1,8 +1,8 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { StyleManager } from '@core/managers/style-manager/style-manager'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
-export const useStyleManager = function (this: IFieldBaseInput): IFieldBaseInput {
+export const useStyleManager = function (this: IInputBase): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')
@@ -11,7 +11,7 @@ export const useStyleManager = function (this: IFieldBaseInput): IFieldBaseInput
         //     throw Error('validationStrategy must be initialized beefore styles')
         // }
         this.styleManager = new StyleManager()
-        this.styleManager.field = this
+        this.styleManager.input = this
 
         return this
     } catch (e: any) {

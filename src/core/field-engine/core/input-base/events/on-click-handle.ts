@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onClickHandle = (f: IFieldBaseInput) => {
+export const onClickHandle = (f: IInputBase) => {
     if (!f.validationManager?.validationTriggerModeType.includes('onClick')) return
     console.log('onClickHandle', f.name, f.value)
     f.notificationManager?.debounceNotify(

@@ -1,5 +1,5 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 export interface IInitilizationCheckResult {
     success: boolean
@@ -8,7 +8,7 @@ export interface IInitilizationCheckResult {
 
 export const defaultPrecheck: IInitilizationCheckResult = { success: true, errors: [] }
 
-export const checkInitialized = function (this: IFieldBaseInput): IInitilizationCheckResult {
+export const checkInitialized = function (this: IInputBase): IInitilizationCheckResult {
     const output: string[] = []
     try {
         if (!this) {

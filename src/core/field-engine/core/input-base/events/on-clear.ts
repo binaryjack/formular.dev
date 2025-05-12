@@ -1,5 +1,5 @@
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
-export const onClear = (f: IFieldBaseInput, e: Event) => {
+export const onClear = (f: IInputBase, e: Event) => {
     console.log('onClear', f.name, f.value)
 }

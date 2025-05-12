@@ -1,6 +1,6 @@
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
 /**
@@ -8,7 +8,7 @@ import { IValueManager } from '../value-manager.types'
  * @param field - The field input base instance to retrieve the value from.
  * @returns The value of the field or null if no strategy matches.
  */
-export function getValue(this: IValueManager, field: IFieldInput): unknown | null {
+export function getValue(this: IValueManager, field: IInput): unknown | null {
     const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(field.type))
 
     if (!strategy) {

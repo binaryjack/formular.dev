@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onClick = (f: IFieldBaseInput, e: Event) => {
+export const onClick = (f: IInputBase, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     console.log('onClick', f.name, inputElement.value)
     f.styleManager?.update('dirty', f.originalValue !== f.value)

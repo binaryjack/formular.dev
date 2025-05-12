@@ -16,26 +16,26 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <ul className={`radio-group`}>
-                {instance?.field?.options?.map((option: any) => {
+                {instance?.input?.options?.map((option: any) => {
                     return (
                         <RadioInputOption
-                            key={`${instance?.field.id}-${option.id}`}
-                            field={instance?.field}
+                            key={`${instance?.input.id}-${option.id}`}
+                            field={instance?.input}
                             option={option}
                         />
                     )

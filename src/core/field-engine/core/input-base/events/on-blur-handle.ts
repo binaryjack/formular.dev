@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onBlurHandle = (f: IFieldBaseInput) => {
+export const onBlurHandle = (f: IInputBase) => {
     if (!f.validationManager?.validationTriggerModeType.includes('onBlur')) return
     console.log('onBlurHandle', f.name, f.value)
     f.notificationManager?.debounceNotify(

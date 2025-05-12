@@ -1,5 +1,5 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInput } from '../input-base.types'
 
 /**
  * Clears the state and value of the field input, resetting it to its initial state.
@@ -13,9 +13,9 @@ import { IFieldInput } from '../field-input-base-types'
  * - Focuses the field input.
  * - Resets the `value` and `checked` properties of the main internal HTML input element reference, if it exists.
  *
- * @this IFieldInput - The field input instance on which the method is called.
+ * @this IInput - The field input instance on which the method is called.
  */
-export const clear = function (this: IFieldInput) {
+export const clear = function (this: IInput) {
     /**need to be implemented in variants imputs */
     // this.errors = []
     // this.guides = []

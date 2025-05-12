@@ -1,12 +1,12 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IValueManager } from '@core/managers/value-manager/value-manager.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 export const useValueManager = function (
-    this: IFieldBaseInput,
+    this: IInputBase,
     valueStrategyInstance: IValueManager
     // ...parsers: IParserStrategy<any>[]
-): IFieldBaseInput {
+): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')
@@ -15,7 +15,7 @@ export const useValueManager = function (
         //     throw Error('tracker must be initialized')
         // }
         this.vlaueManager = valueStrategyInstance
-        this.vlaueManager.field = this
+        this.vlaueManager.input = this
         // this.valueStrategy.acceptValueStrategies(...parsers)
 
         return this

@@ -1,4 +1,4 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/input-base/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
 import { CheckBoxInput } from '@core/field-engine/variants/check-box-base/check-box-base-input'
 import { ICheckBoxBaseInput } from '@core/field-engine/variants/check-box-base/check-box-base-input.types'
 import { logManager } from '@core/managers/log-manager/log-manager'

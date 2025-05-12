@@ -1,4 +1,4 @@
-import { defaultExtendsEventObject } from '@core/framework/events/events.types'
+import { defaultExtendsEventObject } from '@core/framework/events/default-extends-event-object'
 import { IEngineState } from '../../rti-engine.types'
 import { IRtiEngine } from '../rti-engine.types'
 

@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onChange = (f: IFieldBaseInput, e: Event) => {
+export const onChange = (f: IInputBase, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     console.log('onChange', f.name, inputElement.value)
     f.value = inputElement.value

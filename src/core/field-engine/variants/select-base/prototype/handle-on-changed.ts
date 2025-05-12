@@ -11,5 +11,5 @@ import { ISelectBaseInput } from '../select-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function <T extends IEvents>(this: ISelectBaseInput, data?: T) {
-    onChangedHandle(this.field)
+    onChangedHandle(this.input)
 }

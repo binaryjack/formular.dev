@@ -1,8 +1,7 @@
-import {
-    IExtendedInputBase,
-    IFieldBaseInput
-} from '@core/field-engine/core/input-base/field-input-base-types'
-import { eventSignature, EventsType, IEvents, newEvent } from '@core/framework/events/events.types'
+import { IExtendedInputBase, IInputBase } from '@core/field-engine/core/input-base/input-base.types'
+
+import { eventSignature, EventsType, IEvents } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { INotifier, TNotifierMethod, TNotifierMethodAsnyc } from '../notification-manager.types'
 
 export const newNotificationVisitor = <T>(
@@ -22,16 +21,14 @@ export const nnv = <T>(
     method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>
 ): INotifier => newNotificationVisitor(event, method)
 
-export const eventNotifVisitor = <T extends IExtendedInputBase | IFieldBaseInput>(
+export const eventNotifVisitor = <T extends IExtendedInputBase | IInputBase>(
     ef: T,
     eventHandler: eventSignature,
     eventType: EventsType
 ) => {
     return newNotificationVisitor(
         newEvent(
-            ef.dependencyName === 'IFieldBaseInput'
-                ? (ef as IFieldBaseInput)?.name
-                : ef?.field?.name,
+            ef.dependencyName === 'IFieldBaseInput' ? (ef as IInputBase)?.name : ef?.input?.name,
             eventHandler.name,
             eventType,
             eventHandler.name

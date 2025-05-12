@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onFocus = (f: IFieldBaseInput, e: Event) => {
+export const onFocus = (f: IInputBase, e: Event) => {
     f.isFocus = true
     f.styleManager?.update('focus', f.isFocus)
     console.log('onFocus', f.name, f.value)

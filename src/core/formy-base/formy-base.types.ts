@@ -1,7 +1,4 @@
-import {
-    IExtendedFieldInput,
-    IFieldInput
-} from '@core/field-engine/core/input-base/field-input-base-types'
+import { IExtendedInput, IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
@@ -33,15 +30,15 @@ export interface IFormyFlags {
 export interface IFormyBase {
     new (id: string, autoTracker?: INotificationManager): IFormy
     id: string
-    fields: IFieldInput[]
-    originFields: IFieldInput[]
+    fields: IInput[]
+    originFields: IInput[]
     submitCount: number
     canValidate: boolean
     setup: (autoTracker?: INotificationManager) => void
     handleValidation: (data?: IValidationStrategyData) => void
     validateAll: (data?: IValidationStrategyData) => void
-    addFields: (...flds: IFieldInput[]) => void
-    getField: (fieldName: string) => IExtendedFieldInput | undefined
+    addFields: (...flds: IInput[]) => void
+    getField: (fieldName: string) => IExtendedInput | undefined
     checkChanges: () => void
     setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void

@@ -13,7 +13,7 @@ export function dmSetSelected<T extends HTMLElement>(
     const element = this.dmGet(id)
     if (!element) {
         this.tracker?.internalError(
-            'Dommable.dmSetSelected',
+            'DomManager.dmSetSelected',
             `The element does not exist in references: ${id}`
         )
         return

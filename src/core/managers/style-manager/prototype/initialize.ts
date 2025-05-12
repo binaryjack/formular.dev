@@ -3,7 +3,7 @@ import { IFieldInitializationParameters } from '@core/field-engine/generator/bui
 import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
-import { abstractInitializer } from '@core/field-engine/core/input-base/abstract/abstract-initializer'
+import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IStyleManager } from '../style-manager.types'
 
@@ -14,7 +14,7 @@ export const initialize = async function (
     try {
         const em = new ExceptionManager(
             ...[
-                newAssert(this.field !== undefined, `The dependency field is not instanciated`),
+                newAssert(this.input !== undefined, `The dependency field is not instanciated`),
                 newAssert(
                     params.descriptor?.options?.length > 0,
                     `${this.dependencyName}: None options were provided. this feature will not work properly`
@@ -26,7 +26,7 @@ export const initialize = async function (
             logManager(undefined, 'critical', 'initialize', em.toString())
         }
 
-        const success = await abstractInitializer(this.field, (e) => {
+        const success = await abstractInitializer(this.input, (e) => {
             e.styleManager.className = ''
             e.styleManager.classesList = new Map<FieldInputStateType, string>([
                 ['dirty', 'is-not-dirty'],
@@ -51,10 +51,10 @@ export const initialize = async function (
         })
 
         if (success) {
-            logManager(this.field.trackingManager, 'info', this.dependencyName, 'Initialized')
+            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             this.isInitialized = true
         }
     } catch (e: any) {
-        logManager(this.field.trackingManager, 'critical', this.dependencyName, e)
+        logManager(this.input.trackingManager, 'critical', this.dependencyName, e)
     }
 }

@@ -2,10 +2,11 @@ import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { IDateObject } from '@components/date-picker/core/models/date-object.models'
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
-import { IFieldError, IFieldGuide } from '@core/framework/errors'
 import { EventsType, IEvents } from '@core/framework/events/events.types'
+import { IFieldError } from '@core/framework/models/errors/i-field-error'
+import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 
 export interface IValidableForm {
@@ -128,7 +129,7 @@ export interface IValidationManager extends IInitializableDependency {
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
     validate: (data: IValidationStrategyData) => IValidationResult[]
-    validateAll: (fields: IFieldInput[]) => IValidationResults[]
+    validateAll: (fields: IInput[]) => IValidationResults[]
 }
 
 export interface IValidationTextBase {

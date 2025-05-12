@@ -14,20 +14,20 @@ export const ReadOnlyField = ({ fieldName }: IReadOnlyFieldProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
         >
             <input
                 tabIndex={-1}
                 data-class="base-input read-only-input"
-                {...instance?.field?.register()}
-                ref={(r) => instance?.field?.ref(r)}
-                value={instance?.field?.toString() ?? ''}
+                {...instance?.input?.register()}
+                ref={(r) => instance?.input?.ref(r)}
+                value={instance?.input?.toString() ?? ''}
                 readOnly
                 autoComplete="off"
                 type="text"

@@ -1,5 +1,5 @@
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
-import { newEvent } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { IDrawerBaseInput } from '../drawer-base-input.types'
 
 /**
@@ -17,8 +17,8 @@ import { IDrawerBaseInput } from '../drawer-base-input.types'
 export const setOpenState = function (this: IDrawerBaseInput, state: ToggleableStateType) {
     this.openState = state
     //this.observers.trigger()
-    this.field.notificationManager?.notify(
+    this.input.notificationManager?.notify(
         'onOpen',
-        newEvent(this.field.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
+        newEvent(this.input.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
     )
 }

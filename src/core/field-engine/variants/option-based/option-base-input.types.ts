@@ -1,11 +1,8 @@
-import {
-    IExtendedInputBase,
-    IFieldInput
-} from '@core/field-engine/core/input-base/field-input-base-types'
+import { IExtendedInputBase, IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IClickBaseInput } from '../click-base/click-base-input.types'
 
-export type IOptionInput = IOptionBaseInput & IClickBaseInput & IFieldInput
+export type IOptionInput = IOptionBaseInput & IClickBaseInput & IInput
 
 export interface IOptionBaseInputProperties {
     optionsInitialized: boolean

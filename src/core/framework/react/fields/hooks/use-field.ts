@@ -1,6 +1,8 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
-import { EventsType, newEvent } from '@core/framework/events/events.types'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
+import { EventsType } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
+
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import {
     defaultFieldStateFlags,
@@ -9,13 +11,13 @@ import {
 import React, { useEffect } from 'react'
 
 export interface IUseFieldHookReturn {
-    instance: IExtendedFieldInput | undefined
+    instance: IExtendedInput | undefined
     flags: IFieldStateFlags
 }
 
-export type useFieldHookType = (field?: IExtendedFieldInput) => IUseFieldHookReturn
+export type useFieldHookType = (field?: IExtendedInput) => IUseFieldHookReturn
 
-export const useField = (field?: IExtendedFieldInput): IUseFieldHookReturn => {
+export const useField = (field?: IExtendedInput): IUseFieldHookReturn => {
     const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
     const [flags, setFlags] = React.useState<IFieldStateFlags>(defaultFieldStateFlags)
     const stableField = React.useMemo(() => {
@@ -27,15 +29,15 @@ export const useField = (field?: IExtendedFieldInput): IUseFieldHookReturn => {
     }
 
     useEffect(() => {
-        if (!stableField?.field.styler?.getFlagsObject?.()) return
-        setFlags(stableField?.field.styler?.getFlagsObject?.())
-    }, [stableField?.field.styler?.classNames()])
+        if (!stableField?.input.styler?.getFlagsObject?.()) return
+        setFlags(stableField?.input.styler?.getFlagsObject?.())
+    }, [stableField?.input.styler?.classNames()])
 
     /** Bind the function handleRefresh to field events*
      */
     const acceptNotificationStrategy = (localName: string, event: EventsType) => {
         if (!stableField) return
-        stableField.field.notifier?.accept(
+        stableField.input.notifier?.accept(
             nnv(
                 newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
                 handleRefresh.bind(useRtiEngine)

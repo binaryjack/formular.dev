@@ -1,4 +1,4 @@
-import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
+import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 
 import { conventions } from '../context/conventions/conventions'
 
@@ -39,7 +39,7 @@ export const DatePickerSF = ({
             value = `${value} => ${formatDate(endDate, displayFormat)}`
         }
 
-        instance?.field?.setValue(value)
+        instance?.input?.setValue(value)
     }
 
     const { handleKeyDown } = useKeyBindings({
@@ -47,47 +47,47 @@ export const DatePickerSF = ({
             setToggleState('open')
         },
         onDeleteCallback: () => {
-            instance?.field?.clear()
+            instance?.input?.clear()
         }
     })
 
-    useFieldDefaultValue(instance?.field)
+    useFieldDefaultValue(instance?.input)
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             itemsChildren={
                 <DatePickerContentDrawer
-                    id={instance?.field?.name ?? 'NOT-DEFINED!'}
+                    id={instance?.input?.name ?? 'NOT-DEFINED!'}
                     onSelectDate={onSelectDate}
                     separator={separator}
                     dataFormat={dataFormat}
                     displayFormat={displayFormat}
-                    defaultDate={instance?.field?.defaultValue as string}
+                    defaultDate={instance?.input?.defaultValue as string}
                 />
             }
             itemsDrawerHeight="350px"
             itemsDrawerWidth="250px"
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.field?.register()}
-                ref={(r) => instance?.field?.ref(r)}
+                {...instance?.input?.register()}
+                ref={(r) => instance?.input?.ref(r)}
                 autoComplete="off"
                 onKeyDown={handleKeyDown}
             />

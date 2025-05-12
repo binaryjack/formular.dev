@@ -1,7 +1,7 @@
-import { newEvent } from '@core/framework/events/events.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { newEvent } from '@core/framework/events/new-event'
+import { IInputBase } from '../input-base.types'
 
-export const onClearHandle = (f: IFieldBaseInput) => {
+export const onClearHandle = (f: IInputBase) => {
     if (!f.validationManager?.validationTriggerModeType.includes('onClear')) return
     console.log('onClearHandle', f.name, f.value)
     f.notificationManager?.debounceNotify(

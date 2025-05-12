@@ -1,8 +1,8 @@
 import { DomManager } from '@core/managers/dom-manager/dom-manager'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
-export const useDomManager = function (this: IFieldBaseInput): IFieldBaseInput {
+export const useDomManager = function (this: IInputBase): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')
@@ -18,7 +18,7 @@ export const useDomManager = function (this: IFieldBaseInput): IFieldBaseInput {
             undefined,
             'critical',
             useDomManager.name,
-            `an error has occured when initializing initializeDommable ${this.name} class: ${e.message}`
+            `an error has occured when initializing initializeDomManager ${this.name} class: ${e.message}`
         )
         return this
     }

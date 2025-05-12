@@ -1,5 +1,5 @@
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
-import { optionReferencer } from '@core/field-engine/core/input-base/referencers/referencer'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
+import { optionReferencer } from '@core/field-engine/core/referencers/referencer'
 
 /** In oposition to the above ref function the refOption function requires that the component manages the ref by itself
  * I guess (not sure at this point!) but I believe tha's because of the render nature.
@@ -9,6 +9,6 @@ import { optionReferencer } from '@core/field-engine/core/input-base/referencers
  * In this case we provide a ref from the component itself and we add to the collection only if the ref has already
  * been created and the value (current) is referencing the input.
  *  */
-export const refOption = function (this: IExtendedFieldInput, ref: HTMLInputElement | null) {
+export const refOption = function (this: IExtendedInput, ref: HTMLInputElement | null) {
     optionReferencer(this, ref)
 }

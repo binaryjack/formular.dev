@@ -1,4 +1,4 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/input-base/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
 import { ClickBaseInput } from '@core/field-engine/variants/click-base/click-base-input'
 import { IClickBaseInput } from '@core/field-engine/variants/click-base/click-base-input.types'
 import { logManager } from '@core/managers/log-manager/log-manager'

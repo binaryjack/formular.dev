@@ -1,13 +1,13 @@
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
 import { FormCreator } from '@core/formy-base/formy.creator'
 import React from 'react'
 
 export interface IFormyContext {
-    getFields: () => IFieldInput[]
+    getFields: () => IInput[]
     getFormFlags: () => IFormyFlags
     formInstance: IFormy | undefined
-    getField: (fieldName: string) => IFieldInput | undefined
+    getField: (fieldName: string) => IInput | undefined
 }
 
 export const formyCotextDefault = {

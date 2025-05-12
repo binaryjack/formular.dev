@@ -1,6 +1,6 @@
 /**  */
 
-import { IFieldBaseInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 
 /**
@@ -25,7 +25,7 @@ import { IInitializableDependency } from '@core/managers/initialization-manager/
  * in the rest parameter will be initialized after the base dependencies.
  */
 export const baseDependencyList = (
-    fieldBaseInput: IFieldBaseInput,
+    fieldBaseInput: IInputBase,
     ...rest: IInitializableDependency[]
 ): IInitializableDependency[] => [
     /** these are the basic dependencies that all base field inputs needs in

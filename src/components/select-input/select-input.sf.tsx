@@ -23,46 +23,46 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
             setToggleState('open')
         },
         onDeleteCallback: () => {
-            instance?.field?.clear()
+            instance?.input?.clear()
         }
     })
 
-    useFieldDefaultValue(instance?.field)
+    useFieldDefaultValue(instance?.input)
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             itemsChildren={
                 <SelectDrawerContent
                     filterTriggerDelay={500}
-                    items={instance?.field?.options ?? []}
-                    onSelectItem={(value) => instance?.field?.onSelectItem(value)}
-                    selectedItemSequenceId={instance?.field?.selectedOptionId ?? null}
+                    items={instance?.input?.options ?? []}
+                    onSelectItem={(value) => instance?.input?.onSelectItem(value)}
+                    selectedItemSequenceId={instance?.input?.selectedOptionId ?? null}
                 />
             }
             itemsDrawerHeight="350px"
             itemsDrawerWidth="250px"
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.field?.register()}
-                ref={(r) => instance?.field?.ref(r)}
-                value={instance?.field?.getSelectedValue?.()}
+                {...instance?.input?.register()}
+                ref={(r) => instance?.input?.ref(r)}
+                value={instance?.input?.getSelectedValue?.()}
                 autoComplete="off"
                 onKeyDownCapture={handleKeyDown}
             />

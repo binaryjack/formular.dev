@@ -7,5 +7,5 @@ import { IValueManager } from '../value-manager.types'
  * @returns {string | null} The value of the field input as a string, or `null` if the value is not a string.
  */
 export const getAsString = function (this: IValueManager) {
-    return this.field.value ?? null
+    return this.input.value ?? null
 }

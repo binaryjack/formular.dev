@@ -1,21 +1,19 @@
-import {
-    CheckBuilder,
-    DateTimeBuilder,
-    IdBuilder,
-    InputTextBuilder,
-    OrderBuilder,
-    PasswordBuilder,
-    RadioBuilder,
-    RangeBuilder,
-    RteBuilder,
-    SelectIdBuilder,
-    ShowRoomsBuilder,
-    ToggleBuilder,
-    UserIdBuilder
-} from '../../../../demo/form-demo/form-demo.schema.specific.builders'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IValidationSchema } from '../validation-schema/validation.schema.types'
 import { IFieldSchemaBuilder, IFieldSchemeFactory } from './field.schema.types'
+import { DateTimeBuilder } from './settings/date-time-value-builder'
+import { IdBuilder } from './settings/id-builder'
+import { InputTextBuilder } from './settings/input-control-builder'
+import { OrderBuilder } from './settings/order-builder'
+import { PasswordBuilder } from './settings/password-builder'
+import { RangeBuilder } from './settings/range-slider-builder'
+import { RteBuilder } from './settings/rich-text-field-builder'
+import { SelectIdBuilder } from './settings/select-options-id-builder'
+import { ShowRoomsBuilder } from './settings/select-showrooms-builder'
+import { RadioBuilder } from './settings/selected-radio-id-builder'
+import { ToggleBuilder } from './settings/toggle-builder'
+import { CheckBuilder } from './settings/true-false-value-builder'
+import { UserIdBuilder } from './settings/user-name-builder'
 
 const FieldSchemaFactory = function (this: IFieldSchemeFactory) {
     this.builders = []

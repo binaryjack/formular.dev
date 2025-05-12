@@ -1,5 +1,5 @@
-import { DomRegisterBuilder } from '@core/field-engine/core/input-base/abstract/dom-registers-builder'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { DomRegisterBuilder } from '@core/field-engine/core/abstract/dom-registers-builder'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 
 /**
  * Registers event handlers for a field's children options input components
@@ -21,7 +21,7 @@ import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-in
  * - `onFocus`: Handles focus events on the input element. Updates the focus state,
  *   triggers observers, and notifies listeners about the "focused" event.
  */
-export const registerOption = function (this: IExtendedFieldInput): Partial<HTMLInputElement> {
+export const registerOption = function (this: IExtendedInput): Partial<HTMLInputElement> {
     return new DomRegisterBuilder(this)
         .registerChange()
         .registerBlur()

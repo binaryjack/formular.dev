@@ -9,7 +9,7 @@ export function dmSetValue<T extends HTMLElement>(this: IDomManager<T>, id: stri
     const element = this.dmGet(id)
     if (!element) {
         this.tracker?.internalError(
-            'Dommable.dmSetValue',
+            'DomManager.dmSetValue',
             `The element does not exist in references: ${id}`
         )
         return

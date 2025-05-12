@@ -3,7 +3,7 @@ import {
     IValidationResult,
     IValidationStrategyData
 } from '@core/managers/validation-manager/validation-manager.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 /**
  * Handles the validation process for a field input.
@@ -16,7 +16,7 @@ import { IFieldBaseInput } from '../field-input-base-types'
  * optional `validationOrigin` derived from the `origin` parameter.
  */
 export const handleValidation = function <T extends IEvents>(
-    this: IFieldBaseInput,
+    this: IInputBase,
     e?: T,
     data?: IValidationStrategyData
 ) {

@@ -12,7 +12,7 @@ import { IStyleManager } from '../style-manager.types'
  */
 
 export const classNames = function (this: IStyleManager) {
-    const ele = this.field?.domManager?.dmGet(this.field.id.toString())
+    const ele = this.input?.domManager?.dmGet(this.input.id.toString())
     const userClassName = ele?.attributes.getNamedItem('data-class')?.value
     return `${userClassName} ${this.className} ${this.get()} `
 }

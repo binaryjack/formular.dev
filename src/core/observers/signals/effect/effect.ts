@@ -1,4 +1,4 @@
-import { newEvent } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { IEffect, TEffectBody } from '@core/observers/signals/effect/effect.type'

@@ -3,11 +3,11 @@ import { ExceptionManager } from '@core/framework/exceptions/exception-manager'
 
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
-import { abstractInitializer } from '../abstract/abstract-initializer'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { abstractInitializer } from '../../abstract/abstract-initializer'
+import { IInputBase } from '../input-base.types'
 
 export const initialize = async function (
-    this: IFieldBaseInput,
+    this: IInputBase,
     params: IFieldInitializationParameters
 ) {
     try {

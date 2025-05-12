@@ -1,5 +1,5 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/input-base/configuration/dependency-configuration'
-import { IFieldBaseInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
+import { IInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { ICheckBoxBaseInput } from '@core/field-engine/variants/check-box-base/check-box-base-input.types'
 import { IClickBaseInput } from '@core/field-engine/variants/click-base/click-base-input.types'
 import { IOptionBaseInput } from '@core/field-engine/variants/option-based/option-base-input.types'
@@ -38,7 +38,7 @@ export interface IFieldBuilder {
     new (): IFieldBuilder
 
     /** concrete */
-    createBaseInput: IBuilder<IFieldBaseInput>
+    createBaseInput: IBuilder<IInputBase>
     createClickBased: IBuilder<IClickBaseInput>
     createOptionBased: IBuilder<IOptionBaseInput>
     createCheckBased: IBuilder<ICheckBoxBaseInput>

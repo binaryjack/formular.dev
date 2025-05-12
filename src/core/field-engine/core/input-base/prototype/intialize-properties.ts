@@ -1,7 +1,7 @@
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
-export const initializeProperties = function (this: IFieldBaseInput, descriptor: IFieldDescriptor) {
+export const initializeProperties = function (this: IInputBase, descriptor: IFieldDescriptor) {
     this.id = descriptor.id
     this.name = descriptor.name
     this.label = descriptor.label

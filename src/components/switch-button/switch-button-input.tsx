@@ -28,10 +28,10 @@ const SwitchButtonInput = ({
 
     const handleToggleChange = (value: boolean) => {
         setIsOn(value)
-        instance?.field?.setValue(value)
+        instance?.input?.setValue(value)
     }
 
-    useFieldDefaultValue(instance?.field, (value) => {
+    useFieldDefaultValue(instance?.input, (value) => {
         if (value !== undefined) {
             setIsOn(value === true)
         }
@@ -39,25 +39,25 @@ const SwitchButtonInput = ({
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
             onClear={() => {
-                instance?.field?.clear()
+                instance?.input?.clear()
                 setIsOn(false)
             }}
         >
             <SwitchButton
-                fieldName={instance?.field?.name ?? conventions.IdIsEmpty()}
+                fieldName={instance?.input?.name ?? conventions.IdIsEmpty()}
                 options={options}
                 onToggle={handleToggleChange}
                 isToggle={isOn}

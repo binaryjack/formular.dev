@@ -1,11 +1,11 @@
 import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { formatDate } from '@components/date-picker/core/formatters/format-date'
-import { INDate } from '@core/framework/schema/descriptor/field.data.date.struct'
+import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 import { IValueManager } from '../value-manager.types'
 
 export const toString = function (this: IValueManager) {
-    const value = this.field.value as any
+    const value = this.input.value as any
     if (!value) return ''
     if (typeof value === 'object') {
         if ('day' in value && 'month' in value && 'year' in value) {

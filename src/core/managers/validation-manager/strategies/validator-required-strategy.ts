@@ -1,4 +1,5 @@
-import { newFieldError, newFieldGuide } from '@core/framework/errors'
+import { newFieldError } from '@core/framework/models/errors/new-field-error'
+import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
 import {
     IValidationMethodStrategy,

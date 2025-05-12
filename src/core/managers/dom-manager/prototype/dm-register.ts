@@ -9,7 +9,7 @@ export function dmRegister<T extends HTMLElement>(this: IDomManager<T>, element:
 
     if (this.dmExists(element.id)) {
         this.tracker?.internalWarning(
-            'Dommable.register',
+            'DomManager.register',
             `The element you try to add already exists: ${element.id}`
         )
         return

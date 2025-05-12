@@ -1,11 +1,11 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
-import { IFieldBaseInput } from '../field-input-base-types'
+import { IInputBase } from '../input-base.types'
 
 export const useNotificationManager = function (
-    this: IFieldBaseInput,
+    this: IInputBase,
     notifierInstance: INotificationManager
-): IFieldBaseInput {
+): IInputBase {
     try {
         // if (!this.name) {
         //     throw Error('properties must be initialized')

@@ -1,6 +1,6 @@
 // get-field.ts
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFormy } from '../formy-base.types'
 
 /**
@@ -9,5 +9,5 @@ import { IFormy } from '../formy-base.types'
  * @returns The field if found, otherwise undefined.
  */
 export function getField(this: IFormy, fieldName: string) {
-    return this.fields.find((field: IFieldInput) => field.name === fieldName)
+    return this.fields.find((field: IInput) => field.name === fieldName)
 }

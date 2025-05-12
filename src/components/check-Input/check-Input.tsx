@@ -14,31 +14,31 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const handleDelete = () => {
-        instance?.field.clear()
+        instance?.input.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.field, (value) => {
-        if (!instance?.field) return
-        instance.field.checked = value
+    useFieldDefaultValue(instance?.input, (value) => {
+        if (!instance?.input) return
+        instance.input.checked = value
     })
 
     return (
         <FieldSet
-            inputId={instance?.field?.name ?? conventions.IdIsEmpty()}
-            label={instance?.field?.label}
-            type={instance?.field?.type}
+            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            label={instance?.input?.label}
+            type={instance?.input?.type}
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <div className={`flex flex-1 items-center ml-1`}>
                 <input
@@ -47,8 +47,8 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type="checkbox"
-                    {...instance?.field?.register()}
-                    ref={(r) => instance?.field?.ref(r)}
+                    {...instance?.input?.register()}
+                    ref={(r) => instance?.input?.ref(r)}
                 />
             </div>
         </FieldSet>

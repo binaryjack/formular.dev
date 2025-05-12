@@ -1,6 +1,6 @@
 // add-fields.ts
 
-import { IFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { shallowCopy } from '@core/framework/utility/shallow-copy'
 import { IFormy } from '../formy-base.types'
 
@@ -8,11 +8,11 @@ import { IFormy } from '../formy-base.types'
  * Adds fields to the Formy instance.
  * @param flds - Fields to be added.
  */
-export function addFields(this: IFormy, ...flds: IFieldInput[]) {
+export function addFields(this: IFormy, ...flds: IInput[]) {
     this.originFields = []
 
     for (const fld of flds) {
-        const existingFieldRef = this.fields.find((o: IFieldInput) => o.id === fld.id)
+        const existingFieldRef = this.fields.find((o: IInput) => o.id === fld.id)
         if (!existingFieldRef) {
             if (this.validationTriggerModeType.length > 1) {
                 console.log('stop')

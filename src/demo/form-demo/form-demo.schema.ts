@@ -1,22 +1,20 @@
 import { IEntityScheme, IFieldSchema } from '@core/framework/schema/field-schema/field.schema.types'
+import { DateTimeBuilder } from '@core/framework/schema/field-schema/settings/date-time-value-builder'
+import { IdBuilder } from '@core/framework/schema/field-schema/settings/id-builder'
+import { InputTextBuilder } from '@core/framework/schema/field-schema/settings/input-control-builder'
+import { OrderBuilder } from '@core/framework/schema/field-schema/settings/order-builder'
+import { PasswordBuilder } from '@core/framework/schema/field-schema/settings/password-builder'
+import { RangeBuilder } from '@core/framework/schema/field-schema/settings/range-slider-builder'
+import { RteBuilder } from '@core/framework/schema/field-schema/settings/rich-text-field-builder'
+import { SelectIdBuilder } from '@core/framework/schema/field-schema/settings/select-options-id-builder'
+import { ShowRoomsBuilder } from '@core/framework/schema/field-schema/settings/select-showrooms-builder'
+import { RadioBuilder } from '@core/framework/schema/field-schema/settings/selected-radio-id-builder'
+import { ToggleBuilder } from '@core/framework/schema/field-schema/settings/toggle-builder'
+import { Toggle2Builder } from '@core/framework/schema/field-schema/settings/toggle2-builder'
+import { CheckBuilder } from '@core/framework/schema/field-schema/settings/true-false-value-builder'
+import { UserIdBuilder } from '@core/framework/schema/field-schema/settings/user-name-builder'
 import baseOptionSchemaItem from '@core/framework/schema/options-schema/options.scheme.function'
 import { Validators } from '@core/framework/schema/validation-schema/validators'
-import {
-    CheckBuilder,
-    DateTimeBuilder,
-    IdBuilder,
-    InputTextBuilder,
-    OrderBuilder,
-    PasswordBuilder,
-    RadioBuilder,
-    RangeBuilder,
-    RteBuilder,
-    SelectIdBuilder,
-    ShowRoomsBuilder,
-    Toggle2Builder,
-    ToggleBuilder,
-    UserIdBuilder
-} from './form-demo.schema.specific.builders'
 
 export type newEntitySchemeObjectType = (
     name: string,

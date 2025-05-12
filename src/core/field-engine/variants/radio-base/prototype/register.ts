@@ -2,8 +2,8 @@
  * The register function is used to register the event handlers for the field input.
  */
 
-import { DomRegisterBuilder } from '@core/field-engine/core/input-base/abstract/dom-registers-builder'
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { DomRegisterBuilder } from '@core/field-engine/core/abstract/dom-registers-builder'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 
 /**
  * Registers event handlers and ARIA attributes for a field input component.
@@ -47,7 +47,7 @@ import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-in
  * ```
  */
 export const register = function <FieldValuesTypes>(
-    this: IExtendedFieldInput
+    this: IExtendedInput
 ): Partial<HTMLInputElement> {
     return new DomRegisterBuilder(this)
         .registerChange()

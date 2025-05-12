@@ -22,41 +22,41 @@ const Password = ({ fieldName }: IPasswordProps) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
     const handleDelete = () => {
-        instance?.field?.clear()
+        instance?.input?.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.field)
+    useFieldDefaultValue(instance?.input)
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible((prev) => !prev)
     }
 
-    const fieldId = instance?.field?.name ?? conventions.IdIsEmpty()
+    const fieldId = instance?.input?.name ?? conventions.IdIsEmpty()
 
     return (
         <FieldSet
             inputId={fieldId}
-            label={instance?.field?.label}
+            label={instance?.input?.label}
             type="password"
             flags={flags}
             onClick={() => {
-                instance?.field?.focus()
+                instance?.input?.focus()
             }}
             validationChildren={
                 <ValidationResultComponent
-                    validationResults={instance?.field?.validationResults ?? []}
+                    validationResults={instance?.input?.validationResults ?? []}
                 />
             }
-            onClear={() => instance?.field?.clear()}
+            onClear={() => instance?.input?.clear()}
         >
             <div className="relative flex items-center w-full">
                 <input
                     tabIndex={0}
                     data-class="base-input "
-                    {...instance?.field?.register()}
-                    ref={(r) => instance?.field?.ref(r)}
+                    {...instance?.input?.register()}
+                    ref={(r) => instance?.input?.ref(r)}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type={isPasswordVisible ? 'text' : 'password'}

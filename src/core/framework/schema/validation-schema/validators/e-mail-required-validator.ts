@@ -1,4 +1,4 @@
-import { eMAilBuilder } from '../builders/e-mail-builder'
+import { eMAilBuilder } from '../presets/e-mail-builder'
 import validationSchemaFactory from '../schema/factory/validation.schema.factory'
 import { eMailPattern } from '../validation.regex.patterns'
 

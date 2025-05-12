@@ -9,5 +9,5 @@ import { IStyleManager } from '../style-manager.types'
  */
 export function update(this: IStyleManager, state: FieldInputStateType, className: string): void {
     this.classesList.set(state, className)
-    this.field.notificationManager.observers.trigger()
+    this.input.notificationManager.observers.trigger()
 }

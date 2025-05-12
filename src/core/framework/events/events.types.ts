@@ -1,5 +1,3 @@
-import { TNotifierMethod } from '@core/managers/notification-manager/notification-manager.types'
-
 export interface IBaseEventsHanlders {
     handleOnChanged: <T extends IEvents>(data?: T) => void
 }
@@ -54,8 +52,6 @@ export enum EventsEnum {
     onDispose = 'onDispose'
 }
 
-export const emptyInitializeMethod: TNotifierMethod<unknown> = () => {}
-
 export type eventSignature = <T extends IEvents>(data?: T) => void
 
 /** if no rule is applied the the field is never validated */
@@ -70,39 +66,4 @@ export interface IEvents {
     action: string
     toFlags: () => string
     target?: string
-}
-
-const _toFlags = function (
-    fieldName: string,
-    emitterName: string,
-    types: EventsType[],
-    action: string,
-    target?: string
-) {
-    return `${fieldName}.${emitterName}:[${types.join(',')}].[${action}]${target ? ' => [' + target + ']' : ''}`
-}
-
-export const newEvent = (
-    fieldName: string,
-    emitterName: string,
-    type: EventsType,
-    action: string,
-    target?: string
-): IEvents => {
-    return {
-        fieldName,
-        emitterName,
-        action,
-        types: [type],
-        target,
-        toFlags: () => _toFlags(fieldName, emitterName, [type], action, target)
-    }
-}
-
-export const defaultExtendsEventObject: IEvents = {
-    action: '',
-    emitterName: '',
-    fieldName: '',
-    types: ['intitial'],
-    toFlags: () => _toFlags('', '', ['intitial'], '')
 }

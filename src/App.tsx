@@ -4,7 +4,7 @@ import { useField } from '@components/formy/formy.context'
 import ValidationResultComponent from '@components/validation-result/validation-result'
 import { FieldFactory } from '@core/field-engine/generator/factory/field-factory'
 
-import { IExtendedFieldInput } from '@core/field-engine/core/input-base/field-input-base-types'
+import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 import { ISelectBaseInput } from '@core/field-engine/variants/select-base/select-base-input.types'
 import { ITextBaseInput } from '@core/field-engine/variants/text-base/text-base-input.types'
 import { dependencyConfiguration } from '@demo/settings/basic.setting'
@@ -107,21 +107,21 @@ const App = () => {
 
     const select = factory.create<ISelectBaseInput>('select')(dependencyConfiguration)
 
-    const { instance, flags } = useField(input as IExtendedFieldInput)
+    const { instance, flags } = useField(input as IExtendedInput)
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
             <div>
                 <FieldSet
-                    inputId={instance?.field.name ?? conventions.IdIsEmpty()}
-                    label={instance?.field.label}
-                    type={instance?.field.type}
+                    inputId={instance?.input.name ?? conventions.IdIsEmpty()}
+                    label={instance?.input.label}
+                    type={instance?.input.type}
                     flags={flags}
                     validationChildren={
                         <ValidationResultComponent
-                            validationResults={instance?.field.validationResults ?? []}
+                            validationResults={instance?.input.validationResults ?? []}
                         />
                     }
-                    onClear={() => instance?.field.clear()}
+                    onClear={() => instance?.input.clear()}
                 >
                     <input
                         data-class="base-input"
@@ -130,16 +130,16 @@ const App = () => {
                     />
                 </FieldSet>
 
-                <button type="button" onClick={() => instance?.field.setFocus()}>
+                <button type="button" onClick={() => instance?.input.setFocus()}>
                     focus Field
                 </button>
-                <button type="button" onClick={() => instance?.field.enable(true)}>
+                <button type="button" onClick={() => instance?.input.enable(true)}>
                     enable
                 </button>
-                <button type="button" onClick={() => instance?.field.enable(false)}>
+                <button type="button" onClick={() => instance?.input.enable(false)}>
                     disable
                 </button>
-                <button type="button" onClick={() => instance?.field.clear()}>
+                <button type="button" onClick={() => instance?.input.clear()}>
                     clear
                 </button>
             </div>

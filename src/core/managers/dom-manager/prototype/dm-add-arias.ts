@@ -8,7 +8,7 @@ export function dmAddArias<T extends HTMLElement>(
     const element = this.dmGet(id)
     if (!element) {
         this.tracker?.internalWarning(
-            'Dommable.dmAddArias',
+            'DomManager.dmAddArias',
             `The element does not exist in references: ${id}`
         )
         return
