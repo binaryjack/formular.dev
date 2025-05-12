@@ -1,4 +1,4 @@
-import { IDependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
+import { IDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { InitializationManager } from './initialization-manager'
 import { IInitializableDependency } from './initialization-manager.types'
 

@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
 
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import { formyContext, IFormyContext, useForm } from './formy.context'

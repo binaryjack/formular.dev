@@ -1,6 +1,6 @@
 // set-validation-trigger-mode.ts
 
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 
 import { EventsType } from '@core/framework/events/events.types'

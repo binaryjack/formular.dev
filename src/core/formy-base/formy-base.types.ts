@@ -1,6 +1,6 @@
-import { IExtendedInput, IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 import { EventsType } from '@core/framework/events/events.types'
+import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import {
     IValidableForm,

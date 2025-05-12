@@ -1,5 +1,5 @@
-import { DependencyConfiguration } from '@core/field-engine/core/configuration/dependency-configuration'
 import { defaultTriggers } from '@core/framework/events/settings/default.settings'
+import { DependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { defaultOutputTrackers } from '@core/managers/tracking-manager/settings/default.settings'
 import { defaultValidationStrategies } from '@core/managers/validation-manager/settings/default.settings'
 import { defaultValueParsersStrategies } from '@core/managers/value-manager/settings/default.settings'

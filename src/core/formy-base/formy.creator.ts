@@ -1,5 +1,4 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
-import { InputBaseCreator } from '@core/field-engine/core/input-base/input-base.creator'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
 
 import { EventsType } from '@core/framework/events/events.types'
@@ -8,6 +7,7 @@ import { IValidationLocalize } from '@core/framework/localize/localize.type'
 import { TranslatioBuilderType } from '@core/framework/localize/localize.utils'
 import { useField, useFieldHookType } from '@core/framework/react/fields/hooks/use-field'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { InputBaseCreator } from '@core/input-engine/core/input-base/input-base.creator'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import React, { useEffect } from 'react'

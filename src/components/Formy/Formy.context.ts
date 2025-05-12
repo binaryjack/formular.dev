@@ -1,6 +1,6 @@
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import { IFormy, IFormyFlags } from '@core/formy-base/formy-base.types'
 import { FormCreator } from '@core/formy-base/formy.creator'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import React from 'react'
 
 export interface IFormyContext {

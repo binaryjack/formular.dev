@@ -1,7 +1,7 @@
 import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
-import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import {

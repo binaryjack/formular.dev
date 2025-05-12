@@ -1,9 +1,9 @@
-import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
+import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
 import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
-import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
+import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IStyleManager } from '../style-manager.types'
 

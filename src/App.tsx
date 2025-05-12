@@ -2,11 +2,11 @@ import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
 import { useField } from '@components/formy/formy.context'
 import ValidationResultComponent from '@components/validation-result/validation-result'
-import { FieldFactory } from '@core/field-engine/generator/factory/field-factory'
 
-import { IExtendedInput } from '@core/field-engine/core/input-base/input-base.types'
-import { ISelectBaseInput } from '@core/field-engine/variants/select-base/select-base-input.types'
-import { ITextBaseInput } from '@core/field-engine/variants/text-base/text-base-input.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { FieldFactory } from '@core/input-engine/generator/factory/field-factory'
+import { ISelectBaseInput } from '@core/input-engine/variants/select-base/select-base-input.types'
+import { ITextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
 import { dependencyConfiguration } from '@demo/settings/basic.setting'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
@@ -107,7 +107,7 @@ const App = () => {
 
     const select = factory.create<ISelectBaseInput>('select')(dependencyConfiguration)
 
-    const { instance, flags } = useField(input as IExtendedInput)
+    const { instance, flags } = useField(input as unknown as IExtendedInput)
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
             <div>

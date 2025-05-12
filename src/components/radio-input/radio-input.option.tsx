@@ -1,6 +1,6 @@
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 
 interface IRadioInputOptionProps {
     field: IInput

@@ -1,6 +1,6 @@
-import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
+import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
-import { abstractInitializer } from '@core/field-engine/core/abstract/abstract-initializer'
+import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IValueManager } from '../value-manager.types'
 

@@ -1,5 +1,5 @@
-import { IExtendedInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
+import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
 export const defaultFieldInputCSSClassName = 'f-input'
 

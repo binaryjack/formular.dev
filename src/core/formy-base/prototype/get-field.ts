@@ -1,6 +1,6 @@
 // get-field.ts
 
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFormy } from '../formy-base.types'
 
 /**

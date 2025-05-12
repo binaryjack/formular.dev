@@ -1,4 +1,4 @@
-import { IFieldInitializationParameters } from '@core/field-engine/generator/builder/field-builder'
+import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IInitializationManager } from '../initialization-manager'

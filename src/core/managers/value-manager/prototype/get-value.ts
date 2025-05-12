@@ -1,6 +1,6 @@
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
 
-import { IInput } from '@core/field-engine/core/input-base/input-base.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
 /**

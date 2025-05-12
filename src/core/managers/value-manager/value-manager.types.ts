@@ -1,5 +1,5 @@
-import { IExtendedInputBase } from '@core/field-engine/core/input-base/input-base.types'
 import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
 export type TParser<TOut> = (value: Partial<FieldDataTypes>) => TOut | null
 

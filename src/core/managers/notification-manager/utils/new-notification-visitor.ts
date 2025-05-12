@@ -1,7 +1,6 @@
-import { IExtendedInputBase, IInputBase } from '@core/field-engine/core/input-base/input-base.types'
-
 import { eventSignature, EventsType, IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
+import { IExtendedInputBase, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { INotifier, TNotifierMethod, TNotifierMethodAsnyc } from '../notification-manager.types'
 
 export const newNotificationVisitor = <T>(
