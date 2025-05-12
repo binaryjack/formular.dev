@@ -1,6 +1,6 @@
 import { EventsType } from '@core/framework/events/events.types'
 
-import { FieldTypeNames } from '@core/framework/common/common.field.types'
+import { InputTypeNames } from '@core/framework/common/common.input.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IValidationSchema } from '../validation-schema/validation.schema.types'
 import { IFieldSchema, IFieldSchemaBuilder } from './field.schema.types'
@@ -9,7 +9,7 @@ export const FieldSchemaBuilder = function (
     this: IFieldSchemaBuilder,
     id: number,
     name: string,
-    type: FieldTypeNames
+    type: InputTypeNames
 ) {
     this.id = id
     this.name = name
@@ -30,7 +30,7 @@ export const FieldSchemaBuilder = function (
 } as any as IFieldSchemaBuilder
 
 FieldSchemaBuilder.prototype = {
-    setTypeData: function (type: FieldTypeNames) {
+    setTypeData: function (type: InputTypeNames) {
         this.type = type
         return this
     },

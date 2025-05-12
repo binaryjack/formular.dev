@@ -1,6 +1,6 @@
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
-import { FieldInputStateType } from '@core/framework/common/common.input.state.types'
+import { InputStateType } from '@core/framework/common/common.input.state.types'
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
@@ -28,7 +28,7 @@ export const initialize = async function (
 
         const success = await abstractInitializer(this.input, (e) => {
             e.styleManager.className = ''
-            e.styleManager.classesList = new Map<FieldInputStateType, string>([
+            e.styleManager.classesList = new Map<InputStateType, string>([
                 ['dirty', 'is-not-dirty'],
                 ['errors', 'no-errors'],
                 ['focus', 'is-not-focus'],

@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 
 import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
@@ -21,7 +21,7 @@ export interface IDomManagerBase<T extends HTMLElement> extends IInitializableDe
     dmRegisterById: (id: string) => void
     dmGet: (id: string) => T | null
     dmExists: (id: string) => boolean
-    dmSetValue: (id: string, value: FieldDataTypes) => void
+    dmSetValue: (id: string, value: InputDataTypes) => void
     dmClear: () => void
     dmSetChecked: (id: string, value: boolean) => void
     dmSetClass: (id: string, rules: CSSPropertyRule) => void

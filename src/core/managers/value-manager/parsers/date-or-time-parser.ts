@@ -2,12 +2,12 @@ import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { DateObjectTypes } from '@components/date-picker/core/models/date-object.types'
 
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { isNDateNullOrUndefined } from '@core/framework/utility/is-ndate-null-or-undefined'
 import { TParser } from '../value-manager.types'
 
 export const dateOrTimeParser: TParser<string | null> = (
-    value: Partial<FieldDataTypes>
+    value: Partial<InputDataTypes>
 ): string | null => {
     if (!isNDateNullOrUndefined(value as DateObjectTypes)) {
         const newDte = new DateObject(undefined, 'temp-date')

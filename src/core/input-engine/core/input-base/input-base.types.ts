@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
@@ -48,14 +48,14 @@ export interface IInputProperties extends IFieldDescriptor {
     isPristine: boolean
     isFocus: boolean
 
-    value: FieldDataTypes
-    originalValue: FieldDataTypes
+    value: InputDataTypes
+    originalValue: InputDataTypes
 
     /** message helper method : uses treacker and fallbacks to console */
     message: (type: TrackingType, source: string, message: string) => void
     /** Core methods */
-    setValue: (value: FieldDataTypes) => void
-    getValue: () => FieldDataTypes
+    setValue: (value: InputDataTypes) => void
+    getValue: () => InputDataTypes
 
     setFocus: () => void
     clear: () => void

@@ -1,85 +1,46 @@
-import { conventions } from '@components/context/conventions/conventions'
-import FormyForm from '@components/formy/formy.form'
+import FormularForm from '@components/formular-form/formular-form'
+
 import InputText from '@components/input-text/input-text'
-import { Formy } from '@core/formy-base/formy-base'
-import { IFormy } from '@core/formy-base/formy-base.types'
+import { Formular } from '@core/formular-base/formular-base'
+import { IFormular } from '@core/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
-import { InputBaseCreator } from '@core/input-engine/core/input-base/input-base.creator'
+import {
+    defaultInitializationDependencies,
+    defaultInitializationParameters
+} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
+import { InputsProvider } from '@core/input-engine/generator/input-provider'
+
 import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
 import {
     IValidationOptions,
     ValidationErrorsCodes
 } from '@core/managers/validation-manager/validation-manager.types'
+import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
+import { validationOptionsMock } from '@mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
-
-const defaultValidation = {
-    max: {
-        max: 100,
-        error: `This field requires a value that must not be greater than ${conventions.tokens.validationDataToken1}!`,
-        guide: `please enter a value less than ${conventions.tokens.validationDataToken1}.`
-    },
-    min: {
-        min: 0,
-        error: `This field requires a value that must not be less than ${conventions.tokens.validationDataToken1}!`,
-        guide: `please enter a value greater than ${conventions.tokens.validationDataToken1}.`
-    },
-    maxLength: {
-        maxLength: 50,
-        error: `This field requires a value with a length not exceeding ${conventions.tokens.validationDataToken1} characters!`,
-        guide: `please enter a value with fewer than ${conventions.tokens.validationDataToken1} characters.`
-    },
-    minLength: {
-        minLength: 5,
-        error: `This field requires a value with a length of at least ${conventions.tokens.validationDataToken1} characters!`,
-        guide: `please enter a value with more than ${conventions.tokens.validationDataToken1} characters.`
-    },
-    pattern: {
-        pattern: '',
-        error: `This field requires a value matching the specified pattern!`,
-        guide: `please enter a value that matches the specified pattern.`
-    },
-    requiredData: {
-        required: false,
-        error: `This field is required!`,
-        guide: `please provide a value for this field.`
-    }
-}
 
 const FieldInputValidationSandbox = () => {
     const [validationOptions, setValidationOptions] =
-        useState<IValidationOptions>(defaultValidation)
+        useState<IValidationOptions>(validationOptionsMock)
 
-    const [internalForm, setInternalForm] = useState<IFormy | null>(null)
+    const field = InputsProvider(
+        [txtFileDescriptorMock(validationOptions)],
+        defaultInitializationParameters,
+        defaultInitializationDependencies
+    )?.[0]
+
+    const [internalForm, setInternalForm] = useState<IFormular | null>(null)
 
     const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
         'onBlur',
         'onChange'
     ])
 
-    const field = InputBaseCreator.newFieldFromDescriptor({
-        id: 1,
-        name: 'sandboxField',
-        label: 'Sandbox Field',
-        type: 'text',
-        value: '',
-        validationOptions: validationOptions,
-        isValid: true,
-        isDirty: false,
-        isPristine: true,
-        isFocus: false,
-        shouldValidate: true,
-        objectValue: null,
-        defaultValue: '',
-        errors: [],
-        guides: [],
-        options: []
-    })
-
     useEffect(() => {
-        const validationDemoForm = new Formy('validation-demo-form', _intNotificationTracker)
+        const validationDemoForm = new Formular('validation-demo-form', _intNotificationTracker)
         validationDemoForm.setValidationTriggerMode(validationTriggerMode)
         field.setValidationTriggerMode(validationTriggerMode)
         validationDemoForm.addFields(field)
@@ -115,7 +76,7 @@ const FieldInputValidationSandbox = () => {
     return (
         <>
             {internalForm && (
-                <FormyForm formy={internalForm} onSubmit={handleSubmit}>
+                <FormularForm formular={internalForm} onSubmit={handleSubmit}>
                     <div className="sandbox-container flex flex-row p-1 w-full h-full">
                         <div className="sandbox-container flex flex-col p-1 w-full h-full">
                             <div className="validation-controls w-full">
@@ -289,7 +250,7 @@ const FieldInputValidationSandbox = () => {
                             <NotifierDebugUi internalNotifierInstance={_intNotificationTracker} />
                         </div>
                     </div>
-                </FormyForm>
+                </FormularForm>
             )}
         </>
     )

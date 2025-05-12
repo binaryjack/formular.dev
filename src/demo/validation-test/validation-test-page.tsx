@@ -1,9 +1,12 @@
-import { newFormy } from '@components/formy/formy.context'
-import FormyForm from '@components/formy/formy.form'
+import {
+    default as Formular,
+    default as FormularForm
+} from '@components/formular-form/formular-form'
+
 import InputText from '@components/input-text/input-text'
-import { Formy } from '@core/formy-base/formy-base'
-import { IFormy } from '@core/formy-base/formy-base.types'
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { IFormular } from '@core/formular-base/formular-base.types'
+import { FormularManager } from '@core/formular-manager/formular-manager'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
@@ -15,6 +18,10 @@ import {
     namesPattern
 } from '@core/framework/schema/validation-schema/validation.regex.patterns'
 import { IValidationSchema } from '@core/framework/schema/validation-schema/validation.schema.types'
+import {
+    defaultInitializationDependencies,
+    defaultInitializationParameters
+} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
 
 import { useEffect, useState } from 'react'
@@ -25,23 +32,6 @@ const fieldsIds: Record<string, number> = {
     'maxlength-field': 2,
     'pattern-field': 3,
     'multiple-field': 4
-}
-
-const fieldDescriptionValues = {
-    defaultValue: '',
-    errors: [],
-    guides: [],
-    isDirty: false,
-    isFocus: false,
-    isPristine: false,
-    isValid: false,
-    objectValue: null,
-    options: [],
-    shouldValidate: true,
-    changed: false,
-    expectedValue: undefined,
-    loaded: true,
-    target: undefined
 }
 
 const minMaxNameBuilder =
@@ -59,12 +49,14 @@ const maxLengthBuilder =
         ValidationSchemaBuildersEnum.MaxLengthBuilder
     )?.(20)
 
+const fm = new FormularManager(_intNotificationTracker)
+
 const setupForm = (
     id: number,
     name: string,
-    type: FieldDataTypes,
+    type: InputDataTypes,
     required: boolean,
-    setForm: React.Dispatch<React.SetStateAction<IFormy | null>>,
+    setForm: React.Dispatch<React.SetStateAction<IFormular | null>>,
     customValidator: IValidationSchema | undefined
 ) => {
     const field = new FieldSchemaBuilder(id, name)
@@ -78,19 +70,19 @@ const setupForm = (
         properties: [field]
     }
 
-    const formInstance = newFormy(
-        'demoForm',
+    const demoFormInstance = fm.createFromSchema(
         scheme,
+        defaultInitializationParameters,
+        defaultInitializationDependencies,
         getTranslationBuilder,
-        getTranslations,
-        ['onChange', 'onBlur', 'onSubmit'],
-        _intNotificationTracker
+        getTranslations()
     )
-    setForm(formInstance)
+
+    setForm(demoFormInstance ?? null)
 }
 
 // Setup field with required validation
-const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minMaxNameBuilder,
@@ -102,7 +94,7 @@ const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormy 
     setupForm(fieldsIds['required-field'], 'required-field', 'text', true, setForm, customValidator)
 }
 // Setup field with required validation
-const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minLengthBuilder,
@@ -122,7 +114,7 @@ const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy
 }
 
 // Setup field with required validation
-const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         maxLengthBuilder,
@@ -142,7 +134,7 @@ const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormy
 }
 
 // Setup field with required validation
-const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minLengthBuilder,
@@ -155,7 +147,9 @@ const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormy |
 }
 
 // Setup field with required validation
-const setupMultipleValidations = (setForm: React.Dispatch<React.SetStateAction<IFormy | null>>) => {
+const setupMultipleValidations = (
+    setForm: React.Dispatch<React.SetStateAction<IFormular | null>>
+) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minLengthBuilder,
@@ -169,11 +163,10 @@ const setupMultipleValidations = (setForm: React.Dispatch<React.SetStateAction<I
 
 const ValidationTestPage = () => {
     const [formId, setFormId] = useState('validation-test-form')
-    const [form, setForm] = useState<typeof Formy | null>(null)
+    const [form, setForm] = useState<typeof Formular | null>(null)
 
     // Setup form on mount
     useEffect(() => {
-        const newForm = new Formy(formId, _intNotificationTracker)
         setForm(newForm)
         return () => {
             // Cleanup if needed
@@ -185,8 +178,12 @@ const ValidationTestPage = () => {
         e.preventDefault()
 
         if (form) {
-            form.validateAll()
+            // form.validate()
         }
+    }
+
+    if (!form) {
+        return <>unable to locate form</>
     }
 
     return (
@@ -235,7 +232,7 @@ const ValidationTestPage = () => {
             </div>
 
             {form && (
-                <FormyForm formy={form}>
+                <FormularForm formular={form}>
                     <form onSubmit={handleSubmit} className="mb-6">
                         <div className="mb-4">
                             <InputText fieldName="requiredField" />
@@ -253,7 +250,7 @@ const ValidationTestPage = () => {
                             Submit
                         </button>
                     </form>
-                </FormyForm>
+                </FormularForm>
             )}
         </div>
     )

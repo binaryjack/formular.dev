@@ -1,13 +1,18 @@
 import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
-import { useField } from '@components/formy/formy.context'
 import ValidationResultComponent from '@components/validation-result/validation-result'
 
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
-import { FieldFactory } from '@core/input-engine/generator/factory/field-factory'
-import { ISelectBaseInput } from '@core/input-engine/variants/select-base/select-base-input.types'
-import { ITextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
-import { dependencyConfiguration } from '@demo/settings/basic.setting'
+import {
+    defaultInitializationDependencies,
+    defaultInitializationParameters
+} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
+import { InputsProvider } from '@core/input-engine/generator/input-provider'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
+import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
+import { validationOptionsMock } from '@mocks/validation-options-mock'
+import { useState } from 'react'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -102,10 +107,14 @@ const validationDemo = () => (
 // }, [])
 
 const App = () => {
-    const factory = new FieldFactory()
-    const input = factory.create<ITextBaseInput>('text')(dependencyConfiguration)
+    const [validationOptions, setValidationOptions] =
+        useState<IValidationOptions>(validationOptionsMock)
 
-    const select = factory.create<ISelectBaseInput>('select')(dependencyConfiguration)
+    const input = InputsProvider(
+        [txtFileDescriptorMock(validationOptions)],
+        defaultInitializationParameters,
+        defaultInitializationDependencies
+    )?.[0]
 
     const { instance, flags } = useField(input as unknown as IExtendedInput)
     return (

@@ -1,7 +1,7 @@
-import { IEntityScheme, IFieldSchema } from '@core/framework/schema/field-schema/field.schema.types'
-import { DateTimeBuilder } from '@core/framework/schema/field-schema/settings/date-time-value-builder'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { DateBuilder } from '@core/framework/schema/field-schema/settings/date-builder'
 import { IdBuilder } from '@core/framework/schema/field-schema/settings/id-builder'
-import { InputTextBuilder } from '@core/framework/schema/field-schema/settings/input-control-builder'
+import { InputTextBuilder } from '@core/framework/schema/field-schema/settings/input-text-builder'
 import { OrderBuilder } from '@core/framework/schema/field-schema/settings/order-builder'
 import { PasswordBuilder } from '@core/framework/schema/field-schema/settings/password-builder'
 import { RangeBuilder } from '@core/framework/schema/field-schema/settings/range-slider-builder'
@@ -15,15 +15,6 @@ import { CheckBuilder } from '@core/framework/schema/field-schema/settings/true-
 import { UserIdBuilder } from '@core/framework/schema/field-schema/settings/user-name-builder'
 import baseOptionSchemaItem from '@core/framework/schema/options-schema/options.scheme.function'
 import { Validators } from '@core/framework/schema/validation-schema/validators'
-
-export type newEntitySchemeObjectType = (
-    name: string,
-    ...properties: IFieldSchema[]
-) => IEntityScheme
-
-export const newEntityScheme = (name: string, ...properties: IFieldSchema[]): IEntityScheme => {
-    return { name: name, properties: properties } as IEntityScheme
-}
 
 export const controlsDemoSchema: IEntityScheme = {
     name: 'demo-schema',
@@ -43,7 +34,7 @@ export const controlsDemoSchema: IEntityScheme = {
         ]).build(),
 
         CheckBuilder.build(),
-        DateTimeBuilder.setValidationData(true, Validators.dateRequiredIso8601Validator).build(),
+        DateBuilder.setValidationData(true, Validators.dateRequiredIso8601Validator).build(),
         RadioBuilder.setOptionData('radioTest', [
             baseOptionSchemaItem(0, 'radioTest-0', 'value-0', 'Value 0'),
             baseOptionSchemaItem(1, 'radioTest-1', 'value-1', 'Value 1'),

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
 import { ToggleButton } from './toggle-button'
 
@@ -15,7 +16,7 @@ interface IToggleButtonInputProps {
 }
 
 const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [toggleState, setToggleState] = useState<boolean>(false)
 

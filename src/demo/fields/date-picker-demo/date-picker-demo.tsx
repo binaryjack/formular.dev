@@ -1,12 +1,15 @@
 import DatePicker from '@components/date-picker/date-picker'
-import FormyForm from '@components/formy/formy.form'
 
+import FormularForm from '@components/formular-form/formular-form'
 import { datePickerDemoFormInstance } from './date-picker-demo.form.instance'
 
 export const DatePickerDemo = () => {
+    if (!datePickerDemoFormInstance) {
+        return <>Unable to locate datePickerDemoFormInstance!</>
+    }
     return (
-        <FormyForm formy={datePickerDemoFormInstance}>
+        <FormularForm formular={datePickerDemoFormInstance}>
             <DatePicker fieldName={'datePickerDemo'} />
-        </FormyForm>
+        </FormularForm>
     )
 }

@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
@@ -24,6 +24,6 @@ export interface ISelectBaseInput extends ISelectBaseInputProperties, IExtendedI
     registerOption: () => Partial<HTMLInputElement>
 
     onSelectItem: (option: IOptionItem) => void
-    setValue: (value: FieldDataTypes | null) => void
-    getValue: () => FieldDataTypes
+    setValue: (value: InputDataTypes | null) => void
+    getValue: () => InputDataTypes
 }

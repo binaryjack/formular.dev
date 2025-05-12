@@ -1,4 +1,4 @@
-import { dateTypes } from '@core/framework/common/common.field.types'
+import { dateTypes } from '@core/framework/common/common.input.types'
 import { dateOrTimeParser } from '../parsers/date-or-time-parser'
 import { setParserStrategy } from '../value-manager.types'
 

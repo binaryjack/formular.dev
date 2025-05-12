@@ -1,10 +1,8 @@
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
-import { Validators } from '@core/framework/schema/validation-schema/validators'
-import { DatePickerBuilder } from './date-picker-demo.schema.specific.builders'
+import { DateBuilder } from '@core/framework/schema/field-schema/settings/date-builder'
 
-export const dateTimeSchema: IEntityScheme = {
-    name: 'date-picker-demo-schema',
-    properties: [
-        DatePickerBuilder.setValidationData(true, Validators.dateRequiredIso8601Validator).build()
-    ]
+import { Validators } from '@core/framework/schema/validation-schema/validators'
+export const datePickerDemoSchema: IEntityScheme = {
+    name: 'datePickerDemoSchema',
+    properties: [DateBuilder.setValidationData(true, Validators.baseRequiredNameValidator).build()]
 }

@@ -2,8 +2,9 @@ import { useRef, useState } from 'react'
 
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import ValidationResultComponent from '../validation-result/validation-result'
 import { deserializeEngineState } from './core/io/deserialize-engine-state'
@@ -16,7 +17,7 @@ interface IRteInputFieldProps {
 }
 
 const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
     const editorRef = useRef<HTMLDivElement>(null)
     const [editorId] = useState(`rte-${fieldName}-${Math.random().toString(36).substring(2, 9)}`)

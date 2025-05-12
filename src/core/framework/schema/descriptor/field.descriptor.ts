@@ -1,6 +1,6 @@
-import { FieldTypeNames } from '@core/framework/common/common.field.types'
+import { InputTypeNames } from '@core/framework/common/common.input.types'
 
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
@@ -11,10 +11,10 @@ export interface IFieldDescriptor {
     id: number
     name: string
     label: string
-    value: FieldDataTypes
+    value: InputDataTypes
     objectValue: INDate | null
-    defaultValue: FieldDataTypes
-    type: FieldTypeNames
+    defaultValue: InputDataTypes
+    type: InputTypeNames
     errors: IFieldError[]
     guides: IFieldGuide[]
     validationOptions: IValidationOptions
@@ -24,7 +24,7 @@ export interface IFieldDescriptor {
     isDirty: boolean
     isPristine: boolean
     isFocus: boolean
-    expectedValue?: FieldDataTypes
+    expectedValue?: InputDataTypes
     loaded?: boolean
     changed?: boolean
     // defined in backend : describes if the field should be validated

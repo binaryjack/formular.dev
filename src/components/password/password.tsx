@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
+import useFormularContext from '@components/formular-form/formular-form.context'
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
 import { Portal } from '../portals/portals'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './password.css'
@@ -17,7 +18,7 @@ interface IPasswordProps {
 }
 
 const Password = ({ fieldName }: IPasswordProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 

@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { IClickBaseInput } from '../click-base/click-base-input.types'
@@ -21,6 +21,6 @@ export interface IRadioBaseInput extends IRadioBaseInputProperties, IExtendedInp
     registerOption: () => Partial<HTMLInputElement>
     registerLabel: (optionId: string) => Partial<HTMLInputElement>
 
-    setValue: (value: FieldDataTypes) => void
-    getValue: () => FieldDataTypes
+    setValue: (value: InputDataTypes) => void
+    getValue: () => InputDataTypes
 }

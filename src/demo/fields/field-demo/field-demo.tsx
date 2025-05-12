@@ -2,12 +2,17 @@ import { conventions } from '@components/context/conventions/conventions'
 import FieldSet from '@components/field-set/field-set'
 import ValidationResultComponent from '@components/validation-result/validation-result'
 
-import { useField } from '@components/formy/formy.context'
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { InputBaseCreator } from '@core/input-engine/core/input-base/input-base.creator'
+
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import {
+    defaultInitializationDependencies,
+    defaultInitializationParameters
+} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
+import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { Signals } from '../../../core/observers/signals/signal'
 import { controlsDemoSchema } from '../../form-demo/form-demo.schema'
 
@@ -19,9 +24,11 @@ const item = controlsDemoSchema
 // map schema to fieldsDescriptors collection from schema
 const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
 
-const { newFieldFromDescriptors } = InputBaseCreator
-
-const outSideFields = newFieldFromDescriptors(fieldDescriptors)
+const outSideFields = InputsProvider(
+    fieldDescriptors,
+    defaultInitializationParameters,
+    defaultInitializationDependencies
+)
 
 outSideFields?.[3].hasChanges(() => {
     // console.log('Field updated', outSideFields?.[3])

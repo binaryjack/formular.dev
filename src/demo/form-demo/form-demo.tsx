@@ -4,7 +4,6 @@ import InputText from '@components/input-text/input-text'
 
 import CheckInput from '@components/check-Input/check-Input'
 
-import FormyForm from '@components/formy/formy.form'
 import Password from '@components/password/password'
 import RadioInput from '@components/radio-input/radio-input'
 import { RangeSlider } from '@components/range-slider/range-slider'
@@ -13,6 +12,7 @@ import { ReadOnlyField } from '@components/readonly-field/readonly-field'
 import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import DatePicker from '@components/date-picker/date-picker'
+import FormularForm from '@components/formular-form/formular-form'
 import RteInputField from '@components/rte-Input/rte-input-field'
 import Select from '@components/select-input/select-input'
 import SwitchButtonInput from '@components/switch-button/switch-button-input'
@@ -64,8 +64,12 @@ const FormDemo = () => {
         return demoFormInstance?.fields.find((o: any) => o.name === 'selectOptionsId')
     }, [demoFormInstance])
 
+    if (!demoFormInstance) {
+        return <>Unable to locate demoFormInstance!</>
+    }
+
     return (
-        <FormyForm formy={demoFormInstance} onSubmit={handleSubmit}>
+        <FormularForm formular={demoFormInstance} onSubmit={handleSubmit}>
             {/* <DatePickerContentDrawer
                 onSelectDate={onSelectDate}
                 id={'DatePickerDrawerDemoStatic'}
@@ -101,7 +105,7 @@ const FormDemo = () => {
                 fieldName={'toggle2'}
                 options={{ orientation: 'horizontal', variant: 'success', size: 'sm' }}
             />
-        </FormyForm>
+        </FormularForm>
     )
 }
 export default FormDemo

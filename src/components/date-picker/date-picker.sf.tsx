@@ -3,10 +3,11 @@ import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 import { conventions } from '../context/conventions/conventions'
 
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import ValidationResultComponent from '../validation-result/validation-result'
 
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { DatePickerFormatsEnum } from './core/date-picker.types'
@@ -26,7 +27,7 @@ export const DatePickerSF = ({
     dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
     displayFormat = DatePickerFormatsEnum.DD_MM_YYYY
 }: DatePickerSFProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const { setToggleState } = useToggleableContext()

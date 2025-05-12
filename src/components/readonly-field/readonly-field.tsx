@@ -1,6 +1,7 @@
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 import './readonly-field.css'
 // filepath: e:/Sources/SignalsPatternsReact/src/components/id-field/id-field.tsx
 
@@ -9,7 +10,7 @@ interface IReadOnlyFieldProps {
 }
 
 export const ReadOnlyField = ({ fieldName }: IReadOnlyFieldProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     return (

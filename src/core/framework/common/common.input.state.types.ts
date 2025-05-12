@@ -1,4 +1,4 @@
-export type FieldInputStateType =
+export type InputStateType =
     | 'dirty'
     | 'valid'
     | 'pristine'

@@ -2,7 +2,7 @@ import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { IDateObject } from '@components/date-picker/core/models/date-object.models'
 
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
@@ -61,8 +61,8 @@ export interface IValidationStrategyData {
     validationOptions: IValidationOptions
     validationTriggerModeType: EventsType[]
     shouldValidate: boolean
-    value: FieldDataTypes
-    expectedValue: FieldDataTypes
+    value: InputDataTypes
+    expectedValue: InputDataTypes
     origin: IEvents | null
     asyncValidators?: Array<(data: IValidationStrategyData) => Promise<IValidationResult>>
     toString: () => string
@@ -74,8 +74,8 @@ export const newValidationStrategyData = (
     validationOptions: IValidationOptions,
     validationTriggerModeType: EventsType[],
     shouldValidate: boolean,
-    value: FieldDataTypes,
-    expectedValue?: FieldDataTypes,
+    value: InputDataTypes,
+    expectedValue?: InputDataTypes,
     origin?: IEvents
 ) => {
     return {

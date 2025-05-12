@@ -1,4 +1,4 @@
-import { booleanTypes } from '@core/framework/common/common.field.types'
+import { booleanTypes } from '@core/framework/common/common.input.types'
 import { booleanParser } from '../parsers/boolean-parser'
 import { setParserStrategy } from '../value-manager.types'
 

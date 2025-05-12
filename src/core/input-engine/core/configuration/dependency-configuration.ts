@@ -1,3 +1,4 @@
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 import { logManager } from '@core/managers/log-manager/log-manager'
@@ -95,3 +96,20 @@ export const DependencyConfiguration = function (
     this.addDependency = addDependency
     this.verify = verify
 } as any as IDependencyConfiguration
+
+export const newDependencyConfiguration = (
+    descriptor: IFieldDescriptor,
+    initialization: IFieldInitializationParameters,
+    dependencies: IInitializableDependency[]
+) => {
+    return new DependencyConfiguration(
+        {
+            descriptor: descriptor,
+            validationStrategies: initialization?.validationStrategies ?? [],
+            trackingStrategies: initialization?.trackingStrategies ?? [],
+            valueStrategies: initialization?.valueStrategies ?? [],
+            validationTriggerModeType: initialization?.validationTriggerModeType ?? []
+        },
+        dependencies
+    )
+}

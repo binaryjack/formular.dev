@@ -1,7 +1,7 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
-export type TParser<TOut> = (value: Partial<FieldDataTypes>) => TOut | null
+export type TParser<TOut> = (value: Partial<InputDataTypes>) => TOut | null
 
 export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
 
@@ -35,8 +35,8 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: () => string | null
-    setValue: (value: FieldDataTypes) => void
-    getValue: () => FieldDataTypes
+    setValue: (value: InputDataTypes) => void
+    getValue: () => InputDataTypes
     setValueCheckBox: (value: boolean) => void
     setValueSelect: (value: string) => void
     setValueText: (value: string) => void

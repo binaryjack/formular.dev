@@ -1,8 +1,9 @@
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './check-Input.css'
 interface ICheckInputProps {
@@ -10,7 +11,7 @@ interface ICheckInputProps {
 }
 
 const CheckInput = ({ fieldName }: ICheckInputProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const handleDelete = () => {

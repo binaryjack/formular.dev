@@ -1,4 +1,4 @@
-import { FieldDataTypes } from '@core/framework/common/common.field.data.types'
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 
 import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
@@ -19,12 +19,12 @@ export function getValue(this: IValueManager, field: IInput): unknown | null {
         /** Factory */
         switch (strategy.fieldValueProperty) {
             case 'id':
-                return strategy.method(field.id as FieldDataTypes)
+                return strategy.method(field.id as InputDataTypes)
             case 'selectedOptionId':
-                return strategy.method(field?.selectedOptionId as FieldDataTypes)
+                return strategy.method(field?.selectedOptionId as InputDataTypes)
             case 'value':
             default:
-                return strategy.method(field.value as FieldDataTypes)
+                return strategy.method(field.value as InputDataTypes)
         }
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${field.type} in field: ${field.name} `, e)

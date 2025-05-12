@@ -1,6 +1,7 @@
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
-import useFormyContext, { useField } from '../formy/formy.context'
+import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './radio-input.css'
 import RadioInputOption from './radio-input.option'
@@ -9,7 +10,7 @@ interface IRadioInputProps {
 }
 
 const RadioInput = ({ fieldName }: IRadioInputProps) => {
-    const { formInstance } = useFormyContext()
+    const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     // useFieldDefaultValue(field)
