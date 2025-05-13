@@ -1,6 +1,6 @@
 // check-changes.ts
 
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFieldChange, IFormular } from '../formular-base.types'
 
 /**
@@ -9,16 +9,18 @@ import { IFieldChange, IFormular } from '../formular-base.types'
 export function checkChanges(this: IFormular) {
     const changes: IFieldChange[] = []
     for (const fld of this.fields) {
-        const originalField = this.originFields.find((o: IInput) => o.id === fld.id)
+        const originalField = this.originFields.find(
+            (o: IExtendedInput) => o.input.id === fld.input.id
+        )
 
-        const originalValue = originalField?.getValue()
-        const newValue = fld.getValue()
+        const originalValue = originalField?.input.valueManager.getValue()
+        const newValue = fld.input.valueManager.getValue()
         if (originalValue !== newValue) {
-            changes.push({ name: fld.name, hasChanges: true })
+            changes.push({ name: fld.input.name, hasChanges: true })
             break
         }
     }
     this.isDirty = changes.some((o) => o.hasChanges)
-    this.isValid = this.fields.every((o: IInput) => o.isValid)
+    this.isValid = this.fields.every((o: IExtendedInput) => o.input.isValid)
     // this.observers.trigger()
 }

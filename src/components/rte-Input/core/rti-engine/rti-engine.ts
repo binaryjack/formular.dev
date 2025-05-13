@@ -1,4 +1,4 @@
-import { NotifiableEntity } from '@core/managers/notification-manager/notification-manager'
+import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
 import { CommandManager } from '../command-manager/command-manager'
 import { FormatManager } from '../format-manager/format-manager'
 import { HistoryManager } from '../history-manager/history-manager'
@@ -48,11 +48,11 @@ export const RtiEngine = function (this: IRtiEngine, editorElement: HTMLElement)
 
     this.mouseState = { move: false, down: false }
     this.lastContent = ''
-    NotifiableEntity.call(this)
+    NotificationManager.call(this)
 } as any as IRtiEngine
 
 RtiEngine.prototype = {
-    ...NotifiableEntity.prototype
+    ...NotificationManager.prototype
 }
 
 Object.assign(RtiEngine.prototype, {

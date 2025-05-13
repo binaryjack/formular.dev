@@ -7,11 +7,10 @@ export const onBlur = (f: IInputBase, e: Event) => {
     f.isFocus = false
     f.styleManager?.update('focus', f.isFocus)
 
-    e.stopPropagation()
-    e.preventDefault()
-
     f?.notificationManager?.notify(
         'onBlur',
         newEvent(f.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
     )
+    e.stopPropagation()
+    e.preventDefault()
 }

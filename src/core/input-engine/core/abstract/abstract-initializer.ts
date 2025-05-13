@@ -1,10 +1,10 @@
-import { INotifier } from '@core/managers/notification-manager/notification-manager.types'
+import { INotification } from '@core/managers/notification-manager/notification-manager.types'
 import { IInputBase } from '../input-base/input-base.types'
 
 export type abstractInitializerSignatureType = <TInput extends IInputBase>(
     fieldInput: TInput,
     setup?: (fieldInput: TInput) => void,
-    notifiers?: INotifier[]
+    notifiers?: INotification[]
 ) => Promise<boolean>
 
 export const abstractInitializer: abstractInitializerSignatureType = <
@@ -12,7 +12,7 @@ export const abstractInitializer: abstractInitializerSignatureType = <
 >(
     fieldInput: TFieldInput,
     setup?: (fieldInput: TFieldInput) => void,
-    notifiers?: INotifier[]
+    notifiers?: INotification[]
 ) =>
     new Promise<boolean>((resolve, reject) => {
         try {

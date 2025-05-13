@@ -6,31 +6,34 @@ import { IFormular } from '@core/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
+import { useField } from '@core/framework/react/fields/hooks/use-field'
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { InputsProvider } from '@core/input-engine/generator/input-provider'
 
-import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
 import {
     IValidationOptions,
     ValidationErrorsCodes
 } from '@core/managers/validation-manager/validation-manager.types'
+import { lifeCylceInstances } from '@demo/common/common-instances'
 import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
 import { validationOptionsMock } from '@mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
+
+const field = InputsProvider(
+    [txtFileDescriptorMock(validationOptionsMock)],
+    defaultInitializationParameters,
+    defaultInitializationDependencies
+)?.[0]
 
 const FieldInputValidationSandbox = () => {
     const [validationOptions, setValidationOptions] =
         useState<IValidationOptions>(validationOptionsMock)
 
-    const field = InputsProvider(
-        [txtFileDescriptorMock(validationOptions)],
-        defaultInitializationParameters,
-        defaultInitializationDependencies
-    )?.[0]
+    const { instance } = useField(field)
 
     const [internalForm, setInternalForm] = useState<IFormular | null>(null)
 
@@ -40,12 +43,20 @@ const FieldInputValidationSandbox = () => {
     ])
 
     useEffect(() => {
-        const validationDemoForm = new Formular('validation-demo-form', _intNotificationTracker)
+        const validationDemoForm = new Formular(
+            'validation-demo-form',
+            lifeCylceInstances._intNotificationTracker
+        )
         validationDemoForm.setValidationTriggerMode(validationTriggerMode)
-        field.setValidationTriggerMode(validationTriggerMode)
+
         validationDemoForm.addFields(field)
         setInternalForm(validationDemoForm)
     }, [])
+
+    useEffect(() => {
+        if (!validationOptions || !instance) return
+        instance.input.validationOptions = validationOptions
+    }, [instance, validationOptions])
 
     useEffect(() => {
         if (!internalForm) return
@@ -66,7 +77,7 @@ const FieldInputValidationSandbox = () => {
 
     const handleTriggerModeChange = (mode: EventsType[]) => {
         setValidationTriggerMode(mode)
-        field.setValidationTriggerMode(mode)
+        field.input.validationManager.setValidationTriggerMode(mode)
     }
 
     const handleSubmit = (data: any) => {
@@ -247,7 +258,11 @@ const FieldInputValidationSandbox = () => {
                             </div>
                         </div>
                         <div className="sandbox-container flex flex-col p-1 w-full h-full">
-                            <NotifierDebugUi internalNotifierInstance={_intNotificationTracker} />
+                            <NotifierDebugUi
+                                internalNotifierInstance={
+                                    lifeCylceInstances._intNotificationTracker
+                                }
+                            />
                         </div>
                     </div>
                 </FormularForm>

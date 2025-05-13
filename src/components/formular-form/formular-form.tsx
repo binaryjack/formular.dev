@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 
 import { IFormular, IFormularFlags } from '@core/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import { formularContext, IFormularContext } from './formular-form.context'
@@ -38,8 +38,8 @@ const FormularForm = ({ formular, children, onSubmit }: IFormularProps) => {
         getFields: () => {
             return formularInstance?.fields ?? []
         },
-        getField: (fieldName: string): IInput | undefined => {
-            return formularInstance?.fields?.find((field) => field.name === fieldName)
+        getField: (fieldName: string): IExtendedInput | undefined => {
+            return formularInstance?.fields?.find((field) => field.input.name === fieldName)
         },
         formInstance: formularInstance,
         getFormFlags: () => {
@@ -73,7 +73,7 @@ const FormularForm = ({ formular, children, onSubmit }: IFormularProps) => {
                     onClickCallback={handleSubmit}
                 />
             )}
-            <FormularFormDebug formy={formularInstance} />
+            <FormularFormDebug formular={formularInstance} />
         </formularContext.Provider>
     )
 }

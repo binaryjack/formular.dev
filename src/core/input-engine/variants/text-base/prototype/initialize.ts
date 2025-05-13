@@ -3,7 +3,7 @@ import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-i
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 
 /**
  * The setup function sets up the field input by subscribing to observers.
@@ -34,8 +34,8 @@ export const initialize = async function (
                 logManager(undefined, 'info', 'initialize', e.name)
             },
             [
-                eventNotifVisitor(this, this.handleOnChanged, 'onChange'),
-                eventNotifVisitor(this, this.handleOnClear, 'onClear')
+                notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name),
+                notification(this, this.handleOnClear, 'onClear', 'onClear', this.name)
             ]
         )
 

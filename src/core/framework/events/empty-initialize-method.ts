@@ -1,3 +1,3 @@
-import { TNotifierMethod } from '@core/managers/notification-manager/notification-manager.types'
+import { TNotificationMethod } from '@core/managers/notification-manager/notification-manager.types'
 
-export const emptyInitializeMethod: TNotifierMethod<unknown> = () => {}
+export const emptyInitializeMethod: TNotificationMethod<unknown> = () => {}

@@ -6,7 +6,7 @@ import { IDomManager } from '../dom-manager.types'
  * @param value - The value to set.
  */
 export function dmSetValue<T extends HTMLElement>(this: IDomManager<T>, id: string, value: string) {
-    const element = this.dmGet(id)
+    const element = this.dmGet(id) as unknown as HTMLInputElement | undefined
     if (!element) {
         this.tracker?.internalError(
             'DomManager.dmSetValue',
@@ -14,5 +14,8 @@ export function dmSetValue<T extends HTMLElement>(this: IDomManager<T>, id: stri
         )
         return
     }
-    ;(element as unknown as HTMLInputElement).value = value
+    if (element.value !== value) {
+        /** we update only when value is setted by the model */
+        element.value = value
+    }
 }

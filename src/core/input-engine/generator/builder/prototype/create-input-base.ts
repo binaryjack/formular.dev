@@ -5,7 +5,7 @@ import { DrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-
 import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
 import { DomManager } from '@core/managers/dom-manager/dom-manager'
 import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
-import { NotifiableEntity } from '@core/managers/notification-manager/notification-manager'
+import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { StyleManager } from '@core/managers/style-manager/style-manager'
 import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
@@ -25,7 +25,7 @@ export const createBaseInput = function (
     const baseInput = new InputBase(config?.initialization?.descriptor!)
 
     baseInput.useNotificationManager(
-        config.getDependency<INotificationManager>(NotifiableEntity.name)
+        config.getDependency<INotificationManager>(NotificationManager.name)
     )
     baseInput.useTrackingManager(config.getDependency<ITrackingManager>(TrackingManager.name))
     baseInput.useDomManager(config.getDependency<IDomManager<HTMLInputElement>>(DomManager.name))

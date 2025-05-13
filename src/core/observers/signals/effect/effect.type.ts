@@ -1,4 +1,4 @@
-import { TNotifierMethod } from '@core/managers/notification-manager/notification-manager.types'
+import { TNotificationMethod } from '@core/managers/notification-manager/notification-manager.types'
 import { ISignal } from '../signal.type'
 
 export type TEffectBody = () => void
@@ -11,6 +11,6 @@ export interface IEffect {
     initialized: boolean
     effect: (callback: TEffectBody, dependencies: ISignal<unknown>[]) => void
     body: (callback: () => void) => void
-    notify: TNotifierMethod
+    notify: TNotificationMethod
     dispose: () => void
 }

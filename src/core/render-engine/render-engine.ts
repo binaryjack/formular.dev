@@ -1,5 +1,4 @@
-import { newEvent } from '@core/framework/events/new-event'
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { ISignal } from '../observers/signals/signal.type'
 import { INode, IRenderEngine } from './render-engine.types'
 
@@ -58,9 +57,12 @@ export const RenderApp = (function () {
             for (const signal of signals) {
                 console.log('SIGNAL', signal)
                 signal.accept(
-                    nnv(
-                        newEvent(this.name, 'RenderApp.bind', 'onUiUpdate', `RenderApp.render`),
-                        this.onChanged.bind(this)
+                    notification(
+                        this,
+                        this.onChanged,
+                        'onUiUpdate',
+                        'onUiUpdate',
+                        this.onChanged.name
                     )
                 )
             }

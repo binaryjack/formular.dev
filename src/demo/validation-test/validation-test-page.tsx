@@ -1,7 +1,4 @@
-import {
-    default as Formular,
-    default as FormularForm
-} from '@components/formular-form/formular-form'
+import { default as FormularForm } from '@components/formular-form/formular-form'
 
 import InputText from '@components/input-text/input-text'
 import { IFormular } from '@core/formular-base/formular-base.types'
@@ -10,6 +7,7 @@ import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { InputTextBuilder } from '@core/framework/schema/field-schema/settings/input-text-builder'
 import { ValidationSchemaBuildersEnum } from '@core/framework/schema/validation-schema/presets/builders.enum'
 import { ValidationSchemaBuilderType } from '@core/framework/schema/validation-schema/schema/builder/validation.schema.builder.types'
 import validationSchemaFactory from '@core/framework/schema/validation-schema/schema/factory/validation.schema.factory'
@@ -18,12 +16,12 @@ import {
     namesPattern
 } from '@core/framework/schema/validation-schema/validation.regex.patterns'
 import { IValidationSchema } from '@core/framework/schema/validation-schema/validation.schema.types'
+import { Validators } from '@core/framework/schema/validation-schema/validators'
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
-
+import { lifeCylceInstances } from '@demo/common/common-instances'
 import { useEffect, useState } from 'react'
 
 const fieldsIds: Record<string, number> = {
@@ -49,7 +47,23 @@ const maxLengthBuilder =
         ValidationSchemaBuildersEnum.MaxLengthBuilder
     )?.(20)
 
-const fm = new FormularManager(_intNotificationTracker)
+const fm = new FormularManager(lifeCylceInstances._intNotificationTracker)
+
+export const txtSchema: IEntityScheme = {
+    name: 'datePickerDemoSchema',
+    properties: [
+        InputTextBuilder.setValidationData(true, Validators.baseRequiredNameValidator).build()
+    ]
+}
+
+export const newForm =
+    fm.createFromSchema(
+        txtSchema,
+        defaultInitializationParameters,
+        defaultInitializationDependencies,
+        getTranslationBuilder,
+        getTranslations()
+    ) ?? null
 
 const setupForm = (
     id: number,
@@ -163,7 +177,7 @@ const setupMultipleValidations = (
 
 const ValidationTestPage = () => {
     const [formId, setFormId] = useState('validation-test-form')
-    const [form, setForm] = useState<typeof Formular | null>(null)
+    const [form, setForm] = useState<IFormular | null>(null)
 
     // Setup form on mount
     useEffect(() => {

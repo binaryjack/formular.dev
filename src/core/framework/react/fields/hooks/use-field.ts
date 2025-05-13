@@ -1,23 +1,25 @@
-import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { EventsType } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
-import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import {
     defaultFieldStateFlags,
     IFieldStateFlags
 } from '@core/managers/style-manager/style-manager.types'
 import React, { useEffect } from 'react'
 
-export interface IUseFieldHookReturn {
-    instance: IExtendedInput | undefined
+export interface IUseFieldHookReturn<T extends IInputBase | IExtendedInput> {
+    instance: T | undefined
     flags: IFieldStateFlags
 }
 
-export type useFieldHookType = (field?: IExtendedInput) => IUseFieldHookReturn
+export type useFieldHookType = <T extends IInputBase | IExtendedInput>(
+    field?: T
+) => IUseFieldHookReturn<T>
 
-export const useField = (field?: IExtendedInput): IUseFieldHookReturn => {
+export const useField = <T extends IExtendedInput | IInputBase>(
+    field?: T
+): IUseFieldHookReturn<T> => {
     const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
     const [flags, setFlags] = React.useState<IFieldStateFlags>(defaultFieldStateFlags)
     const stableField = React.useMemo(() => {
@@ -38,10 +40,7 @@ export const useField = (field?: IExtendedInput): IUseFieldHookReturn => {
     const acceptNotificationStrategy = (localName: string, event: EventsType) => {
         if (!stableField) return
         stableField.input.notifier?.accept(
-            nnv(
-                newEvent(localName, 'useField.accept', event, `${localName}.${event}`),
-                handleRefresh.bind(useRtiEngine)
-            )
+            notification(useField, handleRefresh, event, `useField.${event}`, useField.name)
         )
     }
 

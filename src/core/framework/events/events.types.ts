@@ -52,8 +52,6 @@ export enum EventsEnum {
     onDispose = 'onDispose'
 }
 
-export type eventSignature = <T extends IEvents>(data?: T) => void
-
 /** if no rule is applied the the field is never validated */
 export type EventsType = keyof typeof EventsEnum
 

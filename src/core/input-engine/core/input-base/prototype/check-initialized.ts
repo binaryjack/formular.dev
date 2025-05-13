@@ -29,7 +29,7 @@ export const checkInitialized = function (this: IInputBase): IInitilizationCheck
         if (!this.validationManager) {
             output.push('validation strategy must be initialized')
         }
-        if (!this.vlaueManager) {
+        if (!this.valueManager) {
             output.push('value strategy must be initialized')
         }
         if (this.validationManager?.validationStrategies?.length === 0) {
@@ -40,7 +40,7 @@ export const checkInitialized = function (this: IInputBase): IInitilizationCheck
                 `
             )
         }
-        if (this.vlaueManager?.valueStrategies?.length === 0) {
+        if (this.valueManager?.valueStrategies?.length === 0) {
             output.push(
                 `value strategy needs at least one strategy in order to persist and get data back.
                 Solution:

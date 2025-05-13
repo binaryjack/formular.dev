@@ -1,8 +1,8 @@
 import { IEvents } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
 import { useEffect, useState } from 'react'
 import { INotificationManager } from '../notification-manager-base.types'
-import { nnv } from '../utils/new-notification-visitor'
+import { notification } from '../utils/new-notification-visitor'
+
 interface INotifierDebugUi {
     internalNotifierInstance: INotificationManager
 }
@@ -19,13 +19,15 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
     const handleEvent = <T extends IEvents>(e?: T) => {
         const dte = new Date()
         const month = (dte.getMonth?.() + 1)?.toString?.()?.padStart?.(2, '0')
-        const day = dte.getDate?.()?.toString?.()?.padStart?.(2, '0')
+        const day = dte.getUTCDate()?.toString?.()?.padStart?.(2, '0')
         const year = dte.getFullYear?.()?.toString?.()
-        const hour = dte.getHours?.()?.toString?.()?.padStart?.(2, '0')
+        const hour = dte.getUTCHours?.()?.toString?.()?.padStart?.(2, '0')
         const min = dte.getMinutes?.()?.toString?.()?.padStart?.(2, '0')
         const sec = dte.getSeconds?.()?.toString?.()?.padStart?.(2, '0')
-
-        const ts = `${year}${month}${day}${hour}${min}${sec}`
+        const milli = dte.getMilliseconds?.()?.toString?.()?.padStart?.(3, '0')
+        const randomNumber = Math.floor(Math.random() * 1440)
+        const randomString = randomNumber.toString().padStart(5, '0')
+        const ts = `${year}${month}${day}${hour}${min}${sec}${milli}${randomString}`
         const newItem: ITrackLog = {
             timestamp: ts,
             event: e
@@ -43,14 +45,12 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
     useEffect(() => {
         if (!notifierInstance) return
         notifierInstance.accept(
-            nnv(
-                newEvent(
-                    'DataMutationObserverSubject:created',
-                    'useField.accept',
-                    'onAutoTrackNotified',
-                    `auto.tracking.notification`
-                ),
-                handleEvent
+            notification(
+                NotifierDebugUi,
+                handleEvent,
+                'onAutoTrackNotified',
+                'onAutoTrackNotified',
+                NotifierDebugUi.name
             )
         )
 

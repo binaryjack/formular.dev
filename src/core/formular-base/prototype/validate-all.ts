@@ -10,7 +10,7 @@ export async function validateAll(this: IFormular) {
     return await new Promise((resolve) => {
         const results: IValidationResult[] = []
         for (const fld of this.fields) {
-            if (!fld.shouldValidate) {
+            if (!fld.input.shouldValidate) {
                 continue
             }
 

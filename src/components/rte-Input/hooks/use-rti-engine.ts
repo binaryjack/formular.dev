@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { RtiEngine } from '../core/rti-engine/rti-engine'
 
 import { EventsType } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import {
     defaultEngineState,
     FormatsEnum,
@@ -75,14 +74,12 @@ export const useRtiEngine = (
     const acceptEngineNotificationStrategy = (localName: string, event: EventsType) => {
         if (!rteEngine.current || !editorRef.current) return
         rteEngine.current.accept(
-            nnv(
-                newEvent(
-                    localName,
-                    acceptEngineNotificationStrategy.name,
-                    event,
-                    `${localName}.${event}`
-                ),
-                handleEngineRefresh.bind(useRtiEngine)
+            notification(
+                useRtiEngine,
+                handleEngineRefresh,
+                event,
+                `useRtiEngine.${event}`,
+                useRtiEngine.name
             )
         )
     }

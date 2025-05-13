@@ -1,8 +1,6 @@
-import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { EventsType } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
-import { INotifier } from '@core/managers/notification-manager/notification-manager.types'
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { INotification } from '@core/managers/notification-manager/notification-manager.types'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { useEffect, useRef, useState } from 'react'
 import { ObservableSubject } from '../observable-subject/observable-subject'
 import { ISignal, SignalType } from './signal.type'
@@ -36,7 +34,7 @@ export const Signals = (function () {
         this.memoizedData = JSON.stringify(value)
         this.id = id
         this.parent = null
-        this.notifiers = new Map<string, INotifier>()
+        this.notifiers = new Map<string, INotification>()
         this.observer = new ObservableSubject()
         this.computedSignalCallback = null
     } as any as ISignal<SignalType>
@@ -120,9 +118,9 @@ export const Signals = (function () {
 
         /**
          * Accept a notifier to observe the signal
-         * @param {INotifier} notify - Notifier to accept
+         * @param {INotification} notify - Notifier to accept
          */
-        accept: function (notify: INotifier) {
+        accept: function (notify: INotification) {
             if (this.notifiers.has(notify.event.emitterName)) return
             this.notifiers.set(notify.event.emitterName, notify)
         },
@@ -132,7 +130,7 @@ export const Signals = (function () {
          * @param {TNotifierEventsType} type - Type of notification
          */
         notify: function (type: EventsType) {
-            this.notifiers.forEach((value: INotifier) => {
+            this.notifiers.forEach((value: INotification) => {
                 if (value.event.types.includes(type)) {
                     console.log(
                         `trigger - [${value.event.emitterName}] on [${value.event.types.join(',')}]`
@@ -187,14 +185,12 @@ export const Signals = (function () {
             signalRef.current = [...signals]
             ;(signalRef.current as ISignal<SignalType>[]).forEach((s) => {
                 s.accept(
-                    nnv(
-                        newEvent(
-                            handleRefresh.name,
-                            'useSignal.accept',
-                            'onChange',
-                            `useSignal.${handleRefresh.name}`
-                        ),
-                        handleRefresh.bind(useRtiEngine)
+                    notification(
+                        useSignal,
+                        handleRefresh,
+                        'onChange',
+                        'onChange',
+                        handleRefresh.name
                     )
                 )
             })

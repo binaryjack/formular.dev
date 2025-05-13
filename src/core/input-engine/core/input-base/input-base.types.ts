@@ -25,6 +25,7 @@ import {
 } from '@core/managers/tracking-manager/tracker-manager.types'
 import {
     IValidationManager,
+    IValidationResult,
     IValidationStrategyData
 } from '@core/managers/validation-manager/validation-manager.types'
 import {
@@ -50,7 +51,7 @@ export interface IInputProperties extends IFieldDescriptor {
 
     value: InputDataTypes
     originalValue: InputDataTypes
-
+    validationResults: IValidationResult[]
     /** message helper method : uses treacker and fallbacks to console */
     message: (type: TrackingType, source: string, message: string) => void
     /** Core methods */
@@ -75,7 +76,7 @@ export interface IInputProperties extends IFieldDescriptor {
     notificationManager: INotificationManager
     trackingManager: ITrackingManager
     validationManager: IValidationManager
-    vlaueManager: IValueManager
+    valueManager: IValueManager
 }
 
 export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldDescriptor

@@ -22,8 +22,15 @@ export const handleValidation = function <T extends IEvents>(
 ) {
     let results: IValidationResult[] = []
 
-    if (!this.validationManager) {
-        this.message(
+    const currentField = this.dependencyName === 'InputBase' ? this : this.input
+
+    if (currentField === undefined || currentField.validationManager === undefined) {
+        console.warn('handleValidation', this)
+        return
+    }
+
+    if (!currentField.validationManager) {
+        currentField.message(
             'critical',
             this.name,
             `${handleValidation.name} has no validationOptions in order to proceed to any validation please provide valid ValidationStrategy ant the initializazion of the field. process ended`
@@ -49,14 +56,14 @@ export const handleValidation = function <T extends IEvents>(
     // }
 
     // keep the validation results for the field
-    this.validationResults = results
+    currentField.validationResults = results
 
-    this.styleManager?.update(
+    currentField.styleManager?.update(
         'valid',
         results.every((result) => result.state)
     )
 
-    this.styleManager?.update(
+    currentField.styleManager?.update(
         'errors',
         results.some((result) => !result.state)
     )

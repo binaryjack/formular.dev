@@ -1,6 +1,4 @@
-import { newEvent } from '@core/framework/events/new-event'
-
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { IEffect, TEffectBody } from '@core/observers/signals/effect/effect.type'
 import { ISignal } from '../signal.type'
 
@@ -19,10 +17,7 @@ export const Effects = (function () {
             if (this.dependencies)
                 for (const d of this.dependencies) {
                     d.accept(
-                        nnv(
-                            newEvent(this.name, 'Effect._init', 'onChange', `Effect.changed`),
-                            this.notify.bind(this)
-                        )
+                        notification(this, this.notify, 'onChange', 'onChange', this.notify.name)
                     )
                     this.initialized = true
                 }

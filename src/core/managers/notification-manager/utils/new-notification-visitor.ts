@@ -1,37 +1,47 @@
-import { eventSignature, EventsType, IEvents } from '@core/framework/events/events.types'
+import { eventSignature } from '@core/framework/events/event-signature'
+import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInputBase, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
-import { INotifier, TNotifierMethod, TNotifierMethodAsnyc } from '../notification-manager.types'
+import {
+    INotification,
+    TNotificationMethod,
+    TNotificationMethodAsnyc
+} from '../notification-manager.types'
 
 export const newNotificationVisitor = <T>(
     event: IEvents,
-    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>
-): INotifier => {
+    method: TNotificationMethod<T> | TNotificationMethodAsnyc<T>
+): INotification => {
     return { event, method }
 }
 
-export type INNv = <T>(
-    event: IEvents,
-    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>
-) => INotifier
-
-export const nnv = <T>(
-    event: IEvents,
-    method: TNotifierMethod<T> | TNotifierMethodAsnyc<T>
-): INotifier => newNotificationVisitor(event, method)
-
-export const eventNotifVisitor = <T extends IExtendedInputBase | IInputBase>(
-    ef: T,
-    eventHandler: eventSignature,
-    eventType: EventsType
+export const notification = <
+    T extends CallableFunction | IExtendedInputBase | IInputBase,
+    TEvt extends IEvents
+>(
+    owner: T,
+    eventHandler: eventSignature<TEvt>,
+    eventType: EventsType,
+    action: string,
+    target: string
 ) => {
+    if (target === undefined) {
+        console.warn('target is undefined')
+    }
+
+    let name = ''
+
+    if ('dependencyName' in owner) {
+        name =
+            owner?.dependencyName === 'IFieldBaseInput'
+                ? (owner as IInputBase)?.name
+                : (owner as IExtendedInputBase).input?.name
+    } else {
+        name = owner?.name
+    }
+
     return newNotificationVisitor(
-        newEvent(
-            ef.dependencyName === 'IFieldBaseInput' ? (ef as IInputBase)?.name : ef?.input?.name,
-            eventHandler.name,
-            eventType,
-            eventHandler.name
-        ),
-        eventHandler.bind(ef)
+        newEvent(name, eventHandler.name, eventType, action, target),
+        eventHandler.bind(owner)
     )
 }

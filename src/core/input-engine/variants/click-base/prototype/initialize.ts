@@ -2,7 +2,7 @@ import { IFieldInitializationParameters } from '@core/input-engine/generator/bui
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { IClickBaseInput } from '../click-base-input.types'
 
 /**
@@ -19,7 +19,7 @@ export const initialize = async function (
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
             },
-            [eventNotifVisitor(this, this.handleOnClicked, 'onClick')]
+            [notification(this, this.handleOnClicked, 'onClick', 'onClick', this.name)]
         )
 
         if (success) {

@@ -9,24 +9,24 @@ import { IValueManager } from '../value-manager.types'
  * @returns The value of the field or null if no strategy matches.
  */
 export function getValue(this: IValueManager, field: IInput): unknown | null {
-    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(field.type))
+    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(this.input.type))
 
     if (!strategy) {
-        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${field.type} `)
+        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${this.input.type} `)
         return
     }
     try {
         /** Factory */
         switch (strategy.fieldValueProperty) {
             case 'id':
-                return strategy.method(field.id as InputDataTypes)
+                return strategy.method(this.input.id as InputDataTypes)
             case 'selectedOptionId':
-                return strategy.method(field?.selectedOptionId as InputDataTypes)
+                return strategy.method(this.input?.selectedOptionId as InputDataTypes)
             case 'value':
             default:
-                return strategy.method(field.value as InputDataTypes)
+                return strategy.method(this.input.value as InputDataTypes)
         }
     } catch (e) {
-        console.error(`PARSING ERROR FOR TYPE ${field.type} in field: ${field.name} `, e)
+        console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
     }
 }

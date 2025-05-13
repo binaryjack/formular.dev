@@ -1,6 +1,6 @@
 // get-field.ts
 
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFormular } from '../formular-base.types'
 
 /**
@@ -9,5 +9,5 @@ import { IFormular } from '../formular-base.types'
  * @returns The field if found, otherwise undefined.
  */
 export function getField(this: IFormular, fieldName: string) {
-    return this.fields.find((field: IInput) => field.name === fieldName)
+    return this.fields.find((field: IExtendedInput) => field.input.name === fieldName)
 }

@@ -1,5 +1,5 @@
 import { EventsType } from '@core/framework/events/events.types'
-import { INotifier } from '@core/managers/notification-manager/notification-manager.types'
+import { INotification } from '@core/managers/notification-manager/notification-manager.types'
 import { IObservableSubject } from '../observable-subject/observable-subject.types'
 
 /**
@@ -36,7 +36,7 @@ export interface ISignal<SignalType> {
     value: SignalType | null
     memoizedData: string
     id: string
-    notifiers: Map<string, INotifier>
+    notifiers: Map<string, INotification>
     parent: ISignal<SignalType> | null
     observer: IObservableSubject
     // keep computed callback in memory in order to replay it when data changes
@@ -45,7 +45,7 @@ export interface ISignal<SignalType> {
     set: <SignalType>(callback: (self: ISignal<SignalType>) => void) => void
     update: (callback: (self: ISignal<SignalType>) => SignalType) => void
     computed: <SignalType>(callback: ComputedSignalCallback<SignalType>) => void
-    accept: (notify: INotifier) => void
+    accept: (notify: INotification) => void
     notify: (type: EventsType) => void
     onChanged: (callback: () => void) => void
     init: () => void

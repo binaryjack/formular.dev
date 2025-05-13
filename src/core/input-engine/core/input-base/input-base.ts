@@ -28,6 +28,7 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
     }
     this.isInitialized = false
     this.dependencyName = InputBase.name
+    this.validationResults = []
     this.initializeProperties(descriptor)
 } as any as IInputBase
 

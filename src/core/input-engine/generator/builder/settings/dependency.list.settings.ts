@@ -37,7 +37,7 @@ export const baseDependencyList = (
     fieldBaseInput.styleManager,
     fieldBaseInput.notificationManager,
     fieldBaseInput.validationManager,
-    fieldBaseInput.vlaueManager,
+    fieldBaseInput.valueManager,
     fieldBaseInput,
     ...rest
 ]

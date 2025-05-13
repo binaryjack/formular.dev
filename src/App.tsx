@@ -1,18 +1,3 @@
-import { conventions } from '@components/context/conventions/conventions'
-import FieldSet from '@components/field-set/field-set'
-import ValidationResultComponent from '@components/validation-result/validation-result'
-
-import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
-import {
-    defaultInitializationDependencies,
-    defaultInitializationParameters
-} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
-import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
-import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
-import { validationOptionsMock } from '@mocks/validation-options-mock'
-import { useState } from 'react'
 import FieldInputValidationSandbox from './demo/validation-demo/validation-demo'
 
 interface IApp extends Node {
@@ -107,51 +92,9 @@ const validationDemo = () => (
 // }, [])
 
 const App = () => {
-    const [validationOptions, setValidationOptions] =
-        useState<IValidationOptions>(validationOptionsMock)
-
-    const input = InputsProvider(
-        [txtFileDescriptorMock(validationOptions)],
-        defaultInitializationParameters,
-        defaultInitializationDependencies
-    )?.[0]
-
-    const { instance, flags } = useField(input as unknown as IExtendedInput)
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            <div>
-                <FieldSet
-                    inputId={instance?.input.name ?? conventions.IdIsEmpty()}
-                    label={instance?.input.label}
-                    type={instance?.input.type}
-                    flags={flags}
-                    validationChildren={
-                        <ValidationResultComponent
-                            validationResults={instance?.input.validationResults ?? []}
-                        />
-                    }
-                    onClear={() => instance?.input.clear()}
-                >
-                    <input
-                        data-class="base-input"
-                        {...instance?.register()}
-                        ref={(r) => instance?.ref(r)}
-                    />
-                </FieldSet>
-
-                <button type="button" onClick={() => instance?.input.setFocus()}>
-                    focus Field
-                </button>
-                <button type="button" onClick={() => instance?.input.enable(true)}>
-                    enable
-                </button>
-                <button type="button" onClick={() => instance?.input.enable(false)}>
-                    disable
-                </button>
-                <button type="button" onClick={() => instance?.input.clear()}>
-                    clear
-                </button>
-            </div>
+            {validationDemo()}
         </div>
     )
 }

@@ -42,8 +42,8 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.input?.register()}
-                ref={(r) => instance?.input?.ref(r)}
+                {...instance?.register()}
+                ref={(r) => instance?.ref(r)}
                 onKeyDown={handleKeyDown}
                 autoComplete="off"
                 type="text"

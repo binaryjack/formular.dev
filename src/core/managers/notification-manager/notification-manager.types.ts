@@ -8,11 +8,11 @@ export type dataStrategyResultAsyncType = (
     data: IValidationStrategyData
 ) => Promise<IValidationResult>
 
-export type TNotifierMethod<T = any> = (data?: T) => void
+export type TNotificationMethod<T = any> = (data?: T) => void
 
-export type TNotifierMethodAsnyc<T = Array<dataStrategyResultAsyncType>> = (data?: T) => void
+export type TNotificationMethodAsnyc<T = Array<dataStrategyResultAsyncType>> = (data?: T) => void
 
-export interface INotifier {
+export interface INotification {
     event: IEvents
-    method: TNotifierMethod
+    method: TNotificationMethod
 }

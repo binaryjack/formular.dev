@@ -1,6 +1,6 @@
 import { ObservableSubject } from '@core/observers/observable-subject/observable-subject'
 import { INotificationManager } from './notification-manager-base.types'
-import { INotifier } from './notification-manager.types'
+import { INotification } from './notification-manager.types'
 import { accept } from './prototype/accept'
 import { debounceNotify } from './prototype/debounce-notify'
 import { dispose } from './prototype/dispose'
@@ -14,19 +14,19 @@ import { notify } from './prototype/notify'
  * @constructor
  * @this {INotificationManager}
  */
-export const NotifiableEntity = function (
+export const NotificationManager = function (
     this: INotificationManager,
     autoTracker?: INotificationManager
 ) {
     this.autoTracker = autoTracker
-    this.notifiers = new Map<string, INotifier>()
+    this.notifiers = new Map<string, INotification>()
     this.observers = new ObservableSubject()
     this.computedSignalCallback = null
-    this.dependencyName = NotifiableEntity.name
+    this.dependencyName = NotificationManager.name
     this.isInitialized = false
 } as any as INotificationManager
 
-Object.assign(NotifiableEntity.prototype, {
+Object.assign(NotificationManager.prototype, {
     debounceNotify,
     getRegisteredNotifierNames,
     accept,
@@ -34,5 +34,3 @@ Object.assign(NotifiableEntity.prototype, {
     notify,
     dispose
 })
-/** To be used as instance for AUTO TRACKER */
-export const _intNotificationTracker = new NotifiableEntity()

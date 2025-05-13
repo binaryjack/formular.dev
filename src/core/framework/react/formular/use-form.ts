@@ -1,8 +1,6 @@
-import { useRtiEngine } from '@components/rte-Input/hooks/use-rti-engine'
 import { IFormular } from '@core/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import React, { useEffect } from 'react'
 
 const useForm = function (form: IFormular) {
@@ -15,16 +13,16 @@ const useForm = function (form: IFormular) {
     const acceptNotificationStrategy = (localName: string, event: EventsType) => {
         if (!stableForm) return
         stableForm.accept(
-            nnv(
-                newEvent(localName, 'useForm.accept', event, `${localName}.${event}`),
-                handleRefresh.bind(useRtiEngine)
-            )
+            notification(useForm, handleRefresh, event, `useForm.${event}`, useForm.name)
         )
         stableForm.fields.forEach((field) => {
-            field.accept(
-                nnv(
-                    newEvent(localName, 'useForm.fields.accept', event, `${localName}.${event}`),
-                    handleRefresh.bind(useRtiEngine)
+            field.input.notificationManager.accept(
+                notification(
+                    field.input,
+                    handleRefresh,
+                    event,
+                    `useForm.field.${event}`,
+                    useForm.name
                 )
             )
         })

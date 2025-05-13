@@ -13,7 +13,7 @@
  * @param {T} [data] - Optional data to be passed with the notification.
  *
  * @method accept
- * @param {INotifier} notify - The notifier to be accepted by the entity.
+ * @param {INotification} notify - The notifier to be accepted by the entity.
  *
  * @method init
  * Initializes the notifiable entity.
@@ -27,7 +27,7 @@ import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { IObservableSubject } from '@core/observers/observable-subject/observable-subject.types'
 import { ComputedSignalCallback } from '@core/observers/signals/signal.type'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
-import { INotifier } from './notification-manager.types'
+import { INotification } from './notification-manager.types'
 
 export interface INotificationManager extends IInitializableDependency {
     new (autoTracker?: INotificationManager): INotificationManager
@@ -39,10 +39,10 @@ export interface INotificationManager extends IInitializableDependency {
     trigger: () => void
 
     debounceNotify: <T extends IEvents>(type: EventsType, delay: number, data?: T) => void
-    accept: (notify: INotifier) => void
+    accept: (notify: INotification) => void
     init: () => void
     dispose: () => void
-    notifiers: Map<string, INotifier>
+    notifiers: Map<string, INotification>
     observers: IObservableSubject
     computedSignalCallback: ComputedSignalCallback<unknown> | null
     autoTracker?: INotificationManager

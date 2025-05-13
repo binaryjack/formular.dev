@@ -1,10 +1,9 @@
 // set-validation-trigger-mode.ts
 
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
-import { nnv } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 
 import { EventsType } from '@core/framework/events/events.types'
-import { newEvent } from '@core/framework/events/new-event'
 import { IFormular } from '../formular-base.types'
 
 /**
@@ -13,20 +12,18 @@ import { IFormular } from '../formular-base.types'
  */
 export function setValidationTriggerMode(this: IFormular, mode: EventsType[]) {
     this.validationTriggerModeType = mode
-    const checkChangesOn: string[] = Object.values(mode)
+    const checkChangesOn: EventsType[] = Object.values(mode)
 
-    this.fields.forEach((f: IInput) => {
+    this.fields.forEach((f: IExtendedInput) => {
         checkChangesOn.forEach((action) => {
-            f.setValidationTriggerMode(mode)
-            f.accept(
-                nnv(
-                    newEvent(
-                        this.name,
-                        setValidationTriggerMode.name,
-                        action as EventsType,
-                        this.checkChanges.name
-                    ),
-                    this.checkChanges.bind(this)
+            f.input.validationManager.setValidationTriggerMode(mode)
+            f.input.notificationManager.accept(
+                notification(
+                    f,
+                    f.input.handleValidation,
+                    action,
+                    `IFormular.triggered.${action}`,
+                    this.name
                 )
             )
         })

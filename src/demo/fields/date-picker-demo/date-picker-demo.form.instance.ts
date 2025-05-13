@@ -4,10 +4,10 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { _intNotificationTracker } from '@core/managers/notification-manager/notification-manager'
+import { lifeCylceInstances } from '@demo/common/common-instances'
 import { datePickerDemoSchema } from './date-picker-demo.schema'
 
-const fm = new FormularManager(_intNotificationTracker)
+const fm = new FormularManager(lifeCylceInstances._intNotificationTracker)
 
 export const datePickerDemoFormInstance = fm.createFromSchema(
     datePickerDemoSchema,

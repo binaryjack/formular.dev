@@ -14,8 +14,8 @@ export const useValueManager = function (
         // if (!this?.tracker) {
         //     throw Error('tracker must be initialized')
         // }
-        this.vlaueManager = valueStrategyInstance
-        this.vlaueManager.input = this
+        this.valueManager = valueStrategyInstance
+        this.valueManager.input = this
         // this.valueStrategy.acceptValueStrategies(...parsers)
 
         return this

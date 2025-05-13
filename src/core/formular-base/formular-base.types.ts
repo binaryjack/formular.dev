@@ -30,8 +30,8 @@ export interface IFormularFlags {
 export interface IFormularBase {
     new (id: string, autoTracker?: INotificationManager): IFormular
     id: string
-    fields: IInput[]
-    originFields: IInput[]
+    fields: IExtendedInput[]
+    originFields: IExtendedInput[]
     submitCount: number
     canValidate: boolean
     setup: (autoTracker?: INotificationManager) => void

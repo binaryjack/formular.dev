@@ -4,7 +4,7 @@ import { ExceptionManager, newAssert } from '@core/framework/exceptions/exceptio
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { ISelectBaseInput } from '../select-base-input.types'
 /**
  * The setup function sets up the field input by subscribing to observers.
@@ -47,9 +47,9 @@ export const initialize = async function (
                 logManager(undefined, 'info', 'initialize', e.name)
             },
             [
-                eventNotifVisitor(this, this.handleOnChanged, 'onChange'),
-                eventNotifVisitor(this, this.handleOnSelected, 'onSelect'),
-                eventNotifVisitor(this, this.handleOnClear, 'onClear')
+                notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name),
+                notification(this, this.handleOnSelected, 'onSelect', 'onSelect', this.name),
+                notification(this, this.handleOnClear, 'onClear', 'onClear', this.name)
             ]
         )
 

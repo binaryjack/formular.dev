@@ -4,7 +4,7 @@ import { ExceptionManager, newAssert } from '@core/framework/exceptions/exceptio
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { IRadioBaseInput } from '../radio-base-input.types'
 
 /**
@@ -47,7 +47,7 @@ export const initialize = async function (
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
             },
-            [eventNotifVisitor(this, this.handleOnChanged, 'onChange')]
+            [notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name)]
         )
 
         if (success) {

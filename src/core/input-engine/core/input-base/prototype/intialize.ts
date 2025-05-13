@@ -2,7 +2,7 @@ import { ExceptionManager } from '@core/framework/exceptions/exception-manager'
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { eventNotifVisitor } from '@core/managers/notification-manager/utils/new-notification-visitor'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { abstractInitializer } from '../../abstract/abstract-initializer'
 import { IInputBase } from '../input-base.types'
 
@@ -41,31 +41,9 @@ export const initialize = async function (
                 // Extend the prototype of FieldStateStyle with FieldInput's prototype
             },
             [
-                eventNotifVisitor(this, this.handleValidation, 'onValidate'),
-                eventNotifVisitor(this, this.handleOnBlur, 'onBlur'),
-                eventNotifVisitor(this, this.handleOnFocus, 'onFocus')
-                // nnv(
-                //     newEvent(
-                //         this.name,
-                //         this.handleValidation.name,
-                //         'onValidate',
-                //         this.handleValidation.name
-                //     ),
-                //     this.handleValidation.bind(this)
-                // ),
-                // nnv(
-                //     newEvent(this.name, this.handleOnBlur.name, 'onBlur', this.handleOnBlur.name),
-                //     this.handleOnBlur.bind(this)
-                // ),
-                // nnv(
-                //     newEvent(
-                //         this.name,
-                //         this.handleOnFocus.name,
-                //         'onFocus',
-                //         this.handleOnFocus.name
-                //     ),
-                //     this.handleOnFocus.bind(this)
-                // )
+                notification(this, this.handleValidation, 'onValidate', 'onValidate', this.name),
+                notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
+                notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name)
             ]
         )
 

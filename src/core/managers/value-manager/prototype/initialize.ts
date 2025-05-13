@@ -15,7 +15,7 @@ export const initialize = async function (
     try {
         const success = await abstractInitializer(this.input, (e) => {
             // Object.setPrototypeOf(ValueStrategy.prototype, FieldInput.prototype)
-            e.vlaueManager.acceptValueStrategies(...params.valueStrategies)
+            e.valueManager.acceptValueStrategies(...params.valueStrategies)
         })
 
         if (success) {

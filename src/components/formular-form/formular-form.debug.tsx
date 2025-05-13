@@ -2,10 +2,10 @@ import { IFormular } from '@core/formular-base/formular-base.types'
 import useFormularContext from './formular-form.context'
 
 interface FormyDebugProps {
-    formy: IFormular
+    formular: IFormular
 }
 
-const FormularFormDebug = ({ formy }: FormyDebugProps) => {
+const FormularFormDebug = ({ formular }: FormyDebugProps) => {
     // useForm(formy)
     const { getFormFlags } = useFormularContext()
     return (
@@ -20,7 +20,7 @@ const FormularFormDebug = ({ formy }: FormyDebugProps) => {
 
                 <div className={`debug-table-row`}>
                     <div className={`debug-table-col auto-cols-min`}>
-                        <div className={`text-elipsis`}>{formy.name}</div>
+                        <div className={`text-elipsis`}>{formular.name}</div>
                     </div>
                     <div className={`debug-table-col auto-cols-min`}>
                         <div className={`text-elipsis`}>
@@ -46,28 +46,30 @@ const FormularFormDebug = ({ formy }: FormyDebugProps) => {
                     <div className={`debug-table-col auto-cols-min`}>Value</div>
                     <div className={`debug-table-col auto-cols-min`}>Dirty</div>
                 </div>
-                {formy?.fields?.map((field) => {
+                {formular?.fields?.map((field) => {
                     return (
                         <div
-                            key={field.id}
-                            className={`debug-table-row  ${field.isValid ? 'valid' : 'invalid'}`}
+                            key={field?.input.id}
+                            className={`debug-table-row  ${field?.input.isValid ? 'valid' : 'invalid'}`}
                         >
                             <div className={`debug-table-col auto-cols-min`}>
-                                <div className={`text-elipsis`}>{field.id}</div>
+                                <div className={`text-elipsis`}>{field?.input.id}</div>
                             </div>
                             <div className={`debug-table-col auto-cols-min`}>
-                                <div className={`text-elipsis`}> {field.name}</div>
+                                <div className={`text-elipsis`}> {field?.input.name}</div>
                             </div>
                             <div className={`debug-table-col auto-cols-min`}>
                                 <div className={`text-elipsis`}>
-                                    {field?.getValue() === 'object'
-                                        ? JSON.stringify(field.getValue())
-                                        : String(field?.toString() ?? 'NO VALUE')}
+                                    {field?.input.valueManager.getValue() === 'object'
+                                        ? JSON.stringify(field?.input.valueManager.getValue())
+                                        : String(
+                                              field?.input.valueManager.toString() ?? 'NO VALUE'
+                                          )}
                                 </div>
                             </div>
                             <div className={`debug-table-col auto-cols-min`}>
                                 <div className={`text-elipsis`}>
-                                    {field.isDirty ? 'TRUE' : 'FALSE'}
+                                    {field?.input.isDirty ? 'TRUE' : 'FALSE'}
                                 </div>
                             </div>
                         </div>

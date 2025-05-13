@@ -2,7 +2,7 @@
 
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { INotificationManager } from '../notification-manager-base.types'
-import { INotifier } from '../notification-manager.types'
+import { INotification } from '../notification-manager.types'
 
 export interface ILatestCall {
     data?: IEvents
@@ -28,7 +28,7 @@ export const debounceNotify = function <T extends IEvents>(
     // Store the latest data and set a new timeout for this EventType
     const timeoutId: number | NodeJS.Timeout = setTimeout(() => {
         // Execute the latest call for this EventType
-        this.notifiers.forEach((notifier: INotifier) => {
+        this.notifiers.forEach((notifier: INotification) => {
             if (notifier.event.types.includes(type)) {
                 notifier.method(latestCalls.get(type)?.data)
 

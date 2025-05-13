@@ -1,6 +1,6 @@
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { INotificationManager } from '../notification-manager-base.types'
-import { INotifier } from '../notification-manager.types'
+import { INotification } from '../notification-manager.types'
 
 /**
  * Notifies all notifiers of a specific type with optional data.
@@ -10,7 +10,7 @@ import { INotifier } from '../notification-manager.types'
  * @param {T} [data] - Optional data to be passed to the notifier's method.
  */
 export function notify<T extends IEvents>(this: INotificationManager, type: EventsType, data?: T) {
-    this.notifiers.forEach((notifier: INotifier) => {
+    this.notifiers.forEach((notifier: INotification) => {
         if (notifier.event.types.includes(type)) {
             notifier.method(data)
 
@@ -22,5 +22,5 @@ export function notify<T extends IEvents>(this: INotificationManager, type: Even
             }
         }
     })
-    // this.observers?.trigger()
+    this.observers?.trigger()
 }

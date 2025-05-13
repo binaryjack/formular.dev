@@ -1,6 +1,6 @@
 import { TrackingManager } from '@core/managers/tracking-manager/tracker-manager'
 
-import { NotifiableEntity } from '@core/managers/notification-manager/notification-manager'
+import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { LoadingStatus } from '@core/status'
 import { IFormular } from './formular-base.types'
@@ -23,11 +23,11 @@ export const Formular = function (this: IFormular, id: string, autoTracker?: INo
     this.isBusy = LoadingStatus.Loaded
     this.validationTriggerModeType = []
     this.isDirty = false
-    NotifiableEntity.call(this, autoTracker)
+    NotificationManager.call(this, autoTracker)
 } as any as IFormular
 
 Formular.prototype = {
-    ...NotifiableEntity.prototype,
+    ...NotificationManager.prototype,
     ...TrackingManager.prototype
 }
 

@@ -13,13 +13,7 @@ export const initialize = async function (
 ) {
     try {
         const em = new ExceptionManager(
-            ...[
-                newAssert(this.input !== undefined, `The dependency field is not instanciated`),
-                newAssert(
-                    params.descriptor?.options?.length > 0,
-                    `${this.dependencyName}: None options were provided. this feature will not work properly`
-                )
-            ]
+            ...[newAssert(this.input !== undefined, `The dependency field is not instanciated`)]
         )
         em.process()
         if (em.hasErrors()) {
@@ -27,6 +21,9 @@ export const initialize = async function (
         }
 
         const success = await abstractInitializer(this.input, (e) => {
+            e?.notificationManager?.observers.subscribe(this.classNames.bind(this))
+            e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this))
+
             e.styleManager.className = ''
             e.styleManager.classesList = new Map<InputStateType, string>([
                 ['dirty', 'is-not-dirty'],
@@ -38,13 +35,10 @@ export const initialize = async function (
                 ['required', 'required']
             ])
 
-            e.styleManager.update(
+            e?.styleManager.update(
                 'required',
                 params.descriptor.validationOptions.requiredData?.required === true
             )
-
-            e?.notificationManager?.observers.subscribe(this.classNames.bind(this))
-            e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this))
 
             // Extend the prototype of FieldStateStyle with FieldInput's prototype
             // Object.setPrototypeOf(FieldStateStyle.prototype, FieldInput.prototype)
