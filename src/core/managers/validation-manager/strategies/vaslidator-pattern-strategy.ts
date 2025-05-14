@@ -7,9 +7,10 @@ import {
     newValidationResult,
     ValidationErrorsCodes
 } from '../validation-manager.types'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 
 export const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (data: IValidationStrategyData) {
+    this.validate = function (field: IInput) {
         if (!data?.validationOptions?.pattern?.pattern) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
         }

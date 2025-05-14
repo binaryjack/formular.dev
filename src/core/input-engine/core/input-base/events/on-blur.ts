@@ -3,7 +3,7 @@ import { IInputBase } from '../input-base.types'
 
 export const onBlur = (f: IInputBase, e: Event) => {
     const inputElement = e.target as HTMLInputElement
-    console.log('onBlur', f.name, inputElement.value)
+    // console.log('onBlur', f.name, inputElement.value)
     f.isFocus = false
     f.styleManager?.update('focus', f.isFocus)
 

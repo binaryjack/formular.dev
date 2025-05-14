@@ -26,7 +26,7 @@ export const notification = <
     target: string
 ) => {
     if (target === undefined) {
-        console.warn('target is undefined')
+        // console.warn('target is undefined')
     }
 
     let name = ''

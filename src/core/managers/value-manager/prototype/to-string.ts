@@ -2,9 +2,10 @@ import { DateObject } from '@components/date-picker/core/date-object.object'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { formatDate } from '@components/date-picker/core/formatters/format-date'
 import { INDate } from '@core/framework/schema/descriptor/i-n-date'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
-export const toString = function (this: IValueManager) {
+export const toString = function (this: IValueManager, field: IInput) {
     const value = this.input.value as any
     if (!value) return ''
     if (typeof value === 'object') {

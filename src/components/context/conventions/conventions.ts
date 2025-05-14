@@ -11,5 +11,8 @@ export const conventions = {
     tokens: {
         validationDataToken1: '|data|',
         validationDataToken2: '|data2|'
+    },
+    validations: {
+        triggerDelay: 2500
     }
 }

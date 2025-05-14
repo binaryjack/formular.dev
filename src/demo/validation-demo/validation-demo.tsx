@@ -69,10 +69,7 @@ const FieldInputValidationSandbox = () => {
             ...prev,
             [key]: { ...prev[key], ...value }
         }))
-        field.initializeValidation({
-            ...field,
-            validationOptions: { ...validationOptions, [key]: value }
-        })
+        field.validationOptions = { ...validationOptions, [key]: value }
     }
 
     const handleTriggerModeChange = (mode: EventsType[]) => {

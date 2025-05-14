@@ -1,3 +1,4 @@
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationManager,
     IValidationResult,
@@ -11,16 +12,16 @@ import {
  */
 export function validate(
     this: IValidationManager,
-    data: IValidationStrategyData
+    field: IInput,
+    reset?: boolean
 ): IValidationResult[] {
     const output: IValidationResult[] = []
 
-    if (data.origin?.types.includes('onResetValidation')) {
+    if (reset === true) {
         return output
     }
-
     for (const strategy of this.validationStrategies) {
-        output.push(strategy.validate(data))
+        output.push(strategy.validate(field))
     }
 
     return output

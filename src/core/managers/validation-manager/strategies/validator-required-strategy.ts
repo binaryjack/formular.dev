@@ -1,15 +1,15 @@
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationMethodStrategy,
-    IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
 export const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (data: IValidationStrategyData) {
+    this.validate = function (field: IInput) {
         if (!data?.validationOptions?.requiredData?.required) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)
         }

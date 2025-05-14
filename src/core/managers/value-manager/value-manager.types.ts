@@ -1,7 +1,7 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInputBase, IInput } from '@core/input-engine/core/input-base/input-base.types'
 
-export type TParser<TOut> = (value: Partial<InputDataTypes>) => TOut | null
+export type TParser<TOut> = (field: IInput, value: Partial<InputDataTypes> | null) => TOut | null
 
 export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
 
@@ -9,20 +9,25 @@ export interface IParserStrategy<TOut> {
     id: string
     concernedTypes: string[]
     fieldValueProperty: FieldValuePropertyType
-    method: TParser<TOut>
+    /** From model IInput.value / .checked / .other .. To Value */
+    methodOut: TParser<TOut>
+    /** To model IInput.value / .checked / .other ..   */
+    methodIn: TParser<TOut>
 }
 
 export const setParserStrategy = <TOut>(
     id: string,
     concernedTypes: string[],
     fieldValueProperty: FieldValuePropertyType,
-    method: TParser<TOut>
+    methodOut: TParser<TOut>,
+    methodIn: TParser<TOut>
 ): IParserStrategy<TOut> => {
     return {
         id,
         concernedTypes,
         fieldValueProperty,
-        method
+        methodOut,
+        methodIn
     }
 }
 
@@ -34,11 +39,7 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     new (): IValueManager
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
-    getAsString: () => string | null
-    setValue: (value: InputDataTypes) => void
-    getValue: () => InputDataTypes
-    setValueCheckBox: (value: boolean) => void
-    setValueSelect: (value: string) => void
-    setValueText: (value: string) => void
-    setValueRadio: (value: string) => void
+    getAsString: (field: IInput) => string | null
+    setValue: (field: IInput, value: Partial<InputDataTypes> | null) => void
+    getValue: (field: IInput) => Partial<InputDataTypes> | null
 }

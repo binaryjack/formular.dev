@@ -35,9 +35,6 @@ export const initialize = async function (
         const success = await abstractInitializer(
             this,
             (e) => {
-                logManager(this.trackingManager, 'info', this.dependencyName, 'Initialized')
-                this.isInitialized = true
-
                 // Extend the prototype of FieldStateStyle with FieldInput's prototype
             },
             [

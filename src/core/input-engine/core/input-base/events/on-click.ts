@@ -3,7 +3,7 @@ import { IInputBase } from '../input-base.types'
 
 export const onClick = (f: IInputBase, e: Event) => {
     const inputElement = e.target as HTMLInputElement
-    console.log('onClick', f.name, inputElement.value)
+    // console.log('onClick', f.name, inputElement.value)
 
     f.valueManager.setValue(inputElement.value)
 

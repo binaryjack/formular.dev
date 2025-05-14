@@ -20,8 +20,13 @@ export const handleValidation = function <T extends IEvents>(
     e?: T,
     data?: IValidationStrategyData
 ) {
-    let results: IValidationResult[] = []
+    console.log('----handleValidation---', this.name, this.value)
+    if (this.name === undefined || this.value === undefined) {
+        return
+    }
 
+    let results: IValidationResult[] = []
+    console.log('----handleValidation', this.name, this.value)
     const currentField = this.dependencyName === 'InputBase' ? this : this.input
 
     if (currentField === undefined || currentField.validationManager === undefined) {
@@ -38,22 +43,11 @@ export const handleValidation = function <T extends IEvents>(
         return
     }
 
-    // if (data?.validationTriggerModeType.includes('onValidate')) {
-    //     const validationstrategyData = newValidationStrategyData(
-    //         this.name,
-    //         this.type,
-    //         this.validationOptions,
-    //         this.valueStrategy?.toString(),
-    //         this.expectedValue,
-    //         this.validationTriggerModeType,
-    //         this.shouldValidate,
-    //         this.name
-    //     )
-
-    //     results = this.validationStrategy!.validate(validationstrategyData) ?? []
-    // } else {
-    //     // console.log('Validation skipped')
-    // }
+    if (data?.validationTriggerModeType.includes('onValidate')) {
+        results = this.validationManager.validate(this) ?? []
+    } else {
+        // console.log('Validation skipped')
+    }
 
     // keep the validation results for the field
     currentField.validationResults = results

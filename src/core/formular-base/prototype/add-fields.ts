@@ -17,7 +17,7 @@ export function addFields(this: IFormular, ...flds: IExtendedInput[]) {
         )
         if (!existingFieldRef) {
             if (this.validationTriggerModeType.length > 1) {
-                console.log('stop')
+                // console.log('stop')
             }
 
             fld.input.validationManager.setValidationTriggerMode(this.validationTriggerModeType)

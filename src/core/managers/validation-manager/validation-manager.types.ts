@@ -1,9 +1,4 @@
-import { DateObject } from '@components/date-picker/core/date-object.object'
-import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
-import { IDateObject } from '@components/date-picker/core/models/date-object.models'
-
-import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import { EventsType, IEvents } from '@core/framework/events/events.types'
+import { EventsType } from '@core/framework/events/events.types'
 import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -23,7 +18,6 @@ export interface IValidationResult {
     fieldName: string
     error?: IFieldError
     guide?: IFieldGuide
-    strategyData?: IValidationStrategyData
 }
 
 export interface IDoValidateAll {
@@ -49,76 +43,16 @@ export const newValidationResult = (
     fieldName: string,
     code: string,
     error?: IFieldError,
-    guide?: IFieldGuide,
-    strategyData?: IValidationStrategyData
+    guide?: IFieldGuide
 ): IValidationResult => {
-    return { state, fieldName, code, error, guide, strategyData }
+    return { state, fieldName, code, error, guide }
 }
 
-export interface IValidationStrategyData {
-    fieldName: string
-    type: string
-    validationOptions: IValidationOptions
-    validationTriggerModeType: EventsType[]
-    shouldValidate: boolean
-    value: InputDataTypes
-    expectedValue: InputDataTypes
-    origin: IEvents | null
-    asyncValidators?: Array<(data: IValidationStrategyData) => Promise<IValidationResult>>
-    toString: () => string
-}
-
-export const newValidationStrategyData = (
-    fieldName: string,
-    type: string,
-    validationOptions: IValidationOptions,
-    validationTriggerModeType: EventsType[],
-    shouldValidate: boolean,
-    value: InputDataTypes,
-    expectedValue?: InputDataTypes,
-    origin?: IEvents
-) => {
-    return {
-        fieldName: fieldName,
-        type: type,
-        validationOptions: validationOptions,
-        validationTriggerModeType: validationTriggerModeType,
-        shouldValidate: shouldValidate,
-        value: value,
-        expectedValue: expectedValue !== undefined ? expectedValue : null,
-        origin: origin ?? null,
-        toString: function () {
-            if (this.value === undefined || this.value === null) {
-                return ''
-            }
-            if (typeof this.value === 'string') {
-                return String(this.value)
-            }
-            if (typeof this.value === 'number') {
-                return Number(this.value).toString()
-            }
-            if (typeof this.value === 'bigint') {
-                return BigInt(this.value).toString()
-            }
-            if (value instanceof DateObject) {
-                return (this.value as IDateObject).toString?.(DatePickerFormatsEnum.YYYY_MM_DD)
-            }
-            if (typeof this.value === 'object') {
-                if ('year' in this.value && 'day' in this.value && 'month' in this.value) {
-                    return `${this.value.year}-${this.value.month}-${this.value.day}`
-                }
-                return JSON.stringify(this.value)
-            }
-            return ''
-        }
-    } as IValidationStrategyData
-}
-
-export type IValidationStrategyType = (data: IValidationStrategyData) => IValidationManager
+export type IValidationStrategyType = (field: IInput) => IValidationManager
 
 export interface IValidationMethodStrategy {
     new (): IValidationMethodStrategy
-    validate: (data: IValidationStrategyData) => IValidationResult
+    validate: (field: IInput) => IValidationResult
 }
 
 export interface IValidationManager extends IInitializableDependency {
@@ -128,7 +62,7 @@ export interface IValidationManager extends IInitializableDependency {
     validationTriggerModeType: EventsType[]
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
-    validate: (data: IValidationStrategyData) => IValidationResult[]
+    validate: (field: IInput) => IValidationResult[]
     validateAll: (fields: IInput[]) => IValidationResults[]
 }
 

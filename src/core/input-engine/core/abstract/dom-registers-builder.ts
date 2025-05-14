@@ -54,7 +54,7 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
         return {
             id: `${context.input.id}`,
             type: context.input.type,
-            className: context.input.styleManager?.classNames() ?? '',
+            className: 'base-input',
             title: context.input.label ?? '',
             onChange: this.onChange,
             onBlur: this.onBlur,

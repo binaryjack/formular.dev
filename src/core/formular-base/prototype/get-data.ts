@@ -10,9 +10,9 @@ import { IFormular } from '../formular-base.types'
 export function getData(this: IFormular) {
     const output: Record<string, InputDataTypes> = {}
     for (const f of this.fields) {
-        const value = f.getValue()
+        const value = f.input.valueManager.getValue()
         if (!value || value === null) continue
-        output[f.name] = value
+        output[f.input.name] = value
     }
     return output
 }

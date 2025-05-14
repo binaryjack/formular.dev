@@ -4,7 +4,7 @@ import { IExtendedInput } from '../input-base.types'
 export const onClickLabel = <T extends IExtendedInput>(f: T, optionId: string, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
-    console.log('onClickLabel', f.name, optionId, inputElement.value)
+    // console.log('onClickLabel', f.name, optionId, inputElement.value)
     const option = f.optionBase.getOptionById(optionId)
     if (option) {
         f.input.value = option.id

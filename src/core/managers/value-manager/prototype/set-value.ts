@@ -1,11 +1,13 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 
 import { newEvent } from '@core/framework/events/new-event'
+import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
 export const setValue = function (
     this: IValueManager,
-    value: Omit<InputDataTypes, 'object' | 'INDate' | 'DateObject'> | null
+    field: IInput,
+    value: InputDataTypes | null
 ) {
     switch (this.input.type) {
         case 'checkbox':

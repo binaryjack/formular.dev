@@ -13,14 +13,14 @@ export function accept(this: INotificationManager, notify: INotification) {
     if (exisingNotifier) {
         for (const t of notify.event.types) {
             if (exisingNotifier.event.types.includes(t)) {
-                console.log('NOTIFIER ALREADY EXISTS', key)
+                // console.log('NOTIFIER ALREADY EXISTS', key)
                 continue
             }
-            console.log('NEW NOTIFIER REGISTERS different type', key)
+            // console.log('NEW NOTIFIER REGISTERS different type', key)
             exisingNotifier.event.types.push(t)
         }
     } else {
-        console.log('NOTIFIER REGISTERS', key)
+        // console.log('NOTIFIER REGISTERS', key)
         this.notifiers.set(key, notify)
     }
 }

@@ -9,7 +9,7 @@ import {
 } from '../validation-manager.types'
 
 export const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (data: IValidationStrategyData) {
+    this.validate = function (field: IInput) {
         if (!data?.validationOptions?.minLength) {
             return newValidationResult(true, data.fieldName, ValidationErrorsCodes.minLength)
         }
