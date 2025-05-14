@@ -1,19 +1,19 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onClick = (f: IInputBase, e: Event) => {
+export const onClick = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     // console.log('onClick', f.name, inputElement.value)
 
-    f.valueManager.setValue(inputElement.value)
+    f.input.valueManager.setValue(f, inputElement.value)
 
-    f.styleManager?.update('dirty', f.originalValue !== f.value)
+    f.input.styleManager?.update('dirty', f.input.originalValue !== f.input.value)
 
     e.stopPropagation()
     e.preventDefault()
 
-    f?.notificationManager?.notify(
+    f.input.notificationManager?.notify(
         'onClick',
-        newEvent(f.name, onClick.name, 'onClick', `field.${onClick.name}`)
+        newEvent(f.input.name, onClick.name, 'onClick', `field.${onClick.name}`)
     )
 }

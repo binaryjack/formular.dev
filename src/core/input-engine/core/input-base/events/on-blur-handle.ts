@@ -1,13 +1,13 @@
 import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onBlurHandle = (f: IInputBase) => {
-    if (!f.validationManager?.validationTriggerModeType.includes('onBlur')) return
+export const onBlurHandle = (f: IExtendedInput) => {
+    if (!f.input.validationManager?.validationTriggerModeType.includes('onBlur')) return
     // console.log('onBlurHandle', f.name, f.value)
-    f.notificationManager?.debounceNotify(
+    f.input.notificationManager?.debounceNotify(
         'onValidate',
         conventions.validations.triggerDelay,
-        newEvent(f.name, onBlurHandle.name, 'onValidate', `field.state.${onBlurHandle.name}`)
+        newEvent(f.input.name, onBlurHandle.name, 'onValidate', `field.state.${onBlurHandle.name}`)
     )
 }

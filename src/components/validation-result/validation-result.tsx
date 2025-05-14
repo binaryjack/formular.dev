@@ -27,15 +27,15 @@ const ValidationResultComponent: React.FC<ValidationResultProps> = ({ validation
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
             <div className={`validation-result-drawer`}>
                 {validationResults.map((result, index) => {
-                    if (!result.strategyData?.origin?.types) return null
+                    if (!result.triggerEventTypes) return null
 
                     const showError = arrayHasOneOrMany(
-                        result.strategyData?.origin?.types,
+                        result.triggerEventTypes,
                         actionToDisplayError
                     )
 
                     const showGuide = arrayHasOneOrMany(
-                        result.strategyData?.origin?.types,
+                        result.triggerEventTypes,
                         actionToDisplayGuide
                     )
 

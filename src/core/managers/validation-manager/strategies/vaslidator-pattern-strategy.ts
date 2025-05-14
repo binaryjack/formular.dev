@@ -1,42 +1,51 @@
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
-import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
+import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationMethodStrategy,
-    IValidationStrategyData,
     newValidationResult,
     ValidationErrorsCodes
 } from '../validation-manager.types'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 
 export const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (field: IInput) {
-        if (!data?.validationOptions?.pattern?.pattern) {
-            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
+    this.validate = function (field: IExtendedInput) {
+        const name = field.name
+        const value = field.input.valueManager.getValue(field)
+        if (!field?.input.validationOptions?.pattern?.pattern) {
+            return newValidationResult(
+                true,
+                name,
+                ValidationErrorsCodes.custom,
+                field.input.validationManager.validationTriggerModeType
+            )
         }
-        const hasValue = !isNullEmptyOrUndefined(data?.value as string | null | undefined)
-
-        const regexp = new RegExp(data.validationOptions.pattern.pattern)
-        const valueToBeTested = data?.toString()
+        const hasValue = !valueIsNullOrUndefined(value)
+        const regexp = new RegExp(field.input.validationOptions.pattern.pattern)
+        const valueToBeTested = field.toString()
         if (hasValue && !regexp.test(valueToBeTested)) {
             return newValidationResult(
                 false,
-                data.fieldName,
+                name,
                 ValidationErrorsCodes.custom,
+                field.input.validationManager.validationTriggerModeType,
                 newFieldError(
-                    data.fieldName,
+                    name,
                     ValidationErrorsCodes.custom,
-                    data.validationOptions.pattern.error ?? undefined
+                    field.input.validationOptions.pattern.error ?? undefined
                 ),
                 newFieldGuide(
-                    data.fieldName,
+                    name,
                     ValidationErrorsCodes.custom,
-                    data.validationOptions.pattern?.guide ?? undefined
-                ),
-                data
+                    field.input.validationOptions.pattern?.guide ?? undefined
+                )
             )
         }
-
-        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.custom)
+        return newValidationResult(
+            true,
+            name,
+            ValidationErrorsCodes.custom,
+            field.input.validationManager.validationTriggerModeType
+        )
     }
 } as any as IValidationMethodStrategy

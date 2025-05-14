@@ -1,7 +1,7 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onBlur = (f: IInputBase, e: Event) => {
+export const onBlur = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
     f.isFocus = false

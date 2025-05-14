@@ -1,6 +1,5 @@
 // handle-validation.ts
 
-import { IValidationStrategyData } from '@core/managers/validation-manager/validation-manager.types'
 import { IFormular } from '../formular-base.types'
 
 /**
@@ -12,6 +11,6 @@ import { IFormular } from '../formular-base.types'
  * @param origin - An optional parameter to specify the origin of the validation process.
  *                 This can be used to track or log the source of the validation trigger.
  */
-export function handleValidation(this: IFormular, data?: IValidationStrategyData) {
-    this.validateAll(data)
+export function handleValidation(this: IFormular) {
+    this.validateAll()
 }

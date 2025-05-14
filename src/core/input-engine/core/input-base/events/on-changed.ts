@@ -1,19 +1,19 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onChange = (f: IInputBase, e: Event) => {
+export const onChange = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     // console.log('onChange', f.name, inputElement.value)
     //f.value = inputElement.value
-    f.valueManager.setValue(inputElement.value)
+    f.input.valueManager.setValue(f, inputElement.value)
 
-    f.isPristine = f.originalValue === f.value
-    f.isDirty = f.originalValue !== f.value
+    f.input.isPristine = f.input.originalValue === f.input.value
+    f.input.isDirty = f.input.originalValue !== f.input.value
 
-    f.styleManager?.update('pristine', f.isPristine)
-    f.styleManager?.update('dirty', f.isDirty)
+    f.input.styleManager?.update('pristine', f.input.isPristine)
+    f.input.styleManager?.update('dirty', f.input.isDirty)
 
-    f?.notificationManager?.notify(
+    f.input.notificationManager?.notify(
         'onChange',
         newEvent(f.name, onChange.name, 'onChange', `field.${onChange.name}`)
     )

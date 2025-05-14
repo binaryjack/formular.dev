@@ -1,15 +1,15 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onBlur = (f: IInputBase, e: Event) => {
+export const onBlur = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
     // console.log('onBlur', f.name, inputElement.value)
-    f.isFocus = false
-    f.styleManager?.update('focus', f.isFocus)
+    f.input.isFocus = false
+    f.input.styleManager?.update('focus', f.input.isFocus)
 
-    f?.notificationManager?.notify(
+    f?.input.notificationManager?.notify(
         'onBlur',
-        newEvent(f.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
+        newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
     )
     e.stopPropagation()
     e.preventDefault()

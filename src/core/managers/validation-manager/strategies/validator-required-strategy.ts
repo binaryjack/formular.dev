@@ -1,7 +1,7 @@
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
-import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationMethodStrategy,
     newValidationResult,
@@ -9,33 +9,42 @@ import {
 } from '../validation-manager.types'
 
 export const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (field: IInput) {
-        if (!data?.validationOptions?.requiredData?.required) {
-            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)
-        }
-
-        const hasExpectedValue = !!data.expectedValue
-        const hasValue = !isNullEmptyOrUndefined(data?.value as string | null | undefined)
-
-        if (!hasValue || (hasValue && hasExpectedValue && data.expectedValue !== data?.value)) {
+    this.validate = function (field: IExtendedInput) {
+        const name = field.name
+        const value = field.input.valueManager.getValue(field)
+        if (!field?.input.validationOptions?.requiredData?.required) {
             return newValidationResult(
-                false,
-                data.fieldName,
+                true,
+                name,
                 ValidationErrorsCodes.required,
-                newFieldError(
-                    data.fieldName,
-                    ValidationErrorsCodes.required,
-                    data.validationOptions.requiredData?.error ?? undefined
-                ),
-                newFieldGuide(
-                    data.fieldName,
-                    ValidationErrorsCodes.required,
-                    data.validationOptions.requiredData?.guide ?? undefined
-                ),
-                data
+                field.input.validationManager.validationTriggerModeType
             )
         }
-
-        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.required)
+        // Remove expectedValue logic since 'expectedValue' does not exist on IRequired
+        const hasValue = !valueIsNullOrUndefined(value)
+        if (!hasValue) {
+            return newValidationResult(
+                false,
+                name,
+                ValidationErrorsCodes.required,
+                field.input.validationManager.validationTriggerModeType,
+                newFieldError(
+                    name,
+                    ValidationErrorsCodes.required,
+                    field.input.validationOptions.requiredData?.error ?? undefined
+                ),
+                newFieldGuide(
+                    name,
+                    ValidationErrorsCodes.required,
+                    field.input.validationOptions.requiredData?.guide ?? undefined
+                )
+            )
+        }
+        return newValidationResult(
+            true,
+            name,
+            ValidationErrorsCodes.required,
+            field.input.validationManager.validationTriggerModeType
+        )
     }
 } as any as IValidationMethodStrategy

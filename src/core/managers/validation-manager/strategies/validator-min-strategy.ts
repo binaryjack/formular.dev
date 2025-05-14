@@ -1,8 +1,7 @@
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
-import { data } from 'cypress/types/jquery'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationMethodStrategy,
     newValidationResult,
@@ -10,34 +9,44 @@ import {
 } from '../validation-manager.types'
 
 export const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (field: IInput) {
-        if (!data?.validationOptions?.min) {
-            return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
+    this.validate = function (field: IExtendedInput) {
+        const name = field.name
+        const value = field.input.valueManager.getValue(field)
+        if (!field?.input.validationOptions?.min) {
+            return newValidationResult(
+                true,
+                name,
+                ValidationErrorsCodes.min,
+                field.input.validationManager.validationTriggerModeType
+            )
         }
-        const hasValue = !valueIsNullOrUndefined(data?.value)
-
+        const hasValue = !valueIsNullOrUndefined(value)
         if (
             hasValue &&
-            (isNaN(Number(data?.value)) || Number(data?.value) < data.validationOptions.min.min)
+            (isNaN(Number(value)) || Number(value) < field.input.validationOptions.min.min)
         ) {
             return newValidationResult(
                 false,
-                data.fieldName,
+                name,
                 ValidationErrorsCodes.min,
+                field.input.validationManager.validationTriggerModeType,
                 newFieldError(
-                    data.fieldName,
+                    name,
                     ValidationErrorsCodes.min,
-                    data.validationOptions.min.error ?? undefined
+                    field.input.validationOptions.min.error ?? undefined
                 ),
                 newFieldGuide(
-                    data.fieldName,
+                    name,
                     ValidationErrorsCodes.min,
-                    data.validationOptions.min?.guide ?? undefined
-                ),
-                data
+                    field.input.validationOptions.min?.guide ?? undefined
+                )
             )
         }
-
-        return newValidationResult(true, data.fieldName, ValidationErrorsCodes.min)
+        return newValidationResult(
+            true,
+            name,
+            ValidationErrorsCodes.min,
+            field.input.validationManager.validationTriggerModeType
+        )
     }
 } as any as IValidationMethodStrategy

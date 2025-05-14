@@ -1,13 +1,13 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onFocus = (f: IInputBase, e: Event) => {
-    f.isFocus = true
-    f.styleManager?.update('focus', f.isFocus)
+export const onFocus = (f: IExtendedInput, e: Event) => {
+    f.input.isFocus = true
+    f.input.styleManager?.update('focus', f.input.isFocus)
 
-    f?.notificationManager?.notify(
+    f?.input.notificationManager?.notify(
         'onFocus',
-        newEvent(f.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
+        newEvent(f.input.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
     )
     e.stopPropagation()
     e.preventDefault()

@@ -1,3 +1,4 @@
+import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IParserStrategy, IValueManager } from '../value-manager.types'
 
 /**
@@ -7,7 +8,8 @@ import { IParserStrategy, IValueManager } from '../value-manager.types'
  */
 export function addValueStrategies(this: IValueManager, ...parsers: IParserStrategy<any>[]) {
     for (const parser of parsers) {
-        if (this.valueStrategies.find((o: IParserStrategy<unknown>) => o.id === parser.id)) continue
+        if (this.valueStrategies.find((o: IParserStrategy<InputDataTypes>) => o.id === parser.id))
+            continue
         this.valueStrategies.push(parser)
     }
 }

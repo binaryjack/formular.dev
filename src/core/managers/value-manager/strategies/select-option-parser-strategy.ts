@@ -3,7 +3,7 @@ import { optionBaseedNumericTypes } from '@core/framework/common/common.input.ty
 import { selectGetter, selectSetter } from '../parsers/select-option-io'
 import { setParserStrategy } from '../value-manager.types'
 
-export const numericOptionParserStrategy = setParserStrategy(
+export const selectOptionParserStrategy = setParserStrategy(
     'SelectOptionParserStrategy',
     optionBaseedNumericTypes,
     'selectedOptionId',

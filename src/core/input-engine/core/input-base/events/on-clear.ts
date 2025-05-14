@@ -1,5 +1,5 @@
-import { IInputBase } from '../input-base.types'
+import { IExtendedInput } from '../input-base.types'
 
-export const onClear = (f: IInputBase, e: Event) => {
+export const onClear = (f: IExtendedInput, e: Event) => {
     // console.log('onClear', f.name, f.value)
 }

@@ -1,9 +1,5 @@
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
-import {
-    IValidationManager,
-    IValidationResult,
-    IValidationStrategyData
-} from '../validation-manager.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IValidationManager, IValidationResult } from '../validation-manager.types'
 
 /**
  * Validates the provided data using the strategies defined in the Validator instance.
@@ -12,7 +8,7 @@ import {
  */
 export function validate(
     this: IValidationManager,
-    field: IInput,
+    field: IExtendedInput,
     reset?: boolean
 ): IValidationResult[] {
     const output: IValidationResult[] = []

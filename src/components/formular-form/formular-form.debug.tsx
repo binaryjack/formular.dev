@@ -60,8 +60,8 @@ const FormularFormDebug = ({ formular }: FormyDebugProps) => {
                             </div>
                             <div className={`debug-table-col auto-cols-min`}>
                                 <div className={`text-elipsis`}>
-                                    {field?.input.valueManager.getValue() === 'object'
-                                        ? JSON.stringify(field?.input.valueManager.getValue())
+                                    {field?.input.valueManager.getValue(field) === 'object'
+                                        ? JSON.stringify(field?.input.valueManager.getValue(field))
                                         : String(
                                               field?.input.valueManager.toString() ?? 'NO VALUE'
                                           )}

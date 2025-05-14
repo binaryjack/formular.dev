@@ -37,7 +37,7 @@ export const setParserStrategy = <T extends Partial<InputDataTypes> | null>(
 }
 
 export interface IValueManagerProperties {
-    valueStrategies: IParserStrategy<unknown>[]
+    valueStrategies: IParserStrategy<InputDataTypes>[]
 }
 
 export interface IValueManager extends IValueManagerProperties, IExtendedInputBase {

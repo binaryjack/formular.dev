@@ -26,19 +26,19 @@ export interface IDomRegisterBuilder {
 
 export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: IExtendedInput) {
     this.registerChange = function (this: IDomRegisterBuilder) {
-        this.onChange = (e: Event) => onChange(context.input, e)
+        this.onChange = (e: Event) => onChange(context, e)
         return this
     }
     this.registerBlur = function (this: IDomRegisterBuilder) {
-        this.onBlur = (e: Event) => onBlur(context.input, e)
+        this.onBlur = (e: Event) => onBlur(context, e)
         return this
     }
     this.registerFocus = function (this: IDomRegisterBuilder) {
-        this.onFocus = (e: Event) => onFocus(context.input, e)
+        this.onFocus = (e: Event) => onFocus(context, e)
         return this
     }
     this.registerClick = function (this: IDomRegisterBuilder) {
-        this.onClick = (e: Event) => onClick(context.input, e)
+        this.onClick = (e: Event) => onClick(context, e)
         return this
     }
     this.registerClickLabel = function (this: IDomRegisterBuilder, optionId: string) {

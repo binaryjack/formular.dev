@@ -1,7 +1,7 @@
 import { EventsType } from '@core/framework/events/events.types'
 import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 
 export interface IValidableForm {
@@ -16,6 +16,7 @@ export interface IValidationResult {
     state: boolean
     code: string
     fieldName: string
+    triggerEventTypes: EventsType[]
     error?: IFieldError
     guide?: IFieldGuide
 }
@@ -42,17 +43,18 @@ export const newValidationResult = (
     state: boolean,
     fieldName: string,
     code: string,
+    triggerEventTypes: EventsType[],
     error?: IFieldError,
     guide?: IFieldGuide
 ): IValidationResult => {
-    return { state, fieldName, code, error, guide }
+    return { state, fieldName, code, error, guide, triggerEventTypes }
 }
 
 export type IValidationStrategyType = (field: IInput) => IValidationManager
 
 export interface IValidationMethodStrategy {
     new (): IValidationMethodStrategy
-    validate: (field: IInput) => IValidationResult
+    validate: (field: IExtendedInput) => IValidationResult
 }
 
 export interface IValidationManager extends IInitializableDependency {
@@ -62,8 +64,8 @@ export interface IValidationManager extends IInitializableDependency {
     validationTriggerModeType: EventsType[]
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
-    validate: (field: IInput) => IValidationResult[]
-    validateAll: (fields: IInput[]) => IValidationResults[]
+    validate: (field: IExtendedInput) => IValidationResult[]
+    validateAll: (fields: IExtendedInput[]) => IValidationResults[]
 }
 
 export interface IValidationTextBase {

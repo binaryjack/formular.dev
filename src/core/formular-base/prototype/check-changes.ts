@@ -13,8 +13,8 @@ export function checkChanges(this: IFormular) {
             (o: IExtendedInput) => o.input.id === fld.input.id
         )
 
-        const originalValue = originalField?.input.valueManager.getValue()
-        const newValue = fld.input.valueManager.getValue()
+        const originalValue = originalField?.input.valueManager.getValue(originalField)
+        const newValue = fld.input.valueManager.getValue(fld)
         if (originalValue !== newValue) {
             changes.push({ name: fld.input.name, hasChanges: true })
             break

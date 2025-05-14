@@ -1,7 +1,7 @@
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     IValidationMethodStrategy,
     newValidationResult,
@@ -9,35 +9,48 @@ import {
 } from '../validation-manager.types'
 
 export const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
-    this.validate = function (field: IInput) {
+    this.validate = function (field: IExtendedInput) {
         const name = field.name
-        const value = field.valueManager.getValue()
+        const value = field.input.valueManager.getValue(field)
 
-        if (!field?.validationOptions?.maxLength) {
-            return newValidationResult(true, field.name, ValidationErrorsCodes.maxLength)
-        }
-
-        const hasValue = !valueIsNullOrUndefined(field?.value)
-
-        if (hasValue && field.toString().length > field.validationOptions?.maxLength?.maxLength) {
+        if (!field?.input.validationOptions?.maxLength) {
             return newValidationResult(
-                false,
-                field.name,
+                true,
+                name,
                 ValidationErrorsCodes.maxLength,
-                newFieldError(
-                    field.name,
-                    ValidationErrorsCodes.maxLength,
-                    field.validationOptions.maxLength.error ?? undefined
-                ),
-                newFieldGuide(
-                    field.name,
-                    ValidationErrorsCodes.maxLength,
-                    field.validationOptions.maxLength?.guide ?? undefined
-                ),
-                field
+                field.input.validationManager.validationTriggerModeType
             )
         }
 
-        return newValidationResult(true, field.name, ValidationErrorsCodes.maxLength)
+        const hasValue = !valueIsNullOrUndefined(value)
+
+        if (
+            hasValue &&
+            field.toString().length > field?.input.validationOptions?.maxLength?.maxLength
+        ) {
+            return newValidationResult(
+                false,
+                name,
+                ValidationErrorsCodes.maxLength,
+                field.input.validationManager.validationTriggerModeType,
+                newFieldError(
+                    name,
+                    ValidationErrorsCodes.maxLength,
+                    field?.input.validationOptions.maxLength.error ?? undefined
+                ),
+                newFieldGuide(
+                    name,
+                    ValidationErrorsCodes.maxLength,
+                    field?.input.validationOptions.maxLength?.guide ?? undefined
+                )
+            )
+        }
+
+        return newValidationResult(
+            true,
+            name,
+            ValidationErrorsCodes.maxLength,
+            field.input.validationManager.validationTriggerModeType
+        )
     }
 } as any as IValidationMethodStrategy

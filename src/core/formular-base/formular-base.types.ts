@@ -4,8 +4,7 @@ import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import {
     IValidableForm,
-    IValidationManager,
-    IValidationStrategyData
+    IValidationManager
 } from '@core/managers/validation-manager/validation-manager.types'
 import { LoadingStatus } from '@core/status'
 
@@ -35,8 +34,8 @@ export interface IFormularBase {
     submitCount: number
     canValidate: boolean
     setup: (autoTracker?: INotificationManager) => void
-    handleValidation: (data?: IValidationStrategyData) => void
-    validateAll: (data?: IValidationStrategyData) => Promise<boolean>
+    handleValidation: () => void
+    validateAll: () => Promise<boolean>
     addFields: (...flds: IInput[]) => void
     getField: (fieldName: string) => IExtendedInput | undefined
     checkChanges: () => void
