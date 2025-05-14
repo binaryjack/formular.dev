@@ -11,10 +11,10 @@ export const setValue = function (
 ) {
     switch (this.input.type) {
         case 'checkbox':
-            this.setValueCheckBox(value as boolean)
+            this.setValueCheckBox(field, value as boolean)
             break
         case 'radio':
-            this.setValueRadio(value as string)
+            this.setValueRadio(field, value as string)
             break
         case 'select':
             this.setValueSelect(value as string)

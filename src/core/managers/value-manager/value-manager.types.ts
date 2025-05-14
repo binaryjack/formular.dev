@@ -1,33 +1,38 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import { IExtendedInputBase, IInput } from '@core/input-engine/core/input-base/input-base.types'
+import {
+    IExtendedInput,
+    IExtendedInputBase
+} from '@core/input-engine/core/input-base/input-base.types'
 
-export type TParser<TOut> = (field: IInput, value: Partial<InputDataTypes> | null) => TOut | null
+export type TGetter<T extends Partial<InputDataTypes> | null> = (field: IExtendedInput) => T
+export type TSetter<T extends Partial<InputDataTypes> | null> = (
+    field: IExtendedInput,
+    value: T
+) => void
 
-export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId'
+export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId' | 'checked' | 'objectValue'
 
-export interface IParserStrategy<TOut> {
+export interface IParserStrategy<T extends Partial<InputDataTypes> | null> {
     id: string
     concernedTypes: string[]
     fieldValueProperty: FieldValuePropertyType
-    /** From model IInput.value / .checked / .other .. To Value */
-    methodOut: TParser<TOut>
-    /** To model IInput.value / .checked / .other ..   */
-    methodIn: TParser<TOut>
+    setter: TSetter<T>
+    getter: TGetter<T>
 }
 
-export const setParserStrategy = <TOut>(
+export const setParserStrategy = <T extends Partial<InputDataTypes> | null>(
     id: string,
     concernedTypes: string[],
     fieldValueProperty: FieldValuePropertyType,
-    methodOut: TParser<TOut>,
-    methodIn: TParser<TOut>
-): IParserStrategy<TOut> => {
+    setter: TSetter<T>,
+    getter: TGetter<T>
+): IParserStrategy<T> => {
     return {
         id,
         concernedTypes,
         fieldValueProperty,
-        methodOut,
-        methodIn
+        setter,
+        getter
     }
 }
 
@@ -39,7 +44,7 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     new (): IValueManager
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
-    getAsString: (field: IInput) => string | null
-    setValue: (field: IInput, value: Partial<InputDataTypes> | null) => void
-    getValue: (field: IInput) => Partial<InputDataTypes> | null
+    getAsString: (field: IExtendedInput) => string | null
+    setValue: (field: IExtendedInput, value: Partial<InputDataTypes> | null) => void
+    getValue: (field: IExtendedInput) => Partial<InputDataTypes> | null
 }

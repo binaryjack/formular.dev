@@ -1,4 +1,4 @@
-import { booleanParserStrategy } from '../strategies/boolean-based-parser-strategy'
+import { booleanParserStrategy } from '../strategies/boolean-parser-strategy'
 import { dateOrTimeParserStrategy } from '../strategies/date-or-time-based-parser-strategy'
 import { numericParserStrategy } from '../strategies/numeric-based-parser-strategy'
 import { numericOptionBasedParserStrategy } from '../strategies/numeric-option-based-parser-strategy'

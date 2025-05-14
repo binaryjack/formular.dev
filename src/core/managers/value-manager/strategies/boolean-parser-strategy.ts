@@ -1,10 +1,11 @@
 import { booleanTypes } from '@core/framework/common/common.input.types'
-import { booleanParser } from '../parsers/boolean-parser'
+import { booleanGetter, booleanSetter } from '../parsers/boolean-io'
 import { setParserStrategy } from '../value-manager.types'
 
 export const booleanParserStrategy = setParserStrategy(
     'BooleanParserStrategy',
     booleanTypes,
-    'value',
-    booleanParser
+    'checked',
+    booleanSetter,
+    booleanGetter
 )

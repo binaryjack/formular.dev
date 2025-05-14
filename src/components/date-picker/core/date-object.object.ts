@@ -26,21 +26,21 @@ export const DateObject = function (
 } as any as IDateObject
 
 DateObject.prototype = {
-    day: function () {
+    day: function (this: IDateObject) {
         return this.dateObject.day
     },
-    month: function () {
+    month: function (this: IDateObject) {
         return this.dateObject.month
     },
-    year: function () {
+    year: function (this: IDateObject) {
         return this.dateObject.year
     },
-    isDefined: function () {
+    isDefined: function (this: IDateObject) {
         return (
             this.dateObject.day !== 0 && this.dateObject.month !== 0 && this.dateObject.year !== 0
         )
     },
-    setFromStrings: function (day = '', month = '', year = '') {
+    setFromStrings: function (this: IDateObject, day = '', month = '', year = '') {
         this.dateObject.day = parseInt(day)
         this.dateObject.month = parseInt(month) - 1
         this.dateObject.year = parseInt(year)
@@ -50,27 +50,27 @@ DateObject.prototype = {
             this.dateObject.day
         ).getDay()
     },
-    setFromNumbers: function (day = 0, month = 0, year = 0) {
+    setFromNumbers: function (this: IDateObject, day = 0, month = 0, year = 0) {
         this.dateObject.day = day
         this.dateObject.month = month
         this.dateObject.year = year
         this.dayOfWeek = new Date(year, month, day).getDay()
     },
-    setFromDate: function (date: Date) {
+    setFromDate: function (this: IDateObject, date: Date) {
         this.dateObject.day = date.getDate()
         this.dateObject.month = date.getMonth()
         this.dateObject.year = date.getFullYear()
         this.dayOfWeek = date.getDay()
     },
-    setFromNumber: function (date: number) {
+    setFromNumber: function (this: IDateObject, date: number) {
         const d = new Date(date)
-        this.setFromDate(d)
+        this.setFromDate?.(d)
     },
     /** here we store the date object with the month shifted - 1 */
-    setFromObject: function (date: INDate) {
+    setFromObject: function (this: IDateObject, date: INDate) {
         this.dateObject = { ...date, month: date.month - 1 }
     },
-    setFromString: function (date: string, format: DatePickerFormatsEnum) {
+    setFromString: function (this: IDateObject, date: string, format: DatePickerFormatsEnum) {
         if (date.length === 10) {
             let _year = ''
             let _month = ''
@@ -93,19 +93,19 @@ DateObject.prototype = {
                 _day = date.substring(8)
             }
 
-            this.setFromStrings(_day, _month, _year)
+            this.setFromStrings?.(_day, _month, _year)
             return true
         }
         return false
     },
-    isNullEmptyOrUndefined: function (dateObject: INDate | undefined | null) {
+    isNullEmptyOrUndefined: function (this: IDateObject, dateObject: INDate | undefined | null) {
         return dateObject === null || dateObject === undefined
     },
-    setCurrentDate: function (year: number, month: number, day = 1) {
-        this.setFromNumbers(day, month, year)
+    setCurrentDate: function (this: IDateObject, year: number, month: number, day = 1) {
+        this.setFromNumbers?.(day, month, year)
     },
     /** Note that  */
-    toString: function (format: DatePickerFormatsEnum) {
+    toString: function (this: IDateObject, format: DatePickerFormatsEnum) {
         if (format === DatePickerFormatsEnum.MM_DD_YYYY) {
             return `${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${this.dateObject.year}`
         }
@@ -119,37 +119,40 @@ DateObject.prototype = {
         }
         return ''
     },
-    toDate: function () {
+    toDate: function (this: IDateObject) {
         return new Date(this.dateObject.year, this.dateObject.month, this.dateObject.day)
     },
     /** here we return the date object with the month shifted + 1 */
-    toINDate: function () {
+    toINDate: function (this: IDateObject) {
         return {
             year: this.dateObject.year,
             month: this.dateObject.month + 1,
             day: this.dateObject.day
         } as INDate
     },
-    parse: function (value: DateObjectTypes) {
+    parse: function (this: IDateObject, value: DateObjectTypes) {
         if (typeof value === 'string') {
             const isValidFormat = validateDateFormat(value)
-            this.setFromString(value, isValidFormat)
-            if (isValidFormat) return
+            if (!isValidFormat) {
+                this.setFromString?.(value, DatePickerFormatsEnum.YYYY_MM_DD)
+                return
+            }
+            this.setFromString?.(value, isValidFormat as DatePickerFormatsEnum)
         }
 
         if (typeof value === 'number') {
-            this.setFromNumber(value)
+            this.setFromNumber?.(value)
             return
         }
 
         if (value instanceof Date) {
-            this.setFromDate(value)
+            this.setFromDate?.(value)
             return
         }
 
         if (typeof value === 'object' && value !== null) {
             if ('year' in value && 'month' in value && 'day' in value) {
-                this.setFromObject(value as INDate)
+                this.setFromObject?.(value as INDate)
                 return
             }
         }

@@ -8,7 +8,10 @@ import {
     IDrawerBaseInput,
     IDrawerBaseInputProperties
 } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
-import { IOptionBaseInputProperties } from '@core/input-engine/variants/option-based/option-base-input.types'
+import {
+    IOptionBaseInput,
+    IOptionBaseInputProperties
+} from '@core/input-engine/variants/option-based/option-base-input.types'
 import { IRadioBaseInputProperties } from '@core/input-engine/variants/radio-base/radio-base-input.types'
 import { ISelectBaseInputProperties } from '@core/input-engine/variants/select-base/select-base-input.types'
 import { ITextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
@@ -112,6 +115,7 @@ export interface IExtendedInput
         IRadioBaseInputProperties,
         ISelectBaseInputProperties,
         IValueManagerProperties,
+        IOptionBaseInput,
         ITextBaseInput,
         IExtendedInputBase,
         IInitializableDependency {

@@ -1,10 +1,12 @@
 import { optionBaseedNumericTypes } from '@core/framework/common/common.input.types'
-import { numericParser } from '../parsers/numeric-parser'
+
+import { optionGetter, optionSetter } from '../parsers/options-io'
 import { setParserStrategy } from '../value-manager.types'
 
-export const numericOptionBasedParserStrategy = setParserStrategy(
-    'NumericOptionBasedParserStrategy',
+export const numericOptionParserStrategy = setParserStrategy(
+    'NumericOptionParserStrategy',
     optionBaseedNumericTypes,
     'selectedOptionId',
-    numericParser
+    optionSetter,
+    optionGetter
 )
