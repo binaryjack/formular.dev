@@ -31,15 +31,15 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     }
 
     useEffect(() => {
-        if (!stableField?.input.styler?.getFlagsObject?.()) return
-        setFlags(stableField?.input.styler?.getFlagsObject?.())
-    }, [stableField?.input.styler?.classNames()])
+        if (!stableField?.input.styleManager?.getFlagsObject?.()) return
+        setFlags(stableField?.input.styleManager?.getFlagsObject?.())
+    }, [stableField?.input.styleManager?.classNames()])
 
     /** Bind the function handleRefresh to field events*
      */
     const acceptNotificationStrategy = (localName: string, event: EventsType) => {
         if (!stableField) return
-        stableField.input.notifier?.accept(
+        stableField.input.notificationManager?.accept(
             notification(useField, handleRefresh, event, `useField.${event}`, useField.name)
         )
     }

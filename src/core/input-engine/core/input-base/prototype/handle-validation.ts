@@ -1,6 +1,7 @@
 import { IEvents } from '@core/framework/events/events.types'
+import { newEvent } from '@core/framework/events/new-event'
 import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
-import { IExtendedInput } from '../input-base.types'
+import { IExtendedInput, IInputBase } from '../input-base.types'
 
 /**
  * Handles the validation process for a field input.
@@ -52,6 +53,16 @@ export const handleValidation = function <T extends IEvents>(this: IExtendedInpu
         'errors',
         results.some((result) => !result.state)
     )
-
+    ;(data.fieldRef?.input as unknown as IInputBase)?.notificationManager?.notify(
+        'onUiUpdate',
+        newEvent(
+            data.fieldRef?.input.name,
+            handleValidation.name,
+            'onUiUpdate',
+            `field.`,
+            data.fieldRef?.input.name,
+            data.fieldRef
+        )
+    )
     return results
 }
