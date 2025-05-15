@@ -1,12 +1,7 @@
 import { IEvents } from '@core/framework/events/events.types'
-import {
-    IValidationResult,
-    IValidationStrategyData
-} from '../validation-manager/validation-manager.types'
+import { IValidationResult } from '../validation-manager/validation-manager.types'
 
-export type dataStrategyResultAsyncType = (
-    data: IValidationStrategyData
-) => Promise<IValidationResult>
+export type dataStrategyResultAsyncType = (data: IEvents) => Promise<IValidationResult>
 
 export type TNotificationMethod<T = any> = (data?: T) => void
 

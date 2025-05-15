@@ -8,9 +8,10 @@ import {
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
-export const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
+const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
+    this.name = ValidatorMinStrategy.name
     this.validate = function (field: IExtendedInput) {
-        const name = field.name
+        const name = field.input.name
         const value = field.input.valueManager.getValue(field)
         if (!field?.input.validationOptions?.min) {
             return newValidationResult(
@@ -50,3 +51,5 @@ export const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
         )
     }
 } as any as IValidationMethodStrategy
+
+export const validatorMinStrategy = new ValidatorMinStrategy()

@@ -17,13 +17,7 @@ const useForm = function (form: IFormular) {
         )
         stableForm.fields.forEach((field) => {
             field.input.notificationManager.accept(
-                notification(
-                    field.input,
-                    handleRefresh,
-                    event,
-                    `useForm.field.${event}`,
-                    useForm.name
-                )
+                notification(field, handleRefresh, event, `useForm.field.${event}`, useForm.name)
             )
         })
     }

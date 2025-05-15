@@ -27,6 +27,6 @@ export const clear = function (this: IInput) {
 
     this?.notificationManager?.notify(
         'onClear',
-        newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`)
+        newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`, this.name, this)
     )
 }

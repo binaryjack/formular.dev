@@ -1,8 +1,11 @@
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
-import { InputStateType } from '@core/framework/common/common.input.state.types'
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
+import {
+    InputClassStatesNamesType,
+    InputClassStatesValuesEnum
+} from '@core/framework/common/common.input.state.types'
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IStyleManager } from '../style-manager.types'
@@ -12,27 +15,22 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const em = new ExceptionManager(
-            ...[newAssert(this.input !== undefined, `The dependency field is not instanciated`)]
-        )
-        em.process()
-        if (em.hasErrors()) {
-            logManager(undefined, 'critical', 'initialize', em.toString())
-        }
-
         const success = await abstractInitializer(this.input, (e) => {
             e?.notificationManager?.observers.subscribe(this.classNames.bind(this))
             e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this))
 
             e.styleManager.className = ''
-            e.styleManager.classesList = new Map<InputStateType, string>([
-                ['dirty', 'is-not-dirty'],
-                ['errors', 'no-errors'],
-                ['focus', 'is-not-focus'],
-                ['open', 'is-closed'],
-                ['pristine', 'is-pristine'],
-                ['valid', 'is-valid'],
-                ['required', 'required']
+            e.styleManager.classesList = new Map<
+                InputClassStatesNamesType,
+                InputClassStatesValuesEnum
+            >([
+                ['dirty', InputClassStatesValuesEnum.no_dirty],
+                ['errors', InputClassStatesValuesEnum.no_errors],
+                ['focus', InputClassStatesValuesEnum.no_focus],
+                ['open', InputClassStatesValuesEnum.no_open],
+                ['pristine', InputClassStatesValuesEnum.pristine],
+                ['valid', InputClassStatesValuesEnum.valid],
+                ['required', InputClassStatesValuesEnum.required]
             ])
 
             e?.styleManager.update(
@@ -45,8 +43,17 @@ export const initialize = async function (
         })
 
         if (success) {
-            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
-            this.isInitialized = true
+            const em = new ExceptionManager(
+                ...[newAssert(this.input !== undefined, `The dependency field is not instanciated`)]
+            )
+
+            em.process()
+            if (em.hasErrors()) {
+                logManager(undefined, 'critical', 'initialize', em.toString())
+            } else {
+                logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
+                this.isInitialized = true
+            }
         }
     } catch (e: any) {
         logManager(this.input.trackingManager, 'critical', this.dependencyName, e)

@@ -25,7 +25,7 @@ export const createTextBased = function (
 
         const _baseInput = this.createBaseInput(config)
         const _textInput = instanciateTextBaseInput(_baseInput!)
-        const dependencies = baseDependencyList(_baseInput, _baseInput, _textInput)
+        const dependencies = baseDependencyList(_baseInput, _textInput)
 
         sequenceInitializer(config, dependencies)
 

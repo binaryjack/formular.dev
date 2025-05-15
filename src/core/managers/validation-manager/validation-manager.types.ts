@@ -54,6 +54,7 @@ export type IValidationStrategyType = (field: IInput) => IValidationManager
 
 export interface IValidationMethodStrategy {
     new (): IValidationMethodStrategy
+    name: string
     validate: (field: IExtendedInput) => IValidationResult
 }
 

@@ -14,20 +14,6 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const em = new ExceptionManager(
-            ...[
-                newAssert(this.input !== undefined, `The dependency field is not instanciated`),
-                newAssert(
-                    this.input.isInitialized,
-                    `${this.dependencyName}: The dependency field is not properly initialized`
-                )
-            ]
-        )
-        em.process()
-        if (em.hasErrors()) {
-            logManager(undefined, 'critical', 'initialize', em.toString())
-        }
-
         const success = await abstractInitializer(
             this.input,
             (e) => {
@@ -40,8 +26,22 @@ export const initialize = async function (
         )
 
         if (success) {
-            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
-            this.isInitialized = true
+            const em = new ExceptionManager(
+                ...[
+                    newAssert(this.input !== undefined, `The dependency field is not instanciated`),
+                    newAssert(
+                        this.input.isInitialized,
+                        `${this.dependencyName}: The dependency field is not properly initialized`
+                    )
+                ]
+            )
+            em.process()
+            if (em.hasErrors()) {
+                logManager(undefined, 'critical', 'initialize', em.toString())
+            } else {
+                logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
+                this.isInitialized = true
+            }
         }
     } catch (e: any) {
         logManager(this.input.trackingManager, 'critical', this.dependencyName, e)

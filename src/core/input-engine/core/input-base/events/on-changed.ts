@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
@@ -13,9 +14,10 @@ export const onChange = (f: IExtendedInput, e: Event) => {
     f.input.styleManager?.update('pristine', f.input.isPristine)
     f.input.styleManager?.update('dirty', f.input.isDirty)
 
-    f.input.notificationManager?.notify(
+    f.input.notificationManager?.debounceNotify(
         'onChange',
-        newEvent(f.name, onChange.name, 'onChange', `field.${onChange.name}`)
+        conventions.events.onChange.triggerDelay,
+        newEvent(f.input.name, onChange.name, 'onChange', `field.${onChange.name}`, f.input.name, f)
     )
 
     e.stopPropagation()

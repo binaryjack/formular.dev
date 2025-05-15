@@ -1,11 +1,14 @@
-import { InputStateType } from '@core/framework/common/common.input.state.types'
+import {
+    InputClassStatesNamesType,
+    InputClassStatesValuesEnum
+} from '@core/framework/common/common.input.state.types'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
 export const defaultFieldInputCSSClassName = 'f-input'
 
 export interface IFlags {
-    state: InputStateType
-    value: string
+    state: InputClassStatesNamesType
+    value: InputClassStatesValuesEnum
 }
 
 export interface IFieldStateFlags {
@@ -30,13 +33,13 @@ export const defaultFieldStateFlags: IFieldStateFlags = {
 
 export interface IFieldStyleProperties {
     className: string
-    classesList: Map<InputStateType, string>
+    classesList: Map<InputClassStatesNamesType, InputClassStatesValuesEnum>
 }
 
 export interface IStyleManager extends IFieldStyleProperties, IExtendedInputBase {
     new (): IStyleManager
-    update: (type: InputStateType, state: boolean) => void
-    get: (state: InputStateType) => string
+    update: (type: InputClassStatesNamesType, state: boolean) => void
+    get: (state: InputClassStatesNamesType) => string
     getFlagsList: () => IFlags[]
     getFlagsObject: () => IFieldStateFlags
     classNames: () => string

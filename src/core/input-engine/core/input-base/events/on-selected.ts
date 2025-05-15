@@ -4,14 +4,14 @@ import { IExtendedInput } from '../input-base.types'
 export const onBlur = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
-    f.isFocus = false
-    f.styleManager?.update('focus', f.isFocus)
+    f.input.isFocus = false
+    f.input.styleManager?.update('focus', f.input.isFocus)
 
     e.stopPropagation()
     e.preventDefault()
 
-    f?.notificationManager?.notify(
+    f?.input.notificationManager?.notify(
         'onBlur',
-        newEvent(f.name, onBlur.name, 'onBlur', `field.${onBlur.name}`)
+        newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
     )
 }

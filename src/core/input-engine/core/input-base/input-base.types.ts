@@ -28,8 +28,7 @@ import {
 } from '@core/managers/tracking-manager/tracker-manager.types'
 import {
     IValidationManager,
-    IValidationResult,
-    IValidationStrategyData
+    IValidationResult
 } from '@core/managers/validation-manager/validation-manager.types'
 import {
     IValueManager,
@@ -66,7 +65,7 @@ export interface IInputProperties extends IFieldDescriptor {
     enable: (enabled: boolean) => void
 
     hasChanges: (callback: () => void) => void
-    handleValidation: <T extends IEvents>(event?: T, data?: IValidationStrategyData) => void
+    handleValidation: <T extends IEvents>(data?: T) => void
 
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
@@ -100,6 +99,14 @@ export interface IInputBase extends IInputProperties, IInitializableDependency {
     useValueManager: (valueStrategyInstance?: IValueManager) => IInputBase
     useDrawerManager: (drawerableInstance?: IDrawerBaseInput) => IInputBase
     useStyleManager: (stylerInstance?: IStyleManager) => IInputBase
+}
+
+export const InputResolver = (field: IExtendedInput | IInputBase): IInputBase => {
+    if (field.dependencyName === 'InputBase') {
+        return field as IInputBase
+    } else {
+        return field.input as IInputBase
+    }
 }
 
 export interface IExtendedInputBase extends IInitializableDependency {

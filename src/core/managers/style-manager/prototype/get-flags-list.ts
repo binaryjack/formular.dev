@@ -1,4 +1,4 @@
-import { InputStateType } from '@core/framework/common/common.input.state.types'
+import { InputClassStatesNamesType } from '@core/framework/common/common.input.state.types'
 import { IStyleManager } from '../style-manager.types'
 
 /**
@@ -6,6 +6,6 @@ import { IStyleManager } from '../style-manager.types'
  *
  * @returns {InputStateType[]} - An array of all field states.
  */
-export function getFlagsList(this: IStyleManager): InputStateType[] {
+export function getFlagsList(this: IStyleManager): InputClassStatesNamesType[] {
     return Array.from(this.classesList.keys())
 }

@@ -7,7 +7,7 @@ export const initialize = function <T extends HTMLElement>(
     this: INotificationManager,
     params: IFieldInitializationParameters
 ) {
-    logManager(undefined, 'info', 'initialize', this.name)
+    logManager(undefined, 'info', 'initialize', this.dependencyName)
     // this.tracker = tracke
     this.isInitialized = true
 }

@@ -8,6 +8,13 @@ export const onClearHandle = (f: IExtendedInput) => {
     f.input.notificationManager?.debounceNotify(
         'onValidate',
         conventions.validations.triggerDelay,
-        newEvent(f.name, onClearHandle.name, 'onValidate', `field.state.${onClearHandle.name}`)
+        newEvent(
+            f.input.name,
+            onClearHandle.name,
+            'onValidate',
+            `field.state.${onClearHandle.name}`,
+            f.input.name,
+            f
+        )
     )
 }

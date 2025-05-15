@@ -1,5 +1,6 @@
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { newEvent } from '@core/framework/events/new-event'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IDrawerBaseInput } from '../drawer-base-input.types'
 
 /**
@@ -19,6 +20,13 @@ export const setOpenState = function (this: IDrawerBaseInput, state: ToggleableS
     //this.observers.trigger()
     this.input.notificationManager?.notify(
         'onOpen',
-        newEvent(this.input.name, setOpenState.name, 'onOpen', `field.state.${setOpenState.name}`)
+        newEvent(
+            this.input.name,
+            setOpenState.name,
+            'onOpen',
+            `field.state.${setOpenState.name}`,
+            this.input.name,
+            this as unknown as IExtendedInput
+        )
     )
 }

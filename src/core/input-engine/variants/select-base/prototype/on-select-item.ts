@@ -30,6 +30,13 @@ export const onSelectItem = function (this: IExtendedInput, option: IOptionItem)
 
     this.input.notificationManager?.notify(
         'onSelect',
-        newEvent(this.input.name, onSelectItem.name, 'onSelect', 'field.selected')
+        newEvent(
+            this.input.name,
+            onSelectItem.name,
+            'onSelect',
+            'field.selected',
+            this.input.name,
+            this as unknown as IExtendedInput
+        )
     )
 }

@@ -8,9 +8,10 @@ import {
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
-export const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
+const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
+    this.name = ValidatorMaxStrategy.name
     this.validate = function (field: IExtendedInput) {
-        const name = field.name
+        const name = field.input.name
         const value = field.input.valueManager.getValue(field)
         if (!field?.input.validationOptions?.max) {
             return newValidationResult(
@@ -50,3 +51,5 @@ export const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
         )
     }
 } as any as IValidationMethodStrategy
+
+export const validatorMaxStrategy = new ValidatorMaxStrategy()

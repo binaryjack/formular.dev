@@ -1,4 +1,4 @@
-import { InputStateType } from '@core/framework/common/common.input.state.types'
+import { InputClassStatesNamesType } from '@core/framework/common/common.input.state.types'
 import { IStyleManager } from '../style-manager.types'
 
 /**
@@ -7,6 +7,6 @@ import { IStyleManager } from '../style-manager.types'
  * @param {InputStateType} state - The state of the field to retrieve.
  * @returns {string} - The class name associated with the state.
  */
-export function get(this: IStyleManager, state: InputStateType): string {
+export function get(this: IStyleManager, state: InputClassStatesNamesType): string {
     return this.classesList.get(state) ?? ''
 }

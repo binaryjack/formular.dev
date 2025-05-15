@@ -1,9 +1,6 @@
 import { IEvents } from '@core/framework/events/events.types'
-import {
-    IValidationResult,
-    IValidationStrategyData
-} from '@core/managers/validation-manager/validation-manager.types'
-import { IInputBase } from '../input-base.types'
+import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
+import { IExtendedInput } from '../input-base.types'
 
 /**
  * Handles the validation process for a field input.
@@ -15,27 +12,26 @@ import { IInputBase } from '../input-base.types'
  * This function invokes the `validate` method on the current instance, passing a `validator` and the
  * optional `validationOrigin` derived from the `origin` parameter.
  */
-export const handleValidation = function <T extends IEvents>(
-    this: IInputBase,
-    e?: T,
-    data?: IValidationStrategyData
-) {
-    console.log('----handleValidation---', this.name, this.value)
-    if (this.name === undefined || this.value === undefined) {
+export const handleValidation = function <T extends IEvents>(this: IExtendedInput, data?: T) {
+    console.log(
+        '----handleValidation---',
+        data?.fieldRef?.input?.name,
+        data?.fieldRef?.input?.value
+    )
+    if (data?.fieldRef?.input?.name === undefined || data?.fieldRef?.input?.value === undefined) {
         return
     }
 
     let results: IValidationResult[] = []
-    console.log('----handleValidation', this.name, this.value)
-    const currentField = this.dependencyName === 'InputBase' ? this : this.input
+    console.log('----handleValidation', data?.fieldRef?.name, data?.fieldRef?.input?.value)
 
-    if (currentField === undefined || currentField.validationManager === undefined) {
+    if (!data?.fieldRef?.input?.validationManager) {
         console.warn('handleValidation', this)
         return
     }
 
-    if (!currentField.validationManager) {
-        currentField.message(
+    if (!data?.fieldRef?.input.validationManager) {
+        data?.fieldRef?.input.message(
             'critical',
             this.name,
             `${handleValidation.name} has no validationOptions in order to proceed to any validation please provide valid ValidationStrategy ant the initializazion of the field. process ended`
@@ -43,21 +39,16 @@ export const handleValidation = function <T extends IEvents>(
         return
     }
 
-    if (data?.validationTriggerModeType.includes('onValidate')) {
-        results = this.validationManager.validate(this) ?? []
-    } else {
-        // console.log('Validation skipped')
-    }
+    results = data?.fieldRef?.input.validationManager.validate(data?.fieldRef) ?? []
 
     // keep the validation results for the field
-    currentField.validationResults = results
+    data.fieldRef.input.validationResults = results
 
-    currentField.styleManager?.update(
+    data?.fieldRef?.input.styleManager?.update(
         'valid',
         results.every((result) => result.state)
     )
-
-    currentField.styleManager?.update(
+    data.fieldRef?.input.styleManager?.update(
         'errors',
         results.some((result) => !result.state)
     )

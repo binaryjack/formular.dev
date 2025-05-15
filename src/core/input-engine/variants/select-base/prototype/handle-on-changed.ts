@@ -1,5 +1,6 @@
 import { IEvents } from '@core/framework/events/events.types'
 import { onChangedHandle } from '@core/input-engine/core/input-base/events/on-changed-handle'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { ISelectBaseInput } from '../select-base-input.types'
 
 /**
@@ -11,5 +12,5 @@ import { ISelectBaseInput } from '../select-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnChanged = function <T extends IEvents>(this: ISelectBaseInput, data?: T) {
-    onChangedHandle(this.input)
+    onChangedHandle(this as unknown as IExtendedInput)
 }

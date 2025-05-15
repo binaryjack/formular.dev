@@ -1,5 +1,6 @@
 import { IEvents } from '@core/framework/events/events.types'
 import { onClearHandle } from '@core/input-engine/core/input-base/events/on-clear-handle'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { ITextBaseInput } from '../text-base-input.types'
 
 /**
@@ -11,5 +12,5 @@ import { ITextBaseInput } from '../text-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const handleOnClear = function <T extends IEvents>(this: ITextBaseInput, data?: T) {
-    onClearHandle(this.input)
+    onClearHandle(this as unknown as IExtendedInput)
 }

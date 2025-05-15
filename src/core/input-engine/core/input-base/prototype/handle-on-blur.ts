@@ -1,7 +1,7 @@
 import { IEvents } from '@core/framework/events/events.types'
 
 import { onBlurHandle } from '../events/on-blur-handle'
-import { IInput } from '../input-base.types'
+import { IExtendedInput, IInput } from '../input-base.types'
 
 /**
  * Handles the blur event for a field input.
@@ -10,6 +10,6 @@ import { IInput } from '../input-base.types'
  * @param data - Optional additional data associated with the blur event.
  * Logs the blur event, the provided data, and the current value of the field input.
  */
-export const handleOnBlur = function <T extends IEvents>(this: IInput, data?: T) {
-    onBlurHandle(this)
+export const handleOnBlur = function <T extends IEvents>(this: IExtendedInput, data?: T) {
+    onBlurHandle(data?.fieldRef as IExtendedInput)
 }

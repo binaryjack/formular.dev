@@ -14,6 +14,11 @@ import { IStyleManager } from '../style-manager.types'
 export const classNames = function (this: IStyleManager) {
     const ele = this.input?.domManager?.dmGet(this.input.id.toString())
     const userClassName = ele?.attributes.getNamedItem('data-class')?.value
-    ele?.setAttribute('class', `${userClassName} ${this.className}  `)
+
+    const flags: string[] = []
+
+    flags.push(this.classesList.get('valid') ?? '')
+
+    ele?.setAttribute('class', `${userClassName} ${this.className} ${flags.join(' ')}  `)
     // return `${userClassName} ${this.className} ${this.get()} `
 }

@@ -33,7 +33,7 @@ export const notification = <
 
     if ('dependencyName' in owner) {
         name =
-            owner?.dependencyName === 'IFieldBaseInput'
+            owner?.dependencyName === 'InputBase'
                 ? (owner as IInputBase)?.name
                 : (owner as IExtendedInputBase).input?.name
     } else {

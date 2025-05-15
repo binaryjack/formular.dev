@@ -20,6 +20,7 @@ export const optionReferencer = function (context: IExtendedInput, ref: HTMLInpu
     if (context.input.optionsInitialized) return
     if (context.input.checkOptionsInitialized()) {
         context.input.valueManager?.setValue(
+            context,
             context.input.defaultValue as IOptionItem | string | number | null
         )
         context.input.optionsInitialized = true

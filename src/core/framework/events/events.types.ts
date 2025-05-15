@@ -1,3 +1,5 @@
+import { IExtendedInput, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
+
 export interface IBaseEventsHanlders {
     handleOnChanged: <T extends IEvents>(data?: T) => void
 }
@@ -64,4 +66,5 @@ export interface IEvents {
     action: string
     toFlags: () => string
     target?: string
+    fieldRef?: IExtendedInput | IInputBase
 }

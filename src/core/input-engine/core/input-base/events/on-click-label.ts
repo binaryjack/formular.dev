@@ -20,7 +20,9 @@ export const onClickLabel = <T extends IExtendedInput>(f: T, optionId: string, e
             f.input.name,
             onClickLabel.name,
             'onClick',
-            `field.option.label.${onClickLabel.name}`
+            `field.option.label.${onClickLabel.name}`,
+            f.input.name,
+            f
         )
     )
 

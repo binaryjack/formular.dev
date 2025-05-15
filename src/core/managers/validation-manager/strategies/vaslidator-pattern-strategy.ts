@@ -8,9 +8,10 @@ import {
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
-export const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
+const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
+    this.name = ValidatorPatternStrategy.name
     this.validate = function (field: IExtendedInput) {
-        const name = field.name
+        const name = field.input.name
         const value = field.input.valueManager.getValue(field)
         if (!field?.input.validationOptions?.pattern?.pattern) {
             return newValidationResult(
@@ -49,3 +50,5 @@ export const ValidatorPatternStrategy = function (this: IValidationMethodStrateg
         )
     }
 } as any as IValidationMethodStrategy
+
+export const validatorPatternStrategy = new ValidatorPatternStrategy()

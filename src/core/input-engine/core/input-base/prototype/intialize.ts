@@ -11,27 +11,6 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const em = new ExceptionManager(
-            ...[
-                // newAssert(
-                //     this.field.isInitialized,
-                //     `The dependency field is not properly initialized`
-                // ),
-                // newAssert(
-                //     this.field.styler.isInitialized,
-                //     `The dependency field.styler is not properly initialized`
-                // ),
-                // newAssert(
-                //     params.descriptor?.options?.length > 0,
-                //     `None options were provided. this feature will not work properly`
-                // )
-            ]
-        )
-        em.process()
-        if (em.hasErrors()) {
-            logManager(undefined, 'critical', 'initialize', em.toString())
-        }
-
         const success = await abstractInitializer(
             this,
             (e) => {
@@ -45,8 +24,30 @@ export const initialize = async function (
         )
 
         if (success) {
-            logManager(this.trackingManager, 'info', this.dependencyName, 'Initialized')
-            this.isInitialized = true
+            const em = new ExceptionManager(
+                ...[
+                    // newAssert(
+                    //     this.field.isInitialized,
+                    //     `The dependency field is not properly initialized`
+                    // ),
+                    // newAssert(
+                    //     this.field.styler.isInitialized,
+                    //     `The dependency field.styler is not properly initialized`
+                    // ),
+                    // newAssert(
+                    //     params.descriptor?.options?.length > 0,
+                    //     `None options were provided. this feature will not work properly`
+                    // )
+                ]
+            )
+
+            em.process()
+            if (em.hasErrors()) {
+                logManager(undefined, 'critical', 'initialize', em.toString())
+            } else {
+                logManager(this.trackingManager, 'info', this.dependencyName, 'Initialized')
+                this.isInitialized = true
+            }
         }
     } catch (e: any) {
         logManager(this.trackingManager, 'critical', this.dependencyName, e)

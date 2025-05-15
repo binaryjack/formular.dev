@@ -14,6 +14,6 @@ export const onClick = (f: IExtendedInput, e: Event) => {
 
     f.input.notificationManager?.notify(
         'onClick',
-        newEvent(f.input.name, onClick.name, 'onClick', `field.${onClick.name}`)
+        newEvent(f.input.name, onClick.name, 'onClick', `field.${onClick.name}`, f.input.name, f)
     )
 }

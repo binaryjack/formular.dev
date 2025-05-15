@@ -8,9 +8,10 @@ import {
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
-export const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
+const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
+    this.name = ValidatorMaxLengthStrategy.name
     this.validate = function (field: IExtendedInput) {
-        const name = field.name
+        const name = field.input.name
         const value = field.input.valueManager.getValue(field)
 
         if (!field?.input.validationOptions?.maxLength) {
@@ -54,3 +55,5 @@ export const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrat
         )
     }
 } as any as IValidationMethodStrategy
+
+export const validatorMaxLengthStrategy = new ValidatorMaxLengthStrategy()

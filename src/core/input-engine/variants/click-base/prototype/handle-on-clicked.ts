@@ -1,5 +1,6 @@
 import { IEvents } from '@core/framework/events/events.types'
 import { onClickHandle } from '@core/input-engine/core/input-base/events/on-click-handle'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IClickBaseInput } from '../click-base-input.types'
 
 /**
@@ -11,5 +12,5 @@ import { IClickBaseInput } from '../click-base-input.types'
  * Logs the clicked value, the provided data, and the current value of the field input.
  */
 export const handleOnClicked = function <T extends IEvents>(this: IClickBaseInput, data?: T) {
-    onClickHandle(this.input)
+    onClickHandle(this as unknown as IExtendedInput)
 }

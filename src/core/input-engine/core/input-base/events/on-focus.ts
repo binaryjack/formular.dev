@@ -7,7 +7,7 @@ export const onFocus = (f: IExtendedInput, e: Event) => {
 
     f?.input.notificationManager?.notify(
         'onFocus',
-        newEvent(f.input.name, onFocus.name, 'onFocus', `field.${onFocus.name}`)
+        newEvent(f.input.name, onFocus.name, 'onFocus', `field.${onFocus.name}`, f.input.name, f)
     )
     e.stopPropagation()
     e.preventDefault()

@@ -8,9 +8,10 @@ import {
     ValidationErrorsCodes
 } from '../validation-manager.types'
 
-export const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
+const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
+    this.name = ValidatorRequiredStrategy.name
     this.validate = function (field: IExtendedInput) {
-        const name = field.name
+        const name = field.input.name
         const value = field.input.valueManager.getValue(field)
         if (!field?.input.validationOptions?.requiredData?.required) {
             return newValidationResult(
@@ -48,3 +49,5 @@ export const ValidatorRequiredStrategy = function (this: IValidationMethodStrate
         )
     }
 } as any as IValidationMethodStrategy
+
+export const validatorRequiredStrategy = new ValidatorRequiredStrategy()

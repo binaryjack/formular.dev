@@ -15,7 +15,18 @@ export const conventions = {
         validationDataToken2: '|data2|'
     },
     validations: {
-        triggerDelay: 2500
+        triggerDelay: 1000
+    },
+    events: {
+        onChange: {
+            triggerDelay: 500
+        },
+        onClick: {
+            triggerDelay: 100
+        },
+        onSelect: {
+            triggerDelay: 100
+        }
     },
     dataTypes: {
         date: {
