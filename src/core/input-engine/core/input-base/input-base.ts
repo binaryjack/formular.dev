@@ -20,6 +20,7 @@ import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
 import { message } from './prototype/message'
+import { refreshUi } from './prototype/refresh-ui'
 import { setFocus } from './prototype/set-focus'
 
 export const InputBase = function (this: IInputBase, descriptor: IFieldDescriptor) {
@@ -48,6 +49,7 @@ Object.assign(InputBase.prototype, {
     handleOnBlur,
     initialize,
     hasChanges,
+    refreshUi,
     setFocus,
     message,
     enable,

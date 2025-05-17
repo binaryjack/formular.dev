@@ -5,7 +5,6 @@ import createfromDescriptor from './prototype/create-from-descriptor'
 import createFromSchema from './prototype/create-from-schema'
 import getData from './prototype/get-data'
 import getForm from './prototype/get-form'
-import { getFormFlags } from './prototype/get-form-flags'
 import validate from './prototype/validate'
 
 export const FormularManager = function (
@@ -24,6 +23,5 @@ Object.assign(
     createFromSchema,
     getData,
     getForm,
-    validate,
-    getFormFlags
+    validate
 )

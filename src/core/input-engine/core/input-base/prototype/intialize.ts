@@ -11,17 +11,11 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const success = await abstractInitializer(
-            this,
-            (e) => {
-                // Extend the prototype of FieldStateStyle with FieldInput's prototype
-            },
-            [
-                notification(this, this.handleValidation, 'onValidate', 'onValidate', this.name),
-                notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
-                notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name)
-            ]
-        )
+        const success = await abstractInitializer(this, (e) => {}, [
+            notification(this, this.handleValidation, 'onValidate', 'onValidate', this.name),
+            notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
+            notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name)
+        ])
 
         if (success) {
             const em = new ExceptionManager(
@@ -46,6 +40,7 @@ export const initialize = async function (
                 logManager(undefined, 'critical', 'initialize', em.toString())
             } else {
                 logManager(this.trackingManager, 'info', this.dependencyName, 'Initialized')
+
                 this.isInitialized = true
             }
         }

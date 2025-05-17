@@ -24,7 +24,7 @@ export default function createFromSchema(
         transdlations
     )
 
-    const frm = new Formular(schema.name, this.autoTracker)
+    const frm = new Formular(schema.name, this, this.autoTracker)
     const fields = InputsProviderFromConfigurations(configurations)
     frm.addFields(...fields)
     this.forms.set(schema.name, frm)

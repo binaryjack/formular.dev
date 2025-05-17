@@ -1,5 +1,6 @@
 import { INotificationManager } from '../notification-manager-base.types'
 import { INotification } from '../notification-manager.types'
+import { getKey } from '../utils/key'
 
 /**
  * Accepts a notifier and adds it to the notifiers map if it doesn't already exist.
@@ -7,7 +8,7 @@ import { INotification } from '../notification-manager.types'
  * @param {INotification} notify - The notifier to be added.
  */
 export function accept(this: INotificationManager, notify: INotification) {
-    const key = `${notify.event.target ?? notify.event.emitterName}.${notify.event.action}`
+    const key = getKey(notify)
 
     const exisingNotifier = this.notifiers.get(key)
     if (exisingNotifier) {
@@ -21,6 +22,7 @@ export function accept(this: INotificationManager, notify: INotification) {
         }
     } else {
         // console.log('NOTIFIER REGISTERS', key)
+
         this.notifiers.set(key, notify)
     }
 }

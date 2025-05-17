@@ -1,4 +1,4 @@
-/* .validation-result {
+.validation-result {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,4 +28,4 @@
 
 .validation-result-drawer .guide {
     color: green;
-} */
+}

@@ -1,3 +1,4 @@
+import { IFieldInputLifeCycleInstance } from '@core/input-engine/core/field-input-lifecycle-instances/field-input-lifecycle-instances.types'
 import { DomManager } from '@core/managers/dom-manager/dom-manager'
 import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
@@ -7,7 +8,7 @@ import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manage
 import { ValidationManager } from '@core/managers/validation-manager/validation-manager'
 import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
 
-export const lifeCylceInstances = (function () {
+export const lifeCylceInstances: IFieldInputLifeCycleInstance = (function () {
     /** To be used as instance for AUTO TRACKER */
     const _intNotificationTracker = new NotificationManager()
     /** here are the common objects's instances that's can be shared among the fields */
@@ -17,10 +18,10 @@ export const lifeCylceInstances = (function () {
     const validationManagerInstance: IValidationManager = new ValidationManager()
 
     return {
-        notificationManagerInstance,
-        domManagerInstance,
-        trackingManagerInstance,
-        validationManagerInstance,
-        _intNotificationTracker
+        notificationManager: notificationManagerInstance,
+        domManager: domManagerInstance,
+        trackingManager: trackingManagerInstance,
+        validationManager: validationManagerInstance,
+        autoTracker: _intNotificationTracker
     }
 })()

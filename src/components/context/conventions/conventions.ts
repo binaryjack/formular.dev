@@ -8,7 +8,8 @@ export const conventions = {
         throw Error('MISSING NAME!')
     },
     suffix: {
-        labelId: '-label'
+        labelId: '-label',
+        describedById: '-describedby'
     },
     tokens: {
         validationDataToken1: '|data|',
@@ -19,13 +20,28 @@ export const conventions = {
     },
     events: {
         onChange: {
-            triggerDelay: 500
+            triggerDelay: 400
         },
         onClick: {
-            triggerDelay: 100
+            triggerDelay: 200
         },
         onSelect: {
-            triggerDelay: 100
+            triggerDelay: 200
+        },
+        onFocus: {
+            triggerDelay: 200
+        },
+        onBlur: {
+            triggerDelay: 200
+        },
+        onKeyDown: {
+            triggerDelay: 200
+        },
+        onKeyUp: {
+            triggerDelay: 200
+        },
+        onUiUpdate: {
+            triggerDelay: 10
         }
     },
     dataTypes: {

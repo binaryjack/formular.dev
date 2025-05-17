@@ -8,6 +8,7 @@ interface FormyDebugProps {
 const FormularFormDebug = ({ formular }: FormyDebugProps) => {
     // useForm(formy)
     const { getFormFlags } = useFormularContext()
+    const flags = getFormFlags()
     return (
         <div className={`form-debug  flex flex-col p-1 w-full h-full`}>
             <div className={`debug-table flex flex-col w-full`}>
@@ -23,14 +24,10 @@ const FormularFormDebug = ({ formular }: FormyDebugProps) => {
                         <div className={`text-elipsis`}>{formular.name}</div>
                     </div>
                     <div className={`debug-table-col auto-cols-min`}>
-                        <div className={`text-elipsis`}>
-                            {getFormFlags().isDirty ? 'Yes' : 'No'}
-                        </div>
+                        <div className={`text-elipsis`}>{flags.isDirty ? 'Yes' : 'No'}</div>
                     </div>
                     <div className={`debug-table-col auto-cols-min`}>
-                        <div className={`text-elipsis`}>
-                            {getFormFlags().isValid ? 'Yes' : 'No'}
-                        </div>
+                        <div className={`text-elipsis`}>{flags.isValid ? 'Yes' : 'No'}</div>
                     </div>
                     <div className={`debug-table-col auto-cols-min`}>
                         <div className={`text-elipsis`}>
@@ -60,10 +57,11 @@ const FormularFormDebug = ({ formular }: FormyDebugProps) => {
                             </div>
                             <div className={`debug-table-col auto-cols-min`}>
                                 <div className={`text-elipsis`}>
-                                    {field?.input.valueManager.getValue(field) === 'object'
+                                    {field?.input.type === 'date'
                                         ? JSON.stringify(field?.input.valueManager.getValue(field))
                                         : String(
-                                              field?.input.valueManager.toString() ?? 'NO VALUE'
+                                              field?.input.valueManager.getAsString(field) ??
+                                                  'NO VALUE'
                                           )}
                                 </div>
                             </div>

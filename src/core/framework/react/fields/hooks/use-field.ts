@@ -28,6 +28,8 @@ export const useField = <T extends IExtendedInput | IInputBase>(
 
     const handleRefresh = () => {
         forceUpdate()
+        if (!stableField?.input.styleManager?.getFlagsObject?.()) return
+        setFlags(stableField?.input.styleManager?.getFlagsObject?.())
     }
 
     useEffect(() => {

@@ -50,6 +50,7 @@ const SwitchButtonInput = ({
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
+                    isFocus={instance?.input.isFocus ?? false}
                 />
             }
             onClear={() => {

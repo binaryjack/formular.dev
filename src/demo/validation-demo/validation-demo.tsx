@@ -38,14 +38,16 @@ const FieldInputValidationSandbox = () => {
     const [internalForm, setInternalForm] = useState<IFormular | null>(null)
 
     const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
+        'onFocus',
         'onBlur',
-        'onChange'
+        'onChange',
+        'onSubmit'
     ])
 
     useEffect(() => {
         const validationDemoForm = new Formular(
             'validation-demo-form',
-            lifeCylceInstances._intNotificationTracker
+            lifeCylceInstances.autoTracker
         )
         validationDemoForm.setValidationTriggerMode(validationTriggerMode)
 
@@ -242,6 +244,8 @@ const FieldInputValidationSandbox = () => {
                                             )
                                         }
                                     >
+                                        <option value="onClick">onClick</option>
+                                        <option value="onFocus">onFocus</option>
                                         <option value="onBlur">onBlur</option>
                                         <option value="onChange">onChange</option>
                                         <option value="onSubmit">onSubmit</option>
@@ -250,11 +254,11 @@ const FieldInputValidationSandbox = () => {
                                     </select>
                                 </div>
                             </div>
-                            <div className="input-container w-full">
+                            <div className="input-container w-full mt-14 mb-20">
                                 <InputText fieldName="sandboxField" />
                             </div>
                         </div>
-                        <div className="sandbox-container flex flex-col p-1 w-full h-full">
+                        <div className="sandbox-container flex flex-col p-1 w-full h-full mt-14">
                             <NotifierDebugUi
                                 internalNotifierInstance={
                                     lifeCylceInstances._intNotificationTracker

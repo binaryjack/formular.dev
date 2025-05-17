@@ -53,6 +53,7 @@ const FieldDemo = ({ fields }: IFieldDemoProps) => {
                 validationChildren={
                     <ValidationResultComponent
                         validationResults={instance?.input?.validationResults ?? []}
+                        isFocus={flags.isFocus}
                     />
                 }
                 onClear={() => instance?.input?.clear()}

@@ -1,3 +1,4 @@
+import { IFormularManager } from '@core/formular-manager/formular-manager.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -27,12 +28,14 @@ export interface IFormularFlags {
 }
 
 export interface IFormularBase {
-    new (id: string, autoTracker?: INotificationManager): IFormular
+    new (id: string, manager: IFormularManager, autoTracker?: INotificationManager): IFormular
     id: string
     fields: IExtendedInput[]
     originFields: IExtendedInput[]
     submitCount: number
     canValidate: boolean
+    isFormularBinded: boolean
+    manager: IFormularManager
     setup: (autoTracker?: INotificationManager) => void
     handleValidation: () => void
     validateAll: () => Promise<boolean>
@@ -41,6 +44,7 @@ export interface IFormularBase {
     checkChanges: () => void
     setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void
+    getFormFlags: () => Partial<IFormularFlags>
     getData: () => Record<string, InputDataTypes>
     setValidationTriggerMode: (mode: EventsType[]) => void
 }

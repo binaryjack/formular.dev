@@ -33,13 +33,11 @@ export interface INotificationManager extends IInitializableDependency {
     new (autoTracker?: INotificationManager): INotificationManager
     getRegisteredNotifierNames: () => string[]
     notify: <T extends IEvents>(type: EventsType, data?: T) => void
-    /**TODO!!!
-     * implements
-     */
     trigger: () => void
 
     debounceNotify: <T extends IEvents>(type: EventsType, delay: number, data?: T) => void
     accept: (notify: INotification) => void
+    dismiss: (notify: INotification) => void
     init: () => void
     dispose: () => void
     notifiers: Map<string, INotification>

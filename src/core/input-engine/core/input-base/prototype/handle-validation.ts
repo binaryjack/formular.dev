@@ -1,6 +1,8 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
 import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
+import { aria } from '../../accessibility/arias'
 import { IExtendedInput, IInputBase } from '../input-base.types'
 
 /**
@@ -45,6 +47,8 @@ export const handleValidation = function <T extends IEvents>(this: IExtendedInpu
     // keep the validation results for the field
     data.fieldRef.input.validationResults = results
 
+    data.fieldRef.input.isValid = results.every((result) => result.state)
+
     data?.fieldRef?.input.styleManager?.update(
         'valid',
         results.every((result) => result.state)
@@ -53,13 +57,19 @@ export const handleValidation = function <T extends IEvents>(this: IExtendedInpu
         'errors',
         results.some((result) => !result.state)
     )
-    ;(data.fieldRef?.input as unknown as IInputBase)?.notificationManager?.notify(
+    data.fieldRef?.input.domManager.dmUpdateAria(
+        data.fieldRef?.input.id.toString(),
+        aria('invalid', data.fieldRef.input.isValid ? 'false' : 'true')
+    )
+    // ;(data.fieldRef?.input as unknown as IInputBase)?.refreshUi(data.fieldRef)
+    ;(data.fieldRef?.input as unknown as IInputBase)?.notificationManager?.debounceNotify(
         'onUiUpdate',
+        conventions.events.onUiUpdate.triggerDelay,
         newEvent(
             data.fieldRef?.input.name,
             handleValidation.name,
             'onUiUpdate',
-            `field.`,
+            `field`,
             data.fieldRef?.input.name,
             data.fieldRef
         )

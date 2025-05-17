@@ -12,7 +12,7 @@ export default function createfromDescriptor(
     if (this.forms.has(id)) {
         throw new Error(`Form with id ${id} already exists`)
     }
-    const frm = new Formular(id, this.autoTracker)
+    const frm = new Formular(id, this, this.autoTracker)
     const fields = InputsProviderFromConfigurations(configs)
     frm.addFields(...fields)
     this.forms.set(id, frm)

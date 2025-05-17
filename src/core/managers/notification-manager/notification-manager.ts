@@ -7,6 +7,7 @@ import { dispose } from './prototype/dispose'
 import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
 import { initialize } from './prototype/initialize'
 import { notify } from './prototype/notify'
+import { trigger } from './prototype/trigger'
 
 /**
  * Represents an entity that can be notified by various notifiers and can observe data mutations.
@@ -32,5 +33,6 @@ Object.assign(NotificationManager.prototype, {
     accept,
     initialize,
     notify,
-    dispose
+    dispose,
+    trigger
 })

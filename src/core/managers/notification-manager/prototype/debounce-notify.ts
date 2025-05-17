@@ -29,7 +29,7 @@ export const debounceNotify = function <T extends IEvents>(
     const timeoutId: number | NodeJS.Timeout = setTimeout(() => {
         // Execute the latest call for this EventType
         this.notifiers.forEach((notifier: INotification) => {
-            if (notifier.event.types.includes(type)) {
+            if (notifier?.event.types.includes(type)) {
                 notifier.method(latestCalls.get(type)?.data)
 
                 if (this.autoTracker) {

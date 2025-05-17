@@ -37,6 +37,7 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
+                    isFocus={flags.isFocus}
                 />
             }
             onClear={() => instance?.input?.clear()}

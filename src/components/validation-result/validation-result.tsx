@@ -8,6 +8,7 @@ import { useMemo } from 'react'
 
 interface ValidationResultProps {
     validationResults: IValidationResult[]
+    isFocus: boolean
 }
 
 const actionToDisplayError: EventsType[] = ['onBlur']
@@ -17,11 +18,17 @@ const arrayHasOneOrMany = <T,>(source: T[], contains: T[]): boolean => {
     return source.filter((o) => contains.includes(o)).length > 0
 }
 
-const ValidationResultComponent = ({ validationResults }: ValidationResultProps) => {
+const ValidationResultComponent = ({ validationResults, isFocus }: ValidationResultProps) => {
     const valid = useMemo(
         () => validationResults.every((result) => result.state),
-        [validationResults.length]
+        [validationResults.every((result) => result.state)]
     )
+
+    console.log('ValidationResultComponent focus', isFocus)
+
+    if (valid) {
+        return <></>
+    }
 
     return (
         <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
@@ -41,12 +48,12 @@ const ValidationResultComponent = ({ validationResults }: ValidationResultProps)
 
                     return (
                         <div key={`${result.fieldName}-${index}`}>
-                            {showError && result.error && (
-                                <div className="error">{result.error?.message}</div>
+                            {isFocus && showGuide && result.guide && (
+                                <div className="guide">{result.guide?.message}</div>
                             )}
 
-                            {showGuide && result.guide && (
-                                <div className="guide">{result.guide?.message}</div>
+                            {!isFocus && showError && result.error && (
+                                <div className="error">{result.error?.message}</div>
                             )}
                         </div>
                     )

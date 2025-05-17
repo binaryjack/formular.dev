@@ -35,6 +35,7 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
+                    isFocus={instance?.input.isFocus ?? false}
                 />
             }
             onClear={() => instance?.input?.clear()}

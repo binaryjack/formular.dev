@@ -1,3 +1,4 @@
+import { IAria } from '@core/managers/dom-manager/dom-manager.types'
 import { AriaHelper } from '../accessibility/arias'
 import { onBlur } from '../input-base/events/on-blur'
 import { onChange } from '../input-base/events/on-changed'
@@ -20,7 +21,7 @@ export interface IDomRegisterBuilder {
     registerFocus: () => IDomRegisterBuilder
     registerClick: () => IDomRegisterBuilder
     registerClickLabel: (optionId: string) => IDomRegisterBuilder
-    registerAria: () => IDomRegisterBuilder
+    registerAria: (...arias: IAria[]) => IDomRegisterBuilder
     build: () => any
 }
 
@@ -45,9 +46,10 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
         this.onClickLabel = (e: Event) => onClickLabel(context, optionId, e)
         return this
     }
-    this.registerAria = function (this: IDomRegisterBuilder) {
+    this.registerAria = function (this: IDomRegisterBuilder, ...arias: IAria[]) {
         const ah = new AriaHelper()
-        ah.applyNameAndLabel(context.input)
+        ah.addMany(...(arias ?? []))
+        ah.apply(context.input)
         return this
     }
     this.build = function (this: IDomRegisterBuilder): any {

@@ -11,9 +11,8 @@ import { INotification } from '../notification-manager.types'
  */
 export function notify<T extends IEvents>(this: INotificationManager, type: EventsType, data?: T) {
     this.notifiers.forEach((notifier: INotification) => {
-        if (notifier.event.types.includes(type)) {
+        if (notifier?.event.types.includes(type)) {
             notifier.method(data)
-
             if (this.autoTracker) {
                 this.autoTracker?.notify('onAutoTrackNotified', {
                     ...data,

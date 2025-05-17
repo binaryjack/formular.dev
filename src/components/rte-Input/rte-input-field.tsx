@@ -73,6 +73,7 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
+                    isFocus={instance?.input.isFocus ?? false}
                 />
             }
             onClear={() => {

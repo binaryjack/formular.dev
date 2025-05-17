@@ -29,6 +29,7 @@ export interface IDomManagerBase<T extends HTMLElement> extends IInitializableDe
     dmSetSelected: (id: string, selectionValue: string | null) => void
     dmAriaSet: (id: string, name: string) => void
     dmAddArias: (id: string, arias: IAria[]) => void
+    dmUpdateAria: <T extends HTMLElement>(id: string, aria: IAria) => void
 }
 export const DomUtils = {
     getElementById: (id: string): HTMLElement | null => document.getElementById(id),

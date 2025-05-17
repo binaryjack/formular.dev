@@ -12,6 +12,7 @@ import { dmSetEnabled } from './prototype/dm-set-enabled'
 import { dmSetFocus } from './prototype/dm-set-focus'
 import { dmSetSelected } from './prototype/dm-set-selected'
 import { dmSetValue } from './prototype/dm-set-value'
+import { dmUpdateAria } from './prototype/dm-update-aria'
 import { initialize } from './prototype/initialize'
 
 export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>) {
@@ -35,5 +36,6 @@ Object.assign(DomManager.prototype, {
     dmSetClass,
     dmSetSelected,
     dmAddArias,
-    dmAriaSet
+    dmAriaSet,
+    dmUpdateAria
 })
