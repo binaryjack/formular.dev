@@ -16,17 +16,23 @@ import { IExtendedInput, IInputBase } from '../input-base.types'
  * optional `validationOrigin` derived from the `origin` parameter.
  */
 export const handleValidation = function <T extends IEvents>(this: IExtendedInput, data?: T) {
-    console.log(
-        '----handleValidation---',
-        data?.fieldRef?.input?.name,
-        data?.fieldRef?.input?.value
-    )
+    if (data?.fieldRef?.input?.formular?.validateOnFirstSubmit) {
+        console.log(
+            '----handleValidation interrupted formular is busy or will validate on first submit---'
+        )
+        return
+    }
+
     if (data?.fieldRef?.input?.name === undefined || data?.fieldRef?.input?.value === undefined) {
         return
     }
 
     let results: IValidationResult[] = []
-    console.log('----handleValidation', data?.fieldRef?.name, data?.fieldRef?.input?.value)
+    console.log(
+        '----handleValidation',
+        data?.fieldRef?.dependencyName,
+        data?.fieldRef?.input?.value
+    )
 
     if (!data?.fieldRef?.input?.validationManager) {
         console.warn('handleValidation', this)

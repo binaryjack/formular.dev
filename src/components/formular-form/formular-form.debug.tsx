@@ -1,11 +1,11 @@
-import { IFormular } from '@core/formular-base/formular-base.types'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import useFormularContext from './formular-form.context'
 
-interface FormyDebugProps {
-    formular: IFormular
+interface FormyDebugProps<T extends object> {
+    formular: IFormular<T>
 }
 
-const FormularFormDebug = ({ formular }: FormyDebugProps) => {
+const FormularFormDebug = <T extends object>({ formular }: FormyDebugProps<T>) => {
     // useForm(formy)
     const { getFormFlags } = useFormularContext()
     const flags = getFormFlags()

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-import { IFormular, IFormularFlags } from '@core/formular-base/formular-base.types'
+import { IFormular, IFormularFlags } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { Button } from '../button/button'
@@ -8,13 +8,13 @@ import { conventions } from '../context/conventions/conventions'
 import { formularContext, IFormularContext } from './formular-form.context'
 import './formular-form.css'
 import FormularFormDebug from './formular-form.debug'
-interface IFormularProps {
-    formular: IFormular
+interface IFormularProps<T extends object> {
+    formular: IFormular<T>
     children: React.ReactNode
     onSubmit?: (data: Record<string, InputDataTypes>) => void
 }
 
-const FormularForm = ({ formular, children, onSubmit }: IFormularProps) => {
+const FormularForm = <T extends object>({ formular, children, onSubmit }: IFormularProps<T>) => {
     // const [formInstance, setFormInstance] = useState<IFormy | undefined>()
 
     const formularInstance = useMemo(() => {
@@ -28,13 +28,19 @@ const FormularForm = ({ formular, children, onSubmit }: IFormularProps) => {
     //     setFormInstance(formy)
     // }, [schema, translationBuilder, validationLocalize])
 
-    const handleSubmit = () => {
-        formularInstance.validateAll()
-        const data = formularInstance.getData()
-        onSubmit?.(data)
+    const handleSubmit = async <T extends object>() => {
+        try {
+            const result = await formularInstance.submit()
+
+            if (result !== null && typeof result === 'object') {
+                onSubmit?.(result as Record<string, InputDataTypes>)
+            }
+        } catch (error) {
+            console.error('Error during form submission:', error)
+        }
     }
 
-    const output: IFormularContext = {
+    const output: IFormularContext<T> = {
         getFields: () => {
             return formularInstance?.fields ?? []
         },

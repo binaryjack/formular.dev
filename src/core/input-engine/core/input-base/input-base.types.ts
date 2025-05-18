@@ -1,3 +1,4 @@
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
@@ -50,7 +51,7 @@ export interface IInputProperties extends IFieldDescriptor {
     isDirty: boolean
     isPristine: boolean
     isFocus: boolean
-
+    formular?: IFormular<any>
     value: InputDataTypes
     originalValue: InputDataTypes
     validationResults: IValidationResult[]

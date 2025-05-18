@@ -11,6 +11,6 @@ import { IFormular } from '../formular-base.types'
  * @param origin - An optional parameter to specify the origin of the validation process.
  *                 This can be used to track or log the source of the validation trigger.
  */
-export function handleValidation(this: IFormular) {
+export function handleValidation<T extends object>(this: IFormular<T>) {
     this.validateAll()
 }

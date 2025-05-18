@@ -1,14 +1,14 @@
-import { Formular } from '@core/formular-base/formular-base'
-import { IFormular } from '@core/formular-base/formular-base.types'
+import { Formular } from '@core/formular-engine/formular-base/formular-base'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { IDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { InputsProviderFromConfigurations } from '@core/input-engine/generator/input-provider'
 import { IFormularManager } from '../formular-manager.types'
 
-export const createfromDescriptor = function (
-    this: IFormularManager,
+export const createfromDescriptor = function <T extends object>(
+    this: IFormularManager<T>,
     id: string,
     configs: IDependencyConfiguration[]
-): IFormular | undefined {
+): IFormular<T> | undefined {
     if (this.forms.has(id)) {
         throw new Error(`Form with id ${id} already exists`)
     }
@@ -16,5 +16,5 @@ export const createfromDescriptor = function (
     const fields = InputsProviderFromConfigurations(configs)
     frm.addFields(...fields)
     this.forms.set(id, frm)
-    return this.forms.get(id) as IFormular
+    return this.forms.get(id) as IFormular<T>
 }

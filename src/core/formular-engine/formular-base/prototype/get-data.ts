@@ -7,7 +7,7 @@ import { IFormular } from '../formular-base.types'
  * Retrieves the data from the Formy instance.
  * @returns A record containing field values.
  */
-export function getData(this: IFormular) {
+export function getData<T extends object>(this: IFormular<T>) {
     const output: Record<string, InputDataTypes> = {}
     for (const f of this.fields) {
         const value = f.input.valueManager.getValue(f)

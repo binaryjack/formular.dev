@@ -47,7 +47,7 @@ export enum EventsEnum {
 
     onAutoTrackNotified = 'onAutoTrackNotified',
 
-    onFormFirstSubmit = 'onFormFirstSubmit',
+    validateOnFormFirstSubmit = 'validateOnFormFirstSubmit',
 
     onEngineStateChanger = 'onEngineStateChanger',
 

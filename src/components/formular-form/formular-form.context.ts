@@ -1,11 +1,11 @@
-import { IFormular, IFormularFlags } from '@core/formular-base/formular-base.types'
+import { IFormular, IFormularFlags } from '@core/formular-engine/formular-base/formular-base.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import React from 'react'
 
-export interface IFormularContext {
+export interface IFormularContext<T extends object> {
     getFields: () => IExtendedInput[]
     getFormFlags: () => IFormularFlags
-    formInstance: IFormular | undefined
+    formInstance: IFormular<T> | undefined
     getField: (fieldName: string) => IExtendedInput | undefined
 }
 
@@ -20,9 +20,9 @@ export const formularCotextDefault = {
     formInstance: undefined
 }
 
-export const formularContext = React.createContext<IFormularContext>(formularCotextDefault)
+export const formularContext = React.createContext<IFormularContext<any>>(formularCotextDefault)
 
-export const useFormularContext = (): IFormularContext => {
+export const useFormularContext = <T extends object>(): IFormularContext<T> => {
     return React.useContext(formularContext)
 }
 export default useFormularContext

@@ -6,7 +6,7 @@ import { IFieldChange, IFormular } from '../formular-base.types'
 /**
  * Checks for changes in the Formy instance.
  */
-export function checkChanges(this: IFormular) {
+export function checkChanges<T extends object>(this: IFormular<T>) {
     const changes: IFieldChange[] = []
     for (const fld of this.fields) {
         const originalField = this.originFields.find(

@@ -1,8 +1,7 @@
 import FormularForm from '@components/formular-form/formular-form'
 
 import InputText from '@components/input-text/input-text'
-import { IFormular } from '@core/formular-base/formular-base.types'
-import { FormularManager } from '@core/formular-manager/formular-manager'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
@@ -12,6 +11,7 @@ import {
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { InputsProvider } from '@core/input-engine/generator/input-provider'
+import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
 import {
@@ -23,11 +23,15 @@ import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
 import { validationOptionsMock } from '@mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
 
+interface ISubmitObject {
+    sandboxField: string
+}
+
 const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
-const formular = formularManager.createEmpty('validation-demo-form') as IFormular
+const formular = formularManager.createEmpty('validation-demo-form') as IFormular<ISubmitObject>
 
 const field = InputsProvider(
     [txtFileDescriptorMock(validationOptionsMock)],
@@ -36,18 +40,21 @@ const field = InputsProvider(
 )?.[0]
 
 const FieldInputValidationSandbox = () => {
+    const [submissionObject, setSubmissionObject] = useState<ISubmitObject>()
+
     const [validationOptions, setValidationOptions] =
         useState<IValidationOptions>(validationOptionsMock)
 
     const { instance } = useField(field)
 
-    const [internalForm, setInternalForm] = useState<IFormular | null>(null)
+    const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
         'onFocus',
         'onBlur',
         'onChange',
-        'onSubmit'
+        'onSubmit',
+        'validateOnFormFirstSubmit'
     ])
 
     useEffect(() => {
@@ -81,7 +88,7 @@ const FieldInputValidationSandbox = () => {
     }
 
     const handleSubmit = (data: any) => {
-        console.log(data)
+        setSubmissionObject(data as ISubmitObject)
     }
 
     return (
@@ -231,7 +238,7 @@ const FieldInputValidationSandbox = () => {
                                 <div className="flex px-2  flex-col w-full">
                                     <label htmlFor="validationTriggerMode-v">
                                         Validation Trigger Mode:
-                                    </label>{' '}
+                                    </label>
                                     <select
                                         id="validationTriggerMode-v"
                                         multiple
@@ -246,6 +253,9 @@ const FieldInputValidationSandbox = () => {
                                         }
                                     >
                                         <option value="onClick">onClick</option>
+                                        <option value="validateOnFormFirstSubmit">
+                                            validateOnFormFirstSubmit
+                                        </option>
                                         <option value="onFocus">onFocus</option>
                                         <option value="onBlur">onBlur</option>
                                         <option value="onChange">onChange</option>
@@ -257,6 +267,10 @@ const FieldInputValidationSandbox = () => {
                             </div>
                             <div className="input-container w-full mt-14 mb-20">
                                 <InputText fieldName="sandboxField" />
+                            </div>
+                            <div className="w-full">
+                                <h3 className="text-lg font-bold">Submission Object:</h3>
+                                {JSON.stringify(submissionObject, null, 2)}
                             </div>
                         </div>
                         <div className="sandbox-container flex flex-col p-1 w-full h-full mt-14">

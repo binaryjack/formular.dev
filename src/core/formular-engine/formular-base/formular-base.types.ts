@@ -1,7 +1,7 @@
-import { IFormularManager } from '@core/formular-manager/formular-manager.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IFormularManager } from '@core/managers/formular-manager/formular-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import {
     IValidableForm,
@@ -9,7 +9,7 @@ import {
 } from '@core/managers/validation-manager/validation-manager.types'
 import { LoadingStatus } from '@core/status'
 
-export type IFormular = IFormularBase &
+export type IFormular<T extends object> = IFormularBase<T> &
     INotificationManager &
     IFormularFlags &
     IValidationManager &
@@ -24,24 +24,26 @@ export interface IFormularFlags {
      * this info belongs to the entity itself,
      * I am not happy with that but at least it's clear */
     isValid: boolean
+
     setIsBusy: (status: LoadingStatus) => void
 }
 
-export interface IFormularBase {
-    new (id: string, manager: IFormularManager): IFormular
+export interface IFormularBase<T extends object> {
+    new (id: string, manager: IFormularManager<T>): IFormular<T>
     id: string
     fields: IExtendedInput[]
     originFields: IExtendedInput[]
     submitCount: number
-    canValidate: boolean
+    validateOnFirstSubmit: boolean
     isFormularBinded: boolean
-    manager: IFormularManager
+    manager: IFormularManager<T>
 
     handleValidation: () => void
-    validateAll: () => Promise<boolean>
+    checkAllFieldsAreValid: () => Promise<boolean>
     addFields: (...flds: IInput[]) => void
     getField: (fieldName: string) => IExtendedInput | undefined
     checkChanges: () => void
+    submit: () => Promise<T | null>
     setIsBusy: (status: LoadingStatus) => void
     hasChanges: (callback: () => void) => void
     getFormFlags: () => Partial<IFormularFlags>

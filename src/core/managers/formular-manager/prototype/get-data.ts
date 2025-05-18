@@ -1,7 +1,7 @@
 import { IFormularManager } from '../formular-manager.types'
 
 export const getData = function <T extends object>(
-    this: IFormularManager,
+    this: IFormularManager<T>,
     formId: string
 ): T | undefined {
     const form = this.forms.get(formId)

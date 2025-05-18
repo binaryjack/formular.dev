@@ -1,9 +1,9 @@
-import { IFormular } from '@core/formular-base/formular-base.types'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import React, { useEffect } from 'react'
 
-const useForm = function (form: IFormular) {
+const useForm = function <T extends object>(form: IFormular<T>) {
     const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
 
     const stableForm = React.useMemo(() => {

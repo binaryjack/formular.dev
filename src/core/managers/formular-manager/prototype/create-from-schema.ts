@@ -1,5 +1,5 @@
-import { Formular } from '@core/formular-base/formular-base'
-import { IFormular } from '@core/formular-base/formular-base.types'
+import { Formular } from '@core/formular-engine/formular-base/formular-base'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { schemaToConfiguration } from '@core/framework/converters/schema-to-configuration copy'
 import { IValidationLocalize } from '@core/framework/localize/localize.type'
 import { TranslatioBuilderType } from '@core/framework/localize/localize.utils'
@@ -9,14 +9,14 @@ import { InputsProviderFromConfigurations } from '@core/input-engine/generator/i
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 import { IFormularManager } from '../formular-manager.types'
 
-export const createFromSchema = function (
-    this: IFormularManager,
+export const createFromSchema = function <T extends object>(
+    this: IFormularManager<T>,
     schema: IEntityScheme,
     initialization: IFieldInitializationParameters,
     dependencies: IInitializableDependency[],
     tb: TranslatioBuilderType,
     transdlations: IValidationLocalize
-): IFormular | undefined {
+): IFormular<T> | undefined {
     const configurations = schemaToConfiguration(
         schema,
         initialization,
@@ -29,5 +29,5 @@ export const createFromSchema = function (
     const fields = InputsProviderFromConfigurations(configurations)
     frm.addFields(...fields)
     this.forms.set(schema.name, frm)
-    return this.forms.get(schema.name) as IFormular
+    return this.forms.get(schema.name) as IFormular<T>
 }

@@ -8,6 +8,6 @@ import { IFormular } from '../formular-base.types'
  * @param fieldName - The name of the field to retrieve.
  * @returns The field if found, otherwise undefined.
  */
-export function getField(this: IFormular, fieldName: string) {
+export function getField<T extends object>(this: IFormular<T>, fieldName: string) {
     return this.fields.find((field: IExtendedInput) => field.input.name === fieldName)
 }

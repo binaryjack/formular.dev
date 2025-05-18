@@ -1,8 +1,7 @@
 import { default as FormularForm } from '@components/formular-form/formular-form'
 
 import InputText from '@components/input-text/input-text'
-import { IFormular } from '@core/formular-base/formular-base.types'
-import { FormularManager } from '@core/formular-manager/formular-manager'
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
@@ -21,6 +20,7 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
+import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { useEffect, useState } from 'react'
 
@@ -65,12 +65,12 @@ export const newForm =
         getTranslations()
     ) ?? null
 
-const setupForm = (
+const setupForm = <T extends object>(
     id: number,
     name: string,
     type: InputDataTypes,
     required: boolean,
-    setForm: React.Dispatch<React.SetStateAction<IFormular | null>>,
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>,
     customValidator: IValidationSchema | undefined
 ) => {
     const field = new FieldSchemaBuilder(id, name)
@@ -96,7 +96,9 @@ const setupForm = (
 }
 
 // Setup field with required validation
-const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
+const setupRequiredField = <T extends object>(
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>
+) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minMaxNameBuilder,
@@ -108,7 +110,9 @@ const setupRequiredField = (setForm: React.Dispatch<React.SetStateAction<IFormul
     setupForm(fieldsIds['required-field'], 'required-field', 'text', true, setForm, customValidator)
 }
 // Setup field with required validation
-const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
+const setupMinlengthField = <T extends object>(
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>
+) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minLengthBuilder,
@@ -128,7 +132,9 @@ const setupMinlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormu
 }
 
 // Setup field with required validation
-const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
+const setupMaxlengthField = <T extends object>(
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>
+) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         maxLengthBuilder,
@@ -148,7 +154,9 @@ const setupMaxlengthField = (setForm: React.Dispatch<React.SetStateAction<IFormu
 }
 
 // Setup field with required validation
-const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormular | null>>) => {
+const setupPatternField = <T extends object>(
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>
+) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
         minLengthBuilder,
@@ -161,8 +169,8 @@ const setupPatternField = (setForm: React.Dispatch<React.SetStateAction<IFormula
 }
 
 // Setup field with required validation
-const setupMultipleValidations = (
-    setForm: React.Dispatch<React.SetStateAction<IFormular | null>>
+const setupMultipleValidations = <T extends object>(
+    setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>
 ) => {
     const customValidator = validationSchemaFactory.finalizer(
         true,
@@ -175,9 +183,9 @@ const setupMultipleValidations = (
     setupForm(fieldsIds['multiple-field'], 'multiple-field', 'text', true, setForm, customValidator)
 }
 
-const ValidationTestPage = () => {
+const ValidationTestPage = <T extends object>() => {
     const [formId, setFormId] = useState('validation-test-form')
-    const [form, setForm] = useState<IFormular | null>(null)
+    const [form, setForm] = useState<IFormular<T> | null>(null)
 
     // Setup form on mount
     useEffect(() => {

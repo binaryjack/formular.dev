@@ -9,8 +9,8 @@ import { getData } from './prototype/get-data'
 import { getForm } from './prototype/get-form'
 import { validate } from './prototype/validate'
 
-export const FormularManager = function (
-    this: IFormularManager,
+export const FormularManager = function <T extends object>(
+    this: IFormularManager<T>,
     notificationManager?: INotificationManager,
     autoTracker?: INotificationManager
 ) {
@@ -21,7 +21,7 @@ export const FormularManager = function (
         this.notificationManager.autoTracker = autoTracker
     }
     // Additional initialization logic if needed
-} as any as IFormularManager
+} as any as IFormularManager<any>
 
 Object.assign(FormularManager.prototype, {
     clear,

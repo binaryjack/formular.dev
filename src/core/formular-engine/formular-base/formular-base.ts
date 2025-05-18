@@ -1,6 +1,7 @@
 import { LoadingStatus } from '@core/status'
 import { IFormular } from './formular-base.types'
 import { addFields } from './prototype/add-fields'
+import { checkAllFieldsAreValid } from './prototype/check-all-fields-are-valid'
 import { checkChanges } from './prototype/check-changes'
 import { getData } from './prototype/get-data'
 import { getField } from './prototype/get-field'
@@ -9,10 +10,9 @@ import { handleValidation } from './prototype/handle-validation'
 import { hasChanges } from './prototype/has-changes'
 import { setIsBusy } from './prototype/set-is-busy'
 import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
+import { submit } from './prototype/submit'
 
-import { validateAll } from './prototype/validate-all'
-
-export const Formular = function (this: IFormular, id: string) {
+export const Formular = function <T extends object>(this: IFormular<T>, id: string) {
     this.id = id
     this.fields = []
     this.originFields = []
@@ -20,17 +20,18 @@ export const Formular = function (this: IFormular, id: string) {
     this.isBusy = LoadingStatus.Loaded
     this.validationTriggerModeType = []
     this.isDirty = false
-} as any as IFormular
+} as any as IFormular<any>
 
 Object.assign(Formular.prototype, {
     addFields,
     handleValidation,
-    validateAll,
+    checkAllFieldsAreValid,
     checkChanges,
     setIsBusy,
     hasChanges,
     getField,
     getData,
     getFormFlags,
+    submit,
     setValidationTriggerMode
 })
