@@ -1,18 +1,11 @@
 import { IDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
-import { IInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { TextBaseInput } from '@core/input-engine/variants/text-base/text-base-input'
 import { ITextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
 import { sequenceInitializer } from '@core/managers/initialization-manager/sequence-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IFieldBuilder } from '../field-builder'
 import { baseDependencyList } from '../settings/dependency.list.settings'
-
-const instanciateTextBaseInput = (field: IInputBase): ITextBaseInput => {
-    const _textInput = new TextBaseInput()
-    /** Assign base field dependency */
-    _textInput.input = field
-    return _textInput
-}
+import { instanciateTextBaseInput } from '../variant-constructors/instanciate-text-based'
 
 export const createTextBased = function (
     this: IFieldBuilder,

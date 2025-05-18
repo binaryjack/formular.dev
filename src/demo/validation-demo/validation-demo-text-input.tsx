@@ -39,7 +39,7 @@ const field = InputsProvider(
     defaultInitializationDependencies
 )?.[0]
 
-const FieldInputValidationSandbox = () => {
+const ValidationDemoTextInput = () => {
     const [submissionObject, setSubmissionObject] = useState<ISubmitObject>()
 
     const [validationOptions, setValidationOptions] =
@@ -285,4 +285,4 @@ const FieldInputValidationSandbox = () => {
     )
 }
 
-export default FieldInputValidationSandbox
+export default ValidationDemoTextInput
