@@ -49,11 +49,11 @@ const ValidationResultComponent = ({ validationResults, isFocus }: ValidationRes
                     return (
                         <div key={`${result.fieldName}-${index}`}>
                             {isFocus && showGuide && result.guide && (
-                                <div className="guide">{result.guide?.message}</div>
+                                <div className="guide">{result.guide}</div>
                             )}
 
                             {!isFocus && showError && result.error && (
-                                <div className="error">{result.error?.message}</div>
+                                <div className="error">{result.error}</div>
                             )}
                         </div>
                     )

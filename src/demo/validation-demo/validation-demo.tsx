@@ -94,7 +94,7 @@ const FieldInputValidationSandbox = () => {
     return (
         <>
             {internalForm && (
-                <FormularForm formular={internalForm} onSubmit={handleSubmit}>
+                <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <div className="sandbox-container flex flex-row p-1 w-full h-full">
                         <div className="sandbox-container flex flex-col p-1 w-full h-full">
                             <div className="validation-controls w-full">

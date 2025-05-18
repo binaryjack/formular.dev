@@ -1,5 +1,3 @@
-import { newFieldError } from '@core/framework/models/errors/new-field-error'
-import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
@@ -30,16 +28,8 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
                 name,
                 ValidationErrorsCodes.custom,
                 field.input.validationManager.validationTriggerModeType,
-                newFieldError(
-                    name,
-                    ValidationErrorsCodes.custom,
-                    field.input.validationOptions.pattern.error ?? undefined
-                ),
-                newFieldGuide(
-                    name,
-                    ValidationErrorsCodes.custom,
-                    field.input.validationOptions.pattern?.guide ?? undefined
-                )
+                field.input.validationOptions.pattern.error?.message ?? undefined,
+                field.input.validationOptions.pattern?.guide?.message ?? undefined
             )
         }
         return newValidationResult(

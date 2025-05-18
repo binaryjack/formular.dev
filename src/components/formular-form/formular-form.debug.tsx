@@ -6,7 +6,7 @@ interface FormyDebugProps<T extends object> {
 }
 
 const FormularFormDebug = <T extends object>({ formular }: FormyDebugProps<T>) => {
-    // useForm(formy)
+    // useForm(formular)
     const { getFormFlags } = useFormularContext()
     const flags = getFormFlags()
     return (

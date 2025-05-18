@@ -17,8 +17,8 @@ export interface IValidationResult {
     code: string
     fieldName: string
     triggerEventTypes: EventsType[]
-    error?: IFieldError
-    guide?: IFieldGuide
+    error?: string
+    guide?: string
 }
 
 export interface IDoValidateAll {
@@ -44,8 +44,8 @@ export const newValidationResult = (
     fieldName: string,
     code: string,
     triggerEventTypes: EventsType[],
-    error?: IFieldError,
-    guide?: IFieldGuide
+    error?: string,
+    guide?: string
 ): IValidationResult => {
     return { state, fieldName, code, error, guide, triggerEventTypes }
 }
@@ -70,8 +70,8 @@ export interface IValidationManager extends IInitializableDependency {
 }
 
 export interface IValidationTextBase {
-    error?: string
-    guide?: string
+    error?: IFieldError
+    guide?: IFieldGuide
 }
 
 export interface IRequired extends IValidationTextBase {
@@ -107,59 +107,15 @@ export interface IValidationOptions {
     pattern?: IPattern
 }
 
-export const isRequired = (required: boolean, error?: string, guide?: string): IRequired => {
-    return {
-        required,
-        error,
-        guide
-    }
-}
-
-export const hasMin = (min: number, error?: string, guide?: string): IMin => {
-    return {
-        min,
-        error,
-        guide
-    }
-}
-
-export const hasMax = (max: number, error?: string, guide?: string): IMax => {
-    return {
-        max,
-        error,
-        guide
-    }
-}
-
-export const hasMinLength = (minLength: number, error?: string, guide?: string): IMinLength => {
-    return {
-        minLength,
-        error,
-        guide
-    }
-}
-
-export const hasMaxLength = (maxLength: number, error?: string, guide?: string): IMaxLength => {
-    return {
-        maxLength,
-        error,
-        guide
-    }
-}
-
-export const hasPattern = (pattern: string, error?: string, guide?: string): IPattern => {
-    return {
-        pattern,
-        error,
-        guide
-    }
-}
-
 export const ValidationErrorsCodes = {
     min: 'MIN_ERROR',
     max: 'MAX_ERROR',
     minLength: 'MIN_LENGTH_ERROR',
     maxLength: 'MAX_LENGTH_ERROR',
     required: 'REQUIRED',
+    pattern: 'PATTERN',
     custom: 'CUSTOM'
 }
+
+export type ValidationErrorsCodesType = keyof typeof ValidationErrorsCodes
+export type ValidationErrorsCodesValue = (typeof ValidationErrorsCodes)[ValidationErrorsCodesType]

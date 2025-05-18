@@ -1,6 +1,6 @@
 import { conventions } from '@components/context/conventions/conventions'
 
-export const validationOptionsMock = {
+export const validationOptionsMock: = {
     max: {
         max: 100,
         error: `This field requires a value that must not be greater than ${conventions.tokens.validationDataToken1}!`,

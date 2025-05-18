@@ -1,5 +1,3 @@
-import { newFieldError } from '@core/framework/models/errors/new-field-error'
-import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
@@ -31,16 +29,8 @@ const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
                 name,
                 ValidationErrorsCodes.min,
                 field.input.validationManager.validationTriggerModeType,
-                newFieldError(
-                    name,
-                    ValidationErrorsCodes.min,
-                    field.input.validationOptions.min.error ?? undefined
-                ),
-                newFieldGuide(
-                    name,
-                    ValidationErrorsCodes.min,
-                    field.input.validationOptions.min?.guide ?? undefined
-                )
+                field.input.validationOptions.min.error?.message ?? undefined,
+                field.input.validationOptions.min?.guide?.message ?? undefined
             )
         }
         return newValidationResult(

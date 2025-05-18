@@ -3,6 +3,7 @@ import React, { useMemo } from 'react'
 import { IFormular, IFormularFlags } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { LoadingStatus } from '@core/status'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
 import { formularContext, IFormularContext } from './formular-form.context'
@@ -11,32 +12,36 @@ import FormularFormDebug from './formular-form.debug'
 interface IFormularProps<T extends object> {
     formular: IFormular<T>
     children: React.ReactNode
+    isloading?: boolean
     onSubmit?: (data: Record<string, InputDataTypes>) => void
 }
 
-const FormularForm = <T extends object>({ formular, children, onSubmit }: IFormularProps<T>) => {
-    // const [formInstance, setFormInstance] = useState<IFormy | undefined>()
+const FormularForm = <T extends object>({
+    formular,
+    children,
+    isloading,
+    onSubmit
+}: IFormularProps<T>) => {
+    const [messages, setMessages] = React.useState<string[]>([])
 
     const formularInstance = useMemo(() => {
         return formular
     }, [formular])
-    // useForm(formInstance)
-    // useEffect(() => {
-    //     if (formInstance) return
-    //     const formy = newFormy(formId, schema, translationBuilder, validationLocalize)
-    //     if (!formy) return
-    //     setFormInstance(formy)
-    // }, [schema, translationBuilder, validationLocalize])
 
     const handleSubmit = async <T extends object>() => {
         try {
             const result = await formularInstance.submit()
 
-            if (result !== null && typeof result === 'object') {
+            if (result !== null && typeof result === 'object' && JSON.stringify(result) !== `{}`) {
                 onSubmit?.(result as Record<string, InputDataTypes>)
+                setMessages([])
+            } else {
+                const errorMessage = 'Form submission returned null or empty object'
+                setMessages((o) => [...o, errorMessage])
             }
-        } catch (error) {
-            console.error('Error during form submission:', error)
+        } catch (error: any) {
+            const errorMessage = error?.message ?? error
+            setMessages((o) => [...o, errorMessage])
         }
     }
 
@@ -52,21 +57,35 @@ const FormularForm = <T extends object>({ formular, children, onSubmit }: IFormu
             return {
                 ...formularInstance.getFormFlags()
             } as IFormularFlags
-        }
+        },
+        message: messages
     }
 
     return (
         <formularContext.Provider value={output}>
             <div>{formularInstance.validationTriggerModeType.join(' ')}</div>
             <div>{formularInstance.isDirty ? 'Has changes!' : 'pristine'}</div>
-            <form data-form-id={`${formularInstance.id}`} className={`formy `}>
+            <form data-form-id={`${formularInstance.id}`} className={`formular `}>
                 {children}
             </form>
+            <div className={`formular-messages`}>
+                {messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`formular-message ${
+                            message.includes('error') ? 'error' : 'info'
+                        }`}
+                    >
+                        {message}
+                    </div>
+                ))}
+            </div>
             {onSubmit && (
                 <Button
                     id={`${formularInstance?.id ?? conventions.IdIsEmpty()}-submit`}
                     title={`Submit`}
                     children={`Submit`}
+                    loading={isloading || formularInstance.isBusy === LoadingStatus.InProgress}
                     variantProperties={{
                         rounded: true,
                         size: 'md',

@@ -1,3 +1,4 @@
+import { DescriptorValidationBuilder } from '@core/managers/validation-manager/builder/descriptor-validation-builder'
 import {
     IMax,
     IMaxLength,
@@ -5,13 +6,88 @@ import {
     IMinLength,
     IPattern,
     IRequired,
-    IValidationOptions
+    IValidationOptions,
+    ValidationErrorsCodes
 } from '@core/managers/validation-manager/validation-manager.types'
 import { IValidationLocalize } from '../localize/localize.type'
 import { TranslatioBuilderType } from '../localize/localize.utils'
+import { newFieldError } from '../models/errors/new-field-error'
+import { newFieldGuide } from '../models/errors/new-field-guide'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../schema/field-schema/field.schema.types'
 import { ValidationLocalizeKeys } from '../schema/validation-schema/validation.localize.keys'
+
+const maxValidationOptionsBuilder = (
+    max: number | null,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IMax>('max')
+        ?.setMax(max)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.max, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.max, guide()))
+        .build()
+
+const minValidationOptionsBuilder = (
+    min: number | null,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IMin>('min')
+        ?.setMin(min)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.min, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.min, guide()))
+        .build()
+
+const maxLengthValidationOptionsBuilder = (
+    maxLength: number | null,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IMaxLength>('maxLength')
+        ?.setMaxLength(maxLength)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.maxLength, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.maxLength, guide()))
+        .build()
+
+const minLengthValidationOptionsBuilder = (
+    minLength: number | null,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IMinLength>('minLength')
+        ?.setMinLength(minLength)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.minLength, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.minLength, guide()))
+        .build()
+
+const patternValidationOptionsBuilder = (
+    pattern: string | null,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IPattern>('pattern')
+        ?.setPattern(pattern)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.pattern, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.pattern, guide()))
+        .build()
+
+const requiredValidationOptionsBuilder = (
+    required: boolean,
+    fieldName: string,
+    error: (data?: string, data2?: string) => string,
+    guide: (data?: string, data2?: string) => string
+) =>
+    new DescriptorValidationBuilder<IRequired>('required')
+        ?.setRequired(required)
+        .setError(() => newFieldError(fieldName, ValidationErrorsCodes.required, error()))
+        .setGuide(() => newFieldGuide(fieldName, ValidationErrorsCodes.required, guide()))
+        .build()
 
 export const mapSchemaToFieldDescriptor = (
     scheme: IEntityScheme,
@@ -35,6 +111,38 @@ export const mapSchemaToFieldDescriptor = (
     const patternGuide = gtReady(ValidationLocalizeKeys.patternGuide)
 
     scheme.properties.forEach((f) => {
+        // Use builder functions for all validation options for consistency
+        const maxValidationOptions = maxValidationOptionsBuilder(f.max, f.name, maxError, maxGuide)
+
+        const minValidationOptions = minValidationOptionsBuilder(f.min, f.name, minError, minGuide)
+
+        const maxLengthValidationOptions = maxLengthValidationOptionsBuilder(
+            f.maxLength,
+            f.name,
+            maxLengthError,
+            maxLengthGuide
+        )
+
+        const minLengthValidationOptions = minLengthValidationOptionsBuilder(
+            f.minLength,
+            f.name,
+            minLengthError,
+            minLengthGuide
+        )
+
+        const patternValidationOptions = patternValidationOptionsBuilder(
+            f.pattern,
+            f.name,
+            patternError,
+            patternGuide
+        )
+        const requiredValidationOptions = requiredValidationOptionsBuilder(
+            f.required,
+            f.name,
+            requiredError,
+            requiredGuide
+        )
+
         const newF: IFieldDescriptor = {
             id: f.id,
             isDirty: false,
@@ -56,58 +164,12 @@ export const mapSchemaToFieldDescriptor = (
             expectedValue:
                 f.expectedValue === null || f.expectedValue === '' ? undefined : f.expectedValue,
             validationOptions: {
-                required: {
-                    required: f.required,
-                    error: f.required ? requiredError() : '',
-                    guide: f.required ? requiredGuide() : ''
-                } as IRequired,
-                max: f.max
-                    ? ({
-                          max: f.max,
-                          error: f.max !== null ? maxError(`${f.max}`) : f.customGuide,
-                          guide: f.max !== null ? maxGuide(`${f.max}`) : f.customGuide
-                      } as IMax | undefined)
-                    : undefined,
-                min: f.min
-                    ? ({
-                          min: f.min,
-                          error: f.min !== null ? minError(`${f.min}`) : f.customGuide,
-                          guide: f.min !== null ? minGuide(`${f.min}`) : f.customGuide
-                      } as IMin | undefined)
-                    : undefined,
-                maxLength: f.maxLength
-                    ? ({
-                          maxLength: f.maxLength,
-                          error:
-                              f.maxLength !== null
-                                  ? maxLengthError(`${f.maxLength}`)
-                                  : f.customGuide,
-                          guide:
-                              f.maxLength !== null
-                                  ? maxLengthGuide(`${f.maxLength}`)
-                                  : f.customGuide
-                      } as IMaxLength | undefined)
-                    : undefined,
-                minLength: f.minLength
-                    ? ({
-                          minLength: f.minLength,
-                          error:
-                              f.minLength !== null
-                                  ? minLengthError(`${f.minLength}`)
-                                  : f.customGuide,
-                          guide:
-                              f.minLength !== null
-                                  ? minLengthGuide(`${f.minLength}`)
-                                  : f.customGuide
-                      } as IMinLength | undefined)
-                    : undefined,
-                pattern: f.pattern
-                    ? ({
-                          pattern: f.pattern,
-                          error: f.pattern !== null ? patternError(`${f.pattern}`) : f.customGuide,
-                          guide: f.pattern !== null ? patternGuide(`${f.pattern}`) : f.customGuide
-                      } as IPattern | undefined)
-                    : undefined
+                required: requiredValidationOptions,
+                max: maxValidationOptions,
+                min: minValidationOptions,
+                maxLength: maxLengthValidationOptions,
+                minLength: minLengthValidationOptions,
+                pattern: patternValidationOptions
             } as IValidationOptions,
             objectValue: null,
             defaultValue: f.defaultValue
@@ -117,4 +179,11 @@ export const mapSchemaToFieldDescriptor = (
     })
     const newOutPut = output.sort((a, b) => a.id - b.id)
     return newOutPut
+}
+function requiredError(): string | undefined {
+    throw new Error('Function not implemented.')
+}
+
+function requiredGuide(): string | undefined {
+    throw new Error('Function not implemented.')
 }

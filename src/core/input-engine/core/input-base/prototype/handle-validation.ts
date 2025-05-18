@@ -5,20 +5,25 @@ import { IValidationResult } from '@core/managers/validation-manager/validation-
 import { aria } from '../../accessibility/arias'
 import { IExtendedInput, IInputBase } from '../input-base.types'
 
-/**
- * Handles the validation process for a field input.
- *
- * @param this - The current instance of the field input implementing the `IFieldInput` interface.
- * @param origin - Optional parameter representing the origin of the validation, which is cast to `IValidationOrigin`.
- *
- * @remarks
- * This function invokes the `validate` method on the current instance, passing a `validator` and the
- * optional `validationOrigin` derived from the `origin` parameter.
- */
-export const handleValidation = function <T extends IEvents>(this: IExtendedInput, data?: T) {
+export const handleValidation = function <T extends IEvents>(this: IExtendedInput, data: T) {
+    if (
+        data?.fieldRef?.input?.onBeforeValidation &&
+        /** run custom code before validation if custom code returns false this will interrupt the validation process */
+        !data?.fieldRef?.input?.onBeforeValidation?.()
+    ) {
+        data?.fieldRef?.input.message(
+            'critical',
+            this.name,
+            `${handleValidation.name} validtion was interrupted by custom onBeforeValidation`
+        )
+        return
+    }
+
     if (data?.fieldRef?.input?.formular?.validateOnFirstSubmit) {
-        console.log(
-            '----handleValidation interrupted formular is busy or will validate on first submit---'
+        data?.fieldRef?.input.message(
+            'critical',
+            this.name,
+            `${handleValidation.name} validtion was interrupted by the formular validationOnFirstSubmit property`
         )
         return
     }
@@ -80,5 +85,8 @@ export const handleValidation = function <T extends IEvents>(this: IExtendedInpu
             data.fieldRef
         )
     )
+    /** run custom code after validation */
+    data?.fieldRef?.input?.onAfterValidation?.()
+
     return results
 }

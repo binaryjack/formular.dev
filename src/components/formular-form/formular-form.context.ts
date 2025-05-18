@@ -5,6 +5,7 @@ import React from 'react'
 export interface IFormularContext<T extends object> {
     getFields: () => IExtendedInput[]
     getFormFlags: () => IFormularFlags
+    message: string[]
     formInstance: IFormular<T> | undefined
     getField: (fieldName: string) => IExtendedInput | undefined
 }
@@ -17,6 +18,7 @@ export const formularCotextDefault = {
     getField: () => {
         return undefined
     },
+    message: [],
     formInstance: undefined
 }
 

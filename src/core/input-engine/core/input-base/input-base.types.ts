@@ -66,12 +66,15 @@ export interface IInputProperties extends IFieldDescriptor {
     enable: (enabled: boolean) => void
 
     hasChanges: (callback: () => void) => void
-    handleValidation: <T extends IEvents>(data?: T) => void
+
+    handleValidation: <T extends IEvents | unknown>(data: T) => void
 
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
     refreshUi: (ref?: IInputBase | IExtendedInput) => void
+    onBeforeValidation?: () => boolean
+    onAfterValidation?: () => void
     /** Dependency accessors */
     domManager: IDomManager<HTMLInputElement>
     drawer: IDrawerBaseInput

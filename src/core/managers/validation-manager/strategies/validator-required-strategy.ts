@@ -1,5 +1,3 @@
-import { newFieldError } from '@core/framework/models/errors/new-field-error'
-import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
 import { valueIsNullOrUndefined } from '@core/framework/utility/value-is-null-or-undefined'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
@@ -29,16 +27,8 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
                 name,
                 ValidationErrorsCodes.required,
                 field.input.validationManager.validationTriggerModeType,
-                newFieldError(
-                    name,
-                    ValidationErrorsCodes.required,
-                    field.input.validationOptions.requiredData?.error ?? undefined
-                ),
-                newFieldGuide(
-                    name,
-                    ValidationErrorsCodes.required,
-                    field.input.validationOptions.requiredData?.guide ?? undefined
-                )
+                field.input.validationOptions.requiredData?.error?.message ?? undefined,
+                field.input.validationOptions.requiredData?.guide?.message ?? undefined
             )
         }
         return newValidationResult(
