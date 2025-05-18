@@ -1,8 +1,8 @@
 import FormularForm from '@components/formular-form/formular-form'
 
 import InputText from '@components/input-text/input-text'
-import { Formular } from '@core/formular-base/formular-base'
 import { IFormular } from '@core/formular-base/formular-base.types'
+import { FormularManager } from '@core/formular-manager/formular-manager'
 import { EventsType } from '@core/framework/events/events.types'
 import { newFieldError } from '@core/framework/models/errors/new-field-error'
 import { newFieldGuide } from '@core/framework/models/errors/new-field-guide'
@@ -22,6 +22,12 @@ import { lifeCylceInstances } from '@demo/common/common-instances'
 import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
 import { validationOptionsMock } from '@mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
+
+const formularManager = new FormularManager(
+    lifeCylceInstances.notificationManager,
+    lifeCylceInstances.autoTracker
+)
+const formular = formularManager.createEmpty('validation-demo-form') as IFormular
 
 const field = InputsProvider(
     [txtFileDescriptorMock(validationOptionsMock)],
@@ -45,14 +51,9 @@ const FieldInputValidationSandbox = () => {
     ])
 
     useEffect(() => {
-        const validationDemoForm = new Formular(
-            'validation-demo-form',
-            lifeCylceInstances.autoTracker
-        )
-        validationDemoForm.setValidationTriggerMode(validationTriggerMode)
-
-        validationDemoForm.addFields(field)
-        setInternalForm(validationDemoForm)
+        formular.setValidationTriggerMode(validationTriggerMode)
+        formular.addFields(field)
+        setInternalForm(formular)
     }, [])
 
     useEffect(() => {
@@ -260,9 +261,7 @@ const FieldInputValidationSandbox = () => {
                         </div>
                         <div className="sandbox-container flex flex-col p-1 w-full h-full mt-14">
                             <NotifierDebugUi
-                                internalNotifierInstance={
-                                    lifeCylceInstances._intNotificationTracker
-                                }
+                                internalNotifierInstance={lifeCylceInstances.autoTracker}
                             />
                         </div>
                     </div>

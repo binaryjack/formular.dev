@@ -1,5 +1,4 @@
-import { IFormularFlags } from '@core/formular-base/formular-base.types'
-import { IFormular } from '../../formular-manager/formular-manager.types'
+import { IFormular, IFormularFlags } from '@core/formular-base/formular-base.types'
 
 export const getFormFlags = function (this: IFormular): Partial<IFormularFlags> {
     if (!this.fields) return {}

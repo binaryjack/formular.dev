@@ -17,10 +17,10 @@ export const defaultInitializationParameters: IFieldInitializationParameters = {
 }
 
 export const defaultInitializationDependencies: IInitializableDependency[] = [
-    lifeCylceInstances.notificationManagerInstance,
-    lifeCylceInstances.domManagerInstance,
-    lifeCylceInstances.trackingManagerInstance,
-    lifeCylceInstances.validationManagerInstance
+    lifeCylceInstances.notificationManager,
+    lifeCylceInstances.domManager,
+    lifeCylceInstances.trackingManager,
+    lifeCylceInstances.validationManager
 ]
 
 export const defaultTestDependencyConfiguration = newDependencyConfiguration(

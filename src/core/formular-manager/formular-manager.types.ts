@@ -1,3 +1,4 @@
+import { IFormular } from '@core/formular-base/formular-base.types'
 import { IValidationLocalize } from '@core/framework/localize/localize.type'
 import { TranslatioBuilderType } from '@core/framework/localize/localize.utils'
 
@@ -7,13 +8,13 @@ import { IFieldInitializationParameters } from '@core/input-engine/generator/bui
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 
-import type { IFormular } from '@core/formular-base/formular-base.types'
-export type { IFormular }
-
 export interface IFormularManager {
-    new (autoTracker?: INotificationManager): IFormularManager
+    new (
+        notificationManager?: INotificationManager,
+        autoTracker?: INotificationManager
+    ): IFormularManager
     forms: Map<string, IFormular>
-    autoTracker?: INotificationManager
+    notificationManager?: INotificationManager
     clear: (formId: IFormular) => void
     clearAll: () => void
     getForm: (formId: string) => IFormular | undefined
@@ -28,4 +29,5 @@ export interface IFormularManager {
         tb: TranslatioBuilderType,
         transdlations: IValidationLocalize
     ) => IFormular | undefined
+    createEmpty: (name: string) => IFormular | undefined
 }

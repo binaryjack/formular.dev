@@ -28,7 +28,7 @@ export interface IFormularFlags {
 }
 
 export interface IFormularBase {
-    new (id: string, manager: IFormularManager, autoTracker?: INotificationManager): IFormular
+    new (id: string, manager: IFormularManager): IFormular
     id: string
     fields: IExtendedInput[]
     originFields: IExtendedInput[]
@@ -36,7 +36,7 @@ export interface IFormularBase {
     canValidate: boolean
     isFormularBinded: boolean
     manager: IFormularManager
-    setup: (autoTracker?: INotificationManager) => void
+
     handleValidation: () => void
     validateAll: () => Promise<boolean>
     addFields: (...flds: IInput[]) => void

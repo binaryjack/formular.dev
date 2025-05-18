@@ -7,7 +7,7 @@ import {
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { datePickerDemoSchema } from './date-picker-demo.schema'
 
-const fm = new FormularManager(lifeCylceInstances._intNotificationTracker)
+const fm = new FormularManager(lifeCylceInstances.autoTracker)
 
 export const datePickerDemoFormInstance = fm.createFromSchema(
     datePickerDemoSchema,

@@ -1,6 +1,6 @@
 import { IFormularManager } from '../formular-manager.types'
 
-export default function getData<T extends object>(
+export const getData = function <T extends object>(
     this: IFormularManager,
     formId: string
 ): T | undefined {

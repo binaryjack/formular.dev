@@ -47,7 +47,7 @@ const maxLengthBuilder =
         ValidationSchemaBuildersEnum.MaxLengthBuilder
     )?.(20)
 
-const fm = new FormularManager(lifeCylceInstances._intNotificationTracker)
+const fm = new FormularManager(lifeCylceInstances.autoTracker)
 
 export const txtSchema: IEntityScheme = {
     name: 'datePickerDemoSchema',

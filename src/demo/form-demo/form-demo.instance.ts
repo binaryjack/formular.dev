@@ -7,7 +7,7 @@ import {
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { controlsDemoSchema } from './form-demo.schema'
 
-const fm = new FormularManager(lifeCylceInstances._intNotificationTracker)
+const fm = new FormularManager(lifeCylceInstances.autoTracker)
 
 export const demoFormInstance = fm.createFromSchema(
     controlsDemoSchema,

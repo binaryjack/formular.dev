@@ -1,5 +1,6 @@
-import { IFormular, IFormularManager } from '../formular-manager.types'
+import { IFormular } from '@core/formular-base/formular-base.types'
+import { IFormularManager } from '../formular-manager.types'
 
-export default function clear(this: IFormularManager, form: IFormular): void {
+export const clear = function (this: IFormularManager, form: IFormular): void {
     this.forms.delete(form.id)
 }

@@ -4,7 +4,7 @@ import { INotificationManager } from '../notification-manager-base.types'
 import { notification } from '../utils/new-notification-visitor'
 
 interface INotifierDebugUi {
-    internalNotifierInstance: INotificationManager
+    internalNotifierInstance?: INotificationManager
 }
 
 interface ITrackLog {
@@ -39,6 +39,7 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
     }
 
     useEffect(() => {
+        if (!internalNotifierInstance) return
         setNotifierInstance(internalNotifierInstance)
     }, [internalNotifierInstance])
 

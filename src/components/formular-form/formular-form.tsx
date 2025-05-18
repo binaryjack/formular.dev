@@ -44,9 +44,7 @@ const FormularForm = ({ formular, children, onSubmit }: IFormularProps) => {
         formInstance: formularInstance,
         getFormFlags: () => {
             return {
-                isValid: formularInstance?.isValid,
-                isDirty: formularInstance?.isDirty,
-                isBusy: formularInstance?.isBusy
+                ...formularInstance.getFormFlags()
             } as IFormularFlags
         }
     }
