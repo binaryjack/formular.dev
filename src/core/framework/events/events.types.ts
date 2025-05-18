@@ -51,7 +51,9 @@ export enum EventsEnum {
 
     onEngineStateChanger = 'onEngineStateChanger',
 
-    onDispose = 'onDispose'
+    onDispose = 'onDispose',
+
+    onBusyStateChange = 'onBusyStateChange'
 }
 
 /** if no rule is applied the the field is never validated */

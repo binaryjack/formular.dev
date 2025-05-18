@@ -3,7 +3,7 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 import { TGetter, TSetter } from '../value-manager.types'
 
 export const booleanGetter: TGetter<boolean | null> = (exfield: IExtendedInput): boolean | null => {
-    if (!isBoolean(exfield.input.value)) {
+    if (exfield.input.value !== null && !isBoolean(exfield.input.value)) {
         throw new Error(
             `${booleanGetter.name}: cannot get he value as boolea, is not boolean compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
         )
@@ -15,7 +15,7 @@ export const booleanSetter: TSetter<boolean | null> = function (
     exfield: IExtendedInput,
     value: boolean | null
 ) {
-    if (!isBoolean(value)) {
+    if (exfield.input.value !== null && !isBoolean(value)) {
         throw new Error(
             `${booleanSetter.name}: cannot set he value as boolea, is not boolean compatible value: ${JSON.stringify(exfield.input?.value)}, field: ${exfield.input?.id}`
         )

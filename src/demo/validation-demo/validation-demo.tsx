@@ -19,8 +19,8 @@ import {
     ValidationErrorsCodes
 } from '@core/managers/validation-manager/validation-manager.types'
 import { lifeCylceInstances } from '@demo/common/common-instances'
-import { txtFileDescriptorMock } from '@mocks/txt-file-descriptor-mock'
-import { validationOptionsMock } from '@mocks/validation-options-mock'
+import { txtFileDescriptorMock } from '@tests/mocks/txt-file-descriptor-mock'
+import { validationOptionsMock } from '@tests/mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
 
 interface ISubmitObject {

@@ -8,6 +8,9 @@ import {
 
 const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
     this.name = ValidatorMinLengthStrategy.name
+    this.validateAsync = async function (field: IExtendedInput) {
+        return Promise.resolve(this.validate(field))
+    }
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
         const value = field.input.valueManager.getValue(field)
@@ -20,10 +23,7 @@ const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
-        if (
-            hasValue &&
-            field.toString().length < field.input.validationOptions.minLength.minLength
-        ) {
+        if (hasValue && String(value).length < field.input.validationOptions.minLength.minLength) {
             return newValidationResult(
                 false,
                 name,

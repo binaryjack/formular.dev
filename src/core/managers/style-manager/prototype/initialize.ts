@@ -30,7 +30,8 @@ export const initialize = async function (
                 ['open', InputClassStatesValuesEnum.no_open],
                 ['pristine', InputClassStatesValuesEnum.pristine],
                 ['valid', InputClassStatesValuesEnum.valid],
-                ['required', InputClassStatesValuesEnum.required]
+                ['required', InputClassStatesValuesEnum.required],
+                ['busy', InputClassStatesValuesEnum.no_busy]
             ])
 
             e?.styleManager.update(

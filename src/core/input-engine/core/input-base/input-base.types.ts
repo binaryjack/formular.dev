@@ -47,6 +47,9 @@ export interface IInputProperties extends IFieldDescriptor {
     label: string
 
     enabled: boolean
+
+    isBusy: boolean
+
     isValid: boolean
     isDirty: boolean
     isPristine: boolean
@@ -68,13 +71,15 @@ export interface IInputProperties extends IFieldDescriptor {
     hasChanges: (callback: () => void) => void
 
     handleValidation: <T extends IEvents | unknown>(data: T) => void
-
+    handleValidationAsync: <T extends IEvents | unknown>(data: T) => Promise<IValidationResult[]>
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
     refreshUi: (ref?: IInputBase | IExtendedInput) => void
     onBeforeValidation?: () => boolean
     onAfterValidation?: () => void
+    setInputBusy: (isBusy: boolean) => void
+
     /** Dependency accessors */
     domManager: IDomManager<HTMLInputElement>
     drawer: IDrawerBaseInput

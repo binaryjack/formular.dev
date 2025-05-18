@@ -1,23 +1,28 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
 import { LoadingStatus } from '@core/status'
 import { IFormular } from '../formular-base.types'
 
 export const submit = async function <T extends object>(this: IFormular<T>): Promise<T | null> {
     this.setIsBusy(LoadingStatus.InProgress)
-    return await new Promise<T | null>((resolve, reject) => {
+    return await new Promise<T | null>(async (resolve, reject) => {
         if (this.validateOnFirstSubmit) {
             this.validateOnFirstSubmit = false
         }
-        this.fields.forEach((f: IExtendedInput) => {
-            f.input.handleValidation(
-                newEvent(f.input.name, submit.name, 'onValidate', `submit`, f.input.name, f)
+
+        const validationResults: IValidationResult[] = []
+
+        for (const f of this.fields) {
+            validationResults.push(
+                ...(await f.input.handleValidationAsync(
+                    newEvent(f.input.name, submit.name, 'onValidate', `submit`, f.input.name, f)
+                ))
             )
-        })
+        }
         const validFields: boolean[] = []
 
-        this.fields.forEach((f: IExtendedInput) => {
-            validFields.push(f.input.isValid)
+        validationResults.forEach((result: IValidationResult) => {
+            validFields.push(result.state)
         })
 
         if (validFields.every((result) => result)) {

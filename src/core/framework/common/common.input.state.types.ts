@@ -24,6 +24,9 @@ export enum InputClassStatesValuesEnum {
     required = 'required',
     no_required = 'no-required',
 
+    busy = 'busy',
+    no_busy = 'no-busy',
+
     /* this will reset the style flags */
     clear = 'clear'
 }
@@ -37,6 +40,7 @@ export enum InputClassStatesNamesEnum {
     pristine = 'pristine',
     valid = 'valid',
     required = 'required',
+    busy = 'busy',
     clear = 'clear'
 }
 

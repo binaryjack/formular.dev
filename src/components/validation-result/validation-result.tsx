@@ -24,8 +24,6 @@ const ValidationResultComponent = ({ validationResults, isFocus }: ValidationRes
         [validationResults.every((result) => result.state)]
     )
 
-    console.log('ValidationResultComponent focus', isFocus)
-
     if (valid) {
         return <></>
     }

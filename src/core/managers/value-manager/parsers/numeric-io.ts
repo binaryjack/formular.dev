@@ -1,19 +1,15 @@
-import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 import { isNumber } from '@core/framework/utility/is-number'
 import { TGetter, TSetter } from '../value-manager.types'
 
 export const numericGetter: TGetter<number | null> = (exfield: IExtendedInput): number | null => {
-    if (isNullEmptyOrUndefined(exfield.input.objectValue)) {
-        return null
+    if (exfield.input.value !== null && !isNumber(exfield.input.value)) {
+        throw new Error(
+            `${numericGetter.name}: cannot get the value as number, is not number compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
+        )
     }
-    if (isNumber(exfield.input.value)) {
-        return exfield.input.value as number | null
-    }
-    throw new Error(
-        `${numericGetter.name}: cannot get the value as number, is not number compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
-    )
+    return exfield.input.value as number | null
 }
 
 export const numericSetter: TSetter<number | null> = function (

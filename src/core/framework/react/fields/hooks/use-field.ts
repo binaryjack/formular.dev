@@ -27,13 +27,11 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     }, [field])
 
     const handleRefresh = () => {
-        forceUpdate()
-        if (!stableField?.input.styleManager?.getFlagsObject?.()) return
         setFlags(stableField?.input.styleManager?.getFlagsObject?.())
+        forceUpdate()
     }
 
     useEffect(() => {
-        if (!stableField?.input.styleManager?.getFlagsObject?.()) return
         setFlags(stableField?.input.styleManager?.getFlagsObject?.())
     }, [stableField?.input.styleManager?.classNames()])
 
@@ -44,6 +42,7 @@ export const useField = <T extends IExtendedInput | IInputBase>(
         stableField.input.notificationManager?.accept(
             notification(useField, handleRefresh, event, `useField.${event}`, useField.name)
         )
+        stableField.input.notificationManager?.observers.subscribe(handleRefresh)
     }
 
     useEffect(() => {

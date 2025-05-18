@@ -11,11 +11,17 @@ export const initialize = async function (
     params: IFieldInitializationParameters
 ) {
     try {
-        const success = await abstractInitializer(this, (e) => {}, [
-            notification(this, this.handleValidation, 'onValidate', 'onValidate', this.name),
-            notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
-            notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name)
-        ])
+        const success = await abstractInitializer(
+            this,
+            (e) => {
+                // e?.notificationManager?.observers.subscribe(this.setInputBusy.bind(this))
+            },
+            [
+                notification(this, this.handleValidation, 'onValidate', 'onValidate', this.name),
+                notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
+                notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name)
+            ]
+        )
 
         if (success) {
             const em = new ExceptionManager(

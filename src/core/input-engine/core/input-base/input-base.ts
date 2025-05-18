@@ -19,9 +19,11 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
+import { handleValidationAsync } from './prototype/handle-validation-async'
 import { message } from './prototype/message'
 import { refreshUi } from './prototype/refresh-ui'
 import { setFocus } from './prototype/set-focus'
+import { setInputBusy } from './prototype/set-input-busy'
 
 export const InputBase = function (this: IInputBase, descriptor: IFieldDescriptor) {
     if (descriptor.id < 0 || !descriptor.name) {
@@ -35,6 +37,7 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
 
 Object.assign(InputBase.prototype, {
     useNotificationManager,
+    handleValidationAsync,
     useValidationManager,
     initializeProperties,
     useTrackingManager,
@@ -45,6 +48,7 @@ Object.assign(InputBase.prototype, {
     useStyleManager,
     useDomManager,
     handleOnFocus,
+    setInputBusy,
     handleOnClear,
     handleOnBlur,
     initialize,

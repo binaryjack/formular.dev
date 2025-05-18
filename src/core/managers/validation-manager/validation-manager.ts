@@ -1,9 +1,12 @@
 import { addValidationStrategies } from './prototype/add-validation-strategies'
 import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
 
+import { addValidationStrategy } from './prototype/add-validation-strategy'
 import { initialize } from './prototype/initialize'
 import { validate } from './prototype/validate'
-import { validateAll } from './prototype/validate-all'
+import { validateAsync } from './prototype/validateAsync'
+import { validateMany } from './prototype/validateMany'
+import { validateManyAsync } from './prototype/validateManyAsync'
 import { IValidationManager } from './validation-manager.types'
 
 /**
@@ -30,7 +33,10 @@ export const ValidationManager = function (this: IValidationManager) {
 Object.assign(ValidationManager.prototype, {
     initialize,
     addValidationStrategies,
+    addValidationStrategy,
     setValidationTriggerMode,
     validate,
-    validateAll
+    validateAsync,
+    validateMany,
+    validateManyAsync
 })

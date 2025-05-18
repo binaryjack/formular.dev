@@ -8,6 +8,9 @@ import {
 
 const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
     this.name = ValidatorMaxLengthStrategy.name
+    this.validateAsync = async function (field: IExtendedInput) {
+        return Promise.resolve(this.validate(field))
+    }
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
         const value = field.input.valueManager.getValue(field)
@@ -25,7 +28,7 @@ const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
 
         if (
             hasValue &&
-            field.toString().length > field?.input.validationOptions?.maxLength?.maxLength
+            String(value).length > field?.input.validationOptions?.maxLength?.maxLength
         ) {
             return newValidationResult(
                 false,

@@ -19,14 +19,14 @@ export const dateGetter: TGetter<string | null> = (exfield: IExtendedInput): str
     if (isNullEmptyOrUndefined(exfield.input.objectValue)) {
         return null
     }
-    if (isNDate(exfield.input.objectValue ?? null)) {
-        return iNDateToString(
-            exfield.input.objectValue as INDate,
-            conventions.dataTypes.date.formatDisplay
+    if (exfield.input.value !== null && !isNDate(exfield.input.objectValue ?? null)) {
+        throw new Error(
+            `${dateGetter.name}: cannot get the value as date, is not date compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
         )
     }
-    throw new Error(
-        `${dateGetter.name}: cannot get the value as date, is not date compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
+    return iNDateToString(
+        exfield.input.objectValue as INDate,
+        conventions.dataTypes.date.formatDisplay
     )
 }
 

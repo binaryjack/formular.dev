@@ -51,7 +51,7 @@ const FieldSet = <TType,>({
         <fieldset
             ref={elementRef}
             id={`${inputId}-fieldset`}
-            className={`fieldset fieldset-container  ${flags.isValid ? 'valid border-green-800' : 'invalid border-red-800'} ${className}`}
+            className={`fieldset fieldset-container  ${flags.valid ? 'valid border-green-800' : 'invalid border-red-800'} ${className}`}
             data-type={type}
             data-testid={`test-${inputId}`}
             onClick={onClick}
@@ -74,9 +74,17 @@ const FieldSet = <TType,>({
                          * */
                         id={`${inputId}${conventions.suffix.labelId}`}
                         htmlFor={inputId}
-                        className={`label inline-block mr-2 ${flags.isValid ? '' : 'label-error text-ellipsis'}`}
+                        className={`label inline-block mr-2 ${flags.valid ? '' : 'label-error text-ellipsis'}`}
                     >
                         {label}
+                        {flags.busy ? (
+                            <span className="loading loading-spinner loading-sm">
+                                {' '}
+                                {flags.busy}{' '}
+                            </span>
+                        ) : (
+                            ''
+                        )}
                     </label>
                 </div>
                 <div className={`input-container flex flex-row w-full`}>
@@ -133,14 +141,14 @@ const FieldSet = <TType,>({
                 </div>
 
                 <div
-                    className={`input-container-focus-indicator flex ${flags.isFocus ? 'focus' : ''}`}
+                    className={`input-container-focus-indicator flex ${flags.focus ? 'focus' : ''}`}
                 />
                 {flags.required && <div className={`input-container-required-indicator flex`} />}
             </div>
 
             {validationChildren && (
                 <div className={`relative bottom-0 left-0 flex flex-col mt-1`}>
-                    <div className={`${flags.isFocus ? 'validation-success' : 'validation-error'}`}>
+                    <div className={`${flags.focus ? 'validation-success' : 'validation-error'}`}>
                         {validationChildren}
                     </div>
                 </div>

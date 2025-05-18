@@ -56,6 +56,7 @@ export interface IValidationMethodStrategy {
     new (): IValidationMethodStrategy
     name: string
     validate: (field: IExtendedInput) => IValidationResult
+    validateAsync: (field: IExtendedInput) => Promise<IValidationResult>
 }
 
 export interface IValidationManager extends IInitializableDependency {
@@ -64,9 +65,12 @@ export interface IValidationManager extends IInitializableDependency {
     isValidating: boolean
     validationTriggerModeType: EventsType[]
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
+    addValidationStrategy: (parser: IValidationMethodStrategy) => void
     setValidationTriggerMode: (mode: EventsType[]) => void
-    validate: (field: IExtendedInput) => IValidationResult[]
-    validateAll: (fields: IExtendedInput[]) => IValidationResults[]
+    validate: (field: IExtendedInput, reset?: boolean) => IValidationResult[]
+    validateAsync?: (field: IExtendedInput, reset?: boolean) => Promise<IValidationResult[]>
+    validateMany: (fields: IExtendedInput[], reset?: boolean) => IValidationResult[]
+    validateManyAsync?: (fields: IExtendedInput[], reset?: boolean) => Promise<IValidationResult[]>
 }
 
 export interface IValidationTextBase {

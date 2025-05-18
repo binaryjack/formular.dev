@@ -8,6 +8,9 @@ import {
 
 const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
     this.name = ValidatorRequiredStrategy.name
+    this.validateAsync = async function (field: IExtendedInput) {
+        return Promise.resolve(this.validate(field))
+    }
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
         const value = field.input.valueManager.getValue(field)

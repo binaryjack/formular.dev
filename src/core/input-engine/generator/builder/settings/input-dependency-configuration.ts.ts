@@ -5,7 +5,7 @@ import { defaultOutputTrackers } from '@core/managers/tracking-manager/settings/
 import { defaultValidationStrategies } from '@core/managers/validation-manager/settings/default.settings'
 import { defaultValueParsersStrategies } from '@core/managers/value-manager/settings/default.settings'
 import { lifeCylceInstances } from '@demo/common/common-instances'
-import { _mockDescriptor } from '@mocks/field-descriptor.mock'
+import { _mockDescriptor } from '@tests/mocks/field-descriptor.mock'
 import { IFieldInitializationParameters } from '../field-builder'
 
 export const defaultInitializationParameters: IFieldInitializationParameters = {
