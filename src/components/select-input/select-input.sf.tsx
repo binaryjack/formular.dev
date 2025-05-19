@@ -14,7 +14,6 @@ interface ISelectProps {
 
 export const SelectSF = ({ fieldName }: ISelectProps) => {
     const { formInstance } = useFormularContext()
-
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const { setToggleState } = useToggleableContext()
