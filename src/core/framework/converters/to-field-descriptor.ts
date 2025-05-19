@@ -180,10 +180,3 @@ export const mapSchemaToFieldDescriptor = (
     const newOutPut = output.sort((a, b) => a.id - b.id)
     return newOutPut
 }
-function requiredError(): string | undefined {
-    throw new Error('Function not implemented.')
-}
-
-function requiredGuide(): string | undefined {
-    throw new Error('Function not implemented.')
-}

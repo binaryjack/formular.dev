@@ -3,6 +3,7 @@ import RadioInput from '@components/radio-input/radio-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import {
     defaultInitializationDependencies,
@@ -16,7 +17,6 @@ import { mockOptions } from '@tests/mocks/i-options-items.mock'
 import { radioFileDescriptorMock } from '@tests/mocks/radio-file-descriptor-mock'
 import { validationOptionsForRadioMock } from '@tests/mocks/validation-options-for-radio-mock'
 
-import { validationOptionsMock } from '@tests/mocks/validation-options-mock'
 import { useEffect, useState } from 'react'
 
 interface ISubmitObject {
@@ -31,8 +31,13 @@ const formular = formularManager.createEmpty(
     'validation-demo-radio-form'
 ) as IFormular<ISubmitObject>
 
+const radioBaseValidationOptionsMock = radioFileDescriptorMock(
+    validationOptionsForRadioMock,
+    mockOptions
+) as IFieldDescriptor
+
 const field = InputsProvider(
-    [radioFileDescriptorMock(validationOptionsForRadioMock, mockOptions)],
+    [radioBaseValidationOptionsMock],
     defaultInitializationParameters,
     defaultInitializationDependencies
 )?.[0]
@@ -40,7 +45,7 @@ const field = InputsProvider(
 const ValidationDemoRadioInput = () => {
     const [submissionObject, setSubmissionObject] = useState<ISubmitObject>()
 
-    const [validationOptions, setValidationOptions] = useState(validationOptionsMock)
+    const [validationOptions, setValidationOptions] = useState(validationOptionsForRadioMock)
 
     const { instance } = useField(field)
 
@@ -67,11 +72,13 @@ const ValidationDemoRadioInput = () => {
 
     useEffect(() => {
         if (!internalForm) return
-
         internalForm?.setValidationTriggerMode(validationTriggerMode)
     }, [internalForm, validationTriggerMode])
 
-    const handleValidationOptionChange = (key: keyof typeof validationOptionsMock, value: any) => {
+    const handleValidationOptionChange = (
+        key: keyof typeof validationOptionsForRadioMock,
+        value: any
+    ) => {
         setValidationOptions((prev) => ({
             ...prev,
             [key]: { ...prev[key], ...value }

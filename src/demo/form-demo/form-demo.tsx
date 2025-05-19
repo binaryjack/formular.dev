@@ -22,10 +22,10 @@ import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 import { Signals } from '../../core/observers/signals/signal'
 import { demoFormInstance } from './form-demo.instance'
 
-//https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
+// https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
 const { Signal, useSignal } = Signals
 
-// // build a schema for the fields to be used
+// build a schema for the fields to be used
 // const item = controlDemoSchema
 // // map schema to fieldsDescriptors collection from schema
 // const fieldDescriptors = mapSchemaToFieldDescriptor(item, getTranslationBuilder, getTranslations())
