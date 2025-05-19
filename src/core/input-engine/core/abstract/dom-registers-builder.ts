@@ -3,9 +3,10 @@ import { AriaHelper } from '../accessibility/arias'
 import { onBlur } from '../input-base/events/on-blur'
 import { onChange } from '../input-base/events/on-changed'
 import { onClick } from '../input-base/events/on-click'
-import { onClickLabel } from '../input-base/events/on-click-label'
+import { onClickOption } from '../input-base/events/on-click-option'
 import { onFocus } from '../input-base/events/on-focus'
 
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IExtendedInput } from '../input-base/input-base.types'
 
 export interface IDomRegisterBuilder {
@@ -14,15 +15,17 @@ export interface IDomRegisterBuilder {
     onBlur: (e: Event) => void
     onFocus: (e: Event) => void
     onClick: (e: Event) => void
-    onClickLabel: (e: Event) => void
+    onClickOption: (e: Event) => void
 
     registerChange: () => IDomRegisterBuilder
     registerBlur: () => IDomRegisterBuilder
     registerFocus: () => IDomRegisterBuilder
     registerClick: () => IDomRegisterBuilder
-    registerClickLabel: (optionId: string) => IDomRegisterBuilder
+    registerClickOption: (optionId: string) => IDomRegisterBuilder
     registerAria: (...arias: IAria[]) => IDomRegisterBuilder
     build: () => any
+    buildOption: (option: IOptionItem) => any
+    buildLabel: (option: IOptionItem) => any
 }
 
 export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: IExtendedInput) {
@@ -42,8 +45,8 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
         this.onClick = (e: Event) => onClick(context, e)
         return this
     }
-    this.registerClickLabel = function (this: IDomRegisterBuilder, optionId: string) {
-        this.onClickLabel = (e: Event) => onClickLabel(context, optionId, e)
+    this.registerClickOption = function (this: IDomRegisterBuilder, optionId: string) {
+        this.onClickOption = (e: Event) => onClickOption(context, optionId, e)
         return this
     }
     this.registerAria = function (this: IDomRegisterBuilder, ...arias: IAria[]) {
@@ -62,6 +65,25 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
             onBlur: this.onBlur,
             onFocus: this.onFocus,
             onClick: this.onClick
+        }
+    }
+    this.buildOption = function (this: IDomRegisterBuilder, option: IOptionItem): any {
+        return {
+            id: `option-${option.id}`,
+            type: context.input.type,
+            title: option.text ?? '',
+            onChange: this.onChange,
+            onBlur: this.onBlur,
+            onFocus: this.onFocus,
+            onClick: this.onClickOption
+        }
+    }
+    this.buildLabel = function (this: IDomRegisterBuilder, option: IOptionItem): any {
+        return {
+            id: `label-${option.id}`,
+            type: 'label',
+            title: option.text ?? '',
+            onClick: this.onClickOption
         }
     }
 } as any as IDomRegisterBuilder

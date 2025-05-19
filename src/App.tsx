@@ -1,4 +1,4 @@
-import ValidationDemoTextInput from './demo/validation-demo/validation-demo-text-input'
+import ValidationDemoRadioInput from '@demo/validation-demo/validation-demo-radio-input'
 
 interface IApp extends Node {
     testName?: string
@@ -73,7 +73,9 @@ const buttonsDemo = () => (
 
 const validationDemo = () => (
     <div className={'app flex flex-col w-full flex-1 items-center justify-center'}>
-        <ValidationDemoTextInput />
+        <ValidationDemoRadioInput />
+
+        {/* <ValidationDemoTextInput /> */}
     </div>
 )
 

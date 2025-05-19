@@ -1,7 +1,7 @@
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
-export const onClickLabel = <T extends IExtendedInput>(f: T, optionId: string, e: Event) => {
+export const onClickOption = <T extends IExtendedInput>(f: T, optionId: string, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
     // console.log('onClickLabel', f.name, optionId, inputElement.value)
@@ -18,14 +18,26 @@ export const onClickLabel = <T extends IExtendedInput>(f: T, optionId: string, e
         'onClick',
         newEvent(
             f.input.name,
-            onClickLabel.name,
+            onClickOption.name,
             'onClick',
-            `field.option.label.${onClickLabel.name}`,
+            `field.option.label.${onClickOption.name}`,
+            f.input.name,
+            f
+        )
+    )
+
+    f.input?.notificationManager?.notify(
+        'onUiUpdate',
+        newEvent(
+            f.input.name,
+            onClickOption.name,
+            'onUiUpdate',
+            `field.option.label.${onClickOption.name}`,
             f.input.name,
             f
         )
     )
 
     e.stopPropagation()
-    e.preventDefault()
+    // e.preventDefault()
 }

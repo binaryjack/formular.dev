@@ -17,13 +17,13 @@ export const optionReferencer = function (context: IExtendedInput, ref: HTMLInpu
      * we expect to have only one ref and it could avoid bugs
      */
     context.input.domManager?.dmRegister(ref)
-    if (context.input.optionsInitialized) return
-    if (context.input.checkOptionsInitialized()) {
+    if (context.optionBase.optionsInitialized) return
+    if (context.optionBase.checkOptionsInitialized()) {
         context.input.valueManager?.setValue(
-            context,
+            context as unknown as IExtendedInput,
             context.input.defaultValue as IOptionItem | string | number | null
         )
-        context.input.optionsInitialized = true
+        context.optionBase.optionsInitialized = true
     }
 
     // const existingRef = this.get(ref.id)

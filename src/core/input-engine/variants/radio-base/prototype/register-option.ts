@@ -1,3 +1,4 @@
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { DomRegisterBuilder } from '@core/input-engine/core/abstract/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
@@ -21,12 +22,14 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
  * - `onFocus`: Handles focus events on the input element. Updates the focus state,
  *   triggers observers, and notifies listeners about the "focused" event.
  */
-export const registerOption = function (this: IExtendedInput): Partial<HTMLInputElement> {
+export const registerOption = function (
+    this: IExtendedInput,
+    option: IOptionItem
+): Partial<HTMLInputElement> {
     return new DomRegisterBuilder(this)
-        .registerChange()
         .registerBlur()
         .registerFocus()
-        .registerClick()
+        .registerClickOption(option.id)
         .registerAria()
-        .build()
+        .buildOption(option)
 }

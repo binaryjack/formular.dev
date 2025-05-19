@@ -22,5 +22,5 @@ export const registerLabel = function (
     this: IExtendedInput,
     optionId: string
 ): Partial<HTMLInputElement> {
-    return new DomRegisterBuilder(this).registerClickLabel(optionId).registerAria().build()
+    return new DomRegisterBuilder(this).registerClickOption(optionId).registerAria().build()
 }

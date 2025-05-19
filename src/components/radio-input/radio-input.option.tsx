@@ -1,15 +1,15 @@
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IRadioBaseInput } from '@core/input-engine/variants/radio-base/radio-base-input.types'
 
 interface IRadioInputOptionProps {
-    field: IInput
+    field: IRadioBaseInput
     option: IOptionItem
 }
 
 const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
     const handleDelete = () => {
-        field?.clear()
+        field?.input.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
@@ -18,20 +18,20 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
         <div className={`radio-item-group`}>
             <input
                 tabIndex={0}
-                id={option.id}
                 data-sequence-id={option.sequenceId}
+                data-class="base-radio"
                 className="base-radio "
                 type="radio"
-                name={field.name}
+                name={field.input.name}
                 value={option.value}
-                {...field.registerOption()}
-                ref={(r) => field.refOption(r)}
+                {...field?.registerOption(option)}
+                ref={(r) => r && field?.refOption(r)}
                 onKeyDown={handleKeyDown}
             />
             <label
-                htmlFor={option.id}
+                htmlFor={`option-${option.id}`}
                 className={`ml-2 cursor-pointer select-none`}
-                {...field.registerLabel(option.id)}
+                {...field?.registerLabel(option)}
             >
                 {option.text}
             </label>

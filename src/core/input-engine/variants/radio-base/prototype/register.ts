@@ -49,11 +49,5 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 export const register = function <FieldValuesTypes>(
     this: IExtendedInput
 ): Partial<HTMLInputElement> {
-    return new DomRegisterBuilder(this)
-        .registerChange()
-        .registerBlur()
-        .registerClick()
-        .registerFocus()
-        .registerAria()
-        .build()
+    return new DomRegisterBuilder(this).registerAria().build()
 }

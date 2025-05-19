@@ -14,13 +14,17 @@
  * - Stops the propagation of the click event.
  */
 
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { DomRegisterBuilder } from '@core/input-engine/core/abstract/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */
 export const registerLabel = function (
     this: IExtendedInput,
-    optionId: string
+    option: IOptionItem
 ): Partial<HTMLInputElement> {
-    return new DomRegisterBuilder(this).registerClickLabel(optionId).registerAria().build()
+    return new DomRegisterBuilder(this)
+        .registerClickOption(option.id)
+        .registerAria()
+        .buildLabel(option)
 }

@@ -16,7 +16,8 @@ export const initialize = async function (
 ) {
     try {
         const success = await abstractInitializer(this.input, (context) => {
-            context.options = params.descriptor?.options ?? []
+            this.options = params.descriptor?.options ?? []
+            // context.options = params.descriptor?.options ?? []
             context.optionsInitialized = true
             context.selectedOptionId = null
         })
@@ -30,7 +31,7 @@ export const initialize = async function (
                         `${this.dependencyName}: The dependency field is not properly initialized`
                     ),
                     newAssert(
-                        params.descriptor?.options?.length > 0,
+                        this?.options?.length > 0,
                         `${this.dependencyName}: None options were provided. this feature will not work properly`
                     )
                 ]
