@@ -19,12 +19,12 @@ export const getAsString = function (this: IValueManager, field: IExtendedInput)
         switch (field.input.type) {
             case 'number':
                 return String(valueOut as string) as string | null
-            case 'select':
             case 'checkbox':
                 return valueOut ? '1' : ('0' as string | null)
             case 'date':
             case 'time':
                 return JSON.stringify(valueOut) as string | null
+            case 'select':
             case 'radio':
             default:
                 return valueOut as string | null

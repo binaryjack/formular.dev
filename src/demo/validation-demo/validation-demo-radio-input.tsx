@@ -1,7 +1,6 @@
 import FormularForm from '@components/formular-form/formular-form'
 import RadioInput from '@components/radio-input/radio-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
-import { EventsType } from '@core/framework/events/events.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -18,6 +17,10 @@ import { radioFileDescriptorMock } from '@tests/mocks/radio-file-descriptor-mock
 import { validationOptionsForRadioMock } from '@tests/mocks/validation-options-for-radio-mock'
 
 import { useEffect, useState } from 'react'
+import { FormsContentFrame } from './components/form-content-frame'
+import { Required } from './components/required'
+import { TriggerMode } from './components/trigger-mode'
+import { useDemoSettings } from './hooks/useDemoSettings'
 
 interface ISubmitObject {
     selectedOption: string
@@ -43,53 +46,31 @@ const field = InputsProvider(
 )?.[0]
 
 const ValidationDemoRadioInput = () => {
-    const [submissionObject, setSubmissionObject] = useState<ISubmitObject>()
-
-    const [validationOptions, setValidationOptions] = useState(validationOptionsForRadioMock)
-
     const { instance } = useField(field)
-
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
-    const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
-        'onFocus',
+    const {
+        submissionObject,
+        setSubmissionObject,
+        validationOptions,
+        validationTriggerMode,
+        handleTriggerModeChange,
+        handleValidationOptionChange
+    } = useDemoSettings<ISubmitObject>(
+        instance,
+        internalForm,
+        validationOptionsForRadioMock,
+        'onClick',
         'onBlur',
-        'onChange',
         'onSubmit',
         'validateOnFormFirstSubmit'
-    ])
+    )
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
         formular.addFields(field)
         setInternalForm(formular)
     }, [])
-
-    useEffect(() => {
-        if (!validationOptions || !instance) return
-        instance.input.validationOptions = validationOptions
-    }, [instance, validationOptions])
-
-    useEffect(() => {
-        if (!internalForm) return
-        internalForm?.setValidationTriggerMode(validationTriggerMode)
-    }, [internalForm, validationTriggerMode])
-
-    const handleValidationOptionChange = (
-        key: keyof typeof validationOptionsForRadioMock,
-        value: any
-    ) => {
-        setValidationOptions((prev) => ({
-            ...prev,
-            [key]: { ...prev[key], ...value }
-        }))
-        field.validationOptions = { ...validationOptions, [key]: value }
-    }
-
-    const handleTriggerModeChange = (mode: EventsType[]) => {
-        setValidationTriggerMode(mode)
-        field.input.validationManager.setValidationTriggerMode(mode)
-    }
 
     const handleSubmit = (data: any) => {
         setSubmissionObject(data as ISubmitObject)
@@ -99,69 +80,29 @@ const ValidationDemoRadioInput = () => {
         <>
             {internalForm && (
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
-                    <div className="sandbox-container flex flex-row p-1 w-full h-full">
-                        <div className="sandbox-container flex flex-col p-1 w-full h-full">
-                            <div className="validation-controls w-full">
-                                <div className="flex px-1 flex-row w-full ">
-                                    <div className="flex px-2 flex-col w-full">
-                                        <label htmlFor="required-v">Required:</label>
-                                        <input
-                                            className="mx-2"
-                                            id="required-v"
-                                            type="checkbox"
-                                            checked={
-                                                validationOptions.requiredData?.required || false
-                                            }
-                                            onChange={(e) =>
-                                                handleValidationOptionChange('requiredData', {
-                                                    required: e.target.checked
-                                                })
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex px-2  flex-col w-full">
-                                    <label htmlFor="validationTriggerMode-v">
-                                        Validation Trigger Mode:
-                                    </label>
-                                    <select
-                                        id="validationTriggerMode-v"
-                                        multiple
-                                        value={validationTriggerMode}
-                                        onChange={(e) =>
-                                            handleTriggerModeChange(
-                                                Array.from(
-                                                    e.target.selectedOptions,
-                                                    (option) => option.value as EventsType
-                                                )
-                                            )
-                                        }
-                                    >
-                                        <option value="onClick">onClick</option>
-                                        <option value="validateOnFormFirstSubmit">
-                                            validateOnFormFirstSubmit
-                                        </option>
-                                        <option value="onFocus">onFocus</option>
-                                        <option value="onBlur">onBlur</option>
-                                        <option value="onChange">onChange</option>
-                                        <option value="onSubmit">onSubmit</option>
-                                        <option value="onLoad">onLoad</option>
-                                        <option value="reset">reset</option>
-                                    </select>
-                                </div>
-                            </div>
-                            {instance?.valueManager?.getAsString?.(
-                                instance as unknown as IExtendedInput
-                            )}
-                            <div className="input-container w-full mt-14 mb-20">
+                    <FormsContentFrame
+                        childrenRequired={
+                            <Required
+                                validationOptions={validationOptions}
+                                handleValidationOptionChange={handleValidationOptionChange}
+                            />
+                        }
+                        childrenTriggerMode={
+                            <TriggerMode
+                                validationTriggerMode={validationTriggerMode}
+                                handleTriggerModeChange={handleTriggerModeChange}
+                            />
+                        }
+                        childrenInput={
+                            <>
+                                {instance?.valueManager?.getAsString?.(
+                                    instance as unknown as IExtendedInput
+                                )}
                                 <RadioInput fieldName="radioSandbox" />
-                            </div>
-                            <div className="w-full">
-                                <h3 className="text-lg font-bold">Submission Object:</h3>
-                                {JSON.stringify(submissionObject, null, 2)}
-                            </div>
-                        </div>
-                    </div>
+                            </>
+                        }
+                        childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
+                    />
                 </FormularForm>
             )}
         </>

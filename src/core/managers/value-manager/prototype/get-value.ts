@@ -20,8 +20,8 @@ export function getValue(this: IValueManager, field: IExtendedInput): unknown | 
         switch (field.input.type) {
             case 'select':
                 return (value as unknown as IOptionItem)?.value
+            // return (value as unknown as IOptionItem)?.sequenceId
             case 'radio':
-                return (value as unknown as IOptionItem)?.sequenceId
             default:
                 return value
         }

@@ -23,11 +23,11 @@ export const onSelectItem = function (this: IExtendedInput, option: IOptionItem)
     if (this.input?.drawer) this.input.drawer!.openState = 'closed'
 
     this.input.notificationManager?.notify(
-        'onSelect',
+        'onUiUpdate',
         newEvent(
             this.input.name,
             onSelectItem.name,
-            'onSelect',
+            'onUiUpdate',
             'field.selected',
             this.input.name,
             this as unknown as IExtendedInput
