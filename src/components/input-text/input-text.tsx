@@ -43,6 +43,7 @@ const InputText = ({ fieldName }: IInputTextProps) => {
             <input
                 tabIndex={0}
                 data-class="base-input"
+                className="base-input"
                 {...instance?.register()}
                 ref={(r) => instance?.ref(r)}
                 onKeyDown={handleKeyDown}

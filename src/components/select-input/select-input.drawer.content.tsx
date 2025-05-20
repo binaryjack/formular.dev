@@ -56,7 +56,8 @@ const SelectDrawerContent = ({
         setCurrentItemSequenceId(originalSelectedItemRef.current)
     }
 
-    const selectNextItem = () => {
+    const selectNextItem = (e: React.KeyboardEvent<any>) => {
+        e?.preventDefault?.()
         if (toggleState === 'closed') return
 
         if (currentItemSequenceId === items.length - 1) {
@@ -66,7 +67,8 @@ const SelectDrawerContent = ({
         setCurrentItemSequenceId(currentItemSequenceId + 1)
     }
 
-    const selectPreviousItem = () => {
+    const selectPreviousItem = (e: React.KeyboardEvent<any>) => {
+        e?.preventDefault?.()
         if (toggleState === 'closed') return
         if (currentItemSequenceId === 0) {
             setCurrentItemSequenceId(items.length - 1)
@@ -75,7 +77,8 @@ const SelectDrawerContent = ({
         setCurrentItemSequenceId(currentItemSequenceId - 1)
     }
 
-    const selectOnEnter = () => {
+    const selectOnEnter = (e: React.KeyboardEvent<any>) => {
+        e?.preventDefault?.()
         const selectedItem = items.find((item) => item.sequenceId === currentItemSequenceId)
         if (selectedItem) {
             onSelectItem(selectedItem)
@@ -88,17 +91,17 @@ const SelectDrawerContent = ({
     }, [items])
 
     const { handleKeyDown } = useKeyBindings({
-        onEscapeCallback: () => {
+        onEscapeCallback: (e) => {
             setOpenState?.({} as any, 'closed')
         },
-        onArrowUpCallback: () => {
-            selectPreviousItem()
+        onArrowUpCallback: (e) => {
+            selectPreviousItem(e)
         },
-        onArrowDownCallback: () => {
-            selectNextItem()
+        onArrowDownCallback: (e) => {
+            selectNextItem(e)
         },
-        onEnterCallback: () => {
-            selectOnEnter()
+        onEnterCallback: (e) => {
+            selectOnEnter(e)
         }
     })
 

@@ -30,7 +30,7 @@ const DelayInput = ({
         setValue(e.target.value)
     }
 
-    const handleClear = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const handleClear = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e?.preventDefault?.()
         setValue('')
 

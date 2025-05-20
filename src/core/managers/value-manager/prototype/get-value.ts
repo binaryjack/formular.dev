@@ -1,3 +1,4 @@
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
@@ -14,19 +15,16 @@ export function getValue(this: IValueManager, field: IExtendedInput): unknown | 
         return
     }
     try {
-        /** Factory */
+        const value = strategy.getter(field)
 
-        return strategy.getter(field)
-
-        // switch (strategy.fieldValueProperty) {
-        //     case 'id':
-        //         return strategy.getter(field)
-        //     case 'selectedOptionId':
-        //         return strategy.getter(field)
-        //     case 'value':
-        //     default:
-        //         return strategy.getter(field)
-        // }
+        switch (field.input.type) {
+            case 'select':
+                return (value as unknown as IOptionItem)?.value
+            case 'radio':
+                return (value as unknown as IOptionItem)?.sequenceId
+            default:
+                return value
+        }
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
     }

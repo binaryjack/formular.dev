@@ -17,12 +17,12 @@ const SelectDrawerOptions = ({
 }: ISelectDrawerOptionsProps) => {
     return (
         <div className={`select-list`}>
-            {options.map((item) => {
+            {options.map((option: IOptionItem) => {
                 return (
                     <SelectDrawerOption
-                        key={item.id}
-                        option={item}
-                        isSelected={item.sequenceId === selectedItemSequenceId}
+                        key={option.id}
+                        option={option}
+                        isSelected={option.sequenceId === selectedItemSequenceId}
                         onHandleSelectItem={onHandleSelectItem}
                     />
                 )

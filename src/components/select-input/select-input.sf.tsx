@@ -1,9 +1,11 @@
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import { ISelectBaseInput } from '@core/input-engine/variants/select-base/select-base-input.types'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
+import '../input-text/input-text.css'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './select-input.css'
@@ -43,9 +45,11 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
             itemsChildren={
                 <SelectDrawerContent
                     filterTriggerDelay={500}
-                    items={instance?.input?.options ?? []}
-                    onSelectItem={(value) => instance?.input?.onSelectItem(value)}
-                    selectedItemSequenceId={instance?.input?.selectedOptionId ?? null}
+                    items={instance?.optionBase?.options ?? []}
+                    onSelectItem={(value) =>
+                        (instance as unknown as ISelectBaseInput)?.onSelectItem(value)
+                    }
+                    selectedItemSequenceId={instance?.optionBase?.selectedOptionId ?? null}
                 />
             }
             itemsDrawerHeight="350px"
@@ -56,14 +60,14 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
                     isFocus={instance?.input.isFocus ?? false}
                 />
             }
-            onClear={() => instance?.input?.clear()}
+            onClear={() => (instance as unknown as ISelectBaseInput)?.clear()}
         >
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.input?.register()}
-                ref={(r) => instance?.input?.ref(r)}
-                value={instance?.input?.getSelectedValue?.()}
+                className="base-input"
+                {...instance?.register()}
+                ref={(r) => instance?.ref(r)}
                 autoComplete="off"
                 onKeyDownCapture={handleKeyDown}
             />

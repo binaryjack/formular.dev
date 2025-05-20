@@ -15,7 +15,7 @@ export const validationOptionsForSelectMock: IValidationOptions = {
         }
     },
     pattern: {
-        pattern: '^[a-zA-Z0-9]+$',
+        pattern: '^[a-zA-Z0-9]*$',
         error: {
             message: 'Invalid selection.',
             code: 'pattern',

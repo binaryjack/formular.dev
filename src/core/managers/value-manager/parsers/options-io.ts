@@ -5,19 +5,19 @@ import { TGetter, TSetter } from '../value-manager.types'
 export const optionGetter: TGetter<IOptionItem | null> = (
     field: IExtendedInput
 ): IOptionItem | null => {
-    const radioItem = field?.tryGetOptionByIdOrValue(
-        field.selectedOptionId?.toString() ?? '',
+    const optionItem = field?.optionBase.tryGetOptionByIdOrValue(
+        field.optionBase.selectedOptionId?.toString() ?? '',
         field.input.value as string
     )
-    if (!radioItem) {
+    if (!optionItem) {
         field.input.message(
-            'error',
+            'info',
             'IFieldInput.setValue',
-            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id ${field.selectedOptionId} or Value: ${field.input.value as string}`
+            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id ${field.optionBase.selectedOptionId} or Value: ${field.input.value as string}`
         )
         return null
     }
-    return radioItem
+    return optionItem
 }
 
 export const optionSetter: TSetter<IOptionItem | null> = (
@@ -25,21 +25,26 @@ export const optionSetter: TSetter<IOptionItem | null> = (
     value: any
 ): void => {
     if (value === null || value === undefined) {
-        field.selectedOptionId = null
+        field.optionBase.selectedOptionId = null
         field.input.value = null
         field.input.domManager.dmSetValue(field.input.id.toString(), null)
         return
     }
-    const radioItem = field?.tryGetOptionByIdOrValue(value?.toString() ?? '', value as string)
-    if (!radioItem) {
+    const optionItem = field?.optionBase.tryGetOptionByIdOrValue(
+        value?.toString() ?? '',
+        value as string
+    )
+    if (!optionItem) {
         field.input.message(
-            'error',
+            'info',
             'IFieldInput.setValue',
             `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id or Value: ${value as string}`
         )
         return
     }
-    field.selectedOptionId = Number(radioItem.id)
-    field.input.value = radioItem.value
-    field.input.domManager.dmSetValue(field.input.id.toString(), radioItem.value ?? '')
+    field.optionBase.selectedOptionId = Number(optionItem.id)
+    field.input.value = optionItem.value
+    field.input.domManager.dmSetValue(field.input.id.toString(), optionItem.value ?? '')
+    field.input.domManager.dmSetSelected(field.input.id.toString(), optionItem.text)
+    field.input.domManager.dmSetFocus(field.input.id.toString())
 }

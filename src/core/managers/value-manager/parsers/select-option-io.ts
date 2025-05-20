@@ -6,20 +6,20 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 export const selectGetter: TGetter<IOptionItem | null> = (
     field: IExtendedInput
 ): IOptionItem | null => {
-    const radioItem = field?.tryGetOptionBySequenceIdThenIdOrValue(
-        field.selectedOptionId ?? -1,
-        field.selectedOptionId?.toString() ?? '',
+    const optionItem = field?.optionBase.tryGetOptionBySequenceIdThenIdOrValue(
+        field.optionBase.selectedOptionId ?? -1,
+        field.optionBase.selectedOptionId?.toString() ?? '',
         field.input.value as string
     )
-    if (!radioItem) {
+    if (!optionItem) {
         field.input.message(
             'error',
             'IFieldInput.setValue',
-            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id ${field.selectedOptionId} or Value: ${field.input.value as string}`
+            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id ${field.optionBase.selectedOptionId} or Value: ${field.input.value as string}`
         )
         return null
     }
-    return radioItem
+    return optionItem
 }
 
 export const selectSetter: TSetter<IOptionItem | null> = (
@@ -27,17 +27,17 @@ export const selectSetter: TSetter<IOptionItem | null> = (
     value: any
 ): void => {
     if (value === null || value === undefined) {
-        field.selectedOptionId = null
+        field.optionBase.selectedOptionId = null
         field.input.value = null
         field.input.domManager.dmSetValue(field.input.id.toString(), null)
         return
     }
-    const selectItem = field?.tryGetOptionBySequenceIdThenIdOrValue(
+    const optionItem = field?.optionBase.tryGetOptionBySequenceIdThenIdOrValue(
         Number(value),
         value as string,
         value as string
     )
-    if (!selectItem) {
+    if (!optionItem) {
         field.input.message(
             'error',
             'IFieldInput.setValue',
@@ -45,7 +45,7 @@ export const selectSetter: TSetter<IOptionItem | null> = (
         )
         return
     }
-    field.selectedOptionId = Number(selectItem.id)
-    field.input.value = selectItem.value
-    field.input.domManager.dmSetValue(field.input.id.toString(), selectItem.value ?? '')
+    field.optionBase.selectedOptionId = Number(optionItem.id)
+    field.input.value = optionItem.value
+    field.input.domManager.dmSetValue(field.input.id.toString(), optionItem.value ?? '')
 }

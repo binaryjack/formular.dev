@@ -19,13 +19,7 @@ export const onSelectItem = function (this: IExtendedInput, option: IOptionItem)
     if (!this.input.domManager?.dmExists(this.input.id.toString())) {
         return
     }
-    const internlOption = this.optionBase.getOptionByValue(option.value)
-    if (!internlOption) return
-    this.selectedOptionId = internlOption.sequenceId
-    this.input.value = internlOption.id
-
-    this.input.domManager?.dmSetSelected(this.input.id.toString(), option.text)
-    this.input.domManager?.dmSetFocus(this.input.id.toString())
+    this.input.valueManager.setValue(this, option.value)
     if (this.input?.drawer) this.input.drawer!.openState = 'closed'
 
     this.input.notificationManager?.notify(

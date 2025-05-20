@@ -24,7 +24,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
         }
         const hasValue = !valueIsNullOrUndefined(value)
         const regexp = new RegExp(field.input.validationOptions.pattern.pattern)
-        const valueToBeTested = field.toString()
+        const valueToBeTested = String(value)
         if (hasValue && !regexp.test(valueToBeTested)) {
             return newValidationResult(
                 false,

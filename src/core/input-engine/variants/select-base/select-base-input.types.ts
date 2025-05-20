@@ -20,8 +20,7 @@ export interface ISelectBaseInput extends ISelectBaseInputProperties, IExtendedI
     ref: (ref: HTMLInputElement | null) => void
     register: () => Partial<HTMLInputElement>
 
-    refOption: (ref: HTMLInputElement | null) => void
-    registerOption: () => Partial<HTMLInputElement>
+    clear: () => void
 
     onSelectItem: (option: IOptionItem) => void
     setValue: (value: InputDataTypes | null) => void

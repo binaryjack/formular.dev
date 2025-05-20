@@ -1,11 +1,11 @@
 export interface IKeyBindings<T> {
-    onEnterCallback?: () => void
-    onEscapeCallback?: () => void
-    onArrowDownCallback?: () => void
-    onArrowUpCallback?: () => void
-    onArrowLeftCallback?: () => void
-    onArrowRightCallback?: () => void
-    onDeleteCallback?: () => void
+    onEnterCallback?: (e: React.KeyboardEvent<T>) => void
+    onEscapeCallback?: (e: React.KeyboardEvent<T>) => void
+    onArrowDownCallback?: (e: React.KeyboardEvent<T>) => void
+    onArrowUpCallback?: (e: React.KeyboardEvent<T>) => void
+    onArrowLeftCallback?: (e: React.KeyboardEvent<T>) => void
+    onArrowRightCallback?: (e: React.KeyboardEvent<T>) => void
+    onDeleteCallback?: (e: React.KeyboardEvent<T>) => void
     onKeyCallback?: (e: React.KeyboardEvent<T>) => void
 }
 
@@ -16,31 +16,31 @@ const useKeyBindings = <T>(options: Partial<IKeyBindings<T>>) => {
             // e.preventDefault()
         }
         if (options.onEnterCallback && e.key === 'Enter') {
-            options.onEnterCallback()
+            options.onEnterCallback(e)
             // e.preventDefault()
         }
         if (options.onEscapeCallback && e.key === 'Escape') {
-            options.onEscapeCallback()
+            options.onEscapeCallback(e)
             // e.preventDefault()
         }
         if (options.onArrowDownCallback && e.key === 'ArrowDown') {
-            options.onArrowDownCallback()
+            options.onArrowDownCallback(e)
             //e.preventDefault()
         }
         if (options.onArrowUpCallback && e.key === 'ArrowUp') {
-            options.onArrowUpCallback()
+            options.onArrowUpCallback(e)
             // e.preventDefault()
         }
         if (options.onDeleteCallback && e.key === 'Delete') {
-            options.onDeleteCallback()
+            options.onDeleteCallback(e)
             // e.preventDefault()
         }
         if (options.onArrowLeftCallback && e.key === 'ArrowLeft') {
-            options.onArrowLeftCallback()
+            options.onArrowLeftCallback(e)
             // e.preventDefault()
         }
         if (options.onArrowRightCallback && e.key === 'ArrowRight') {
-            options.onArrowRightCallback()
+            options.onArrowRightCallback(e)
             // e.preventDefault()
         }
 
