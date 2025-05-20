@@ -1,13 +1,13 @@
 .accordion-container {
-    @apply flex flex-col w-full h-full;
+    @apply flex flex-col w-full;
 }
 
 .accordion-header {
-    @apply flex items-center justify-between w-full h-full px-1 py-1 bg-gray-300 cursor-pointer;
+    @apply flex items-center justify-between w-full px-1 py-1 bg-gray-300 cursor-pointer;
 }
 
 .accordion-content {
-    @apply flex flex-col w-full h-full p-2 bg-gray-100;
+    @apply flex flex-col w-full p-2 bg-gray-100;
 }
 
 .accordion-content.close {
@@ -21,20 +21,24 @@
 @keyframes openAccordionY {
     from {
         transform: scaleY(0);
+        position: absolute;
     }
 
     to {
         transform: scaleY(1);
+        position: relative;
     }
 }
 
 @keyframes closeAccordionY {
     from {
         transform: scaleY(1);
+        position: relative;
     }
 
     to {
         transform: scaleY(0);
+        position: absolute;
     }
 }
 
@@ -43,5 +47,6 @@
         transform: scale(0);
         opacity: 0;
         z-index: -1;
+        position: absolute;
     }
 }

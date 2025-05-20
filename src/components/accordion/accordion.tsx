@@ -12,7 +12,7 @@ export interface IAccordionProps {
 export const Accordion = ({ id, title, children, initialState = 'closed' }: IAccordionProps) => {
     return (
         <Toggleable>
-            <AccordionContainer id={id} title={title}>
+            <AccordionContainer id={id} title={title} initialState={initialState}>
                 {children}
             </AccordionContainer>
         </Toggleable>

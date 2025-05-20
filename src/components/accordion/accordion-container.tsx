@@ -27,8 +27,12 @@ export const AccordionContainer = ({
     }
 
     return (
-        <div className="accordion-container ">
-            <div className="accordion-header ">
+        <div
+            className={`relative accordion-container flex min-h-[20px] w-full flex-col bg-gray-100 rounded-md shadow-sm transition-all duration-200 ${
+                toggleState === 'closed' ? 'min-h-0' : ''
+            }`}
+        >
+            <div className=" relative accordion-header flex  ">
                 <div className="text-lg font-bold flex items-center h-full w-full">{title}</div>
                 <div className="accordion-header-toggle">
                     <ChevronToggleButton
@@ -40,7 +44,7 @@ export const AccordionContainer = ({
             </div>
 
             <div
-                className={`accordion-content ${initialState ?? toggleState} `}
+                className={` top-[44px] accordion-content ${initialState ?? toggleState} z-[999] `}
                 style={{
                     transformOrigin: 'top',
                     animation:

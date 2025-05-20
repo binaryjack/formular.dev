@@ -1,13 +1,13 @@
+import DelayInput from '@components/delay-input/delay-input'
 import FormularForm from '@components/formular-form/formular-form'
-import RadioInput from '@components/radio-input/radio-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-
 import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
@@ -15,6 +15,8 @@ import { lifeCylceInstances } from '@demo/common/common-instances'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
+import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
+import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 import { FormsContentFrame } from './components/form-content-frame'
@@ -23,7 +25,7 @@ import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
 interface ISubmitObject {
-    selectedOption: string
+    delayValue: string
 }
 
 const formularManager = new FormularManager(
@@ -31,29 +33,23 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 const formular = formularManager.createEmpty(
-    'validation-demo-radio-form'
+    'validation-demo-delay-input-form'
 ) as IFormular<ISubmitObject>
 
 const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('selectedOption', true)
+    requiredData: requiredDataValidationMock('delayValue', true),
+    minLength: minLengthValidationMock('delayValue', 3),
+    maxLength: maxLengthValidationMock('delayValue', 50)
 }
 const optionsMocks: IOptionItem[] = []
 
 const field = InputsProvider(
-    [
-        fileDescriptorMock(
-            'radioSandbox',
-            'selectedOption',
-            'text',
-            validationOptionsMock,
-            optionsMocks
-        )
-    ],
+    [fileDescriptorMock('delayInputSandbox', 'delayValue', 'text', validationOptionsMock)],
     defaultInitializationParameters,
     defaultInitializationDependencies
 )?.[0]
 
-const ValidationDemoRadioInput = () => {
+const ValidationDemoDelayInput = () => {
     const { instance } = useField(field)
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
@@ -106,7 +102,14 @@ const ValidationDemoRadioInput = () => {
                                 {instance?.valueManager?.getAsString?.(
                                     instance as unknown as IExtendedInput
                                 )}
-                                <RadioInput fieldName="radioSandbox" />
+                                <DelayInput
+                                    delay={500}
+                                    onChangeCallback={(value) => console.log(value)}
+                                    onClearCallback={() => console.log('Cleared')}
+                                    canGotFocus={true}
+                                    classNames="custom-class"
+                                    tabIndex={0}
+                                />
                             </>
                         }
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
@@ -117,4 +120,4 @@ const ValidationDemoRadioInput = () => {
     )
 }
 
-export default ValidationDemoRadioInput
+export default ValidationDemoDelayInput

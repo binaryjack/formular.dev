@@ -11,8 +11,13 @@ import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 
 import { lifeCylceInstances } from '@demo/common/common-instances'
-import { txtFileDescriptorMock } from '@tests/mocks/txt-file-descriptor-mock'
-import { validationOptionsMock } from '@tests/mocks/validation-options-mock'
+
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
+import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
+import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
+import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
+import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 import { FormsContentFrame } from './components/form-content-frame'
 import { Max } from './components/max'
@@ -34,8 +39,15 @@ const formularManager = new FormularManager(
 )
 const formular = formularManager.createEmpty('validation-demo-form') as IFormular<ISubmitObject>
 
+const validationOptionsMock: IValidationOptions = {
+    requiredData: requiredDataValidationMock('sandboxField', true),
+    minLength: minLengthValidationMock('sandboxField', 3),
+    maxLength: maxLengthValidationMock('sandboxField', 50)
+}
+const optionsMocks: IOptionItem[] = []
+
 const field = InputsProvider(
-    [txtFileDescriptorMock(validationOptionsMock)],
+    [fileDescriptorMock('sandboxField', 'Text Input', 'text', validationOptionsMock)],
     defaultInitializationParameters,
     defaultInitializationDependencies
 )?.[0]

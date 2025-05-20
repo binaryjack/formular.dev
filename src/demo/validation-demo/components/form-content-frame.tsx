@@ -26,8 +26,8 @@ export const FormsContentFrame = ({
     childrenSubmissionObjectResult
 }: IFormsContentFrameProps) => {
     return (
-        <div className="sandbox-container flex md:flex-row xs:flex-col 2xs:flex-col p-1 w-full h-full">
-            <div className="sandbox-container md:flex-row xs:flex-col 2xs:flex-col flex-auto p-1 w-full h-full">
+        <div className="sandbox-container flex md:flex-row xs:flex-col 2xs:flex-col p-1 w-full h-auto">
+            <div className="sandbox-container flex flex-col flex-auto p-1 w-full bg-gray-100">
                 <Accordion id={`validation-options-acc`} title={`Validation Options`}>
                     <div className="validation-controls flex flex-col  w-full">
                         <div className="flex px-1 md:flex-row xs:flex-col 2xs:flex-col w-full ">
@@ -49,13 +49,13 @@ export const FormsContentFrame = ({
                         </div>
                     </div>
                 </Accordion>
-                <div className="input-container w-full mt-14 mb-20">{childrenInput}</div>
+                <div className="input-container w-full mt-4 mb-4">{childrenInput}</div>
                 <div className="w-full">
                     <h3 className="text-lg font-bold">Submission Object:</h3>
                     {childrenSubmissionObjectResult}
                 </div>
             </div>
-            <div className="sandbox-container flex  p-1 w-full h-full mt-14">
+            <div className="sandbox-container flex  p-1 w-full h-auto mt-1">
                 <NotifierDebugUi internalNotifierInstance={lifeCylceInstances.autoTracker} />
             </div>
         </div>

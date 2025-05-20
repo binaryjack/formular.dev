@@ -2,7 +2,6 @@ import FormularForm from '@components/formular-form/formular-form'
 import Select from '@components/select-input/select-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
@@ -10,9 +9,12 @@ import {
 import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
-import { mockOptions } from '@tests/mocks/i-options-items.mock'
-import { selectFileDescriptorMock } from '@tests/mocks/select-file-descriptor-mock'
-import { validationOptionsForSelectMock } from '@tests/mocks/validation-options-for-select-mock'
+
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
+import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
+import { patternValidationMock } from '@tests/mocks/pattern-validation-mock'
+import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 import { FormsContentFrame } from './components/form-content-frame'
 import { Pattern } from './components/pattern'
@@ -32,13 +34,14 @@ const formular = formularManager.createEmpty(
     'validation-demo-select-form'
 ) as IFormular<ISubmitObject>
 
-const selectBaseValidationOptionsMock = selectFileDescriptorMock(
-    validationOptionsForSelectMock,
-    mockOptions
-) as IFieldDescriptor
+const validationOptionsMock: IValidationOptions = {
+    requiredData: requiredDataValidationMock('selectedOption', true),
+    pattern: patternValidationMock('selectedOption', '\\.*') // Adjusted to use a numeric value as expected
+}
+const optionsMocks: IOptionItem[] = []
 
 const field = InputsProvider(
-    [selectBaseValidationOptionsMock],
+    [fileDescriptorMock('selectSandbox', 'selectedOption', 'text', validationOptionsMock)],
     defaultInitializationParameters,
     defaultInitializationDependencies
 )?.[0]
@@ -57,7 +60,7 @@ const ValidationDemoSelectInput = () => {
     } = useDemoSettings<ISubmitObject>(
         instance,
         internalForm,
-        validationOptionsForSelectMock,
+        validationOptionsMock,
         'onFocus',
         'onBlur',
         'onChange',
