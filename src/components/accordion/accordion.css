@@ -1,0 +1,47 @@
+.accordion-container {
+    @apply flex flex-col w-full h-full;
+}
+
+.accordion-header {
+    @apply flex items-center justify-between w-full h-full px-1 py-1 bg-gray-300 cursor-pointer;
+}
+
+.accordion-content {
+    @apply flex flex-col w-full h-full p-2 bg-gray-100;
+}
+
+.accordion-content.close {
+    @apply hidden;
+}
+
+.accordion-content.open {
+    @apply block;
+}
+
+@keyframes openAccordionY {
+    from {
+        transform: scaleY(0);
+    }
+
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes closeAccordionY {
+    from {
+        transform: scaleY(1);
+    }
+
+    to {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes idleAccordion {
+    100% {
+        transform: scale(0);
+        opacity: 0;
+        z-index: -1;
+    }
+}

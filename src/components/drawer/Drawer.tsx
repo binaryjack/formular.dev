@@ -1,4 +1,4 @@
-import { Button } from '@components/button/button'
+import { ChevronToggleButton } from '@components/chevron-toggle-button/chevron-toggle-button'
 import useAppContext from '@components/context/app-context/app-context.context'
 import { Portal } from '@components/portals/portals'
 import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
@@ -8,7 +8,6 @@ import { useObjectRef } from '@core/framework/react/hooks/use-object-ref'
 import { useOnClickOutside } from '@core/framework/react/hooks/use-on-click-outside'
 import { ElementPositionOutputType } from '@style/global.types'
 import { useCallback, useEffect } from 'react'
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 import { DrawerTopBottomPortal } from './components/drawer.top-bottom.portal'
@@ -128,32 +127,11 @@ export const Drawer = ({
                 id={id}
                 slotName={'toggle-drawer'}
                 children={
-                    <Button
-                        id={`${id}-toggle-drawer-btn`}
-                        title={'Toggle Drawer'}
-                        variantProperties={{
-                            rounded: true,
-                            size: 'md',
-                            width: '2em',
-                            height: '2em',
-                            className: 'ml-1'
-                        }}
-                        onClickCallback={(e) =>
-                            handleDrawerOpenState(
-                                e,
-                                ['closed', 'idle'].includes(toggleState) ? 'open' : 'closed'
-                            )
-                        }
-                        aria-expanded={toggleState === 'open'}
-                        aria-controls={`${id}-drawer-wrapper`}
-                        isToggle={toggleState === 'open'}
-                    >
-                        {['closed', 'idle'].includes(toggleState) ? (
-                            <FaChevronDown />
-                        ) : (
-                            <FaChevronUp />
-                        )}
-                    </Button>
+                    <ChevronToggleButton
+                        id={id}
+                        toggleState={toggleState}
+                        handleDrawerOpenState={handleDrawerOpenState}
+                    />
                 }
             />
         </DrawerContext.Provider>
