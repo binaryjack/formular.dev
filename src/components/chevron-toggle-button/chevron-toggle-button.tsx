@@ -1,4 +1,4 @@
-import { Button } from '@components/button/button'
+import { Button, IButtonVariant } from '@components/button/button'
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
@@ -9,12 +9,14 @@ export interface IChevronToggleButtonProps {
         e: React.MouseEvent<HTMLButtonElement>,
         state: ToggleableStateType
     ) => void
+    variantProperties?: Partial<IButtonVariant>
 }
 
 export const ChevronToggleButton = ({
     id,
     toggleState,
-    handleDrawerOpenState
+    handleDrawerOpenState,
+    variantProperties
 }: IChevronToggleButtonProps) => {
     return (
         <Button
@@ -25,7 +27,8 @@ export const ChevronToggleButton = ({
                 size: 'md',
                 width: '2em',
                 height: '2em',
-                className: 'ml-1'
+                className: 'ml-1',
+                ...variantProperties
             }}
             onClickCallback={(e) =>
                 handleDrawerOpenState(

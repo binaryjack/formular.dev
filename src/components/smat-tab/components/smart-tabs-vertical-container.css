@@ -1,0 +1,7 @@
+.smart-tabs-vertical-container {
+    @apply flex flex-1 flex-col h-auto bg-slate-200;
+}
+
+.smart-tabs-vertical-container .tabs-container {
+    @apply flex flex-1 flex-col h-auto bg-slate-200;
+}

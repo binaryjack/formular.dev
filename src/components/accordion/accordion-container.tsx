@@ -44,7 +44,7 @@ export const AccordionContainer = ({
             </div>
 
             <div
-                className={` top-[44px] accordion-content ${initialState ?? toggleState} z-[999] `}
+                className={`top-[44px] accordion-content ${initialState ?? toggleState} z-[999] `}
                 style={{
                     transformOrigin: 'top',
                     animation:

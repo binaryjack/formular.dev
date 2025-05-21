@@ -1,4 +1,5 @@
-import ValidationDemoTextInput from '@demo/validation-demo/validation-demo-text-input'
+import { Demos } from '@demo/demos/demos'
+import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
     testName?: string
@@ -97,8 +98,8 @@ const validationDemo = () => (
 
 const App = () => {
     return (
-        <div className={`app flex flex-col items-center justify-center min-w-[300px]`}>
-            {validationDemo()}
+        <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
+            <Demos />
         </div>
     )
 }

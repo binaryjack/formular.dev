@@ -1,0 +1,48 @@
+.smart-tabs-drop-down-container {
+    @apply flex flex-1 flex-col h-full w-full bg-slate-900;
+}
+
+.smart-tabs-drop-down-container .tabs-container {
+    @apply flex flex-col w-full h-auto top-10 bg-slate-500 items-center justify-center;
+}
+
+.smart-tabs-drop-down-container .smart-tabs-header {
+    @apply flex flex-row flex-1 h-full bg-slate-500 items-center justify-between z-[999];
+}
+
+.smart-tabs-drop-down-container .smart-tabs-header .smart-tabs-header-text {
+    @apply flex flex-1 text-white text-sm font-bold px-2 w-full;
+}
+
+@keyframes openSmartTabsY {
+    from {
+        transform: scaleY(0);
+        position: absolute;
+    }
+
+    to {
+        transform: scaleY(1);
+        position: absolute;
+    }
+}
+
+@keyframes closeSmartTabsY {
+    from {
+        transform: scaleY(1);
+        position: absolute;
+    }
+
+    to {
+        transform: scaleY(0);
+        position: absolute;
+    }
+}
+
+@keyframes idleSmartTabs {
+    100% {
+        transform: scale(0);
+        opacity: 0;
+        z-index: -1;
+        position: absolute;
+    }
+}

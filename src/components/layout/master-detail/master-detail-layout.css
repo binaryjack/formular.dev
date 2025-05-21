@@ -1,0 +1,35 @@
+.master-detail-layout {
+    @apply flex h-full w-full flex-1;
+}
+
+.master-detail-layout.vertical {
+    @apply flex-row bg-blue-300;
+}
+
+.master-detail-layout.horizontal {
+    @apply flex-col bg-green-200;
+}
+
+.master-detail-layout.mobile {
+    @apply flex-col bg-red-200;
+}
+
+.master-detail-layout .master-detail-menu {
+    @apply flex;
+}
+
+.master-detail-layout .master-detail-body {
+    @apply flex h-auto w-screen;
+}
+
+.master-detail-layout.vertical .master-detail-menu {
+    @apply flex-none w-1/4 h-auto bg-gray-200;
+}
+
+.master-detail-layout.horizontal .master-detail-menu {
+    @apply flex-none w-full h-auto bg-gray-200;
+}
+
+.master-detail-layout.mobile .master-detail-menu {
+    @apply flex-none w-full h-10 bg-gray-200;
+}
