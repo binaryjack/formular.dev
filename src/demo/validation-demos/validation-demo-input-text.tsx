@@ -3,15 +3,14 @@ import InputText from '@components/input-text/input-text'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 
+import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
@@ -27,29 +26,27 @@ interface ISubmitObject {
     textValue: string
 }
 
-const formularManager = new FormularManager(
-    lifeCylceInstances.notificationManager,
-    lifeCylceInstances.autoTracker
-)
-const formular = formularManager.createEmpty(
-    'validation-demo-input-text-form'
-) as IFormular<ISubmitObject>
-
 const validationOptionsMock: IValidationOptions = {
     requiredData: requiredDataValidationMock('textValue', true),
     minLength: minLengthValidationMock('textValue', 5),
     maxLength: maxLengthValidationMock('textValue', 100)
 }
-const optionsMocks: IOptionItem[] = []
-
-const field = InputsProvider(
-    [fileDescriptorMock('inputTextSandbox', 'textValue', 'text', validationOptionsMock)],
+const config = newDependencyConfiguration(
+    fileDescriptorMock('inputTextSandbox', 'textValue', 'text', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
-)?.[0]
+)
 
 const ValidationDemoInputText = () => {
-    const { instance } = useField(field)
+    const formularManager = new FormularManager(
+        lifeCylceInstances.notificationManager,
+        lifeCylceInstances.autoTracker
+    )
+    const formular = formularManager.createfromConfiguration('validation-demo-input-text-form', [
+        config
+    ]) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const {
@@ -63,15 +60,15 @@ const ValidationDemoInputText = () => {
         instance,
         internalForm,
         validationOptionsMock,
-        'onClick',
+        'onFocus',
         'onBlur',
+        'onChange',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-        formular.addFields(field)
         setInternalForm(formular)
     }, [])
 
@@ -96,7 +93,7 @@ const ValidationDemoInputText = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<InputText fieldName="inputTextSandbox" />}
+                        childrenInput={<InputText fieldName="textValue" />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

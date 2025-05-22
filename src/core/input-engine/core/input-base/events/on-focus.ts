@@ -10,5 +10,5 @@ export const onFocus = (f: IExtendedInput, e: Event) => {
         newEvent(f.input.name, onFocus.name, 'onFocus', `field.${onFocus.name}`, f.input.name, f)
     )
     e.stopPropagation()
-    e.preventDefault()
+    // e.preventDefault()
 }

@@ -9,7 +9,12 @@ import { registerOption } from './prototype/register-option'
 import { IRadioBaseInput } from './radio-base-input.types'
 export const RadioBaseInput = function (this: IRadioBaseInput) {
     this.isInitialized = false
-    this.dependencyName = RadioBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: RadioBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IRadioBaseInput
 
 Object.assign(RadioBaseInput.prototype, {

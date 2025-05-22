@@ -30,7 +30,13 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
         throw new Error('FieldInput descriptor must include "id" and "name".')
     }
     this.isInitialized = false
-    this.dependencyName = InputBase.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: InputBase.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
+
     this.validationResults = []
     this.initializeProperties(descriptor)
 } as any as IInputBase

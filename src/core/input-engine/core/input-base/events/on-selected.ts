@@ -7,11 +7,12 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
     f.input.isFocus = false
     f.input.styleManager?.update('focus', f.input.isFocus)
 
-    e.stopPropagation()
-    e.preventDefault()
+    // e.preventDefault()
 
     f?.input.notificationManager?.notify(
         'onBlur',
         newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
     )
+
+    e.stopPropagation()
 }

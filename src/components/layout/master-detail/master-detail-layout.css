@@ -19,7 +19,7 @@
 }
 
 .master-detail-layout .master-detail-body {
-    @apply flex h-auto w-screen;
+    @apply flex h-auto w-screen overflow-y-auto;
 }
 
 .master-detail-layout.vertical .master-detail-menu {

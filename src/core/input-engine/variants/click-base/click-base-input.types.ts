@@ -5,5 +5,5 @@ export interface IClickBaseInputProperties {}
 
 export interface IClickBaseInput extends IClickBaseInputProperties, IExtendedInputBase {
     new (): IClickBaseInput
-    handleOnClicked: <T extends IEvents>(data?: T) => void
+    onClickHandle: <T extends IEvents>(data?: T) => void
 }

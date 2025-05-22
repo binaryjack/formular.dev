@@ -16,7 +16,11 @@ import { IStyleManager } from './style-manager.types'
  */
 export const StyleManager = function (this: IStyleManager) {
     this.isInitialized = false
-    this.dependencyName = StyleManager.name
+    Object.defineProperty(this, 'dependencyName', {
+        value: StyleManager.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IStyleManager
 
 Object.assign(StyleManager.prototype, {

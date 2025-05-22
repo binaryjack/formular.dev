@@ -7,11 +7,12 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
+
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxValidationMock } from '@tests/mocks/max-validation-mock'
@@ -31,9 +32,6 @@ const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
-const formular = formularManager.createEmpty(
-    'validation-demo-date-picker-form'
-) as IFormular<ISubmitObject>
 
 const validationOptionsMock: IValidationOptions = {
     requiredData: requiredDataValidationMock('dateValue', true),
@@ -42,14 +40,18 @@ const validationOptionsMock: IValidationOptions = {
 }
 const optionsMocks: IOptionItem[] = []
 
-const field = InputsProvider(
-    [fileDescriptorMock('datePickerSandbox', 'Date Picker', 'date', validationOptionsMock)],
+const config = newDependencyConfiguration(
+    fileDescriptorMock('datePickerSandbox', 'Date Picker', 'date', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
-)?.[0]
+)
 
 const ValidationDemoDatePicker = () => {
-    const { instance } = useField(field)
+    const formular = formularManager.createfromConfiguration('validation-demo-date-picker-form', [
+        config
+    ]) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const {
@@ -72,7 +74,6 @@ const ValidationDemoDatePicker = () => {
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-        formular.addFields(field)
         setInternalForm(formular)
     }, [])
 

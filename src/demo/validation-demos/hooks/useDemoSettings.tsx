@@ -1,11 +1,11 @@
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { EventsType } from '@core/framework/events/events.types'
-import { IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { useEffect, useState } from 'react'
 
 export const useDemoSettings = <T extends object>(
-    instance: IInput | undefined,
+    instance: IExtendedInput | undefined,
     internalForm: IFormular<T> | null,
     defaultValidationOptions: IValidationOptions,
     ...defaultEvents: EventsType[]
@@ -36,7 +36,7 @@ export const useDemoSettings = <T extends object>(
             ...prev,
             [key]: { ...prev[key], ...value }
         }))
-        instance.validationOptions = { ...validationOptions, [key]: value }
+        instance.input.validationOptions = { ...validationOptions, [key]: value }
     }
 
     const handleTriggerModeChange = (mode: EventsType[]) => {

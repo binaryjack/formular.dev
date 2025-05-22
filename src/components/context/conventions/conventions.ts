@@ -50,5 +50,10 @@ export const conventions = {
             formatValue: DatePickerFormatsEnum.YYYY_MM_DD,
             formatDisplay: DatePickerFormatsEnum.DD_MM_YYYY
         }
+    },
+    formular: {
+        creation: {
+            enforceConfigurationCheck: true
+        }
     }
 }

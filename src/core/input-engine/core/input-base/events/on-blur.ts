@@ -12,5 +12,5 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
         newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
     )
     e.stopPropagation()
-    e.preventDefault()
+    // e.preventDefault()
 }

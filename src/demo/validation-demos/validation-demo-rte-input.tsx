@@ -5,11 +5,12 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
+
 import { useEffect, useState } from 'react'
 
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { lifeCylceInstances } from '@demo/common/common-instances'
@@ -25,12 +26,10 @@ import { useDemoSettings } from './hooks/useDemoSettings'
 export interface ISubmitObject {
     rti: string
 }
-
 const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
-const formular = formularManager.createEmpty('validation-demo-rti') as IFormular<ISubmitObject>
 
 const validationOptionsMock: IValidationOptions = {
     requiredData: requiredDataValidationMock('rti', true),
@@ -38,14 +37,19 @@ const validationOptionsMock: IValidationOptions = {
     maxLength: maxLengthValidationMock('rti', 500)
 }
 const optionsMocks: IOptionItem[] = []
-const field = InputsProvider(
-    [fileDescriptorMock('rteInputSandbox', 'RTE Input', 'richtext', validationOptionsMock)],
+
+const config = newDependencyConfiguration(
+    fileDescriptorMock('rteInputSandbox', 'RTE Input', 'richtext', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
-)?.[0]
+)
 
 const ValidationDemoRteInput = () => {
-    const { instance } = useField(field)
+    const formular = formularManager.createfromConfiguration('validation-demo-rte-input-form', [
+        config
+    ]) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const {
@@ -66,7 +70,6 @@ const ValidationDemoRteInput = () => {
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-        formular.addFields(field)
         setInternalForm(formular)
     }, [])
 

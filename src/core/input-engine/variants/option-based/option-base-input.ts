@@ -10,7 +10,13 @@ import { tryGetOptionBySequenceIdThenIdOrValue } from './prototype/try-get-optio
 
 export const OptionBaseInput = function (this: IOptionBaseInput) {
     this.isInitialized = false
-    this.dependencyName = OptionBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: OptionBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
+
     this.options = []
     this.optionsInitialized = false
     this.selectedOptionId = null

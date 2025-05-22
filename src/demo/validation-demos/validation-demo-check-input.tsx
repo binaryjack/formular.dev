@@ -7,11 +7,12 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
+
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { useEffect, useState } from 'react'
@@ -21,28 +22,29 @@ import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
 interface ISubmitObject {
-    isChecked: boolean
+    checkInput: boolean
 }
 
 const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
-const formular = formularManager.createEmpty(
-    'validation-demo-check-form'
-) as IFormular<ISubmitObject>
 
 const validationOptionsMock: IValidationOptions = {}
 const optionsMocks: IOptionItem[] = []
 
-const field = InputsProvider(
-    [fileDescriptorMock('checkInput', 'isChecked', 'checkbox', validationOptionsMock)],
+const config = newDependencyConfiguration(
+    fileDescriptorMock('checkInput', 'isChecked', 'checkbox', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
-)?.[0]
+)
 
 const ValidationDemoCheckInput = () => {
-    const { instance } = useField(field)
+    const formular = formularManager.createfromConfiguration('validation-demo-check-form', [
+        config
+    ]) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const {
@@ -65,7 +67,6 @@ const ValidationDemoCheckInput = () => {
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-        formular.addFields(field)
         setInternalForm(formular)
     }, [])
 
@@ -90,7 +91,7 @@ const ValidationDemoCheckInput = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<CheckInput fieldName="sandboxField" />}
+                        childrenInput={<CheckInput fieldName="checkInput" />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

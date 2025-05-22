@@ -7,7 +7,12 @@ import { ITextBaseInput } from './text-base-input.types'
 
 export const TextBaseInput = function (this: ITextBaseInput) {
     this.isInitialized = false
-    this.dependencyName = TextBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: TextBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as ITextBaseInput
 
 Object.assign(TextBaseInput.prototype, {

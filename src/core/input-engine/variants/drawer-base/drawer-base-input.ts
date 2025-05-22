@@ -4,7 +4,12 @@ import { setOpenState } from './prototype/set-open-state'
 
 export const DrawerBaseInput = function (this: IDrawerBaseInput) {
     this.isInitialized = false
-    this.dependencyName = DrawerBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: DrawerBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IDrawerBaseInput
 
 Object.assign(DrawerBaseInput.prototype, {

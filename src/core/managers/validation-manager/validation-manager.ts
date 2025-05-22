@@ -27,7 +27,11 @@ export const ValidationManager = function (this: IValidationManager) {
     this.isValidating = false
     this.validationStrategies = []
     this.validationTriggerModeType = []
-    this.dependencyName = ValidationManager.name
+    Object.defineProperty(this, 'dependencyName', {
+        value: ValidationManager.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IValidationManager
 
 Object.assign(ValidationManager.prototype, {

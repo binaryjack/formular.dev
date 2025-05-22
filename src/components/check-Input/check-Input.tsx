@@ -14,15 +14,25 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
+    // Add logging to track getValue calls
+    console.log('CheckInput rendered with fieldName:', fieldName)
+
     const handleDelete = () => {
+        console.log('handleDelete called for fieldName:', fieldName)
         instance?.input.clear()
     }
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
     useFieldDefaultValue(instance?.input, (value) => {
-        if (!instance?.input) return
-        instance.input.checked = value
+        console.log(
+            'useFieldDefaultValue triggered for fieldName:',
+            fieldName,
+            'with value:',
+            value
+        )
+        if (!instance) return
+        instance.checked = value
     })
 
     return (
@@ -49,8 +59,8 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type="checkbox"
-                    {...instance?.input?.register()}
-                    ref={(r) => instance?.input?.ref(r)}
+                    {...instance?.register()}
+                    ref={(r) => instance?.ref(r)}
                 />
             </div>
         </FieldSet>

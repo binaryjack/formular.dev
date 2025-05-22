@@ -1,4 +1,5 @@
-import { Demos } from '@demo/demos/demos'
+import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
+import ValidationDemoRadioInput from '@demo/validation-demos/validation-demo-radio-input'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
@@ -99,7 +100,10 @@ const validationDemo = () => (
 const App = () => {
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
-            <Demos />
+            {/* <Demos /> */}
+            <BoundaryErrorCatcher>
+                <ValidationDemoRadioInput />
+            </BoundaryErrorCatcher>
         </div>
     )
 }

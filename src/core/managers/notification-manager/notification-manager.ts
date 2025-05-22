@@ -23,7 +23,11 @@ export const NotificationManager = function (
     this.notifiers = new Map<string, INotification>()
     this.observers = new ObservableSubject()
     this.computedSignalCallback = null
-    this.dependencyName = NotificationManager.name
+    Object.defineProperty(this, 'dependencyName', {
+        value: NotificationManager.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
     this.isInitialized = false
 } as any as INotificationManager
 

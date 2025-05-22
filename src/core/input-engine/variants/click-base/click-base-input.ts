@@ -1,13 +1,18 @@
 import { IClickBaseInput } from './click-base-input.types'
-import { handleOnClicked } from './prototype/handle-on-clicked'
 import { initialize } from './prototype/initialize'
+import { onClickHandle } from './prototype/on-click-handle'
 
 export const ClickBaseInput = function (this: IClickBaseInput) {
     this.isInitialized = false
-    this.dependencyName = ClickBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: ClickBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IClickBaseInput
 
 Object.assign(ClickBaseInput.prototype, {
-    handleOnClicked,
-    initialize
+    initialize,
+    onClickHandle
 })

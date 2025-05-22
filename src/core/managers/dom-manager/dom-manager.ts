@@ -19,7 +19,12 @@ export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>)
     this.elements = []
     this.tracker = null
     this.isInitialized = false
-    this.dependencyName = DomManager.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: DomManager.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as IDomManager<any>
 
 Object.assign(DomManager.prototype, {

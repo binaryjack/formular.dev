@@ -1,14 +1,23 @@
 import { ICheckBoxBaseInput } from './check-box-base-input.types'
 
-import { handleOnChanged } from './prototype/handle-on-changed'
 import { initialize } from './prototype/initialize'
+import { ref } from './prototype/ref'
+import { register } from './prototype/register'
 
 export const CheckBoxInput = function (this: ICheckBoxBaseInput) {
     this.isInitialized = false
-    this.dependencyName = CheckBoxInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: CheckBoxInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
+
+    this.checked = false
 } as any as ICheckBoxBaseInput
 
 Object.assign(CheckBoxInput.prototype, {
-    handleOnChanged,
-    initialize
+    initialize,
+    register,
+    ref
 })

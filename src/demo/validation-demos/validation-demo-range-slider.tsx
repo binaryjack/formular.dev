@@ -7,11 +7,10 @@ import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { InputsProvider } from '@core/input-engine/generator/input-provider'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxValidationMock } from '@tests/mocks/max-validation-mock'
@@ -26,30 +25,27 @@ import { useDemoSettings } from './hooks/useDemoSettings'
 interface ISubmitObject {
     rangeValue: number
 }
-
-const formularManager = new FormularManager(
-    lifeCylceInstances.notificationManager,
-    lifeCylceInstances.autoTracker
-)
-const formular = formularManager.createEmpty(
-    'validation-demo-range-slider-form'
-) as IFormular<ISubmitObject>
-
 const validationOptionsMock: IValidationOptions = {
     requiredData: requiredDataValidationMock('rangeValue', true),
     min: minValidationMock('rangeValue', 0),
     max: maxValidationMock('rangeValue', 100)
 }
-const optionsMocks: IOptionItem[] = []
-
-const field = InputsProvider(
-    [fileDescriptorMock('RangeSlider', 'rangeSliderSandbox', 'range')],
+const config = newDependencyConfiguration(
+    fileDescriptorMock('RangeSlider', 'rangeSliderSandbox', 'range', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
-)?.[0]
+)
 
 const ValidationDemoRangeSlider = () => {
-    const { instance } = useField(field)
+    const formularManager = new FormularManager(
+        lifeCylceInstances.notificationManager,
+        lifeCylceInstances.autoTracker
+    )
+    const formular = formularManager.createfromConfiguration('validation-demo-range-slider-form', [
+        config
+    ]) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
     const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
 
     const {
@@ -63,15 +59,15 @@ const ValidationDemoRangeSlider = () => {
         instance,
         internalForm,
         validationOptionsMock,
-        'onClick',
+        'onFocus',
         'onBlur',
+        'onChange',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-        formular.addFields(field)
         setInternalForm(formular)
     }, [])
 
@@ -96,7 +92,7 @@ const ValidationDemoRangeSlider = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<RangeSlider fieldName="rangeSliderSandbox" />}
+                        childrenInput={<RangeSlider fieldName="rangeValue" />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

@@ -9,7 +9,7 @@ import { IValueManager } from '../value-manager.types'
  */
 export function getValue(this: IValueManager, field: IExtendedInput): unknown | null {
     const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(this.input.type))
-
+    console.log('getValue', field.input.type, strategy)
     if (!strategy) {
         console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${field.input.type} `)
         return

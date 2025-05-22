@@ -2,7 +2,6 @@ import { IFieldInitializationParameters } from '@core/input-engine/generator/bui
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
-import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { ICheckBoxBaseInput } from '../check-box-base-input.types'
 
 /**
@@ -18,9 +17,9 @@ export const initialize = async function (
             this.input,
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
-                this.checked = undefined
+                this.checked = false
             },
-            [notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name)]
+            []
         )
 
         if (success) {

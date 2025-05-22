@@ -3,7 +3,7 @@ import { newTab } from '@components/smat-tab/helpers/new-tab'
 import { TabManager } from '@components/smat-tab/manager/tab-manager'
 import { SmartTabsMain } from '@components/smat-tab/smart-tabs-main'
 import { ITab } from '@components/smat-tab/types/i-tab'
-import { lazy, useState } from 'react'
+import { lazy, startTransition, Suspense, useState } from 'react'
 import { BsCalendarDate, BsCheck2, BsMenuButton, BsSliders } from 'react-icons/bs'
 import { FaEdit } from 'react-icons/fa'
 import { MdEditNote, MdOutlineDirectionsRailway, MdRadio, MdSwitchLeft } from 'react-icons/md'
@@ -112,13 +112,19 @@ const demos = (demo: ITab) => {
 export const Demos = () => {
     const [selectedTab, setSelectedTab] = useState<ITab | undefined>()
     const handleSelected = (tab: ITab) => {
-        setSelectedTab(tab)
+        startTransition(() => {
+            setSelectedTab(tab)
+        })
     }
 
     return (
         <MasterDetailLayout
             menu={<SmartTabsMain manager={tabManager} onSelected={handleSelected} />}
-            body={<div>{selectedTab && demos(selectedTab)}</div>}
+            body={
+                <Suspense fallback={<div>Loading...</div>}>
+                    <div>{selectedTab && demos(selectedTab)}</div>
+                </Suspense>
+            }
         />
     )
 }

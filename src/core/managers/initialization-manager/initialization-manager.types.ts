@@ -2,7 +2,7 @@ import { IFieldInitializationParameters } from '@core/input-engine/generator/bui
 
 export interface IInitializableDependency {
     /*Discriminator Property*/
-    dependencyName: string
+    readonly dependencyName: string
     /** says if the dependency has been initialized */
     isInitialized: boolean
     /** initializes the dependency */

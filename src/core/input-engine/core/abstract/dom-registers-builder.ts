@@ -1,12 +1,12 @@
 import { IAria } from '@core/managers/dom-manager/dom-manager.types'
+import { onClick } from '../../variants/click-base/events/on-click'
 import { AriaHelper } from '../accessibility/arias'
 import { onBlur } from '../input-base/events/on-blur'
 import { onChange } from '../input-base/events/on-changed'
-import { onClick } from '../input-base/events/on-click'
-import { onClickOption } from '../input-base/events/on-click-option'
 import { onFocus } from '../input-base/events/on-focus'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { onClickOption } from '@core/input-engine/variants/click-base/events/on-click-option'
 import { IExtendedInput } from '../input-base/input-base.types'
 
 export interface IDomRegisterBuilder {

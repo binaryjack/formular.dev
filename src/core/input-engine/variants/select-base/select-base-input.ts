@@ -11,7 +11,12 @@ import { register } from './prototype/register'
 
 export const SelectBaseInput = function (this: ISelectBaseInput) {
     this.isInitialized = false
-    this.dependencyName = SelectBaseInput.name
+
+    Object.defineProperty(this, 'dependencyName', {
+        value: SelectBaseInput.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as ISelectBaseInput
 
 Object.assign(SelectBaseInput.prototype, {

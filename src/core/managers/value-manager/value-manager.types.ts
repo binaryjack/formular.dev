@@ -46,5 +46,6 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     getAsString: (field: IExtendedInput) => string | null
     setValue: (field: IExtendedInput, value: Partial<InputDataTypes> | null) => void
+    setValueFromHtmlElement: (field: IExtendedInput, value: HTMLInputElement | null) => void
     getValue: (field: IExtendedInput) => Partial<InputDataTypes> | null
 }

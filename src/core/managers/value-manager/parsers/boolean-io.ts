@@ -15,7 +15,7 @@ export const booleanSetter: TSetter<boolean | null> = function (
     exfield: IExtendedInput,
     value: boolean | null
 ) {
-    if (exfield.input.value !== null && !isBoolean(value)) {
+    if (value !== null && !isBoolean(value)) {
         throw new Error(
             `${booleanSetter.name}: cannot set he value as boolea, is not boolean compatible value: ${JSON.stringify(exfield.input?.value)}, field: ${exfield.input?.id}`
         )

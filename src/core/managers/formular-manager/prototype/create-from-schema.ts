@@ -5,7 +5,7 @@ import { IValidationLocalize } from '@core/framework/localize/localize.type'
 import { TranslatioBuilderType } from '@core/framework/localize/localize.utils'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
 import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-import { InputsProviderFromConfigurations } from '@core/input-engine/generator/input-provider'
+
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 import { IFormularManager } from '../formular-manager.types'
 
@@ -17,6 +17,11 @@ export const createFromSchema = function <T extends object>(
     tb: TranslatioBuilderType,
     transdlations: IValidationLocalize
 ): IFormular<T> | undefined {
+    if (this.forms.has(schema.name)) {
+        const existingForm = this.forms.get(schema.name)
+        return existingForm as IFormular<T>
+    }
+
     const configurations = schemaToConfiguration(
         schema,
         initialization,
@@ -26,8 +31,8 @@ export const createFromSchema = function <T extends object>(
     )
 
     const frm = new Formular(schema.name, this)
-    const fields = InputsProviderFromConfigurations(configurations)
+    const fields = this.fieldProvider.createManyFromConfiguration(configurations)
     frm.addFields(...fields)
     this.forms.set(schema.name, frm)
-    return this.forms.get(schema.name) as IFormular<T>
+    return frm
 }

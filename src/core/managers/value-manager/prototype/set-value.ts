@@ -15,29 +15,14 @@ export const setValue = function (
         return
     }
     try {
-        /** Factory */
+        strategy.setter(field, value)
 
-        return strategy.setter(field, value)
+        field.input.isPristine = field.input.originalValue === field.input.value
+        field.input.isDirty = field.input.originalValue !== field.input.value
 
-        // switch (strategy.fieldValueProperty) {
-        //     case 'id':
-        //         return strategy.getter(field)
-        //     case 'selectedOptionId':
-        //         return strategy.getter(field)
-        //     case 'value':
-        //     default:
-        //         return strategy.getter(field)
-        // }
+        field.input.styleManager?.update('pristine', field.input.isPristine)
+        field.input.styleManager?.update('dirty', field.input.isDirty)
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
     }
-
-    // this.input.styleManager?.update('dirty', this.input.originalValue !== this.input.value)
-
-    // this.input.notificationManager?.notify(
-    //     'onChange',
-    //     newEvent(this.name, setValue.name, 'onChange', `field.${setValue.name}`)
-    // )
-
-    // this.observers.trigger()
 }

@@ -19,7 +19,7 @@ export const initialize = async function (
             (e) => {
                 logManager(undefined, 'info', 'initialize', e.name)
             },
-            [notification(this, this.handleOnClicked, 'onClick', 'onClick', this.name)]
+            [notification(this, this.onClickHandle, 'onClick', 'onClick', this.name)]
         )
 
         if (success) {

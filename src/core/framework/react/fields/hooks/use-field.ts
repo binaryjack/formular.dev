@@ -20,20 +20,33 @@ export type useFieldHookType = <T extends IInputBase | IExtendedInput>(
 export const useField = <T extends IExtendedInput | IInputBase>(
     field?: T
 ): IUseFieldHookReturn<T> => {
-    const [, forceUpdate] = React.useReducer((x) => x + 1, 0)
     const [flags, setFlags] = React.useState<IFieldStateFlags>(defaultFieldStateFlags)
     const stableField = React.useMemo(() => {
         return field
     }, [field])
 
+    // Add logging to track useField behavior
+    console.log('useField initialized for field:', field?.input?.name)
+
+    // Optimize handleRefresh to avoid redundant updates
     const handleRefresh = () => {
-        setFlags(stableField?.input.styleManager?.getFlagsObject?.())
-        forceUpdate()
+        const newFlags = stableField?.input.styleManager?.getFlagsObject?.()
+        if (JSON.stringify(newFlags) !== JSON.stringify(flags)) {
+            console.log('handleRefresh: Flags updated for field:', stableField?.input?.name)
+            setFlags(newFlags)
+        } else {
+            console.log('handleRefresh: No flag changes for field:', stableField?.input?.name)
+        }
     }
 
+    // Optimize useEffect dependencies
     useEffect(() => {
-        setFlags(stableField?.input.styleManager?.getFlagsObject?.())
-    }, [stableField?.input.styleManager?.classNames()])
+        const classNames = stableField?.input.styleManager?.classNames()
+        if (classNames) {
+            console.log('useField useEffect triggered for field:', stableField?.input?.name)
+            setFlags(stableField?.input.styleManager?.getFlagsObject?.())
+        }
+    }, [stableField?.input.styleManager?.classNames])
 
     /** Bind the function handleRefresh to field events*
      */

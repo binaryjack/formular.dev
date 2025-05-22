@@ -21,7 +21,11 @@ export const TrackingManager = function (
     this._trackingData = []
     this._outputProviders = providers ?? []
     this._trackingIsActive = true
-    this.dependencyName = TrackingManager.name
+    Object.defineProperty(this, 'dependencyName', {
+        value: TrackingManager.name,
+        writable: false, // Prevent modification
+        configurable: false // Prevent deletion or redefinition
+    })
 } as any as ITrackingManager
 
 Object.assign(TrackingManager.prototype, {
