@@ -7,10 +7,6 @@ export const formatYearMonthDayToString = (
     outputFormat: DatePickerFormatType,
     separator: string
 ): string | null => {
-    if (!value) {
-        return null
-    }
-
     switch (outputFormat) {
         case 'YYYY-MM-DD':
             return `${year}${separator}${String(month).padStart(2, '0')}${separator}${String(day).padStart(2, '0')}`

@@ -21,6 +21,8 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const fieldName = 'checkInput'
+
 interface ISubmitObject {
     checkInput: boolean
 }
@@ -34,7 +36,7 @@ const validationOptionsMock: IValidationOptions = {}
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock('checkInput', 'isChecked', 'checkbox', validationOptionsMock),
+    fileDescriptorMock(fieldName, 'isChecked', 'checkbox', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -58,9 +60,9 @@ const ValidationDemoCheckInput = () => {
         instance,
         internalForm,
         validationOptionsMock,
+        'onClick',
         'onFocus',
         'onBlur',
-        'onChange',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )
@@ -91,7 +93,7 @@ const ValidationDemoCheckInput = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<CheckInput fieldName="checkInput" />}
+                        childrenInput={<CheckInput fieldName={fieldName} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

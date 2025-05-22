@@ -20,7 +20,7 @@ export const getAsString = function (this: IValueManager, field: IExtendedInput)
             case 'number':
                 return String(valueOut as string) as string | null
             case 'checkbox':
-                return valueOut ? '1' : ('0' as string | null)
+                return valueOut === true ? '1' : valueOut === false ? '0' : 'null'
             case 'date':
             case 'time':
                 return JSON.stringify(valueOut) as string | null

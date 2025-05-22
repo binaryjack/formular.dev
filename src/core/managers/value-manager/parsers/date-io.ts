@@ -36,22 +36,21 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
 ) {
     let dateString: string | null = null
 
-    switch (value) {
-        case isDate(value):
-        case stringIsDate(value as unknown as string):
-            dateString = dateToString(value as Date, conventions.dataTypes.date.formatDisplay)
-
-            break
-        case isDateObject(value):
-            dateString = dateObjectToString(
-                value as IDateObject,
-                conventions.dataTypes.date.formatDisplay
-            )
-            break
-        case isNDate(value):
-            dateString = iNDateToString(value as INDate, conventions.dataTypes.date.formatDisplay)
-            break
+    if (isDate(value) || stringIsDate(value as unknown as string)) {
+        dateString = dateToString(value as Date, conventions.dataTypes.date.formatDisplay)
     }
+
+    if (isDateObject(value)) {
+        dateString = dateObjectToString(
+            value as IDateObject,
+            conventions.dataTypes.date.formatDisplay
+        )
+    }
+
+    if (isNDate(value)) {
+        dateString = iNDateToString(value as INDate, conventions.dataTypes.date.formatDisplay)
+    }
+
     const inDateObject = stringToINDate(dateString)
     exfield.input.domManager.dmSetValue(exfield.input.id.toString(), dateString)
     exfield.input.value = dateString

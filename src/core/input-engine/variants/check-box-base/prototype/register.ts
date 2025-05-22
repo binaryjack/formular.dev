@@ -2,7 +2,9 @@
  * The register function is used to register the event handlers for the field input.
  */
 
+import { conventions } from '@components/context/conventions/conventions'
 import { DomRegisterBuilder } from '@core/input-engine/core/abstract/dom-registers-builder'
+import { aria } from '@core/input-engine/core/accessibility/arias'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 /**
@@ -49,11 +51,29 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 export const register = function <FieldValuesTypes>(
     this: IExtendedInput
 ): Partial<HTMLInputElement> {
+    const lableId = `${this.input.id}${conventions.suffix.labelId}`
+    const describedbyId = `${this.input.id}${conventions.suffix.describedById}`
+
+    const arias = [
+        aria('labelledby', lableId),
+        aria('describedby', describedbyId),
+        aria('name', this.input.name),
+        aria('label', this.input.name),
+        aria('required', this.input.validationOptions?.requiredData?.required ? 'true' : 'false'),
+        aria('invalid', this.input.isValid ? 'false' : 'true'),
+        aria('disabled', this.input.enabled ? 'false' : 'true'),
+        aria('readonly', 'false'),
+        aria('autocomplete', 'none'),
+        aria('haspopup', 'false'),
+        aria('expanded', 'false'),
+        aria('activedescendant', 'false')
+    ]
+
     return new DomRegisterBuilder(this)
         .registerChange()
         .registerBlur()
         .registerFocus()
         .registerClick()
-        .registerAria()
+        .registerAria(...arias)
         .build()
 }

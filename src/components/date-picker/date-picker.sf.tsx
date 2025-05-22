@@ -40,7 +40,7 @@ export const DatePickerSF = ({
             value = `${value} => ${formatDate(endDate, displayFormat)}`
         }
 
-        instance?.input?.setValue(value)
+        instance?.input?.valueManager?.setValue(instance, startDate)
     }
 
     const { handleKeyDown } = useKeyBindings({
@@ -88,8 +88,8 @@ export const DatePickerSF = ({
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.input?.register()}
-                ref={(r) => instance?.input?.ref(r)}
+                {...instance?.register()}
+                ref={(r) => instance?.ref(r)}
                 autoComplete="off"
                 onKeyDown={handleKeyDown}
             />

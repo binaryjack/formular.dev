@@ -24,6 +24,8 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const fieldName = 'dateValue'
+
 interface ISubmitObject {
     dateValue: string
 }
@@ -34,14 +36,14 @@ const formularManager = new FormularManager(
 )
 
 const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('dateValue', true),
-    min: minValidationMock('dateValue', new Date('2023-01-01').getTime()),
-    max: maxValidationMock('dateValue', new Date('2025-12-31').getTime())
+    requiredData: requiredDataValidationMock(fieldName, true),
+    min: minValidationMock(fieldName, new Date('2023-01-01').getTime()),
+    max: maxValidationMock(fieldName, new Date('2025-12-31').getTime())
 }
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock('datePickerSandbox', 'Date Picker', 'date', validationOptionsMock),
+    fileDescriptorMock(fieldName, 'Date Picker', 'date', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -98,7 +100,7 @@ const ValidationDemoDatePicker = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<DatePicker fieldName="sandboxField" />}
+                        childrenInput={<DatePicker fieldName={fieldName} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>
