@@ -23,9 +23,9 @@ interface DatePickerSFProps {
 
 export const DatePickerSF = ({
     fieldName,
-    separator = '-',
-    dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
-    displayFormat = DatePickerFormatsEnum.DD_MM_YYYY
+    separator = conventions.dataTypes.date.separator,
+    dataFormat = conventions.dataTypes.date.formatValue,
+    displayFormat = conventions.dataTypes.date.formatDisplay
 }: DatePickerSFProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
@@ -75,8 +75,8 @@ export const DatePickerSF = ({
                     defaultDate={instance?.input?.defaultValue as string}
                 />
             }
-            itemsDrawerHeight="350px"
-            itemsDrawerWidth="250px"
+            itemsDrawerHeight={conventions.components.drawer.height}
+            itemsDrawerWidth={conventions.components.drawer.width}
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
@@ -91,6 +91,9 @@ export const DatePickerSF = ({
                 {...instance?.register()}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"
+                data-separator={separator}
+                date-format={dataFormat}
+                display-format={displayFormat}
                 onKeyDown={handleKeyDown}
             />
         </FieldSet>

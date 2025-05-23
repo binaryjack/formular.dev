@@ -7,7 +7,8 @@ export const fileDescriptorMock = (
     label: string,
     type: InputTypeNames,
     validationOptions?: IValidationOptions,
-    options?: any[]
+    options?: any[],
+    mask?: string
 ): IFieldDescriptor => {
     return {
         id: 1,
@@ -25,6 +26,7 @@ export const fileDescriptorMock = (
         isDirty: false,
         isPristine: true,
         isFocus: false,
-        shouldValidate: true
+        shouldValidate: true,
+        mask: mask ?? undefined
     }
 }

@@ -43,7 +43,14 @@ const validationOptionsMock: IValidationOptions = {
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock(fieldName, 'Date Picker', 'date', validationOptionsMock),
+    fileDescriptorMock(
+        fieldName,
+        'Date Picker',
+        'date',
+        validationOptionsMock,
+        optionsMocks,
+        '##/##/####'
+    ),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )

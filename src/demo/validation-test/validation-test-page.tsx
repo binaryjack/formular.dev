@@ -6,7 +6,6 @@ import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
-import { InputTextBuilder } from '@core/framework/schema/field-schema/settings/input-text-builder'
 import { ValidationSchemaBuildersEnum } from '@core/framework/schema/validation-schema/presets/builders.enum'
 import { ValidationSchemaBuilderType } from '@core/framework/schema/validation-schema/schema/builder/validation.schema.builder.types'
 import validationSchemaFactory from '@core/framework/schema/validation-schema/schema/factory/validation.schema.factory'
@@ -22,6 +21,7 @@ import {
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
+import { InputTextBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/input-text-builder'
 import { useEffect, useState } from 'react'
 
 const fieldsIds: Record<string, number> = {

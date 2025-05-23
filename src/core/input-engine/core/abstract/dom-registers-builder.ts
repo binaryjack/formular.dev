@@ -7,6 +7,7 @@ import { onFocus } from '../input-base/events/on-focus'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { onClickOption } from '@core/input-engine/variants/click-base/events/on-click-option'
+import { IMaskedBaseInput } from '@core/input-engine/variants/masked-base/masked-base-input.types'
 import { IExtendedInput } from '../input-base/input-base.types'
 
 export interface IDomRegisterBuilder {
@@ -17,7 +18,7 @@ export interface IDomRegisterBuilder {
     onClick: (e: Event) => void
     onClickOption: (e: Event) => void
 
-    registerChange: () => IDomRegisterBuilder
+    registerChange: (customOnChange?: (e: Event) => void) => IDomRegisterBuilder
     registerBlur: () => IDomRegisterBuilder
     registerFocus: () => IDomRegisterBuilder
     registerClick: () => IDomRegisterBuilder
@@ -29,8 +30,13 @@ export interface IDomRegisterBuilder {
 }
 
 export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: IExtendedInput) {
-    this.registerChange = function (this: IDomRegisterBuilder) {
-        this.onChange = (e: Event) => onChange(context, e)
+    this.registerChange = function (
+        this: IDomRegisterBuilder,
+        customOnChange?: (e: Event) => void
+    ) {
+        this.onChange = customOnChange
+            ? (e: Event) => customOnChange(e)
+            : (e: Event) => onChange(context, e)
         return this
     }
     this.registerBlur = function (this: IDomRegisterBuilder) {
@@ -56,9 +62,15 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
         return this
     }
     this.build = function (this: IDomRegisterBuilder): any {
+        let hasMask = false
+        if (context.dependencyName === 'MaskedBaseInput') {
+            hasMask = !!(context as unknown as IMaskedBaseInput)?.mask
+        }
+
         return {
             id: `${context.input.id}`,
-            type: context.input.type,
+            /** I need hack date input */
+            type: hasMask ? 'text' : context.input.type,
             className: 'base-input',
             title: context.input.label ?? '',
             onChange: this.onChange,

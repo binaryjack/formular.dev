@@ -14,6 +14,6 @@ export const stringToDateObject = (value: string): IDateObject | null => {
             )}`
         )
 
-    date?.setFromString?.(value, conventions.dataTypes.date.formatValue)
+    date?.setFromString?.(value, conventions.dataTypes.date.formatDisplay)
     return date
 }

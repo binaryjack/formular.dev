@@ -27,11 +27,23 @@ export const FieldSchemaBuilder = function (
     this.expectedValue = null
     this.shouldValidate = false
     this.validationTriggerMode = []
+    this.mask = null
 } as any as IFieldSchemaBuilder
 
 FieldSchemaBuilder.prototype = {
     setTypeData: function (type: InputTypeNames) {
         this.type = type
+        return this
+    },
+    /**
+     * To define a mask you must use # as numeric placeholder
+     * example mask: '##/##/####' will be converted to 12/12/2023
+     * @param mask
+     *
+     * @returns
+     */
+    setMask: function (mask: string) {
+        this.mask = mask
         return this
     },
     setOptionData: function (target: string, options: IOptionItem[]) {

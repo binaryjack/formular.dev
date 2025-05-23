@@ -29,6 +29,9 @@ export interface IFieldDescriptor {
     changed?: boolean
     // defined in backend : describes if the field should be validated
     shouldValidate: boolean
+    // defines the mask for the field you must use # as numeric placeholder
+    // example: date ##/##/#### => 12/12/2023
+    mask?: string
 }
 
 export type TFieldDescriptor = {

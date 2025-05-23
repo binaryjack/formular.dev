@@ -1,4 +1,5 @@
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
+import { getSystemDateSeparator } from '@components/date-picker/core/system/get-local-system-separator'
 
 export const conventions = {
     IdIsEmpty: function (): never {
@@ -46,7 +47,7 @@ export const conventions = {
     },
     dataTypes: {
         date: {
-            separator: '-',
+            separator: getSystemDateSeparator(),
             formatValue: DatePickerFormatsEnum.YYYY_MM_DD,
             formatDisplay: DatePickerFormatsEnum.DD_MM_YYYY
         }
@@ -54,6 +55,12 @@ export const conventions = {
     formular: {
         creation: {
             enforceConfigurationCheck: true
+        }
+    },
+    components: {
+        drawer: {
+            height: '350px',
+            width: '250px'
         }
     }
 }

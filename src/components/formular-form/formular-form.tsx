@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import { IFormular, IFormularFlags } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
@@ -27,6 +27,21 @@ const FormularForm = <T extends object>({
     const formularInstance = useMemo(() => {
         return formular
     }, [formular])
+
+    useEffect(() => {
+        if (!stableField) return
+        /** Bind the function handleRefresh to followng field events*/
+        acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
+
+        stableField.input.notificationManager?.accept(
+            notification(useField, handleRefresh, event, `useField.${event}`, 'onUiUpdate')
+        )
+
+        return () => {
+            formular.notificationManager?.unsubscribe('useField.hook.updated')
+            console.log('useField cleanup for field:', stableField?.input?.name)
+        }
+    }, [stableField])
 
     const handleSubmit = async <T extends object>() => {
         try {

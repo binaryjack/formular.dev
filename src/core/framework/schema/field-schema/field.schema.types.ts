@@ -24,6 +24,7 @@ export interface IFieldSchema {
     expectedValue: string | null
     shouldValidate: boolean
     validationTriggerMode: EventsType[] | never[]
+    mask: string | null
 }
 
 type TValidationType = IValidationSchema
@@ -31,6 +32,7 @@ type TValidationType = IValidationSchema
 export interface IFieldSchemaBuilder extends IFieldSchema {
     new (id: number, name: string): IFieldSchemaBuilder
     setTypeData: (type: InputDataTypes) => IFieldSchemaBuilder
+    setMask: (mask: string) => IFieldSchemaBuilder
     setOptionData: (target: string | null, options?: IOptionItem[]) => IFieldSchemaBuilder
     setExpectedValue: (expectedValue?: any) => IFieldSchemaBuilder
     setDefaultValue: (defaultValue?: any) => IFieldSchemaBuilder

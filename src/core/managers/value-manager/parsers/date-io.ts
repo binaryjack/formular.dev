@@ -8,7 +8,6 @@ import { isDate } from '@core/framework/utility/is-date'
 import { isDateObject } from '@core/framework/utility/is-date-object'
 import { isNDate } from '@core/framework/utility/is-n-date'
 import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
-import { stringIsDate } from '@core/framework/utility/string-is-date'
 import { dateObjectToString } from '@core/managers/validation-manager/converters/date-object-to-string'
 import { dateToString } from '@core/managers/validation-manager/converters/date-to-string'
 import { iNDateToString } from '@core/managers/validation-manager/converters/i-n-date-to-string'
@@ -36,7 +35,7 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
 ) {
     let dateString: string | null = null
 
-    if (isDate(value) || stringIsDate(value as unknown as string)) {
+    if (isDate(value)) {
         dateString = dateToString(value as Date, conventions.dataTypes.date.formatDisplay)
     }
 
@@ -52,7 +51,12 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
     }
 
     const inDateObject = stringToINDate(dateString)
-    exfield.input.domManager.dmSetValue(exfield.input.id.toString(), dateString)
-    exfield.input.value = dateString
-    exfield.input.objectValue = inDateObject
+    if (inDateObject === null) {
+        exfield.input.domManager.dmSetValue(exfield.input.id.toString(), value)
+        exfield.input.value = value
+    } else {
+        exfield.input.domManager.dmSetValue(exfield.input.id.toString(), dateString)
+        exfield.input.value = dateString
+        exfield.input.objectValue = inDateObject
+    }
 }

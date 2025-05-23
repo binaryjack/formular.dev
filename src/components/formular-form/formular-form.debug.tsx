@@ -9,6 +9,7 @@ const FormularFormDebug = <T extends object>({ formular }: FormyDebugProps<T>) =
     // useForm(formular)
     const { getFormFlags } = useFormularContext()
     const flags = getFormFlags()
+
     return (
         <div className={`form-debug  flex flex-col p-1 w-full h-full`}>
             <div className={`debug-table flex flex-col w-full`}>

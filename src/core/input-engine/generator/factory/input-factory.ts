@@ -19,6 +19,8 @@ const InputsRegistry = <T>(
             return createField(builder.createSelectBased.bind(builder)) as IBuilder<T>
         case 'radio':
             return createField(builder.createRadioBased.bind(builder)) as IBuilder<T>
+        case 'date':
+            return createField(builder.createMaskedBased.bind(builder)) as IBuilder<T>
         case 'text':
         default:
             return createField(builder.createTextBased.bind(builder)) as IBuilder<T>

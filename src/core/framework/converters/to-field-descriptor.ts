@@ -172,7 +172,8 @@ export const mapSchemaToFieldDescriptor = (
                 pattern: patternValidationOptions
             } as IValidationOptions,
             objectValue: null,
-            defaultValue: f.defaultValue
+            defaultValue: f.defaultValue,
+            mask: f.mask ?? undefined
         }
         output.push(newF)
         // console.log(output)
