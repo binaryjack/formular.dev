@@ -3,6 +3,7 @@ import React, { useEffect, useMemo } from 'react'
 import { IFormular, IFormularFlags } from '@core/formular-engine/formular-base/formular-base.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { LoadingStatus } from '@core/status'
 import { Button } from '../button/button'
 import { conventions } from '../context/conventions/conventions'
@@ -23,25 +24,43 @@ const FormularForm = <T extends object>({
     onSubmit
 }: IFormularProps<T>) => {
     const [messages, setMessages] = React.useState<string[]>([])
+    const [count, setCount] = React.useState(0)
 
     const formularInstance = useMemo(() => {
         return formular
     }, [formular])
 
-    useEffect(() => {
-        if (!stableField) return
-        /** Bind the function handleRefresh to followng field events*/
-        acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
+    const handleRefresh = () => {
+        console.log('handleRefresh: FormularForm updated')
+        setMessages([...messages])
+        setCount((prev) => prev + 1)
+    }
 
-        stableField.input.notificationManager?.accept(
-            notification(useField, handleRefresh, event, `useField.${event}`, 'onUiUpdate')
+    useEffect(() => {
+        if (!formular?.notificationManager) return
+        /** Bind the function handleRefresh to followng field events*/
+        formular?.notificationManager?.accept(
+            notification(
+                FormularForm,
+                handleRefresh,
+                'onUiUpdate',
+                `FormularForm.onUiUpdate'`,
+                'onUiUpdate'
+            )
         )
 
         return () => {
-            formular.notificationManager?.unsubscribe('useField.hook.updated')
-            console.log('useField cleanup for field:', stableField?.input?.name)
+            formular.notificationManager?.dismiss(
+                notification(
+                    FormularForm,
+                    handleRefresh,
+                    'onUiUpdate',
+                    `FormularForm.onUiUpdate'`,
+                    'onUiUpdate'
+                )
+            )
         }
-    }, [stableField])
+    }, [formular])
 
     const handleSubmit = async <T extends object>() => {
         try {
@@ -111,7 +130,7 @@ const FormularForm = <T extends object>({
                     onClickCallback={handleSubmit}
                 />
             )}
-            <FormularFormDebug formular={formularInstance} />
+            <FormularFormDebug formular={formularInstance} count={count} />
         </formularContext.Provider>
     )
 }

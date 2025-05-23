@@ -63,8 +63,8 @@ export const useField = <T extends IExtendedInput | IInputBase>(
         /** Bind the function handleRefresh to followng field events*/
         acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
         return () => {
-            stableField.input.notificationManager?.observers.unsubscribe(handleRefresh)
-            stableField.input.notificationManager?.unsubscribe('useField.hook.updated')
+            stableField.input.notificationManager?.observers.unSubscribe(handleRefresh)
+            stableField.input.notificationManager?.dismiss('useField.hook.updated')
             console.log('useField cleanup for field:', stableField?.input?.name)
         }
     }, [stableField])

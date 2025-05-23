@@ -15,18 +15,15 @@ import { stringToINDate } from '@core/managers/validation-manager/converters/str
 import { TGetter, TSetter } from '../value-manager.types'
 
 export const dateGetter: TGetter<string | null> = (exfield: IExtendedInput): string | null => {
-    if (isNullEmptyOrUndefined(exfield.input.objectValue)) {
-        return null
+    if (!isNullEmptyOrUndefined(exfield.input.objectValue)) {
+        if (isNDate(exfield.input.objectValue)) {
+            return iNDateToString(
+                exfield.input.objectValue as INDate,
+                conventions.dataTypes.date.formatDisplay
+            )
+        }
     }
-    if (exfield.input.value !== null && !isNDate(exfield.input.objectValue ?? null)) {
-        throw new Error(
-            `${dateGetter.name}: cannot get the value as date, is not date compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
-        )
-    }
-    return iNDateToString(
-        exfield.input.objectValue as INDate,
-        conventions.dataTypes.date.formatDisplay
-    )
+    return exfield.input.value as string | null
 }
 
 export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = function (

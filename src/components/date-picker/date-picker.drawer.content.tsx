@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 
+import { conventions } from '@components/context/conventions/conventions'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { useDrawerContext } from '../drawer/components/drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/date-picker.context'
@@ -189,7 +190,7 @@ const DatePickerContentDrawer = ({
             const dateTemp = new DateObject(new Date(), 'default', separator)
             dateTemp?.setFromString?.(
                 defaultDate,
-                displayFormat ?? DatePickerFormatsEnum.DD_MM_YYYY
+                displayFormat ?? conventions.dataTypes.date.formatDisplay
             )
             if (!dateTemp) {
                 console.error(new Error(`Provideed default date is not suitable`))

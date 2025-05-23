@@ -3,15 +3,17 @@ import useFormularContext from './formular-form.context'
 
 interface FormyDebugProps<T extends object> {
     formular: IFormular<T>
+    count?: number
 }
 
-const FormularFormDebug = <T extends object>({ formular }: FormyDebugProps<T>) => {
+const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProps<T>) => {
     // useForm(formular)
     const { getFormFlags } = useFormularContext()
     const flags = getFormFlags()
 
     return (
         <div className={`form-debug  flex flex-col p-1 w-full h-full`}>
+            {count}
             <div className={`debug-table flex flex-col w-full`}>
                 <div className={`debug-table-row `}>
                     <div className={`debug-table-col auto-cols-min`}>Name</div>
