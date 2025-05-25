@@ -11,6 +11,9 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
         'onBlur',
         newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
     )
+
+    f.input.cursorPosition = null
+
     e.stopPropagation()
     // e.preventDefault()
 }

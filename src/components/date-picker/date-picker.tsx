@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { memo } from 'react'
 import { Toggleable } from '../toggleable/toggleable'
 import { DatePickerFormatsEnum } from './core/date-picker.types'
@@ -20,7 +21,7 @@ interface DatePickerProps {
 const DatePicker = memo(
     ({
         fieldName,
-        separator = '-',
+        separator = conventions.dataTypes.date.separator,
         dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
         displayFormat = DatePickerFormatsEnum.DD_MM_YYYY,
         ...rest

@@ -1,15 +1,20 @@
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
-export const onFocus = (f: IExtendedInput, e: Event) => {
+export const onKeyPress = function (f: IExtendedInput, e: KeyboardEvent) {
     const inputElement = e.target as HTMLInputElement
-
-    f.input.isFocus = true
-    f.input.styleManager?.update('focus', f.input.isFocus)
+    const key = e.key
 
     f?.input.notificationManager?.notify(
-        'onFocus',
-        newEvent(f.input.name, onFocus.name, 'onFocus', `field.${onFocus.name}`, f.input.name, f)
+        'onKeyPress',
+        newEvent(
+            f.input.name,
+            onKeyPress.name,
+            'onKeyPress',
+            `field.${onKeyPress.name}`,
+            f.input.name,
+            f
+        )
     )
 
     if (f.input.cursorPosition && f.input.cursorPosition !== null) {
@@ -17,5 +22,4 @@ export const onFocus = (f: IExtendedInput, e: Event) => {
     }
 
     e.stopPropagation()
-    // e.preventDefault()
 }

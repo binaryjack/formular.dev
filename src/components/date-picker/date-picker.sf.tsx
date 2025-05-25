@@ -10,6 +10,8 @@ import ValidationResultComponent from '../validation-result/validation-result'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import { customEvent } from '@core/input-engine/core/abstract/dom-registers-builder'
+import { useMemo } from 'react'
 import { DatePickerFormatsEnum } from './core/date-picker.types'
 import { formatDate } from './core/formatters/format-date'
 import DatePickerContentDrawer from './date-picker.drawer.content'
@@ -47,12 +49,24 @@ export const DatePickerSF = ({
         onArrowDownCallback: () => {
             setToggleState('open')
         },
+        onEnterCallback: (e) => {
+            e.stopPropagation()
+            e.preventDefault()
+            setToggleState('open')
+        },
         onDeleteCallback: () => {
             instance?.input?.clear()
         }
     })
 
     useFieldDefaultValue(instance?.input)
+
+    const defaultValue = useMemo(() => {
+        if (instance?.input?.value) {
+            return instance?.input?.value
+        }
+        return instance?.input?.defaultValue
+    }, [instance?.input?.value, instance?.input?.defaultValue])
 
     return (
         <FieldSet
@@ -63,7 +77,7 @@ export const DatePickerSF = ({
             onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
-                instance?.input?.focus()
+                // instance?.input?.focus()
             }}
             itemsChildren={
                 <DatePickerContentDrawer
@@ -72,7 +86,7 @@ export const DatePickerSF = ({
                     separator={separator}
                     dataFormat={dataFormat}
                     displayFormat={displayFormat}
-                    defaultDate={instance?.input?.defaultValue as string}
+                    defaultDate={defaultValue as string}
                 />
             }
             itemsDrawerHeight={conventions.components.drawer.height}
@@ -88,13 +102,12 @@ export const DatePickerSF = ({
             <input
                 tabIndex={0}
                 data-class="base-input"
-                {...instance?.register()}
+                {...instance?.register(customEvent('onKeyDown', handleKeyDown as any))}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"
                 data-separator={separator}
                 date-format={dataFormat}
                 display-format={displayFormat}
-                onKeyDown={handleKeyDown}
             />
         </FieldSet>
     )

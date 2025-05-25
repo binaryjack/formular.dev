@@ -13,5 +13,7 @@ export const onChange = (f: IExtendedInput, e: Event) => {
         newEvent(f.input.name, onChange.name, 'onChange', `field.${onChange.name}`, f.input.name, f)
     )
 
+    f.input.cursorPosition = inputElement.selectionStart ?? 0
+
     e.stopPropagation()
 }

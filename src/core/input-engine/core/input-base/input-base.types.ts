@@ -58,6 +58,8 @@ export interface IInputProperties extends IFieldDescriptor {
     value: InputDataTypes
     originalValue: InputDataTypes
     validationResults: IValidationResult[]
+
+    cursorPosition: number | null
     /** message helper method : uses treacker and fallbacks to console */
     message: (type: TrackingType, source: string, message: string) => void
     /** Core methods */
@@ -75,6 +77,7 @@ export interface IInputProperties extends IFieldDescriptor {
     handleOnBlur: <T extends IEvents>(data?: T) => void
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
+    handleOnKeyPress: <T extends IEvents>(data?: T) => void
     refreshUi: (ref?: IInputBase | IExtendedInput) => void
     onBeforeValidation?: () => boolean
     onAfterValidation?: () => void

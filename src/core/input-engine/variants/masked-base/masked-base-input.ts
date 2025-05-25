@@ -1,6 +1,7 @@
 import { IMaskedBaseInput } from './masked-base-input.types'
 import { initialize } from './prototype/initialize'
 import { onChange } from './prototype/on-change'
+import { onKeyPress } from './prototype/on-key-press'
 import { ref } from './prototype/ref'
 import { register } from './prototype/register'
 
@@ -24,5 +25,6 @@ Object.assign(MaskedBaseInput.prototype, {
     initialize,
     onChange,
     ref,
+    onKeyPress,
     register
 })
