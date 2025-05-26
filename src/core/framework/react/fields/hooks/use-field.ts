@@ -26,7 +26,7 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     }, [field])
 
     // Add logging to track useField behavior
-    console.log('useField initialized for field:', field?.input?.name)
+    // console.log('useField initialized for field:', field?.input?.name)
 
     // Optimize handleRefresh to avoid redundant updates
     const handleRefresh = () => {

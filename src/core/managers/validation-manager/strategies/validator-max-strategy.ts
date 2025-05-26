@@ -13,7 +13,7 @@ const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
     }
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
-        const value = field.input.valueManager.getValue(field)
+        const value = field.input.valueManager.getValue(field, 'validation')
         if (!field?.input.validationOptions?.max) {
             return newValidationResult(
                 true,

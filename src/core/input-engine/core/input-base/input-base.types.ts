@@ -78,6 +78,7 @@ export interface IInputProperties extends IFieldDescriptor {
     handleOnFocus: <T extends IEvents>(data?: T) => void
     handleOnClear: <T extends IEvents>(data?: T) => void
     handleOnKeyPress: <T extends IEvents>(data?: T) => void
+    handleOnKeyUp: <T extends IEvents>(data?: T) => void
     refreshUi: (ref?: IInputBase | IExtendedInput) => void
     onBeforeValidation?: () => boolean
     onAfterValidation?: () => void

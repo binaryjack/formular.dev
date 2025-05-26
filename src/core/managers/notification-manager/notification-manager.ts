@@ -3,6 +3,7 @@ import { INotificationManager } from './notification-manager-base.types'
 import { INotification } from './notification-manager.types'
 import { accept } from './prototype/accept'
 import { debounceNotify } from './prototype/debounce-notify'
+import { dismiss } from './prototype/dismiss'
 import { dispose } from './prototype/dispose'
 import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
 import { initialize } from './prototype/initialize'
@@ -36,6 +37,7 @@ Object.assign(NotificationManager.prototype, {
     getRegisteredNotifierNames,
     accept,
     initialize,
+    dismiss,
     notify,
     dispose,
     trigger

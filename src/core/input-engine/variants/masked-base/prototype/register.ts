@@ -12,6 +12,7 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 import { IMaskedBaseInput } from '../masked-base-input.types'
 import { onChange } from './on-change'
 import { onKeyPress } from './on-key-press'
+import { onKeyUp } from './on-key-up'
 
 /**
  * Registers event handlers and ARIA attributes for a field input component.
@@ -79,6 +80,7 @@ export const register = function <FieldValuesTypes>(
     return new DomRegisterBuilder(this)
         .registerChange(onChange.bind(this as unknown as IMaskedBaseInput))
         .registerKeyPress(onKeyPress.bind(this as unknown as IMaskedBaseInput))
+        .registerKeyUp(onKeyUp.bind(this as unknown as IMaskedBaseInput))
         .registerEvents(...customHandlers)
         .registerBlur()
         .registerFocus()

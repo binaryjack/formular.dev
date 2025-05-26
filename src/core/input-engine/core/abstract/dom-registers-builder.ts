@@ -10,6 +10,7 @@ import { IOptionItem } from '@core/framework/schema/options-schema/options.schem
 import { onClickOption } from '@core/input-engine/variants/click-base/events/on-click-option'
 import { IMaskedBaseInput } from '@core/input-engine/variants/masked-base/masked-base-input.types'
 import { onKeyPress } from '../input-base/events/on-key-press'
+import { onKeyUp } from '../input-base/events/on-key-up'
 import { IExtendedInput } from '../input-base/input-base.types'
 
 export type EventTypeSignature = (e: Event) => void
@@ -40,6 +41,7 @@ export interface IDomRegisterBuilder {
     onFocus: (e: Event) => void
     onClick: (e: Event) => void
     onKeyPress: (e: KeyboardEvent) => void
+    onKeyUp: (e: KeyboardEvent) => void
     onClickOption: (e: Event) => void
 
     registerEvents: (...customHandlers: ICustomHandler[]) => IDomRegisterBuilder
@@ -49,6 +51,7 @@ export interface IDomRegisterBuilder {
     registerFocus: (custom?: (e: Event) => void) => IDomRegisterBuilder
     registerClick: (custom?: (e: Event) => void) => IDomRegisterBuilder
     registerKeyPress: (custom?: (e: KeyboardEvent) => void) => IDomRegisterBuilder
+    registerKeyUp: (custom?: (e: KeyboardEvent) => void) => IDomRegisterBuilder
     registerClickOption: (optionId: string) => IDomRegisterBuilder
     registerAria: (...arias: IAria[]) => IDomRegisterBuilder
     assembleEventsHandlers: () => any
@@ -98,6 +101,12 @@ export const DomRegisterBuilder = function (this: IDomRegisterBuilder, context: 
     ) {
         custom && this.registerEvent('onKeyPress', (e: KeyboardEvent) => custom(e))
         onKeyPress && this.registerEvent('onKeyPress', (e: KeyboardEvent) => onKeyPress(context, e))
+        return this
+    }
+
+    this.registerKeyUp = function (this: IDomRegisterBuilder, custom?: (e: KeyboardEvent) => void) {
+        custom && this.registerEvent('onKeyUp', (e: KeyboardEvent) => custom(e))
+        onKeyUp && this.registerEvent('onKeyUp', (e: KeyboardEvent) => onKeyUp(context, e))
         return this
     }
 

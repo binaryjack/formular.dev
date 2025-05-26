@@ -41,6 +41,8 @@ export enum EventsEnum {
 
     onKeyDown = 'onKeyDown',
 
+    onKeyUp = 'onKeyUp',
+
     onFormat = 'onFormat',
 
     onOpen = 'onOpen',

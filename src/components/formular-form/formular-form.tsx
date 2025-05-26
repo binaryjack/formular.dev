@@ -31,7 +31,7 @@ const FormularForm = <T extends object>({
     }, [formular])
 
     const handleRefresh = () => {
-        console.log('handleRefresh: FormularForm updated')
+        // console.log('handleRefresh: FormularForm updated')
         setMessages([...messages])
         setCount((prev) => prev + 1)
     }

@@ -17,8 +17,8 @@ export const onChange = function (this: IMaskedBaseInput, e: Event) {
     const rawValue = inputElement.value.replace(/\D/g, '') // Remove non-numeric characters
     const formattedValue = processMaskedValue(this.mask, rawValue)
 
-    this.input.cursorPosition = inputElement.selectionStart ?? 0
-
+    // this.input.cursorPosition = inputElement.selectionStart ?? 0
+    // console.log('onChange this.input.cursorPosition ', this.input.cursorPosition)
     if (formattedValue === undefined || formattedValue === '') {
         this.input.valueManager.setValue(this as unknown as IExtendedInput, null)
     } else {

@@ -10,6 +10,8 @@ export type TSetter<T extends Partial<InputDataTypes> | null> = (
     value: T
 ) => void
 
+export type OutputPurposeType = 'validation' | 'display' | 'submission' | 'all'
+
 export type FieldValuePropertyType = 'value' | 'id' | 'selectedOptionId' | 'checked' | 'objectValue'
 
 export interface IParserStrategy<T extends Partial<InputDataTypes> | null> {
@@ -47,5 +49,5 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     getAsString: (field: IExtendedInput) => string | null
     setValue: (field: IExtendedInput, value: Partial<InputDataTypes> | null) => void
     setValueFromHtmlElement: (field: IExtendedInput, value: HTMLInputElement | null) => void
-    getValue: (field: IExtendedInput) => Partial<InputDataTypes> | null
+    getValue: (field: IExtendedInput, purpose?: OutputPurposeType) => Partial<InputDataTypes> | null
 }

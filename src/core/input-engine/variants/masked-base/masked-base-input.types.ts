@@ -8,5 +8,6 @@ export interface IMaskedBaseInput extends IExtendedInputBase {
     register: (...customHandlers: ICustomHandler[]) => any
     onChange: (e: Event) => void
     onKeyPress: (e: KeyboardEvent) => void
+    onKeyUp: (e: KeyboardEvent) => void
     initialize: () => void
 }

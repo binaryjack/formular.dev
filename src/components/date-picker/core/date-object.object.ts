@@ -4,17 +4,13 @@ import { validateDateFormat } from './date-picker.utils'
 
 import { getPaddedNumber } from './getters/get-padded-number'
 
+import { conventions } from '@components/context/conventions/conventions'
 import { IDateObject } from './models/date-object.models'
 import { DateObjectTypes } from './models/date-object.types'
 
-export const DateObject = function (
-    this: IDateObject,
-    date?: Date,
-    name: string = '',
-    separator: string = '-'
-) {
+export const DateObject = function (this: IDateObject, date?: Date, name: string = '') {
     this.name = name
-    this.separator = separator ?? '-'
+    this.separator = conventions.dataTypes.date.separator
     this.dateObject = date
         ? { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() }
         : {
@@ -68,7 +64,7 @@ DateObject.prototype = {
     },
     /** here we store the date object with the month shifted - 1 */
     setFromObject: function (this: IDateObject, date: INDate) {
-        this.dateObject = { ...date, month: date.month - 1 }
+        this.dateObject = { ...date, month: date.month - 1 } as INDate
     },
     setFromString: function (this: IDateObject, date: string, format: DatePickerFormatsEnum) {
         if (date.length === 10) {
@@ -106,16 +102,20 @@ DateObject.prototype = {
     },
     /** Note that  */
     toString: function (this: IDateObject, format: DatePickerFormatsEnum) {
+        const day = this.dateObject.day
+        const month = this.dateObject.month + 1
+        const year = this.dateObject.year
+
         if (format === DatePickerFormatsEnum.MM_DD_YYYY) {
-            return `${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${this.dateObject.year}`
+            return `${getPaddedNumber(month, 2)}${this.separator}${getPaddedNumber(day, 2)}${this.separator}${year}`
         }
 
         if (format === DatePickerFormatsEnum.DD_MM_YYYY) {
-            return `${getPaddedNumber(this.dateObject.day, 2)}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${this.dateObject.year}`
+            return `${getPaddedNumber(day, 2)}${this.separator}${getPaddedNumber(month, 2)}${this.separator}${year}`
         }
 
         if (format === DatePickerFormatsEnum.YYYY_MM_DD) {
-            return `${this.dateObject.year}${this.separator}${getPaddedNumber(this.dateObject.month, 2)}${this.separator}${getPaddedNumber(this.dateObject.day, 2)}`
+            return `${year}${this.separator}${getPaddedNumber(month, 2)}${this.separator}${getPaddedNumber(day, 2)}`
         }
         return ''
     },

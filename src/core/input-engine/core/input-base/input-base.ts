@@ -20,6 +20,7 @@ import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
 import { handleOnKeyPress } from './prototype/handle-on-key-press'
+import { handleOnKeyUp } from './prototype/handle-on-key-up'
 import { handleValidationAsync } from './prototype/handle-validation-async'
 import { message } from './prototype/message'
 import { refreshUi } from './prototype/refresh-ui'
@@ -51,6 +52,7 @@ Object.assign(InputBase.prototype, {
     checkInitialized,
     handleValidation,
     handleOnKeyPress,
+    handleOnKeyUp,
     useDrawerManager,
     useValueManager,
     useStyleManager,

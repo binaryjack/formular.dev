@@ -1,3 +1,5 @@
+import { DateObject } from '@components/date-picker/core/date-object.object'
+
 /**
  * Checks if a given INDate or DateObject is null or undefined.
  *
@@ -6,7 +8,9 @@
  */
 export const isNDate = (value: any | null): boolean => {
     try {
-        return 'day' in value && 'month' in value && 'year' in value
+        return (
+            !(value instanceof DateObject) && 'day' in value && 'month' in value && 'year' in value
+        )
     } catch {
         return false
     }
