@@ -2,13 +2,16 @@ import FormularForm from '@components/formular-form/formular-form'
 import Select from '@components/select-input/select-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
+
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
+
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
+import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
@@ -17,32 +20,29 @@ import { patternValidationMock } from '@tests/mocks/pattern-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 import { FormsContentFrame } from './components/form-content-frame'
-import { Pattern } from './components/pattern'
 import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const fieldName = 'selectedOption'
+
 interface ISubmitObject {
     selectedOption: string
 }
+
 const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
 
 const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('selectedOption', true),
-    pattern: patternValidationMock('selectedOption', '\\.*') // Adjusted to use a numeric value as expected
+    requiredData: requiredDataValidationMock(fieldName, true),
+    pattern: patternValidationMock(fieldName, '\\.*')
 }
+const optionsMocks: IOptionItem[] = mockOptions
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock(
-        'selectSandbox',
-        'selectedOption',
-        'select',
-        validationOptionsMock,
-        mockOptions
-    ),
+    fileDescriptorMock(fieldName, 'Select Input', 'select', validationOptionsMock, optionsMocks),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -75,7 +75,6 @@ const ValidationDemoSelectInput = () => {
 
     useEffect(() => {
         formular.setValidationTriggerMode(validationTriggerMode)
-
         setInternalForm(formular)
     }, [])
 
@@ -88,12 +87,6 @@ const ValidationDemoSelectInput = () => {
             {internalForm && (
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <FormsContentFrame
-                        childrenPattern={
-                            <Pattern
-                                validationOptions={validationOptions}
-                                handleValidationOptionChange={handleValidationOptionChange}
-                            />
-                        }
                         childrenRequired={
                             <Required
                                 validationOptions={validationOptions}
@@ -106,7 +99,7 @@ const ValidationDemoSelectInput = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<Select fieldName="selectedOption" />}
+                        childrenInput={<Select fieldName={fieldName} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

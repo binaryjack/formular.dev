@@ -1,10 +1,6 @@
 import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
-import {
-    IValidationTextBase,
-    ValidationErrorsCodes,
-    ValidationErrorsCodesType
-} from '../validation-manager.types'
+import { IValidationTextBase, ValidationErrorsCodesType } from '../validation-manager.types'
 
 export interface IDescriptorValidtionBuilder<T extends IValidationTextBase> {
     new <T extends IValidationTextBase>(
@@ -73,35 +69,35 @@ export const DescriptorValidationBuilder = function <T extends IValidationTextBa
         let output: any = {}
 
         switch (this.type) {
-            case ValidationErrorsCodes.required:
+            case 'required':
                 output = {
                     required: this.required,
                     error: this.required ? this.error() : undefined,
                     guide: this.required ? this.guide() : undefined
                 }
                 break
-            case ValidationErrorsCodes.min:
+            case 'min':
                 output = {
                     min: this.min,
                     error: this.min !== null ? this.error() : undefined,
                     guide: this.min !== null ? this.guide() : undefined
                 }
                 break
-            case ValidationErrorsCodes.max:
+            case 'max':
                 output = {
                     max: this.max,
                     error: this.max !== null ? this.error() : undefined,
                     guide: this.max !== null ? this.guide() : undefined
                 }
                 break
-            case ValidationErrorsCodes.minLength:
+            case 'minLength':
                 output = {
                     minLength: this.minLength,
                     error: this.minLength !== null ? this.error() : undefined,
                     guide: this.minLength !== null ? this.guide() : undefined
                 }
                 break
-            case ValidationErrorsCodes.maxLength:
+            case 'maxLength':
                 output = {
                     maxLength: this.maxLength,
                     error: this.maxLength !== null ? this.error() : undefined,
@@ -109,7 +105,7 @@ export const DescriptorValidationBuilder = function <T extends IValidationTextBa
                 }
                 break
 
-            case ValidationErrorsCodes.pattern:
+            case 'pattern':
                 output = {
                     pattern: this.pattern,
                     error: this.pattern !== null ? this.error() : undefined,

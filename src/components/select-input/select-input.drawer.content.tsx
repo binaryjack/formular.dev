@@ -13,6 +13,7 @@ interface ISelectDrawerProps {
     onSelectItem: (value: IOptionItem) => void
     width?: string
     height?: string
+    defaultSelectedItem?: IOptionItem
 }
 
 const SelectDrawerContent = ({
@@ -21,13 +22,16 @@ const SelectDrawerContent = ({
     selectedItemSequenceId,
     onSelectItem,
     width,
-    height
+    height,
+    defaultSelectedItem
 }: ISelectDrawerProps) => {
     const [filteredItems, setFilteredItems] = useState<IOptionItem[]>(items)
     const [currentItemSequenceId, setCurrentItemSequenceId] = useState<number>(
         selectedItemSequenceId ?? 0
     )
-    const originalSelectedItemRef = useRef<number>(selectedItemSequenceId ?? 0)
+    const originalSelectedItemRef = useRef<number>(
+        selectedItemSequenceId ?? defaultSelectedItem?.sequenceId ?? 0
+    )
 
     const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()
 

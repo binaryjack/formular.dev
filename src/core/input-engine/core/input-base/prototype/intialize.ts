@@ -21,7 +21,8 @@ export const initialize = async function (
                 notification(this, this.handleOnBlur, 'onBlur', 'onBlur', this.name),
                 notification(this, this.handleOnFocus, 'onFocus', 'onFocus', this.name),
                 notification(this, this.handleOnKeyPress, 'onKeyPress', 'onKeyPress', this.name),
-                notification(this, this.handleOnKeyUp, 'onKeyUp', 'onKeyUp', this.name)
+                notification(this, this.handleOnKeyUp, 'onKeyUp', 'onKeyUp', this.name),
+                notification(this, this.handleOnClear, 'onClear', 'onClear', this.name)
             ]
         )
 

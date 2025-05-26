@@ -1,5 +1,5 @@
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
-import ValidationDemoDatePicker from '@demo/validation-demos/validation-demo-date-picker'
+import ValidationDemoRangeSlider from '@demo/validation-demos/validation-demo-range-slider'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
@@ -102,7 +102,7 @@ const App = () => {
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
             {/* <Demos /> */}
             <BoundaryErrorCatcher>
-                <ValidationDemoDatePicker />
+                <ValidationDemoRangeSlider />
             </BoundaryErrorCatcher>
         </div>
     )

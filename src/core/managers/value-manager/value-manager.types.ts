@@ -1,7 +1,8 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import {
     IExtendedInput,
-    IExtendedInputBase
+    IExtendedInputBase,
+    IInput
 } from '@core/input-engine/core/input-base/input-base.types'
 
 export type TGetter<T extends Partial<InputDataTypes> | null> = (field: IExtendedInput) => T
@@ -50,4 +51,5 @@ export interface IValueManager extends IValueManagerProperties, IExtendedInputBa
     setValue: (field: IExtendedInput, value: Partial<InputDataTypes> | null) => void
     setValueFromHtmlElement: (field: IExtendedInput, value: HTMLInputElement | null) => void
     getValue: (field: IExtendedInput, purpose?: OutputPurposeType) => Partial<InputDataTypes> | null
+    clear: (field: IExtendedInput | IInput) => void
 }

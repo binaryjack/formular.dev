@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import { useCallback } from 'react'
 import { conventions } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
@@ -43,31 +42,28 @@ export const RangeSliderSF = ({
 }: RangeSliderSFProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
-    const [rangeValue, setRangeValue] = useState<number>(0)
-    // Handle slider value change
-    const handleChange = useCallback(
-        (value: number) => {
-            instance?.input?.setValue(value.toString())
-            console.log('handleChange', value, instance?.input?.value)
-        },
-        [instance?.input]
-    )
 
-    // Key bindings for accessibility
     const { handleKeyDown } = useKeyBindings({
         onDeleteCallback: () => {
             instance?.input?.clear()
         }
     })
 
-    useEffect(() => {
-        setRangeValue(Number(instance?.input?.value))
-        console.log('useEffect', instance?.input?.value)
-    }, [instance?.input?.getValue()])
+    useFieldDefaultValue(instance?.input)
 
-    useFieldDefaultValue(instance?.input, (value) => {
-        setRangeValue(Number(value))
-    })
+    const defaultValue = () => {
+        if (instance?.input?.value) {
+            return Number(instance?.input?.value)
+        }
+        return Number(instance?.input?.defaultValue)
+    }
+
+    const handleChange = useCallback(
+        (value: number) => {
+            instance?.input?.valueManager?.setValue(instance, value.toString())
+        },
+        [instance]
+    )
 
     return (
         <FieldSet
@@ -78,15 +74,17 @@ export const RangeSliderSF = ({
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
-                    isFocus={instance?.input.isFocus ?? false}
+                    isFocus={flags.focus}
                 />
             }
-            onClear={() => instance?.input?.clear()}
+            onClear={() => {
+                instance?.input?.clear()
+            }}
         >
             <div className="flex w-full min-h-[37px]" onKeyDown={handleKeyDown}>
                 <RangeSliderRaw
                     id={`${instance?.input?.name ?? 'range'}-slider`}
-                    value={rangeValue}
+                    value={defaultValue()}
                     min={min}
                     max={max}
                     step={step}

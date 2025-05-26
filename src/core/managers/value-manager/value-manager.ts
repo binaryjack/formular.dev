@@ -1,5 +1,6 @@
 import { acceptValueStrategies } from './prototype/accept-value-strategies'
 import { addValueStrategies } from './prototype/add-value-strategies'
+import { clear } from './prototype/clear'
 import { getAsString } from './prototype/get-as-string'
 import { getValue } from './prototype/get-value'
 import { initialize } from './prototype/initialize'
@@ -24,5 +25,6 @@ Object.assign(ValueStrategy.prototype, {
     addValueStrategies,
     getValue,
     setValue,
-    getAsString
+    getAsString,
+    clear
 })

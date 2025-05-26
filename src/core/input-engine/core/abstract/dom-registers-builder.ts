@@ -9,6 +9,7 @@ import { EventsType } from '@core/framework/events/events.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { onClickOption } from '@core/input-engine/variants/click-base/events/on-click-option'
 import { IMaskedBaseInput } from '@core/input-engine/variants/masked-base/masked-base-input.types'
+
 import { onKeyPress } from '../input-base/events/on-key-press'
 import { onKeyUp } from '../input-base/events/on-key-up'
 import { IExtendedInput } from '../input-base/input-base.types'
@@ -40,6 +41,7 @@ export interface IDomRegisterBuilder {
     onBlur: (e: Event) => void
     onFocus: (e: Event) => void
     onClick: (e: Event) => void
+    onClear: (e: Event) => void
     onKeyPress: (e: KeyboardEvent) => void
     onKeyUp: (e: KeyboardEvent) => void
     onClickOption: (e: Event) => void

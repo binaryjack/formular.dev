@@ -1,5 +1,5 @@
 import { newEvent } from '@core/framework/events/new-event'
-import { IInput } from '../input-base.types'
+import { IInput, IInputBase } from '../input-base.types'
 
 /**
  * Clears the state and value of the field input, resetting it to its initial state.
@@ -15,18 +15,24 @@ import { IInput } from '../input-base.types'
  *
  * @this IInput - The field input instance on which the method is called.
  */
-export const clear = function (this: IInput) {
+export const clear = function (this: IInputBase) {
     /**need to be implemented in variants imputs */
     // this.errors = []
     // this.guides = []
-
     this.styleManager?.update('clear', true)
-    this.value = null
+    this.valueManager.clear(this)
     this.domManager.dmClear()
     this.focus()
 
     this?.notificationManager?.notify(
-        'onClear',
-        newEvent(this.name, clear.name, 'onClear', `field.${clear.name}`, this.name, this)
+        'onUiUpdate',
+        newEvent(
+            this?.name,
+            clear.name,
+            'onUiUpdate',
+            `field.label.${clear?.name}`,
+            this?.name,
+            this
+        )
     )
 }
