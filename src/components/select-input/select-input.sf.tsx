@@ -3,7 +3,7 @@ import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-defa
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
 import { ISelectBaseInput } from '@core/input-engine/variants/select-base/select-base-input.types'
 import { useMemo } from 'react'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import '../input-text/input-text.css'
@@ -42,7 +42,9 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, SelectSF.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

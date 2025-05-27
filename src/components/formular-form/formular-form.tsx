@@ -6,7 +6,7 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { LoadingStatus } from '@core/status'
 import { Button } from '../button/button'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import { formularContext, IFormularContext } from './formular-form.context'
 import './formular-form.css'
 import FormularFormDebug from './formular-form.debug'
@@ -116,17 +116,11 @@ const FormularForm = <T extends object>({
             </div>
             {onSubmit && (
                 <Button
-                    id={`${formularInstance?.id ?? conventions.IdIsEmpty()}-submit`}
+                    id={`${formularInstance?.id ?? conventions.IsMissing(MissingPropEnum.ID, FormularForm.name)}-submit`}
                     title={`Submit`}
                     children={`Submit`}
                     loading={isloading || formularInstance.isBusy === LoadingStatus.InProgress}
-                    variantProperties={{
-                        rounded: true,
-                        size: 'md',
-                        width: '6em',
-                        height: '2em',
-                        className: 'ml-0'
-                    }}
+                    variantProperties={conventions.commands.submit}
                     onClickCallback={handleSubmit}
                 />
             )}

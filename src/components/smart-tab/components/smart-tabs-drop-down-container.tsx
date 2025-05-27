@@ -1,4 +1,5 @@
 import { ChevronToggleButton } from '@components/chevron-toggle-button/chevron-toggle-button'
+import { conventions } from '@components/context/conventions/conventions'
 import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { ITabManager } from '../types/i-tab-manager'
@@ -29,9 +30,7 @@ export const SmartTabsDropDownContainer = ({
                     <ChevronToggleButton
                         id={`smart-tabs-dropdown-button`}
                         toggleState={toggleState}
-                        variantProperties={{
-                            size: 'xs'
-                        }}
+                        variantProperties={conventions.commands.basic}
                         handleDrawerOpenState={handleToggleState}
                     />
                 </div>

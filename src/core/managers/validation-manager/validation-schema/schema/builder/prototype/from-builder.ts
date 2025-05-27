@@ -1,11 +1,9 @@
-import { conventions } from '@components/context/conventions/conventions'
 import { IValidationSchemaBuilder } from '../validation.schema.builder.types'
 
 export function fromBuilder(
     this: IValidationSchemaBuilder,
     baseBuilder?: IValidationSchemaBuilder
 ) {
-    this.name = baseBuilder?.name ?? conventions.NameIsEmpty()
     this.required = baseBuilder?.required ?? false
     this.shouldValidate = baseBuilder?.shouldValidate
     this.pattern = baseBuilder?.pattern

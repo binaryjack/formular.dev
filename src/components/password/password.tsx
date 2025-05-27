@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
 import useFormularContext from '@components/formular-form/formular-form.context'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import React from 'react'
 import { Button } from '../button/button'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import { Portal } from '../portals/portals'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -34,7 +35,12 @@ const Password = ({ fieldName }: IPasswordProps) => {
         setIsPasswordVisible((prev) => !prev)
     }
 
-    const fieldId = instance?.input?.name ?? conventions.IdIsEmpty()
+    const fieldId =
+        instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, Password.name)
+
+    useEffect(() => {
+        instance?.register()
+    }, [instance])
 
     return (
         <FieldSet
@@ -57,8 +63,8 @@ const Password = ({ fieldName }: IPasswordProps) => {
                 <input
                     tabIndex={0}
                     data-class="base-input "
-                    {...instance?.input?.register()}
-                    ref={(r) => instance?.input?.ref(r)}
+                    {...instance?.register()}
+                    ref={(r) => instance?.ref(r)}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type={isPasswordVisible ? 'text' : 'password'}
@@ -70,15 +76,9 @@ const Password = ({ fieldName }: IPasswordProps) => {
                     slotName={'toggle-password'}
                     children={
                         <Button
-                            id={`${fieldId}-clear-field-btn`}
+                            id={`${fieldId}-toggle-password`}
                             title={'toggle password visibility'}
-                            variantProperties={{
-                                rounded: true,
-                                size: 'md',
-                                width: '2em',
-                                height: '2em',
-                                className: 'ml-1'
-                            }}
+                            variantProperties={conventions.commands.basic}
                             onClickCallback={togglePasswordVisibility}
                             aria-label="Toggle password visibility"
                         >
@@ -91,4 +91,4 @@ const Password = ({ fieldName }: IPasswordProps) => {
     )
 }
 
-export default Password
+export default React.memo(Password)

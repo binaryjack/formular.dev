@@ -1,6 +1,6 @@
 import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
@@ -70,7 +70,10 @@ export const DatePickerSF = ({
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ??
+                conventions.IsMissing(MissingPropEnum.ID, DatePickerSF.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -81,7 +84,10 @@ export const DatePickerSF = ({
             }}
             itemsChildren={
                 <DatePickerContentDrawer
-                    id={instance?.input?.name ?? 'NOT-DEFINED!'}
+                    id={
+                        instance?.input?.name ??
+                        conventions.IsMissing(MissingPropEnum.NAME, DatePickerSF.name)
+                    }
                     onSelectDate={onSelectDate}
                     separator={separator}
                     dataFormat={dataFormat}

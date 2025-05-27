@@ -1,7 +1,7 @@
 import { MasterDetailLayout } from '@components/layout/master-detail/master-detail-layout'
-import { newTab } from '@components/smat-tab/helpers/new-tab'
-import { TabManager } from '@components/smat-tab/manager/tab-manager'
-import { SmartTabsMain } from '@components/smat-tab/smart-tabs-main'
+import { newTab } from '@components/smart-tab/helpers/new-tab'
+import { TabManager } from '@components/smart-tab/manager/tab-manager'
+import { SmartTabsMain } from '@components/smart-tab/smart-tabs-main'
 import { TbIcons } from 'react-icons/tb'
 
 const tabs = [

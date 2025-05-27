@@ -1,7 +1,7 @@
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IRadioBaseInput } from '@core/input-engine/variants/radio-base/radio-base-input.types'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -19,7 +19,9 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, RadioInput.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

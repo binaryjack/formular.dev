@@ -1,4 +1,4 @@
-import { IValidationSchema } from '../../validation.schema.types'
+import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
 
 export interface IValidationSchemaBuilder extends IValidationSchema {
     new (name: string): IValidationSchemaBuilder

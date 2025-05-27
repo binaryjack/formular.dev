@@ -6,20 +6,20 @@ import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
-import { ValidationSchemaBuildersEnum } from '@core/framework/schema/validation-schema/presets/builders.enum'
-import { ValidationSchemaBuilderType } from '@core/framework/schema/validation-schema/schema/builder/validation.schema.builder.types'
-import validationSchemaFactory from '@core/framework/schema/validation-schema/schema/factory/validation.schema.factory'
-import {
-    eMailPattern,
-    namesPattern
-} from '@core/framework/schema/validation-schema/validation.regex.patterns'
 import { IValidationSchema } from '@core/framework/schema/validation-schema/validation.schema.types'
-import { Validators } from '@core/framework/schema/validation-schema/validators'
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
+import { ValidationSchemaBuildersEnum } from '@core/managers/validation-manager/validation-schema/presets/builders.enum'
+import { ValidationSchemaBuilderType } from '@core/managers/validation-manager/validation-schema/schema/builder/validation.schema.builder.types'
+import validationSchemaFactory from '@core/managers/validation-manager/validation-schema/schema/factory/validation.schema.factory'
+import {
+    eMailPattern,
+    namesPattern
+} from '@core/managers/validation-manager/validation-schema/validation.regex.patterns'
+import { Validators } from '@core/managers/validation-manager/validation-schema/validators'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { InputTextBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/input-text-builder'
 import { useEffect, useState } from 'react'
@@ -73,8 +73,10 @@ const setupForm = <T extends object>(
     setForm: React.Dispatch<React.SetStateAction<IFormular<T> | null>>,
     customValidator: IValidationSchema | undefined
 ) => {
-    const field = new FieldSchemaBuilder(id, name)
-        .setTypeData(type)
+    const field = new FieldSchemaBuilder()
+        .setId(id)
+        .setName(name)
+        .setTypeInput(type)
         .setValidationData(required, customValidator)
         .setValidationTriggerMode(['onBlur', 'onChange', 'onSubmit'])
         .build()

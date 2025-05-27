@@ -1,8 +1,9 @@
 import { MasterDetailLayout } from '@components/layout/master-detail/master-detail-layout'
-import { newTab } from '@components/smat-tab/helpers/new-tab'
-import { TabManager } from '@components/smat-tab/manager/tab-manager'
-import { SmartTabsMain } from '@components/smat-tab/smart-tabs-main'
-import { ITab } from '@components/smat-tab/types/i-tab'
+import { newTab } from '@components/smart-tab/helpers/new-tab'
+import { TabManager } from '@components/smart-tab/manager/tab-manager'
+import { SmartTabsMain } from '@components/smart-tab/smart-tabs-main'
+import { ITab } from '@components/smart-tab/types/i-tab'
+
 import { lazy, startTransition, Suspense, useState } from 'react'
 import { BsCalendarDate, BsCheck2, BsMenuButton, BsSliders } from 'react-icons/bs'
 import { FaEdit } from 'react-icons/fa'

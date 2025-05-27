@@ -2,15 +2,15 @@ import { InputTypeNames } from '@core/framework/common/common.input.types'
 import { EventsType } from '@core/framework/events/events.types'
 
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
+import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../options-schema/options.scheme.types'
-import { IValidationSchema } from '../validation-schema/validation.schema.types'
 
 export interface IFieldSchema {
-    id: number
-    name: string
-    type: InputTypeNames
-    pattern: string | null
+    readonly id: number | null
+    readonly name: string | null
+    readonly type: InputTypeNames
+    pattern: RegExp | null
     min: number | null
     max: number | null
     minLength: number | null
@@ -30,8 +30,10 @@ export interface IFieldSchema {
 type TValidationType = IValidationSchema
 
 export interface IFieldSchemaBuilder extends IFieldSchema {
-    new (id: number, name: string): IFieldSchemaBuilder
-    setTypeData: (type: InputDataTypes) => IFieldSchemaBuilder
+    new (): IFieldSchemaBuilder
+    setId: (id: number) => IFieldSchemaBuilder
+    setName: (name: string) => IFieldSchemaBuilder
+    setTypeInput: (type: InputDataTypes) => IFieldSchemaBuilder
     setMask: (mask: string) => IFieldSchemaBuilder
     setOptionData: (target: string | null, options?: IOptionItem[]) => IFieldSchemaBuilder
     setExpectedValue: (expectedValue?: any) => IFieldSchemaBuilder
@@ -42,6 +44,7 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
     ) => IFieldSchemaBuilder
     setValidationTriggerMode: (validationTriggerMode: EventsType[]) => IFieldSchemaBuilder
     build: () => IFieldSchema
+    clone: () => IFieldSchema
 }
 
 export interface IFieldSchemeFactory {

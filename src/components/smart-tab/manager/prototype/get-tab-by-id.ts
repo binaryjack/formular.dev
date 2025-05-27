@@ -1,4 +1,4 @@
-import { ITab } from '@components/smat-tab/types/i-tab'
+import { ITab } from '@components/smart-tab/types/i-tab'
 
 export const getTabById = function (this: any, id: string) {
     const tab = this.tabs.find((tab: ITab) => tab.id === id)

@@ -1,19 +1,12 @@
 import { EventsType } from '@core/framework/events/events.types'
 
 import { InputTypeNames } from '@core/framework/common/common.input.types'
+
+import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
-import { IValidationSchema } from '../validation-schema/validation.schema.types'
 import { IFieldSchema, IFieldSchemaBuilder } from './field.schema.types'
 
-export const FieldSchemaBuilder = function (
-    this: IFieldSchemaBuilder,
-    id: number,
-    name: string,
-    type: InputTypeNames
-) {
-    this.id = id
-    this.name = name
-    this.type = type
+export const FieldSchemaBuilder = function (this: IFieldSchemaBuilder) {
     this.pattern = null
     this.min = null
     this.max = null
@@ -31,8 +24,31 @@ export const FieldSchemaBuilder = function (
 } as any as IFieldSchemaBuilder
 
 FieldSchemaBuilder.prototype = {
-    setTypeData: function (type: InputTypeNames) {
-        this.type = type
+    setId: function (this: IFieldSchemaBuilder, id: number) {
+        Object.defineProperty(this, 'id', {
+            value: id,
+            writable: false, // Prevent modification
+            configurable: false, // Prevent deletion or redefinition,
+            enumerable: true // Make the property visible in enumerations
+        })
+        return this
+    },
+    setName: function (this: IFieldSchemaBuilder, name: string) {
+        Object.defineProperty(this, 'name', {
+            value: name,
+            writable: false, // Prevent modification
+            configurable: false, // Prevent deletion or redefinition,
+            enumerable: true // Make the property visible in enumerations
+        })
+        return this
+    },
+    setTypeInput: function (this: IFieldSchemaBuilder, type: InputTypeNames) {
+        Object.defineProperty(this, 'type', {
+            value: type,
+            writable: false, // Prevent modification
+            configurable: false, // Prevent deletion or redefinition,
+            enumerable: true // Make the property visible in enumerations
+        })
         return this
     },
     /**
@@ -42,53 +58,67 @@ FieldSchemaBuilder.prototype = {
      *
      * @returns
      */
-    setMask: function (mask: string) {
+    setMask: function (this: IFieldSchemaBuilder, mask: string) {
         this.mask = mask
         return this
     },
-    setOptionData: function (target: string, options: IOptionItem[]) {
+    setOptionData: function (this: IFieldSchemaBuilder, target: string, options: IOptionItem[]) {
         this.target = target
         this.options = options
         return this
     },
-    setExpectedValue: function (expectedValue: any | null) {
+    setExpectedValue: function (this: IFieldSchemaBuilder, expectedValue: any | null) {
         this.expectedValue = expectedValue
         return this
     },
-    setDefaultValue: function (defaultValue: any | null) {
+    setDefaultValue: function (this: IFieldSchemaBuilder, defaultValue: any | null) {
         this.defaultValue = defaultValue
         return this
     },
-    setPattern: function (pattern: RegExp | undefined) {
+    setPattern: function (this: IFieldSchemaBuilder, pattern: RegExp | null) {
         this.pattern = pattern
         return this
     },
-    setCustomError: function (customError: string) {
+    setCustomError: function (this: IFieldSchemaBuilder, customError: string) {
         this.customError = customError
         return this
     },
-    setCustomGuider: function (customGuide: string) {
+    setCustomGuider: function (this: IFieldSchemaBuilder, customGuide: string) {
         this.customGuide = customGuide
         return this
     },
-    setValidationData: function (shouldValidate: boolean, validationData?: IValidationSchema) {
-        this.pattern = validationData?.pattern
-        this.min = validationData?.min
-        this.max = validationData?.max
-        this.minLength = validationData?.minLength
-        this.maxLength = validationData?.maxLength
-        this.required = validationData?.required
-        this.customGuide = validationData?.customGuide
-        this.customError = validationData?.customError
+    setValidationData: function (
+        this: IFieldSchemaBuilder,
+        shouldValidate: boolean,
+        validationData?: IValidationSchema
+    ) {
+        this.pattern = validationData?.pattern ?? null
+        this.min = validationData?.min ?? null
+        this.max = validationData?.max ?? null
+        this.minLength = validationData?.minLength ?? null
+        this.maxLength = validationData?.maxLength ?? null
+        this.required = validationData?.required ?? false
+        this.customGuide = validationData?.customGuide ?? null
+        this.customError = validationData?.customError ?? null
         this.shouldValidate = shouldValidate
         return this
     },
-    setValidationTriggerMode: function (validationTriggerMode: EventsType[]) {
+    setValidationTriggerMode: function (
+        this: IFieldSchemaBuilder,
+        validationTriggerMode: EventsType[]
+    ) {
         this.validationTriggerMode = validationTriggerMode
     },
-    build: function () {
+    build: function (this: IFieldSchemaBuilder) {
         return {
             ...this
         } as IFieldSchema
+    },
+    clone: function (this: IFieldSchemaBuilder) {
+        const tempInstance = { ...this } as IFieldSchema
+        return Object.assign(
+            Object.create(Object.getPrototypeOf(this)),
+            tempInstance
+        ) as IFieldSchema
     }
 }

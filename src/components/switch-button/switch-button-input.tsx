@@ -1,7 +1,7 @@
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import { useState } from 'react'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -29,7 +29,7 @@ const SwitchButtonInput = ({
 
     const handleToggleChange = (value: boolean) => {
         setIsOn(value)
-        instance?.input?.setValue(value)
+        instance?.input?.valueManager?.setValue(instance, value)
     }
 
     useFieldDefaultValue(instance?.input, (value) => {
@@ -40,7 +40,10 @@ const SwitchButtonInput = ({
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ??
+                conventions.IsMissing(MissingPropEnum.ID, SwitchButtonInput.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -59,7 +62,10 @@ const SwitchButtonInput = ({
             }}
         >
             <SwitchButton
-                fieldName={instance?.input?.name ?? conventions.IdIsEmpty()}
+                fieldName={
+                    instance?.input?.name ??
+                    conventions.IsMissing(MissingPropEnum.NAME, SwitchButtonInput.name)
+                }
                 options={options}
                 onToggle={handleToggleChange}
                 isToggle={isOn}

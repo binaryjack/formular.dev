@@ -1,5 +1,5 @@
+import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
-import { IValidationSchema } from '../validation-schema/validation.schema.types'
 import { IFieldSchemaBuilder, IFieldSchemeFactory } from './field.schema.types'
 
 export const FieldSchemaFactory = function (this: IFieldSchemeFactory) {

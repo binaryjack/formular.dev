@@ -1,5 +1,5 @@
-import { ITab } from '@components/smat-tab/types/i-tab'
-import { ITabManager } from '@components/smat-tab/types/i-tab-manager'
+import { ITab } from '@components/smart-tab/types/i-tab'
+import { ITabManager } from '@components/smart-tab/types/i-tab-manager'
 
 export const addTab = function (this: ITabManager, tab: ITab) {
     if (this.tabs.find((t) => t.id === tab.id)) {

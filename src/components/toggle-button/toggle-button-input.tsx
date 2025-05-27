@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -22,7 +22,7 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     const handleToggleChange = (id: string, newState: boolean) => {
         setToggleState(newState)
-        instance?.input?.setValue(newState)
+        instance?.input?.valueManager?.setValue(instance, value)
     }
 
     useFieldDefaultValue(instance?.input, (value) => {
@@ -33,7 +33,10 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ??
+                conventions.IsMissing(MissingPropEnum.ID, ToggleButtonInput.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -52,10 +55,13 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
             }}
         >
             <ToggleButton
-                id={`${instance?.input?.name ?? conventions.IdIsEmpty()}-toggle`}
+                id={`${instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, ToggleButtonInput.name)}-toggle`}
                 toggle={toggleState}
                 onToggle={handleToggleChange}
-                name={instance?.input?.name ?? conventions.NameIsEmpty()}
+                name={
+                    instance?.input?.name ??
+                    conventions.IsMissing(MissingPropEnum.NAME, ToggleButtonInput.name)
+                }
                 children={children}
             />
         </FieldSet>

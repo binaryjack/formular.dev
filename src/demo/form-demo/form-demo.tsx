@@ -21,6 +21,7 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { INDate } from '@core/framework/schema/descriptor/i-n-date'
 import { Signals } from '../../core/observers/signals/signal'
 import { demoFormInstance } from './form-demo.instance'
+import { FormOutputFieldsNames } from './form-demo.schema'
 
 // https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
 const { Signal, useSignal } = Signals
@@ -80,17 +81,17 @@ const FormDemo = () => {
                 onSelectItem={(value) => fieldSelect?.onSelectItem(value)}
             /> */}
 
-            <ReadOnlyField fieldName={'id'} />
-            <ReadOnlyField fieldName={'order'} />
-            <ReadOnlyField fieldName={'userName'} />
-            <InputText fieldName={'inputControl'} />
-            <Select fieldName={'selectOptionsId'} />
-            <Password fieldName={'password'} />
-            <CheckInput fieldName={'trueFalseValue'} />
-            <RadioInput fieldName={'selectedRadioId'} />
-            <DatePicker fieldName={'dateTimeValue'} />
+            <ReadOnlyField fieldName={FormOutputFieldsNames.Id} />
+            <ReadOnlyField fieldName={FormOutputFieldsNames.Order} />
+            <ReadOnlyField fieldName={FormOutputFieldsNames.UserId} />
+            <InputText fieldName={FormOutputFieldsNames.InputText} />
+            <Select fieldName={FormOutputFieldsNames.SelectOptionsTest} />
+            <Password fieldName={FormOutputFieldsNames.Password} />
+            <CheckInput fieldName={FormOutputFieldsNames.Check} />
+            <RadioInput fieldName={FormOutputFieldsNames.SelectedRadioId} />
+            <DatePicker fieldName={FormOutputFieldsNames.Date} />
             <RangeSlider
-                fieldName={'rangeSlider'}
+                fieldName={FormOutputFieldsNames.RangeSlider}
                 min={0}
                 max={100}
                 step={5}
@@ -99,10 +100,10 @@ const FormDemo = () => {
                 handlerStyleWidth={15}
                 handlerStyleHeight={15}
             />
-            <RteInputField fieldName={'richTextField'} />
-            <ToggleButtonInput fieldName={'toggle'}>test</ToggleButtonInput>
+            <RteInputField fieldName={FormOutputFieldsNames.Rte} />
+            <ToggleButtonInput fieldName={FormOutputFieldsNames.Toggle}>test</ToggleButtonInput>
             <SwitchButtonInput
-                fieldName={'toggle2'}
+                fieldName={FormOutputFieldsNames.Toggle2}
                 options={{ orientation: 'horizontal', variant: 'success', size: 'sm' }}
             />
         </FormularForm>

@@ -1,12 +1,21 @@
+import { IButtonVariant } from '@components/button/button'
 import { DatePickerFormatsEnum } from '@components/date-picker/core/date-picker.types'
 import { getSystemDateSeparator } from '@components/date-picker/core/system/get-local-system-separator'
 
+export enum MissingPropEnum {
+    ID = 'id',
+    NAME = 'name',
+    LABEL = 'label'
+}
+
 export const conventions = {
-    IdIsEmpty: function (): never {
-        throw Error('MISSING ID!')
-    },
-    NameIsEmpty: function (): never {
-        throw Error('MISSING NAME!')
+    IsMissing: function (property: MissingPropEnum, componentName: string): never {
+        throw Error(
+            `MISSING ${property.toUpperCase()}! ${componentName} component requires an ${property}. 
+            This is probably due to the instance of the field 
+            which has not the right name has it has being declared 
+            in the model!`
+        )
     },
     suffix: {
         labelId: '-label',
@@ -62,5 +71,21 @@ export const conventions = {
             height: '350px',
             width: '250px'
         }
+    },
+    commands: {
+        basic: {
+            rounded: true,
+            size: 'sm',
+            width: '1.8em',
+            height: '1.8em',
+            className: 'ml-0'
+        } as Partial<IButtonVariant>,
+        submit: {
+            rounded: true,
+            size: 'lg',
+            width: '5em',
+            height: '5em',
+            className: 'ml-0'
+        } as Partial<IButtonVariant>
     }
 }

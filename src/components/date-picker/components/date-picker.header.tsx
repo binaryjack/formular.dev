@@ -1,10 +1,10 @@
 import { MdClear } from 'react-icons/md'
 import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 
+import { conventions } from '@components/context/conventions/conventions'
 import { Button } from '../../button/button'
 import { useDrawerContext } from '../../drawer/components/drawer.context'
 import { PortalSlot } from '../../portals/portals-slot'
-import { btnSizes } from './date-picker.buttons.settings'
 import { useDatePickerContext } from './date-picker.context'
 import './date-picker.header.css'
 import DatePickerSwitch from './date-picker.switch'
@@ -77,7 +77,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'go to selected (s)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={jumpToSelection}
                     >
                         <div className={`mr-1`}>Selected</div>
@@ -90,7 +90,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'go to now (n)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={jumpToNow}
                     >
                         <div className={`mr-1`}>Now</div>
@@ -103,7 +103,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'clear selection (c)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={clear}
                     >
                         <TbCalendarCancel />
@@ -114,7 +114,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'close (Escape)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={close}
                     >
                         <MdClear />
@@ -131,7 +131,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-year'}
                             title={'year selection (y)'}
-                            variantProperties={btnSizes}
+                            variantProperties={conventions.commands.basic}
                             onClickCallback={yearSelection}
                         >
                             {internalDate?.getFullYear()}
@@ -142,7 +142,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-month'}
                             title={'month selection (m)'}
-                            variantProperties={btnSizes}
+                            variantProperties={conventions.commands.basic}
                             onClickCallback={monthSelection}
                         >
                             {(internalDate?.getMonth() || internalDate?.getMonth() === 0
@@ -158,7 +158,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-day'}
                             title={'day selection (d)'}
-                            variantProperties={btnSizes}
+                            variantProperties={conventions.commands.basic}
                             onClickCallback={daySelection}
                         >
                             {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}

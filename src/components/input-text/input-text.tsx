@@ -1,7 +1,7 @@
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
 import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -25,7 +25,9 @@ const InputText = ({ fieldName }: IInputTextProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, InputText.name)
+            }
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

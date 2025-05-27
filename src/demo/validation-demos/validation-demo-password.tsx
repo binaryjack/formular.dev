@@ -22,17 +22,19 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const defaultFieldName = 'passwordValue'
+
 interface ISubmitObject {
     passwordValue: string
 }
 
 const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('passwordValue', true),
-    minLength: minLengthValidationMock('passwordValue', 8),
-    maxLength: maxLengthValidationMock('passwordValue', 20)
+    requiredData: requiredDataValidationMock(defaultFieldName, true),
+    minLength: minLengthValidationMock(defaultFieldName, 8),
+    maxLength: maxLengthValidationMock(defaultFieldName, 20)
 }
 const config = newDependencyConfiguration(
-    fileDescriptorMock('passwordSandbox', 'passwordValue', 'text', validationOptionsMock),
+    fileDescriptorMock(defaultFieldName, defaultFieldName, 'text', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -93,7 +95,7 @@ const ValidationDemoPassword = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<Password fieldName="passwordValue" />}
+                        childrenInput={<Password fieldName={defaultFieldName} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

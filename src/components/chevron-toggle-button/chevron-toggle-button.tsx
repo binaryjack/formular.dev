@@ -1,4 +1,5 @@
 import { Button, IButtonVariant } from '@components/button/button'
+import { conventions } from '@components/context/conventions/conventions'
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
@@ -22,14 +23,7 @@ export const ChevronToggleButton = ({
         <Button
             id={`${id}-toggle-drawer-btn`}
             title={'Toggle Drawer'}
-            variantProperties={{
-                rounded: true,
-                size: 'md',
-                width: '2em',
-                height: '2em',
-                className: 'ml-1',
-                ...variantProperties
-            }}
+            variantProperties={{ ...conventions.commands.basic, ...variantProperties }}
             onClickCallback={(e) =>
                 handleDrawerOpenState(
                     e,

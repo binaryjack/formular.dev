@@ -123,13 +123,7 @@ const FieldSet = <TType,>({
                             <Button
                                 id={`${inputId}-clear-field-btn`}
                                 title={'Clear'}
-                                variantProperties={{
-                                    rounded: true,
-                                    size: 'md',
-                                    width: '2em',
-                                    height: '2em',
-                                    className: 'ml-0'
-                                }}
+                                variantProperties={conventions.commands.basic}
                                 onClickCallback={() => onClear?.()}
                             >
                                 {<MdClose />}

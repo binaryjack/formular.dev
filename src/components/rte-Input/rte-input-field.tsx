@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-import { conventions } from '../context/conventions/conventions'
+import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 
@@ -62,7 +62,10 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? conventions.IdIsEmpty()}
+            inputId={
+                instance?.input?.name ??
+                conventions.IsMissing(MissingPropEnum.ID, RteInputField.name)
+            }
             label={instance?.input?.label}
             type="richtext"
             flags={flags}

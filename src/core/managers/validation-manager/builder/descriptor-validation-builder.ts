@@ -11,7 +11,7 @@ export interface IDescriptorValidtionBuilder<T extends IValidationTextBase> {
     min: number | null
     minLength: number | null
     maxLength: number | null
-    pattern: string | null
+    pattern: RegExp | null
     required: boolean | null
     error: () => IFieldError
     guide: () => IFieldGuide
@@ -21,7 +21,7 @@ export interface IDescriptorValidtionBuilder<T extends IValidationTextBase> {
     setMax: (max: number | null) => IDescriptorValidtionBuilder<T>
     setMinLength: (minLength: number | null) => IDescriptorValidtionBuilder<T>
     setMaxLength: (maxLength: number | null) => IDescriptorValidtionBuilder<T>
-    setPattern: (pattern: string | null) => IDescriptorValidtionBuilder<T>
+    setPattern: (pattern: RegExp | null) => IDescriptorValidtionBuilder<T>
     setError: (error: () => IFieldError) => IDescriptorValidtionBuilder<T>
     setGuide: (guide: () => IFieldGuide) => IDescriptorValidtionBuilder<T>
     build: () => T
@@ -52,7 +52,7 @@ export const DescriptorValidationBuilder = function <T extends IValidationTextBa
         this.maxLength = maxLength
         return this
     }
-    this.setPattern = function (pattern: string | null): IDescriptorValidtionBuilder<T> {
+    this.setPattern = function (pattern: RegExp | null): IDescriptorValidtionBuilder<T> {
         this.pattern = pattern
         return this
     }

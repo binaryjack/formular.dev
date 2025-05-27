@@ -1,10 +1,11 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
+import { conventions } from '@components/context/conventions/conventions'
 import { Button } from '../../button/button'
 import { Portal } from '../../portals/portals'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/date-picker.models'
 import './date-picker.body.css'
-import { btnSizes } from './date-picker.buttons.settings'
+
 import DatePickerCell from './date-picker.cell'
 import { useDatePickerContext } from './date-picker.context'
 interface IDatePickerBodyYearsProps {
@@ -76,7 +77,7 @@ const DatePickerBodyYears = ({ id }: IDatePickerBodyYearsProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous (<=)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -90,7 +91,7 @@ const DatePickerBodyYears = ({ id }: IDatePickerBodyYearsProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next (=>)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />

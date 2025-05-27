@@ -11,7 +11,6 @@ import { isRequired } from './prototype/is-required'
 import { IValidationSchemaBuilder } from './validation.schema.builder.types'
 
 export const ValidationSchemaBuilder = function (this: IValidationSchemaBuilder, name: string) {
-    this.name = name
     this.required = false
     this.shouldValidate = false
     this.pattern = undefined

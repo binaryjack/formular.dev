@@ -1,4 +1,4 @@
-import { ITabManager } from '@components/smat-tab/types/i-tab-manager'
+import { ITabManager } from '@components/smart-tab/types/i-tab-manager'
 
 export const selectTab = function (this: ITabManager, id: string) {
     const tab = this.getTabById(id)

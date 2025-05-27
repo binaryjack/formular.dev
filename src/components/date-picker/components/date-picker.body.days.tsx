@@ -5,7 +5,8 @@ import { Portal } from '../../portals/portals'
 import { computeRange } from '../core/computed/compute-range'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/date-picker.models'
 import './date-picker.body.css'
-import { btnSizes } from './date-picker.buttons.settings'
+
+import { conventions } from '@components/context/conventions/conventions'
 import DatePickerCell from './date-picker.cell'
 import { useDatePickerContext } from './date-picker.context'
 interface IDatePickerBodyDaysProps {
@@ -87,7 +88,7 @@ const DatePickerBodyDays = ({ id }: IDatePickerBodyDaysProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous (<=)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -101,7 +102,7 @@ const DatePickerBodyDays = ({ id }: IDatePickerBodyDaysProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next (=>)'}
-                        variantProperties={btnSizes}
+                        variantProperties={conventions.commands.basic}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />
