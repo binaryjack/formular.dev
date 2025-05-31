@@ -1,8 +1,9 @@
-import { ValidationSchemaBuilder } from '../schema/builder/validation.schema.builder'
-import { IValidationSchemaBuilder } from '../schema/builder/validation.schema.builder.types'
-import { ValidationSchemaBuildersEnum } from './builders.enum'
+import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import { ValidationLocalizeKeys } from '../validation.localize.keys'
 
-export const MaxLengthBuilder = (maxLength: number): IValidationSchemaBuilder =>
-    new ValidationSchemaBuilder(ValidationSchemaBuildersEnum.MaxLengthBuilder).hasMaxLength(
-        maxLength
-    )
+export const MaxLengthBuilder = (name: string, value: number) =>
+    new ValidationConstraintBuilder<number>('maxLength')
+        .setConstraint(value)
+        .setName(name)
+        .setErrorMessage(ValidationLocalizeKeys.maxLengthError)
+        .setGuideMessage(ValidationLocalizeKeys.maxLengthGuide)

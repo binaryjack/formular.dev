@@ -25,7 +25,7 @@ const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
         const hasValue = !valueIsNullOrUndefined(value)
         if (
             hasValue &&
-            (isNaN(Number(value)) || Number(value) > field.input.validationOptions.max.max)
+            (isNaN(Number(value)) || Number(value) > field.input.validationOptions.max.value)
         ) {
             return newValidationResult(
                 false,

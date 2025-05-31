@@ -1,11 +1,17 @@
-import { ValidationSchemaBuilder } from '../schema/builder/validation.schema.builder'
-import { IValidationSchemaBuilder } from '../schema/builder/validation.schema.builder.types'
-import { ValidationSchemaBuildersEnum } from './builders.enum'
+import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
+import { ValidationLocalizeKeys } from '../validation.localize.keys'
 
-export const MinLengthAndMaxLengthBuilder = (
-    minLength: number,
-    maxLength: number
-): IValidationSchemaBuilder =>
-    new ValidationSchemaBuilder(ValidationSchemaBuildersEnum.MinLengthAndMaxLengthBuilder)
-        .hasMinLength(minLength)
-        .hasMaxLength(maxLength)
+export const MinLengthAndMaxLengthBuilder = (name: string, minLength: number, maxLength: number) =>
+    new GenericValidationBuilder().setConstraints([
+        new ValidationConstraintBuilder<number>('minLength')
+            .setConstraint(minLength)
+            .setName(name)
+            .setErrorMessage(ValidationLocalizeKeys.minLengthError)
+            .setGuideMessage(ValidationLocalizeKeys.minLengthGuide),
+        new ValidationConstraintBuilder<number>('maxLength')
+            .setConstraint(maxLength)
+            .setName(name)
+            .setErrorMessage(ValidationLocalizeKeys.maxLengthError)
+            .setGuideMessage(ValidationLocalizeKeys.maxLengthGuide)
+    ])

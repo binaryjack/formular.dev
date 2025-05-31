@@ -8,6 +8,7 @@ import {
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
@@ -31,11 +32,13 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock(fieldName, true),
-    min: minValidationMock(fieldName, 0),
-    max: maxValidationMock(fieldName, 100)
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraint(
+        requiredDataValidationMock(fieldName, true),
+        minValidationMock(fieldName, 0),
+        maxValidationMock(fieldName, 100)
+    )
+    .build()
 
 const config = newDependencyConfiguration(
     fileDescriptorMock(fieldName, 'Range Slider', 'range', validationOptionsMock),

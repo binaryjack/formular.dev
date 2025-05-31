@@ -14,6 +14,7 @@ import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
@@ -25,6 +26,8 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const fieldName = 'delayValue'
+
 interface ISubmitObject {
     delayValue: string
 }
@@ -33,15 +36,16 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('delayValue', true),
-    minLength: minLengthValidationMock('delayValue', 3),
-    maxLength: maxLengthValidationMock('delayValue', 50)
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder().setConstraint(
+    requiredDataValidationMock(fieldName, true),
+    minLengthValidationMock(fieldName, 3),
+    maxLengthValidationMock(fieldName, 50)
+)
+
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock('delayInputSandbox', 'delayValue', 'text', validationOptionsMock),
+    fileDescriptorMock(fieldName, fieldName, 'text', validationOptionsMock),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -106,6 +110,7 @@ const ValidationDemoDelayInput = () => {
                                     onChangeCallback={(value) => console.log(value)}
                                     onClearCallback={() => console.log('Cleared')}
                                     canGotFocus={true}
+                                    // fieldName={fieldName}
                                     classNames="custom-class"
                                     tabIndex={0}
                                 />

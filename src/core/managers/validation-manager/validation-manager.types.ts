@@ -79,49 +79,41 @@ export interface IValidationTextBase {
 }
 
 export interface IRequired extends IValidationTextBase {
-    required: boolean
+    value: boolean
 }
 
 export interface IMax extends IValidationTextBase {
-    max: number
+    value: number
 }
 
 export interface IMin extends IValidationTextBase {
-    min: number
+    value: number
 }
 
 export interface IMaxLength extends IValidationTextBase {
-    maxLength: number
+    value: number
 }
 
 export interface IMinLength extends IValidationTextBase {
-    minLength: number
+    value: number
 }
 
 export interface IPattern extends IValidationTextBase {
-    pattern: string
+    value: RegExp
 }
 
-export interface IValidationSchema {
-    name: string
-    required: boolean
-    shouldValidate?: boolean
-    pattern?: RegExp
-    min?: number
-    max?: number
-    minLength?: number
-    maxLength?: number
-    customGuide?: string
-    customError?: string
+export interface ICustomValidator extends IValidationTextBase {
+    custom: () => boolean | Promise<boolean>
 }
 
 export interface IValidationOptions {
-    requiredData?: IRequired
+    required?: IRequired
     min?: IMin
     max?: IMax
     minLength?: IMinLength
     maxLength?: IMaxLength
     pattern?: IPattern
+    custom?: ICustomValidator
 }
 
 export const ValidationErrorsCodes = {

@@ -23,7 +23,7 @@ const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
-        if (hasValue && String(value).length < field.input.validationOptions.minLength.minLength) {
+        if (hasValue && String(value).length < field.input.validationOptions.minLength.value) {
             return newValidationResult(
                 false,
                 name,

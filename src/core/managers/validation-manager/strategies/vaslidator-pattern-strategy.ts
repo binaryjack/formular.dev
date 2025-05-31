@@ -14,7 +14,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
         const value = field.input.valueManager.getValue(field)
-        if (!field?.input.validationOptions?.pattern?.pattern) {
+        if (!field?.input.validationOptions?.pattern?.value) {
             return newValidationResult(
                 true,
                 name,
@@ -23,7 +23,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
-        const regexp = new RegExp(field.input.validationOptions.pattern.pattern)
+        const regexp = new RegExp(field.input.validationOptions.pattern.value)
         const valueToBeTested = String(value)
         if (hasValue && !regexp.test(valueToBeTested)) {
             return newValidationResult(

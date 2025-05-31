@@ -2,19 +2,11 @@ import { EventsType } from '@core/framework/events/events.types'
 
 import { InputTypeNames } from '@core/framework/common/common.input.types'
 
-import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IFieldSchema, IFieldSchemaBuilder } from './field.schema.types'
 
 export const FieldSchemaBuilder = function (this: IFieldSchemaBuilder) {
-    this.pattern = null
-    this.min = null
-    this.max = null
-    this.minLength = null
-    this.maxLength = null
-    this.required = false
-    this.customGuide = null
-    this.customError = null
     this.target = null
     this.options = []
     this.expectedValue = null
@@ -51,13 +43,22 @@ FieldSchemaBuilder.prototype = {
         })
         return this
     },
-    /**
+    setValidationData: function (
+        this: IFieldSchemaBuilder,
+        shouldValidate: boolean,
+        validationData?: IValidationOptions
+    ) {
+        Object.assign(this, {
+            shouldValidate: shouldValidate,
+            ...validationData
+        }) as IFieldSchemaBuilder
+    } /**
      * To define a mask you must use # as numeric placeholder
      * example mask: '##/##/####' will be converted to 12/12/2023
      * @param mask
      *
      * @returns
-     */
+     */,
     setMask: function (this: IFieldSchemaBuilder, mask: string) {
         this.mask = mask
         return this
@@ -73,34 +74,6 @@ FieldSchemaBuilder.prototype = {
     },
     setDefaultValue: function (this: IFieldSchemaBuilder, defaultValue: any | null) {
         this.defaultValue = defaultValue
-        return this
-    },
-    setPattern: function (this: IFieldSchemaBuilder, pattern: RegExp | null) {
-        this.pattern = pattern
-        return this
-    },
-    setCustomError: function (this: IFieldSchemaBuilder, customError: string) {
-        this.customError = customError
-        return this
-    },
-    setCustomGuider: function (this: IFieldSchemaBuilder, customGuide: string) {
-        this.customGuide = customGuide
-        return this
-    },
-    setValidationData: function (
-        this: IFieldSchemaBuilder,
-        shouldValidate: boolean,
-        validationData?: IValidationSchema
-    ) {
-        this.pattern = validationData?.pattern ?? null
-        this.min = validationData?.min ?? null
-        this.max = validationData?.max ?? null
-        this.minLength = validationData?.minLength ?? null
-        this.maxLength = validationData?.maxLength ?? null
-        this.required = validationData?.required ?? false
-        this.customGuide = validationData?.customGuide ?? null
-        this.customError = validationData?.customError ?? null
-        this.shouldValidate = shouldValidate
         return this
     },
     setValidationTriggerMode: function (

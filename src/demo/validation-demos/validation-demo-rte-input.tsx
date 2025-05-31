@@ -12,6 +12,7 @@ import { IFormular } from '@core/formular-engine/formular-base/formular-base.typ
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
@@ -23,6 +24,8 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const fieldName = 'rti'
+
 export interface ISubmitObject {
     rti: string
 }
@@ -31,15 +34,18 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('rti', true),
-    minLength: minLengthValidationMock('rti', 10),
-    maxLength: maxLengthValidationMock('rti', 500)
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraint(
+        requiredDataValidationMock(fieldName, true),
+        minLengthValidationMock(fieldName, 10),
+        maxLengthValidationMock(fieldName, 500)
+    )
+    .build()
+
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock('rteInputSandbox', 'RTE Input', 'richtext', validationOptionsMock),
+    fileDescriptorMock(fieldName, fieldName, 'richtext', validationOptionsMock, optionsMocks),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -96,7 +102,7 @@ const ValidationDemoRteInput = () => {
                         }
                         childrenInput={
                             <RteInput
-                                id="rteInputSandbox"
+                                id={fieldName}
                                 onStateChange={() => {}}
                                 initialState={{ data: '', ts: `${Date.now()}` }}
                                 debug={true}

@@ -14,6 +14,7 @@ import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
@@ -30,6 +31,8 @@ import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
+const defaultFieldName = 'sandboxField'
+
 export interface ISubmitObject {
     sandboxField: string
 }
@@ -38,15 +41,24 @@ const formularManager = new FormularManager(
     lifeCylceInstances.notificationManager,
     lifeCylceInstances.autoTracker
 )
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock('sandboxField', true),
-    minLength: minLengthValidationMock('sandboxField', 3),
-    maxLength: maxLengthValidationMock('sandboxField', 50)
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraint(
+        requiredDataValidationMock(defaultFieldName, true),
+        minLengthValidationMock(defaultFieldName, 3),
+        maxLengthValidationMock(defaultFieldName, 50)
+    )
+    .build()
+
 const optionsMocks: IOptionItem[] = []
 
 const config = newDependencyConfiguration(
-    fileDescriptorMock('sandboxField', 'Text Input', 'text', validationOptionsMock),
+    fileDescriptorMock(
+        defaultFieldName,
+        defaultFieldName,
+        'text',
+        validationOptionsMock,
+        optionsMocks
+    ),
     defaultInitializationParameters,
     defaultInitializationDependencies
 )
@@ -132,7 +144,7 @@ const ValidationDemoTextInput = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<InputText fieldName="sandboxField" />}
+                        childrenInput={<InputText fieldName={defaultFieldName} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>

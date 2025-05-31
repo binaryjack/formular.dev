@@ -11,6 +11,7 @@ import {
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { lifeCylceInstances } from '@demo/common/common-instances'
 
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
@@ -28,11 +29,14 @@ interface ISubmitObject {
     passwordValue: string
 }
 
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock(defaultFieldName, true),
-    minLength: minLengthValidationMock(defaultFieldName, 8),
-    maxLength: maxLengthValidationMock(defaultFieldName, 20)
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraint(
+        requiredDataValidationMock(defaultFieldName, true),
+        minLengthValidationMock(defaultFieldName, 8),
+        maxLengthValidationMock(defaultFieldName, 20)
+    )
+    .build()
+
 const config = newDependencyConfiguration(
     fileDescriptorMock(defaultFieldName, defaultFieldName, 'text', validationOptionsMock),
     defaultInitializationParameters,

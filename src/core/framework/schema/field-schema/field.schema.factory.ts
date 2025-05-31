@@ -1,4 +1,4 @@
-import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { IFieldSchemaBuilder, IFieldSchemeFactory } from './field.schema.types'
 
@@ -15,7 +15,7 @@ FieldSchemaFactory.prototype = {
         target: string | null,
         options: IOptionItem[],
         shouldValidate: boolean,
-        validationOptions?: IValidationSchema
+        validationOptions?: IValidationOptions
     ) {
         const _innerBuilder: IFieldSchemaBuilder = this.builders.find(
             (o: IFieldSchemaBuilder) => o.name === name

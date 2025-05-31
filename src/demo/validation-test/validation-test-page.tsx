@@ -6,12 +6,13 @@ import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
 import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
-import { IValidationSchema } from '@core/framework/schema/validation-schema/validation.schema.types'
+
 import {
     defaultInitializationDependencies,
     defaultInitializationParameters
 } from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 import { FormularManager } from '@core/managers/formular-manager/formular-manager'
+import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
 import { ValidationSchemaBuildersEnum } from '@core/managers/validation-manager/validation-schema/presets/builders.enum'
 import { ValidationSchemaBuilderType } from '@core/managers/validation-manager/validation-schema/schema/builder/validation.schema.builder.types'
 import validationSchemaFactory from '@core/managers/validation-manager/validation-schema/schema/factory/validation.schema.factory'

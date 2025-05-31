@@ -13,6 +13,7 @@ import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
+import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { mockOptions } from '@tests/mocks/i-options-items.mock'
@@ -35,10 +36,13 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 
-const validationOptionsMock: IValidationOptions = {
-    requiredData: requiredDataValidationMock(fieldName, true),
-    pattern: patternValidationMock(fieldName, '\\.*')
-}
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraint(
+        requiredDataValidationMock(fieldName, true),
+        patternValidationMock(fieldName, /\\.*/)
+    )
+    .build()
+
 const optionsMocks: IOptionItem[] = mockOptions
 
 const config = newDependencyConfiguration(

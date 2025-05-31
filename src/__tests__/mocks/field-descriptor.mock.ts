@@ -16,8 +16,8 @@ export const _mockDescriptor: IFieldDescriptor = {
     errors: [],
     guides: [],
     validationOptions: {
-        requiredData: {
-            required: true,
+        required: {
+            value: true,
             error: { message: 'This field is required.', code: 'required', name: 'testField' },
             guide: {
                 message: 'Please provide a value for this field.',
@@ -26,7 +26,7 @@ export const _mockDescriptor: IFieldDescriptor = {
             }
         },
         minLength: {
-            minLength: 3,
+            value: 3,
             error: {
                 message: 'The value must be at least 3 characters long.',
                 code: 'minLength',
@@ -35,7 +35,7 @@ export const _mockDescriptor: IFieldDescriptor = {
             guide: { message: 'Enter at least 3 characters.', code: 'minLength', name: 'testField' }
         },
         maxLength: {
-            maxLength: 10,
+            value: 10,
             error: {
                 message: 'The value must not exceed 10 characters.',
                 code: 'maxLength',
@@ -48,7 +48,7 @@ export const _mockDescriptor: IFieldDescriptor = {
             }
         },
         pattern: {
-            pattern: '\\d+',
+            value: /\\d+/,
             error: {
                 message: 'Only numeric values are allowed.',
                 code: 'pattern',

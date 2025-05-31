@@ -1,8 +1,9 @@
-import { ValidationSchemaBuilder } from '../schema/builder/validation.schema.builder'
-import { IValidationSchemaBuilder } from '../schema/builder/validation.schema.builder.types'
-import { ValidationSchemaBuildersEnum } from './builders.enum'
+import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import { ValidationLocalizeKeys } from '../validation.localize.keys'
 
-export const MinLengthBuilder = (minLength: number): IValidationSchemaBuilder =>
-    new ValidationSchemaBuilder(ValidationSchemaBuildersEnum.MinLengthBuilder).hasMinLength(
-        minLength
-    )
+export const MinLengthBuilder = (name: string, value: number) =>
+    new ValidationConstraintBuilder<number>('minLength')
+        .setConstraint(value)
+        .setName(name)
+        .setErrorMessage(ValidationLocalizeKeys.minLengthError)
+        .setGuideMessage(ValidationLocalizeKeys.minLengthGuide)

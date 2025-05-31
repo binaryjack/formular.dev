@@ -14,7 +14,7 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
     this.validate = function (field: IExtendedInput) {
         const name = field.input.name
         const value = field.input.valueManager.getValue(field)
-        if (!field?.input.validationOptions?.requiredData?.required) {
+        if (!field?.input.validationOptions?.required?.value) {
             return newValidationResult(
                 true,
                 name,
@@ -30,8 +30,8 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
                 name,
                 ValidationErrorsCodes.required,
                 field.input.validationManager.validationTriggerModeType,
-                field.input.validationOptions.requiredData?.error?.message ?? undefined,
-                field.input.validationOptions.requiredData?.guide?.message ?? undefined
+                field.input.validationOptions.required?.error?.message ?? undefined,
+                field.input.validationOptions.required?.guide?.message ?? undefined
             )
         }
         return newValidationResult(

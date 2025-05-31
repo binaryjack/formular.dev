@@ -1,6 +1,9 @@
-import { ValidationSchemaBuilder } from '../schema/builder/validation.schema.builder'
-import { IValidationSchemaBuilder } from '../schema/builder/validation.schema.builder.types'
-import { ValidationSchemaBuildersEnum } from './builders.enum'
+import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import { ValidationLocalizeKeys } from '../validation.localize.keys'
 
-export const MinBuilder = (min: number): IValidationSchemaBuilder =>
-    new ValidationSchemaBuilder(ValidationSchemaBuildersEnum.MinBuilder).hasMin(min)
+export const MinBuilder = (name: string, value: number) =>
+    new ValidationConstraintBuilder<number>('min')
+        .setConstraint(value)
+        .setName(name)
+        .setErrorMessage(ValidationLocalizeKeys.minError)
+        .setGuideMessage(ValidationLocalizeKeys.minGuide)

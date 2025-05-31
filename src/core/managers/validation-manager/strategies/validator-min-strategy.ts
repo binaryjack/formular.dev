@@ -25,7 +25,7 @@ const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
         const hasValue = !valueIsNullOrUndefined(value)
         if (
             hasValue &&
-            (isNaN(Number(value)) || Number(value) < field.input.validationOptions.min.min)
+            (isNaN(Number(value)) || Number(value) < field.input.validationOptions.min.value)
         ) {
             return newValidationResult(
                 false,

@@ -2,22 +2,14 @@ import { InputTypeNames } from '@core/framework/common/common.input.types'
 import { EventsType } from '@core/framework/events/events.types'
 
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import { IValidationSchema } from '@core/managers/validation-manager/validation-manager.types'
+import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 import { IOptionItem } from '../options-schema/options.scheme.types'
 
-export interface IFieldSchema {
+export interface IFieldSchema extends IValidationOptions {
     readonly id: number | null
     readonly name: string | null
     readonly type: InputTypeNames
-    pattern: RegExp | null
-    min: number | null
-    max: number | null
-    minLength: number | null
-    maxLength: number | null
-    required: boolean
-    customGuide: string | null
-    customError: string | null
     target: string | null
     options: IOptionItem[]
     defaultValue: string | null
@@ -26,8 +18,6 @@ export interface IFieldSchema {
     validationTriggerMode: EventsType[] | never[]
     mask: string | null
 }
-
-type TValidationType = IValidationSchema
 
 export interface IFieldSchemaBuilder extends IFieldSchema {
     new (): IFieldSchemaBuilder
@@ -40,7 +30,7 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
     setDefaultValue: (defaultValue?: any) => IFieldSchemaBuilder
     setValidationData: (
         shouldValidate: boolean,
-        validationData?: TValidationType
+        validationData?: IValidationOptions
     ) => IFieldSchemaBuilder
     setValidationTriggerMode: (validationTriggerMode: EventsType[]) => IFieldSchemaBuilder
     build: () => IFieldSchema
@@ -56,7 +46,7 @@ export interface IFieldSchemeFactory {
         target: string | null,
         options: IOptionItem[],
         shouldValidate: boolean,
-        validationOptions?: IValidationSchema
+        validationOptions?: IValidationOptions
     ) => IFieldSchema | undefined
 }
 /**
