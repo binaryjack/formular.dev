@@ -208,6 +208,8 @@ export default MyForm
 
 ## Contributing
 
+Contributions will open soon, We are currently WIP the core module that should be ready in a few days.
+
 We welcome contributions to FORMULAR! Here’s how you can get involved:
 
 1. **Fork the Repository**: Start by forking the repository on GitHub.
@@ -232,7 +234,7 @@ We welcome contributions to FORMULAR! Here’s how you can get involved:
 
     - Core form and field mechanics.
     - Basic validation strategies.
-    - React and Vanilla JavaScript examples.
+    - React and Vanilla JavaScript examples. 
 
 - **Version 2.0**:
 
