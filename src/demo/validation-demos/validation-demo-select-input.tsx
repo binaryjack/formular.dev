@@ -37,10 +37,10 @@ const formularManager = new FormularManager(
 )
 
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-    .setConstraint(
+    .setConstraints<any>([
         requiredDataValidationMock(fieldName, true),
         patternValidationMock(fieldName, /\\.*/)
-    )
+    ])
     .build()
 
 const optionsMocks: IOptionItem[] = mockOptions

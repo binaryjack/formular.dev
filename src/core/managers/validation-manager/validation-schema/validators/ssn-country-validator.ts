@@ -1,4 +1,7 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
 import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 import { CountryCode, PatternManager, ssnPattern } from '../validation.regex.patterns'
@@ -11,7 +14,7 @@ export const ssnCountryValidator = (
     countryCode: CountryCode,
     required: boolean = true
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
     const countryName = PatternManager.getCountryName(countryCode)
     const pattern = PatternManager.getPattern('ssn', countryCode) || ssnPattern
     const idTypeName = getIdTypeName(countryCode)
@@ -67,7 +70,7 @@ export const ssnMultiCountryValidator = (
     countryCodes: CountryCode[],
     required: boolean = true
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
     const countryNames = countryCodes.map((code) => PatternManager.getCountryName(code)).join(', ')
     const multiPattern = PatternManager.createMultiCountryPattern('ssn', countryCodes) || ssnPattern
 
@@ -113,7 +116,7 @@ export const ssnMultiCountryValidator = (
  * Switzerland-specific AHV number validator
  */
 export const ahvValidator = (name: string, required: boolean = true) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

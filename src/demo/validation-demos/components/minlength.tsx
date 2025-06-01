@@ -17,7 +17,7 @@ export const MinLength = ({ validationOptions, handleValidationOptionChange }: I
             <input
                 id="minlength-v"
                 type="number"
-                value={validationOptions.minLength?.minLength ?? ''}
+                value={validationOptions.minLength?.value ?? ''}
                 onChange={(e) =>
                     handleValidationOptionChange('minLength', {
                         minLength: parseInt(e.target.value, 10),

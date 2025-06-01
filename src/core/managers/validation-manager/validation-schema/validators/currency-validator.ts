@@ -1,10 +1,13 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
 import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 import { currencyPattern } from '../validation.regex.patterns'
 
 export const currencyValidator = (name: string, required: boolean = true) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

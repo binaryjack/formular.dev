@@ -6,8 +6,7 @@ import {
     urlValidator,
     Validators
 } from '@core/managers/validation-manager/validation-schema/validators'
-
-import { eMailBuilder } from '@core/managers/validation-manager/validation-schema/presets/e-mail-builder'
+import { eMailValidator } from '../presets/e-mail-builder'
 
 // Example usage of individual validators
 export const UserFormValidators = {
@@ -15,7 +14,7 @@ export const UserFormValidators = {
     phone: phoneValidator('phone', true),
     firstName: firstNameValidator('firstName', true),
     lastName: lastNameValidator('lastName', true),
-    email: eMailBuilder('email', true),
+    email: eMailValidator('email', true),
     password: passwordStrongValidator('password', true),
     website: urlValidator('website', false), // optional field
 

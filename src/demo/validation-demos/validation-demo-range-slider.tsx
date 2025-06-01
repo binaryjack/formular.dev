@@ -33,11 +33,11 @@ const formularManager = new FormularManager(
 )
 
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-    .setConstraint(
+    .setConstraints<any>([
         requiredDataValidationMock(fieldName, true),
         minValidationMock(fieldName, 0),
         maxValidationMock(fieldName, 100)
-    )
+    ])
     .build()
 
 const config = newDependencyConfiguration(

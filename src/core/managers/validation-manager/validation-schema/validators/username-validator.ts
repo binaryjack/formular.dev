@@ -1,10 +1,19 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
-import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
+import {
+    GenericValidationBuilder,
+    IGenericValidationBuilder
+} from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 import { usernamePattern } from '../validation.regex.patterns'
 
-export const usernameValidator = (name: string, required: boolean = true) => {
-    const constraints = []
+export const usernameValidator = (
+    name: string,
+    required: boolean = true
+): IGenericValidationBuilder => {
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

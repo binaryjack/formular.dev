@@ -17,9 +17,9 @@ export const Required = ({ validationOptions, handleValidationOptionChange }: IR
             <input
                 id="required-v"
                 type="checkbox"
-                checked={validationOptions.requiredData?.required ?? false}
+                checked={validationOptions.required?.value ?? false}
                 onChange={(e) =>
-                    handleValidationOptionChange('requiredData', {
+                    handleValidationOptionChange('required', {
                         required: e.target.checked,
                         error: newFieldError(
                             'sandboxField',

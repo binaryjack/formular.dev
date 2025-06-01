@@ -66,6 +66,7 @@ import { urlValidator } from './url-validator'
 import { usernameValidator } from './username-validator'
 
 // Import country-specific validators
+import { eMailValidator } from '../presets/e-mail-builder'
 import {
     countryCodeValidator,
     multiCountryValidator,
@@ -106,7 +107,7 @@ export const Validators = {
     time: timeValidator,
     numeric: numericValidator,
     date: dateValidator,
-
+    email: eMailValidator,
     // Country-specific validators
     phoneCountry: phoneCountryValidator,
     phoneMultiCountry: phoneMultiCountryValidator,

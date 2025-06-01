@@ -1,9 +1,12 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
 import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 
-export const eMailBuilder = (name: string, required: boolean = true) => {
-    const constraints = []
+export const eMailValidator = (name: string, required: boolean = true) => {
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

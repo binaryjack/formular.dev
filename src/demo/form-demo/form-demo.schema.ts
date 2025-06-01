@@ -70,19 +70,18 @@ export const formOutput: IFormOutput = {
 export const controlsDemoSchema: IEntityScheme = {
     name: 'demo-schema',
     properties: [
-        IdBuilder.setId(1)
-            .setName(FormOutputFieldsNames.Id)
-            .build(),
-        OrderBuilder.setId(2)
-            .setName(FormOutputFieldsNames.Order)
-            .build(),
+        IdBuilder.setId(1).setName(FormOutputFieldsNames.Id).build(),
+        OrderBuilder.setId(2).setName(FormOutputFieldsNames.Order).build(),
         ShowRoomsBuilder.setId(3)
             .setName(FormOutputFieldsNames.ShowRooms)
             .setOptionData(FormOutputFieldsNames.ShowRooms, [])
             .build(),
         InputTextBuilder.setId(4)
             .setName(FormOutputFieldsNames.InputText)
-            .setValidationData(true, Validators.baseRequiredNameValidator)
+            .setValidationData(
+                true,
+                Validators.username(FormOutputFieldsNames.InputText, true).build()
+            )
             .build(),
         SelectIdBuilder.setId(5)
             .setName(FormOutputFieldsNames.SelectOptionsTest)
@@ -100,7 +99,7 @@ export const controlsDemoSchema: IEntityScheme = {
         CheckBuilder.setId(6).setName(FormOutputFieldsNames.Check).build(),
         DateBuilder.setId(7)
             .setName(FormOutputFieldsNames.Date)
-            .setValidationData(true, Validators.dateRequiredIso8601Validator)
+            .setValidationData(true, Validators.date(FormOutputFieldsNames.Date, true).build())
             .build(),
         RadioBuilder.setId(8)
             .setName(FormOutputFieldsNames.SelectedRadioId)
@@ -117,11 +116,14 @@ export const controlsDemoSchema: IEntityScheme = {
         RangeBuilder.setId(10).setName(FormOutputFieldsNames.RangeSlider).build(),
         UserIdBuilder.setId(11)
             .setName(FormOutputFieldsNames.UserId)
-            .setValidationData(true, Validators.eMailRequiredValidator)
+            .setValidationData(true, Validators.email(FormOutputFieldsNames.UserId, true).build())
             .build(),
         PasswordBuilder.setId(12)
             .setName(FormOutputFieldsNames.Password)
-            .setValidationData(true, Validators.baseRequiredValidator)
+            .setValidationData(
+                true,
+                Validators.passwordStrong(FormOutputFieldsNames.Password, true).build()
+            )
             .build(),
         ToggleBuilder.setId(13).setName(FormOutputFieldsNames.Toggle).build(),
         Toggle2Builder.setId(14).setName(FormOutputFieldsNames.Toggle2).build()

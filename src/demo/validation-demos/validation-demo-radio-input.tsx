@@ -35,7 +35,7 @@ const ValidationDemoRadioInput = () => {
         lifeCylceInstances.autoTracker
     )
     const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-        .setConstraint(requiredDataValidationMock(fieldName, true))
+        .setConstraints<any>([requiredDataValidationMock(fieldName, true)])
         .build()
     const optionsMocks: IOptionItem[] = mockOptions
 

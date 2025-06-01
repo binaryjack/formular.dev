@@ -17,7 +17,7 @@ export const Pattern = ({ validationOptions, handleValidationOptionChange }: IPa
             <input
                 id="pattern-v"
                 type="text"
-                value={validationOptions.pattern?.pattern ?? ''}
+                value={validationOptions.pattern?.value ?? ''}
                 onChange={(e) =>
                     handleValidationOptionChange('pattern', {
                         pattern: e.target.value,

@@ -21,13 +21,13 @@ export interface IValidationConstraintBuilder<T> {
     setName: (name: string) => IValidationConstraintBuilder<T>
     setErrorMessage: (errorMessage: string | null) => IValidationConstraintBuilder<T>
     setGuideMessage: (guideMessage: string | null) => IValidationConstraintBuilder<T>
-    build: () => T
+    build: () => IValidationConstraintBuilder<T>
     clone: () => IValidationConstraintBuilder<T>
 }
 
-export const ValidationConstraintBuilder = function <T extends ValidationConstraintTypeEnum>(
+export const ValidationConstraintBuilder = function <T>(
     this: IValidationConstraintBuilder<T>,
-    type: ValidationConstraintTypeEnum
+    type: ValidationConstraintType
 ) {
     this.type = type
     this.errorMessage = null
@@ -59,22 +59,20 @@ export const ValidationConstraintBuilder = function <T extends ValidationConstra
         return this
     }
 
-    this.build = function (): T {
+    this.build = function (): IValidationConstraintBuilder<T> {
         return {
-            [this.type]: {
-                value: this.constraint,
-                error: {
-                    message: this.errorMessage,
-                    code: this.type,
-                    name: this.name ?? this.type
-                },
-                guide: {
-                    message: this.guideMessage,
-                    code: this.type,
-                    name: this.name ?? this.type
-                }
+            value: this.constraint,
+            error: {
+                message: this.errorMessage,
+                code: this.type,
+                name: this.name ?? this.type
+            },
+            guide: {
+                message: this.guideMessage,
+                code: this.type,
+                name: this.name ?? this.type
             }
-        } as unknown as T
+        } as unknown as IValidationConstraintBuilder<T>
     }
 
     this.clone = function (this: IValidationConstraintBuilder<T>): IValidationConstraintBuilder<T> {

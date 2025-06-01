@@ -17,7 +17,7 @@ export const Min = ({ validationOptions, handleValidationOptionChange }: IMinPro
             <input
                 id="min-v"
                 type="number"
-                value={validationOptions.min?.min ?? ''}
+                value={validationOptions.min?.value ?? ''}
                 onChange={(e) =>
                     handleValidationOptionChange('min', {
                         min: parseInt(e.target.value, 10),

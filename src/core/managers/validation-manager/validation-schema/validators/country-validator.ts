@@ -1,4 +1,7 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
 import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 import {
@@ -16,7 +19,7 @@ export const countryCodeValidator = (
     supportedTypes: ValidationType[] = ['phone', 'postal', 'ssn'],
     required: boolean = true
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(
@@ -55,7 +58,7 @@ export const multiCountryValidator = (
     minCountries: number = 1,
     maxCountries: number = 5
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(
@@ -96,7 +99,7 @@ export const multiCountryValidator = (
  * Switzerland validator - ensures Switzerland is included in country selection
  */
 export const switzerlandIncludedValidator = (name: string, required: boolean = true) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

@@ -17,7 +17,7 @@ export const Max = ({ validationOptions, handleValidationOptionChange }: IMaxPro
             <input
                 id="max-v"
                 type="number"
-                value={validationOptions.max?.max ?? ''}
+                value={validationOptions.max?.value ?? ''}
                 onChange={(e) =>
                     handleValidationOptionChange('max', {
                         max: parseInt(e.target.value, 10),

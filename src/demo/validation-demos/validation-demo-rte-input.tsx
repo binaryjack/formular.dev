@@ -35,11 +35,11 @@ const formularManager = new FormularManager(
 )
 
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-    .setConstraint(
+    .setConstraints<any>([
         requiredDataValidationMock(fieldName, true),
         minLengthValidationMock(fieldName, 10),
         maxLengthValidationMock(fieldName, 500)
-    )
+    ])
     .build()
 
 const optionsMocks: IOptionItem[] = []

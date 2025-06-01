@@ -59,7 +59,7 @@ export const register = function <FieldValuesTypes>(
         aria('describedby', describedbyId),
         aria('name', this.input.name),
         aria('label', this.input.name),
-        aria('required', this.input.validationOptions?.requiredData?.required ? 'true' : 'false'),
+        aria('required', this.input.validationOptions?.required?.value ? 'true' : 'false'),
         aria('invalid', this.input.isValid ? 'false' : 'true'),
         aria('disabled', this.input.enabled ? 'false' : 'true'),
         aria('readonly', 'false'),

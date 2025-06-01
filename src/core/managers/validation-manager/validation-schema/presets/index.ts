@@ -24,7 +24,7 @@ export { MinMinLengthAndMaxLengthBuilder } from './min-min-length-and-max-length
 export { MinMaxMinLengthAndMaxLengthBuilder } from './min-max-min-length-and-max-length-builder'
 
 // Specialized builders
-export { eMailBuilder } from './e-mail-builder'
+
 export { minMaxDatesBuilder } from './min-max-dates-builder'
 export { minMaxNameBuilder } from './min-max-name-builder'
 

@@ -36,11 +36,13 @@ const formularManager = new FormularManager(
     lifeCylceInstances.autoTracker
 )
 
-const validationOptionsMock: IValidationOptions = new GenericValidationBuilder().setConstraint(
-    requiredDataValidationMock(fieldName, true),
-    minLengthValidationMock(fieldName, 3),
-    maxLengthValidationMock(fieldName, 50)
-)
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraints<any>([
+        requiredDataValidationMock(fieldName, true),
+        minLengthValidationMock(fieldName, 3),
+        maxLengthValidationMock(fieldName, 50)
+    ])
+    .build()
 
 const optionsMocks: IOptionItem[] = []
 

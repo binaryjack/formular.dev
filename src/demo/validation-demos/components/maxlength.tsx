@@ -17,7 +17,7 @@ export const MaxLength = ({ validationOptions, handleValidationOptionChange }: I
             <input
                 id="maxlength-v"
                 type="number"
-                value={validationOptions.maxLength?.maxLength ?? ''}
+                value={validationOptions.maxLength?.value ?? ''}
                 onChange={(e) =>
                     handleValidationOptionChange('maxLength', {
                         maxLength: parseInt(e.target.value, 10),

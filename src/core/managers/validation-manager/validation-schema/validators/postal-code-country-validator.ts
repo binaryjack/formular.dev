@@ -1,4 +1,7 @@
-import { ValidationConstraintBuilder } from '../../constraint-builder/validation-constraint-builder'
+import {
+    IValidationConstraintBuilder,
+    ValidationConstraintBuilder
+} from '../../constraint-builder/validation-constraint-builder'
 import { GenericValidationBuilder } from '../../generic-validation-builder/generic-validation-builder'
 import { ValidationLocalizeKeys } from '../validation.localize.keys'
 import { CountryCode, PatternManager, postalCodeUSPattern } from '../validation.regex.patterns'
@@ -11,7 +14,7 @@ export const postalCodeCountryValidator = (
     countryCode: CountryCode,
     required: boolean = true
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
     const countryName = PatternManager.getCountryName(countryCode)
     const pattern = PatternManager.getPattern('postal', countryCode) || postalCodeUSPattern
 
@@ -66,7 +69,7 @@ export const postalCodeMultiCountryValidator = (
     countryCodes: CountryCode[],
     required: boolean = true
 ) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
     const countryNames = countryCodes.map((code) => PatternManager.getCountryName(code)).join(', ')
     const multiPattern =
         PatternManager.createMultiCountryPattern('postal', countryCodes) || postalCodeUSPattern
@@ -120,7 +123,7 @@ export const postalCodeSwitzerlandValidator = (name: string, required: boolean =
  * Switzerland NPA (postal code) validator with enhanced validation
  */
 export const npaValidator = (name: string, required: boolean = true) => {
-    const constraints = []
+    const constraints: IValidationConstraintBuilder<any>[] = []
 
     if (required) {
         constraints.push(

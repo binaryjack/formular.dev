@@ -52,6 +52,7 @@ FieldSchemaBuilder.prototype = {
             shouldValidate: shouldValidate,
             ...validationData
         }) as IFieldSchemaBuilder
+        return this
     } /**
      * To define a mask you must use # as numeric placeholder
      * example mask: '##/##/####' will be converted to 12/12/2023

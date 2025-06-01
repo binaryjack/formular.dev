@@ -30,11 +30,11 @@ interface ISubmitObject {
 }
 
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-    .setConstraint(
+    .setConstraints<any>([
         requiredDataValidationMock(defaultFieldName, true),
         minLengthValidationMock(defaultFieldName, 8),
         maxLengthValidationMock(defaultFieldName, 20)
-    )
+    ])
     .build()
 
 const config = newDependencyConfiguration(
