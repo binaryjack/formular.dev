@@ -72,11 +72,9 @@ export const controlsDemoSchema: IEntityScheme = {
     properties: [
         IdBuilder.setId(1)
             .setName(FormOutputFieldsNames.Id)
-            .setValidationData(true, Validators.baseRequiredValidator)
             .build(),
         OrderBuilder.setId(2)
             .setName(FormOutputFieldsNames.Order)
-            .setValidationData(true, Validators.baseRequiredValidator)
             .build(),
         ShowRoomsBuilder.setId(3)
             .setName(FormOutputFieldsNames.ShowRooms)
