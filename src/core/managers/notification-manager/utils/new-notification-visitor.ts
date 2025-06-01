@@ -1,3 +1,4 @@
+import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { eventSignature } from '@core/framework/events/event-signature'
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
@@ -16,7 +17,7 @@ export const newNotificationVisitor = <T>(
 }
 
 export const notification = <
-    T extends CallableFunction | IExtendedInputBase | IInputBase,
+    T extends CallableFunction | IExtendedInputBase | IInputBase | IFormular<any>,
     TEvt extends IEvents
 >(
     owner: T,

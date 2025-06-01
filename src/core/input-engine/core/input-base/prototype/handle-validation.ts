@@ -80,12 +80,12 @@ export const handleValidation = function <T extends IEvents>(this: IExtendedInpu
         )
         // ;(data.fieldRef?.input as unknown as IInputBase)?.refreshUi(data.fieldRef)
         ;(data.fieldRef?.input as unknown as IInputBase)?.notificationManager?.debounceNotify(
-            'onUiUpdate',
+            'onValidationChange',
             conventions.events.onUiUpdate.triggerDelay,
             newEvent(
                 data.fieldRef?.input.name,
                 handleValidation.name,
-                'onUiUpdate',
+                'onValidationChange',
                 `field`,
                 data.fieldRef?.input.name,
                 data.fieldRef

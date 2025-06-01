@@ -59,6 +59,10 @@ export enum EventsEnum {
 
     onDispose = 'onDispose',
 
+    onValueChange = 'onValueChange',
+
+    onValidationChange = 'onValidationChange',
+
     onBusyStateChange = 'onBusyStateChange'
 }
 

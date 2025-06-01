@@ -31,7 +31,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
         }
     })
 
-    useFieldDefaultValue(instance?.input)
+    useFieldDefaultValue(instance)
 
     const defaultValue = useMemo(() => {
         if (instance?.input?.value) {

@@ -25,11 +25,11 @@ export const clear = function (this: IInputBase) {
     this.focus()
 
     this?.notificationManager?.notify(
-        'onUiUpdate',
+        'onValueChange',
         newEvent(
             this?.name,
             clear.name,
-            'onUiUpdate',
+            'onValueChange',
             `field.label.${clear?.name}`,
             this?.name,
             this

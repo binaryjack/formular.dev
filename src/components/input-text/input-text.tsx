@@ -21,7 +21,7 @@ const InputText = ({ fieldName }: IInputTextProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.input)
+    useFieldDefaultValue(instance)
 
     return (
         <FieldSet

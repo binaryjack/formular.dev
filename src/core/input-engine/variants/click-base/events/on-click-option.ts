@@ -17,11 +17,11 @@ export const onClickOption = <T extends IExtendedInput>(f: T, optionId: string, 
     )
 
     f.input?.notificationManager?.notify(
-        'onUiUpdate',
+        'onValueChange',
         newEvent(
             f.input.name,
             onClickOption.name,
-            'onUiUpdate',
+            'onValueChange',
             `field.option.label.${onClickOption.name}`,
             f.input.name,
             f

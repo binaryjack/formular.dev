@@ -59,7 +59,7 @@ export const DatePickerSF = ({
         }
     })
 
-    useFieldDefaultValue(instance?.input)
+    useFieldDefaultValue(instance)
 
     const defaultValue = useMemo(() => {
         if (instance?.input?.value) {

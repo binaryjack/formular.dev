@@ -1,4 +1,3 @@
-import { newEvent } from '@core/framework/events/new-event'
 import { onChangedHandle } from '@core/input-engine/core/input-base/events/on-changed-handle'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { processMaskedValue } from '../core/process-masked-value'
@@ -24,16 +23,6 @@ export const onChange = function (this: IMaskedBaseInput, e: Event) {
     } else {
         this.input.valueManager.setValue(this as unknown as IExtendedInput, formattedValue)
     }
-    this.input?.notificationManager?.notify(
-        'onUiUpdate',
-        newEvent(
-            this.input.name,
-            onChange.name,
-            'onUiUpdate',
-            `field.option.label.${onChange.name}`,
-            this.input.name,
-            this as unknown as IExtendedInput
-        )
-    )
+
     if (onChangedHandle) onChangedHandle(this as unknown as IExtendedInput)
 }

@@ -1,4 +1,3 @@
-import { EventsType } from '@core/framework/events/events.types'
 import { IExtendedInput, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
 import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
@@ -6,7 +5,7 @@ import {
     defaultFieldStateFlags,
     IFieldStateFlags
 } from '@core/managers/style-manager/style-manager.types'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 
 export interface IUseFieldHookReturn<T extends IInputBase | IExtendedInput> {
     instance: T | undefined
@@ -21,23 +20,28 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     field?: T
 ): IUseFieldHookReturn<T> => {
     const [flags, setFlags] = React.useState<IFieldStateFlags>(defaultFieldStateFlags)
-    const stableField = React.useMemo(() => {
-        return field
-    }, [field])
+    const [value, setValue] = React.useState(field?.input?.value)
+    const [renderCount, setRenderCount] = React.useState(0)
+
+    const stableField = React.useMemo(() => field, [field])
 
     // Add logging to track useField behavior
     // console.log('useField initialized for field:', field?.input?.name)
 
     // Optimize handleRefresh to avoid redundant updates
-    const handleRefresh = () => {
+    const handleRefresh = useCallback(() => {
         const newFlags = stableField?.input.styleManager?.getFlagsObject?.()
+        const newValue = stableField?.input?.value
+
         if (JSON.stringify(newFlags) !== JSON.stringify(flags)) {
-            console.log('handleRefresh: Flags updated for field:', stableField?.input?.name)
             setFlags(newFlags)
-        } else {
-            console.log('handleRefresh: No flag changes for field:', stableField?.input?.name)
         }
-    }
+        // Update value
+        if (newValue !== value) {
+            setValue(newValue)
+        }
+        setRenderCount((prev) => prev + 1)
+    }, [stableField, flags, value])
 
     // Optimize useEffect dependencies
     useEffect(() => {
@@ -48,29 +52,46 @@ export const useField = <T extends IExtendedInput | IInputBase>(
         }
     }, [stableField?.input.styleManager?.classNames])
 
-    /** Bind the function handleRefresh to field events*
-     */
-    const acceptNotificationStrategy = (localName: string, event: EventsType) => {
-        if (!stableField) return
-        stableField.input.notificationManager?.accept(
-            notification(useField, handleRefresh, event, `useField.${event}`, useField.name)
-        )
-        stableField.input.notificationManager?.observers.subscribe(handleRefresh)
-    }
-
     useEffect(() => {
         if (!stableField) return
         /** Bind the function handleRefresh to followng field events*/
-        acceptNotificationStrategy('useField.hook.updated', 'onUiUpdate')
+        const notifications = [
+            notification(
+                stableField,
+                handleRefresh,
+                'onUiUpdate',
+                'useField.onUiUpdate',
+                'useField'
+            ),
+            notification(
+                stableField,
+                handleRefresh,
+                'onValueChange',
+                'useField.onValueChange',
+                'useField'
+            ),
+            notification(
+                stableField,
+                handleRefresh,
+                'onValidationChange',
+                'useField.onValidationChange',
+                'useField'
+            ),
+            notification(stableField, handleRefresh, 'onFocus', 'useField.onFocus', 'useField'),
+            notification(stableField, handleRefresh, 'onBlur', 'useField.onBlur', 'useField')
+        ]
+
+        notifications.forEach((notif) => stableField.input.notificationManager?.accept(notif))
+
         return () => {
             stableField.input.notificationManager?.observers.unSubscribe(handleRefresh)
-            stableField.input.notificationManager?.dismiss('useField.hook.updated')
+            notifications.forEach((notif) => stableField.input.notificationManager?.dismiss(notif))
             console.log('useField cleanup for field:', stableField?.input?.name)
         }
     }, [stableField])
 
     return {
         instance: stableField,
-        flags: flags
+        flags
     }
 }

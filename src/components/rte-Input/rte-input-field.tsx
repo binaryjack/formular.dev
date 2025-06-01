@@ -46,7 +46,7 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
         }
     }
 
-    useFieldDefaultValue(instance?.input, (value) => {
+    useFieldDefaultValue(instance, (value) => {
         if (value && typeof value === 'string') {
             try {
                 // Deserialize from field value

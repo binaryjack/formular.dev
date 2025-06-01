@@ -32,7 +32,7 @@ const SwitchButtonInput = ({
         instance?.input?.valueManager?.setValue(instance, value)
     }
 
-    useFieldDefaultValue(instance?.input, (value) => {
+    useFieldDefaultValue(instance, (value) => {
         if (value !== undefined) {
             setIsOn(value === true)
         }

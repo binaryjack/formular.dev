@@ -29,7 +29,7 @@ const Password = ({ fieldName }: IPasswordProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.input)
+    useFieldDefaultValue(instance)
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible((prev) => !prev)

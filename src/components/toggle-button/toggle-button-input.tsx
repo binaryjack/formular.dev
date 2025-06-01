@@ -25,7 +25,7 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
         instance?.input?.valueManager?.setValue(instance, value)
     }
 
-    useFieldDefaultValue(instance?.input, (value) => {
+    useFieldDefaultValue(instance, (value) => {
         if (value !== undefined) {
             setToggleState(value === true)
         }

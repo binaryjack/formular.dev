@@ -49,7 +49,7 @@ export const RangeSliderSF = ({
         }
     })
 
-    useFieldDefaultValue(instance?.input)
+    useFieldDefaultValue(instance)
 
     const defaultValue = () => {
         if (instance?.input?.value) {

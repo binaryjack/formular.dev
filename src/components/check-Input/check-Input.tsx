@@ -24,7 +24,7 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance?.input, (value) => {
+    useFieldDefaultValue(instance, (value) => {
         console.log(
             'useFieldDefaultValue triggered for fieldName:',
             fieldName,
