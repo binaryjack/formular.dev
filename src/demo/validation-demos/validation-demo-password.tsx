@@ -69,6 +69,7 @@ const ValidationDemoPassword = () => {
         'onFocus',
         'onBlur',
         'onChange',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

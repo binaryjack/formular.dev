@@ -68,6 +68,7 @@ const ValidationDemoRangeSlider = () => {
         'onFocus',
         'onBlur',
         'onChange',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

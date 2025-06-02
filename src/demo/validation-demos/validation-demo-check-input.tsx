@@ -63,6 +63,7 @@ const ValidationDemoCheckInput = () => {
         'onClick',
         'onFocus',
         'onBlur',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

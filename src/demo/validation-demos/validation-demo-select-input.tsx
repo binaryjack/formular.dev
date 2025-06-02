@@ -73,6 +73,7 @@ const ValidationDemoSelectInput = () => {
         'onFocus',
         'onBlur',
         'onChange',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

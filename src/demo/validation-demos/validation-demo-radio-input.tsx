@@ -66,6 +66,7 @@ const ValidationDemoRadioInput = () => {
         'onFocus',
         'onBlur',
         'onChange',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

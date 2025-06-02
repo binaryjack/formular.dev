@@ -71,6 +71,7 @@ const ValidationDemoRteInput = () => {
         validationOptionsMock,
         'onClick',
         'onBlur',
+        'onClear',
         'onSubmit'
     )
 

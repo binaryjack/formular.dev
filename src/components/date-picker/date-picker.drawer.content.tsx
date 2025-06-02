@@ -28,6 +28,7 @@ interface IDatePickerDrawerProps {
     dataFormat?: DatePickerFormatsEnum
     displayFormat?: DatePickerFormatsEnum
     onSelectDate: (startDate?: INDate, endDate?: INDate) => void
+    onClearField?: () => void
     defaultSelectionMode?: DatePickerSelectionModeType
     defaultGridMode?: DatePickerGridModeType
     showFooter?: boolean
@@ -104,6 +105,7 @@ const DatePickerContentDrawer = ({
     id,
     defaultDate,
     onSelectDate,
+    onClearField,
     showFooter,
     separator = '-',
     dataFormat,
@@ -279,7 +281,10 @@ const DatePickerContentDrawer = ({
         updateInternalDate: (newDate: Date) => setInternalDate(newDate),
         updateSelectedCells: (cells: IDatePickerCell[]) => setSelection(cells),
         updateGridMode: (gridMode: DatePickerGridModeType) => setGridMode(gridMode),
-        clear: () => setSelection([]),
+        clear: () => {
+            setSelection([])
+            onClearField?.()
+        },
         close: () => {
             setOpenState?.({} as any, 'closed')
         }

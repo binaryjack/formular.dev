@@ -81,6 +81,7 @@ const ValidationDemoTextInput = () => {
         'onFocus',
         'onBlur',
         'onChange',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

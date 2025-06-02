@@ -39,7 +39,6 @@ export interface IFormularBase<T extends object> {
     readonly manager: IFormularManager<T>
     readonly notificationManager?: INotificationManager
 
-    handleValidation: () => void
     checkAllFieldsAreValid: () => Promise<boolean>
     addFields: (...flds: IInput[]) => void
     getField: (fieldName: string) => IExtendedInput | undefined

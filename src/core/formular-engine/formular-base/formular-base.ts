@@ -7,7 +7,6 @@ import { checkChanges } from './prototype/check-changes'
 import { getData } from './prototype/get-data'
 import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
-import { handleValidation } from './prototype/handle-validation'
 import { hasChanges } from './prototype/has-changes'
 import { setIsBusy } from './prototype/set-is-busy'
 import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
@@ -46,7 +45,6 @@ export const Formular = function <T extends object>(
 
 Object.assign(Formular.prototype, {
     addFields,
-    handleValidation,
     checkAllFieldsAreValid,
     checkChanges,
     setIsBusy,

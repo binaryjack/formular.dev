@@ -89,6 +89,8 @@ export const DatePickerSF = ({
                         conventions.IsMissing(MissingPropEnum.NAME, DatePickerSF.name)
                     }
                     onSelectDate={onSelectDate}
+                    /** this only acts from the drawer */
+                    onClearField={() => instance?.input?.clear()}
                     separator={separator}
                     dataFormat={dataFormat}
                     displayFormat={displayFormat}

@@ -72,6 +72,7 @@ const ValidationDemoDelayInput = () => {
         validationOptionsMock,
         'onClick',
         'onBlur',
+        'onClear',
         'onSubmit',
         'validateOnFormFirstSubmit'
     )

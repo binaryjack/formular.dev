@@ -84,6 +84,7 @@ const ValidationDemoDatePicker = () => {
         'onBlur',
         'onChange',
         'onSubmit',
+        'onClear',
         'validateOnFormFirstSubmit'
     )
 

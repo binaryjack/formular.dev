@@ -115,7 +115,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
                     <div key={fieldName} className="debug-table-row flex p-1 border-b">
                         <div className="flex-1 text-sm">{fieldName}</div>
                         <div className="flex-1 text-sm truncate" title={String(fieldData.value)}>
-                            {String(fieldData.value || '')}
+                            {String(fieldData.value ?? '')}
                         </div>
                         <div className="flex-1 text-sm">
                             <span className={fieldData.isValid ? 'text-green-600' : 'text-red-600'}>

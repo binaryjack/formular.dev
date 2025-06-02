@@ -26,14 +26,22 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     const stableField = React.useMemo(() => field, [field])
 
     // Add logging to track useField behavior
-    // console.log('useField initialized for field:', field?.input?.name)
-
-    // Optimize handleRefresh to avoid redundant updates
+    // console.log('useField initialized for field:', field?.input?.name)    // Optimize handleRefresh to avoid redundant updates
     const handleRefresh = useCallback(() => {
         const newFlags = stableField?.input.styleManager?.getFlagsObject?.()
         const newValue = stableField?.input?.value
 
-        if (JSON.stringify(newFlags) !== JSON.stringify(flags)) {
+        // More efficient comparison for boolean flags
+        const flagsChanged =
+            newFlags &&
+            (!flags ||
+                Object.keys(newFlags).some(
+                    (key) =>
+                        newFlags[key as keyof IFieldStateFlags] !==
+                        flags[key as keyof IFieldStateFlags]
+                ))
+
+        if (flagsChanged) {
             setFlags(newFlags)
         }
         // Update value

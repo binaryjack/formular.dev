@@ -2,12 +2,23 @@ import { ObservableSubject } from '@core/observers/observable-subject/observable
 import { INotificationManager } from './notification-manager-base.types'
 import { INotification } from './notification-manager.types'
 import { accept } from './prototype/accept'
+import { batchNotify } from './prototype/batch-notify'
 import { debounceNotify } from './prototype/debounce-notify'
 import { dismiss } from './prototype/dismiss'
 import { dispose } from './prototype/dispose'
+import {
+    flushPendingNotifications,
+    groupEventsByType,
+    processEventGroup,
+    processNotificationBatch,
+    processPriorityBatches,
+    processSimpleBatch
+} from './prototype/flush-pending-notifications'
 import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
 import { initialize } from './prototype/initialize'
 import { notify } from './prototype/notify'
+import { processBatch, scheduleBatch } from './prototype/schedule-batch'
+import { setBatchConfig } from './prototype/set-batch-config'
 import { trigger } from './prototype/trigger'
 
 /**
@@ -24,6 +35,19 @@ export const NotificationManager = function (
     this.notifiers = new Map<string, INotification>()
     this.observers = new ObservableSubject()
     this.computedSignalCallback = null
+
+    // Batching properties
+    this.batchQueue = []
+    this.priorityQueues = new Map()
+    this.isBatchScheduled = false
+    this.batchTimeout = null
+    this.batchConfig = {
+        maxBatchSize: 50,
+        batchDelay: 16,
+        enablePriority: true,
+        strategy: 'microtask'
+    }
+
     Object.defineProperty(this, 'dependencyName', {
         value: NotificationManager.name,
         writable: false, // Prevent modification
@@ -40,5 +64,15 @@ Object.assign(NotificationManager.prototype, {
     dismiss,
     notify,
     dispose,
-    trigger
+    trigger,
+    batchNotify,
+    flushPendingNotifications,
+    setBatchConfig,
+    scheduleBatch,
+    processBatch,
+    processPriorityBatches,
+    processSimpleBatch,
+    processNotificationBatch,
+    groupEventsByType,
+    processEventGroup
 })

@@ -28,6 +28,7 @@ export const TriggerMode = ({
                 <option value="onBlur">onBlur</option>
                 <option value="onChange">onChange</option>
                 <option value="onSubmit">onSubmit</option>
+                <option value="onClear">onClear</option>
                 <option value="onLoad">onLoad</option>
                 <option value="reset">reset</option>
             </select>
