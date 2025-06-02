@@ -1,5 +1,6 @@
 import { conventions } from '@components/context/conventions/conventions'
 import { ValidationConstraintBuilder } from '@core/managers/validation-manager/constraint-builder/validation-constraint-builder'
+import { IMinLength } from '@core/managers/validation-manager/validation-manager.types'
 
 export const minLengthValidationMock = (name: string, value: number) =>
     new ValidationConstraintBuilder<number>('minLength')
@@ -11,4 +12,3 @@ export const minLengthValidationMock = (name: string, value: number) =>
         .setGuideMessage(
             `Please enter a value with more than ${conventions.tokens.validationDataToken1} characters.`
         )
-        .build()

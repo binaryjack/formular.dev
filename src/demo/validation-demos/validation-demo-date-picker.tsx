@@ -20,8 +20,10 @@ import { maxValidationMock } from '@tests/mocks/max-validation-mock'
 import { minValidationMock } from '@tests/mocks/min-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
+
+import { BooleanConstraint } from './components/boolean-constraint'
+import { DateConstraint } from './components/date-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
-import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
@@ -91,6 +93,7 @@ const ValidationDemoDatePicker = () => {
     }, [])
 
     const handleSubmit = (data: any) => {
+        setSubmissionObject({} as ISubmitObject)
         setSubmissionObject(data as ISubmitObject)
     }
 
@@ -100,9 +103,35 @@ const ValidationDemoDatePicker = () => {
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <FormsContentFrame
                         childrenRequired={
-                            <Required
+                            <BooleanConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={fieldName}
+                                type={'required'}
+                                errorMessage={'This field is required'}
+                                guideMessage={'This field must be filled out.'}
+                            />
+                        }
+                        childrenMin={
+                            <DateConstraint
+                                validationOptions={validationOptions}
+                                handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={fieldName}
+                                type={'min'}
+                                errorMessage={'This field must be greater than or equal to {{min}}'}
+                                guideMessage={
+                                    'This field must be greater than or equal to {{min}}.'
+                                }
+                            />
+                        }
+                        childrenMax={
+                            <DateConstraint
+                                validationOptions={validationOptions}
+                                handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={fieldName}
+                                type={'max'}
+                                errorMessage={'This field must be less than or equal to {{max}}'}
+                                guideMessage={'This field must be less than or equal to {{max}}.'}
                             />
                         }
                         childrenTriggerMode={

@@ -21,13 +21,10 @@ import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock
 import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
+import { BooleanConstraint } from './components/boolean-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
-import { Max } from './components/max'
-import { MaxLength } from './components/maxlength'
-import { Min } from './components/min'
-import { MinLength } from './components/minlength'
-import { Pattern } from './components/pattern'
-import { Required } from './components/required'
+import { NumericConstraint } from './components/numeric-constraint'
+import { RegExpConstraint } from './components/regexp-constraint'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
@@ -102,40 +99,74 @@ const ValidationDemoTextInput = () => {
             {internalForm && (
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <FormsContentFrame
-                        childrenMax={
-                            <Max
+                        childrenMin={
+                            <NumericConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'min'}
+                                errorMessage={'This field must be greater than or equal to {{min}}'}
+                                guideMessage={
+                                    'This field must be greater than or equal to {{min}}.'
+                                }
                             />
                         }
-                        childrenMin={
-                            <Min
+                        childrenMax={
+                            <NumericConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'max'}
+                                errorMessage={'This field must be less than or equal to {{max}}'}
+                                guideMessage={'This field must be less than or equal to {{max}}.'}
                             />
                         }
                         childrenMinLength={
-                            <MinLength
+                            <NumericConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'minLength'}
+                                errorMessage={
+                                    'The caracter length must be greater than or equal to {{min}}'
+                                }
+                                guideMessage={
+                                    'The caracter length must be greater than or equal to {{min}}.'
+                                }
                             />
                         }
                         childrenMaxLength={
-                            <MaxLength
+                            <NumericConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'maxLength'}
+                                errorMessage={
+                                    'The caracter length must be less than or equal to {{max}}'
+                                }
+                                guideMessage={
+                                    'The caracter length must be less than or equal to {{max}}.'
+                                }
                             />
                         }
                         childrenPattern={
-                            <Pattern
+                            <RegExpConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'pattern'}
+                                errorMessage={'This field must match the pattern {{pattern}}'}
+                                guideMessage={'This field must match the pattern {{pattern}}.'}
                             />
                         }
                         childrenRequired={
-                            <Required
+                            <BooleanConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={defaultFieldName}
+                                type={'required'}
+                                errorMessage={'This field is required'}
+                                guideMessage={'This field must be filled out.'}
                             />
                         }
                         childrenTriggerMode={

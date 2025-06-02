@@ -1,3 +1,4 @@
+import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
@@ -7,13 +8,30 @@ export const clear = function (this: IValueManager, field: IExtendedInput | IInp
 
         discriminatedInput.value = null
         discriminatedInput.originalValue = null
+        discriminatedInput.objectValue = null
 
-        discriminatedInput.isPristine = field.input.originalValue === field.input.value
-        discriminatedInput.isDirty = field.input.originalValue !== field.input.value
+        discriminatedInput.isPristine =
+            discriminatedInput.originalValue === discriminatedInput.value
+        discriminatedInput.isDirty = discriminatedInput.originalValue !== discriminatedInput.value
 
-        discriminatedInput.styleManager?.update('pristine', field.input.isPristine)
-        discriminatedInput.styleManager?.update('dirty', field.input.isDirty)
+        discriminatedInput.styleManager?.update('pristine', discriminatedInput.isPristine)
+        discriminatedInput.styleManager?.update('dirty', discriminatedInput.isDirty)
+
+        discriminatedInput.notificationManager?.notify(
+            'onValueChange',
+            newEvent(
+                this.input.name,
+                clear.name,
+                'onValueChange',
+                'field.selected',
+                field.name,
+                field as IExtendedInput
+            )
+        )
     } catch (e) {
-        console.error(`CLEARING TYPE ${this.input.type} in field: ${this.input.name} `, e)
+        console.error(
+            `CLEARING TYPE ${field?.input?.type ?? 'no type found'} in field: ${field?.input?.name ?? field?.name} `,
+            e
+        )
     }
 }

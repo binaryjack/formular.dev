@@ -25,7 +25,8 @@ export const useDemoSettings = <T extends object>(
     }, [internalForm, validationTriggerMode])
 
     useEffect(() => {
-        if (!validationOptions || !instance) return
+        if (!instance || !validationOptions) return
+
         instance.input.validationOptions = validationOptions
     }, [instance, validationOptions])
 
@@ -34,9 +35,9 @@ export const useDemoSettings = <T extends object>(
 
         setValidationOptions((prev) => ({
             ...prev,
-            [key]: { ...prev[key], ...value }
+            [key]: { ...prev?.[key], ...value }
         }))
-        instance.input.validationOptions = { ...validationOptions, [key]: value }
+        // instance.input.validationOptions = { ...validationOptions, [key]: value }
     }
 
     const handleTriggerModeChange = (mode: EventsType[]) => {

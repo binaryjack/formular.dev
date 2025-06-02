@@ -11,4 +11,3 @@ export const minValidationMock = (name: string, value: number) =>
         .setGuideMessage(
             `Please enter a value greater than ${conventions.tokens.validationDataToken1}.`
         )
-        .build()

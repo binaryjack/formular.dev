@@ -1,4 +1,5 @@
 import { newEvent } from '@core/framework/events/new-event'
+import { hasValidationOptions } from '@core/managers/validation-manager/helpers/has-validation-options'
 import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
 import { LoadingStatus } from '@core/status'
 import { IFormular } from '../formular-base.types'
@@ -13,6 +14,15 @@ export const submit = async function <T extends object>(this: IFormular<T>): Pro
         const validationResults: IValidationResult[] = []
 
         for (const f of this.fields) {
+            if (!hasValidationOptions(f.input)) {
+                f.input.message(
+                    'info',
+                    f.input.name,
+                    `No validation options found for field ${f.input.name}, skipping validation`
+                )
+                continue
+            }
+
             validationResults.push(
                 ...(await f.input.handleValidationAsync(
                     newEvent(f.input.name, submit.name, 'onValidate', `submit`, f.input.name, f)

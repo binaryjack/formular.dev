@@ -21,8 +21,8 @@ export interface IValidationConstraintBuilder<T> {
     setName: (name: string) => IValidationConstraintBuilder<T>
     setErrorMessage: (errorMessage: string | null) => IValidationConstraintBuilder<T>
     setGuideMessage: (guideMessage: string | null) => IValidationConstraintBuilder<T>
-    build: () => IValidationConstraintBuilder<T>
-    clone: () => IValidationConstraintBuilder<T>
+    build: <TOut>() => TOut
+    clone: <TOut>() => TOut
 }
 
 export const ValidationConstraintBuilder = function <T>(
@@ -59,8 +59,9 @@ export const ValidationConstraintBuilder = function <T>(
         return this
     }
 
-    this.build = function (): IValidationConstraintBuilder<T> {
+    this.build = function <TOut>(): TOut {
         return {
+            type: this.type,
             value: this.constraint,
             error: {
                 message: this.errorMessage,
@@ -72,15 +73,15 @@ export const ValidationConstraintBuilder = function <T>(
                 code: this.type,
                 name: this.name ?? this.type
             }
-        } as unknown as IValidationConstraintBuilder<T>
+        } as unknown as TOut
     }
 
-    this.clone = function (this: IValidationConstraintBuilder<T>): IValidationConstraintBuilder<T> {
+    this.clone = function <TOut>(this: IValidationConstraintBuilder<T>): TOut {
         const cloneInstance = new ValidationConstraintBuilder(this.type)
         cloneInstance.type = this.type
         cloneInstance.constraint = this.constraint
         cloneInstance.errorMessage = this.errorMessage
         cloneInstance.guideMessage = this.guideMessage
-        return cloneInstance as IValidationConstraintBuilder<T>
+        return cloneInstance as TOut
     }
 } as any as IValidationConstraintBuilder<any>

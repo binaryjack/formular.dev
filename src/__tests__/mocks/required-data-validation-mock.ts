@@ -6,4 +6,3 @@ export const requiredDataValidationMock = (name: string, value: boolean) =>
         .setName(name)
         .setErrorMessage(`This field is required and cannot be empty!`)
         .setGuideMessage(`Please provide a value for this field.`)
-        .build()

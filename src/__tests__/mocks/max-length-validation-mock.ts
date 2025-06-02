@@ -11,4 +11,3 @@ export const maxLengthValidationMock = (name: string, value: number) =>
         .setGuideMessage(
             `Please enter a value with less than ${conventions.tokens.validationDataToken1} characters.`
         )
-        .build()

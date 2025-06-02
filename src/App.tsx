@@ -1,5 +1,5 @@
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
-import FormDemo from '@demo/form-demo/form-demo'
+import ValidationDemoDatePicker from '@demo/validation-demos/validation-demo-date-picker'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
@@ -103,10 +103,10 @@ const App = () => {
             {/* <Demos /> */}
             <BoundaryErrorCatcher>
                 {/* <ValidationDemoCheckInput /> */}
-                {/* <ValidationDemoDatePicker /> */}
+                <ValidationDemoDatePicker />
                 {/* <ValidationDemoDelayInput /> */}
                 {/* <ValidationDemoPassword /> */}
-                <FormDemo />
+                {/* <FormDemo /> */}
             </BoundaryErrorCatcher>
         </div>
     )

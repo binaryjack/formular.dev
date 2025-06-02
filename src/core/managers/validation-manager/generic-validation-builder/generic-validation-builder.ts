@@ -55,9 +55,9 @@ export const GenericValidationBuilder = function (
         return output
     }
 
-    this.clone = function (this: IGenericValidationBuilder): IGenericValidationBuilder {
+    this.clone = function (this: IGenericValidationBuilder) {
         const clone = new GenericValidationBuilder()
-        clone.setConstraints(this.constraints.map((c) => c.clone()))
+        clone.setConstraints(this.constraints.map((c) => c.clone<any>()))
         return clone
     }
 

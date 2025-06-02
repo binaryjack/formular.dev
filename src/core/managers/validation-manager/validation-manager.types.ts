@@ -73,37 +73,42 @@ export interface IValidationManager extends IInitializableDependency {
     validateManyAsync?: (fields: IExtendedInput[], reset?: boolean) => Promise<IValidationResult[]>
 }
 
-export interface IValidationTextBase {
+export type IValidationGeneric =
+    | (IValidationBase & IRequired)
+    | (IValidationBase & IMax)
+    | (IValidationBase & IMin)
+    | (IValidationBase & IMaxLength)
+    | (IValidationBase & IMinLength)
+    | (IValidationBase & IPattern)
+
+export interface IValidationBase {
+    type?: string
     error?: IFieldError
     guide?: IFieldGuide
 }
 
-export interface IRequired extends IValidationTextBase {
+export interface IRequired extends IValidationBase {
     value: boolean
 }
 
-export interface IMax extends IValidationTextBase {
+export interface IMax extends IValidationBase {
     value: number
 }
 
-export interface IMin extends IValidationTextBase {
+export interface IMin extends IValidationBase {
     value: number
 }
 
-export interface IMaxLength extends IValidationTextBase {
+export interface IMaxLength extends IValidationBase {
     value: number
 }
 
-export interface IMinLength extends IValidationTextBase {
+export interface IMinLength extends IValidationBase {
     value: number
 }
 
-export interface IPattern extends IValidationTextBase {
+export interface IPattern extends IValidationBase {
     value: RegExp
-}
-
-export interface ICustomValidator extends IValidationTextBase {
-    custom: () => boolean | Promise<boolean>
 }
 
 export interface IValidationOptions {
@@ -113,7 +118,6 @@ export interface IValidationOptions {
     minLength?: IMinLength
     maxLength?: IMaxLength
     pattern?: IPattern
-    custom?: ICustomValidator
 }
 
 export const ValidationErrorsCodes = {

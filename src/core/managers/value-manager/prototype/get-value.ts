@@ -32,7 +32,7 @@ export function getValue(
             case 'date':
                 if (purposeType === 'validation') {
                     const dte = new DateObject()
-                    if (!dte) {
+                    if (!dte || value === null || value === undefined) {
                         return null
                     }
                     dte?.setFromString?.(value as string, conventions.dataTypes.date.formatDisplay)

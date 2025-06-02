@@ -16,8 +16,8 @@ import { maxValidationMock } from '@tests/mocks/max-validation-mock'
 import { minValidationMock } from '@tests/mocks/min-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
+import { BooleanConstraint } from './components/boolean-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
-import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
@@ -87,9 +87,13 @@ const ValidationDemoRangeSlider = () => {
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <FormsContentFrame
                         childrenRequired={
-                            <Required
+                            <BooleanConstraint
                                 validationOptions={validationOptions}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={fieldName}
+                                type={'required'}
+                                errorMessage={'This field is required'}
+                                guideMessage={'This field must be filled out.'}
                             />
                         }
                         childrenTriggerMode={

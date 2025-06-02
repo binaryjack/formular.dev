@@ -16,8 +16,8 @@ import { newDependencyConfiguration } from '@core/input-engine/core/configuratio
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { useEffect, useState } from 'react'
+import { BooleanConstraint } from './components/boolean-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
-import { Required } from './components/required'
 import { TriggerMode } from './components/trigger-mode'
 import { useDemoSettings } from './hooks/useDemoSettings'
 
@@ -82,9 +82,13 @@ const ValidationDemoCheckInput = () => {
                 <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
                     <FormsContentFrame
                         childrenRequired={
-                            <Required
-                                validationOptions={validationOptions}
+                            <BooleanConstraint
+                                validationOptions={instance?.input?.validationOptions ?? {}}
                                 handleValidationOptionChange={handleValidationOptionChange}
+                                fieldName={fieldName}
+                                type={'required'}
+                                errorMessage={'This field is required'}
+                                guideMessage={'This field must be filled out.'}
                             />
                         }
                         childrenTriggerMode={
