@@ -22,19 +22,6 @@ export const setValue = function (
 
         field.input.styleManager?.update('pristine', field.input.isPristine)
         field.input.styleManager?.update('dirty', field.input.isDirty)
-
-        // field.input?.notificationManager?.debounceNotify(
-        //     'onUiUpdate',
-        //     conventions.events.onUiUpdate.triggerDelay,
-        //     newEvent(
-        //         this.input.name,
-        //         setValue.name,
-        //         'onUiUpdate',
-        //         `field.option.label.${setValue.name}`,
-        //         field.input.name,
-        //         field as unknown as IExtendedInput
-        //     )
-        // )
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
     }

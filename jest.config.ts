@@ -20,12 +20,22 @@ const config: Config = {
     // An array of file extensions your modules use
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
     // The test environment that will be used for testing
-    testEnvironment: 'node',
+    testEnvironment: 'jsdom',
     injectGlobals: true,
-    // moduleNameMapper: {
-    //     '^@core/(.*)$': '<rootDir>/src/core/$1',
-    //     '^@components/(.*)$': '<rootDir>/src/components/$1'
-    // },
+    moduleNameMapper: {
+        '^@tests/(.*)$': '<rootDir>/src/__tests__/$1',
+        '^@mocks/(.*)$': '<rootDir>/src/__tests__/mocks/$1',
+        '^@core/(.*)$': '<rootDir>/src/core/$1',
+        '^@components/(.*)$': '<rootDir>/src/components/$1',
+        '^@fields/(.*)$': '<rootDir>/src/core/fields/$1',
+        '^@factory/(.*)$': '<rootDir>/src/core/field-engine/generator/factory/$1',
+        '^@framework/(.*)$': '<rootDir>/src/core/framework/$1',
+        '^@utility/(.*)$': '<rootDir>/src/core/framework/utility/$1',
+        '^@common/(.*)$': '<rootDir>/src/core/framework/common/$1',
+        '^@demo/(.*)$': '<rootDir>/src/demo/$1',
+        '^@patterns/(.*)$': '<rootDir>/src/patterns/$1',
+        '^@style/(.*)$': '<rootDir>/src/style/$1'
+    },
     // transform: {
     //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
     // },

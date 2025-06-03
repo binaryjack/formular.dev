@@ -32,19 +32,6 @@ export const clear = function (this: IValueManager, field: IExtendedInput | IInp
             discriminatedInput.styleManager?.update('valid', discriminatedInput.isValid)
             discriminatedInput.styleManager?.update('errors', !discriminatedInput.isValid)
         }
-
-        // discriminatedInput.notificationManager?.debounceNotify(
-        //     'onUiUpdate',
-        //     conventions.events.onUiUpdate.triggerDelay,
-        //     newEvent(
-        //         this.input.name,
-        //         clear.name,
-        //         'onUiUpdate',
-        //         'field.selected',
-        //         field.name,
-        //         field as IExtendedInput
-        //     )
-        // )
     } catch (e) {
         console.error(
             `CLEARING TYPE ${field?.input?.type ?? 'no type found'} in field: ${field?.input?.name ?? field?.name} `,

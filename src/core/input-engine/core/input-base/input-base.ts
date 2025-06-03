@@ -15,6 +15,8 @@ import { hasChanges } from './prototype/has-changes'
 import { initialize } from './prototype/intialize'
 import { initializeProperties } from './prototype/intialize-properties'
 
+import { conventions } from '@components/context/conventions/conventions'
+import { newEvent } from '@core/framework/events/new-event'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
@@ -41,6 +43,104 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
 
     this.validationResults = []
     this.initializeProperties(descriptor)
+
+    // Make 'value' observable and notify on change
+    let _value = this.value
+    Object.defineProperty(this, 'value', {
+        get() {
+            return _value
+        },
+        set(newValue) {
+            if (_value !== newValue) {
+                _value = newValue
+                // Notify observers about the change
+                // // Notify observers about the state change
+                this.notificationManager?.debounceNotify(
+                    'onUiUpdate',
+                    conventions.events.onUiUpdate.triggerDelay,
+                    newEvent(
+                        this.name,
+                        setInputBusy.name,
+                        'onUiUpdate',
+                        `field.${setInputBusy.name}.value`,
+                        this.name
+                    )
+                )
+            }
+        },
+        configurable: true,
+        enumerable: true
+    })
+    // let _busy = this.isBusy
+    // Object.defineProperty(this, 'isBusy', {
+    //     get() {
+    //         return _busy
+    //     },
+    //     set(newValue: boolean) {
+    //         if (_busy !== newValue) {
+    //             _busy = newValue
+    //             // Notify observers about the change
+    //             this.notificationManager?.debounceNotify(
+    //                 'onUiUpdate',
+    //                 conventions.events.onUiUpdate.triggerDelay,
+    //                 newEvent(
+    //                     this.name,
+    //                     setInputBusy.name,
+    //                     'onUiUpdate',
+    //                     `field.${setInputBusy.name}.isBusy`,
+    //                     this.name
+    //                 )
+    //             )
+    //         }
+    //     }
+    // })
+    let _focus = this.isFocus
+    Object.defineProperty(this, 'isFocus', {
+        get() {
+            return _focus
+        },
+        set(newValue: boolean) {
+            if (_focus !== newValue) {
+                _focus = newValue
+                // Notify observers about the change
+                this.notificationManager?.debounceNotify(
+                    'onUiUpdate',
+                    conventions.events.onUiUpdate.triggerDelay,
+                    newEvent(
+                        this.name,
+                        setInputBusy.name,
+                        'onUiUpdate',
+                        `field.${setInputBusy.name}.isFocus`,
+                        this.name
+                    )
+                )
+            }
+        }
+    })
+
+    let _valid = this.isValid
+    Object.defineProperty(this, 'isValid', {
+        get() {
+            return _valid
+        },
+        set(newValue: boolean) {
+            if (_valid !== newValue) {
+                _valid = newValue
+                // Notify observers about the change
+                this.notificationManager?.debounceNotify(
+                    'onUiUpdate',
+                    conventions.events.onUiUpdate.triggerDelay,
+                    newEvent(
+                        this.name,
+                        setInputBusy.name,
+                        'onUiUpdate',
+                        `field.${setInputBusy.name}.isValid`,
+                        this.name
+                    )
+                )
+            }
+        }
+    })
 } as any as IInputBase
 
 Object.assign(InputBase.prototype, {

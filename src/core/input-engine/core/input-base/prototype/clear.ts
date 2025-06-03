@@ -1,5 +1,3 @@
-import { conventions } from '@components/context/conventions/conventions'
-import { newEvent } from '@core/framework/events/new-event'
 import { IInput, IInputBase } from '../input-base.types'
 
 /**
@@ -17,24 +15,8 @@ import { IInput, IInputBase } from '../input-base.types'
  * @this IInput - The field input instance on which the method is called.
  */
 export const clear = function (this: IInputBase) {
-    /**need to be implemented in variants imputs */
-    // this.errors = []
-    // this.guides = []
     this.styleManager?.update('clear', true)
     this.valueManager.clear(this)
     this.domManager.dmClear()
     this.focus()
-
-    this?.notificationManager?.debounceNotify(
-        'onUiUpdate',
-        conventions.events.onUiUpdate.triggerDelay,
-        newEvent(
-            this?.name,
-            clear.name,
-            'onUiUpdate',
-            `field.label.${clear?.name}`,
-            this?.name,
-            this
-        )
-    )
 }

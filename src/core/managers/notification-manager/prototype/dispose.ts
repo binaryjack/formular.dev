@@ -18,4 +18,7 @@ export function dispose(this: INotificationManager) {
     // Clear existing observers and notifiers
     this.observers.unSubscribeAll(false)
     this.notifiers.clear()
+
+    // Set initialized state to false
+    this.isInitialized = false
 }

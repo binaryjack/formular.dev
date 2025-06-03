@@ -12,18 +12,6 @@ export const onClick = (f: IExtendedInput, e: Event) => {
         conventions.events.onUiUpdate.triggerDelay,
         newEvent(f.input.name, onClick.name, 'onClick', `field.${onClick.name}`, f.input.name, f)
     )
-    f.input?.notificationManager?.debounceNotify(
-        'onUiUpdate',
-        conventions.events.onUiUpdate.triggerDelay,
-        newEvent(
-            f.input.name,
-            onClick.name,
-            'onUiUpdate',
-            `field.option.label.${onClick.name}`,
-            f.input.name,
-            f
-        )
-    )
 
     e.stopPropagation()
 }
