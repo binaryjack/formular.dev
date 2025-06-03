@@ -53,55 +53,19 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
         set(newValue) {
             if (_value !== newValue) {
                 _value = newValue
-                // Notify observers about the change
-                // // Notify observers about the state change
-                this.notificationManager?.debounceNotify(
-                    'onUiUpdate',
-                    conventions.events.onUiUpdate.triggerDelay,
-                    newEvent(
-                        this.name,
-                        setInputBusy.name,
-                        'onUiUpdate',
-                        `field.${setInputBusy.name}.value`,
-                        this.name
+                if (this.validationManager?.validationTriggerModeType.includes('onchange')) {
+                    this.notificationManager?.debounceNotify(
+                        'onValidate',
+                        conventions.events.onUiUpdate.triggerDelay,
+                        newEvent(
+                            this.name,
+                            setInputBusy.name,
+                            'onValidate',
+                            `field.${setInputBusy.name}.isFocus`,
+                            this.name
+                        )
                     )
-                )
-            }
-        },
-        configurable: true,
-        enumerable: true
-    })
-    // let _busy = this.isBusy
-    // Object.defineProperty(this, 'isBusy', {
-    //     get() {
-    //         return _busy
-    //     },
-    //     set(newValue: boolean) {
-    //         if (_busy !== newValue) {
-    //             _busy = newValue
-    //             // Notify observers about the change
-    //             this.notificationManager?.debounceNotify(
-    //                 'onUiUpdate',
-    //                 conventions.events.onUiUpdate.triggerDelay,
-    //                 newEvent(
-    //                     this.name,
-    //                     setInputBusy.name,
-    //                     'onUiUpdate',
-    //                     `field.${setInputBusy.name}.isBusy`,
-    //                     this.name
-    //                 )
-    //             )
-    //         }
-    //     }
-    // })
-    let _focus = this.isFocus
-    Object.defineProperty(this, 'isFocus', {
-        get() {
-            return _focus
-        },
-        set(newValue: boolean) {
-            if (_focus !== newValue) {
-                _focus = newValue
+                }
                 // Notify observers about the change
                 this.notificationManager?.debounceNotify(
                     'onUiUpdate',
@@ -115,17 +79,33 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
                     )
                 )
             }
-        }
+        },
+        configurable: true,
+        enumerable: true
     })
 
-    let _valid = this.isValid
-    Object.defineProperty(this, 'isValid', {
+    let _focus = this.isFocus
+    Object.defineProperty(this, 'isFocus', {
         get() {
-            return _valid
+            return _focus
         },
         set(newValue: boolean) {
-            if (_valid !== newValue) {
-                _valid = newValue
+            if (_focus !== newValue) {
+                _focus = newValue
+
+                if (this.validationManager?.validationTriggerModeType.includes('onChange')) {
+                    this.notificationManager?.debounceNotify(
+                        'onValidate',
+                        conventions.events.onUiUpdate.triggerDelay,
+                        newEvent(
+                            this.name,
+                            setInputBusy.name,
+                            'onValidate',
+                            `field.${setInputBusy.name}.isFocus`,
+                            this.name
+                        )
+                    )
+                }
                 // Notify observers about the change
                 this.notificationManager?.debounceNotify(
                     'onUiUpdate',
@@ -134,7 +114,7 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
                         this.name,
                         setInputBusy.name,
                         'onUiUpdate',
-                        `field.${setInputBusy.name}.isValid`,
+                        `field.${setInputBusy.name}.isFocus`,
                         this.name
                     )
                 )

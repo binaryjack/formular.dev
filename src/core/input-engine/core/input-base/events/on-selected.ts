@@ -1,5 +1,3 @@
-import { conventions } from '@components/context/conventions/conventions'
-import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
 export const onSelected = (f: IExtendedInput, e: Event) => {
@@ -10,18 +8,18 @@ export const onSelected = (f: IExtendedInput, e: Event) => {
 
     // e.preventDefault()
 
-    f?.input.notificationManager?.debounceNotify(
-        'onSelect',
-        conventions.events.onSelect.triggerDelay,
-        newEvent(
-            f.input.name,
-            onSelected.name,
-            'onSelect',
-            `field.${onSelected.name}`,
-            f.input.name,
-            f
-        )
-    )
+    // f?.input.notificationManager?.debounceNotify(
+    //     'onSelect',
+    //     conventions.events.onSelect.triggerDelay,
+    //     newEvent(
+    //         f.input.name,
+    //         onSelected.name,
+    //         'onSelect',
+    //         `field.${onSelected.name}`,
+    //         f.input.name,
+    //         f
+    //     )
+    // )
 
     e.stopPropagation()
 }
