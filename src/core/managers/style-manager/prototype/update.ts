@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import {
     InputClassStatesNamesType,
     InputClassStatesValuesEnum
@@ -19,6 +20,8 @@ export function update(
     const classValue = getClass(className, state)
 
     this.classesList.set(className, classValue as InputClassStatesValuesEnum)
-    if (!this.input?.isInitialized || !this.input.notificationManager.isInitialized) return
-    this.input.notificationManager.observers.trigger()
+    if (!this.input?.isInitialized || !this.input?.notificationManager?.isInitialized) return
+    this.input?.notificationManager?.observers?.debounceTrigger(
+        conventions.events.observables.triggerDelay
+    )
 }

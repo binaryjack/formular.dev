@@ -10,12 +10,14 @@ import { tryConvertStringToDateObject } from '@core/framework/converters/try-con
 import { isNDate } from '@core/framework/utility/is-n-date'
 import { isNullEmptyOrUndefined } from '@core/framework/utility/is-null-empty-or-undefined'
 
+import { logManager } from '@core/managers/log-manager/log-manager'
 import { TGetter, TSetter } from '../value-manager.types'
 
 export const dateGetter: TGetter<string | null> = (exfield: IExtendedInput): string | null => {
     if (!isNullEmptyOrUndefined(exfield.input.objectValue)) {
         if (isNDate(exfield.input.objectValue)) {
             const value = tryConvertINDateToDateObject(exfield.input.objectValue)
+
             if (value instanceof DateObject) {
                 return value.toString?.(conventions.dataTypes.date.formatDisplay) ?? null
             }
@@ -28,21 +30,34 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
     exfield: IExtendedInput,
     value: any
 ) {
-    if (typeof value === 'string' && value.length === 10) {
-        value = tryConvertStringToDateObject(value)
-    }
-    if (isNDate(value)) {
-        value = tryConvertINDateToDateObject(value)
-    }
+    try {
+        if (typeof value === 'string' && value.length === 10) {
+            value = tryConvertStringToDateObject(value)
+        }
+        if (isNDate(value)) {
+            value = tryConvertINDateToDateObject(value)
+        }
 
-    if (value instanceof DateObject) {
-        const dateString = value.toString?.(conventions.dataTypes.date.formatDisplay) ?? null
+        if (value instanceof DateObject) {
+            const dateString = value.toString?.(conventions.dataTypes.date.formatDisplay) ?? null
 
-        exfield.input.domManager.dmSetValue(exfield.input.id.toString(), dateString)
-        exfield.input.value = dateString
-        exfield.input.objectValue = value?.toINDate?.() ?? null
-    } else {
-        exfield.input.domManager.dmSetValue(exfield.input.id.toString(), value)
-        exfield.input.value = value
+            exfield.input.domManager.dmSetValue(exfield.input.id.toString(), dateString)
+            exfield.input.value = dateString
+            exfield.input.objectValue = value?.toINDate?.() ?? null
+        } else {
+            exfield.input.domManager.dmSetValue(exfield.input.id.toString(), value)
+            exfield.input.value = value
+            /** keep this object value to null until we have a correct date */
+            exfield.input.objectValue = null
+        }
+    } catch (e: any) {
+        logManager(
+            undefined,
+            'error',
+            `Error setting date value for field ${exfield.input.name}: ${e.message}`,
+            'dateSetter'
+        )
+        exfield.input.value = null
+        exfield.input.objectValue = null
     }
 }

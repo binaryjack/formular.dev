@@ -26,32 +26,35 @@ export const conventions = {
         validationDataToken2: '|data2|'
     },
     validations: {
-        triggerDelay: 10
+        triggerDelay: 500
     },
     events: {
         onChange: {
-            triggerDelay: 400
+            triggerDelay: 500
         },
         onClick: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onSelect: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onFocus: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onBlur: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onKeyDown: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onKeyUp: {
-            triggerDelay: 200
+            triggerDelay: 500
         },
         onUiUpdate: {
-            triggerDelay: 5
+            triggerDelay: 200
+        },
+        observables: {
+            triggerDelay: 200
         }
     },
     dataTypes: {

@@ -7,5 +7,5 @@ import { IFormular } from '../formular-base.types'
  * @param callback - The callback to execute if changes are detected.
  */
 export const hasChanges = function <T extends object>(this: IFormular<T>, callback: () => void) {
-    this.observers.subscribe(callback.bind(this))
+    this.observers.subscribe(callback.bind(this), false)
 }

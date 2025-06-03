@@ -19,7 +19,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
                 acc[field.input.name] = {
                     value: field.input.value,
                     defaultValue: field.input.defaultValue,
-                    isValid: field.input.validationResults?.length === 0,
+                    isValid: field.input.isValid,
                     isDirty: field.input.isDirty,
                     isFocused: field.input.isFocus,
                     validationErrors: field.input.validationResults?.map((v) => v.error) || [],
@@ -40,37 +40,37 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
 
         // Subscribe to all field changes
         const allNotifications = formular.fields.flatMap((field) => [
-            notification(
-                field,
-                updateDebugData,
-                'onValueChange',
-                'debug.onValueChange',
-                'FormDebug'
-            ),
+            // notification(
+            //     field,
+            //     updateDebugData,
+            //     'onValueChange',
+            //     'debug.onValueChange',
+            //     'FormDebug'
+            // ),
             notification(field, updateDebugData, 'onUiUpdate', 'debug.onUiUpdate', 'FormDebug'),
-            notification(
-                field,
-                updateDebugData,
-                'onValidationChange',
-                'debug.onValidationChange',
-                'FormDebug'
-            ),
+            // notification(
+            //     field,
+            //     updateDebugData,
+            //     'onValidationChange',
+            //     'debug.onValidationChange',
+            //     'FormDebug'
+            // ),
             notification(field, updateDebugData, 'onFocus', 'debug.onFocus', 'FormDebug'),
             notification(field, updateDebugData, 'onBlur', 'debug.onBlur', 'FormDebug')
         ])
 
         // Also subscribe to form-level changes
-        if (formular.notificationManager) {
-            allNotifications.push(
-                notification(
-                    formular,
-                    updateDebugData,
-                    'onUiUpdate',
-                    'debug.form.onUiUpdate',
-                    'FormDebug'
-                )
-            )
-        }
+        // if (formular.notificationManager) {
+        //     allNotifications.push(
+        //         notification(
+        //             formular,
+        //             updateDebugData,
+        //             'onUiUpdate',
+        //             'debug.form.onUiUpdate',
+        //             'FormDebug'
+        //         )
+        //     )
+        // }
 
         allNotifications.forEach((notif) => {
             formular.notificationManager?.accept(notif)

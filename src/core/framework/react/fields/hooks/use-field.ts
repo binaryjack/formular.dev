@@ -30,7 +30,7 @@ export const useField = <T extends IExtendedInput | IInputBase>(
     const handleRefresh = useCallback(() => {
         const newFlags = stableField?.input.styleManager?.getFlagsObject?.()
         const newValue = stableField?.input?.value
-
+        console.log('useField handleRefresh triggered for field:', stableField?.input?.name)
         // More efficient comparison for boolean flags
         const flagsChanged =
             newFlags &&
@@ -71,20 +71,20 @@ export const useField = <T extends IExtendedInput | IInputBase>(
                 'useField.onUiUpdate',
                 'useField'
             ),
-            notification(
-                stableField,
-                handleRefresh,
-                'onValueChange',
-                'useField.onValueChange',
-                'useField'
-            ),
-            notification(
-                stableField,
-                handleRefresh,
-                'onValidationChange',
-                'useField.onValidationChange',
-                'useField'
-            ),
+            // notification(
+            //     stableField,
+            //     handleRefresh,
+            //     'onValueChange',
+            //     'useField.onValueChange',
+            //     'useField'
+            // ),
+            // notification(
+            //     stableField,
+            //     handleRefresh,
+            //     'onValidationChange',
+            //     'useField.onValidationChange',
+            //     'useField'
+            // ),
             notification(stableField, handleRefresh, 'onFocus', 'useField.onFocus', 'useField'),
             notification(stableField, handleRefresh, 'onBlur', 'useField.onBlur', 'useField')
         ]

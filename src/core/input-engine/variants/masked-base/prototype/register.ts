@@ -2,12 +2,11 @@
  * The register function is used to register the event handlers for the field input.
  */
 
-import { conventions } from '@components/context/conventions/conventions'
+import { computeAriaAttributes } from '@core/framework/optimization/compute-aria-attributes'
 import {
     DomRegisterBuilder,
     ICustomHandler
 } from '@core/input-engine/core/abstract/dom-registers-builder'
-import { aria } from '@core/input-engine/core/accessibility/arias'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IMaskedBaseInput } from '../masked-base-input.types'
 import { onChange } from './on-change'
@@ -55,27 +54,12 @@ import { onKeyUp } from './on-key-up'
  * />
  * ```
  */
+
 export const register = function <FieldValuesTypes>(
     this: IExtendedInput,
     ...customHandlers: ICustomHandler[]
 ): Partial<HTMLInputElement> {
-    const lableId = `${this.input.id}${conventions.suffix.labelId}`
-    const describedbyId = `${this.input.id}${conventions.suffix.describedById}`
-
-    const arias = [
-        aria('labelledby', lableId),
-        aria('describedby', describedbyId),
-        aria('name', this.input.name),
-        aria('label', this.input.name),
-        aria('required', this.input.validationOptions?.required?.value ? 'true' : 'false'),
-        aria('invalid', this.input.isValid ? 'false' : 'true'),
-        aria('disabled', this.input.enabled ? 'false' : 'true'),
-        aria('readonly', 'false'),
-        aria('autocomplete', 'none'),
-        aria('haspopup', 'false'),
-        aria('expanded', 'false'),
-        aria('activedescendant', 'false')
-    ]
+    const arias = computeAriaAttributes(this)
 
     return new DomRegisterBuilder(this)
         .registerChange(onChange.bind(this as unknown as IMaskedBaseInput))

@@ -5,9 +5,19 @@ import { IObservableSubject, TObservableFunction } from '../observable-subject.t
  *
  * @param fns - The observer functions to remove.
  */
-export function unSubscribe<T = any>(this: IObservableSubject, fn: TObservableFunction<T>) {
-    this.observers = [
-        ...this.observers.filter((o: WeakRef<observableFunction>) => o.deref() !== fn)
-    ]
-    this.cleanupRegistry.unregister(fn)
+export function unSubscribe<T = any>(
+    this: IObservableSubject,
+    fn: TObservableFunction<T>,
+    forWeak: boolean
+) {
+    if (forWeak) {
+        this.observersWeak = [
+            ...this.observersWeak.filter((o: WeakRef<observableFunction>) => o.deref() !== fn)
+        ]
+        this.cleanupRegistry.unregister(fn)
+    } else {
+        this.observersStrong = [
+            ...this.observersStrong.filter((o: TObservableFunction<T>) => o !== fn)
+        ]
+    }
 }

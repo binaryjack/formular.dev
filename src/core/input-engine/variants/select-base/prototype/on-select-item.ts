@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -22,12 +23,13 @@ export const onSelectItem = function (this: IExtendedInput, option: IOptionItem)
     this.input.valueManager.setValue(this, option.value)
     if (this.input?.drawer) this.input.drawer!.openState = 'closed'
 
-    this.input.notificationManager?.notify(
-        'onValueChange',
+    this.input.notificationManager?.debounceNotify(
+        'onUiUpdate',
+        conventions.events.onUiUpdate.triggerDelay,
         newEvent(
             this.input.name,
             onSelectItem.name,
-            'onValueChange',
+            'onUiUpdate',
             'field.selected',
             this.input.name,
             this as unknown as IExtendedInput

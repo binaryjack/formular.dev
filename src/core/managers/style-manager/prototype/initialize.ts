@@ -16,8 +16,8 @@ export const initialize = async function (
 ) {
     try {
         const success = await abstractInitializer(this.input, (e) => {
-            e?.notificationManager?.observers.subscribe(this.classNames.bind(this))
-            e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this))
+            e?.notificationManager?.observers.subscribe(this.classNames.bind(this), false)
+            e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this), false)
 
             e.styleManager.className = ''
             e.styleManager.classesList = new Map<

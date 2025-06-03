@@ -107,7 +107,7 @@ export const Signals = (function () {
             if (this.id !== parentName && !computedSignal.parent) {
                 const parentSignal = instances.get(parentName)
                 computedSignal.parent = parentSignal
-                parentSignal?.observer.subscribe(this.computed.bind(this))
+                parentSignal?.observer.subscribe(this.computed.bind(this), false)
             }
 
             const traceData = JSON.stringify(value)

@@ -21,6 +21,7 @@ import { minValidationMock } from '@tests/mocks/min-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 
+import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { BooleanConstraint } from './components/boolean-constraint'
 import { DateConstraint } from './components/date-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
@@ -42,7 +43,8 @@ const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
     .setConstraints<any>([
         requiredDataValidationMock(fieldName, true),
         minValidationMock(fieldName, new Date('2023-01-01').getTime()),
-        maxValidationMock(fieldName, new Date('2025-12-31').getTime())
+        maxValidationMock(fieldName, new Date('2025-12-31').getTime()),
+        minLengthValidationMock(fieldName, 10)
     ])
     .build()
 

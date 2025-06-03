@@ -16,6 +16,6 @@ export function dispose(this: INotificationManager) {
     this.isBatchScheduled = false
 
     // Clear existing observers and notifiers
-    this.observers.unSubscribeAll()
+    this.observers.unSubscribeAll(false)
     this.notifiers.clear()
 }

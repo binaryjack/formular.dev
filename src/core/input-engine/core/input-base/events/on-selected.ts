@@ -1,7 +1,8 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
-export const onBlur = (f: IExtendedInput, e: Event) => {
+export const onSelected = (f: IExtendedInput, e: Event) => {
     const inputElement = e.target as HTMLInputElement
 
     f.input.isFocus = false
@@ -9,9 +10,17 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
 
     // e.preventDefault()
 
-    f?.input.notificationManager?.notify(
-        'onBlur',
-        newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
+    f?.input.notificationManager?.debounceNotify(
+        'onSelect',
+        conventions.events.onSelect.triggerDelay,
+        newEvent(
+            f.input.name,
+            onSelected.name,
+            'onSelect',
+            `field.${onSelected.name}`,
+            f.input.name,
+            f
+        )
     )
 
     e.stopPropagation()

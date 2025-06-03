@@ -7,13 +7,16 @@ export function trigger<T = any>(this: IObservableSubject) {
     // this.observers.forEach((o: WeakRef<observableFunction>) => {
     //     o.deref?.()?.call(this)
     // })
+    this.observersStrong.forEach((obs) => {
+        if (obs) {
+            obs?.call(this)
+        }
+    })
 
-    this.observers = this.observers.filter((ref) => {
+    this.observersWeak.forEach((ref) => {
         const obs = ref.deref()
         if (obs) {
             obs?.call(this)
-            return true
         }
-        return false
     })
 }

@@ -63,7 +63,9 @@ export enum EventsEnum {
 
     onValidationChange = 'onValidationChange',
 
-    onBusyStateChange = 'onBusyStateChange'
+    onBusyStateChange = 'onBusyStateChange',
+
+    onObserve = 'onObserve'
 }
 
 /** if no rule is applied the the field is never validated */

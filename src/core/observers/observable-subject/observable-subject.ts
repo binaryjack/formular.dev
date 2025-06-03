@@ -1,4 +1,5 @@
 import { IObservableSubject } from './observable-subject.types'
+import { debounceTrigger } from './prototype/debounce-trigger'
 import { subscribe } from './prototype/subscribe'
 import { trigger } from './prototype/trigger'
 import { unSubscribe } from './prototype/unsubscribe'
@@ -21,11 +22,12 @@ import { unSubscribeAll } from './prototype/unsubscribe-all'
  * ```
  */
 export const ObservableSubject = function (this: IObservableSubject) {
-    this.observers = []
+    this.observersWeak = []
+    this.observersStrong = []
 
     this.cleanupRegistry = new FinalizationRegistry((ref) => {
         // Remove the observer ref from the list when GC'd
-        this.observers = this.observers.filter((item) => item !== ref)
+        this.observersWeak = this.observersWeak?.filter?.((item) => item !== ref)
     })
 } as any as IObservableSubject
 
@@ -33,5 +35,6 @@ Object.assign(ObservableSubject.prototype, {
     subscribe,
     unSubscribe,
     unSubscribeAll,
-    trigger
+    trigger,
+    debounceTrigger
 })

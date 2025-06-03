@@ -1,6 +1,5 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 
-import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
@@ -24,17 +23,18 @@ export const setValue = function (
         field.input.styleManager?.update('pristine', field.input.isPristine)
         field.input.styleManager?.update('dirty', field.input.isDirty)
 
-        field.input?.notificationManager?.notify(
-            'onValueChange',
-            newEvent(
-                this.input.name,
-                setValue.name,
-                'onValueChange',
-                `field.option.label.${setValue.name}`,
-                field.input.name,
-                field as unknown as IExtendedInput
-            )
-        )
+        // field.input?.notificationManager?.debounceNotify(
+        //     'onUiUpdate',
+        //     conventions.events.onUiUpdate.triggerDelay,
+        //     newEvent(
+        //         this.input.name,
+        //         setValue.name,
+        //         'onUiUpdate',
+        //         `field.option.label.${setValue.name}`,
+        //         field.input.name,
+        //         field as unknown as IExtendedInput
+        //     )
+        // )
     } catch (e) {
         console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
     }

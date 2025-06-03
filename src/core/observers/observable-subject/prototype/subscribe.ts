@@ -5,11 +5,30 @@ import { IObservableSubject, TObservableFunction } from '../observable-subject.t
  *
  * @param fns - The observer functions to add.
  */
-export function subscribe<T = any>(this: IObservableSubject<T>, obs: TObservableFunction<T>) {
-    if (this.observers.find((o: WeakRef<observableFunction>) => obs.name.toString() === obs.name))
-        return
+export function subscribe<T = any>(
+    this: IObservableSubject<T>,
+    obs: TObservableFunction<T>,
+    useWeak: boolean = false
+) {
+    if (useWeak) {
+        if (
+            this.observersWeak.find(
+                (o: WeakRef<observableFunction>) => obs.name.toString() === obs.name
+            )
+        )
+            return
 
-    const ref = new WeakRef(obs)
-    this.observers.push(ref)
-    this.cleanupRegistry.register(obs, ref)
+        const ref = new WeakRef(obs)
+        this.observersWeak.push(ref)
+        this.cleanupRegistry.register(obs, ref)
+    } else {
+        if (
+            this.observersStrong.find(
+                (o: TObservableFunction<T>) => obs.name.toString() === obs.name
+            )
+        )
+            return
+
+        this.observersStrong.push(obs)
+    }
 }

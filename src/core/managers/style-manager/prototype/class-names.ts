@@ -13,6 +13,9 @@ import { IStyleManager } from '../style-manager.types'
 
 export const classNames = function (this: IStyleManager) {
     const ele = this.input?.domManager?.dmGet(this.input.id.toString())
+    if (!ele) return
+
+    console.log('-----classNames', this.input.id, ele)
     const userClassName = ele?.attributes.getNamedItem('data-class')?.value
 
     const flags: string[] = []

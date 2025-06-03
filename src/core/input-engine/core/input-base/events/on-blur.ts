@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
@@ -7,8 +8,9 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
     f.input.isFocus = false
     f.input.styleManager?.update('focus', f.input.isFocus)
 
-    f?.input.notificationManager?.notify(
+    f?.input.notificationManager?.debounceNotify(
         'onBlur',
+        conventions.events.onBlur.triggerDelay,
         newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
     )
 

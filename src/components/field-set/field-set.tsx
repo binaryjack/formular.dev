@@ -47,6 +47,8 @@ const FieldSet = <TType,>({
     const { scrollPosition, elementRef, elementPositionRefs, toggle } =
         useCenterElementTrigger<HTMLFieldSetElement>()
 
+    console.log('FieldSet rendered with flags:', flags)
+
     return (
         <fieldset
             ref={elementRef}

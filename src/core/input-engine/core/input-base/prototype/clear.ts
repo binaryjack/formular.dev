@@ -1,3 +1,4 @@
+import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IInput, IInputBase } from '../input-base.types'
 
@@ -24,12 +25,13 @@ export const clear = function (this: IInputBase) {
     this.domManager.dmClear()
     this.focus()
 
-    this?.notificationManager?.notify(
-        'onValueChange',
+    this?.notificationManager?.debounceNotify(
+        'onUiUpdate',
+        conventions.events.onUiUpdate.triggerDelay,
         newEvent(
             this?.name,
             clear.name,
-            'onValueChange',
+            'onUiUpdate',
             `field.label.${clear?.name}`,
             this?.name,
             this

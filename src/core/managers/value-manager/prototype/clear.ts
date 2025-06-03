@@ -1,4 +1,3 @@
-import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValidationResult } from '@core/managers/validation-manager/validation-manager.types'
 import { IValueManager } from '../value-manager.types'
@@ -34,17 +33,18 @@ export const clear = function (this: IValueManager, field: IExtendedInput | IInp
             discriminatedInput.styleManager?.update('errors', !discriminatedInput.isValid)
         }
 
-        discriminatedInput.notificationManager?.notify(
-            'onValueChange',
-            newEvent(
-                this.input.name,
-                clear.name,
-                'onValueChange',
-                'field.selected',
-                field.name,
-                field as IExtendedInput
-            )
-        )
+        // discriminatedInput.notificationManager?.debounceNotify(
+        //     'onUiUpdate',
+        //     conventions.events.onUiUpdate.triggerDelay,
+        //     newEvent(
+        //         this.input.name,
+        //         clear.name,
+        //         'onUiUpdate',
+        //         'field.selected',
+        //         field.name,
+        //         field as IExtendedInput
+        //     )
+        // )
     } catch (e) {
         console.error(
             `CLEARING TYPE ${field?.input?.type ?? 'no type found'} in field: ${field?.input?.name ?? field?.name} `,

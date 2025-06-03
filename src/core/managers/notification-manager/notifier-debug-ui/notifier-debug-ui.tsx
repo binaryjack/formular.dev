@@ -56,7 +56,7 @@ export const NotifierDebugUi = ({ internalNotifierInstance }: INotifierDebugUi) 
         )
 
         return () => {
-            notifierInstance.dispose()
+            // notifierInstance.dispose()
         }
     }, [notifierInstance, logs])
 
