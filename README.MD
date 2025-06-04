@@ -382,7 +382,7 @@ The following areas are ready for community contributions:
 - **Performance Optimizations**: Further optimize validation performance and memory usage.
 - **Developer Tools**: Create debugging tools and development utilities.
 
-## Are you interested ? drop me few lines and let's get in touch!
+## Are you interested ? drop me few lines and let's see how we can collaborate !
 
 ## Roadmap
 
