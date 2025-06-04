@@ -388,9 +388,10 @@ The following areas are ready for community contributions:
 
 - **Version 1.0** ✅ **COMPLETED**:
 
+    - Dependency Free for the Core Features ✅
     - Core form and field mechanics ✅
     - Basic validation strategies ✅
-    - React integration and components ✅
+    - React integration and basic components ✅
     - Country-specific validation system ✅
     - Switzerland-focused validation (NPA, AHV) ✅
     - Multi-country validation support ✅
@@ -418,12 +419,14 @@ The following areas are ready for community contributions:
     - Extended country support
     - Form state persistence
 
-- **Version 3.0** 📋 **PLANNED**:
+- **Backlog** 🧠 **In Brainstorming**:
+
     - Full-featured website with documentation and live examples
     - Community-driven plugins and extensions
     - Visual form builder
     - Advanced conditional validation
     - Real-time collaboration features
+    - More advanced Framework/Libs targeted Components.
 
 ---
 
