@@ -398,13 +398,13 @@ The following areas are ready for community contributions:
 
 - **Version 1.1** 🚧 **IN PROGRESS** :
 
-    - Replacing currently used configuration tool by IoC 🚧
+    - Replacing currently used configuration tool by IoC
 
         - implementing IoC Service Manager for better dependency management
 
-    - update obsolete docs 🚧
+    - update obsolete docs
 
-- **Version 2.0** 🚧 **PLANNED**:
+- **Version 2.0** 📋 **PLANNED**:
 
     - Open to contributors!
     - Enhanced debugging and developer tools
@@ -434,3 +434,5 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ---
 
 For more information, visit [https://formular.dev/](https://formular.dev/).
+
+- note that he's planned in version 3 of the current project!
