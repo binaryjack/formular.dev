@@ -360,7 +360,9 @@ const multiCountryPhone = Validators.phoneMultiCountry(['CH', 'DE', 'AT'], 'phon
 
 ## Contributing
 
-We welcome contributions to FORMULAR! The core module is now stable and ready for community contributions. Here's how you can get involved:
+We welcome contributions to FORMULAR as soon as we stabilize the injection dependency core manager.
+
+How you can get involved in contributing to this project in the future ?
 
 1. **Fork the Repository**: Start by forking the repository on GitHub.
 2. **Explore the Codebase**: Familiarize yourself with the project structure and mechanics.
@@ -380,7 +382,7 @@ The following areas are ready for community contributions:
 - **Performance Optimizations**: Further optimize validation performance and memory usage.
 - **Developer Tools**: Create debugging tools and development utilities.
 
----
+## Are you interested ? drop me few lines and let's get in touch!
 
 ## Roadmap
 
@@ -394,10 +396,23 @@ The following areas are ready for community contributions:
     - Multi-country validation support ✅
     - Comprehensive validator library (20+ validators) ✅
 
-- **Version 2.0** 🚧 **IN PROGRESS**:
+- **Version 1.1** 🚧 **IN PROGRESS** :
 
+    - Replacing currently used configuration tool by IoC 🚧
+
+        - implementing IoC Service Manager for better dependency management
+
+    - update obsolete docs 🚧
+
+- **Version 2.0** 🚧 **PLANNED**:
+
+    - Open to contributors!
     - Enhanced debugging and developer tools
+        - Currently Some components are available for React
+        - I plant to decline them as a extension for Browers.
+    - Enhance Documentation Base
     - Framework adapters for Angular and Vue.js
+    - Custom Validators Strategy
     - Advanced form lifecycle management
     - Performance optimizations
     - Extended country support
