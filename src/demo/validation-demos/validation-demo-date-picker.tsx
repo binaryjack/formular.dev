@@ -3,16 +3,7 @@ import FormularForm from '@components/formular-form/formular-form'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
 
-import {
-    defaultInitializationDependencies,
-    defaultInitializationParameters
-} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-
-import { FormularManager } from '@core/managers/formular-manager/formular-manager'
-import { lifeCylceInstances } from '@demo/common/common-instances'
-
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
 import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
@@ -21,6 +12,11 @@ import { minValidationMock } from '@tests/mocks/min-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 
+import { useService } from '@core/framework/react/services/use-service'
+import {
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
 import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { BooleanConstraint } from './components/boolean-constraint'
 import { DateConstraint } from './components/date-constraint'
@@ -34,11 +30,6 @@ interface ISubmitObject {
     dateValue: string
 }
 
-const formularManager = new FormularManager(
-    lifeCylceInstances.notificationManager,
-    lifeCylceInstances.autoTracker
-)
-
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
     .setConstraints<any>([
         requiredDataValidationMock(fieldName, true),
@@ -50,22 +41,21 @@ const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
 
 const optionsMocks: IOptionItem[] = []
 
-const config = newDependencyConfiguration(
-    fileDescriptorMock(
+const ValidationDemoDatePicker = () => {
+    const { getService } = useService()
+    const formularManager = getService<IFormularManager<ISubmitObject>>(SFormularManager)
+
+    const descriptor = fileDescriptorMock(
         fieldName,
         'Date Picker',
         'date',
         validationOptionsMock,
         optionsMocks,
         '##/##/####'
-    ),
-    defaultInitializationParameters,
-    defaultInitializationDependencies
-)
+    )
 
-const ValidationDemoDatePicker = () => {
-    const formular = formularManager.createfromConfiguration('validation-demo-date-picker-form', [
-        config
+    const formular = formularManager?.createFromDescriptors('validation-demo-date-picker-form', [
+        descriptor
     ]) as IFormular<ISubmitObject>
 
     const { instance } = useField(formular.fields[0])
@@ -75,7 +65,7 @@ const ValidationDemoDatePicker = () => {
         submissionObject,
         setSubmissionObject,
         validationOptions,
-        validationTriggerMode,
+        triggerKeyWord,
         handleTriggerModeChange,
         handleValidationOptionChange
     } = useDemoSettings<ISubmitObject>(
@@ -91,7 +81,7 @@ const ValidationDemoDatePicker = () => {
     )
 
     useEffect(() => {
-        formular.setValidationTriggerMode(validationTriggerMode)
+        formular.setTriggerKeyWord(triggerKeyWord)
         setInternalForm(formular)
     }, [])
 
@@ -139,7 +129,7 @@ const ValidationDemoDatePicker = () => {
                         }
                         childrenTriggerMode={
                             <TriggerMode
-                                validationTriggerMode={validationTriggerMode}
+                                triggerKeyWord={triggerKeyWord}
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }

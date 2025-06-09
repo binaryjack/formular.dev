@@ -4,6 +4,8 @@ import {
 } from '@core/framework/common/common.input.state.types'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
+export const SStyleManager = Symbol.for('IStyleManager')
+
 export const defaultFieldInputCSSClassName = 'f-input'
 
 export interface IFieldStateFlags {

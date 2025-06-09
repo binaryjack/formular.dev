@@ -16,7 +16,7 @@ export const setValueFromHtmlElement = function (
         }
     } catch (e) {
         console.error(
-            `setValueFromHtmlElement ERROR IN PARSING ${this.input.type} in field: ${this.input.name} `,
+            `setValueFromHtmlElement ERROR IN PARSING ${field.input.type} in field: ${field.input.name} `,
             e
         )
     }

@@ -1,5 +1,3 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { ICheckBoxBaseInput } from '../check-box-base-input.types'
@@ -8,10 +6,7 @@ import { ICheckBoxBaseInput } from '../check-box-base-input.types'
  * The setup function sets up the field input by subscribing to observers.
  * basic configuration for styles and validation
  */
-export const initialize = async function (
-    this: ICheckBoxBaseInput,
-    params: IFieldInitializationParameters
-) {
+export const initialize = async function (this: ICheckBoxBaseInput) {
     try {
         const success = await abstractInitializer(
             this.input,

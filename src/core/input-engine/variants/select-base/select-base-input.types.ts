@@ -6,6 +6,8 @@ import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-bas
 import { IClickBaseInput } from '../click-base/click-base-input.types'
 import { IOptionBaseInput } from '../option-based/option-base-input.types'
 
+export const SSelectBaseInput = Symbol.for('ISelectBaseInput')
+
 export interface ISelectBaseInputProperties {
     optionBase: IOptionBaseInput
     clickBase: IClickBaseInput

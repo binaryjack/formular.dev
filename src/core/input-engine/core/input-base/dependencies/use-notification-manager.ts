@@ -7,17 +7,6 @@ export const useNotificationManager = function (
     notifierInstance: INotificationManager
 ): IInputBase {
     try {
-        // if (!this.name) {
-        //     throw Error('properties must be initialized')
-        // }
-        // if (!this?.tracker) {
-        //     throw Error('tracker must be initialized')
-        // }
-
-        // if (!notifierInstance) {
-        //     throw Error('notifierInstance must be initialized globaly.')
-        // }
-
         this.notificationManager = notifierInstance
         return this
     } catch (e: any) {

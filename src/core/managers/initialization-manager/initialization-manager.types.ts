@@ -1,4 +1,4 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
+import { IConfiguration } from 'src/environment/provider/configuration/i-configuration'
 
 export interface IInitializableDependency {
     /*Discriminator Property*/
@@ -6,5 +6,5 @@ export interface IInitializableDependency {
     /** says if the dependency has been initialized */
     isInitialized: boolean
     /** initializes the dependency */
-    initialize: (params: IFieldInitializationParameters) => void
+    initialize: (params: IConfiguration) => void
 }

@@ -37,6 +37,8 @@ import {
 } from '@core/managers/value-manager/value-manager.types'
 import { IInitilizationCheckResult } from './prototype/check-initialized'
 
+export const SInput = Symbol.for('IInput')
+
 /**
  * Should be the root base of a field's properties
  */
@@ -100,18 +102,27 @@ export type SchemeToDescriptorConverterType = (scheme: IEntityScheme) => IFieldD
 export type IInput = IInputBase & Omit<IFieldDescriptor, 'validationOptions' | 'options'>
 
 export interface IInputBase extends IInputProperties, IInitializableDependency {
-    new (descriptor: IFieldDescriptor): IInputBase
+    new (
+        descriptor: IFieldDescriptor | null,
+        domManagerInstance: IDomManager<HTMLInputElement> | null,
+        notifierInstance: INotificationManager | null,
+        trackerInstance: ITrackingManager | null,
+        validationManagerInstance: IValidationManager | null,
+        valueManagerInstance: IValueManager | null,
+        drawerBase: IDrawerBaseInput | null,
+        styleManager: IStyleManager | null
+    ): IInputBase
 
     /** initializer builders */
     initializeProperties: (descriptor: IFieldDescriptor) => void
     checkInitialized: () => IInitilizationCheckResult
-    useDomManager: (DomManagerInstance?: IDomManager<HTMLInputElement>) => IInputBase
+    useDomManager: (domManagerInstance: IDomManager<HTMLInputElement>) => IInputBase
     useNotificationManager: (notifierInstance?: INotificationManager) => IInputBase
-    useTrackingManager: (trackerInstance?: ITrackingManager) => IInputBase
-    useValidationManager: (validationStrategyInstance?: IValidationManager) => IInputBase
-    useValueManager: (valueStrategyInstance?: IValueManager) => IInputBase
-    useDrawerManager: (drawerableInstance?: IDrawerBaseInput) => IInputBase
-    useStyleManager: (stylerInstance?: IStyleManager) => IInputBase
+    useTrackingManager: (trackerInstance: ITrackingManager) => IInputBase
+    useValidationManager: (validationStrategyInstance: IValidationManager) => IInputBase
+    useValueManager: (valueStrategyInstance: IValueManager) => IInputBase
+    useDrawerManager: (drawerBase: IDrawerBaseInput) => IInputBase
+    useStyleManager: (styleManager: IStyleManager) => IInputBase
 }
 
 export const InputResolver = (field: IExtendedInput | IInputBase): IInputBase => {

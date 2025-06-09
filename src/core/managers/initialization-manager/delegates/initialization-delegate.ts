@@ -1,18 +1,17 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-
 import { logManager } from '@core/managers/log-manager/log-manager'
+import { IConfiguration } from 'src/environment/provider/configuration/i-configuration'
 import { IInitializationManager } from '../initialization-manager'
 
 export interface IInitializationDelegate {
     new (
         name: string,
         manager: IInitializationManager,
-        intitializer: (params: IFieldInitializationParameters) => void
+        intitializer: (params: IConfiguration) => void
     ): IInitializationDelegate
     name: string
     manager: IInitializationManager
     next?: IInitializationDelegate
-    intitializer: (params: IFieldInitializationParameters) => void
+    intitializer: (params: IConfiguration) => void
     execute?: () => void
     setNextSequence?: (sequenceInitliaizer: IInitializationDelegate) => void
 }
@@ -48,7 +47,7 @@ export const InitializationDelegate = function (
     this: IInitializationDelegate,
     name: string,
     manager: IInitializationManager,
-    intitializer: (params: IFieldInitializationParameters) => void
+    intitializer: (params: IConfiguration) => void
 ) {
     this.name = name
     this.manager = manager

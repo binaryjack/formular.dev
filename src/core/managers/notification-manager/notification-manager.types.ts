@@ -1,6 +1,9 @@
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { IValidationResult } from '../validation-manager/validation-manager.types'
 
+export const SNotificationManager = Symbol.for('INotificationManager')
+export const SAutoTrackerNotificationManager = Symbol.for('SAutoTrackerNotificationManager')
+
 export type dataStrategyResultAsyncType = (data: IEvents) => Promise<IValidationResult>
 
 export type TNotificationMethod<T = any> = (data?: T) => void

@@ -1,16 +1,10 @@
 import { conventions, MissingPropEnum } from '@components/context/conventions/conventions'
 
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
-import { IValidationLocalize } from '../localize/localize.type'
-import { TranslatioBuilderType } from '../localize/localize.utils'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../schema/field-schema/field.schema.types'
 
-export const mapSchemaToFieldDescriptor = (
-    scheme: IEntityScheme,
-    gt: TranslatioBuilderType,
-    translations: IValidationLocalize
-): IFieldDescriptor[] => {
+export const mapSchemaToFieldDescriptor = (scheme: IEntityScheme): IFieldDescriptor[] => {
     const output: IFieldDescriptor[] = []
 
     scheme.properties.forEach((f) => {

@@ -19,7 +19,7 @@ const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.min,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
@@ -31,7 +31,7 @@ const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.min,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field.input.validationOptions.min.error?.message ?? undefined,
                 field.input.validationOptions.min?.guide?.message ?? undefined
             )
@@ -40,7 +40,7 @@ const ValidatorMinStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.min,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

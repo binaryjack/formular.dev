@@ -16,7 +16,7 @@ export function getValue(
 ): unknown | null {
     const purposeType = purpose ?? 'all'
 
-    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(this.input.type))
+    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(field.input.type))
     // console.log('getValue', field.input.type, strategy)
     if (!strategy) {
         console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${field.input.type} `)
@@ -45,6 +45,9 @@ export function getValue(
                 return value
         }
     } catch (e) {
-        console.error(`PARSING ERROR FOR TYPE ${this.input.type} in field: ${this.input.name} `, e)
+        console.error(
+            `PARSING ERROR FOR TYPE ${field.input.type} in field: ${field.input.name} `,
+            e
+        )
     }
 }

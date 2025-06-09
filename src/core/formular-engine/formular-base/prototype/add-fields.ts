@@ -16,11 +16,11 @@ export function addFields<T extends object>(this: IFormular<T>, ...flds: IExtend
             (o: IExtendedInput) => o.input.id === fld.input.id
         )
         if (!existingFieldRef) {
-            if (this.validationTriggerModeType.length > 1) {
+            if (this.triggerKeyWordType.length > 1) {
                 // console.log('stop')
             }
 
-            fld.input.validationManager.setValidationTriggerMode(this.validationTriggerModeType)
+            fld.input.validationManager.setTriggerKeyWord(this.triggerKeyWordType)
 
             if (this.autoTracker) {
                 fld.input.notificationManager.autoTracker = this.autoTracker

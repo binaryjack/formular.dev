@@ -1,17 +1,13 @@
-import { DomManager } from '@core/managers/dom-manager/dom-manager'
+import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IInputBase } from '../input-base.types'
 
-export const useDomManager = function (this: IInputBase): IInputBase {
+export const useDomManager = function (
+    this: IInputBase,
+    domManagerInstance: IDomManager<HTMLInputElement>
+): IInputBase {
     try {
-        // if (!this.name) {
-        //     throw Error('properties must be initialized')
-        // }
-        // if (!this?.tracker) {
-        //     throw Error('tracker must be initialized')
-        // }
-        this.domManager = new DomManager()
-
+        this.domManager = domManagerInstance
         return this
     } catch (e: any) {
         logManager(

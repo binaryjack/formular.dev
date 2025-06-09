@@ -1,6 +1,16 @@
 {
-    "name": "purejs",
-    "version": "1.0.0",
+    "name": "formulardev",
+    "description": "A modern form framweork agnostic builder, featuring a user-friendly interface, customizable components, and robust validation.",
+    "keywords": [
+        "form",
+        "builder",
+        "framework",
+        "react",
+        "typescript",
+        "vite",
+        "tailwindcss"
+    ],
+    "version": "1.0.56",
     "main": "index.js",
     "scripts": {
         "test": "jest",
@@ -14,8 +24,7 @@
         "tests:cypress": "cypress open"
     },
     "author": "",
-    "license": "ISC",
-    "description": "",
+    "license": "MIT",
     "devDependencies": {
         "@babel/preset-env": "^7.26.9",
         "@babel/preset-typescript": "^7.26.0",

@@ -6,7 +6,7 @@ import { IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager } from '../value-manager.types'
 
 export const toString = function (this: IValueManager, field: IInput) {
-    const value = this.input.value as any
+    const value = field.input.value as any
     if (!value) return ''
     if (typeof value === 'object') {
         if ('day' in value && 'month' in value && 'year' in value) {

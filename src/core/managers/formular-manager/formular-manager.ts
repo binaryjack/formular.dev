@@ -1,56 +1,47 @@
-import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { IFormularManager } from './formular-manager.types'
 import { clear } from './prototype/clear'
 
-import { InputFactory } from '@core/input-engine/generator/factory/input-factory'
-import { FieldProvider } from '@core/input-engine/generator/provider/field-provider/field-provider'
+import { INotificationManager } from '../notification-manager/notification-manager-base.types'
+import { SNotificationManager } from '../notification-manager/notification-manager.types'
+import { IServiceManager } from '../service-manager/service-manager.types'
 import { createEmpty } from './prototype/create-empty'
-import { createfromConfiguration } from './prototype/create-from-configuration'
+import { createFromDescriptors } from './prototype/create-from-descriptors'
 import { createFromSchema } from './prototype/create-from-schema'
 import { getData } from './prototype/get-data'
 import { getForm } from './prototype/get-form'
 import { validate } from './prototype/validate'
 
-export const FormularManager = (function () {
+export const FormularManager = function <T extends object>(
+    this: IFormularManager<T>,
+    serviceManager: IServiceManager
+): IFormularManager<T> {
     let instance: IFormularManager<any> | null = null
-    const fieldFactory = new InputFactory()
-    const fieldProvider = new FieldProvider(fieldFactory)
-
-    return function <T extends object>(
-        this: IFormularManager<T>,
-        notificationManager?: INotificationManager,
-        autoTracker?: INotificationManager
-    ) {
+    this.sm = serviceManager
+    return function <T extends object>(this: IFormularManager<T>, serviceManager: IServiceManager) {
         if (instance) {
             return instance
         }
+        this.sm = serviceManager
 
-        Object.defineProperty(this, 'fieldProvider', {
-            value: fieldProvider,
-            writable: false, // Prevent modification
-            configurable: false // Prevent deletion or redefinition
-        })
+        const notificationManagerInstance =
+            serviceManager.resolve<INotificationManager>(SNotificationManager)
 
         Object.defineProperty(this, 'notificationManager', {
-            value: notificationManager,
+            value: notificationManagerInstance,
             writable: false, // Prevent modification
             configurable: false // Prevent deletion or redefinition
         })
 
         this.forms = new Map()
 
-        if (autoTracker && this.notificationManager) {
-            this.notificationManager.autoTracker = autoTracker
-        }
-
         instance = this
         return instance
     } as any as IFormularManager<any>
-})()
+}
 
 Object.assign(FormularManager.prototype, {
     clear,
-    createfromConfiguration,
+    createFromDescriptors,
     createFromSchema,
     createEmpty,
     getData,

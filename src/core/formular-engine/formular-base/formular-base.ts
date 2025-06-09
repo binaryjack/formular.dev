@@ -9,7 +9,7 @@ import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
 import { hasChanges } from './prototype/has-changes'
 import { setIsBusy } from './prototype/set-is-busy'
-import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
+import { setTriggerKeyWord } from './prototype/set-validation-trigger-mode'
 import { submit } from './prototype/submit'
 
 export const Formular = function <T extends object>(
@@ -27,7 +27,7 @@ export const Formular = function <T extends object>(
     this.originFields = []
     this.isValid = true
     this.isBusy = LoadingStatus.Loaded
-    this.validationTriggerModeType = []
+    this.triggerKeyWordType = []
     this.isDirty = false
 
     Object.defineProperty(this, 'manager', {
@@ -53,5 +53,5 @@ Object.assign(Formular.prototype, {
     getData,
     getFormFlags,
     submit,
-    setValidationTriggerMode
+    setTriggerKeyWord
 })

@@ -19,7 +19,7 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.required,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
         // Remove expectedValue logic since 'expectedValue' does not exist on IRequired
@@ -29,7 +29,7 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.required,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field.input.validationOptions.required?.error?.message ?? undefined,
                 field.input.validationOptions.required?.guide?.message ?? undefined
             )
@@ -38,7 +38,7 @@ const ValidatorRequiredStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.required,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

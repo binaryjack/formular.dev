@@ -4,7 +4,7 @@ import { IExtendedInput } from '../input-base.types'
 import { onFocusHandle } from './on-focus-handle'
 
 export const onKeyPressHandle = function (f: IExtendedInput) {
-    if (!f.input.validationManager?.validationTriggerModeType.includes('onKeyPress')) return
+    if (!f.input.validationManager?.triggerKeyWordType.includes('onKeyPress')) return
     // console.log('onFocusHandle', f.name, f.value)
     f.input.notificationManager?.debounceNotify(
         'onValidate',

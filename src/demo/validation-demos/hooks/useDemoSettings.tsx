@@ -15,14 +15,12 @@ export const useDemoSettings = <T extends object>(
     const [validationOptions, setValidationOptions] =
         useState<IValidationOptions>(defaultValidationOptions)
 
-    const [validationTriggerMode, setValidationTriggerMode] = useState<EventsType[]>([
-        ...defaultEvents
-    ])
+    const [triggerKeyWord, setTriggerKeyWord] = useState<EventsType[]>([...defaultEvents])
 
     useEffect(() => {
         if (!internalForm) return
-        internalForm?.setValidationTriggerMode(validationTriggerMode)
-    }, [internalForm, validationTriggerMode])
+        internalForm?.setTriggerKeyWord(triggerKeyWord)
+    }, [internalForm, triggerKeyWord])
 
     useEffect(() => {
         if (!instance || !validationOptions) return
@@ -42,15 +40,15 @@ export const useDemoSettings = <T extends object>(
 
     const handleTriggerModeChange = (mode: EventsType[]) => {
         if (!instance) return
-        setValidationTriggerMode(mode)
-        instance.input.validationManager.setValidationTriggerMode(mode)
+        setTriggerKeyWord(mode)
+        instance.input.validationManager.setTriggerKeyWord(mode)
     }
 
     return {
         submissionObject,
         setSubmissionObject,
         validationOptions,
-        validationTriggerMode,
+        triggerKeyWord,
         handleTriggerModeChange,
         handleValidationOptionChange
     }

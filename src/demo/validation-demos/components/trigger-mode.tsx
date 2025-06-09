@@ -2,20 +2,17 @@ import { EventsType } from '@core/framework/events/events.types'
 
 export interface ITriggerModeProps {
     handleTriggerModeChange: (mode: EventsType[]) => void
-    validationTriggerMode: EventsType[]
+    triggerKeyWord: EventsType[]
 }
 
-export const TriggerMode = ({
-    handleTriggerModeChange,
-    validationTriggerMode
-}: ITriggerModeProps) => {
+export const TriggerMode = ({ handleTriggerModeChange, triggerKeyWord }: ITriggerModeProps) => {
     return (
         <div className="flex px-2  flex-col w-full">
-            <label htmlFor="validationTriggerMode-v">Validation Trigger Mode:</label>
+            <label htmlFor="triggerKeyWord-v">Validation Trigger Mode:</label>
             <select
-                id="validationTriggerMode-v"
+                id="triggerKeyWord-v"
                 multiple
-                value={validationTriggerMode}
+                value={triggerKeyWord}
                 onChange={(e) =>
                     handleTriggerModeChange(
                         Array.from(e.target.selectedOptions, (option) => option.value as EventsType)

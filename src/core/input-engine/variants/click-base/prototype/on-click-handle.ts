@@ -4,8 +4,7 @@ import { newEvent } from '@core/framework/events/new-event'
 import { IClickBaseInput } from '../click-base-input.types'
 
 export const onClickHandle = function <T extends IEvents>(this: IClickBaseInput, data?: T) {
-    if (!data?.fieldRef?.input.validationManager?.validationTriggerModeType.includes('onClick'))
-        return
+    if (!data?.fieldRef?.input.validationManager?.triggerKeyWordType.includes('onClick')) return
     // console.log('onClickHandle', f.name, f.value)
     data?.fieldRef?.input.notificationManager?.debounceNotify(
         'onValidate',

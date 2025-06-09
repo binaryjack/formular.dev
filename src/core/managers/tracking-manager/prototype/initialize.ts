@@ -1,28 +1,10 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { defaultOutputTrackingProvider } from '../tracker-manager.default.provider'
 import { ITrackingManager } from '../tracker-manager.types'
 
-export const initialize = function <T extends HTMLElement>(
-    this: ITrackingManager,
-    params: IFieldInitializationParameters
-) {
+export const initialize = function <T extends HTMLElement>(this: ITrackingManager) {
     logManager(undefined, 'info', 'initialize', this.dependencyName)
-
-    if (params.trackingStrategies.length === 0) {
-        logManager(
-            undefined,
-            'warning',
-            this.dependencyName,
-            `No tracking outputProvider was provided, the default outputProvider will operate.`
-        )
-
-        this.addProviders([defaultOutputTrackingProvider])
-    } else {
-        this.addProviders(params.trackingStrategies)
-    }
-
+    this.addProviders([defaultOutputTrackingProvider])
     this.isInitialized = true
     // this.tracker = tracker
 }

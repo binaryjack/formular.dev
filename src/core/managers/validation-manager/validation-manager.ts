@@ -1,5 +1,5 @@
 import { addValidationStrategies } from './prototype/add-validation-strategies'
-import { setValidationTriggerMode } from './prototype/set-validation-trigger-mode'
+import { setTriggerKeyWord } from './prototype/set-trigger-keyword'
 
 import { addValidationStrategy } from './prototype/add-validation-strategy'
 import { initialize } from './prototype/initialize'
@@ -26,7 +26,7 @@ export const ValidationManager = function (this: IValidationManager) {
     this.isInitialized = false
     this.isValidating = false
     this.validationStrategies = []
-    this.validationTriggerModeType = []
+    this.triggerKeyWordType = []
     Object.defineProperty(this, 'dependencyName', {
         value: ValidationManager.name,
         writable: false, // Prevent modification
@@ -38,7 +38,7 @@ Object.assign(ValidationManager.prototype, {
     initialize,
     addValidationStrategies,
     addValidationStrategy,
-    setValidationTriggerMode,
+    setTriggerKeyWord,
     validate,
     validateAsync,
     validateMany,

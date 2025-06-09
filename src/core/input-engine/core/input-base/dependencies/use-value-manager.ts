@@ -4,20 +4,10 @@ import { IInputBase } from '../input-base.types'
 
 export const useValueManager = function (
     this: IInputBase,
-    valueStrategyInstance: IValueManager
-    // ...parsers: IParserStrategy<any>[]
+    valueManagerInstance: IValueManager
 ): IInputBase {
     try {
-        // if (!this.name) {
-        //     throw Error('properties must be initialized')
-        // }
-        // if (!this?.tracker) {
-        //     throw Error('tracker must be initialized')
-        // }
-        this.valueManager = valueStrategyInstance
-        this.valueManager.input = this
-        // this.valueStrategy.acceptValueStrategies(...parsers)
-
+        this.valueManager = valueManagerInstance
         return this
     } catch (e: any) {
         logManager(

@@ -19,7 +19,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.custom,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
@@ -30,7 +30,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.custom,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field.input.validationOptions.pattern.error?.message ?? undefined,
                 field.input.validationOptions.pattern?.guide?.message ?? undefined
             )
@@ -39,7 +39,7 @@ const ValidatorPatternStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.custom,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

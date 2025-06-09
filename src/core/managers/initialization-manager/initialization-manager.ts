@@ -1,24 +1,21 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
+import { IConfiguration } from 'src/environment/provider/configuration/i-configuration'
 import {
     IInitializationDelegate,
     InitializationDelegate
 } from './delegates/initialization-delegate'
 
 export interface IInitializationManager {
-    new (params: IFieldInitializationParameters): IInitializationManager
-    params: IFieldInitializationParameters
+    new (params: IConfiguration): IInitializationManager
+    params: IConfiguration
     initializer?: IInitializationDelegate
-    addInitializer: (
-        name: string,
-        initializer: (params: IFieldInitializationParameters) => void
-    ) => void
+    addInitializer: (name: string, initializer: (params: IConfiguration) => void) => void
     executeSequences: () => void
 }
 
 export const addInitializer = function (
     this: IInitializationManager,
     name: string,
-    initializer: (params: IFieldInitializationParameters) => void
+    initializer: (params: IConfiguration) => void
 ) {
     const newDelegate = new InitializationDelegate(name, this, initializer)
 
@@ -35,7 +32,7 @@ export const executeSequences = function (this: IInitializationManager) {
 
 export const InitializationManager = function (
     this: IInitializationManager,
-    params: IFieldInitializationParameters
+    params: IConfiguration
 ) {
     this.params = params
     this.initializer = undefined

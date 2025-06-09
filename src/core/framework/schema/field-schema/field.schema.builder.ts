@@ -11,7 +11,7 @@ export const FieldSchemaBuilder = function (this: IFieldSchemaBuilder) {
     this.options = []
     this.expectedValue = null
     this.shouldValidate = false
-    this.validationTriggerMode = []
+    this.triggerKeyWord = []
     this.mask = null
 } as any as IFieldSchemaBuilder
 
@@ -77,11 +77,8 @@ FieldSchemaBuilder.prototype = {
         this.defaultValue = defaultValue
         return this
     },
-    setValidationTriggerMode: function (
-        this: IFieldSchemaBuilder,
-        validationTriggerMode: EventsType[]
-    ) {
-        this.validationTriggerMode = validationTriggerMode
+    setTriggerKeyWord: function (this: IFieldSchemaBuilder, triggerKeyWord: EventsType[]) {
+        this.triggerKeyWord = triggerKeyWord
     },
     build: function (this: IFieldSchemaBuilder) {
         return {

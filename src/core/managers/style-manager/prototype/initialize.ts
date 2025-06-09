@@ -1,5 +1,3 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
 import {
@@ -10,10 +8,7 @@ import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-i
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IStyleManager } from '../style-manager.types'
 
-export const initialize = async function (
-    this: IStyleManager,
-    params: IFieldInitializationParameters
-) {
+export const initialize = async function (this: IStyleManager) {
     try {
         const success = await abstractInitializer(this.input, (e) => {
             e?.notificationManager?.observers.subscribe(this.classNames.bind(this), false)

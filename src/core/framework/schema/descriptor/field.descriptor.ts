@@ -7,6 +7,8 @@ import { IValidationOptions } from '@core/managers/validation-manager/validation
 import { IOptionItem } from '../options-schema/options.scheme.types'
 import { INDate } from './i-n-date'
 
+export const SFieldDescriptor = Symbol.for('IFieldDescriptor')
+
 export interface IFieldDescriptor {
     id: number
     name: string

@@ -4,6 +4,8 @@ import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 
+export const SValidationManager = Symbol.for('IValidationManager')
+
 export interface IValidableForm {
     validateAll: () => void
 }
@@ -63,10 +65,10 @@ export interface IValidationManager extends IInitializableDependency {
     new (): IValidationManager
     validationStrategies: IValidationMethodStrategy[]
     isValidating: boolean
-    validationTriggerModeType: EventsType[]
+    triggerKeyWordType: EventsType[]
     addValidationStrategies: (...parsers: IValidationMethodStrategy[]) => void
     addValidationStrategy: (parser: IValidationMethodStrategy) => void
-    setValidationTriggerMode: (mode: EventsType[]) => void
+    setTriggerKeyWord: (mode: EventsType[]) => void
     validate: (field: IExtendedInput, reset?: boolean) => IValidationResult[]
     validateAsync?: (field: IExtendedInput, reset?: boolean) => Promise<IValidationResult[]>
     validateMany: (fields: IExtendedInput[], reset?: boolean) => IValidationResult[]

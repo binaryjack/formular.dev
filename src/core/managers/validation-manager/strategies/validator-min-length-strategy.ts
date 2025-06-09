@@ -19,7 +19,7 @@ const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.minLength,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
@@ -28,7 +28,7 @@ const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.minLength,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field.input.validationOptions.minLength.error?.message ?? undefined,
                 field.input.validationOptions.minLength?.guide?.message ?? undefined
             )
@@ -37,7 +37,7 @@ const ValidatorMinLengthStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.minLength,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

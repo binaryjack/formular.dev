@@ -1,16 +1,13 @@
-import { DrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input'
+import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IInputBase } from '../input-base.types'
 
-export const useDrawerManager = function (this: IInputBase): IInputBase {
+export const useDrawerManager = function (
+    this: IInputBase,
+    drawerBase: IDrawerBaseInput
+): IInputBase {
     try {
-        // if (!this.name) {
-        //     throw Error('properties must be initialized')
-        // }
-        // if (!this?.tracker) {
-        //     throw Error('tracker must be initialized')
-        // }
-        this.drawer = new DrawerBaseInput()
+        this.drawer = drawerBase
         this.drawer.input = this
         return this
     } catch (e: any) {

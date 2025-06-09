@@ -1,9 +1,8 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-import {
-    IExtendedInput,
-    IExtendedInputBase,
-    IInput
-} from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
+
+export const SValueManager = Symbol.for('IValueManager')
 
 export type TGetter<T extends Partial<InputDataTypes> | null> = (field: IExtendedInput) => T
 export type TSetter<T extends Partial<InputDataTypes> | null> = (
@@ -43,7 +42,7 @@ export interface IValueManagerProperties {
     valueStrategies: IParserStrategy<InputDataTypes>[]
 }
 
-export interface IValueManager extends IValueManagerProperties, IExtendedInputBase {
+export interface IValueManager extends IValueManagerProperties, IInitializableDependency {
     new (): IValueManager
     acceptValueStrategies: (...parsers: IParserStrategy<any>[]) => void
     addValueStrategies: (...parsers: IParserStrategy<any>[]) => void

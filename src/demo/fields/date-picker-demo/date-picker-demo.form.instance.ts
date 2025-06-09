@@ -1,18 +1,10 @@
-import { getTranslationBuilder, getTranslations } from '@core/framework/localize/localize.utils'
 import {
-    defaultInitializationDependencies,
-    defaultInitializationParameters
-} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-import { FormularManager } from '@core/managers/formular-manager/formular-manager'
-import { lifeCylceInstances } from '@demo/common/common-instances'
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
+import { applifeCylceInstance } from 'src/environment/start/app-lifecycle-instances'
 import { datePickerDemoSchema } from './date-picker-demo.schema'
 
-const fm = new FormularManager(lifeCylceInstances.autoTracker)
-
-export const datePickerDemoFormInstance = fm.createFromSchema(
-    datePickerDemoSchema,
-    defaultInitializationParameters,
-    defaultInitializationDependencies,
-    getTranslationBuilder,
-    getTranslations()
-)
+const serviceManager = applifeCylceInstance.getGlobalServiceManager()
+const fm = serviceManager.resolve<IFormularManager<any>>(SFormularManager)
+export const datePickerDemoFormInstance = fm.createFromSchema(datePickerDemoSchema)

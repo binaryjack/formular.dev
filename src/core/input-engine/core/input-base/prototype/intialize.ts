@@ -1,15 +1,11 @@
 import { ExceptionManager } from '@core/framework/exceptions/exception-manager'
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
 
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { notification } from '@core/managers/notification-manager/utils/new-notification-visitor'
 import { abstractInitializer } from '../../abstract/abstract-initializer'
 import { IInputBase } from '../input-base.types'
 
-export const initialize = async function (
-    this: IInputBase,
-    params: IFieldInitializationParameters
-) {
+export const initialize = async function (this: IInputBase) {
     try {
         const success = await abstractInitializer(
             this,

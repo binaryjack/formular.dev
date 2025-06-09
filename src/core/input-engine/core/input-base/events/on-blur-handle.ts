@@ -3,7 +3,7 @@ import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../input-base.types'
 
 export const onBlurHandle = (f: IExtendedInput) => {
-    if (!f.input.validationManager?.validationTriggerModeType.includes('onBlur')) return
+    if (!f.input.validationManager?.triggerKeyWordType.includes('onBlur')) return
     // console.log('onBlurHandle', f.name, f.value)
     f.input.notificationManager?.debounceNotify(
         'onValidate',

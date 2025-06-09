@@ -1,5 +1,3 @@
-import { IFieldInitializationParameters } from '@core/input-engine/generator/builder/field-builder'
-
 import { ExceptionManager, newAssert } from '@core/framework/exceptions/exception-manager'
 
 import { abstractInitializer } from '@core/input-engine/core/abstract/abstract-initializer'
@@ -10,10 +8,7 @@ import { IOptionBaseInput } from '../option-base-input.types'
  * The setup function sets up the field input by subscribing to observers.
  * basic configuration for styles and validation
  */
-export const initialize = async function (
-    this: IOptionBaseInput,
-    params: IFieldInitializationParameters
-) {
+export const initialize = async function (this: IOptionBaseInput) {
     try {
         const success = await abstractInitializer(this.input, (context) => {
             this.options = params.descriptor?.options ?? []

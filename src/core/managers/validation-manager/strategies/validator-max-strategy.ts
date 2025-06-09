@@ -19,7 +19,7 @@ const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.max,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
         const hasValue = !valueIsNullOrUndefined(value)
@@ -31,7 +31,7 @@ const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.max,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field.input.validationOptions.max.error?.message ?? undefined,
                 field.input.validationOptions.max?.guide?.message ?? undefined
             )
@@ -40,7 +40,7 @@ const ValidatorMaxStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.max,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

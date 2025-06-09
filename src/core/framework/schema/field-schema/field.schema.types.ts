@@ -15,7 +15,7 @@ export interface IFieldSchema extends IValidationOptions {
     defaultValue: string | null
     expectedValue: string | null
     shouldValidate: boolean
-    validationTriggerMode: EventsType[] | never[]
+    triggerKeyWord: EventsType[] | never[]
     mask: string | null
 }
 
@@ -32,7 +32,7 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
         shouldValidate: boolean,
         validationData?: IValidationOptions
     ) => IFieldSchemaBuilder
-    setValidationTriggerMode: (validationTriggerMode: EventsType[]) => IFieldSchemaBuilder
+    setTriggerKeyWord: (triggerKeyWord: EventsType[]) => IFieldSchemaBuilder
     build: () => IFieldSchema
     clone: () => IFieldSchema
 }

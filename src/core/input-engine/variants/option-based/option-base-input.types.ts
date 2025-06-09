@@ -2,6 +2,8 @@ import { IOptionItem } from '@core/framework/schema/options-schema/options.schem
 import { IExtendedInputBase, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IClickBaseInput } from '../click-base/click-base-input.types'
 
+export const SOptionBaseInput = Symbol.for('IOptionBaseInput')
+
 export type IOptionInput = IOptionBaseInput & IClickBaseInput & IInput
 
 export interface IOptionBaseInputProperties {

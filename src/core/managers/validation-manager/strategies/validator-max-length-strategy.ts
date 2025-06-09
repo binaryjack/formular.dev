@@ -20,7 +20,7 @@ const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
                 true,
                 name,
                 ValidationErrorsCodes.maxLength,
-                field.input.validationManager.validationTriggerModeType
+                field.input.validationManager.triggerKeyWordType
             )
         }
 
@@ -31,7 +31,7 @@ const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
                 false,
                 name,
                 ValidationErrorsCodes.maxLength,
-                field.input.validationManager.validationTriggerModeType,
+                field.input.validationManager.triggerKeyWordType,
                 field?.input.validationOptions.maxLength.error?.message ?? undefined,
                 field?.input.validationOptions.maxLength?.guide?.message ?? undefined
             )
@@ -41,7 +41,7 @@ const ValidatorMaxLengthStrategy = function (this: IValidationMethodStrategy) {
             true,
             name,
             ValidationErrorsCodes.maxLength,
-            field.input.validationManager.validationTriggerModeType
+            field.input.validationManager.triggerKeyWordType
         )
     }
 } as any as IValidationMethodStrategy

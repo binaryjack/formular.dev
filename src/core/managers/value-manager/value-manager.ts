@@ -8,17 +8,17 @@ import { setValue } from './prototype/set-value'
 import { setValueFromHtmlElement } from './prototype/set-value-from-html-element'
 import { IValueManager } from './value-manager.types'
 
-export const ValueStrategy = function (this: IValueManager) {
+export const ValueManager = function (this: IValueManager) {
     this.isInitialized = false
 
     Object.defineProperty(this, 'dependencyName', {
-        value: ValueStrategy.name,
+        value: ValueManager.name,
         writable: false, // Prevent modification
         configurable: false // Prevent deletion or redefinition
     })
 } as any as IValueManager
 
-Object.assign(ValueStrategy.prototype, {
+Object.assign(ValueManager.prototype, {
     initialize,
     acceptValueStrategies,
     setValueFromHtmlElement,

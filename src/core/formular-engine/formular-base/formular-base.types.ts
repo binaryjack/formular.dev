@@ -1,6 +1,6 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { EventsType } from '@core/framework/events/events.types'
-import { IExtendedInput, IInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFormularManager } from '@core/managers/formular-manager/formular-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import {
@@ -40,7 +40,7 @@ export interface IFormularBase<T extends object> {
     readonly notificationManager?: INotificationManager
 
     checkAllFieldsAreValid: () => Promise<boolean>
-    addFields: (...flds: IInput[]) => void
+    addFields: (...flds: IExtendedInput[]) => void
     getField: (fieldName: string) => IExtendedInput | undefined
     checkChanges: () => void
     submit: () => Promise<T | null>
@@ -48,7 +48,7 @@ export interface IFormularBase<T extends object> {
     hasChanges: (callback: () => void) => void
     getFormFlags: () => Partial<IFormularFlags>
     getData: () => Record<string, InputDataTypes>
-    setValidationTriggerMode: (mode: EventsType[]) => void
+    setTriggerKeyWord: (mode: EventsType[]) => void
 }
 
 export interface IFieldChange {

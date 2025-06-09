@@ -18,6 +18,13 @@ import { initializeProperties } from './prototype/intialize-properties'
 import { conventions } from '@components/context/conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
+import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
+import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
+import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
+import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
+import { IValueManager } from '@core/managers/value-manager/value-manager.types'
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
@@ -29,10 +36,26 @@ import { refreshUi } from './prototype/refresh-ui'
 import { setFocus } from './prototype/set-focus'
 import { setInputBusy } from './prototype/set-input-busy'
 
-export const InputBase = function (this: IInputBase, descriptor: IFieldDescriptor) {
-    if (descriptor.id < 0 || !descriptor.name) {
-        throw new Error('FieldInput descriptor must include "id" and "name".')
-    }
+export const InputBase = function (
+    this: IInputBase,
+    descriptor: IFieldDescriptor | null,
+    domManagerInstance: IDomManager<HTMLInputElement> | null,
+    notifierInstance: INotificationManager | null,
+    trackerInstance: ITrackingManager | null,
+    validationManagerInstance: IValidationManager | null,
+    valueManagerInstance: IValueManager | null,
+    drawerBase: IDrawerBaseInput | null,
+    styleManager: IStyleManager | null
+) {
+    if (descriptor !== null) this.initializeProperties(descriptor)
+    if (domManagerInstance !== null) this.useDomManager(domManagerInstance)
+    if (notifierInstance !== null) this.useNotificationManager(notifierInstance)
+    if (trackerInstance !== null) this.useTrackingManager(trackerInstance)
+    if (validationManagerInstance !== null) this.useValidationManager(validationManagerInstance)
+    if (valueManagerInstance !== null) this.useValueManager(valueManagerInstance)
+    if (drawerBase !== null) this.useDrawerManager(drawerBase)
+    if (styleManager !== null) this.useStyleManager(styleManager)
+
     this.isInitialized = false
 
     Object.defineProperty(this, 'dependencyName', {
@@ -42,7 +65,6 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
     })
 
     this.validationResults = []
-    this.initializeProperties(descriptor)
 
     // Make 'value' observable and notify on change
     let _value = this.value
@@ -53,7 +75,7 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
         set(newValue) {
             if (_value !== newValue) {
                 _value = newValue
-                if (this.validationManager?.validationTriggerModeType.includes('onchange')) {
+                if (this.validationManager?.triggerKeyWordType.includes('onchange')) {
                     this.notificationManager?.debounceNotify(
                         'onValidate',
                         conventions.events.onUiUpdate.triggerDelay,
@@ -93,7 +115,7 @@ export const InputBase = function (this: IInputBase, descriptor: IFieldDescripto
             if (_focus !== newValue) {
                 _focus = newValue
 
-                if (this.validationManager?.validationTriggerModeType.includes('onChange')) {
+                if (this.validationManager?.triggerKeyWordType.includes('onChange')) {
                     this.notificationManager?.debounceNotify(
                         'onValidate',
                         conventions.events.onUiUpdate.triggerDelay,

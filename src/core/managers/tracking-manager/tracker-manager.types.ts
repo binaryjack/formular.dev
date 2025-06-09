@@ -1,5 +1,8 @@
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 
+export const STrackingManager = Symbol.for('ITrackingManager')
+export const STrackingOutputProvider = Symbol.for('ITrackingOutputProvider')
+
 export type TrackingType = 'warning' | 'info' | 'error' | 'critical'
 
 export interface ITrackingOutputProvider {

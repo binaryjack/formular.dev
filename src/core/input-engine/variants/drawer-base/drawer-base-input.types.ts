@@ -1,6 +1,6 @@
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
-
+export const SDrawerBaseInput = Symbol.for('IDrawerBaseInput')
 export interface IDrawerBaseInputProperties {
     openState: ToggleableStateType
 }

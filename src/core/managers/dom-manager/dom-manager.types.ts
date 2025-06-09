@@ -3,6 +3,8 @@ import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 
+export const SDomManager = Symbol.for('IDomManager')
+
 export interface IAria {
     name: string
     value: string

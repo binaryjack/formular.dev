@@ -2,14 +2,6 @@ import FormularForm from '@components/formular-form/formular-form'
 import RadioInput from '@components/radio-input/radio-input'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
-import {
-    defaultInitializationDependencies,
-    defaultInitializationParameters
-} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
-
-import { FormularManager } from '@core/managers/formular-manager/formular-manager'
-import { lifeCylceInstances } from '@demo/common/common-instances'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
@@ -18,6 +10,12 @@ import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { mockOptions } from '@tests/mocks/i-options-items.mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
+
+import { useService } from '@core/framework/react/services/use-service'
+import {
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
 import { BooleanConstraint } from './components/boolean-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
 import { TriggerMode } from './components/trigger-mode'
@@ -29,24 +27,26 @@ interface ISubmitObject {
 
 const fieldName = 'radioOption'
 
+const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
+    .setConstraints<any>([requiredDataValidationMock(fieldName, true)])
+    .build()
+
+const optionsMocks: IOptionItem[] = mockOptions
+
 const ValidationDemoRadioInput = () => {
-    const formularManager = new FormularManager(
-        lifeCylceInstances.notificationManager,
-        lifeCylceInstances.autoTracker
-    )
-    const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
-        .setConstraints<any>([requiredDataValidationMock(fieldName, true)])
-        .build()
-    const optionsMocks: IOptionItem[] = mockOptions
+    const { getService } = useService()
+    const formularManager = getService<IFormularManager<ISubmitObject>>(SFormularManager)
 
-    const config = newDependencyConfiguration(
-        fileDescriptorMock(fieldName, fieldName, 'radio', validationOptionsMock, optionsMocks),
-        defaultInitializationParameters,
-        defaultInitializationDependencies
+    const descriptor = fileDescriptorMock(
+        fieldName,
+        fieldName,
+        'radio',
+        validationOptionsMock,
+        optionsMocks
     )
 
-    const formular = formularManager.createfromConfiguration('validation-demo-radio-form', [
-        config
+    const formular = formularManager?.createFromDescriptors('validation-demo-radio-form', [
+        descriptor
     ]) as IFormular<ISubmitObject>
 
     const { instance } = useField(formular.fields[0])
@@ -56,7 +56,7 @@ const ValidationDemoRadioInput = () => {
         submissionObject,
         setSubmissionObject,
         validationOptions,
-        validationTriggerMode,
+        triggerKeyWord,
         handleTriggerModeChange,
         handleValidationOptionChange
     } = useDemoSettings<ISubmitObject>(
@@ -72,11 +72,12 @@ const ValidationDemoRadioInput = () => {
     )
 
     useEffect(() => {
-        formular.setValidationTriggerMode(validationTriggerMode)
+        formular.setTriggerKeyWord(triggerKeyWord)
         setInternalForm(formular)
     }, [])
 
     const handleSubmit = (data: any) => {
+        setSubmissionObject({} as ISubmitObject)
         setSubmissionObject(data as ISubmitObject)
     }
 
@@ -97,7 +98,7 @@ const ValidationDemoRadioInput = () => {
                         }
                         childrenTriggerMode={
                             <TriggerMode
-                                validationTriggerMode={validationTriggerMode}
+                                triggerKeyWord={triggerKeyWord}
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }

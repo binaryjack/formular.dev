@@ -1,24 +1,23 @@
 import FormularForm from '@components/formular-form/formular-form'
 import { RteInput } from '@components/rte-Input/rte-input'
 import { useField } from '@core/framework/react/fields/hooks/use-field'
-import {
-    defaultInitializationDependencies,
-    defaultInitializationParameters
-} from '@core/input-engine/generator/builder/settings/input-dependency-configuration.ts'
 
 import { useEffect, useState } from 'react'
 
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { newDependencyConfiguration } from '@core/input-engine/core/configuration/dependency-configuration'
-import { FormularManager } from '@core/managers/formular-manager/formular-manager'
 import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
-import { lifeCylceInstances } from '@demo/common/common-instances'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock'
 import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
+
+import { useService } from '@core/framework/react/services/use-service'
+import {
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
 import { BooleanConstraint } from './components/boolean-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
 import { TriggerMode } from './components/trigger-mode'
@@ -29,10 +28,6 @@ const fieldName = 'rti'
 export interface ISubmitObject {
     rti: string
 }
-const formularManager = new FormularManager(
-    lifeCylceInstances.notificationManager,
-    lifeCylceInstances.autoTracker
-)
 
 const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
     .setConstraints<any>([
@@ -44,15 +39,20 @@ const validationOptionsMock: IValidationOptions = new GenericValidationBuilder()
 
 const optionsMocks: IOptionItem[] = []
 
-const config = newDependencyConfiguration(
-    fileDescriptorMock(fieldName, fieldName, 'richtext', validationOptionsMock, optionsMocks),
-    defaultInitializationParameters,
-    defaultInitializationDependencies
-)
-
 const ValidationDemoRteInput = () => {
-    const formular = formularManager.createfromConfiguration('validation-demo-rte-input-form', [
-        config
+    const { getService } = useService()
+    const formularManager = getService<IFormularManager<ISubmitObject>>(SFormularManager)
+
+    const descriptor = fileDescriptorMock(
+        fieldName,
+        fieldName,
+        'richtext',
+        validationOptionsMock,
+        optionsMocks
+    )
+
+    const formular = formularManager?.createFromDescriptors('validation-demo-rte-input-form', [
+        descriptor
     ]) as IFormular<ISubmitObject>
 
     const { instance } = useField(formular.fields[0])
@@ -62,7 +62,7 @@ const ValidationDemoRteInput = () => {
         submissionObject,
         setSubmissionObject,
         validationOptions,
-        validationTriggerMode,
+        triggerKeyWord,
         handleTriggerModeChange,
         handleValidationOptionChange
     } = useDemoSettings(
@@ -76,11 +76,12 @@ const ValidationDemoRteInput = () => {
     )
 
     useEffect(() => {
-        formular.setValidationTriggerMode(validationTriggerMode)
+        formular.setTriggerKeyWord(triggerKeyWord)
         setInternalForm(formular)
     }, [])
 
     const handleSubmit = (data: Record<string, any>) => {
+        setSubmissionObject({} as ISubmitObject)
         setSubmissionObject(data as ISubmitObject)
     }
 
@@ -101,7 +102,7 @@ const ValidationDemoRteInput = () => {
                         }
                         childrenTriggerMode={
                             <TriggerMode
-                                validationTriggerMode={validationTriggerMode}
+                                triggerKeyWord={triggerKeyWord}
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
