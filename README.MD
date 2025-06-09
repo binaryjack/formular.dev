@@ -384,6 +384,13 @@ The following areas are ready for community contributions:
 
 ## Are you interested ? drop me few lines and let's see how we can collaborate !
 
+## Current Status:
+
+🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
+🚧 Replacement by new IoC in progress 90% 🚧
+🚧 Project stability: not stable 🚧
+🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
+
 ## Roadmap
 
 - **Version 1.0** ✅ **COMPLETED**:
@@ -397,7 +404,7 @@ The following areas are ready for community contributions:
     - Multi-country validation support ✅
     - Comprehensive validator library (20+ validators) ✅
 
-- **Version 1.1** 🚧 **IN PROGRESS** :
+- **Version 1.1** 🚧 **IN PROGRESS** 90%:
 
     - Replacing currently used configuration tool by IoC
 
