@@ -7,7 +7,6 @@ import {
     IOptionBaseInput,
     SOptionBaseInput
 } from '@core/input-engine/variants/option-based/option-base-input.types'
-import { baseDependencyList } from 'src/environment/provider/configuration/dependency.list.settings'
 
 import { IBuilderService } from '@core/factories/input-factory/input-factory'
 import {
@@ -17,10 +16,9 @@ import {
 import { sequenceInitializer } from '@core/managers/initialization-manager/sequence-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import {
-    IConfigProvider,
-    SConfigProvider
-} from '../../../environment/provider/configuration/config-provider'
+
+import { IConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
+import { baseDependencyList } from '@project/provider/configuration/dependency.list.settings'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const SSelectInputService = Symbol.for('ISelectInputService')
@@ -38,13 +36,14 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): ISelectBaseInput {
-            const baseInputService = sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _optionInput = sm.resolve<IOptionBaseInput>(SOptionBaseInput)
-            const _selectInput = sm.resolve<ISelectBaseInput>(SSelectBaseInput)
+            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickBaseInput)
+            const _optionInput = this.sm.resolve<IOptionBaseInput>(SOptionBaseInput)
+            const _selectInput = this.sm.resolve<ISelectBaseInput>(SSelectBaseInput)
 
             _clickInput.input = _baseInput
             _optionInput.input = _baseInput
@@ -59,7 +58,7 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
                 _selectInput
             )
 
-            const configProvider = sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _selectInput

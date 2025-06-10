@@ -1,4 +1,4 @@
-import { IConfiguration } from 'src/environment/provider/configuration/i-configuration'
+import { IConfiguration } from '@project/provider/configuration/i-configuration'
 import {
     IInitializationDelegate,
     InitializationDelegate

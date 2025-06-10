@@ -5,7 +5,7 @@ import {
     SValidationManager
 } from '@core/managers/validation-manager/validation-manager.types'
 
-export const SIValidationTriggerService = Symbol.for('IValidationTriggerService')
+export const SValidationTriggerService = Symbol.for('IValidationTriggerService')
 
 export interface IValidationTriggerService {
     new (sm: IServiceManager): IValidationTriggerService
@@ -39,8 +39,8 @@ export const ValidationTriggerService = function (
                     }
                 }
             },
-            writable: false,
-            enumerable: true
+            enumerable: true,
+            configurable: false
         }
     })
 

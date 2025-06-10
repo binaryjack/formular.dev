@@ -37,7 +37,7 @@ import {
 } from '@core/managers/value-manager/value-manager.types'
 import { IInitilizationCheckResult } from './prototype/check-initialized'
 
-export const SInput = Symbol.for('IInput')
+export const SInputBase = Symbol.for('IInputBase')
 
 /**
  * Should be the root base of a field's properties

@@ -1,6 +1,6 @@
 import { ServiceIdType } from '@core/managers/service-manager/service-manager.types'
+import { applifeCylceInstance } from '@project/start/app-lifecycle-instances'
 import { useMemo } from 'react'
-import { applifeCylceInstance } from 'src/environment/start/app-lifecycle-instances'
 
 export const useService = () => {
     const serviceManager = useMemo(() => {

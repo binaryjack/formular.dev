@@ -40,7 +40,7 @@ const optionsMocks: IOptionItem[] = []
 
 const ValidationDemoPassword = () => {
     const { getService } = useService()
-    const formularManager = getService<IFormularManager<ISubmitObject>>(SFormularManager)
+    const formularManager = getService<IFormularManager>(SFormularManager)
 
     const descriptor = fileDescriptorMock(
         defaultFieldName,

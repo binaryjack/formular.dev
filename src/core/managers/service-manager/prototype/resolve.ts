@@ -10,7 +10,7 @@ export const resolve = function <T>(
     const instance = this.tryResolve<T>(identifier, parameters)
     if (instance === undefined) {
         throw new Error(
-            `IServiceManager - reolve: Service not found: ${this.getServiceName(identifier)} parameters: ${JSON.stringify(parameters)}`
+            `IServiceManager - resolve: Service not found: ${this.getServiceName(identifier)} parameters: ${JSON.stringify(parameters)}`
         )
     }
 

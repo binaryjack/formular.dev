@@ -1,7 +1,7 @@
 import { IFormularManager } from '../formular-manager.types'
 
 export const validate = async function <T extends object>(
-    this: IFormularManager<T>,
+    this: IFormularManager,
     formId: string
 ): Promise<boolean> {
     const form = this.forms.get(formId)

@@ -43,7 +43,7 @@ const optionsMocks: IOptionItem[] = []
 
 const ValidationDemoDatePicker = () => {
     const { getService } = useService()
-    const formularManager = getService<IFormularManager<ISubmitObject>>(SFormularManager)
+    const formularManager = getService<IFormularManager>(SFormularManager)
 
     const descriptor = fileDescriptorMock(
         fieldName,

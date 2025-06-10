@@ -1,10 +1,11 @@
 import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
 import { ServiceManager } from '@core/managers/service-manager/service-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import { IAppLifeCycleInstance } from 'src/environment/interfaces/i-app-lifecycle-instances'
 
 import { setupInputsFactory } from '@core/factories/setup/setup-input-factory'
 import { setupInputsRegistry } from '@core/factories/setup/setup-input-registry'
+import { setupFormularManager } from '@core/managers/formular-manager/service/setup-formular-manager'
+import { IAppLifeCycleInstance } from '../interfaces/i-app-lifecycle-instances'
 import { setupBaseInputClasses } from '../setup/setup-base-input-classes'
 import { setupBaseFieldsConfiguration } from '../setup/setup-base-input-configurations'
 import { setupManagers } from '../setup/setup-managers'
@@ -24,11 +25,12 @@ export const applifeCylceInstance: IAppLifeCycleInstance = (function () {
             globalServiceManager = null
         }
     }
-    setupBaseFieldsConfiguration(getGlobalServiceManager())
     setupManagers(getGlobalServiceManager())
+    setupFormularManager(getGlobalServiceManager())
     setupBaseInputClasses(getGlobalServiceManager())
     setupInputsRegistry(getGlobalServiceManager())
     setupInputsFactory(getGlobalServiceManager())
+    setupBaseFieldsConfiguration(getGlobalServiceManager())
 
     /** To be used as instance for AUTO TRACKER
      * for debugging purposes only.

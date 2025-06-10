@@ -11,11 +11,9 @@ import {
 import { sequenceInitializer } from '@core/managers/initialization-manager/sequence-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import { baseDependencyList } from 'src/environment/provider/configuration/dependency.list.settings'
-import {
-    IConfigProvider,
-    SConfigProvider
-} from '../../../environment/provider/configuration/config-provider'
+
+import { IConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
+import { baseDependencyList } from '@project/provider/configuration/dependency.list.settings'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const SCheckInputService = Symbol.for('ICheckInputService')
@@ -33,15 +31,16 @@ export const CheckInputService = function (this: ICheckInputService, sm: IServic
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): ICheckBoxBaseInput {
-            const configProvider = sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
             const config = configProvider.getConfig()
 
-            const baseInputService = sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _checkInput = sm.resolve<ICheckBoxBaseInput>(SCheckBoxBaseInput)
+            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickBaseInput)
+            const _checkInput = this.sm.resolve<ICheckBoxBaseInput>(SCheckBoxBaseInput)
 
             _clickInput.input = _baseInput
             _checkInput.input = _baseInput

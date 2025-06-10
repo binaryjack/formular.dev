@@ -28,7 +28,6 @@ export const ValidationStrategyService = function (
     let _strategies: IValidationMethodStrategy[] | undefined = []
     Object.defineProperties(this, {
         strategies: {
-            value: [],
             get: function () {
                 return _strategies
             },
@@ -40,8 +39,8 @@ export const ValidationStrategyService = function (
                 }
                 this.sync()
             },
-            writable: false,
-            enumerable: true
+            enumerable: true,
+            configurable: false
         }
     })
 

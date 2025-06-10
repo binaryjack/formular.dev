@@ -36,6 +36,7 @@ export interface IServiceManager {
         options?: IServiceOptions
     ) => IServiceManager
     registerClass<T>(
+        identifier: ServiceIdType<T>,
         constructor: new (...args: any[]) => T,
         options?: IServiceOptions
     ): IServiceManager

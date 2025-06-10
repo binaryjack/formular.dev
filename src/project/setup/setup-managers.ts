@@ -1,11 +1,17 @@
-import { InputFactory } from '@core/factories/input-factory/input-factory'
+import { InputFactory, SInputFactory } from '@core/factories/input-factory/input-factory'
 import { DomManager } from '@core/managers/dom-manager/dom-manager'
 import { SDomManager } from '@core/managers/dom-manager/dom-manager.types'
-import { SAutoTrackerNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
+import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
+import {
+    SAutoTrackerNotificationManager,
+    SNotificationManager
+} from '@core/managers/notification-manager/notification-manager.types'
 import {
     IServiceManager,
     SServiceManager
 } from '@core/managers/service-manager/service-manager.types'
+import { StyleManager } from '@core/managers/style-manager/style-manager'
+import { SStyleManager } from '@core/managers/style-manager/style-manager.types'
 import { TrackingManager } from '@core/managers/tracking-manager/tracker-manager'
 import {
     STrackingManager,
@@ -15,12 +21,24 @@ import { ValidationManager } from '@core/managers/validation-manager/validation-
 import { SValidationManager } from '@core/managers/validation-manager/validation-manager.types'
 import { ValueManager } from '@core/managers/value-manager/value-manager'
 import { SValueManager } from '@core/managers/value-manager/value-manager.types'
-import { ConfigProvider } from '../provider/configuration/config-provider'
-import { FieldDescriptorService } from '../services/field-descriptor-service'
-import { TrackingStrategyService } from '../services/tracking-strategy-service'
-import { ValidationStrategyService } from '../services/validation-strategy-service'
-import { ValidationTriggerService } from '../services/validation-trigger-service'
-import { ValueStrategyService } from '../services/value-strategy-service'
+import { ConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
+import {
+    FieldDescriptorService,
+    SFieldDescriptorService
+} from '../services/field-descriptor-service'
+import {
+    STrackingStrategyService,
+    TrackingStrategyService
+} from '../services/tracking-strategy-service'
+import {
+    SValidationStrategyService,
+    ValidationStrategyService
+} from '../services/validation-strategy-service'
+import {
+    SValidationTriggerService,
+    ValidationTriggerService
+} from '../services/validation-trigger-service'
+import { SValueStrategyService, ValueStrategyService } from '../services/value-strategy-service'
 
 export const setupManagers = function (sm: IServiceManager) {
     if (!sm) {
@@ -32,37 +50,39 @@ export const setupManagers = function (sm: IServiceManager) {
     // First register the ServiceManager instance under its interface identifier
     sm.register(SServiceManager, () => sm, { lifetime: 'singleton' })
 
-    sm.registerClass(ConfigProvider, {
+    sm.registerClass(SFieldDescriptorService, FieldDescriptorService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(FieldDescriptorService, {
+    sm.registerClass(STrackingStrategyService, TrackingStrategyService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(TrackingStrategyService, {
+    sm.registerClass(SValidationTriggerService, ValidationTriggerService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(ValidationTriggerService, {
+    sm.registerClass(SValueStrategyService, ValueStrategyService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(ValueStrategyService, {
+    sm.registerClass(SValidationStrategyService, ValidationStrategyService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(ValidationStrategyService, {
+    sm.registerClass(SInputFactory, InputFactory, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
 
-    sm.registerClass(InputFactory, { lifetime: 'singleton', dependencies: [SServiceManager] })
+    sm.register(SNotificationManager, () => new NotificationManager(), {
+        lifetime: 'singleton'
+    })
 
     sm.register(SAutoTrackerNotificationManager, () => new TrackingManager(), {
         lifetime: 'singleton'
@@ -76,7 +96,17 @@ export const setupManagers = function (sm: IServiceManager) {
         lifetime: 'singleton',
         dependencies: [STrackingOutputProvider]
     })
-
+    sm.register(SStyleManager, () => new StyleManager(), { lifetime: 'singleton' })
     sm.register(SValidationManager, () => new ValidationManager(), { lifetime: 'singleton' })
     sm.register(SValueManager, () => new ValueManager(), { lifetime: 'singleton' })
+
+    sm.registerClass(SConfigProvider, ConfigProvider, {
+        lifetime: 'singleton',
+        dependencies: [
+            SValidationTriggerService,
+            SValidationStrategyService,
+            SValueStrategyService,
+            STrackingStrategyService
+        ]
+    })
 }

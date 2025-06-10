@@ -1,6 +1,6 @@
 import { IBuilderService } from '@core/factories/input-factory/input-factory'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IInputBase, SInput } from '@core/input-engine/core/input-base/input-base.types'
+import { IInputBase, SInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { IDomManager, SDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
@@ -30,14 +30,15 @@ export const BaseInputService = function (this: IBaseInputService, sm: IServiceM
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IInputBase {
-            const baseInputInstance = sm.resolve<IInputBase>(SInput)
-            const domManager = sm.resolve<IDomManager<HTMLInputElement>>(SDomManager)
-            const trackingManaget = sm.resolve<ITrackingManager>(STrackingManager)
-            const validationManager = sm.resolve<IValidationManager>(SValidationManager)
-            const valueManager = sm.resolve<IValueManager>(SValueManager)
-            const styleManager = sm.resolve<IStyleManager>(SStyleManager)
+            const baseInputInstance = this.sm.resolve<IInputBase>(SInputBase)
+            const domManager = this.sm.resolve<IDomManager<HTMLInputElement>>(SDomManager)
+            const trackingManaget = this.sm.resolve<ITrackingManager>(STrackingManager)
+            const validationManager = this.sm.resolve<IValidationManager>(SValidationManager)
+            const valueManager = this.sm.resolve<IValueManager>(SValueManager)
+            const styleManager = this.sm.resolve<IStyleManager>(SStyleManager)
 
             baseInputInstance.initializeProperties(descriptor)
             baseInputInstance.useDomManager(domManager)

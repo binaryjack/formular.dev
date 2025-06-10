@@ -7,7 +7,7 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 import { IFormularManager } from '../formular-manager.types'
 
 export const createFromDescriptors = function <T extends object>(
-    this: IFormularManager<T>,
+    this: IFormularManager,
     id: string,
     descriptors: IFieldDescriptor[]
 ): IFormular<T> | undefined {

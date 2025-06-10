@@ -36,6 +36,7 @@ export interface IInputFactory {
 export type IBuilder<T> = (descriptor: IFieldDescriptor) => T
 
 export interface IBuilderService<T> {
+    sm: IServiceManager
     build: IBuilder<T>
 }
 

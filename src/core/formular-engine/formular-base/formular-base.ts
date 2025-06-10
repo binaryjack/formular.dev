@@ -15,7 +15,7 @@ import { submit } from './prototype/submit'
 export const Formular = function <T extends object>(
     this: IFormular<T>,
     id: string,
-    manager: IFormularManager<T>
+    manager: IFormularManager
 ) {
     Object.defineProperty(this, 'id', {
         value: id,

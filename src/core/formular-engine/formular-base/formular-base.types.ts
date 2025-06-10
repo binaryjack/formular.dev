@@ -29,14 +29,14 @@ export interface IFormularFlags {
 }
 
 export interface IFormularBase<T extends object> {
-    new (id: string, manager: IFormularManager<T>): IFormular<T>
+    new (id: string, manager: IFormularManager): IFormular<T>
     readonly id: string
     fields: IExtendedInput[]
     originFields: IExtendedInput[]
     submitCount: number
     validateOnFirstSubmit: boolean
     isFormularBinded: boolean
-    readonly manager: IFormularManager<T>
+    readonly manager: IFormularManager
     readonly notificationManager?: INotificationManager
 
     checkAllFieldsAreValid: () => Promise<boolean>

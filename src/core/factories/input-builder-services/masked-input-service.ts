@@ -1,5 +1,4 @@
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { baseDependencyList } from 'src/environment/provider/configuration/dependency.list.settings'
 
 import { IBuilderService } from '@core/factories/input-factory/input-factory'
 import {
@@ -9,10 +8,9 @@ import {
 import { sequenceInitializer } from '@core/managers/initialization-manager/sequence-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import {
-    IConfigProvider,
-    SConfigProvider
-} from '../../../environment/provider/configuration/config-provider'
+
+import { IConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
+import { baseDependencyList } from '@project/provider/configuration/dependency.list.settings'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const SMaskedInputService = Symbol.for('IMaskedInputService')
@@ -30,14 +28,18 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IMaskedBaseInput {
-            const configProvider = sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
             const config = configProvider.getConfig()
 
-            const baseInputService = sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
             const _baseInput = baseInputService.build(descriptor)
-            const _maskedInput = sm.resolve<IMaskedBaseInput>(SMaskedBaseInput, descriptor.mask)
+            const _maskedInput = this.sm.resolve<IMaskedBaseInput>(
+                SMaskedBaseInput,
+                descriptor.mask
+            )
             _maskedInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _maskedInput)
 

@@ -2,7 +2,7 @@ import {
     IServiceManager,
     SServiceManager
 } from '@core/managers/service-manager/service-manager.types'
-import { InputFactory } from '../input-factory/input-factory'
+import { InputFactory, SInputFactory } from '../input-factory/input-factory'
 
 export const setupInputsFactory = function (sm: IServiceManager) {
     if (!sm) {
@@ -11,7 +11,7 @@ export const setupInputsFactory = function (sm: IServiceManager) {
         )
     }
 
-    sm.registerClass(InputFactory, {
+    sm.registerClass(SInputFactory, InputFactory, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })

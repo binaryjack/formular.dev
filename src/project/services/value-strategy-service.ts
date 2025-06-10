@@ -25,7 +25,6 @@ export const ValueStrategyService = function (this: IValueStrategyService, sm: I
     let _strategies: IParserStrategy<any>[] | undefined = []
     Object.defineProperties(this, {
         strategies: {
-            value: [],
             get: function () {
                 return _strategies
             },
@@ -37,8 +36,8 @@ export const ValueStrategyService = function (this: IValueStrategyService, sm: I
                 }
                 this.sync()
             },
-            writable: false,
-            enumerable: true
+            enumerable: true,
+            configurable: false
         }
     })
 

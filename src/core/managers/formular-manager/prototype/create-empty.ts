@@ -3,7 +3,7 @@ import { IFormular } from '@core/formular-engine/formular-base/formular-base.typ
 import { IFormularManager } from '../formular-manager.types'
 
 export const createEmpty = function <T extends object>(
-    this: IFormularManager<T>,
+    this: IFormularManager,
     name: string
 ): IFormular<T> | undefined {
     const frm = new Formular(name, this)

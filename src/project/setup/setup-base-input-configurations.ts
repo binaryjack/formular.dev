@@ -13,10 +13,6 @@ import { numericParserStrategy } from '@core/managers/value-manager/strategies/n
 import { selectOptionParserStrategy } from '@core/managers/value-manager/strategies/select-option-parser-strategy'
 import { stringParserStrategy } from '@core/managers/value-manager/strategies/string-parser-strategy'
 import {
-    IFieldDescriptorService,
-    SFieldDescriptorService
-} from '../services/field-descriptor-service'
-import {
     ITrackingStrategyService,
     STrackingStrategyService
 } from '../services/tracking-strategy-service'
@@ -24,7 +20,10 @@ import {
     IValidationStrategyService,
     SValidationStrategyService
 } from '../services/validation-strategy-service'
-import { IValidationTriggerService } from '../services/validation-trigger-service'
+import {
+    IValidationTriggerService,
+    SValidationTriggerService
+} from '../services/validation-trigger-service'
 import { IValueStrategyService, SValueStrategyService } from '../services/value-strategy-service'
 
 export const setupBaseFieldsConfiguration = function (sm: IServiceManager) {
@@ -33,13 +32,11 @@ export const setupBaseFieldsConfiguration = function (sm: IServiceManager) {
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
-    const validationTriggerService = sm.resolve<IValidationTriggerService>(
-        'ValidationTriggerService'
-    )
+    const validationTriggerService =
+        sm.resolve<IValidationTriggerService>(SValidationTriggerService)
     const validationService = sm.resolve<IValidationStrategyService>(SValidationStrategyService)
     const valueStrategyService = sm.resolve<IValueStrategyService>(SValueStrategyService)
     const trackingStrategyService = sm.resolve<ITrackingStrategyService>(STrackingStrategyService)
-    const descriptorService = sm.resolve<IFieldDescriptorService>(SFieldDescriptorService)
 
     validationService.add(
         validatorMaxLengthStrategy,

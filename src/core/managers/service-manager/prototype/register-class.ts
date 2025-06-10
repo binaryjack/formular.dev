@@ -7,17 +7,26 @@ import {
 
 export const registerClass = function <T>(
     this: IServiceManager,
+    identifier: ServiceIdType<T>,
     constructor: new (...args: any[]) => T,
     options: IServiceOptions = {}
 ): any {
     this.throwIfDisposed()
 
-    const factory: ServiceFactoryType<T> = (container: IServiceManager, ...paramters: any[]) => {
-        const dependencies = [...(options.dependencies ?? []), ...paramters]
-        const resolveDependency = dependencies?.map((dependency: ServiceIdType<any>) => {
-            return container.resolve(dependency)
+    const factory: ServiceFactoryType<T> = (container: IServiceManager, ...parameters: any[]) => {
+        const dependencies = options.dependencies ?? []
+        const resolvedDependencies = dependencies.map((dependency: ServiceIdType<any>) => {
+            try {
+                if (dependency === null) return null
+                return container.resolve(dependency)
+            } catch (e: any) {
+                throw new Error(
+                    `IServiceManager: Failed to resolve dependency ${container.getServiceName(dependency)} for service ${container.getServiceName(identifier)} - ${e.message}`
+                )
+            }
         })
-        return new constructor(...resolveDependency)
+        // Runtime parameters are passed directly, not resolved from container
+        return new constructor(...resolvedDependencies, ...parameters)
     }
-    this.register<T>(constructor, factory, options)
+    this.register<T>(identifier, factory, options)
 }

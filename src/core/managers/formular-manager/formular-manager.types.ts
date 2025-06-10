@@ -8,21 +8,21 @@ import { IServiceManager } from '../service-manager/service-manager.types'
 
 export const SFormularManager = Symbol.for('IFormularManager')
 
-export interface IFormularManager<T extends object> {
-    new (
-        notificationManager?: INotificationManager,
-        autoTracker?: INotificationManager
-    ): IFormularManager<T>
+export interface IFormularManager {
+    new (serviceManager: IServiceManager): IFormularManager
     sm: IServiceManager
-    forms: Map<string, IFormular<T>>
+    forms: Map<string, IFormular<any>>
     readonly notificationManager?: INotificationManager
-    clear: (formId: IFormular<T>) => void
+    clear: <T extends object>(formId: IFormular<T>) => void
     clearAll: () => void
-    getForm: (formId: string) => IFormular<T> | undefined
+    getForm: (formId: string) => IFormular<any> | undefined
     getData: <T extends object>(formId: string) => T | undefined
     validate: (formId: string) => Promise<boolean>
 
-    createFromDescriptors: (id: string, descriptor: IFieldDescriptor[]) => IFormular<T> | undefined
-    createFromSchema: (schema: IEntityScheme) => IFormular<T> | undefined
-    createEmpty: (name: string) => IFormular<T> | undefined
+    createFromDescriptors: <T extends object>(
+        id: string,
+        descriptor: IFieldDescriptor[]
+    ) => IFormular<T> | undefined
+    createFromSchema: <T extends object>(schema: IEntityScheme) => IFormular<T> | undefined
+    createEmpty: <T extends object>(name: string) => IFormular<T> | undefined
 }

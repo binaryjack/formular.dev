@@ -1,6 +1,6 @@
 import { Accordion } from '@components/accordion/accordion'
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
-import { applifeCylceInstance } from 'src/environment/start/app-lifecycle-instances'
+import { applifeCylceInstance } from '@project/start/app-lifecycle-instances'
 
 export interface IFormsContentFrameProps {
     childrenMax?: React.ReactNode
@@ -25,6 +25,7 @@ export const FormsContentFrame = ({
     childrenTriggerMode,
     childrenSubmissionObjectResult
 }: IFormsContentFrameProps) => {
+    const { autoTracker } = applifeCylceInstance
     return (
         <div className="sandbox-container flex md:flex-row xs:flex-col 2xs:flex-col p-1 w-full h-auto">
             <div className="sandbox-container flex flex-col flex-auto p-1 w-full bg-gray-100">
@@ -56,7 +57,7 @@ export const FormsContentFrame = ({
                 </div>
             </div>
             <div className="sandbox-container flex  p-1 w-full h-auto mt-1">
-                <NotifierDebugUi internalNotifierInstance={applifeCylceInstance.autoTracker} />
+                <NotifierDebugUi internalNotifierInstance={autoTracker} />
             </div>
         </div>
     )

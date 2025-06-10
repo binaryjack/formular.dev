@@ -2,7 +2,7 @@ import { IFormular } from '@core/formular-engine/formular-base/formular-base.typ
 import { IFormularManager } from '../formular-manager.types'
 
 export const getForm = function <T extends object>(
-    this: IFormularManager<T>,
+    this: IFormularManager,
     formId: string
 ): IFormular<T> | undefined {
     return this.forms.get(formId)

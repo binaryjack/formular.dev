@@ -28,7 +28,6 @@ export const TrackingStrategyService = function (
     let _strategies: ITrackingOutputProvider[] | undefined = []
     Object.defineProperties(this, {
         strategies: {
-            value: [],
             get: function () {
                 return _strategies
             },
@@ -40,8 +39,8 @@ export const TrackingStrategyService = function (
                 }
                 this.sync()
             },
-            writable: false,
-            enumerable: true
+            enumerable: true,
+            configurable: false
         }
     })
 

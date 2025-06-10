@@ -5,7 +5,7 @@ import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-
 import { IFormularManager } from '../formular-manager.types'
 
 export const createFromSchema = function <T extends object>(
-    this: IFormularManager<T>,
+    this: IFormularManager,
 
     schema: IEntityScheme
 ): IFormular<T> | undefined {
