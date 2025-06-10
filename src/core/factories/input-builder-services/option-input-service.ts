@@ -34,7 +34,7 @@ export const OptionInputService = function (this: IOptionInputService, sm: IServ
         this.build = function (descriptor: IFieldDescriptor): IOptionBaseInput {
             const baseInputService = sm.resolve<IBaseInputService>(SBaseInputService)
             const _baseInput = baseInputService.build(descriptor)
-            const _optionInput = sm.resolve<IOptionBaseInput>(SOptionBaseInput)
+            const _optionInput = sm.resolve<IOptionBaseInput>(SOptionBaseInput, descriptor.options)
             _optionInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _optionInput)
 

@@ -11,9 +11,8 @@ import { IOptionBaseInput } from '../option-base-input.types'
 export const initialize = async function (this: IOptionBaseInput) {
     try {
         const success = await abstractInitializer(this.input, (context) => {
-            this.options = params.descriptor?.options ?? []
             // context.options = params.descriptor?.options ?? []
-            context.optionsInitialized = true
+            context.optionsInitialized = this.options && this.options.length > 0
             context.selectedOptionId = null
         })
 

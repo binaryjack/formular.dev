@@ -14,7 +14,7 @@ export interface IOptionBaseInputProperties {
 }
 
 export interface IOptionBaseInput extends IOptionBaseInputProperties, IExtendedInputBase {
-    new (): IOptionBaseInput
+    new (options: IOptionItem[]): IOptionBaseInput
 
     checkOptionsInitialized: () => boolean
 

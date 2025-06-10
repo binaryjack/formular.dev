@@ -31,7 +31,7 @@ export const initialize = async function (this: IStyleManager) {
 
             e?.styleManager.update(
                 'required',
-                params.descriptor.validationOptions.required?.value === true
+                this.input?.validationOptions?.required?.value ?? false
             )
 
             // Extend the prototype of FieldStateStyle with FieldInput's prototype

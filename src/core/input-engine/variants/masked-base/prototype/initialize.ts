@@ -12,6 +12,7 @@ export const initialize = async function (this: IMaskedBaseInput) {
         const success = await abstractInitializer(
             this.input,
             (e) => {
+                e.maskInitialized = this.mask && this.mask.length > 0
                 logManager(undefined, 'info', 'initialize', e.name)
             },
             [

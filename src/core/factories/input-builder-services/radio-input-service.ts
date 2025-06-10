@@ -42,7 +42,7 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
             const baseInputService = sm.resolve<IBaseInputService>(SBaseInputService)
             const _baseInput = baseInputService.build(descriptor)
             const _clickInput = sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _optionInput = sm.resolve<IOptionBaseInput>(SOptionBaseInput)
+            const _optionInput = sm.resolve<IOptionBaseInput>(SOptionBaseInput, descriptor.options)
             const _radioInput = sm.resolve<IRadioBaseInput>(SRadioBaseInput)
 
             _clickInput.input = _baseInput
