@@ -440,11 +440,79 @@
                 transform: translateY(-3px);
                 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             }
-
             .github-icon {
                 width: 24px;
                 height: 24px;
                 fill: currentColor;
+            }
+
+            /* Framework Adapters */
+            .framework-adapters {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2rem;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+
+            .adapter-card {
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 20px;
+                padding: 2rem;
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                transition: all 0.3s ease;
+                text-align: center;
+            }
+
+            .adapter-card:hover {
+                transform: translateY(-8px);
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.25);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            }
+
+            .framework-logo {
+                font-size: 3rem;
+                margin-bottom: 1.5rem;
+                display: block;
+                line-height: 1;
+            }
+
+            .adapter-card h4 {
+                font-size: 1.4rem;
+                font-weight: 600;
+                margin-bottom: 1rem;
+                color: white;
+            }
+
+            .adapter-card p {
+                opacity: 0.9;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+
+            .tech-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+
+            .tech-tags span {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 0.4rem 1rem;
+                border-radius: 20px;
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: white;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                transition: background 0.3s ease;
+            }
+
+            .tech-tags span:hover {
+                background: rgba(255, 255, 255, 0.25);
             }
 
             /* Footer */
@@ -569,7 +637,7 @@
                 <div class="logo">
                     <img src="./src/assets/3x/Artboard 1@3x.png" alt="FORMULAR Logo" />
                 </div>
-                <h1>FORMULAR</h1>
+                <h1>FORMULAR DEV</h1>
                 <p class="subtitle">
                     A sophisticated, framework-agnostic form library with comprehensive validation,
                     TypeScript support, and advanced architecture patterns.
@@ -794,6 +862,94 @@
                             Help others by improving documentation, writing tutorials, or creating
                             examples.
                         </p>
+                    </div>
+                </div>
+
+                <!-- Framework Adapters Section -->
+                <div style="margin: 4rem 0 3rem">
+                    <h3
+                        style="
+                            font-size: 1.8rem;
+                            font-weight: 600;
+                            margin-bottom: 2rem;
+                            text-align: center;
+                            color: white;
+                        "
+                    >
+                        🔧 Framework Adapter Contributions
+                    </h3>
+                    <p
+                        style="
+                            font-size: 1.1rem;
+                            margin-bottom: 2.5rem;
+                            opacity: 0.95;
+                            text-align: center;
+                            max-width: 700px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        "
+                    >
+                        Help expand FORMULAR's reach by contributing framework-specific adapters and
+                        integrations. We're actively looking for contributors to develop specialized
+                        hooks, components, and utilities.
+                    </p>
+
+                    <div class="framework-adapters">
+                        <div class="adapter-card fade-in">
+                            <div class="framework-logo">⚛️</div>
+                            <h4>React Hooks</h4>
+                            <p>
+                                Enhance React integration with custom hooks, context providers, and
+                                component wrappers.
+                            </p>
+                            <div class="tech-tags">
+                                <span>useFormular</span>
+                                <span>useField</span>
+                                <span>Context API</span>
+                            </div>
+                        </div>
+
+                        <div class="adapter-card fade-in">
+                            <div class="framework-logo">🅰️</div>
+                            <h4>Angular Services</h4>
+                            <p>
+                                Build Angular services, directives, and reactive forms integration
+                                for seamless Angular development.
+                            </p>
+                            <div class="tech-tags">
+                                <span>Services</span>
+                                <span>Directives</span>
+                                <span>Reactive Forms</span>
+                            </div>
+                        </div>
+
+                        <div class="adapter-card fade-in">
+                            <div class="framework-logo">💚</div>
+                            <h4>Vue.js Composables</h4>
+                            <p>
+                                Create Vue 3 composables, plugins, and reactive integrations using
+                                the Composition API.
+                            </p>
+                            <div class="tech-tags">
+                                <span>Composables</span>
+                                <span>Plugins</span>
+                                <span>Reactivity</span>
+                            </div>
+                        </div>
+
+                        <div class="adapter-card fade-in">
+                            <div class="framework-logo">🔷</div>
+                            <h4>Svelte Actions</h4>
+                            <p>
+                                Develop Svelte actions, stores, and component integrations for the
+                                growing Svelte ecosystem.
+                            </p>
+                            <div class="tech-tags">
+                                <span>Actions</span>
+                                <span>Stores</span>
+                                <span>Components</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
