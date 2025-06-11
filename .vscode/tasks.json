@@ -1,11 +1,80 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{	
-			"type": "npm",
-			"script": "watch",			
-			"problemMatcher": "$tsc-watch",
-			"isBackground": true
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "watch",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true
+        },
+        {
+            "type": "npm",
+            "script": "start:dev",
+            "label": "npm: start:dev",
+            "detail": "Start development server with development environment",
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "start:integration",
+            "label": "npm: start:integration",
+            "detail": "Start development server with integration environment",
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "start:production",
+            "label": "npm: start:production",
+            "detail": "Start development server with production environment",
+            "problemMatcher": [],
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            }
+        },
+        {
+            "type": "npm",
+            "script": "build:dev",
+            "label": "npm: build:dev",
+            "detail": "Build for development environment",
+            "group": "build",
+            "problemMatcher": ["$tsc"]
+        },
+        {
+            "type": "npm",
+            "script": "build:integration",
+            "label": "npm: build:integration",
+            "detail": "Build for integration environment",
+            "group": "build",
+            "problemMatcher": ["$tsc"]
+        },
+        {
+            "type": "npm",
+            "script": "build:production",
+            "label": "npm: build:production",
+            "detail": "Build for production environment",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$tsc"]
+        }
+    ]
 }

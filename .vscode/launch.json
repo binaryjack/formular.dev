@@ -5,36 +5,105 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome",
+            "name": "Launch Development Server",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run start:dev",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "name": "Launch Integration Server",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run start:integration",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "NODE_ENV": "integration"
+            }
+        },
+        {
+            "name": "Launch Production Server",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run start:production",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        },
+        {
+            "name": "Debug Chrome - Development",
             "request": "launch",
             "type": "chrome",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/src",
+            "sourceMaps": true,
+            "preLaunchTask": "npm: start:dev"
         },
-
         {
-            "command": "npm start",
-            "name": "Run npm start",
+            "name": "Debug Chrome - Integration",
             "request": "launch",
-            "type": "node-terminal"
-        },
-        {
             "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/src",
+            "sourceMaps": true,
+            "preLaunchTask": "npm: start:integration"
+        },
+        {
+            "name": "Build Development",
             "request": "launch",
-            "name": "Open index.html",
-            "program": "${workspaceFolder}/src/app.ts",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"]
+            "type": "node-terminal",
+            "command": "npm run build:dev",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Build Integration",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run build:integration",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Build Production",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run build:production",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Serve Preview - Development",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run serve:dev",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Serve Preview - Integration",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run serve:integration",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Serve Preview - Production",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "npm run serve:production",
+            "cwd": "${workspaceFolder}"
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Current File",
+            "name": "Debug Current File",
             "program": "${file}",
             "console": "internalConsole",
             "sourceMaps": true,
             "smartStep": true,
             "internalConsoleOptions": "openOnSessionStart",
-            "outFiles": ["${workspaceFolder}/dist/${file}.js"],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "preLaunchTask": "npm: watch"
         }
     ]
