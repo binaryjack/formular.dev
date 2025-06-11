@@ -9,6 +9,7 @@ export const STrackingStrategyService = Symbol.for('ITrackingStrategyService')
 
 export interface ITrackingStrategyService {
     new (sm: IServiceManager): ITrackingStrategyService
+    sm: IServiceManager
     strategies: ITrackingOutputProvider[]
     add: (...strategies: ITrackingOutputProvider[]) => void
     remove: (...strategies: ITrackingOutputProvider[]) => void
@@ -25,6 +26,7 @@ export const TrackingStrategyService = function (
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     let _strategies: ITrackingOutputProvider[] | undefined = []
     Object.defineProperties(this, {
         strategies: {
@@ -45,7 +47,7 @@ export const TrackingStrategyService = function (
     })
 
     this.sync = function (this: ITrackingStrategyService) {
-        const vm = sm.resolve<ITrackingManager>(STrackingManager)
+        const vm = this.sm.lazy<ITrackingManager>(STrackingManager)?.()
         if (vm) {
             vm.addProviders(this.strategies)
         }

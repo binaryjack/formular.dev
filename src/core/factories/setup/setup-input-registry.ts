@@ -68,7 +68,7 @@ export const setupInputsRegistry = function (sm: IServiceManager) {
 
     sm.registerClass(SSelectInputService, SelectInputService, {
         lifetime: 'transient',
-        dependencies: []
+        dependencies: [SServiceManager]
     })
 
     sm.registerClass(STextInputService, TextInputService, {

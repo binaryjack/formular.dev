@@ -15,7 +15,7 @@ export const useService = () => {
                 )
             }
             try {
-                return serviceManager.resolve<T>(identifier)
+                return serviceManager.lazy<T>(identifier)?.()
             } catch (error: any) {
                 throw new Error(
                     `useService: Error resolving service ${identifier?.toString()}: ${error.message}`

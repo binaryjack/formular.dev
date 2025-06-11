@@ -34,13 +34,13 @@ export const CheckInputService = function (this: ICheckInputService, sm: IServic
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): ICheckBoxBaseInput {
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
 
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _checkInput = this.sm.resolve<ICheckBoxBaseInput>(SCheckBoxBaseInput)
+            const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
+            const _checkInput = this.sm.lazy<ICheckBoxBaseInput>(SCheckBoxBaseInput)?.()
 
             _clickInput.input = _baseInput
             _checkInput.input = _baseInput

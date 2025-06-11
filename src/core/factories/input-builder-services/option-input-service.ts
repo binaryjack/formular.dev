@@ -31,16 +31,16 @@ export const OptionInputService = function (this: IOptionInputService, sm: IServ
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IOptionBaseInput {
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _optionInput = this.sm.resolve<IOptionBaseInput>(
+            const _optionInput = this.sm.lazy<IOptionBaseInput>(
                 SOptionBaseInput,
                 descriptor.options
-            )
+            )?.()
             _optionInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _optionInput)
 
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _optionInput

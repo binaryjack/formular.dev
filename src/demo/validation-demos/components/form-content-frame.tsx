@@ -1,6 +1,8 @@
 import { Accordion } from '@components/accordion/accordion'
+import { useService } from '@core/framework/react/services/use-service'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
+import { SAutoTrackerNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'
-import { applifeCylceInstance } from '@project/start/app-lifecycle-instances'
 
 export interface IFormsContentFrameProps {
     childrenMax?: React.ReactNode
@@ -25,7 +27,8 @@ export const FormsContentFrame = ({
     childrenTriggerMode,
     childrenSubmissionObjectResult
 }: IFormsContentFrameProps) => {
-    const { autoTracker } = applifeCylceInstance
+    const { getService } = useService()
+    const autoTracker = getService(SAutoTrackerNotificationManager)
     return (
         <div className="sandbox-container flex md:flex-row xs:flex-col 2xs:flex-col p-1 w-full h-auto">
             <div className="sandbox-container flex flex-col flex-auto p-1 w-full bg-gray-100">
@@ -57,7 +60,9 @@ export const FormsContentFrame = ({
                 </div>
             </div>
             <div className="sandbox-container flex  p-1 w-full h-auto mt-1">
-                <NotifierDebugUi internalNotifierInstance={autoTracker} />
+                <NotifierDebugUi
+                    internalNotifierInstance={(autoTracker as INotificationManager) ?? undefined}
+                />
             </div>
         </div>
     )

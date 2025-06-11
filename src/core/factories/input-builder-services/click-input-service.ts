@@ -1,7 +1,10 @@
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 
 import { IBuilderService } from '@core/factories/input-factory/input-factory'
-import { IClickBaseInput } from '@core/input-engine/variants/click-base/click-base-input.types'
+import {
+    IClickBaseInput,
+    SClickBaseInput
+} from '@core/input-engine/variants/click-base/click-base-input.types'
 import { sequenceInitializer } from '@core/managers/initialization-manager/sequence-initializer'
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
@@ -28,12 +31,11 @@ export const ClickInputService = function (this: IClickInputService, sm: IServic
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IClickBaseInput {
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
-
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickInputService)
+            const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
             _clickInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _clickInput)
 

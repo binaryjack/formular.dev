@@ -8,20 +8,38 @@ export const tryResolve = function <T>(
 ): T | undefined {
     this.throwIfDisposed()
 
-    if (this.singletonInstances.has(identifier)) {
-        return this.singletonInstances.get(identifier) as T
+    // Check for circular dependency
+    if (this.resolutionStack.has(identifier)) {
+        const stack = Array.from(this.resolutionStack)
+            .map((id) => this.getServiceName(id))
+            .join(' -> ')
+        throw new Error(
+            `Circular dependency detected: ${stack} -> ${this.getServiceName(identifier)}`
+        )
     }
 
-    if (this.scopedInstances.has(identifier)) {
-        return this.scopedInstances.get(identifier) as T
-    }
-
-    const descriptor = this.findServiceDescriptor(identifier)
-    if (!descriptor) {
-        return undefined
-    }
+    // Add to resolution stack
+    this.resolutionStack.add(identifier)
 
     try {
+        if (this.singletonInstances.has(identifier)) {
+            return this.singletonInstances.get(identifier) as T
+        }
+
+        if (this.scopedInstances.has(identifier)) {
+            return this.scopedInstances.get(identifier) as T
+        }
+
+        const descriptor = this.findServiceDescriptor(identifier)
+        if (!descriptor) {
+            return undefined
+        }
+
+        // For singletons, reserve the spot to prevent circular issues
+        if (descriptor.lifetime === 'singleton') {
+            this.singletonInstances.set(identifier, Symbol('resolving'))
+        }
+
         const instance = descriptor.factory(this, parameters)
 
         switch (descriptor.lifetime) {
@@ -32,9 +50,8 @@ export const tryResolve = function <T>(
                 this.scopedInstances.set(identifier, instance)
                 return instance as T
             case 'transient':
-                // should no have cached instance !
+                // should not have cached instance !
                 break
-            /*return instance as T*/
             default:
                 throw new Error(
                     `IServiceManager - tryResolve: Invalid lifetime ${descriptor.lifetime}`
@@ -56,5 +73,11 @@ export const tryResolve = function <T>(
             'IServiceManager',
             `Failed to resolve service: ${this.getServiceName(identifier)} - ${e.message}`
         )
+
+        // Re-throw the error for proper error handling
+        throw e
+    } finally {
+        // Remove from resolution stack
+        this.resolutionStack.delete(identifier)
     }
 }

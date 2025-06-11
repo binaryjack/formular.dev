@@ -3,6 +3,8 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { IInputBase, SInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { IDomManager, SDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { logManager } from '@core/managers/log-manager/log-manager'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
+import { SNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import { IStyleManager, SStyleManager } from '@core/managers/style-manager/style-manager.types'
 import {
@@ -33,16 +35,18 @@ export const BaseInputService = function (this: IBaseInputService, sm: IServiceM
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IInputBase {
-            const baseInputInstance = this.sm.resolve<IInputBase>(SInputBase)
-            const domManager = this.sm.resolve<IDomManager<HTMLInputElement>>(SDomManager)
-            const trackingManaget = this.sm.resolve<ITrackingManager>(STrackingManager)
-            const validationManager = this.sm.resolve<IValidationManager>(SValidationManager)
-            const valueManager = this.sm.resolve<IValueManager>(SValueManager)
-            const styleManager = this.sm.resolve<IStyleManager>(SStyleManager)
+            const baseInputInstance = this.sm.lazy<IInputBase>(SInputBase)?.()
+            const domManager = this.sm.lazy<IDomManager<HTMLInputElement>>(SDomManager)?.()
+            const notificationManager = this.sm.lazy<INotificationManager>(SNotificationManager)?.()
+            const trackingManaget = this.sm.lazy<ITrackingManager>(STrackingManager)?.()
+            const validationManager = this.sm.lazy<IValidationManager>(SValidationManager)?.()
+            const valueManager = this.sm.lazy<IValueManager>(SValueManager)?.()
+            const styleManager = this.sm.lazy<IStyleManager>(SStyleManager)?.()
 
             baseInputInstance.initializeProperties(descriptor)
             baseInputInstance.useDomManager(domManager)
             baseInputInstance.useTrackingManager(trackingManaget)
+            baseInputInstance.useNotificationManager(notificationManager)
             baseInputInstance.useValidationManager(validationManager)
             baseInputInstance.useValueManager(valueManager)
             baseInputInstance.useStyleManager(styleManager)

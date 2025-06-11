@@ -9,6 +9,7 @@ export const SValidationStrategyService = Symbol.for('IValidationStrategyService
 
 export interface IValidationStrategyService {
     new (sm: IServiceManager): IValidationStrategyService
+    sm: IServiceManager
     strategies: IValidationMethodStrategy[]
     add: (...strategies: IValidationMethodStrategy[]) => void
     remove: (...strategies: IValidationMethodStrategy[]) => void
@@ -25,6 +26,7 @@ export const ValidationStrategyService = function (
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+    this.sm = sm
     let _strategies: IValidationMethodStrategy[] | undefined = []
     Object.defineProperties(this, {
         strategies: {
@@ -45,7 +47,7 @@ export const ValidationStrategyService = function (
     })
 
     this.sync = function (this: IValidationStrategyService) {
-        const vm = sm.resolve<IValidationManager>(SValidationManager)
+        const vm = this.sm.lazy<IValidationManager>(SValidationManager)?.()
         if (vm) {
             vm.addValidationStrategies(...this.strategies)
         }

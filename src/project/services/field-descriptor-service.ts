@@ -23,11 +23,10 @@ export const FieldDescriptorService = function (
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
-    this.descriptors = [] // Initialize the descriptors array
-    // Register the base input service with the service manager
+    this.descriptors = []
 } as any as IFieldDescriptorService
 
-Object.assign(FieldDescriptorService, {
+Object.assign(FieldDescriptorService.prototype, {
     getDescriptorByName: function (
         this: IFieldDescriptorService,
         name: string

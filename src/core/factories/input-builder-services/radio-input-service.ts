@@ -38,14 +38,14 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IRadioBaseInput {
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _optionInput = this.sm.resolve<IOptionBaseInput>(
+            const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
+            const _optionInput = this.sm.lazy<IOptionBaseInput>(
                 SOptionBaseInput,
                 descriptor.options
-            )
-            const _radioInput = this.sm.resolve<IRadioBaseInput>(SRadioBaseInput)
+            )?.()
+            const _radioInput = this.sm.lazy<IRadioBaseInput>(SRadioBaseInput)?.()
 
             _clickInput.input = _baseInput
             _optionInput.input = _baseInput
@@ -60,7 +60,7 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
                 _radioInput
             )
 
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _radioInput

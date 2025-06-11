@@ -16,7 +16,7 @@ export const createFromDescriptors = function <T extends object>(
         return existingForm as IFormular<T>
     }
     const frm = new Formular(id, this)
-    const factory = this.sm.resolve<IInputFactory>(SInputFactory)
+    const factory = this.sm.lazy<IInputFactory>(SInputFactory)?.()
 
     const fields: IExtendedInput[] = []
 

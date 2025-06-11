@@ -39,11 +39,11 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): ISelectBaseInput {
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _clickInput = this.sm.resolve<IClickBaseInput>(SClickBaseInput)
-            const _optionInput = this.sm.resolve<IOptionBaseInput>(SOptionBaseInput)
-            const _selectInput = this.sm.resolve<ISelectBaseInput>(SSelectBaseInput)
+            const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
+            const _optionInput = this.sm.lazy<IOptionBaseInput>(SOptionBaseInput)?.()
+            const _selectInput = this.sm.lazy<ISelectBaseInput>(SSelectBaseInput)?.()
 
             _clickInput.input = _baseInput
             _optionInput.input = _baseInput
@@ -58,7 +58,7 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
                 _selectInput
             )
 
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _selectInput

@@ -50,20 +50,20 @@ export const InputFactory = function (this: IInputFactory, serviceManager: IServ
         switch (type) {
             case 'toggle':
             case 'checkbox':
-                const cbs = this.sm.resolve<ICheckInputService>(SCheckInputService)
+                const cbs = this.sm.lazy<ICheckInputService>(SCheckInputService)?.()
                 return cbs.build.bind(cbs) as IBuilder<T>
             case 'select':
-                const sis = this.sm.resolve<ISelectInputService>(SSelectInputService)
+                const sis = this.sm.lazy<ISelectInputService>(SSelectInputService)?.()
                 return sis.build.bind(sis) as IBuilder<T>
             case 'radio':
-                const srs = this.sm.resolve<IRadioInputService>(SRadioInputService)
+                const srs = this.sm.lazy<IRadioInputService>(SRadioInputService)?.()
                 return srs.build.bind(srs) as IBuilder<T>
             case 'date':
-                const sms = this.sm.resolve<IMaskedInputService>(SMaskedInputService)
+                const sms = this.sm.lazy<IMaskedInputService>(SMaskedInputService)?.()
                 return sms.build.bind(sms) as IBuilder<T>
             case 'text':
             default:
-                const sts = this.sm.resolve<ITextInputService>(STextInputService)
+                const sts = this.sm.lazy<ITextInputService>(STextInputService)?.()
                 return sts.build.bind(sts) as IBuilder<T>
         }
     }

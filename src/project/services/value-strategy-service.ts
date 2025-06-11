@@ -9,6 +9,7 @@ export const SValueStrategyService = Symbol.for('IValueStrategyService')
 
 export interface IValueStrategyService {
     new (sm: IServiceManager): IValueStrategyService
+    sm: IServiceManager
     strategies: IParserStrategy<any>[]
     add: (...strategies: IParserStrategy<any>[]) => void
     remove: (...strategies: IParserStrategy<any>[]) => void
@@ -40,9 +41,9 @@ export const ValueStrategyService = function (this: IValueStrategyService, sm: I
             configurable: false
         }
     })
-
+    this.sm = sm
     this.sync = function (this: IValueStrategyService) {
-        const vm = sm.resolve<IValueManager>(SValueManager)
+        const vm = this.sm.lazy<IValueManager>(SValueManager)?.()
         if (vm) {
             vm.acceptValueStrategies(...this.strategies)
         }

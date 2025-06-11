@@ -4,6 +4,7 @@ import {
     ServiceFactoryType,
     ServiceIdType
 } from '../service-manager.types'
+import { ILazyDependencyProxy, LazyDependencyProxy } from './register-proxy/getter'
 
 export const registerClass = function <T>(
     this: IServiceManager,
@@ -15,10 +16,17 @@ export const registerClass = function <T>(
 
     const factory: ServiceFactoryType<T> = (container: IServiceManager, ...parameters: any[]) => {
         const dependencies = options.dependencies ?? []
-        const resolvedDependencies = dependencies.map((dependency: ServiceIdType<any>) => {
+        const lazyDependencies = dependencies.map((dependency: ServiceIdType<any>) => {
+            if (dependency === null || dependency === undefined) return null
+
+            const lazyDependency: ILazyDependencyProxy<T> = new LazyDependencyProxy(
+                identifier,
+                container,
+                dependency
+            )
+
             try {
-                if (dependency === null) return null
-                return container.resolve(dependency)
+                return lazyDependency.proxy()
             } catch (e: any) {
                 throw new Error(
                     `IServiceManager: Failed to resolve dependency ${container.getServiceName(dependency)} for service ${container.getServiceName(identifier)} - ${e.message}`
@@ -26,7 +34,7 @@ export const registerClass = function <T>(
             }
         })
         // Runtime parameters are passed directly, not resolved from container
-        return new constructor(...resolvedDependencies, ...parameters)
+        return new constructor(...lazyDependencies, ...parameters)
     }
     this.register<T>(identifier, factory, options)
 }

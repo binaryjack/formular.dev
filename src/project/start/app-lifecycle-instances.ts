@@ -1,4 +1,3 @@
-import { NotificationManager } from '@core/managers/notification-manager/notification-manager'
 import { ServiceManager } from '@core/managers/service-manager/service-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 
@@ -37,11 +36,21 @@ export const applifeCylceInstance: IAppLifeCycleInstance = (function () {
      * This is not used in production.
      * therefore we should TODO: toggle this off with a flag
      */
-    const _intNotificationTracker = new NotificationManager()
+
+    // Validate dependencies in development
+    if (process.env.NODE_ENV === 'development') {
+        try {
+            getGlobalServiceManager().validateNoCycles()
+            console.log('🔍 Dependency validation passed')
+        } catch (error: any) {
+            console.error('🚨 Circular dependency detected during startup:', error.message)
+            throw error // Fail fast in development
+        }
+    }
 
     return {
         // this is used for debugging purposes, to track the auto notifications
-        autoTracker: _intNotificationTracker,
+
         resetServiceManager: resetServiceManager,
         getGlobalServiceManager: getGlobalServiceManager
     }

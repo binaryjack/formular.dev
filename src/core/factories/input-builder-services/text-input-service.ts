@@ -30,13 +30,13 @@ export const TextInputService = function (this: ITextInputService, sm: IServiceM
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): ITextBaseInput {
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _textInput = this.sm.resolve<ITextBaseInput>(STextBaseInput)
+            const _textInput = this.sm.lazy<ITextBaseInput>(STextBaseInput)?.()
             _textInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _textInput)
 
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _textInput

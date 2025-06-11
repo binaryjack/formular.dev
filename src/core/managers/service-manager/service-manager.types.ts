@@ -24,7 +24,7 @@ export interface IDisposableService {
 
 export interface IServiceManager {
     new (parent?: IServiceManager): IServiceManager
-
+    readonly resolutionStack: Set<ServiceIdType>
     readonly services: Map<ServiceIdType, IServiceDescriptor>
     readonly singletonInstances: Map<ServiceIdType, any>
     readonly scopedInstances: Map<ServiceIdType, any>
@@ -40,9 +40,11 @@ export interface IServiceManager {
         constructor: new (...args: any[]) => T,
         options?: IServiceOptions
     ): IServiceManager
+    validateNoCycles: () => void
     registerInstance: <T>(identifier: ServiceIdType<T>, instance: T) => IServiceManager
-    resolve: <T>(identifier: ServiceIdType<T>, parameters?: any) => T
-    tryResolve: <T>(identifier: ServiceIdType<T>, parameters?: any) => T | undefined
+    resolve: <T>(identifier: ServiceIdType<T>, ...parameters: any[]) => T
+    tryResolve: <T>(identifier: ServiceIdType<T>, ...parameters: any[]) => T | undefined
+    lazy: <T>(identifier: ServiceIdType<T>, ...parameters: any[]) => () => T
     isRegistered: <T>(identifier: ServiceIdType<T>) => boolean
     throwIfDisposed: () => void
     getServiceName: <T>(identifier: ServiceIdType<T>) => string

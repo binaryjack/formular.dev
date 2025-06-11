@@ -13,10 +13,7 @@ import {
 import { StyleManager } from '@core/managers/style-manager/style-manager'
 import { SStyleManager } from '@core/managers/style-manager/style-manager.types'
 import { TrackingManager } from '@core/managers/tracking-manager/tracker-manager'
-import {
-    STrackingManager,
-    STrackingOutputProvider
-} from '@core/managers/tracking-manager/tracker-manager.types'
+import { STrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { ValidationManager } from '@core/managers/validation-manager/validation-manager'
 import { SValidationManager } from '@core/managers/validation-manager/validation-manager.types'
 import { ValueManager } from '@core/managers/value-manager/value-manager'
@@ -80,21 +77,18 @@ export const setupManagers = function (sm: IServiceManager) {
         dependencies: [SServiceManager]
     })
 
-    sm.register(SNotificationManager, () => new NotificationManager(), {
+    sm.register(SAutoTrackerNotificationManager, () => new NotificationManager(), {
         lifetime: 'singleton'
     })
 
-    sm.register(SAutoTrackerNotificationManager, () => new TrackingManager(), {
-        lifetime: 'singleton'
-    })
-    sm.register(STrackingManager, () => new TrackingManager(), {
+    sm.registerClass(SNotificationManager, NotificationManager, {
         lifetime: 'singleton',
         dependencies: [SAutoTrackerNotificationManager]
     })
+
     sm.register(SDomManager, () => new DomManager(), { lifetime: 'singleton' })
     sm.register(STrackingManager, () => new TrackingManager(), {
-        lifetime: 'singleton',
-        dependencies: [STrackingOutputProvider]
+        lifetime: 'singleton'
     })
     sm.register(SStyleManager, () => new StyleManager(), { lifetime: 'singleton' })
     sm.register(SValidationManager, () => new ValidationManager(), { lifetime: 'singleton' })

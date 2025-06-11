@@ -33,10 +33,10 @@ export const setupBaseFieldsConfiguration = function (sm: IServiceManager) {
         )
     }
     const validationTriggerService =
-        sm.resolve<IValidationTriggerService>(SValidationTriggerService)
-    const validationService = sm.resolve<IValidationStrategyService>(SValidationStrategyService)
-    const valueStrategyService = sm.resolve<IValueStrategyService>(SValueStrategyService)
-    const trackingStrategyService = sm.resolve<ITrackingStrategyService>(STrackingStrategyService)
+        sm.lazy<IValidationTriggerService>(SValidationTriggerService)?.()
+    const validationService = sm.lazy<IValidationStrategyService>(SValidationStrategyService)?.()
+    const valueStrategyService = sm.lazy<IValueStrategyService>(SValueStrategyService)?.()
+    const trackingStrategyService = sm.lazy<ITrackingStrategyService>(STrackingStrategyService)?.()
 
     validationService.add(
         validatorMaxLengthStrategy,

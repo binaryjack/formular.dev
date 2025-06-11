@@ -31,15 +31,15 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IMaskedBaseInput {
-            const configProvider = this.sm.resolve<IConfigProvider>(SConfigProvider)
+            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
 
-            const baseInputService = this.sm.resolve<IBaseInputService>(SBaseInputService)
+            const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
-            const _maskedInput = this.sm.resolve<IMaskedBaseInput>(
+            const _maskedInput = this.sm.lazy<IMaskedBaseInput>(
                 SMaskedBaseInput,
                 descriptor.mask
-            )
+            )?.()
             _maskedInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _maskedInput)
 

@@ -10,6 +10,7 @@ export const SValidationTriggerService = Symbol.for('IValidationTriggerService')
 export interface IValidationTriggerService {
     new (sm: IServiceManager): IValidationTriggerService
     triggers: EventsType[]
+    sm: IServiceManager
     canTrigger: (...triggers: EventsType[]) => boolean
     add: (...triggers: EventsType[]) => void
     remove: (...triggers: EventsType[]) => void
@@ -43,9 +44,9 @@ export const ValidationTriggerService = function (
             configurable: false
         }
     })
-
+    this.sm = sm
     this.sync = function (this: IValidationTriggerService) {
-        const vm = sm.resolve<IValidationManager>(SValidationManager)
+        const vm = this.sm.lazy<IValidationManager>(SValidationManager)?.()
         if (vm) {
             vm.setTriggerKeyWord(this.triggers)
         }
