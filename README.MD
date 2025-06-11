@@ -1,5 +1,9 @@
 # FORMULAR
 
+<div align="center">
+  <img src="./apple-touch-icon.png" alt="FORMULAR Logo" width="200" />
+</div>
+
 **Author:** Piana Tadeo  
 **License:** MIT  
 **Website:** [https://formular.dev/](https://formular.dev/)
