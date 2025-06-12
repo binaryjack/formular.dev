@@ -1,4 +1,4 @@
-import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IRadioBaseInput } from '@core/input-engine/variants/radio-base/radio-base-input.types'
 

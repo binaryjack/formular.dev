@@ -3,7 +3,7 @@ import { TbWorld } from 'react-icons/tb'
 
 import { useEffect } from 'react'
 
-import { useObjectRef } from '@core/framework/react/hooks/use-object-ref'
+import { useObjectRef } from '@adapters/react/hooks/use-object-ref'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import DatePickerBodyDays from './components/date-picker.body.days'
 import DatePickerBodyMonths from './components/date-picker.body.months'

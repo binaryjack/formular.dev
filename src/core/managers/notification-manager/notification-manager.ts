@@ -34,7 +34,6 @@ export const NotificationManager = function (
     this.autoTracker = autoTracker
     this.notifiers = new Map<string, INotification>()
     this.observers = new ObservableSubject()
-    this.computedSignalCallback = null
 
     // Batching properties
     this.batchQueue = []

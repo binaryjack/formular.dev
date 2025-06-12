@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
@@ -22,7 +22,7 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     const handleToggleChange = (id: string, newState: boolean) => {
         setToggleState(newState)
-        instance?.input?.valueManager?.setValue(instance, value)
+        instance?.input?.valueManager?.setValue(instance, newState)
     }
 
     useFieldDefaultValue(instance, (value) => {

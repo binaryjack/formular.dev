@@ -19,12 +19,9 @@ import SwitchButtonInput from '@components/switch-button/switch-button-input'
 import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { INDate } from '@core/framework/schema/descriptor/i-n-date'
-import { Signals } from '../../core/observers/signals/signal'
+
 import { demoFormInstance } from './form-demo.instance'
 import { FormOutputFieldsNames } from './form-demo.schema'
-
-// https://github.com/preactjs/signals/blob/main/packages/core/CHANGELOG.md
-const { Signal, useSignal } = Signals
 
 // build a schema for the fields to be used
 // const item = controlDemoSchema

@@ -33,6 +33,7 @@ export default defineConfig(() => ({
             '@tests': resolve(__dirname, 'src/__tests__'),
             '@mocks': resolve(__dirname, 'src/mocks'),
             '@components': resolve(__dirname, 'src/components'),
+            '@adapters': resolve(__dirname, 'src/adapters'),
             '@project': resolve(__dirname, 'src/project'),
             '@core': resolve(__dirname, 'src/core'),
             '@fields': resolve(__dirname, 'src/core/fields'),

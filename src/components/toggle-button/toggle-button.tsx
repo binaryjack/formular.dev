@@ -8,7 +8,7 @@ import {
     VariantNameType
 } from '../../style/global.types'
 
-import { sizeConverter } from '@core/framework/react/hooks/screen/utils/screen.utils'
+import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import './toggle-button.css'
 
 interface IToggleButtonProps {

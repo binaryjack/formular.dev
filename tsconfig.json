@@ -24,6 +24,7 @@
             "@mocks/*": ["src/__tests__/mocks/*"],
             "@core/*": ["src/core/*"],
             "@components/*": ["src/components/*"],
+            "@adapters/*": ["src/adapters/*"],
             "@project/*": ["src/project/*"],
             "@fields/*": ["src/core/fields/*"],
             "@factory*": ["src/core/field-engine/generator/factory/*"],

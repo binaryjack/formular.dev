@@ -1,4 +1,4 @@
-import { IMedia, IMediaBreakpoints } from '@core/framework/react/hooks/screen/screen.models'
+import { IMedia, IMediaBreakpoints } from '@adapters/react/hooks/screen/screen.models'
 import { createContext, useContext } from 'react'
 import { IDebug } from '../debug/debug.types'
 

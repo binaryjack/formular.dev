@@ -25,7 +25,7 @@
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 
 import { IObservableSubject } from '@core/observers/observable-subject/observable-subject.types'
-import { ComputedSignalCallback } from '@core/observers/signals/signal.type'
+
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
 import { BatchConfig, INotification } from './notification-manager.types'
 
@@ -47,7 +47,6 @@ export interface INotificationManager extends IInitializableDependency {
     dispose: () => void
     notifiers: Map<string, INotification>
     observers: IObservableSubject
-    computedSignalCallback: ComputedSignalCallback<unknown> | null
     autoTracker?: INotificationManager
 
     // Batching properties

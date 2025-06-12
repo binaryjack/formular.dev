@@ -1,14 +1,14 @@
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import CheckInput from '@components/check-Input/check-Input'
 import FormularForm from '@components/formular-form/formular-form'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
-import { useField } from '@core/framework/react/fields/hooks/use-field'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { fileDescriptorMock } from '@tests/mocks/file-descriptor-mock'
 import { useEffect, useState } from 'react'
 
-import { useService } from '@core/framework/react/services/use-service'
+import { useService } from '@adapters/react/services/use-service'
 import {
     IFormularManager,
     SFormularManager

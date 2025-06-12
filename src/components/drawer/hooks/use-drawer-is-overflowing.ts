@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import useThrottle from '@adapters/react/hooks/use-throttle'
 import { ToggleableStateType } from '@core/framework/common/common.toggleable'
-import useThrottle from '@core/framework/react/hooks/use-throttle'
 import { ElementPositionOutputType } from '../../../style/global.types'
 import useAppContext from '../../context/app-context/app-context.context'
 import { useScrollingContext } from '../../context/scrolling/scrolling.context'

@@ -125,16 +125,6 @@ export function processEventGroup(
             }
         }
     })
-    // Execute computed signal callback if present (needs proper signal format)
-    if (this.computedSignalCallback) {
-        // Create a dummy signal-like object for compatibility
-        const signalLike = {
-            value: events,
-            id: `batch-${eventType}`
-            // Add minimal signal properties as needed
-        } as any
-        this.computedSignalCallback(signalLike)
-    }
 
     // Trigger observers (maintaining existing behavior)
     this.observers?.trigger()

@@ -12,7 +12,7 @@ export function unSubscribe<T = any>(
 ) {
     if (forWeak) {
         this.observersWeak = [
-            ...this.observersWeak.filter((o: WeakRef<observableFunction>) => o.deref() !== fn)
+            ...this.observersWeak.filter((o: WeakRef<TObservableFunction>) => o.deref() !== fn)
         ]
         this.cleanupRegistry.unregister(fn)
     } else {

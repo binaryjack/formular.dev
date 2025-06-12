@@ -1,7 +1,7 @@
 /**
- * Checks if a given number is null or undefined.
+ * Checks if a given value is a number (excluding NaN).
  *
- * @param value - The number to check.
- * @returns True if the number is null or undefined, otherwise false.
+ * @param value - The value to check.
+ * @returns True if the value is a number and not NaN, otherwise false.
  */
-export const isNumber = (value?: any): boolean => !Number.isNaN(value)
+export const isNumber = (value?: any): boolean => typeof value === 'number' && !Number.isNaN(value)

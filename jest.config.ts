@@ -27,6 +27,7 @@ const config: Config = {
         '^@mocks/(.*)$': '<rootDir>/src/__tests__/mocks/$1',
         '^@core/(.*)$': '<rootDir>/src/core/$1',
         '^@components/(.*)$': '<rootDir>/src/components/$1',
+        '^@adapters/(.*)$': '<rootDir>/src/adapters/$1',
         '^@fields/(.*)$': '<rootDir>/src/core/fields/$1',
         '^@project/(.*)$': '<rootDir>/src/project/$1',
         '^@factory/(.*)$': '<rootDir>/src/core/field-engine/generator/factory/$1',
@@ -36,11 +37,10 @@ const config: Config = {
         '^@demo/(.*)$': '<rootDir>/src/demo/$1',
         '^@patterns/(.*)$': '<rootDir>/src/patterns/$1',
         '^@style/(.*)$': '<rootDir>/src/style/$1'
-    },
-    // transform: {
+    }, // transform: {
     //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
     // },
-    testMatch: ['<rootDir>/src/__tests__/**/*.(spec|test).ts?(x)'], // Only look in the __tests__ folder
+    testMatch: ['<rootDir>/src/**/*.(spec|test).ts?(x)'], // Look recursively in src folder and subfolders
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'] // Optional: Jest setup file
     // All imported modules in your tests should be mocked automatically
     // automock: false,

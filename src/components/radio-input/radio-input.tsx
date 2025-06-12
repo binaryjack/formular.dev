@@ -1,4 +1,4 @@
-import { useField } from '@core/framework/react/fields/hooks/use-field'
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { IRadioBaseInput } from '@core/input-engine/variants/radio-base/radio-base-input.types'
 import { conventions, MissingPropEnum } from '../context/conventions/conventions'

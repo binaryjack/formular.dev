@@ -1,7 +1,7 @@
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import DatePicker from '@components/date-picker/date-picker'
 import FormularForm from '@components/formular-form/formular-form'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
-import { useField } from '@core/framework/react/fields/hooks/use-field'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
@@ -12,7 +12,7 @@ import { minValidationMock } from '@tests/mocks/min-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 
-import { useService } from '@core/framework/react/services/use-service'
+import { useService } from '@adapters/react/services/use-service'
 import {
     IFormularManager,
     SFormularManager

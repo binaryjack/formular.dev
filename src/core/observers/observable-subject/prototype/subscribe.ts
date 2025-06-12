@@ -13,7 +13,7 @@ export function subscribe<T = any>(
     if (useWeak) {
         if (
             this.observersWeak.find(
-                (o: WeakRef<observableFunction>) => obs.name.toString() === obs.name
+                (o: WeakRef<TObservableFunction>) => obs.name.toString() === obs.name
             )
         )
             return

@@ -33,12 +33,8 @@ export const ValidationTriggerService = function (
             get: function () {
                 return _triggers
             },
-            set: function (...triggers: EventsType[]) {
-                for (const trigger of triggers) {
-                    if (!_triggers.includes(trigger)) {
-                        _triggers.push(trigger)
-                    }
-                }
+            set: function (triggers: EventsType[]) {
+                _triggers = triggers || []
             },
             enumerable: true,
             configurable: false
@@ -65,20 +61,22 @@ Object.assign(ValidationTriggerService.prototype, {
     },
 
     add: function (this: IValidationTriggerService, ...triggers: EventsType[]): void {
+        const currentTriggers = [...this.triggers]
         for (const trigger of triggers) {
-            if (!this.triggers.includes(trigger)) {
-                this.triggers.push(trigger)
+            if (!currentTriggers.includes(trigger)) {
+                currentTriggers.push(trigger)
             }
         }
+        this.triggers = currentTriggers
         this.sync()
     },
     remove: function (this: IValidationTriggerService, ...triggers: EventsType[]): void {
+        let currentTriggers = [...this.triggers]
         for (const trigger of triggers) {
-            const index = this.triggers.indexOf(trigger)
-            if (index !== -1) {
-                this.triggers.splice(index, 1)
-            }
+            // Remove all occurrences of the trigger
+            currentTriggers = currentTriggers.filter((t) => t !== trigger)
         }
+        this.triggers = currentTriggers
         this.sync()
     },
     reset: function (this: IValidationTriggerService) {

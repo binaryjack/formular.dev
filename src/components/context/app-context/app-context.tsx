@@ -4,7 +4,7 @@
 
 import { AppContext, IAppContext } from './app-context.context'
 
-import useMediaScreens from '@core/framework/react/hooks/screen/use-media-screens'
+import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
 import { useState } from 'react'
 import { DrawerSlotCenter } from '../../drawer/components/drawer-slot.center'
 import { IDebug } from '../debug/debug.types'

@@ -4,8 +4,8 @@ import { conventions, MissingPropEnum } from '../context/conventions/conventions
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 
-import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import ValidationResultComponent from '../validation-result/validation-result'
 import { deserializeEngineState } from './core/io/deserialize-engine-state'
 import { serializeEngineState } from './core/io/serialize-engine-state '

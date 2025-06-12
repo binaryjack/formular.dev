@@ -1,4 +1,4 @@
-import { useField } from '@core/framework/react/fields/hooks/use-field'
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'

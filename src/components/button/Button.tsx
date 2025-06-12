@@ -9,7 +9,7 @@ import {
 import Spinner from '../spinner/spinner'
 import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 
-import { sizeConverter } from '@core/framework/react/hooks/screen/utils/screen.utils'
+import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import { conditionalClass } from '@core/framework/utility/conditional-class'
 import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'

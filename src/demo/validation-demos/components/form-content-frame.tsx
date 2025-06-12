@@ -1,5 +1,5 @@
+import { useService } from '@adapters/react/services/use-service'
 import { Accordion } from '@components/accordion/accordion'
-import { useService } from '@core/framework/react/services/use-service'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { SAutoTrackerNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
 import { NotifierDebugUi } from '@core/managers/notification-manager/notifier-debug-ui/notifier-debug-ui'

@@ -1,7 +1,7 @@
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import FormularForm from '@components/formular-form/formular-form'
 import InputText from '@components/input-text/input-text'
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
-import { useField } from '@core/framework/react/fields/hooks/use-field'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
@@ -12,7 +12,7 @@ import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 import { useEffect, useState } from 'react'
 
-import { useService } from '@core/framework/react/services/use-service'
+import { useService } from '@adapters/react/services/use-service'
 import {
     IFormularManager,
     SFormularManager

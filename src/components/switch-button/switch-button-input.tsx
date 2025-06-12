@@ -1,5 +1,5 @@
-import { useField } from '@core/framework/react/fields/hooks/use-field'
-import { useFieldDefaultValue } from '@core/framework/react/hooks/use-field-default-value'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import { useState } from 'react'
 import { conventions, MissingPropEnum } from '../context/conventions/conventions'
 import FieldSet from '../field-set/field-set'

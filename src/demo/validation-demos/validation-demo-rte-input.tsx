@@ -1,6 +1,6 @@
+import { useField } from '@adapters/react/fields/hooks/use-field'
 import FormularForm from '@components/formular-form/formular-form'
 import { RteInput } from '@components/rte-Input/rte-input'
-import { useField } from '@core/framework/react/fields/hooks/use-field'
 
 import { useEffect, useState } from 'react'
 
@@ -13,7 +13,7 @@ import { maxLengthValidationMock } from '@tests/mocks/max-length-validation-mock
 import { minLengthValidationMock } from '@tests/mocks/min-length-validation-mock'
 import { requiredDataValidationMock } from '@tests/mocks/required-data-validation-mock'
 
-import { useService } from '@core/framework/react/services/use-service'
+import { useService } from '@adapters/react/services/use-service'
 import {
     IFormularManager,
     SFormularManager

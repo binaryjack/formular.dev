@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 
-import useKeyBindings from '@core/framework/react/hooks/use-key-bindings'
+import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { useDrawerContext } from '../drawer/components/drawer.context'
 import SelectDrawerContentUI from './select-input.drawer.content.ui'
 

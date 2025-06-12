@@ -1,3 +1,4 @@
+import { useCenterElementTrigger } from '@adapters/react/hooks/screen/use-center-element'
 import { Button } from '@components/button/button'
 import { conventions } from '@components/context/conventions/conventions'
 import { CenterElementDebug } from '@components/context/debug/center-element-debug'
@@ -5,7 +6,6 @@ import { DrawerSlot } from '@components/drawer/components/drawer-slot'
 import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
 import { Drawer } from '@components/drawer/drawer'
 import { PasswordToggle } from '@components/password/password.toggle'
-import { useCenterElementTrigger } from '@core/framework/react/hooks/screen/use-center-element'
 import { IFieldStateFlags } from '@core/managers/style-manager/style-manager.types'
 import { MdClose } from 'react-icons/md'
 
