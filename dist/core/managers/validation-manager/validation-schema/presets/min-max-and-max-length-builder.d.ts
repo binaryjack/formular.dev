@@ -1,0 +1,1 @@
+export declare const MinMaxAndMaxLengthBuilder: (name: string, minValue: number, maxValue: number, maxLength: number) => import('../../generic-validation-builder/generic-validation-builder').IGenericValidationBuilder;

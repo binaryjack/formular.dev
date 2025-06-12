@@ -1,4 +1,4 @@
-import { ServiceManager } from '@core/managers/service-manager/service-manager'
+import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import { applifeCylceInstance } from '@project/start/app-lifecycle-instances'
 import { renderHook } from '@testing-library/react'
 import { useService } from './use-service'
@@ -11,16 +11,20 @@ jest.mock('@project/start/app-lifecycle-instances', () => ({
 }))
 
 describe('useService', () => {
-    let mockServiceManager: jest.Mocked<typeof ServiceManager>
+    type IServiceManagerWithLazy = {
+        lazy: jest.Mock<any, any>
+    } & Partial<IServiceManager>
+
+    let mockServiceManager: IServiceManagerWithLazy
     let mockAppLifecycle: jest.Mocked<typeof applifeCylceInstance>
 
     beforeEach(() => {
         mockServiceManager = {
             lazy: jest.fn()
-        } as any
+        }
 
         mockAppLifecycle = applifeCylceInstance as jest.Mocked<typeof applifeCylceInstance>
-        mockAppLifecycle.getGlobalServiceManager.mockReturnValue(mockServiceManager)
+        mockAppLifecycle.getGlobalServiceManager.mockReturnValue(mockServiceManager as any)
     })
 
     afterEach(() => {

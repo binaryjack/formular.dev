@@ -9,49 +9,174 @@ import {
 } from '@core/managers/validation-manager/validation-manager.types'
 import { LoadingStatus } from '@core/status'
 
+/**
+ * Main interface representing a complete form instance with full lifecycle management.
+ *
+ * This interface combines form management, validation, notifications, and state management
+ * into a single cohesive interface. It provides all the functionality needed to create,
+ * manage, validate, and submit forms.
+ *
+ * @template T - The type of the data object this form will produce/manage
+ *
+ * @example
+ * ```typescript
+ * interface UserData {
+ *   username: string;
+ *   email: string;
+ * }
+ *
+ * const userForm: IFormular<UserData> = formManager.createFromSchema(userSchema);
+ * const result = await userForm.submit(); // Returns UserData | null
+ * ```
+ */
 export type IFormular<T extends object> = IFormularBase<T> &
     INotificationManager &
     IFormularFlags &
     IValidationManager &
     IValidableForm
 
+/**
+ * Form state flags and status management interface.
+ *
+ * Provides properties and methods to track the current state of a form,
+ * including loading status, validation state, and whether the form has been modified.
+ */
 export interface IFormularFlags {
+    /** Current loading/busy status of the form */
     isBusy: LoadingStatus
+
+    /** Whether the form has been modified from its original state */
     isDirty: boolean
-    /**originally this should be in IValidable
-     * but! because of IfieldDescriptor
-     * has already one let's asume that
-     * this info belongs to the entity itself,
-     * I am not happy with that but at least it's clear */
+
+    /**
+     * Whether the form is currently valid (all validation rules pass)
+     *
+     * @remarks
+     * Originally this should be in IValidable, but because IFieldDescriptor
+     * already has one, we assume this info belongs to the entity itself.
+     * This is not ideal but provides clarity.
+     */
     isValid: boolean
 
+    /**
+     * Sets the busy/loading status of the form
+     * @param status - The new loading status to set
+     */
     setIsBusy: (status: LoadingStatus) => void
 }
 
+/**
+ * Core form management interface defining the fundamental operations and properties of a form.
+ *
+ * This interface provides the foundational structure for form instances, including
+ * field management, validation, submission, and state tracking. All form instances
+ * implement this interface to ensure consistent behavior across the system.
+ *
+ * @template T - The type of data this form manages and returns upon submission
+ */
 export interface IFormularBase<T extends object> {
+    /**
+     * Constructor for creating a new form instance
+     * @param id - Unique identifier for this form
+     * @param manager - The form manager that owns this form
+     */
     new (id: string, manager: IFormularManager): IFormular<T>
+
+    /** Unique identifier for this form instance */
     readonly id: string
+
+    /** Array of all fields currently in this form */
     fields: IExtendedInput[]
+
+    /** Original field configurations (for reset/comparison purposes) */
     originFields: IExtendedInput[]
+
+    /** Number of times this form has been submitted */
     submitCount: number
+
+    /** Whether validation should run on the first submit attempt */
     validateOnFirstSubmit: boolean
+
+    /** Whether this form instance is bound to a data source */
     isFormularBinded: boolean
+
+    /** Reference to the form manager that created this form */
     readonly manager: IFormularManager
+
+    /** Reference to the notification manager for this form */
     readonly notificationManager?: INotificationManager
 
+    /**
+     * Validates all fields in the form and returns the overall validity state
+     * @returns Promise that resolves to true if all fields are valid
+     */
     checkAllFieldsAreValid: () => Promise<boolean>
+
+    /**
+     * Adds one or more fields to this form
+     * @param flds - Fields to add to the form
+     */
     addFields: (...flds: IExtendedInput[]) => void
+
+    /**
+     * Retrieves a specific field by its name
+     * @param fieldName - Name of the field to retrieve
+     * @returns The field instance or undefined if not found
+     */
     getField: (fieldName: string) => IExtendedInput | undefined
+
+    /**
+     * Checks for changes in form data and updates dirty state
+     */
     checkChanges: () => void
+
+    /**
+     * Validates and submits the form
+     * @returns Promise that resolves to the form data if valid, or null if invalid
+     */
     submit: () => Promise<T | null>
+
+    /**
+     * Sets the loading/busy status of the form
+     * @param status - The loading status to set
+     */
     setIsBusy: (status: LoadingStatus) => void
+
+    /**
+     * Registers a callback to be called when the form data changes
+     * @param callback - Function to call when changes are detected
+     */
     hasChanges: (callback: () => void) => void
+
+    /**
+     * Gets the current form state flags
+     * @returns Object containing form state information
+     */
     getFormFlags: () => Partial<IFormularFlags>
+
+    /**
+     * Extracts current form data as key-value pairs
+     * @returns Object containing all field names and their current values
+     */
     getData: () => Record<string, InputDataTypes>
+
+    /**
+     * Sets the event types that will trigger validation
+     * @param mode - Array of event types to use as validation triggers
+     */
     setTriggerKeyWord: (mode: EventsType[]) => void
 }
 
+/**
+ * Represents a change event for a specific field in a form.
+ *
+ * Used to track which fields have been modified and notify observers
+ * of field-level changes within the form.
+ */
 export interface IFieldChange {
+    /** Name of the field that changed */
     name: string
+
+    /** Whether the field has pending changes */
     hasChanges: boolean
 }

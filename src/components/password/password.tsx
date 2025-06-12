@@ -12,12 +12,96 @@ import FieldSet from '../field-set/field-set'
 import { Portal } from '../portals/portals'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './password.css'
-// filepath: e:/Sources/SignalsPatternsReact/src/components/password/Password.tsx
 
+/**
+ * Props for the Password component.
+ */
 interface IPasswordProps {
+    /** The name of the field as defined in the form schema */
     fieldName: string
 }
 
+/**
+ * A password input component that integrates with the FORMULAR form management system.
+ *
+ * This component provides a complete password input solution with:
+ * - Automatic field binding and secure input handling
+ * - Toggle visibility functionality (show/hide password)
+ * - Real-time validation with visual feedback
+ * - Keyboard navigation support (Delete key to clear)
+ * - Focus management and accessibility features
+ * - Integration with the form's validation system
+ * - Built-in security features (autocomplete disabled)
+ *
+ * The component automatically connects to the form instance via context and manages
+ * its state through the FORMULAR input engine, with additional password-specific
+ * security and usability features.
+ *
+ * @param props - The component props
+ * @param props.fieldName - The name of the field as defined in the form schema.
+ *                          This must match a password field name in your form's schema definition.
+ *
+ * @returns A rendered password input field with visibility toggle and validation
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Password fieldName="password" />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Within a form with validation
+ * const schema = {
+ *   properties: [
+ *     PasswordBuilder.setId(1)
+ *       .setName('password')
+ *       .setLabel('Password')
+ *       .setValidationData(true, Validators.password('password', true).build())
+ *       .build()
+ *   ]
+ * }
+ *
+ * <FormularForm formular={myFormInstance}>
+ *   <Password fieldName="password" />
+ *   <Password fieldName="confirmPassword" />
+ * </FormularForm>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // With custom validation rules
+ * const schema = {
+ *   properties: [
+ *     PasswordBuilder.setId(1)
+ *       .setName('newPassword')
+ *       .setLabel('New Password')
+ *       .setValidationData(true,
+ *         Validators.password('newPassword', true)
+ *           .minLength(8)
+ *           .requireUppercase()
+ *           .requireLowercase()
+ *           .requireNumbers()
+ *           .requireSpecialChars()
+ *           .build()
+ *       )
+ *       .build()
+ *   ]
+ * }
+ *
+ * <Password fieldName="newPassword" />
+ * ```
+ *
+ * @remarks
+ * - The fieldName must match a password field defined in your form schema
+ * - The component includes a visibility toggle button for better UX
+ * - Autocomplete is disabled for security reasons
+ * - Supports keyboard shortcuts (Delete key clears the field)
+ * - Automatically focuses when the field wrapper is clicked
+ * - Integrates with the form's submission and validation lifecycle
+ * - The visibility toggle is accessible via keyboard navigation
+ * - Provides real-time validation feedback for password strength
+ */
 const Password = ({ fieldName }: IPasswordProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))

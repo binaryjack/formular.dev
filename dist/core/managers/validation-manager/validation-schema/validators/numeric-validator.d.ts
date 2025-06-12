@@ -1,0 +1,1 @@
+export declare const numericValidator: (name: string, required?: boolean, minValue?: number, maxValue?: number) => import('../../generic-validation-builder/generic-validation-builder').IGenericValidationBuilder;
