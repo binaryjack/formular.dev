@@ -1,4 +1,4 @@
-import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field.schema.builder'
+import { FieldSchemaBuilder } from '@core/framework/schema/field-schema/field-schema-builder'
 import { Validators } from '@core/managers/validation-manager/validation-schema/validators'
 
 export const DateBuilder = new FieldSchemaBuilder()

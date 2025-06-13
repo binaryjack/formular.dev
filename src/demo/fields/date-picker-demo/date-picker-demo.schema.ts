@@ -1,4 +1,4 @@
-import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field-schema-types'
 
 import { Validators } from '@core/managers/validation-manager/validation-schema/validators'
 import { DateBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/date-builder'

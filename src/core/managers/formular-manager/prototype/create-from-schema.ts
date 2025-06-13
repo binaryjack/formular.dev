@@ -1,5 +1,5 @@
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
-import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field-schema-types'
 
 import { mapSchemaToFieldDescriptor } from '@core/framework/converters/to-field-descriptor'
 import { IFormularManager } from '../formular-manager.types'

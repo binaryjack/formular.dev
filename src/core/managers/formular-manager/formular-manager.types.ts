@@ -1,6 +1,6 @@
 import { IFormular } from '@core/formular-engine/formular-base/formular-base.types'
 
-import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field-schema-types'
 
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'

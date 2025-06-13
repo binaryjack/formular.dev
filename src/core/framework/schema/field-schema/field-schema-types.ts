@@ -37,18 +37,6 @@ export interface IFieldSchemaBuilder extends IFieldSchema {
     clone: () => IFieldSchema
 }
 
-export interface IFieldSchemeFactory {
-    new (): IFieldSchemeFactory
-    builders: IFieldSchemaBuilder[]
-    addBuilders: (...builders: IFieldSchemaBuilder[]) => void
-    create: (
-        name: string,
-        target: string | null,
-        options: IOptionItem[],
-        shouldValidate: boolean,
-        validationOptions?: IValidationOptions
-    ) => IFieldSchema | undefined
-}
 /**
  * this interface represents an entity
  * name is the name of the entity

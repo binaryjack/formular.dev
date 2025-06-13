@@ -2,7 +2,7 @@ import { IFormular } from '@core/formular-engine/formular-base/formular-base.typ
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IEntityScheme } from '@core/framework/schema/field-schema/field.schema.types'
+import { IEntityScheme } from '@core/framework/schema/field-schema/field-schema-types'
 import { ICheckBoxBaseInputProperties } from '@core/input-engine/variants/check-box-base/check-box-base-input.types'
 import { IClickBaseInputProperties } from '@core/input-engine/variants/click-base/click-base-input.types'
 import {

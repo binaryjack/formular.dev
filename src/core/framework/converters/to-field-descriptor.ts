@@ -2,7 +2,7 @@ import { conventions, MissingPropEnum } from '@components/context/conventions/co
 
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'
-import { IEntityScheme } from '../schema/field-schema/field.schema.types'
+import { IEntityScheme } from '../schema/field-schema/field-schema-types'
 
 export const mapSchemaToFieldDescriptor = (scheme: IEntityScheme): IFieldDescriptor[] => {
     const output: IFieldDescriptor[] = []

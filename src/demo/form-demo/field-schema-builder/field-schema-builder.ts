@@ -1,4 +1,4 @@
-import { FieldSchemaFactory } from '@core/framework/schema/field-schema/field.schema.factory'
+import { FieldSchemaFactory } from '@core/framework/schema/field-schema-factory/field-schema-factory'
 import { DateBuilder } from './builders-preset/date-builder'
 import { IdBuilder } from './builders-preset/id-builder'
 import { InputTextBuilder } from './builders-preset/input-text-builder'
