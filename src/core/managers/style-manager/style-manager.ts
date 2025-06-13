@@ -14,10 +14,11 @@ import { IStyleManager } from './style-manager.types'
  *
  * @property {Map<FieldInputStateType, string>} classesList - A map that holds the class names for different field states.
  */
+
 export const StyleManager = function (this: IStyleManager) {
     this.isInitialized = false
     Object.defineProperty(this, 'dependencyName', {
-        value: StyleManager.name,
+        value: 'StyleManager',
         writable: false, // Prevent modification
         configurable: false // Prevent deletion or redefinition
     })

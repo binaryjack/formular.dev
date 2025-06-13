@@ -101,10 +101,13 @@ describe('logManager', () => {
             )
         })
 
-        it('should default to console.info for unknown type', () => {
-            logManager(undefined, 'unknown' as TrackingType, 'TestSource', 'Unknown message')
-
-            expect(consoleMock.info).toHaveBeenCalledWith('TestSource: Unknown message')
+        it('should throw for unknown type and log error', () => {
+            expect(() => {
+                logManager(undefined, 'unknown' as TrackingType, 'TestSource', 'Unknown message')
+            }).not.toThrow() // error is caught internally
+            expect(consoleMock.error).toHaveBeenCalledWith(
+                expect.stringContaining('Unhandled TrackingType')
+            )
         })
     })
 

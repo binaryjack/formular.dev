@@ -20,6 +20,8 @@ export const logManager = function (
 const _messageConsoleFactory = (type: TrackingType, source: string, message: string) => {
     switch (type) {
         case 'critical':
+            // For critical, log and throw to interrupt execution as intended
+            console.error(`CRITICAL - ${source}: ${message}`)
             throw Error(`${source}: ${message}`)
         case 'warning':
             console.warn(`${source}: ${message}`)
@@ -28,10 +30,15 @@ const _messageConsoleFactory = (type: TrackingType, source: string, message: str
             console.error(`${source}: ${message}`)
             break
         case 'info':
-        default:
             console.info(`${source}: ${message}`)
             break
+        default:
+            assertNever(type)
     }
+}
+
+function assertNever(x: never): never {
+    throw new Error(`Unhandled TrackingType: ${x}`)
 }
 
 const _messageTrackerFactory = (
@@ -51,8 +58,9 @@ const _messageTrackerFactory = (
             tracker.internalWarning(source, message)
             break
         case 'info':
-        default:
             tracker.internalInfo(source, message)
             break
+        default:
+            assertNever(type)
     }
 }
