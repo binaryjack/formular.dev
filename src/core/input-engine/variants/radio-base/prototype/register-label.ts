@@ -15,7 +15,7 @@
  */
 
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
-import { DomRegisterBuilder } from '@core/input-engine/core/abstract/dom-registers-builder'
+import { DomRegisterBuilder } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 /** NEED TO BE MOVED TO RADIO KIND CONTROL */

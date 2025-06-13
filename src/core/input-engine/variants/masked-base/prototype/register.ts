@@ -6,7 +6,7 @@ import { computeAriaAttributes } from '@core/framework/optimization/compute-aria
 import {
     DomRegisterBuilder,
     ICustomHandler
-} from '@core/input-engine/core/abstract/dom-registers-builder'
+} from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IMaskedBaseInput } from '../masked-base-input.types'
 import { onChange } from './on-change'

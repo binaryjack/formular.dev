@@ -3,8 +3,8 @@
  */
 
 import { conventions } from '@components/context/conventions/conventions'
-import { DomRegisterBuilder } from '@core/input-engine/core/abstract/dom-registers-builder'
 import { aria } from '@core/input-engine/core/accessibility/arias'
+import { DomRegisterBuilder } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
 /**

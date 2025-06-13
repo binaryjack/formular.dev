@@ -1,4 +1,4 @@
-import { ICustomHandler } from '@core/input-engine/core/abstract/dom-registers-builder'
+import { ICustomHandler } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 export const SMaskedBaseInput = Symbol.for('IMaskedBaseInput')
 export interface IMaskedBaseInput extends IExtendedInputBase {

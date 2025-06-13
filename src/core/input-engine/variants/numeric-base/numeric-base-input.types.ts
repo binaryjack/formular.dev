@@ -1,6 +1,6 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
-import { ICustomHandler } from '@core/input-engine/core/abstract/dom-registers-builder'
+import { ICustomHandler } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'
 
 export const SNumericBaseInput = Symbol.for('INumericBaseInput')
