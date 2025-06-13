@@ -1,3 +1,12 @@
+/**
+ * Sets the checked state of an element by its ID.
+ *
+ * If the element does not exist in the manager's references, an error is logged via the tracker.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to set the checked state for.
+ * @param {boolean} value - The checked state to set (true or false).
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

@@ -66,8 +66,23 @@ export const InputBase = function (
 
     this.validationResults = []
 
+    // Helper to notify changes
+    const notifyChange = (eventType: 'onValidate' | 'onUiUpdate') => {
+        this.notificationManager?.debounceNotify(
+            eventType,
+            conventions.events.onUiUpdate.triggerDelay,
+            newEvent(
+                this.name,
+                setInputBusy.name,
+                eventType,
+                `field.${setInputBusy.name}.isFocus`,
+                this.name
+            )
+        )
+    }
+
     // Make 'value' observable and notify on change
-    let _value = this.value
+    let _value = typeof this.value !== 'undefined' ? this.value : null
     Object.defineProperty(this, 'value', {
         get() {
             return _value
@@ -75,38 +90,21 @@ export const InputBase = function (
         set(newValue) {
             if (_value !== newValue) {
                 _value = newValue
-                if (this.validationManager?.triggerKeyWordType.includes('onchange')) {
-                    this.notificationManager?.debounceNotify(
-                        'onValidate',
-                        conventions.events.onUiUpdate.triggerDelay,
-                        newEvent(
-                            this.name,
-                            setInputBusy.name,
-                            'onValidate',
-                            `field.${setInputBusy.name}.isFocus`,
-                            this.name
-                        )
-                    )
+                const triggers =
+                    this.validationManager?.triggerKeyWordType?.map((k: string) =>
+                        k.toLowerCase()
+                    ) ?? []
+                if (triggers.includes('onchange')) {
+                    notifyChange('onValidate')
                 }
-                // Notify observers about the change
-                this.notificationManager?.debounceNotify(
-                    'onUiUpdate',
-                    conventions.events.onUiUpdate.triggerDelay,
-                    newEvent(
-                        this.name,
-                        setInputBusy.name,
-                        'onUiUpdate',
-                        `field.${setInputBusy.name}.isFocus`,
-                        this.name
-                    )
-                )
+                notifyChange('onUiUpdate')
             }
         },
         configurable: true,
         enumerable: true
     })
 
-    let _focus = this.isFocus
+    let _focus = typeof this.isFocus !== 'undefined' ? this.isFocus : false
     Object.defineProperty(this, 'isFocus', {
         get() {
             return _focus
@@ -114,32 +112,14 @@ export const InputBase = function (
         set(newValue: boolean) {
             if (_focus !== newValue) {
                 _focus = newValue
-
-                if (this.validationManager?.triggerKeyWordType.includes('onChange')) {
-                    this.notificationManager?.debounceNotify(
-                        'onValidate',
-                        conventions.events.onUiUpdate.triggerDelay,
-                        newEvent(
-                            this.name,
-                            setInputBusy.name,
-                            'onValidate',
-                            `field.${setInputBusy.name}.isFocus`,
-                            this.name
-                        )
-                    )
+                const triggers =
+                    this.validationManager?.triggerKeyWordType?.map((k: string) =>
+                        k.toLowerCase()
+                    ) ?? []
+                if (triggers.includes('onchange')) {
+                    notifyChange('onValidate')
                 }
-                // Notify observers about the change
-                this.notificationManager?.debounceNotify(
-                    'onUiUpdate',
-                    conventions.events.onUiUpdate.triggerDelay,
-                    newEvent(
-                        this.name,
-                        setInputBusy.name,
-                        'onUiUpdate',
-                        `field.${setInputBusy.name}.isFocus`,
-                        this.name
-                    )
-                )
+                notifyChange('onUiUpdate')
             }
         }
     })

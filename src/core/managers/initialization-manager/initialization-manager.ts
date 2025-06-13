@@ -1,41 +1,24 @@
 import { IConfiguration } from '@project/provider/configuration/i-configuration'
-import {
-    IInitializationDelegate,
-    InitializationDelegate
-} from './delegates/initialization-delegate'
+import type { IInitializationManager } from './initialization-manager.types'
+// import type { IInitializationDelegate } from './delegates/initialization-delegate'
+// Import all prototype functions
+import { addInitializer } from './prototype/add-initializer'
+import { executeSequences } from './prototype/execute-sequences'
 
-export interface IInitializationManager {
-    new (params: IConfiguration): IInitializationManager
-    params: IConfiguration
-    initializer?: IInitializationDelegate
-    addInitializer: (name: string, initializer: (params: IConfiguration) => void) => void
-    executeSequences: () => void
-}
-
-export const addInitializer = function (
-    this: IInitializationManager,
-    name: string,
-    initializer: (params: IConfiguration) => void
-) {
-    const newDelegate = new InitializationDelegate(name, this, initializer)
-
-    if (!this.initializer) {
-        this.initializer = newDelegate
-    } else {
-        this.initializer?.setNextSequence?.(newDelegate)
-    }
-}
-
-export const executeSequences = function (this: IInitializationManager) {
-    this.initializer?.execute?.()
-}
-
+/**
+ * InitializationManager constructor function.
+ * @param params - The configuration parameters.
+ */
 export const InitializationManager = function (
     this: IInitializationManager,
     params: IConfiguration
 ) {
     this.params = params
     this.initializer = undefined
-    this.addInitializer = addInitializer
-    this.executeSequences = executeSequences
 } as any as IInitializationManager
+
+// Attach prototype functions
+Object.assign(InitializationManager.prototype, {
+    addInitializer,
+    executeSequences
+})

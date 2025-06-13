@@ -1,4 +1,23 @@
 import { IDomManager } from './dom-manager.types'
+
+/**
+ * DomManager is a prototype-based manager for handling collections of DOM elements and their state.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @implements {IDomManager<T>}
+ *
+ * @property {T[]} elements - The managed DOM elements.
+ * @property {any} tracker - Optional tracker for internal state or observers.
+ * @property {boolean} isInitialized - Indicates if the manager has been initialized.
+ * @property {string} dependencyName - The name of the dependency, set to 'DomManager'.
+ *
+ * Prototype methods (assigned below) provide operations for registration, state management, ARIA, and more.
+ *
+ * Example usage:
+ *   const manager = new DomManager();
+ *   manager.initialize();
+ *   manager.dmRegister(element);
+ */
 import { dmAddArias } from './prototype/dm-add-arias'
 import { dmAriaSet } from './prototype/dm-aria-set'
 import { dmClear } from './prototype/dm-clear'
@@ -15,9 +34,28 @@ import { dmSetValue } from './prototype/dm-set-value'
 import { dmUpdateAria } from './prototype/dm-update-aria'
 import { initialize } from './prototype/initialize'
 
+/**
+ * Constructs a new DomManager instance.
+ *
+ * @constructor
+ * @template T - The type of HTMLElement managed.
+ * @this {IDomManager<T>}
+ */
 export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>) {
+    /**
+     * The managed DOM elements.
+     * @type {T[]}
+     */
     this.elements = []
+    /**
+     * Optional tracker for internal state or observers.
+     * @type {any}
+     */
     this.tracker = null
+    /**
+     * Indicates if the manager has been initialized.
+     * @type {boolean}
+     */
     this.isInitialized = false
 
     Object.defineProperty(this, 'dependencyName', {
@@ -27,6 +65,28 @@ export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>)
     })
 } as any as IDomManager<any>
 
+/**
+ * Assigns prototype methods to DomManager for DOM operations, registration, ARIA, and state management.
+ */
+/**
+ * Prototype methods are assigned from the following files:
+ *
+ * - ./prototype/initialize: Initializes the DomManager instance.
+ * - ./prototype/dm-get: Retrieves a managed element.
+ * - ./prototype/dm-exists: Checks if an element exists in the manager.
+ * - ./prototype/dm-register: Registers a new element.
+ * - ./prototype/dm-register-by-id: Registers an element by its ID.
+ * - ./prototype/dm-set-focus: Sets focus on an element.
+ * - ./prototype/dm-set-enabled: Enables or disables an element.
+ * - ./prototype/dm-set-value: Sets the value of an element.
+ * - ./prototype/dm-clear: Clears the state of the manager or elements.
+ * - ./prototype/dm-set-checked: Sets the checked state of an element.
+ * - ./prototype/dm-set-class: Sets the class of an element.
+ * - ./prototype/dm-set-selected: Sets the selected state of an element.
+ * - ./prototype/dm-add-arias: Adds ARIA attributes to elements.
+ * - ./prototype/dm-aria-set: Sets a specific ARIA attribute.
+ * - ./prototype/dm-update-aria: Updates ARIA attributes.
+ */
 Object.assign(DomManager.prototype, {
     initialize,
     dmGet,

@@ -1,3 +1,13 @@
+/**
+ * Sets ARIA attributes for an element by its ID.
+ *
+ * Sets the 'aria-labelledby' and 'name' attributes for the specified element.
+ * If the element does not exist in the manager's references, a warning is logged via the tracker.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to set ARIA attributes for.
+ * @param {string} name - The name to set for the element.
+ */
 import { conventions } from '@components/context/conventions/conventions'
 import { IDomManager } from '../dom-manager.types'
 

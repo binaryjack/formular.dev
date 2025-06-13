@@ -1,3 +1,12 @@
+/**
+ * Sets the class name of an element by its ID.
+ *
+ * If the element does not exist in the manager's references, an error is logged via the tracker.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to set the class name for.
+ * @param {string} rules - The class name(s) to set.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

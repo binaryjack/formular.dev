@@ -1,3 +1,10 @@
+/**
+ * Retrieves an element by its ID from the registered elements.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to retrieve.
+ * @returns {T | null} The element if found, otherwise null.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

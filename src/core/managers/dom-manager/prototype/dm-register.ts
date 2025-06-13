@@ -1,3 +1,11 @@
+/**
+ * Registers a new element if it does not already exist.
+ *
+ * If the element is already registered, a warning is logged via the tracker. Otherwise, the element is added to the manager.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {T | null} element - The element to register.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

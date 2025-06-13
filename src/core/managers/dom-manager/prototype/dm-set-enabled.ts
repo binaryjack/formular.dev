@@ -1,3 +1,12 @@
+/**
+ * Enables or disables an element by its ID.
+ *
+ * If the element does not exist in the manager's references, the function returns silently. If disabling, the element is blurred.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to enable or disable.
+ * @param {boolean} enabled - True to enable, false to disable.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

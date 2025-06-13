@@ -1,3 +1,12 @@
+/**
+ * Sets the selected value of an element by its ID.
+ *
+ * If the element does not exist in the manager's references, an error is logged via the tracker.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to set the selected value for.
+ * @param {string | null} selectionValue - The value to set as selected.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

@@ -1,3 +1,11 @@
+/**
+ * Registers an element by its ID if it exists in the DOM.
+ *
+ * If the element is already registered, it is not added again. If the element does not exist in the DOM, an error is logged via the tracker.
+ *
+ * @template T - The type of HTMLElement managed.
+ * @param {string} id - The ID of the element to register.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

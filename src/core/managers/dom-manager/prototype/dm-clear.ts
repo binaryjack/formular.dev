@@ -1,3 +1,10 @@
+/**
+ * Clears all registered elements by resetting their values and states.
+ *
+ * Iterates over all managed elements and resets their ARIA checked state, value, and checked property.
+ *
+ * @template T - The type of HTMLElement managed.
+ */
 import { IDomManager } from '../dom-manager.types'
 
 /**

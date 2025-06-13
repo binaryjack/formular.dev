@@ -3,10 +3,8 @@
  */
 
 import { computeAriaAttributes } from '@core/framework/optimization/compute-aria-attributes'
-import {
-    DomRegisterBuilder,
-    ICustomHandler
-} from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
+import { DomRegisterBuilder } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
+import { ICustomHandler } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder.type'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IMaskedBaseInput } from '../masked-base-input.types'
 import { onChange } from './on-change'
