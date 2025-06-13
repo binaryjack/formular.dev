@@ -36,7 +36,8 @@ const config: Config = {
         '^@common/(.*)$': '<rootDir>/src/core/framework/common/$1',
         '^@demo/(.*)$': '<rootDir>/src/demo/$1',
         '^@patterns/(.*)$': '<rootDir>/src/patterns/$1',
-        '^@style/(.*)$': '<rootDir>/src/style/$1'
+        '^@style/(.*)$': '<rootDir>/src/style/$1',
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
     }, // transform: {
     //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
     // },

@@ -12,7 +12,7 @@ import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-va
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { customEvent } from '@core/input-engine/core/abstract/dom-registers-builder'
 import { useMemo } from 'react'
-import { DatePickerFormatsEnum } from './core/date-picker.types'
+import { DatePickerFormatsEnum, DatePickerSelectionModeType } from './core/date-picker.types'
 import { formatDate } from './core/formatters/format-date'
 import DatePickerContentDrawer from './date-picker.drawer.content'
 
@@ -21,13 +21,15 @@ interface DatePickerSFProps {
     separator?: string
     dataFormat?: DatePickerFormatsEnum
     displayFormat?: DatePickerFormatsEnum
+    defaultSelectionMode?: DatePickerSelectionModeType
 }
 
 export const DatePickerSF = ({
     fieldName,
     separator = conventions.dataTypes.date.separator,
     dataFormat = conventions.dataTypes.date.formatValue,
-    displayFormat = conventions.dataTypes.date.formatDisplay
+    displayFormat = conventions.dataTypes.date.formatDisplay,
+    defaultSelectionMode = 'single'
 }: DatePickerSFProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
@@ -95,6 +97,7 @@ export const DatePickerSF = ({
                     dataFormat={dataFormat}
                     displayFormat={displayFormat}
                     defaultDate={defaultValue as string}
+                    defaultSelectionMode={defaultSelectionMode}
                 />
             }
             itemsDrawerHeight={conventions.components.drawer.height}

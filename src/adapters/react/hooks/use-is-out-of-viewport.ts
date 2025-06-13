@@ -23,13 +23,15 @@ const useIsOutOfViewport = (
     }, throttleDelay)
 
     useEffect(() => {
+        // Call onScroll once on mount to set initial state
+        onScroll()
         document.addEventListener('scroll', onScroll, true)
         document.addEventListener('animationend', onScroll, false)
         return () => {
             document.removeEventListener('scroll', onScroll, true)
             document.removeEventListener('animationend', onScroll, true)
         }
-    })
+    }, [onScroll])
 
     return { isTopOut, isBottomOut }
 }

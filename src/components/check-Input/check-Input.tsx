@@ -10,9 +10,11 @@ import './check-Input.css'
 /**
  * Props for the CheckInput component.
  */
-interface ICheckInputProps {
+export interface ICheckInputProps {
     /** The name of the field as defined in the form schema */
     fieldName: string
+    checked?: boolean
+    disabled?: boolean
 }
 
 /**
@@ -82,7 +84,7 @@ interface ICheckInputProps {
  * - Integrates with the form's submission and validation lifecycle
  * - The checked state is managed through the FORMULAR input engine
  */
-const CheckInput = ({ fieldName }: ICheckInputProps) => {
+const CheckInput = ({ fieldName, checked, disabled }: ICheckInputProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
@@ -96,16 +98,20 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
 
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
-    useFieldDefaultValue(instance, (value) => {
-        console.log(
-            'useFieldDefaultValue triggered for fieldName:',
-            fieldName,
-            'with value:',
-            value
-        )
-        if (!instance) return
-        instance.checked = value
-    })
+    useFieldDefaultValue(
+        instance,
+        (value, isChecked: boolean) => {
+            console.log(
+                'useFieldDefaultValue triggered for fieldName:',
+                fieldName,
+                'with value:',
+                value
+            )
+            if (!instance) return
+            instance.input.valueManager.setValue(instance, isChecked)
+        },
+        [checked]
+    )
 
     return (
         <FieldSet
@@ -133,6 +139,7 @@ const CheckInput = ({ fieldName }: ICheckInputProps) => {
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type="checkbox"
+                    disabled={disabled}
                     {...instance?.register()}
                     ref={(r) => instance?.ref(r)}
                 />

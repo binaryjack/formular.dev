@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import {
     AppBreakPointSizesType,
     TextCaseType,
@@ -79,24 +77,6 @@ export const Button = ({
         rippleStyle
     } = useRippleEffect(onClickCallback, (disabled ?? false) || loading)
 
-    useEffect(() => {
-        if (!castedRefObject?.getAttribute('aria-title'))
-            castedRefObject?.setAttribute('aria-title', title)
-        if (!castedRefObject?.getAttribute('aria-label'))
-            castedRefObject?.setAttribute('aria-label', title)
-
-        castedRefObject?.setAttribute('aria-pressed', 'undefined')
-    }, [castedRefObject, title])
-
-    useEffect(() => {
-        castedRefObject?.setAttribute('aria-busy', loading ? 'true' : 'false')
-    }, [buttonRef, loading])
-
-    useEffect(() => {
-        if (isToggle === undefined) return
-        castedRefObject?.setAttribute('aria-pressed', isToggle ? 'true' : 'false')
-    }, [isToggle])
-
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         // e.stopPropagation()
         // e.preventDefault()
@@ -114,7 +94,9 @@ export const Button = ({
             title={title}
             type="button"
             ref={buttonRef}
-            disabled={disabled}
+            disabled={disabled || loading}
+            aria-busy={disabled || loading ? 'true' : 'false'}
+            aria-pressed={isToggle ? 'true' : 'false'}
             className={`btn-wrapper ${btnBaseClasses} ${className} ${sizes.px} ${sizes.my}`}
             style={{
                 width: width ?? 'unset',

@@ -1,14 +1,39 @@
+/**
+ * Interface for specifying key event callbacks for useKeyBindings hook.
+ * Each callback receives the React KeyboardEvent for the target element.
+ */
 export interface IKeyBindings<T> {
-    onEnterCallback?: (e: React.KeyboardEvent<T>) => void
-    onEscapeCallback?: (e: React.KeyboardEvent<T>) => void
-    onArrowDownCallback?: (e: React.KeyboardEvent<T>) => void
-    onArrowUpCallback?: (e: React.KeyboardEvent<T>) => void
-    onArrowLeftCallback?: (e: React.KeyboardEvent<T>) => void
-    onArrowRightCallback?: (e: React.KeyboardEvent<T>) => void
-    onDeleteCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called on any key event, before specific key callbacks. */
     onKeyCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the Enter key is pressed. */
+    onEnterCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the Escape key is pressed. */
+    onEscapeCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the ArrowDown key is pressed. */
+    onArrowDownCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the ArrowUp key is pressed. */
+    onArrowUpCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the ArrowLeft key is pressed. */
+    onArrowLeftCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the ArrowRight key is pressed. */
+    onArrowRightCallback?: (e: React.KeyboardEvent<T>) => void
+    /** Called when the Delete key is pressed. */
+    onDeleteCallback?: (e: React.KeyboardEvent<T>) => void
 }
 
+/**
+ * React hook for handling keyboard events with customizable callbacks.
+ *
+ * @param options - Partial set of key event callbacks to handle.
+ * @returns An object containing the handleKeyDown function to be used as an event handler.
+ *
+ * @example
+ * const { handleKeyDown } = useKeyBindings<HTMLInputElement>({
+ *   onEnterCallback: (e) => { ... },
+ *   onEscapeCallback: (e) => { ... },
+ * });
+ * <input onKeyDown={handleKeyDown} />
+ */
 const useKeyBindings = <T>(options: Partial<IKeyBindings<T>>) => {
     const handleKeyDown = (e: React.KeyboardEvent<T>) => {
         if (options.onKeyCallback) {

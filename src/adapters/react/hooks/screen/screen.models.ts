@@ -23,18 +23,18 @@ export interface IMediaBreakpoints {
     is2XL: boolean
 }
 
-export interface IMediaScren {
+export interface IMediaScreen {
     x: number
     y: number
     media: AppBreakPointSizesType
 }
 
-export interface IMediaRange extends IMediaScren {
+export interface IMediaRange extends IMediaScreen {
     min: number
     max: number
 }
 
-export interface IMedia extends IMediaScren {
+export interface IMedia extends IMediaScreen {
     orientation: ScreenOrientationType
 }
 

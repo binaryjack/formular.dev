@@ -1,7 +1,7 @@
 import { conventions } from '@components/context/conventions/conventions'
 import { memo } from 'react'
 import { Toggleable } from '../toggleable/toggleable'
-import { DatePickerFormatsEnum } from './core/date-picker.types'
+import { DatePickerFormatsEnum, DatePickerSelectionModeType } from './core/date-picker.types'
 import { DatePickerSF } from './date-picker.sf'
 
 /**
@@ -16,6 +16,8 @@ interface DatePickerProps {
     dataFormat?: DatePickerFormatsEnum
     /** The format for displaying the date to users (default: 'dd/mm/yyyy') */
     displayFormat?: DatePickerFormatsEnum
+
+    defaultSelectionMode?: DatePickerSelectionModeType
 }
 
 /**
@@ -108,6 +110,7 @@ const DatePicker = memo(
         separator = conventions.dataTypes.date.separator,
         dataFormat = DatePickerFormatsEnum.YYYY_MM_DD,
         displayFormat = DatePickerFormatsEnum.DD_MM_YYYY,
+        defaultSelectionMode = 'single',
         ...rest
     }: DatePickerProps) => {
         if (!fieldName) {
@@ -135,6 +138,7 @@ const DatePicker = memo(
                     dataFormat={dataFormat}
                     displayFormat={displayFormat}
                     aria-label="Date Picker"
+                    defaultSelectionMode={defaultSelectionMode}
                     {...rest}
                 />
             </Toggleable>

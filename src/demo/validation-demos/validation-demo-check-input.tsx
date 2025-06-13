@@ -96,7 +96,7 @@ const ValidationDemoCheckInput = () => {
                                 handleTriggerModeChange={handleTriggerModeChange}
                             />
                         }
-                        childrenInput={<CheckInput fieldName={fieldName} />}
+                        childrenInput={<CheckInput fieldName={fieldName} checked={true} />}
                         childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
                     />
                 </FormularForm>
