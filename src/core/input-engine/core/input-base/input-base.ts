@@ -59,7 +59,7 @@ export const InputBase = function (
     this.isInitialized = false
 
     Object.defineProperty(this, 'dependencyName', {
-        value: InputBase.name,
+        value: InputBase.name && InputBase.name.length > 0 ? InputBase.name : 'InputBase',
         writable: false, // Prevent modification
         configurable: false // Prevent deletion or redefinition
     })
