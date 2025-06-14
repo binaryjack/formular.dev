@@ -1,1 +1,0 @@
-export declare const maxLengthValidationMock: (name: string, value: number) => import('../../core/managers/validation-manager/constraint-builder/validation-constraint-builder').IValidationConstraintBuilder<number>;

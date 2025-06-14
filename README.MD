@@ -1,33 +1,83 @@
 # FORMULAR
 
 <div align="center">
-  <img src="./apple-touch-icon.png" alt="FORMULAR Logo" width="200" />
+  <img src="./packages/shared-assets/assets/apple-touch-icon.png" alt="FORMULAR Logo" width="200" />
+</div>
+
+<div align="center">
+
+![NPM Version](https://img.shields.io/npm/v/formular.dev?style=flat-square)  **will be available sooner ** 🚧 
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=flat-square&logo=typescript)
+![React](https://img.shields.io/badge/React-Supported-61DAFB?style=flat-square&logo=react)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)
+![Build Status](https://img.shields.io/badge/Build-Stable-green?style=flat-square)
+
 </div>
 
 **Author:** Piana Tadeo  
 **License:** MIT  
-**Website:** [https://formular.dev/](https://formular.dev/)
+**Website:** [https://formular.dev/](https://formular.dev/)  
+**Repository:** [GitHub](https://github.com/pianatadeo/formular.dev)  
+**Documentation:** [Full Documentation](https://docs.formular.dev/)
 
 ## Overview
 
-FORMULAR is a framework-agnostic library designed to simplify the implementation of forms with validations. It is highly portable and can be used with popular JavaScript libraries like React, Vue.js, Angular, or even with plain vanilla JavaScript.
+FORMULAR is a next-generation, framework-agnostic form management library designed to simplify complex form implementations with comprehensive validation. Built with enterprise-grade architecture patterns including IoC containers, reactive state management, and optimized performance, FORMULAR can be seamlessly integrated with React, Vue.js, Angular, or vanilla JavaScript.
 
-This library provides a robust foundation for managing forms, fields, and validations, making it easier to build dynamic and interactive user interfaces.
+This library provides a robust foundation for managing forms, fields, and validations, making it easier to build dynamic, accessible, and interactive user interfaces.
 
-## Features
+## 🚀 Quick Start
 
-- **Framework Agnostic**: Works seamlessly with React, Vue.js, Angular, or plain JavaScript.
-- **Comprehensive Validation**: 20+ built-in validators with country-specific support for 12+ countries.
-- **Switzerland Focus**: Dedicated support for Swiss formats (NPA, AHV, phone numbers).
-- **Multi-Country Support**: Validate across multiple countries simultaneously.
-- **Pattern Management**: Sophisticated regex pattern system with country-specific rules.
-- **Reactive Updates**: Observer pattern implementation for real-time form state management.
-- **Type Safety**: Full TypeScript support with comprehensive type definitions.
-- **Modular Architecture**: Pick and choose components as needed.
-- **Extensible Design**: Easy to add new validators and country support.
-- **Localization Ready**: Built-in localization support for validation messages.
-- **Performance Optimized**: Efficient validation with batching and debouncing.
-- **Developer Experience**: Rich debugging tools and comprehensive documentation.
+### Installation
+
+```bash
+# Using npm
+npm install formular.dev.lib
+
+# Using pnpm (recommended)
+pnpm add formular.dev.lib
+
+# Using yarn
+yarn add formular.dev.lib
+```
+
+### Basic Usage
+
+```tsx
+import { useFormularContext, InputText } from 'formular.dev.react'
+import { Validators } from 'formular.dev.lib'
+
+const MyForm = () => {
+    const { formInstance } = useFormularContext()
+
+    return (
+        <form onSubmit={(e) => {
+            e.preventDefault()
+            console.log('Form Data:', formInstance?.getValues())
+        }}>
+            <InputText fieldName="email" />
+            <InputText fieldName="password" />
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+```
+
+## ✨ Features
+
+- **🎯 Framework Agnostic**: Works seamlessly with React, Vue.js, Angular, or plain JavaScript
+- **✅ Comprehensive Validation**: 20+ built-in validators with country-specific support for 12+ countries
+- **🇨🇭 Switzerland Focus**: Dedicated support for Swiss formats (NPA, AHV, phone numbers)
+- **🌍 Multi-Country Support**: Validate across multiple countries simultaneously
+- **🔧 Advanced Architecture**: IoC container, reactive state management, and optimized notifications
+- **⚡ Performance Optimized**: Lazy loading, batching, debouncing, and efficient re-renders
+- **🔒 Type Safety**: Full TypeScript support with comprehensive type definitions
+- **📦 Modular Design**: Pick and choose components as needed
+- **🔌 Extensible**: Easy to add new validators, countries, and field types
+- **🌐 Localization Ready**: Built-in localization support for validation messages
+- **🛠️ Developer Experience**: Rich debugging tools, VS Code integration, and comprehensive documentation
+- **📝 Rich Text Editor**: Advanced RTE component with formatting capabilities
+- **🎨 Modern UI**: Beautiful, accessible components with modern design principles
 
 ---
 
@@ -35,30 +85,67 @@ This library provides a robust foundation for managing forms, fields, and valida
 
 FORMULAR is built using a sophisticated combination of design patterns, dependency injection, and modular architecture to provide a robust and extensible framework for form management. The library features a comprehensive IoC (Inversion of Control) container, reactive state management through signals, and a highly optimized notification system.
 
-## Developer Documentation
+## 📚 Documentation & Guides
 
-For detailed developer guides and implementation examples, see:
+For comprehensive guides and implementation examples, explore our documentation:
 
-- **[field-descriptor.md](./field-descriptor.md)** - Complete guide to IFieldDescriptor - the foundation interface for all form fields
-- **[field-schema-builder.md](./field-schema-builder.md)** - Fluent API for creating form schemas with validation and presets
-- **[INPUT_ENGINE_VARIANTS.md](./INPUT_ENGINE_VARIANTS.md)** - Complete guide on creating validation strategies, input variants, and trigger keyword management
-- **[VALUE_PARSING_STRATEGIES.md](./VALUE_PARSING_STRATEGIES.md)** - Comprehensive guide on value parsing strategies with concrete examples
-- **[LAUNCH_SCRIPTS.md](./LAUNCH_SCRIPTS.md)** - Development environment setup and build configurations
+- **[Core Library Documentation](./packages/lib/README.md)** - Core FORMULAR library with validation and form management
+- **[React Components Documentation](./packages/vendors/react/formular.components/README.md)** - React-specific components and hooks
+- **[Rich Text Editor Guide](./packages/vendors/react/formular.components/src/components/rte-Input/README.md)** - Advanced RTE component documentation
+- **[Framework Adapters](./packages/vendors/react/formular.components/src/adapters/readme.md)** - Integration guides for different frameworks
+- **[Service Manager Documentation](./packages/lib/src/core/managers/service-manager/docs/lazy-resolution.md)** - IoC container and dependency injection
+- **[Observable Patterns](./packages/lib/src/core/observers/observable-subject/observable-subject.md)** - Reactive programming with FORMULAR
+- **[Contributing Guidelines](./CONTRIBUTING.md)** - How to contribute to the project
 
-### Architecture Overview
+### 🏗️ Architecture Overview
+
+## 🏗️ Monorepo Structure
+
+This project is organized as a monorepo with the following packages:
+
+```
+formular.dev/
+├── packages/
+│   ├── lib/                          # Core FORMULAR library
+│   │   ├── src/
+│   │   │   ├── core/                 # Core functionality
+│   │   │   │   ├── managers/         # Service managers (IoC, validation, etc.)
+│   │   │   │   ├── framework/        # Framework integration
+│   │   │   │   ├── input-engine/     # Input handling and validation
+│   │   │   │   └── observers/        # Reactive programming patterns
+│   │   │   └── project/              # Project-specific implementations
+│   │   └── __tests__/                # Comprehensive test suite
+│   ├── shared-assets/                # Shared assets (logos, icons, etc.)
+│   └── formular.dev.web/             # Marketing website
+└── packages/vendors/
+    └── react/
+        └── formular.components/      # React-specific components
+            ├── src/
+            │   ├── components/       # UI components
+            │   │   ├── rte-Input/    # Rich Text Editor
+            │   │   ├── input-text/   # Text input components
+            │   │   └── portals/      # Portal components
+            │   └── adapters/         # Framework adapters
+            │       ├── react/        # React adapter
+            │       ├── vue/          # Vue.js adapter
+            │       ├── angular/      # Angular adapter
+            │       └── javascript/   # Vanilla JS adapter
+```
 
 #### Core Components
 
-1. **Service Manager (IoC Container)**: Advanced dependency injection system with lazy resolution
-2. **Form Engine**: Comprehensive form management with reactive state
-3. **Input Engine**: Modular input system with component variants
-4. **Notification System**: High-performance batched notification manager
-5. **Validation Engine**: Extensible validation system with country-specific support
-6. **Observer Patterns**: Signals-based reactive programming
+1. **🏛️ Service Manager (IoC Container)**: Advanced dependency injection system with lazy resolution
+2. **📋 Form Engine**: Comprehensive form management with reactive state
+3. **⌨️ Input Engine**: Modular input system with component variants including Rich Text Editor
+4. **🔔 Notification System**: High-performance batched notification manager
+5. **✅ Validation Engine**: Extensible validation system with country-specific support
+6. **👀 Observer Patterns**: Signals-based reactive programming
+7. **🎨 Component Library**: Rich set of React components with modern design
+8. **🌐 Framework Adapters**: Ready-to-use adapters for multiple frameworks
 
 ---
 
-## Form Creation Process
+## 📋 Form Creation Process
 
 FORMULAR provides multiple approaches to create forms, all centered around the `IFieldDescriptor` interface - the fundamental building block of every form field.
 
@@ -66,7 +153,7 @@ FORMULAR provides multiple approaches to create forms, all centered around the `
 
 The `IFieldDescriptor` interface is the main entry point for any field in FORMULAR. It defines all aspects of a form field including its data, validation rules, state, and behavior. Understanding how to create and use field descriptors is essential for leveraging the full power of this library.
 
-**→ See [field-descriptor.md](./field-descriptor.md) for complete documentation**
+**→ See the [Core Library Documentation](./packages/lib/README.md) for complete field descriptor documentation**
 
 ### Field Creation Methods
 
@@ -137,7 +224,7 @@ const userSchema: IEntityScheme = {
 const fieldDescriptors = mapSchemaToFieldDescriptor(userSchema)
 ```
 
-**→ See [field-schema-builder.md](./field-schema-builder.md) for complete fluent API documentation**
+**→ See [Core Library Documentation](./packages/lib/README.md) for complete fluent API documentation**
 
 #### 4. From Existing Objects
 
@@ -514,7 +601,7 @@ export class NotificationManager implements INotificationManager {
 
 FORMULAR features a sophisticated modular input system with specialized variants for different field types. The Input Engine uses dependency injection and strategy patterns to provide extensible and maintainable form field management.
 
-For comprehensive documentation on creating validation strategies, working with input variants, and managing trigger keywords, see **[INPUT_ENGINE_VARIANTS.md](./INPUT_ENGINE_VARIANTS.md)**.
+For comprehensive documentation on creating validation strategies, working with input variants, and managing trigger keywords, see **[Input Engine Documentation](./packages/lib/src/core/input-engine/core/dom-registers-builder/README.md)**.
 
 #### Quick Overview
 
@@ -528,7 +615,7 @@ For comprehensive documentation on creating validation strategies, working with 
 
 FORMULAR uses a sophisticated strategy pattern to handle value conversion between different data representations (DOM values, JavaScript objects, formatted strings). The system ensures type-safe value handling across different input types.
 
-For comprehensive documentation on creating value parsing strategies, working with different data types, and implementing custom parsers, see **[VALUE_PARSING_STRATEGIES.md](./VALUE_PARSING_STRATEGIES.md)**.
+For comprehensive documentation on creating value parsing strategies, working with different data types, and implementing custom parsers, see **[Core Library Documentation](./packages/lib/README.md)**.
 
 #### Quick Overview
 
@@ -1095,105 +1182,271 @@ const { notificationManager, autoTracker } = commonInstances
 const formManager = new FormularManager(notificationManager, autoTracker)
 ```
 
-## Examples
+## 📋 Examples
 
-### Example 1: Using FORMULAR with React
+### Example 1: Complete React Form with Validation
 
 ```tsx
 import React from 'react'
-import FormularForm from '@components/formular-form/formular-form'
-import InputText from '@components/input-text/input-text'
-import { demoFormInstance } from '@demo/form-demo/form-demo.instance'
+import { FormularProvider, useFormularContext } from 'formular.dev.react'
+import { InputText, InputPassword, Button } from 'formular.dev.react/components'
+import { Validators } from 'formular.dev.lib'
 
-const MyForm = () => {
-    const handleSubmit = (data) => {
+// Define form schema with validation
+const userRegistrationSchema = {
+    name: 'userRegistration',
+    properties: [
+        {
+            id: 1,
+            name: 'email',
+            type: 'email',
+            validation: Validators.email('email', true).build(),
+            label: 'Email Address',
+            placeholder: 'Enter your email'
+        },
+        {
+            id: 2,
+            name: 'password',
+            type: 'password',
+            validation: Validators.passwordStrong('password', true).build(),
+            label: 'Password',
+            placeholder: 'Enter a strong password'
+        },
+        {
+            id: 3,
+            name: 'confirmPassword',
+            type: 'password',
+            validation: Validators.confirmPassword('confirmPassword', 'password', true).build(),
+            label: 'Confirm Password',
+            placeholder: 'Confirm your password'
+        }
+    ]
+}
+
+const RegistrationForm = () => {
+    const { formInstance, isValid, isSubmitting } = useFormularContext()
+
+    const handleSubmit = async (data) => {
         console.log('Form Data:', data)
+        // Handle form submission
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            console.log('Registration successful!')
+        } catch (error) {
+            console.error('Registration failed:', error)
+        }
     }
 
     return (
-        <FormularForm formular={demoFormInstance} onSubmit={handleSubmit}>
-            <InputText fieldName="username" />
-            <InputText fieldName="email" />
-            <button type="submit">Submit</button>
-        </FormularForm>
+        <form onSubmit={formInstance?.handleSubmit(handleSubmit)}>
+            <div className="form-section">
+                <InputText fieldName="email" />
+                <InputPassword fieldName="password" />
+                <InputPassword fieldName="confirmPassword" />
+            </div>
+            
+            <div className="form-actions">
+                <Button 
+                    type="submit" 
+                    disabled={!isValid || isSubmitting}
+                    loading={isSubmitting}
+                >
+                    {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                </Button>
+            </div>
+        </form>
     )
 }
 
-export default MyForm
+// Main App Component
+const App = () => {
+    return (
+        <FormularProvider schema={userRegistrationSchema}>
+            <div className="app">
+                <h1>Create Your Account</h1>
+                <RegistrationForm />
+            </div>
+        </FormularProvider>
+    )
+}
+
+export default App
 ```
 
-### Example 2: Using FORMULAR Validation Patterns
+### Example 2: Rich Text Editor Integration
 
-While FORMULAR is primarily designed for React applications, you can use its validation patterns and builders in any TypeScript/JavaScript project:
+```tsx
+import React from 'react'
+import { FormularProvider } from 'formular.dev.react'
+import { RTEInput } from 'formular.dev.react/components'
+
+const DocumentEditor = () => {
+    const documentSchema = {
+        name: 'documentEditor',
+        properties: [
+            {
+                id: 1,
+                name: 'title',
+                type: 'text',
+                validation: Validators.required('title', true).build(),
+                label: 'Document Title'
+            },
+            {
+                id: 2,
+                name: 'content',
+                type: 'richtext',
+                validation: Validators.minLength('content', 10, true).build(),
+                label: 'Document Content'
+            }
+        ]
+    }
+
+    return (
+        <FormularProvider schema={documentSchema}>
+            <div className="document-editor">
+                <InputText fieldName="title" />
+                <RTEInput 
+                    fieldName="content"
+                    features={[
+                        'bold', 'italic', 'underline', 
+                        'link', 'list', 'heading',
+                        'table', 'image'
+                    ]}
+                    placeholder="Start writing your document..."
+                />
+            </div>
+        </FormularProvider>
+    )
+}
+```
+
+### Example 3: Swiss-Specific Validation
+
+```tsx
+import { Validators } from 'formular.dev.lib'
+
+const swissFormSchema = {
+    name: 'swissForm',
+    properties: [
+        {
+            id: 1,
+            name: 'phone',
+            validation: Validators.phoneSwitzerland('phone', true).build(),
+            label: 'Swiss Phone Number',
+            placeholder: '+41 XX XXX XX XX'
+        },
+        {
+            id: 2,
+            name: 'postalCode',
+            validation: Validators.npa('postalCode', true).build(),
+            label: 'Swiss Postal Code (NPA)',
+            placeholder: '1000-9999'
+        },
+        {
+            id: 3,
+            name: 'ahvNumber',
+            validation: Validators.ahv('ahvNumber', true).build(),
+            label: 'AHV Number',
+            placeholder: '756.XXXX.XXXX.XX'
+        }
+    ]
+}
+```
+
+### Example 4: Multi-Framework Validation (Vanilla JS)
+
+While FORMULAR is primarily designed for React applications, you can use its validation patterns in any TypeScript/JavaScript project:
 
 ```ts
-import { Validators } from '@core/managers/validation-manager/validation-schema/validators'
-import { GenericValidationBuilder } from '@core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
-import { ValidationConstraintBuilder } from '@core/managers/validation-manager/constraint-builder/validation-constraint-builder'
+import { Validators } from 'formular.dev.lib'
 
 // Create validation rules using FORMULAR validators
 const emailValidation = Validators.email('email', true).build()
 const phoneValidation = Validators.phoneSwitzerland('phone', true).build()
 
-// Build complex validation using GenericValidationBuilder
-const userValidation = new GenericValidationBuilder()
-    .setConstraints([
-        new ValidationConstraintBuilder('required', 'username', true),
-        new ValidationConstraintBuilder('minLength', 'username', 3),
-        new ValidationConstraintBuilder('maxLength', 'username', 20)
-    ])
-    .build()
-
-// Use country-specific validators
-const swissPhoneValidator = Validators.phoneSwitzerland('phone', true)
-const npaValidator = Validators.npa('postalCode', true)
-const ahvValidator = Validators.ahv('socialSecurity', true)
-
 // Multi-country validation
-const multiCountryPhone = Validators.phoneMultiCountry(['CH', 'DE', 'AT'], 'phone', true)
+const europeanPhoneValidator = Validators.phoneMultiCountry(['CH', 'DE', 'AT'], 'phone', true)
+
+// Use in any JavaScript framework or vanilla JS
+const validateForm = (formData) => {
+    const results = {
+        email: emailValidation.validate(formData.email),
+        phone: phoneValidation.validate(formData.phone)
+    }
+    
+    return results
+}
 ```
 
-> **Note**: Full vanilla JavaScript browser support is planned for Version 2.0. Currently, FORMULAR requires a TypeScript/JavaScript build environment.
+> **Note**: Full vanilla JavaScript browser support and framework adapters are actively being developed. Currently, FORMULAR requires a build environment but works with any modern bundler.
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-We welcome contributions to FORMULAR as soon as we stabilize the injection dependency core manager.
+We welcome contributions to FORMULAR! The project is actively maintained and open to community involvement.
 
-How you can get involved in contributing to this project in the future ?
+### 🚀 How to Get Started
 
-1. **Fork the Repository**: Start by forking the repository on GitHub.
-2. **Explore the Codebase**: Familiarize yourself with the project structure and mechanics.
-3. **Report Issues**: Found a bug or have a feature request? Open an issue on GitHub.
-4. **Submit Pull Requests**: Implement a feature or fix a bug and submit a pull request.
-5. **Write Documentation**: Help improve the documentation for better usability.
+1. **🍴 Fork the Repository**: Start by forking the repository on GitHub
+2. **📚 Explore the Codebase**: Familiarize yourself with the monorepo structure and architecture
+3. **🐛 Report Issues**: Found a bug or have a feature request? Open an issue on GitHub
+4. **💻 Submit Pull Requests**: Implement a feature or fix a bug and submit a pull request
+5. **📖 Improve Documentation**: Help enhance documentation, tutorials, and examples
+6. **🧪 Write Tests**: Follow our [Contributing Guidelines](./CONTRIBUTING.md) for test implementation
 
-### Planned Contributions
+### 🎯 Priority Contribution Areas
 
-The following areas are ready for community contributions:
+The following areas are actively seeking community contributions:
 
-- **Framework Integrations**: Create adapters for popular frameworks like Angular and Vue.js (the core validation system is ready).
-- **Additional Country Support**: Extend the existing pattern system with new countries and regions.
-- **Enhanced Field Types**: Add support for specialized field types like sliders, toggles, and date pickers.
-- **Unit Tests**: Improve test coverage to ensure reliability across all validators and components.
-- **Examples and Tutorials**: Provide more examples and tutorials for developers.
-- **Performance Optimizations**: Further optimize validation performance and memory usage.
-- **Developer Tools**: Create debugging tools and development utilities.
+- **🌐 Framework Integrations**: Complete the Vue.js, Angular, and SvelteJS adapters (foundation is ready)
+- **🗺️ Additional Country Support**: Extend pattern system with new countries and regions
+- **🎛️ Enhanced Field Types**: Add specialized components (sliders, toggles, date pickers, file uploads)
+- **🧪 Test Coverage**: Expand test suite following our [Contributing Guidelines](./CONTRIBUTING.md)
+- **📚 Examples & Tutorials**: Create comprehensive examples for different use cases
+- **⚡ Performance Optimizations**: Further optimize validation and rendering performance
+- **🔧 Developer Tools**: VS Code extensions, debugging tools, and development utilities
+- **📱 Mobile Components**: Touch-optimized components and mobile-specific features
+- **♿ Accessibility**: Enhance ARIA support and accessibility features
+- **🎨 Themes & Styling**: Create theme system and pre-built design tokens
 
-## Are you interested ? drop me few lines and let's see how we can collaborate !
+### 💡 Advanced Contribution Opportunities
 
-## Current Status:
+- **🧠 AI Integration**: Smart form generation and validation suggestions
+- **🔄 Real-time Collaboration**: Multi-user form editing capabilities
+- **📊 Analytics Integration**: Form performance and user interaction analytics
+- **🌐 Internationalization**: Extended localization support beyond current offerings
 
-🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
-🎉 IoC Service Manager Implementation: ✅ COMPLETED 🎉
-🎉 Project stability: Stable for development 🎉  
-🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
+## 💬 Are you interested? Let's collaborate!
 
-## Roadmap
+We're always looking for passionate developers, designers, and contributors to join the FORMULAR community. Whether you're interested in:
+
+- **Contributing code** to core features or framework adapters
+- **Designing components** and improving user experience  
+- **Writing documentation** and creating tutorials
+- **Testing and reporting issues** to improve stability
+- **Sharing ideas** for new features and improvements
+
+**Get in touch:** 
+- 📧 Email: [piana.tadeo@formular.dev](mailto:piana.tadeo@formular.dev)
+- 💬 GitHub Discussions: [Join the conversation](https://github.com/pianatadeo/formular.dev/discussions)
+- 🐛 Issues: [Report bugs or request features](https://github.com/pianatadeo/formular.dev/issues)
+- 🔀 Pull Requests: [Contribute directly to the codebase](https://github.com/pianatadeo/formular.dev/pulls)
+
+## ✅ Current Status (Updated June 2025)
+
+🚧 Working on monorepo intégration 
+🚧 Unit testing 
+🚧 Demo Pages
+
+
+## 🗺️ Roadmap
 
 - **Version 1.0** ✅ **COMPLETED**:
-
     - Dependency Free for the Core Features ✅
     - Core form and field mechanics ✅
     - Basic validation strategies ✅
@@ -1203,92 +1456,136 @@ The following areas are ready for community contributions:
     - Multi-country validation support ✅
     - Comprehensive validator library (20+ validators) ✅
 
-- **Version 1.1** ✅ **COMPLETED**:
-
     - **IoC Service Manager Implementation** ✅
         - Advanced dependency injection with lazy resolution ✅
         - Circular dependency detection ✅
         - Service lifetime management (singleton, transient, scoped) ✅
+            - Service Bootstraper for lib consumer 🚧
         - Proxy-based lazy dependencies ✅
         - React hooks integration with IoC ✅
+
     - **High-Performance Notification System** ✅
         - Batched notification processing ✅
         - Priority-based notification handling ✅
         - Configurable batching strategies ✅
         - Observer pattern optimizations ✅
-    - **Signals Implementation** ✅
-        - Reactive programming with signals ✅
-        - React hooks integration ✅
-        - Computed signals support ✅
-        - Memory management and cleanup ✅
-    - **Updated Documentation** ✅
-        - Comprehensive architecture documentation ✅
-        - Dependency injection patterns ✅
-        - Entry points and lifecycle management ✅
-        - React integration patterns ✅
 
-- **Version 2.0** 📋 **PLANNED**:
 
-    - Open to contributors!
-    - Enhanced debugging and developer tools
-        - Currently Some components are available for React
-        - I plan to decline them as a extension for Browsers.
-    - Enhance Documentation Base
-    - Framework adapters for Angular and Vue.js
-    - Custom Validators Strategy
-    - Advanced form lifecycle management
-    - Performance optimizations
-    - Extended country support
-    - Form state persistence
+    **Version 1.3** 🚧 **IN DEVELOPMENT**
 
-- **Backlog** 🧠 **In Brainstorming**:
+    - Mono repo refactoring 🚧
 
-    - Full-featured website with documentation and live examples
-    - Community-driven plugins and extensions
-    - Visual form builder
-    - Advanced conditional validation
-    - Real-time collaboration features
-    - More advanced Framework/Libs targeted Components.
+    - **Signals Implementation** 🚧
+        - Reactive programming with signals 🚧
+        - React hooks integration 🚧
+        - Computed signals support 🚧
+        - Memory management and cleanup 🚧
+    - **Updated Documentation** 🚧
+        - Comprehensive architecture documentation 🚧
+        - Dependency injection patterns 🚧
+        - Entry points and lifecycle management 🚧
+        - React integration patterns 🚧
+
+    - **Component Library Enhancements** 🚧
+        - Portal system for modals and overlays 🚧
+        - Advanced positioning utilities 🚧
+        - Improved accessibility support 🚧
+
+    - **Framework Adapter Foundation** 🚧
+        - Base structure for Vue.js adapter 🚧
+        - Angular adapter foundation 🚧
+        - Vanilla JavaScript adapter preparation 🚧-
+        
+  **Version 2.0 ** 🚧 
+    - **Complete Framework Adapters** 🔧
+        - Vue.js 3 full adapter with composition API
+        - Angular 15+ adapter with reactive forms integration
+        - SvelteJS adapter with stores integration
+        - Vanilla JavaScript browser support
+
+    - **Enhanced Documentation Platform** 📚
+        - Interactive documentation website
+        - Live code playground and examples
+        - Video tutorials and guides
+    - **Advanced Features** ⚡
+        - Visual form builder interface
+        - Advanced conditional validation
+        - Form analytics and insights
+        - Real-time collaboration features
+    - **Mobile & Touch Optimization** 📱
+        - Touch-optimized components
+        - Mobile-specific input types
+        - Progressive Web App (PWA) support
+
+- **Version 2.1** 📋 **PLANNED** (Q1 2026):
+
+    - **AI Integration** 🤖
+        - Smart form generation from natural language
+        - Intelligent validation suggestions
+        - Auto-completion and prediction
+    - **Enterprise Features** 🏢
+        - Advanced security and compliance features
+        - Multi-tenant form management
+        - Enterprise SSO integration
+    - **Performance & Scale** 🚀
+        - Server-side rendering (SSR) optimization
+        - Edge computing support
+        - Advanced caching strategies
+
+- **Long-term Vision** 🧠 **EXPLORING**:
+
+    - **Community Ecosystem** 🌍
+        - Community-driven plugin marketplace
+        - Third-party integrations and extensions
+        - Certification program for developers
+    - **Advanced Capabilities** 🔮
+        - Visual form builder with drag-and-drop
+        - Machine learning-powered form optimization
+        - Advanced workflow and approval systems
+        - Integration with popular CMS and e-commerce platforms
 
 ---
 
-## Development
+## 🛠️ Development
 
-### Environment Setup
+### 🌍 Environment Setup
 
-This project supports multiple environments with dedicated configuration files:
+This project supports multiple environments with dedicated configuration:
 
-- Development environment (`.env.development`)
-- Integration environment (`.env.integration`)
-- Production environment (`.env.production`)
+- **Development** environment (`.env.development`) - Full debugging and hot reload
+- **Integration** environment (`.env.integration`) - Testing with production-like settings  
+- **Production** environment (`.env.production`) - Optimized builds
 
-### Launch Scripts
+### 🚀 Launch Scripts
 
-The project includes comprehensive launch scripts for different environments and development workflows. For detailed information about available scripts, launch configurations, and usage examples, see [LAUNCH_SCRIPTS.md](./LAUNCH_SCRIPTS.md).
+The project includes comprehensive launch scripts for different environments and development workflows:
 
-#### Quick Start
+#### ⚡ Quick Start
 
 ```bash
-# Install dependencies
-npm install
+# Install dependencies (using pnpm - recommended)
+pnpm install
 
 # Start development server
-npm run start:dev
+pnpm start:dev
 
 # Build for production
-npm run build:production
+pnpm build:production
 
 # Serve built application
-npm run serve:production
+pnpm serve:production
 ```
 
-#### VS Code Integration
+#### 🎯 VS Code Integration
 
-- Use Run and Debug view (`Ctrl+Shift+D`) to launch with different environments
-- Use Command Palette (`Ctrl+Shift+P`) → "Tasks: Run Task" for build tasks
-- Chrome debugging configurations available for frontend debugging
+This project includes full VS Code integration:
 
-#### PowerShell Scripts (Windows)
+- **Run and Debug** view (`Ctrl+Shift+D`) - Launch with different environments
+- **Command Palette** (`Ctrl+Shift+P`) → "Tasks: Run Task" - Access build tasks
+- **Chrome debugging** configurations for frontend debugging
+- **Integrated terminal** with PowerShell scripts
+
+#### 💻 PowerShell Scripts (Windows)
 
 ```powershell
 # Start development server
@@ -1301,16 +1598,56 @@ npm run serve:production
 .\scripts\serve.ps1 -Environment integration
 ```
 
-For complete documentation of all available launch options, see [LAUNCH_SCRIPTS.md](./LAUNCH_SCRIPTS.md).
+#### 📦 Monorepo Development
+
+```bash
+# Work with specific packages
+cd packages/lib && pnpm dev
+cd packages/vendors/react/formular.components && pnpm dev
+
+# Build all packages
+pnpm build
+
+# Run tests across all packages
+pnpm test
+
+# Lint and format
+pnpm lint
+pnpm format
+```
+
+For complete documentation of all available launch options and development workflows, see the individual package README files.
 
 ---
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the **MIT License**. See the [LICENSE](./LICENSE) file for details.
 
 ---
 
-For more information, visit [https://formular.dev/](https://formular.dev/).
+## 🔗 Links & Resources
 
-- note that he's planned in version 3 of the current project!
+- **🌐 Website:** [https://formular.dev/](https://formular.dev/)
+- **📚 Documentation:** [https://docs.formular.dev/](https://docs.formular.dev/) *(coming in v2.0)*
+- **📦 NPM Package:** [formular.dev.lib](https://www.npmjs.com/package/formular.dev.lib)
+- **🐙 GitHub Repository:** [https://github.com/pianatadeo/formular.dev](https://github.com/pianatadeo/formular.dev)
+- **💬 Community Discussions:** [GitHub Discussions](https://github.com/pianatadeo/formular.dev/discussions)
+- **🐛 Issue Tracker:** [GitHub Issues](https://github.com/pianatadeo/formular.dev/issues)
+
+### 📊 Project Stats
+
+![GitHub stars](https://img.shields.io/github/stars/pianatadeo/formular.dev?style=social)
+![GitHub forks](https://img.shields.io/github/forks/pianatadeo/formular.dev?style=social)
+![GitHub issues](https://img.shields.io/github/issues/pianatadeo/formular.dev)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/pianatadeo/formular.dev)
+
+---
+
+<div align="center">
+
+**Made with ❤️ by [Piana Tadeo](https://github.com/pianatadeo) and the FORMULAR community**
+
+*The full-featured documentation website and live examples are planned for version 2.0!*
+
+</div>

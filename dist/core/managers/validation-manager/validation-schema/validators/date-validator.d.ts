@@ -1,1 +1,0 @@
-export declare const dateValidator: (name: string, required?: boolean, minDate?: Date, maxDate?: Date) => import('../../generic-validation-builder/generic-validation-builder').IGenericValidationBuilder;

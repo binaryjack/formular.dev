@@ -1,0 +1,17 @@
+{
+    "name": "pureJs",
+    "version": "1.0.0",
+    "babel": {
+        "presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+        "plugins": [
+            ["@babel/plugin-transform-typescript"],
+            [
+                "@babel/plugin-transform-react-jsx",
+                {
+                    "pragma": "createElement"
+                }
+            ],
+            ["@emotion/babel-plugin"]
+        ]
+    }
+}

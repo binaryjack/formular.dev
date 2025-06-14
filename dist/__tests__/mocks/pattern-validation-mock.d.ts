@@ -1,1 +1,0 @@
-export declare const patternValidationMock: (name: string, value: RegExp) => import('../../core/managers/validation-manager/constraint-builder/validation-constraint-builder').IValidationConstraintBuilder<RegExp>;

@@ -1,0 +1,12 @@
+// Mock exports for testing utilities
+export * from './field-descriptor.mock'
+export * from './file-descriptor-mock'
+export * from './form-mock'
+export * from './i-options-items.mock'
+export * from './max-length-validation-mock'
+export * from './max-validation-mock'
+export * from './min-length-validation-mock'
+export * from './min-validation-mock'
+export * from './notification-manager-mock'
+export * from './pattern-validation-mock'
+export * from './required-data-validation-mock'

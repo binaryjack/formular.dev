@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noImplicitThis": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "@emotion/react",
+        "types": ["jest", "node"],
+        "baseUrl": "./",
+        "paths": {
+            "@tests/*": ["src/__tests__/*"],
+            "@mocks/*": ["src/__tests__/mocks/*"],
+            "@core/*": ["src/core/*"],
+            "@conventions/*": ["src/conventions/*"],
+            "@project/*": ["src/project/*"],
+            "@fields/*": ["src/core/fields/*"],
+            "@factory*": ["src/core/field-engine/generator/factory/*"],
+            "@framework/*": ["src/core/framework/*"],
+            "@utility/*": ["src/core/framework/utility/*"],
+            "@common/*": ["src/core/framework/common/*"],
+            "@patterns/*": ["src/patterns/*"]
+        }
+    },
+    "exclude": ["node_modules"],
+    "include": ["src", "tests"]
+}

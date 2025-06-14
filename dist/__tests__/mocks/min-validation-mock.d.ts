@@ -1,1 +1,0 @@
-export declare const minValidationMock: (name: string, value: number) => import('../../core/managers/validation-manager/constraint-builder/validation-constraint-builder').IValidationConstraintBuilder<number>;

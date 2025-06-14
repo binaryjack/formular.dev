@@ -1,1 +1,0 @@
-export declare const requiredDataValidationMock: (name: string, value: boolean) => import('../../core/managers/validation-manager/constraint-builder/validation-constraint-builder').IValidationConstraintBuilder<boolean>;
