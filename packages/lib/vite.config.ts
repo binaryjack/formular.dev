@@ -19,11 +19,20 @@ export default defineConfig(() => ({
     build: {
         outDir: 'dist',
         chunkSizeWarningLimit: 1600,
+        sourcemap: true, // Enable source maps for debugging
         lib: {
             entry: resolve(__dirname, 'src/index.ts'),
             name: 'formular.dev',
             formats: ['es', 'cjs'],
             fileName: (format) => `formular-dev.${format}.js`
+        },
+        rollupOptions: {
+            // Externalize deps that shouldn't be bundled into the library
+            external: [],
+            output: {
+                // Provide global variables to use in the UMD build
+                globals: {}
+            }
         }
     },
     resolve: {

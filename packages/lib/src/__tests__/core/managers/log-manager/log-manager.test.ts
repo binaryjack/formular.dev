@@ -4,19 +4,12 @@ import {
     TrackingType
 } from '@core/managers/tracking-manager/tracker-manager.types'
 
-// Mock console methods
+// Mock console methods using jest spies
 const consoleMock = {
-    info: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn()
-}
-
-// Mock global console
-global.console = {
-    ...global.console,
-    info: consoleMock.info,
-    warn: consoleMock.warn,
-    error: consoleMock.error
+    info: jest.spyOn(console, 'info').mockImplementation(() => {}),
+    warn: jest.spyOn(console, 'warn').mockImplementation(() => {}),
+    error: jest.spyOn(console, 'error').mockImplementation(() => {}),
+    log: jest.spyOn(console, 'log').mockImplementation(() => {})
 }
 
 describe('logManager', () => {
@@ -98,7 +91,10 @@ describe('logManager', () => {
                 logManager(undefined, 'critical', 'TestSource', 'Critical message')
             }).not.toThrow()
 
-            // Check that it was logged as an error instead
+            // Check that the critical was logged first, then caught and logged as an error
+            expect(consoleMock.error).toHaveBeenCalledWith(
+                'CRITICAL - TestSource: Critical message'
+            )
             expect(consoleMock.error).toHaveBeenCalledWith(
                 'logManager: unexpected error. TestSource: Critical message'
             )
@@ -219,7 +215,7 @@ describe('logManager', () => {
             logManager(mockTracker, 'info', 'TestSource', 'Test message')
 
             // Should log the error to console
-            expect(consoleMock.error).toHaveBeenCalledWith(
+            expect(consoleMock.log).toHaveBeenCalledWith(
                 'logManager: unexpected error. Tracker unavailable'
             )
         })
