@@ -5,106 +5,261 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Development Server",
+            "name": "🚀 Launch React App (Dev)",
             "request": "launch",
             "type": "node-terminal",
-            "command": "npm run start:dev",
+            "command": "pnpm --filter formular.components start:dev",
             "cwd": "${workspaceFolder}",
             "env": {
                 "NODE_ENV": "development"
+            },
+            "presentation": {
+                "group": "React Server",
+                "order": 1
             }
         },
         {
-            "name": "Launch Integration Server",
+            "name": "🚀 Launch React App (Integration)",
             "request": "launch",
             "type": "node-terminal",
-            "command": "npm run start:integration",
+            "command": "pnpm --filter formular.components start:integration",
             "cwd": "${workspaceFolder}",
             "env": {
                 "NODE_ENV": "integration"
+            },
+            "presentation": {
+                "group": "React Server",
+                "order": 2
             }
         },
         {
-            "name": "Launch Production Server",
+            "name": "🚀 Launch React App (Production)",
             "request": "launch",
             "type": "node-terminal",
-            "command": "npm run start:production",
+            "command": "pnpm --filter formular.components start:production",
             "cwd": "${workspaceFolder}",
             "env": {
                 "NODE_ENV": "production"
+            },
+            "presentation": {
+                "group": "React Server",
+                "order": 3
+            }
+        },        {
+            "name": "🔍 Debug Chrome: React + Lib (Dev)",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "http://localhost:3000/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "http://localhost:3000/src/*": "${workspaceFolder}/packages/vendors/react/formular.components/src/*",
+                "/@fs${workspaceFolder}/*": "${workspaceFolder}/*",
+                "/@fs${workspaceFolder}/packages/vendors/react/formular.components/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "/@fs${workspaceFolder}/packages/lib/*": "${workspaceFolder}/packages/lib/*",
+                "/packages/vendors/react/formular.components/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "/packages/lib/*": "${workspaceFolder}/packages/lib/*",
+                "./src/*": "${workspaceFolder}/packages/vendors/react/formular.components/src/*",
+                "../*": "${workspaceFolder}/packages/*",
+                "/*": "${workspaceFolder}/packages/vendors/react/formular.components/*"
+            },
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/**"
+            ],
+            "presentation": {
+                "group": "Browser Debug",
+                "order": 1
             }
         },
         {
-            "name": "Debug Chrome - Development",
+            "name": "🔍 Debug Chrome: React + Lib (Integration)",
             "request": "launch",
             "type": "chrome",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/src",
+            "webRoot": "${workspaceFolder}",
             "sourceMaps": true,
-            "preLaunchTask": "npm: start:dev"
+            "sourceMapPathOverrides": {
+                "http://localhost:3000/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "http://localhost:3000/src/*": "${workspaceFolder}/packages/vendors/react/formular.components/src/*",
+                "/@fs${workspaceFolder}/*": "${workspaceFolder}/*",
+                "/@fs${workspaceFolder}/packages/vendors/react/formular.components/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "/@fs${workspaceFolder}/packages/lib/*": "${workspaceFolder}/packages/lib/*",
+                "/packages/vendors/react/formular.components/*": "${workspaceFolder}/packages/vendors/react/formular.components/*",
+                "/packages/lib/*": "${workspaceFolder}/packages/lib/*",
+                "./src/*": "${workspaceFolder}/packages/vendors/react/formular.components/src/*",
+                "../*": "${workspaceFolder}/packages/*",
+                "/*": "${workspaceFolder}/packages/vendors/react/formular.components/*"
+            },
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/**"
+            ],            "presentation": {
+                "group": "Browser Debug",
+                "order": 2
+            }
         },
         {
-            "name": "Debug Chrome - Integration",
+            "name": "🔍 Debug Chrome: Simple (Dev)",
+            "request": "attach",
+            "type": "chrome",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
+            "sourceMaps": true,
+            "presentation": {
+                "group": "Browser Debug",
+                "order": 3
+            }
+        },
+        {
+            "name": "🔍 Debug Chrome: Alternative (Dev)",
             "request": "launch",
             "type": "chrome",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/src",
+            "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
             "sourceMaps": true,
-            "preLaunchTask": "npm: start:integration"
+            "sourceMapPathOverrides": {
+                "*": "${workspaceFolder}/packages/vendors/react/formular.components/*"
+            },
+            "skipFiles": [
+                "<node_internals>/**",
+                "**/node_modules/**"
+            ],
+            "presentation": {
+                "group": "Browser Debug",
+                "order": 4
+            }
         },
         {
-            "name": "Build Development",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run build:dev",
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Build Integration",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run build:integration",
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Build Production",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run build:production",
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Serve Preview - Development",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run serve:dev",
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Serve Preview - Integration",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run serve:integration",
-            "cwd": "${workspaceFolder}"
-        },
-        {
-            "name": "Serve Preview - Production",
-            "request": "launch",
-            "type": "node-terminal",
-            "command": "npm run serve:production",
-            "cwd": "${workspaceFolder}"
-        },
-        {
+            "name": "🧪 Debug: Lib Tests",
             "type": "node",
             "request": "launch",
-            "name": "Debug Current File",
+            "program": "${workspaceFolder}/packages/lib/node_modules/.bin/jest",
+            "args": [
+                "--runInBand",
+                "--no-cache",
+                "--no-coverage"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "cwd": "${workspaceFolder}/packages/lib",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "presentation": {
+                "group": "Tests",
+                "order": 1
+            }
+        },
+        {
+            "name": "🧪 Debug: React Tests",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/packages/vendors/react/formular.components/node_modules/.bin/jest",
+            "args": [
+                "--runInBand",
+                "--no-cache",
+                "--no-coverage"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "cwd": "${workspaceFolder}/packages/vendors/react/formular.components",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "presentation": {
+                "group": "Tests",
+                "order": 2
+            }
+        },
+        {
+            "name": "🏗️ Build: Development",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "pnpm --filter formular.components build:dev",
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "group": "Build",
+                "order": 1
+            }
+        },
+        {
+            "name": "🏗️ Build: Integration",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "pnpm --filter formular.components build:integration",
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "group": "Build",
+                "order": 2
+            }
+        },
+        {
+            "name": "🏗️ Build: Production",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "pnpm --filter formular.components build:production",
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "group": "Build",
+                "order": 3
+            }
+        },
+        {
+            "name": "🏗️ Build: Lib",
+            "request": "launch",
+            "type": "node-terminal",
+            "command": "pnpm --filter formular.dev.lib build",
+            "cwd": "${workspaceFolder}",
+            "presentation": {
+                "group": "Build",
+                "order": 4
+            }
+        },
+        {
+            "name": "🔍 Debug: Current File",
+            "type": "node",
+            "request": "launch",
             "program": "${file}",
             "console": "internalConsole",
             "sourceMaps": true,
             "smartStep": true,
             "internalConsoleOptions": "openOnSessionStart",
-            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-            "preLaunchTask": "npm: watch"
+            "outFiles": [
+                "${workspaceFolder}/packages/lib/dist/**/*.js",
+                "${workspaceFolder}/packages/vendors/react/formular.components/dist/**/*.js"
+            ],
+            "presentation": {
+                "group": "Debug",
+                "order": 1
+            }
+        }
+    ],
+    "compounds": [
+        {
+            "name": "🚀🔍 Full Stack Debug (Dev)",
+            "configurations": [
+                "🚀 Launch React App (Dev)",
+                "🔍 Debug Chrome: React + Lib (Dev)"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "group": "Full Stack",
+                "order": 1
+            }
+        },
+        {
+            "name": "🚀🔍 Full Stack Debug (Integration)",
+            "configurations": [
+                "🚀 Launch React App (Integration)",
+                "🔍 Debug Chrome: React + Lib (Integration)"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "group": "Full Stack",
+                "order": 2
+            }
         }
     ]
 }

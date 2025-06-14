@@ -26,6 +26,7 @@ const config: Config = {
         '^@tests/(.*)$': '<rootDir>/src/__tests__/$1',
         '^@mocks/(.*)$': '<rootDir>/src/__tests__/mocks/$1',
         '^@core/(.*)$': '<rootDir>/src/core/$1',
+        '^@conventions/(.*)$': '<rootDir>/../../lib/src/conventions/$1',
         '^@components/(.*)$': '<rootDir>/src/components/$1',
         '^@adapters/(.*)$': '<rootDir>/src/adapters/$1',
         '^@fields/(.*)$': '<rootDir>/src/core/fields/$1',

@@ -1,5 +1,40 @@
 {
     "features": {
         "ghcr.io/devcontainers/features/github-cli:1": {}
-    }
+    },
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.suggest.autoImports": true,
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.workspaceSymbols.scope": "allOpenProjects",
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.showInlineBreakpointCandidates": true,
+    "debug.showSubSessionsInToolBar": true,
+    "debug.toolBarLocation": "floating",
+    "files.exclude": {
+        "**/node_modules": false,
+        "**/dist": false,
+        "**/.git": true,
+        "**/.DS_Store": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/.git": true,
+        "**/coverage": true,
+        "**/.nyc_output": true
+    },
+    "typescript.preferences.useLabelDetailsInCompletionEntries": true,
+    "js/ts.implicitProjectConfig.experimentalDecorators": true,
+    "js/ts.implicitProjectConfig.strictNullChecks": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "npm.packageManager": "pnpm",
+    "eslint.workingDirectories": [
+        "packages/lib",
+        "packages/vendors/react/formular.components"
+    ]
 }

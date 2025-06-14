@@ -19,6 +19,9 @@
         "serve:dev": "env-cmd -f ./.env.development --use-shell vite preview",
         "serve:integration": "env-cmd -f ./.env.integration --use-shell vite preview",
         "serve:production": "env-cmd -f ./.env.production --use-shell vite preview",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
         "tests:cypress": "cypress open"
     },
     "dependencies": {

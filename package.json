@@ -5,11 +5,29 @@
   "workspaces": [
     "packages/*",
     "vendors/*"
-  ],
-  "scripts": {
-    "start": "pnpm start",
-    "build": "pnpm build",
-    "test": "pnpm test"
+  ],  "scripts": {
+    "start": "pnpm --filter formular.components start",
+    "start:dev": "pnpm --filter formular.components start:dev",
+    "start:integration": "pnpm --filter formular.components start:integration",
+    "start:production": "pnpm --filter formular.components start:production",
+    "build": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build",
+    "build:dev": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:dev",
+    "build:integration": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:integration",
+    "build:production": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:production",
+    "build:lib": "pnpm --filter formular.dev.lib build",
+    "build:react": "pnpm --filter formular.components build",    "test": "pnpm --filter formular.dev.lib test && pnpm --filter formular.components test",
+    "test:watch": "pnpm --filter formular.dev.lib test:watch",
+    "test:coverage": "pnpm --filter formular.dev.lib test:coverage && pnpm --filter formular.components test:coverage",
+    "test:lib": "pnpm --filter formular.dev.lib test",
+    "test:lib:watch": "pnpm --filter formular.dev.lib test:watch",
+    "test:lib:coverage": "pnpm --filter formular.dev.lib test:coverage",
+    "test:react": "pnpm --filter formular.components test",
+    "test:react:watch": "pnpm --filter formular.components test:watch",
+    "test:react:coverage": "pnpm --filter formular.components test:coverage",
+    "test:all": "pnpm run test",
+    "test:all:coverage": "pnpm run test:coverage",
+    "watch:lib": "pnpm --filter formular.dev.lib build --watch",
+    "dev": "pnpm run watch:lib & pnpm run start:dev"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

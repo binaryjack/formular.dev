@@ -15,7 +15,8 @@ export default defineConfig(() => ({
     ],
     server: {
         open: true,
-        port: 3000
+        port: 3000,
+        sourcemapIgnoreList: () => false
     },
     define: {
         'process.env': {}
@@ -26,7 +27,13 @@ export default defineConfig(() => ({
     },
     build: {
         outDir: 'dist',
-        chunkSizeWarningLimit: 1600
+        chunkSizeWarningLimit: 1600,
+        sourcemap: true, // Enable source maps for debugging
+        rollupOptions: {
+            output: {
+                sourcemap: true
+            }
+        }
     },
     resolve: {
         alias: {
