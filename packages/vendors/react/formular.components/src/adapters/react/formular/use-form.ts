@@ -1,4 +1,4 @@
-import { EventsType, IFormular, notification } from 'formular.dev.lib'
+import { EventsType, IExtendedInput, IFormular, notification } from 'formular.dev.lib'
 import React, { useEffect } from 'react'
 
 export const useForm = function <T extends object>(form: IFormular<T>) {
@@ -13,7 +13,7 @@ export const useForm = function <T extends object>(form: IFormular<T>) {
         stableForm.accept(
             notification(useForm, handleRefresh, event, `useForm.${event}`, useForm.name)
         )
-        stableForm.fields.forEach((field) => {
+        stableForm.fields.forEach((field: IExtendedInput) => {
             field.input.notificationManager.accept(
                 notification(field, handleRefresh, event, `useForm.field.${event}`, useForm.name)
             )

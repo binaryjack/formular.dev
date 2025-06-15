@@ -1,4 +1,10 @@
-import { IFormular, notification } from 'formular.dev.lib'
+import {
+    IExtendedInput,
+    IFormular,
+    INotification,
+    IValidationResult,
+    notification
+} from 'formular.dev.lib'
 import { useCallback, useEffect, useState } from 'react'
 import useFormularContext from './formular-form.context'
 
@@ -14,14 +20,15 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
 
     const updateDebugData = useCallback(() => {
         const data = formular.fields.reduce(
-            (acc, field) => {
+            (acc: Record<string, any>, field: IExtendedInput) => {
                 acc[field.input.name] = {
                     value: field.input.value,
                     defaultValue: field.input.defaultValue,
                     isValid: field.input.isValid,
                     isDirty: field.input.isDirty,
                     isFocused: field.input.isFocus,
-                    validationErrors: field.input.validationResults?.map((v) => v.error) || [],
+                    validationErrors:
+                        field.input.validationResults?.map((v: IValidationResult) => v.error) || [],
                     type: field.input.type,
                     flags: field.input.styleManager?.getFlagsObject?.() || {}
                 }
@@ -38,7 +45,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
         if (!formular?.fields) return
 
         // Subscribe to all field changes
-        const allNotifications = formular.fields.flatMap((field) => [
+        const allNotifications = formular.fields.flatMap((field: IExtendedInput) => [
             // notification(
             //     field,
             //     updateDebugData,
@@ -66,12 +73,11 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
         //             updateDebugData,
         //             'onUiUpdate',
         //             'debug.form.onUiUpdate',
-        //             'FormDebug'
-        //         )
+        //             'FormDebug'        //         )
         //     )
         // }
 
-        allNotifications.forEach((notif) => {
+        allNotifications.forEach((notif: INotification) => {
             formular.notificationManager?.accept(notif)
         })
 
@@ -79,7 +85,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
         updateDebugData()
 
         return () => {
-            allNotifications.forEach((notif) => {
+            allNotifications.forEach((notif: INotification) => {
                 formular.notificationManager?.dismiss(notif)
             })
         }

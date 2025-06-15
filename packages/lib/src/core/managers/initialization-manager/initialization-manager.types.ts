@@ -1,5 +1,5 @@
 // Export all types and interfaces from initialization-manager
-import type { IConfiguration } from '@project/provider/configuration/i-configuration'
+import type { IConfiguration } from '@project/provider/interfaces/i-configuration'
 import type { IInitializationDelegate } from './delegates/initialization-delegate'
 export interface IInitializationManager {
     new (params: IConfiguration): IInitializationManager

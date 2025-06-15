@@ -5,32 +5,31 @@
   "workspaces": [
     "packages/*",
     "vendors/*"
-  ],  "scripts": {
-    "start": "pnpm --filter formular.components start",
-    "start:dev": "pnpm --filter formular.components start:dev",
-    "start:integration": "pnpm --filter formular.components start:integration",
-    "start:production": "pnpm --filter formular.components start:production",
-    "build": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build",
-    "build:dev": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:dev",
-    "build:integration": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:integration",
-    "build:production": "pnpm --filter formular.dev.lib build && pnpm --filter formular.components build:production",
-    "build:lib": "pnpm --filter formular.dev.lib build",
-    "build:react": "pnpm --filter formular.components build",    "test": "pnpm --filter formular.dev.lib test && pnpm --filter formular.components test",
-    "test:watch": "pnpm --filter formular.dev.lib test:watch",
-    "test:coverage": "pnpm --filter formular.dev.lib test:coverage && pnpm --filter formular.components test:coverage",
-    "test:lib": "pnpm --filter formular.dev.lib test",
-    "test:lib:watch": "pnpm --filter formular.dev.lib test:watch",
-    "test:lib:coverage": "pnpm --filter formular.dev.lib test:coverage",
-    "test:react": "pnpm --filter formular.components test",
-    "test:react:watch": "pnpm --filter formular.components test:watch",
-    "test:react:coverage": "pnpm --filter formular.components test:coverage",
-    "test:all": "pnpm run test",
-    "test:all:coverage": "pnpm run test:coverage",
-    "watch:lib": "pnpm --filter formular.dev.lib build --watch",
-    "dev": "pnpm run watch:lib & pnpm run start:dev"
+  ],
+  "scripts": {
+    "build": "nx run-many --target=build --all",
+    "build:lib": "nx build formular-dev-lib",
+    "build:components": "nx build formular-components",
+    "dev": "nx run-many --target=dev --all --parallel",
+    "dev:lib": "nx dev formular-dev-lib",
+    "dev:components": "nx dev formular-components",
+    "test": "nx run-many --target=test --all",
+    "test:lib": "nx test formular-dev-lib",
+    "test:components": "nx test formular-components",
+    "test:coverage": "nx run-many --target=test:coverage --all",
+    "graph": "nx graph",
+    "affected:build": "nx affected --target=build",
+    "affected:test": "nx affected --target=test",
+    "affected:graph": "nx affected:graph",
+    "reset": "nx reset"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "pnpm": "^8.0.0"
+    "@nx/jest": "^21.2.0",
+    "@nx/react": "^21.2.0",
+    "@nx/vite": "^21.2.0",
+    "concurrently": "^8.2.2",
+    "nx": "21.2.0",
+    "pnpm": "^8.15.9",
+    "typescript": "^5.8.3"
   }
 }

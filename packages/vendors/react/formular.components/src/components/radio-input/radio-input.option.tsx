@@ -1,8 +1,15 @@
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
-import { IOptionItem, IRadioBaseInput } from 'formular.dev.lib'
+import { IExtendedInput, IOptionItem } from 'formular.dev.lib'
+
+// Create a more complete interface for radio inputs
+interface IRadioInput extends IExtendedInput {
+    registerOption: (option: IOptionItem) => any
+    refOption: (ref: HTMLInputElement | null) => void
+    registerLabel: (option: IOptionItem) => any
+}
 
 interface IRadioInputOptionProps {
-    field: IRadioBaseInput
+    field: IRadioInput
     option: IOptionItem
 }
 

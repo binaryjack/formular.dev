@@ -20,16 +20,38 @@ import { updateAriaAttributes, updateValidationStyles } from './validation-style
 /**
  * Common validation logic that can be shared between sync and async validation handlers
  */
-export class ValidationProcessor<T extends IEvents> {
-    constructor(
-        private readonly context: IExtendedInput,
-        private readonly functionName: string
-    ) {}
+interface IValidationProcessor<T extends IEvents> {
+    context: IExtendedInput
+    functionName: string
+    performPreValidationChecks: (data: T) => boolean
+    processValidationResults: (data: T, results: IValidationResult[]) => void
+    setBusyState: (data: T, isBusy: boolean) => void
+    handleError: (data: T, error: any) => void
+}
 
+/**
+ * Common validation logic that can be shared between sync and async validation handlers
+ */
+export const ValidationProcessor = function (
+    this: IValidationProcessor<any>,
+    context: IExtendedInput,
+    functionName: string
+) {
+    this.context = context
+    this.functionName = functionName
+} as any as new <T extends IEvents>(
+    context: IExtendedInput,
+    functionName: string
+) => IValidationProcessor<T>
+
+Object.assign(ValidationProcessor.prototype, {
     /**
      * Performs pre-validation checks and returns false if validation should be skipped
      */
-    performPreValidationChecks(data: T): boolean {
+    performPreValidationChecks: function <T extends IEvents>(
+        this: IValidationProcessor<T>,
+        data: T
+    ): boolean {
         // Check if validation should be interrupted by custom hooks
         if (shouldInterruptByBeforeValidation(data, this.functionName)) {
             return false
@@ -54,12 +76,16 @@ export class ValidationProcessor<T extends IEvents> {
         }
 
         return true
-    }
+    },
 
     /**
      * Processes validation results and updates UI state
      */
-    processValidationResults(data: T, results: IValidationResult[]): void {
+    processValidationResults: function <T extends IEvents>(
+        this: IValidationProcessor<T>,
+        data: T,
+        results: IValidationResult[]
+    ): void {
         // Store validation results and update field validity
         storeValidationResults(data, results)
 
@@ -75,22 +101,30 @@ export class ValidationProcessor<T extends IEvents> {
 
         // Run custom post-validation hook
         runAfterValidationHook(data)
-    }
+    },
 
     /**
      * Sets the field busy state
      */
-    setBusyState(data: T, isBusy: boolean): void {
+    setBusyState: function <T extends IEvents>(
+        this: IValidationProcessor<T>,
+        data: T,
+        isBusy: boolean
+    ): void {
         setFieldBusyState(data, isBusy)
-    }
+    },
 
     /**
      * Handles validation errors
      */
-    handleError(data: T, error: any): void {
+    handleError: function <T extends IEvents>(
+        this: IValidationProcessor<T>,
+        data: T,
+        error: any
+    ): void {
         handleValidationError(data, this.context, this.functionName, error)
     }
-}
+})
 
 // Export all utilities for direct use if needed
 export {

@@ -4,22 +4,23 @@ import {
     TrackingType
 } from '@core/managers/tracking-manager/tracker-manager.types'
 
-// Mock console methods using jest spies
-const consoleMock = {
-    info: jest.spyOn(console, 'info').mockImplementation(() => {}),
-    warn: jest.spyOn(console, 'warn').mockImplementation(() => {}),
-    error: jest.spyOn(console, 'error').mockImplementation(() => {}),
-    log: jest.spyOn(console, 'log').mockImplementation(() => {})
-}
-
 describe('logManager', () => {
     let mockTracker: jest.Mocked<ITrackingManager>
+    let consoleMock: {
+        info: jest.SpyInstance
+        warn: jest.SpyInstance
+        error: jest.SpyInstance
+        log: jest.SpyInstance
+    }
 
     beforeEach(() => {
-        // Reset console mocks
-        consoleMock.info.mockClear()
-        consoleMock.warn.mockClear()
-        consoleMock.error.mockClear()
+        // Create fresh console mocks for each test
+        consoleMock = {
+            info: jest.spyOn(console, 'info').mockImplementation(() => {}),
+            warn: jest.spyOn(console, 'warn').mockImplementation(() => {}),
+            error: jest.spyOn(console, 'error').mockImplementation(() => {}),
+            log: jest.spyOn(console, 'log').mockImplementation(() => {})
+        }
 
         // Create mock tracker
         mockTracker = {
@@ -28,6 +29,14 @@ describe('logManager', () => {
             internalError: jest.fn(),
             internalCritical: jest.fn()
         } as any
+    })
+
+    afterEach(() => {
+        // Restore console methods after each test
+        consoleMock.info.mockRestore()
+        consoleMock.warn.mockRestore()
+        consoleMock.error.mockRestore()
+        consoleMock.log.mockRestore()
     })
 
     describe('with tracker provided', () => {
@@ -148,6 +157,7 @@ describe('logManager', () => {
 
         it('should handle non-Error objects being thrown', () => {
             mockTracker.internalInfo.mockImplementation(() => {
+                // eslint-disable-next-line @typescript-eslint/no-throw-literal
                 throw 'String error'
             })
 
@@ -214,8 +224,8 @@ describe('logManager', () => {
 
             logManager(mockTracker, 'info', 'TestSource', 'Test message')
 
-            // Should log the error to console
-            expect(consoleMock.log).toHaveBeenCalledWith(
+            // Should log the error to console.error (not console.log)
+            expect(consoleMock.error).toHaveBeenCalledWith(
                 'logManager: unexpected error. Tracker unavailable'
             )
         })

@@ -2,53 +2,80 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 
-export default defineConfig(() => ({
-    define: {
-        'process.env': {}
-    },
-    esbuild: {
-        // jsxFactory: 'h',
-        // jsxFragment: 'Fragment'
-    },
-    plugins: [
-        dts({
-            insertTypesEntry: true,
-            outDir: 'dist/types'
-        })
-    ],
-    build: {
-        outDir: 'dist',
-        chunkSizeWarningLimit: 1600,
-        sourcemap: true, // Enable source maps for debugging
-        lib: {
-            entry: resolve(__dirname, 'src/index.ts'),
-            name: 'formular.dev',
-            formats: ['es', 'cjs'],
-            fileName: (format) => `formular-dev.${format}.js`
+export default defineConfig(({ mode }) => {
+    const isDevelopment = mode === 'development'
+    const isProduction = mode === 'production'
+
+    return {
+        define: {
+            'process.env': {}
         },
-        rollupOptions: {
-            // Externalize deps that shouldn't be bundled into the library
-            external: [],
-            output: {
-                // Provide global variables to use in the UMD build
-                globals: {}
+        esbuild: {
+            // jsxFactory: 'h',
+            // jsxFragment: 'Fragment'
+        },
+        plugins: [
+            dts({
+                outDir: 'dist/types',
+                tsconfigPath: './tsconfig.json',
+                rollupTypes: true,
+                copyDtsFiles: false,
+                exclude: ['**/*.test.*', '**/*.spec.*']
+            })
+        ],
+        build: {
+            outDir: 'dist',
+            chunkSizeWarningLimit: 1600,
+            sourcemap: isDevelopment ? true : 'hidden', // Generate external sourcemaps for debugging
+            minify: isProduction ? 'esbuild' : false, // Only minify in production
+            lib: {
+                entry: resolve(__dirname, 'src/index.ts'),
+                name: 'formular.dev',
+                formats: ['es', 'cjs'],
+                fileName: (format) => `formular-dev.${format}.js`,
+                cssFileName: 'formular-dev'
+            },
+            rollupOptions: {
+                // Externalize deps that shouldn't be bundled into the library
+                external: [],
+                output: {
+                    // Provide global variables to use in the UMD build
+                    globals: {},
+                    // Only preserve modules in development for debugging, but with limits
+                    ...(isDevelopment && {
+                        preserveModules: false, // Disable for now to prevent excessive chunks
+                        manualChunks: undefined
+                    })
+                }
+            },
+            // Development-specific optimizations
+            ...(isDevelopment && {
+                watch: {
+                    buildDelay: 100,
+                    clearScreen: false
+                }
+            }),
+            // Production-specific optimizations
+            ...(isProduction && {
+                reportCompressedSize: true,
+                chunkSizeWarningLimit: 500
+            })
+        },
+        resolve: {
+            alias: {
+                '@tests': resolve(__dirname, 'src/__tests__'),
+                '@mocks': resolve(__dirname, 'src/mocks'),
+                '@conventions': resolve(__dirname, 'src/conventions'),
+                '@project': resolve(__dirname, 'src/project'),
+                '@core': resolve(__dirname, 'src/core'),
+                '@fields': resolve(__dirname, 'src/core/fields'),
+                '@factory': resolve(__dirname, 'src/core/factory'),
+                '@framework': resolve(__dirname, 'src/core/framework'),
+                '@utility': resolve(__dirname, 'src/core/framework/utility'),
+                '@common': resolve(__dirname, 'src/core/framework/common'),
+                '@patterns': resolve(__dirname, 'src/patterns'),
+                '@utils': resolve(__dirname, 'src/utils')
             }
         }
-    },
-    resolve: {
-        alias: {
-            '@tests': resolve(__dirname, 'src/__tests__'),
-            '@mocks': resolve(__dirname, 'src/mocks'),
-            '@conventions': resolve(__dirname, 'src/conventions'),
-            '@project': resolve(__dirname, 'src/project'),
-            '@core': resolve(__dirname, 'src/core'),
-            '@fields': resolve(__dirname, 'src/core/fields'),
-            '@factory': resolve(__dirname, 'src/core/factory'),
-            '@framework': resolve(__dirname, 'src/core/framework'),
-            '@utility': resolve(__dirname, 'src/core/framework/utility'),
-            '@common': resolve(__dirname, 'src/core/framework/common'),
-            '@patterns': resolve(__dirname, 'src/patterns'),
-            '@utils': resolve(__dirname, 'src/utils')
-        }
     }
-}))
+})

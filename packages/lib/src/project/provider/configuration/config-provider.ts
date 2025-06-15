@@ -2,7 +2,7 @@ import { ITrackingStrategyService } from '../../services/tracking-strategy-servi
 import { IValidationStrategyService } from '../../services/validation-strategy-service'
 import { IValidationTriggerService } from '../../services/validation-trigger-service'
 import { IValueStrategyService } from '../../services/value-strategy-service'
-import { IConfiguration } from './i-configuration'
+import { IConfiguration } from '../interfaces/i-configuration'
 
 export const SConfigProvider = Symbol.for('IConfigProvider')
 

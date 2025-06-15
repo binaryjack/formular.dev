@@ -13,7 +13,25 @@ import { Toggle2Builder } from '@demo/form-demo/field-schema-builder/builders-pr
 import { CheckBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/true-false-value-builder'
 import { UserIdBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/user-name-builder'
 import { IEntityScheme, Validators } from 'formular.dev.lib'
-import baseOptionSchemaItem from 'formular.dev.lib/dist/types/core/framework/schema/options-schema/options.scheme.function'
+// Note: baseOptionSchemaItem is not exported from the library, create local function or request export
+// import baseOptionSchemaItem from 'formular.dev.lib/dist/types/core/framework/schema/options-schema/options.scheme.function'
+
+// Temporary local function until exported from library
+const baseOptionSchemaItem = (
+    sequenceId: number,
+    id: string,
+    value: string,
+    text: string,
+    disabled?: boolean,
+    selected?: boolean
+) => ({
+    sequenceId,
+    id,
+    value,
+    text,
+    disabled: disabled ?? false,
+    selected: selected ?? false
+})
 
 export interface IFormOutput {
     id: number

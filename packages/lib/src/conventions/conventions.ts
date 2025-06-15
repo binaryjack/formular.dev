@@ -1,28 +1,10 @@
 import { DateFormatsEnum } from '../core/framework/types/date/date.types'
 import { getSystemDateSeparator } from '../core/framework/types/date/getters/get-local-system-separator'
-import {
-    AppBreakPointSizesType,
-    TextCaseType,
-    TextWeightType,
-    VariantNameType
-} from './global.types'
+import { MissingPropEnum } from './enums/missing-prop.enum'
+import { IButtonVariant } from './interfaces/i-button-variant'
 
-export interface IButtonVariant {
-    variant: VariantNameType
-    size: AppBreakPointSizesType
-    textCase: TextCaseType
-    weight: TextWeightType
-    rounded: boolean
-    width: string
-    height: string
-    className: string
-}
-
-export enum MissingPropEnum {
-    ID = 'id',
-    NAME = 'name',
-    LABEL = 'label'
-}
+// Re-export the enum so it can be imported from conventions
+export { MissingPropEnum }
 
 export const conventions = {
     IsMissing: function (property: MissingPropEnum, componentName: string): never {

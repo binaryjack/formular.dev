@@ -1,11 +1,10 @@
+import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import { checker } from 'vite-plugin-checker'
 import dts from 'vite-plugin-dts'
 
-import react from '@vitejs/plugin-react-swc'
-
-export default defineConfig(() => ({
+export default defineConfig({
     plugins: [
         react(),
         checker({
@@ -16,7 +15,13 @@ export default defineConfig(() => ({
     server: {
         open: true,
         port: 3000,
-        sourcemapIgnoreList: () => false
+        sourcemapIgnoreList: () => false, // Don't ignore any source maps for debugging
+        hmr: {
+            overlay: true
+        },
+        fs: {
+            allow: ['..', '../../../lib/src', '../../../lib'] // Allow access to lib source and dist
+        }
     },
     define: {
         'process.env': {}
@@ -25,13 +30,19 @@ export default defineConfig(() => ({
         // jsxFactory: 'h',
         // jsxFragment: 'Fragment'
     },
+    optimizeDeps: {
+        include: ['formular.dev.lib']
+    },
     build: {
         outDir: 'dist',
         chunkSizeWarningLimit: 1600,
         sourcemap: true, // Enable source maps for debugging
         rollupOptions: {
+            external: ['formular.dev.lib'], // Externalize the library for production builds
             output: {
-                sourcemap: true
+                globals: {
+                    'formular.dev.lib': 'formularDev'
+                }
             }
         }
     },
@@ -44,7 +55,10 @@ export default defineConfig(() => ({
             '@demo': resolve(__dirname, 'src/demo'),
             '@patterns': resolve(__dirname, 'src/patterns'),
             '@style': resolve(__dirname, 'src/style'),
-            '@utils': resolve(__dirname, 'src/utils')
+            '@utils': resolve(__dirname, 'src/utils'),
+            // Map lib to source for debugging in development only
+            'formular.dev.lib': resolve(__dirname, '../../../lib/src/index.ts'),
+            'formular.dev.lib/': resolve(__dirname, '../../../lib/src/')
         }
     }
-}))
+})

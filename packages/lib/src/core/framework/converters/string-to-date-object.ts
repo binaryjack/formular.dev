@@ -1,5 +1,5 @@
 import { conventions } from '@conventions/conventions'
-import { DateObject, IDateObject } from '../types'
+import { DateObject, IDateObject } from '../types/date'
 
 export const stringToDateObject = (value: string): IDateObject | null => {
     if (value === null || value === undefined) {

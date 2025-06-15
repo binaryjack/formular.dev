@@ -1,4 +1,4 @@
-import type { IConfiguration } from '@project/provider/configuration/i-configuration'
+import type { IConfiguration } from '@project/provider/interfaces/i-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 
 /**

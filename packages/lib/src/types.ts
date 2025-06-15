@@ -1,21 +1,4 @@
-// Core Input Engine Types
-export type { ICheckBoxBaseInput } from './core/input-engine/variants/check-box-base/check-box-base-input.types'
-export type { IClickBaseInput } from './core/input-engine/variants/click-base/click-base-input.types'
-export type { IDrawerBaseInput } from './core/input-engine/variants/drawer-base/drawer-base-input.types'
-export type { IMaskedBaseInput } from './core/input-engine/variants/masked-base/masked-base-input.types'
-export type { INumericBaseInput } from './core/input-engine/variants/numeric-base/numeric-base-input.types'
-export type { IOptionBaseInput } from './core/input-engine/variants/option-based/option-base-input.types'
-export type { IRadioBaseInput } from './core/input-engine/variants/radio-base/radio-base-input.types'
-export type { ISelectBaseInput } from './core/input-engine/variants/select-base/select-base-input.types'
-export type { ITextBaseInput } from './core/input-engine/variants/text-base/text-base-input.types'
-
-// Core Input Engine Implementations
-export { CheckBoxInput } from './core/input-engine/variants/check-box-base/check-box-base-input'
-export { ClickBaseInput } from './core/input-engine/variants/click-base/click-base-input'
-export { DrawerBaseInput } from './core/input-engine/variants/drawer-base/drawer-base-input'
-export { MaskedBaseInput } from './core/input-engine/variants/masked-base/masked-base-input'
-export { NumericBaseInput } from './core/input-engine/variants/numeric-base/numeric-base-input'
-export { OptionBaseInput } from './core/input-engine/variants/option-based/option-base-input'
-export { RadioBaseInput } from './core/input-engine/variants/radio-base/radio-base-input'
-export { SelectBaseInput } from './core/input-engine/variants/select-base/select-base-input'
-export { TextBaseInput } from './core/input-engine/variants/text-base/text-base-input'
+// Export all types and interfaces from all folders
+export * from './conventions/types'
+export * from './core/types'
+export * from './project/types'

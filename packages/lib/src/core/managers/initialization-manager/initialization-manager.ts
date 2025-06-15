@@ -1,4 +1,4 @@
-import { IConfiguration } from '@project/provider/configuration/i-configuration'
+import { IConfiguration } from '@project/provider/interfaces/i-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 // import type { IInitializationDelegate } from './delegates/initialization-delegate'
 // Import all prototype functions

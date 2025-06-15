@@ -1,5 +1,5 @@
 import { InitializationManager } from '@core/managers/initialization-manager/initialization-manager'
-import { IConfiguration } from '@project/provider/configuration/i-configuration'
+import { IConfiguration } from '@project/provider/interfaces/i-configuration'
 
 describe('InitializationManager', () => {
     const config: IConfiguration = {} as IConfiguration

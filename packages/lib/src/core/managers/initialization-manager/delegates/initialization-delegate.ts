@@ -1,6 +1,6 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 
-import { IConfiguration } from '@project/provider/configuration/i-configuration'
+import { IConfiguration } from '@project/provider/interfaces/i-configuration'
 import { IInitializationManager } from '../initialization-manager.types'
 
 export interface IInitializationDelegate {

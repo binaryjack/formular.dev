@@ -117,8 +117,8 @@ export type CountryCode = keyof typeof countryMetadata
 export type ValidationType = 'phone' | 'postal' | 'ssn'
 
 // Pattern management utilities
-export class PatternManager {
-    static getPattern<
+export const PatternManager = {
+    getPattern<
         T extends
             | keyof typeof phonePatterns
             | keyof typeof postalCodePatterns
@@ -134,9 +134,9 @@ export class PatternManager {
             default:
                 return undefined
         }
-    }
+    },
 
-    static getAvailableCountries(type?: ValidationType): CountryCode[] {
+    getAvailableCountries(type?: ValidationType): CountryCode[] {
         if (!type) {
             return Object.keys(countryMetadata) as CountryCode[]
         }
@@ -151,16 +151,17 @@ export class PatternManager {
             default:
                 return []
         }
-    }
+    },
 
-    static getCountryName(countryCode: CountryCode): string {
+    getCountryName(countryCode: CountryCode): string {
         return countryMetadata[countryCode]?.name || countryCode
-    }
+    },
 
-    static getPhonePrefix(countryCode: CountryCode): string {
+    getPhonePrefix(countryCode: CountryCode): string {
         return countryMetadata[countryCode]?.phonePrefix || ''
-    }
-    static createMultiCountryPattern(
+    },
+
+    createMultiCountryPattern(
         type: ValidationType,
         countryCodes: CountryCode[]
     ): RegExp | undefined {

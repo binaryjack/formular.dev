@@ -12,6 +12,12 @@ import { IMaskedBaseInput } from '../masked-base-input.types'
  * Logs the updated value and the provided data to the console.
  */
 export const onChange = function (this: IMaskedBaseInput, e: Event) {
+    // DEBUG: Add console log to verify this code is running
+    console.log('🔍 DEBUG: onChange called in masked-base input', {
+        target: e.target,
+        mask: this.mask
+    })
+
     const inputElement = e.target as HTMLInputElement
     const rawValue = inputElement.value.replace(/\D/g, '') // Remove non-numeric characters
     const formattedValue = processMaskedValue(this.mask, rawValue)

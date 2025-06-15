@@ -146,7 +146,9 @@ const FormularForm = <T extends object>({
             return formularInstance?.fields ?? []
         },
         getField: (fieldName: string): IExtendedInput | undefined => {
-            return formularInstance?.fields?.find((field) => field.input.name === fieldName)
+            return formularInstance?.fields?.find(
+                (field: IExtendedInput) => field.input.name === fieldName
+            )
         },
         formInstance: formularInstance,
         getFormFlags: () => {

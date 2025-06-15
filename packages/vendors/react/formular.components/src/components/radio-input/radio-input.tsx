@@ -1,12 +1,19 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
 
-import { conventions, IOptionItem, IRadioBaseInput, MissingPropEnum } from 'formular.dev.lib'
+import { conventions, IExtendedInput, IOptionItem, MissingPropEnum } from 'formular.dev.lib'
 
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
 import './radio-input.css'
 import RadioInputOption from './radio-input.option'
+
+// Create a more complete interface for radio inputs
+interface IRadioInput extends IExtendedInput {
+    registerOption: (option: IOptionItem) => any
+    refOption: (ref: HTMLInputElement | null) => void
+    registerLabel: (option: IOptionItem) => any
+}
 
 /**
  * Props for the RadioInput component.
@@ -125,7 +132,7 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
                     return (
                         <RadioInputOption
                             key={`${instance?.input.id}-${option.id}`}
-                            field={instance as unknown as IRadioBaseInput}
+                            field={instance as unknown as IRadioInput}
                             option={option}
                         />
                     )

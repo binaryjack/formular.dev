@@ -17,7 +17,7 @@
 **Author:** Piana Tadeo  
 **License:** MIT  
 **Website:** [https://formular.dev/](https://formular.dev/)  
-**Repository:** [GitHub](https://github.com/pianatadeo/formular.dev)  
+**Repository:** [GitHub](https://github.com/binaryjack/formular.dev)  
 **Documentation:** [Full Documentation](https://docs.formular.dev/)
 
 ## Overview
