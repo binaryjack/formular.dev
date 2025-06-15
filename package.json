@@ -4,31 +4,22 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "vendors/*"
+    "packages/vendors/*/*"
   ],
   "scripts": {
-    "build": "nx run-many --target=build --all",
-    "build:lib": "nx build formular-dev-lib",
-    "build:components": "nx build formular-components",
-    "dev": "nx run-many --target=dev --all --parallel",
-    "dev:lib": "nx dev formular-dev-lib",
-    "dev:components": "nx dev formular-components",
-    "test": "nx run-many --target=test --all",
-    "test:lib": "nx test formular-dev-lib",
-    "test:components": "nx test formular-components",
-    "test:coverage": "nx run-many --target=test:coverage --all",
-    "graph": "nx graph",
-    "affected:build": "nx affected --target=build",
-    "affected:test": "nx affected --target=test",
-    "affected:graph": "nx affected:graph",
-    "reset": "nx reset"
+    "build": "pnpm run --recursive build",
+    "build:lib": "pnpm --filter formular.dev.lib build",
+    "build:components": "pnpm --filter formular.components build",
+    "dev": "concurrently \"pnpm run dev:lib\" \"pnpm run dev:components\"",
+    "dev:lib": "pnpm --filter formular.dev.lib dev",
+    "dev:components": "pnpm --filter formular.components dev",
+    "test": "pnpm run --recursive test",
+    "test:lib": "pnpm --filter formular.dev.lib test",
+    "test:components": "pnpm --filter formular.components test",
+    "test:coverage": "pnpm run --recursive test:coverage"
   },
   "devDependencies": {
-    "@nx/jest": "^21.2.0",
-    "@nx/react": "^21.2.0",
-    "@nx/vite": "^21.2.0",
     "concurrently": "^8.2.2",
-    "nx": "21.2.0",
     "pnpm": "^8.15.9",
     "typescript": "^5.8.3"
   }

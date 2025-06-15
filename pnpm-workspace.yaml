@@ -1,3 +1,3 @@
 packages:
   - packages/*
-  - vendors/*
+  - packages/vendors/*/*
