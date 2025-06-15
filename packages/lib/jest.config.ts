@@ -27,13 +27,11 @@ const config: Config = {
         '^@mocks/(.*)$': '<rootDir>/src/__tests__/mocks/$1',
         '^@core/(.*)$': '<rootDir>/src/core/$1',
         '^@conventions/(.*)$': '<rootDir>/src/conventions/$1',
-        '^@fields/(.*)$': '<rootDir>/src/core/fields/$1',
         '^@project/(.*)$': '<rootDir>/src/project/$1',
         '^@factory/(.*)$': '<rootDir>/src/core/field-engine/generator/factory/$1',
         '^@framework/(.*)$': '<rootDir>/src/core/framework/$1',
         '^@utility/(.*)$': '<rootDir>/src/core/framework/utility/$1',
         '^@common/(.*)$': '<rootDir>/src/core/framework/common/$1',
-        '^@patterns/(.*)$': '<rootDir>/src/patterns/$1',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
     }, // transform: {
     //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]

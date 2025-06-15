@@ -12,7 +12,7 @@ export const lazy = function <T>(
 
     return () => {
         if (!resolved) {
-            service = this.resolve<T>(identifier, parameters)
+            service = this.resolve<T>(identifier, ...parameters)
             resolved = true
         }
         return service

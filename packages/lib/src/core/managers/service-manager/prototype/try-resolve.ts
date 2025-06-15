@@ -40,7 +40,7 @@ export const tryResolve = function <T>(
             this.singletonInstances.set(identifier, Symbol('resolving'))
         }
 
-        const instance = descriptor.factory(this, parameters)
+        const instance = descriptor.factory(this, ...parameters)
 
         switch (descriptor.lifetime) {
             case 'singleton':
@@ -62,7 +62,9 @@ export const tryResolve = function <T>(
             undefined,
             'info',
             'IServiceManager',
-            `IServiceManager: Resolved service: ${this.getServiceName(identifier)} (${descriptor.lifetime})`
+            `IServiceManager: Resolved service: ${this.getServiceName(identifier)} (${
+                descriptor.lifetime
+            })`
         )
 
         return instance

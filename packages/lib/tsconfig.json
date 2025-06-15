@@ -16,6 +16,8 @@
         "noImplicitThis": true,
         "noEmit": true,
         "sourceMap": true,
+        "inlineSourceMap": false,
+        "sourceRoot": "",
         "declaration": true,
         "declarationMap": true,
         "jsx": "react-jsx",
@@ -28,12 +30,10 @@
             "@core/*": ["src/core/*"],
             "@conventions/*": ["src/conventions/*"],
             "@project/*": ["src/project/*"],
-            "@fields/*": ["src/core/fields/*"],
             "@factory*": ["src/core/field-engine/generator/factory/*"],
             "@framework/*": ["src/core/framework/*"],
             "@utility/*": ["src/core/framework/utility/*"],
-            "@common/*": ["src/core/framework/common/*"],
-            "@patterns/*": ["src/patterns/*"]
+            "@common/*": ["src/core/framework/common/*"]
         }
     },
     "exclude": ["node_modules"],

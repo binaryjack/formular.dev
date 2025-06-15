@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
         build: {
             outDir: 'dist',
             chunkSizeWarningLimit: 1600,
-            sourcemap: isDevelopment ? true : 'hidden', // Generate external sourcemaps for debugging
+            sourcemap: true, // Always generate external sourcemaps for debugging
             minify: isProduction ? 'esbuild' : false, // Only minify in production
             lib: {
                 entry: resolve(__dirname, 'src/index.ts'),
@@ -41,6 +41,11 @@ export default defineConfig(({ mode }) => {
                 output: {
                     // Provide global variables to use in the UMD build
                     globals: {},
+                    // Enhanced source map configuration for development
+                    ...(isDevelopment && {
+                        sourcemap: true,
+                        sourcemapExcludeSources: false // Include original sources in source maps
+                    }),
                     // Only preserve modules in development for debugging, but with limits
                     ...(isDevelopment && {
                         preserveModules: false, // Disable for now to prevent excessive chunks
@@ -73,7 +78,6 @@ export default defineConfig(({ mode }) => {
                 '@framework': resolve(__dirname, 'src/core/framework'),
                 '@utility': resolve(__dirname, 'src/core/framework/utility'),
                 '@common': resolve(__dirname, 'src/core/framework/common'),
-                '@patterns': resolve(__dirname, 'src/patterns'),
                 '@utils': resolve(__dirname, 'src/utils')
             }
         }

@@ -31,6 +31,12 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
     this.sm = sm
     try {
         this.build = function (descriptor: IFieldDescriptor): IMaskedBaseInput {
+            console.log('🔍 descriptor.mask:', {
+                mask: descriptor.mask,
+                type: typeof descriptor.mask,
+                isArray: Array.isArray(descriptor.mask)
+            })
+
             const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
             const config = configProvider.getConfig()
 
