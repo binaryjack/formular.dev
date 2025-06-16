@@ -1,4 +1,9 @@
 export const processMaskedValue = function (mask: string, value: string): string {
+    // Handle null, undefined, or empty values
+    if (!value) {
+        return ''
+    }
+
     let processedValue = ''
     let index = 0
 
