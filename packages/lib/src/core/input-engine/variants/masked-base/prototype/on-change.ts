@@ -12,21 +12,21 @@ import { IMaskedBaseInput } from '../masked-base-input.types'
  * Processes the input value and applies the mask formatting.
  */
 export const onChange = function (this: IMaskedBaseInput, e: Event) {
-    console.log('🔥 onChange called', { event: e, mask: this.mask })
+    // console.log('🔥 onChange called', { event: e, mask: this.mask })
     const inputElement = e.target as HTMLInputElement
     const oldValue =
         (this.input.valueManager.getValue(this as unknown as IExtendedInput) as string) || ''
     const oldCursorPos = inputElement.selectionStart ?? 0
     const inputValue = inputElement.value
 
-    console.log('📍 Before processing', { oldValue, oldCursorPos, inputValue })
+    // console.log('📍 Before processing', { oldValue, oldCursorPos, inputValue })
 
     // Count digits before cursor position in the current input
     const digitsBeforeCursor = inputValue.slice(0, oldCursorPos).replace(/\D/g, '').length
 
     const rawValue = inputValue.replace(/\D/g, '') // Remove non-numeric characters
     const formattedValue = processMaskedValue(this.mask, rawValue)
-    console.log('🔄 After processing', { rawValue, formattedValue, digitsBeforeCursor })
+    // console.log('🔄 After processing', { rawValue, formattedValue, digitsBeforeCursor })
 
     if (formattedValue === undefined || formattedValue === '') {
         this.input.valueManager.setValue(this as unknown as IExtendedInput, null)
@@ -41,11 +41,11 @@ export const onChange = function (this: IMaskedBaseInput, e: Event) {
         // Calculate new cursor position based on digit count
         const newCursorPos = findPositionAfterNthDigit(formattedValue, digitsBeforeCursor)
 
-        console.log('🎯 Cursor positioning', {
-            digitsBeforeCursor,
-            newCursorPos,
-            formattedValue
-        })
+        // console.log('🎯 Cursor positioning', {
+        //     digitsBeforeCursor,
+        //     newCursorPos,
+        //     formattedValue
+        // })
 
         requestAnimationFrame(() => {
             inputElement.setSelectionRange(newCursorPos, newCursorPos)
