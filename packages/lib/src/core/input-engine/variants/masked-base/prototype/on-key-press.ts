@@ -6,6 +6,8 @@ export const onKeyPress = function (this: IMaskedBaseInput, e: KeyboardEvent) {
     const currentValue = inputElement.value
     const cursorPos = inputElement.selectionStart ?? 0
 
+    console.log('🔑 onKeyPress', { key, cursorPos, currentValue, mask: this.mask })
+
     // Store cursor position for later use
     this.input.cursorPosition = cursorPos
 
@@ -31,42 +33,63 @@ export const onKeyPress = function (this: IMaskedBaseInput, e: KeyboardEvent) {
         return
     }
 
-    // Check if the key is valid for the current cursor position in the mask
-    if (!isValidKeyForPosition(key, cursorPos, currentValue, this.mask)) {
+    // Only allow numeric input for our masks
+    if (!/\d/.test(key)) {
+        e.preventDefault()
+        return
+    }
+
+    // Check if we can accept this digit at the current position
+    if (!canAcceptDigitAtPosition(cursorPos, currentValue, this.mask)) {
         e.preventDefault()
     }
 }
 
 /**
- * Checks if a key is valid for the current cursor position based on the mask
+ * Checks if a digit can be accepted at the current cursor position
  */
-function isValidKeyForPosition(
-    key: string,
-    cursorPos: number,
-    currentValue: string,
-    mask: string
-): boolean {
-    // Find the next position in the mask that accepts input
+function canAcceptDigitAtPosition(cursorPos: number, currentValue: string, mask: string): boolean {
+    // Count how many digits we currently have
+    const currentDigits = currentValue.replace(/\D/g, '')
+
+    // Count how many digit positions the mask allows
+    const maxDigits = mask.split('').filter((char) => char === '#').length
+
+    // If we're already at the maximum number of digits, reject
+    if (currentDigits.length >= maxDigits) {
+        return false
+    }
+
+    // Find the next available digit position in the mask after cursor
     let maskPos = 0
     let valuePos = 0
 
-    // Advance through the mask to find where this key would be inserted
-    while (maskPos < mask.length && valuePos <= cursorPos) {
+    // Map cursor position to mask structure
+    while (valuePos < cursorPos && maskPos < mask.length) {
         if (mask[maskPos] === '#') {
-            // This is a placeholder for numeric input
-            if (valuePos === cursorPos) {
-                // This is where the new character would go
-                return /\d/.test(key)
+            // This is a digit position
+            if (valuePos < currentValue.length && /\d/.test(currentValue[valuePos])) {
+                valuePos++
             }
-            valuePos++
+            maskPos++
         } else {
-            // This is a separator character
+            // This is a separator
             if (valuePos < currentValue.length && currentValue[valuePos] === mask[maskPos]) {
                 valuePos++
             }
+            maskPos++
+        }
+    }
+
+    // Find the next digit position in the mask
+    while (maskPos < mask.length) {
+        if (mask[maskPos] === '#') {
+            // Found a digit position - we can accept the input
+            return true
         }
         maskPos++
     }
 
+    // No more digit positions available
     return false
 }

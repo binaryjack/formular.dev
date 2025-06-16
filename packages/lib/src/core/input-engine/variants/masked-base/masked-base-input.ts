@@ -13,7 +13,7 @@ export const MaskedBaseInput = function (this: IMaskedBaseInput, mask: string) {
     console.error('🔍 MaskedBaseInput constructor called - ERROR LOG')
     console.warn('🔍 MaskedBaseInput constructor called - WARN LOG')
     console.log('🔍 MaskedBaseInput constructor called - REGULAR LOG')
-    debugger // This will force a breakpoint if dev tools are open
+    // This will force a breakpoint if dev tools are open
 
     // In the debugger console while stopped at breakpoint
     console.log('mask:', mask)

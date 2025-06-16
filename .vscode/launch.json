@@ -1,42 +1,35 @@
+// .vscode/launch.json
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Lib Tests",
-            "type": "node",
+            "name": "Debug React App",
+            "type": "chrome",
             "request": "launch",
-            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
-            "args": ["run", "--no-coverage"],
-            "cwd": "${workspaceFolder}/packages/lib",
-            "console": "integratedTerminal",
-            "env": {
-                "NODE_ENV": "test"
-            },
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
             "sourceMaps": true,
-            "skipFiles": ["<node_internals>/**"]
-        },
-        {
-            "name": "Debug Lib Build",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceFolder}/node_modules/vite/bin/vite.js",
-            "args": ["build", "--mode", "development"],
-            "cwd": "${workspaceFolder}/packages/lib",
-            "console": "integratedTerminal",
-            "env": {
-                "NODE_ENV": "development"
+            "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+            "runtimeArgs": [
+                "--remote-debugging-port=9222"
+            ],
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///*": "*",
+                "/src/*": "${webRoot}/src/*",
+                "/*": "*",
+                // Map the lib source files correctly
+                "/node_modules/.vite/deps/formular__dev__lib.js*": "${workspaceFolder}/packages/lib/src/*",
+                "formular.dev.lib/*": "${workspaceFolder}/packages/lib/src/*"
             },
-            "sourceMaps": true
-        },
-        {
-            "name": "Debug React Components",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceFolder}/node_modules/vite/bin/vite.js",
-            "args": ["dev"],
-            "cwd": "${workspaceFolder}/packages/vendors/react/formular.components",
-            "console": "integratedTerminal",
-            "sourceMaps": true
+            "smartStep": true,
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
+                "!${workspaceFolder}/packages/lib/**"
+            ],
+            "trace": "verbose" // Add for debugging the debugger itself
         }
     ]
 }

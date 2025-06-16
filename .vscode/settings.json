@@ -1,14 +1,22 @@
+// .vscode/settings.json
 {
     "typescript.preferences.includePackageJsonAutoImports": "on",
     "typescript.suggest.autoImports": true,
     "javascript.suggest.autoImports": true,
+    
+    // Essential debug settings only
     "debug.allowBreakpointsEverywhere": true,
-    "debug.showBreakpointsInOverviewRuler": true,
-    "debug.showInlineBreakpointCandidates": true,
+    "debug.focusEditorOnBreak": true,
+    "debug.focusWindowOnBreak": true,
     "debug.inlineValues": "on",
     "debug.console.fontSize": 14,
     "debug.console.lineHeight": 20,
-    "debug.openDebug": "openOnDebugBreak",
+    "debug.javascript.usePreview": true,
+    "debug.javascript.unmapMissingSources": true,
+    "debug.javascript.autoAttachFilter": "onlyWithFlag", // Changed from "always"
+    "debug.javascript.breakOnConditionalError": true,
+    
+    // Rest of your settings...
     "emmet.includeLanguages": {
         "typescript": "typescriptreact",
         "javascript": "javascriptreact"
