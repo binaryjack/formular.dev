@@ -1,1 +1,1 @@
-export * from './i-configuration'
+export * from './i-input-configuration'

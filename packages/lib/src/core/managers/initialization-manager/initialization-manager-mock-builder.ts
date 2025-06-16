@@ -1,4 +1,4 @@
-import type { IConfiguration } from '@project/provider/interfaces/i-configuration'
+import type { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 
 /**
@@ -7,7 +7,7 @@ import type { IInitializationManager } from './initialization-manager.types'
 export function createInitializationManagerMock(
     overrides: Partial<IInitializationManager> = {}
 ): Partial<IInitializationManager> {
-    const defaultConfig: IConfiguration = {
+    const defaultConfig: IInputConfiguration = {
         validationStrategies: [],
         trackingStrategies: [],
         valueStrategies: [],

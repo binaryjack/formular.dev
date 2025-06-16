@@ -1,11 +1,11 @@
 // Export all types and interfaces from initialization-manager
-import type { IConfiguration } from '@project/provider/interfaces/i-configuration'
+import type { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
 import type { IInitializationDelegate } from './delegates/initialization-delegate'
 export interface IInitializationManager {
-    new (params: IConfiguration): IInitializationManager
-    params: IConfiguration
+    new (params: IInputConfiguration): IInitializationManager
+    params: IInputConfiguration
     initializer?: IInitializationDelegate
-    addInitializer: (name: string, initializer: (params: IConfiguration) => void) => void
+    addInitializer: (name: string, initializer: (params: IInputConfiguration) => void) => void
     executeSequences: () => void
 }
 export interface IInitializableDependency {
@@ -14,5 +14,5 @@ export interface IInitializableDependency {
     /** says if the dependency has been initialized */
     isInitialized: boolean
     /** initializes the dependency */
-    initialize: (params: IConfiguration) => void
+    initialize: (params: IInputConfiguration) => void
 }

@@ -3,7 +3,7 @@ import { ITrackingOutputProvider } from '@core/managers/tracking-manager/tracker
 import { IValidationMethodStrategy } from '@core/managers/validation-manager/validation-manager.types'
 import { IParserStrategy } from '@core/managers/value-manager/value-manager.types'
 
-export interface IConfiguration {
+export interface IInputConfiguration {
     [key: string]: any
 
     validationStrategies: IValidationMethodStrategy[]

@@ -1,8 +1,8 @@
 import { InitializationManager } from '@core/managers/initialization-manager/initialization-manager'
-import { IConfiguration } from '@project/provider/interfaces/i-configuration'
+import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
 
 describe('InitializationManager', () => {
-    const config: IConfiguration = {} as IConfiguration
+    const config: IInputConfiguration = {} as IInputConfiguration
 
     it('should initialize with params', () => {
         const manager = new (InitializationManager as any)(config)

@@ -2,7 +2,7 @@ import { ITrackingStrategyService } from '../../services/tracking-strategy-servi
 import { IValidationStrategyService } from '../../services/validation-strategy-service'
 import { IValidationTriggerService } from '../../services/validation-trigger-service'
 import { IValueStrategyService } from '../../services/value-strategy-service'
-import { IConfiguration } from '../interfaces/i-configuration'
+import { IInputConfiguration } from '../interfaces/i-input-configuration'
 
 export const SConfigProvider = Symbol.for('IConfigProvider')
 
@@ -14,7 +14,7 @@ export interface IConfigProvider {
         trackingStrategyService: ITrackingStrategyService
     ): IConfigProvider
 
-    getConfig: () => IConfiguration
+    getConfig: () => IInputConfiguration
 }
 
 export const ConfigProvider = function (
@@ -36,7 +36,7 @@ export const ConfigProvider = function (
             )
         }
 
-        const output: IConfiguration = {
+        const output: IInputConfiguration = {
             validationStrategies: validationService?.strategies,
             trackingStrategies: trackingStrategyService?.strategies,
             valueStrategies: valueStrategyService?.strategies,

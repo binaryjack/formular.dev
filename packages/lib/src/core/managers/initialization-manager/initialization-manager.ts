@@ -1,4 +1,4 @@
-import { IConfiguration } from '@project/provider/interfaces/i-configuration'
+import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 // import type { IInitializationDelegate } from './delegates/initialization-delegate'
 // Import all prototype functions
@@ -11,7 +11,7 @@ import { executeSequences } from './prototype/execute-sequences'
  */
 export const InitializationManager = function (
     this: IInitializationManager,
-    params: IConfiguration
+    params: IInputConfiguration
 ) {
     this.params = params
     this.initializer = undefined

@@ -1,18 +1,18 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 
-import { IConfiguration } from '@project/provider/interfaces/i-configuration'
+import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
 import { IInitializationManager } from '../initialization-manager.types'
 
 export interface IInitializationDelegate {
     new (
         name: string,
         manager: IInitializationManager,
-        intitializer: (params: IConfiguration) => void
+        intitializer: (params: IInputConfiguration) => void
     ): IInitializationDelegate
     name: string
     manager: IInitializationManager
     next?: IInitializationDelegate
-    intitializer: (params: IConfiguration) => void
+    intitializer: (params: IInputConfiguration) => void
     execute?: () => void
     setNextSequence?: (sequenceInitliaizer: IInitializationDelegate) => void
 }
@@ -48,7 +48,7 @@ export const InitializationDelegate = function (
     this: IInitializationDelegate,
     name: string,
     manager: IInitializationManager,
-    intitializer: (params: IConfiguration) => void
+    intitializer: (params: IInputConfiguration) => void
 ) {
     this.name = name
     this.manager = manager
