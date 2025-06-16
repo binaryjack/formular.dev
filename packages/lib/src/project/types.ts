@@ -1,6 +1,6 @@
 // Export all types and interfaces from the project folder
 export * from './interfaces/i-app-lifecycle-instances'
-export * from './provider/configuration/config-provider'
+export * from './provider/configuration/input-configuration/input-config-provider'
 export * from './provider/interfaces/i-input-configuration'
 export * from './services/field-descriptor-service'
 export * from './services/tracking-strategy-service'

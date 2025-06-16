@@ -80,3 +80,8 @@ Please follow these rules for all code contributions and code generation in this
 
 - Use Tailwindcss
 - Use SCSS
+
+
+## Dependencies 
+
+- Do never add external third library into the `lib` without permission and explaining why it's needed.

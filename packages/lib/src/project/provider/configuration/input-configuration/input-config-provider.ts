@@ -1,29 +1,31 @@
-import { ITrackingStrategyService } from '../../services/tracking-strategy-service'
-import { IValidationStrategyService } from '../../services/validation-strategy-service'
-import { IValidationTriggerService } from '../../services/validation-trigger-service'
-import { IValueStrategyService } from '../../services/value-strategy-service'
-import { IInputConfiguration } from '../interfaces/i-input-configuration'
+import {
+    ITrackingStrategyService,
+    IValidationStrategyService,
+    IValidationTriggerService,
+    IValueStrategyService
+} from '@project/services'
+import { IInputConfiguration } from '@project/types'
 
-export const SConfigProvider = Symbol.for('IConfigProvider')
+export const SInputConfigProvider = Symbol.for('IInputConfigProvider')
 
-export interface IConfigProvider {
+export interface IInputConfigProvider {
     new (
         validationTriggerService: IValidationTriggerService,
         validationService: IValidationStrategyService,
         valueStrategyService: IValueStrategyService,
         trackingStrategyService: ITrackingStrategyService
-    ): IConfigProvider
+    ): IInputConfigProvider
 
     getConfig: () => IInputConfiguration
 }
 
-export const ConfigProvider = function (
-    this: IConfigProvider,
+export const InputConfigProvider = function (
+    this: IInputConfigProvider,
     validationTriggerService: IValidationTriggerService,
     validationService: IValidationStrategyService,
     valueStrategyService: IValueStrategyService,
     trackingStrategyService: ITrackingStrategyService
-): IConfigProvider {
+): IInputConfigProvider {
     this.getConfig = () => {
         if (
             !validationTriggerService ||
@@ -47,4 +49,4 @@ export const ConfigProvider = function (
     }
 
     return this
-} as any as IConfigProvider
+} as any as IInputConfigProvider

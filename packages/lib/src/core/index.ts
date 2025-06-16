@@ -1,3 +1,4 @@
+export * from './config'
 export * from './factories'
 export * from './formular-engine'
 export * from './framework'

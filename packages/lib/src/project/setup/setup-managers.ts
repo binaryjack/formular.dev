@@ -1,4 +1,7 @@
-import { ConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
+import {
+    InputConfigProvider,
+    SInputConfigProvider
+} from '@project/provider/configuration/input-configuration/input-config-provider'
 import { InputFactory, SInputFactory } from '../../core/factories/input-factory/input-factory'
 import { DomManager } from '../../core/managers/dom-manager/dom-manager'
 import { SDomManager } from '../../core/managers/dom-manager/dom-manager.types'
@@ -94,7 +97,7 @@ export const setupManagers = function (sm: IServiceManager) {
     sm.register(SValidationManager, () => new ValidationManager(), { lifetime: 'singleton' })
     sm.register(SValueManager, () => new ValueManager(), { lifetime: 'singleton' })
 
-    sm.registerClass(SConfigProvider, ConfigProvider, {
+    sm.registerClass(SInputConfigProvider, InputConfigProvider, {
         lifetime: 'singleton',
         dependencies: [
             SValidationTriggerService,

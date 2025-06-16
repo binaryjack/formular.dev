@@ -8,8 +8,11 @@ import { sequenceInitializer } from '@core/managers/initialization-manager/seque
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 
-import { IConfigProvider, SConfigProvider } from '@project/provider/configuration/config-provider'
-import { baseDependencyList } from '@project/provider/configuration/dependency.list.settings'
+import { baseDependencyList } from '@project/provider/configuration/base-dependency/dependency.list.settings'
+import {
+    IInputConfigProvider,
+    SInputConfigProvider
+} from '@project/provider/configuration/input-configuration/input-config-provider'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const STextInputService = Symbol.for('ITextInputService')
@@ -36,7 +39,7 @@ export const TextInputService = function (this: ITextInputService, sm: IServiceM
             _textInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _textInput)
 
-            const configProvider = this.sm.lazy<IConfigProvider>(SConfigProvider)?.()
+            const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
             sequenceInitializer(config, dependencies)
             return _textInput
