@@ -1,3 +1,11 @@
+/**
+ * FORMULAR React Components - Lib Integration Example
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Example demonstrating actual integration with formular.dev.lib
+ */
+
 import React, { useEffect, useState } from 'react'
 
 // Import the formular.dev.lib components

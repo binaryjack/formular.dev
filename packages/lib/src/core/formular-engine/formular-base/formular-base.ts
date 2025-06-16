@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Formular Base Engine
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Core form instance implementation with reactive state management
+ */
+
 import { IFormularManager } from '@core/managers/formular-manager/formular-manager.types'
 import { LoadingStatus } from '@core/status'
 import { IFormular } from './formular-base.types'

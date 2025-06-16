@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Service Manager (IoC Container)
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Advanced dependency injection system with lazy resolution and lifecycle management
+ */
+
 import { createScope } from './prototype/create-scope'
 import { dispose } from './prototype/dispose'
 import { findServiceDescriptor } from './prototype/find-service-descriptor'

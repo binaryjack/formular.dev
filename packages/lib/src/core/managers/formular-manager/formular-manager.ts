@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - FormularManager Core
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Central form management service for creating and managing form instances
+ */
+
 import { IFormularManager } from './formular-manager.types'
 import { clear } from './prototype/clear'
 

@@ -2,6 +2,9 @@
     "name": "formular.components",
     "version": "0.1.0",
     "private": true,
+    "author": "Piana Tadeo",
+    "license": "MIT",
+    "description": "React components for the FORMULAR form management library",
     "scripts": {
         "dev": "vite",
         "build": "vite build",

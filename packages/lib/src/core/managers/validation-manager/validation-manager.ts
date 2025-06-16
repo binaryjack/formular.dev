@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - ValidationManager Core
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Comprehensive validation engine with country-specific support
+ */
+
 import { addValidationStrategies } from './prototype/add-validation-strategies'
 import { setTriggerKeyWord } from './prototype/set-trigger-keyword'
 

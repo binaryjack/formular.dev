@@ -1,3 +1,11 @@
+/**
+ * FORMULAR React Components - FormularForm
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Main form container component that integrates with the FORMULAR lib
+ */
+
 import React, { useEffect, useMemo } from 'react'
 
 import {

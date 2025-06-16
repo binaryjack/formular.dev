@@ -1,5 +1,7 @@
 /**
  * FORMULAR Design System
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
  *
  * A comprehensive design system with TailwindCSS supporting the formular.components library.
  * This package provides design tokens, utilities, and styles - no components.

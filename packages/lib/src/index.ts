@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Advanced Form Management Library
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Main library entry point exposing all public APIs
+ */
+
 export * from './conventions'
 export * from './core'
 export * from './project'

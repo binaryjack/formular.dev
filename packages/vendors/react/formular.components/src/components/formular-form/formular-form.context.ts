@@ -1,3 +1,11 @@
+/**
+ * FORMULAR React Components - Context Provider
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * React context for sharing form state across components
+ */
+
 import { IExtendedInput, IFormular, IFormularFlags } from 'formular.dev.lib'
 import React from 'react'
 

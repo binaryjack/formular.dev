@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Input Base Engine
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Core input field implementation with reactive state and validation
+ */
+
 import { useDomManager } from './dependencies/use-dom-manager'
 import { useTrackingManager } from './dependencies/use-tracking-manager'
 import { useValidationManager } from './dependencies/use-validation-manager'

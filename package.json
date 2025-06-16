@@ -2,6 +2,9 @@
   "name": "formular.dev",
   "version": "1.0.0",
   "private": true,
+  "author": "Piana Tadeo",
+  "license": "MIT",
+  "description": "Advanced Form Management Library - A next-generation, framework-agnostic form management system",
   "workspaces": [
     "packages/*",
     "packages/vendors/*/*"

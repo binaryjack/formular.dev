@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Observable Subject Pattern
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Reactive programming implementation for signals-based state management
+ */
+
 import { IObservableSubject } from './observable-subject.types'
 import { debounceTrigger } from './prototype/debounce-trigger'
 import { subscribe } from './prototype/subscribe'

@@ -1,3 +1,17 @@
+/**
+ * FORMULAR - Validation Regex Patterns
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Validation patterns for international formats
+ *
+ * Phone patterns based on ITU-T E.164 international standard
+ * Postal code patterns based on Universal Postal Union standards
+ * Country codes follow ISO 3166-1 alpha-2 standard
+ *
+ * These patterns are derived from public standards and common formats
+ */
+
 export const numericOnly = /^\d*$/
 export const namesPattern = /^[a-zA-Z\-_\s]*$/
 export const dateEuPattern = /^(0[1-9]|[12]\d|3[01])\/?-?\.?(0[1-9]|1[01,2])\/?-?\.?(19|20)\d{2}$/
@@ -76,7 +90,7 @@ export const ssnPatterns = {
     DE: /^\d{2}\s?\d{6}\s?[A-Za-z]\s?\d{3}$/, // German ID
     FR: /^[12]\d{2}(0[1-9]|1[0-2])\d{2}\d{3}\d{3}\d{2}$/, // French INSEE
     CH: /^756\.\d{4}\.\d{4}\.\d{2}$/, // Swiss AHV number
-    IT: /^[A-Za-z]{6}\d{2}[A-Za-z]\d{2}[A-Za-z]\d{3}[A-Za-z]$/, // Italian Codice Fiscale
+    IT: /^[A-Za-z]{6}\d{2}[A-Za-z]\d{2}[A-Za-z]\d{3}[A-ZaZ]$/, // Italian Codice Fiscale
     ES: /^\d{8}[A-Za-z]$/, // Spanish DNI
     AT: /^\d{4}\s?\d{6}$/, // Austrian Social Security
     NL: /^\d{9}$/, // Dutch BSN

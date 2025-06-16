@@ -1,3 +1,11 @@
+/**
+ * FORMULAR - Application Lifecycle Management
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Main entry point for initializing the FORMULAR system and managing global instances
+ */
+
 import { ServiceManager } from '../../core/managers/service-manager/service-manager'
 import { IServiceManager } from '../../core/managers/service-manager/service-manager.types'
 
