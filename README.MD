@@ -1,4 +1,4 @@
-# FORMULAR
+﻿# FORMULAR
 
 <div align="center">
   <img src="./packages/shared-assets/assets/apple-touch-icon.png" alt="FORMULAR Logo" width="200" />
@@ -8,13 +8,30 @@
 
 <!-- Project Status -->
 ![Development Status](https://img.shields.io/badge/Status-In%20Development-orange?style=flat-square)
-![Version](https://img.shields.io/badge/Version-1.3--SNAPSHOT-blue?style=flat-square)
+![Version](https://img.sh    - **Framework Adapter Foundation** ✅
+        - Base structure for Vue.js adapter ✅
+        - Angular adapter foundation ✅
+        - Vanilla JavaScript adapter foundation ✅
+
+- **Version 2.0** 🚧 **PLANNED**:
+    
+    - **Complete Framework Adapters** 📦
+        - Vue.js 3 full adapter with composition API
+        - Angular 15+ adapter with reactive forms integration
+        - SvelteJS adapter with stores integration
+        - Vanilla JavaScript browser support (foundation ready)
+
+    - **NPM Package Publishing** 📦 **PRIORITY**
+        - formular.dev.lib core package (first public release)
+        - formular.dev.react components package
+        - formular.dev.design-system package
+        - Complete package documentation and installation guides/Version-1.3--SNAPSHOT-blue?style=flat-square)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 <!-- NPM Packages -->
-![NPM Core](https://img.shields.io/badge/NPM%20Core-Coming%20Soon-lightgrey?style=flat-square&logo=npm)
-![NPM React](https://img.shields.io/badge/NPM%20React-Coming%20Soon-lightgrey?style=flat-square&logo=npm)
-![NPM Design System](https://img.shields.io/badge/NPM%20Design%20System-Coming%20Soon-lightgrey?style=flat-square&logo=npm)
+![NPM Core](https://img.shields.io/badge/NPM%20Core-v2.0%20Release-orange?style=flat-square&logo=npm)
+![NPM React](https://img.shields.io/badge/NPM%20React-v2.0%20Release-orange?style=flat-square&logo=npm)
+![NPM Design System](https://img.shields.io/badge/NPM%20Design%20System-v2.0%20Release-orange?style=flat-square&logo=npm)
 
 <!-- Technology Stack -->
 ![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?style=flat-square&logo=typescript)
@@ -22,12 +39,12 @@
 ![PNPM](https://img.shields.io/badge/PNPM-Workspace-F69220?style=flat-square&logo=pnpm)
 
 <!-- Framework Support -->
-![React](https://img.shields.io/badge/React-✅%20Ready-61DAFB?style=flat-square&logo=react)
-![Vue.js](https://img.shields.io/badge/Vue.js-🚧%20In%20Progress-4FC08D?style=flat-square&logo=vue.js)
-![Angular](https://img.shields.io/badge/Angular-📋%20Planned-DD0031?style=flat-square&logo=angular)
-![Svelte](https://img.shields.io/badge/Svelte-📋%20Planned-FF3E00?style=flat-square&logo=svelte)
-![SolidJS](https://img.shields.io/badge/SolidJS-📋%20Planned-2C4F7C?style=flat-square&logo=solid)
-![Vanilla JS](https://img.shields.io/badge/Vanilla%20JS-🚧%20In%20Progress-F7DF1E?style=flat-square&logo=javascript)
+![React](https://img.shields.io/badge/React-✅%20Complete-61DAFB?style=flat-square&logo=react)
+![Vue.js](https://img.shields.io/badge/Vue.js-�%20Folder%20Only-4FC08D?style=flat-square&logo=vue.js)
+![Angular](https://img.shields.io/badge/Angular-�%20Folder%20Only-DD0031?style=flat-square&logo=angular)
+![Svelte](https://img.shields.io/badge/Svelte-�%20Folder%20Only-FF3E00?style=flat-square&logo=svelte)
+![SolidJS](https://img.shields.io/badge/SolidJS-�%20Folder%20Only-2C4F7C?style=flat-square&logo=solid)
+![Vanilla JS](https://img.shields.io/badge/Vanilla%20JS-⚡%20Core%20Ready-F7DF1E?style=flat-square&logo=javascript)
 
 <!-- Build & Quality -->
 ![Build](https://img.shields.io/badge/Build-Passing-success?style=flat-square)
@@ -37,7 +54,7 @@
 <!-- Special Features -->
 ![Switzerland](https://img.shields.io/badge/🇨🇭%20Switzerland-Native%20Support-red?style=flat-square)
 ![Multi Country](https://img.shields.io/badge/🌍%20Multi--Country-12%2B%20Countries-blue?style=flat-square)
-![Validation](https://img.shields.io/badge/Validators-20%2B%20Built--in-green?style=flat-square)
+![Validation](https://img.shields.io/badge/Validators-18%2B%20Working-green?style=flat-square)
 
 </div>
 
@@ -49,23 +66,43 @@
 
 ## Overview
 
-FORMULAR is a next-generation, framework-agnostic form management library designed to simplify complex form implementations with comprehensive validation. Built with enterprise-grade architecture patterns including IoC containers, reactive state management, and optimized performance, FORMULAR can be seamlessly integrated with React, Vue.js, Angular, or vanilla JavaScript.
+FORMULAR is a TypeScript-based form management library currently in active development. The project features a working React implementation with comprehensive form management capabilities, including validation, field management, and state tracking.
 
-This library provides a robust foundation for managing forms, fields, and validations, making it easier to build dynamic, accessible, and interactive user interfaces.
+**Current Status**: The library has a complete React implementation with 15+ working components, an IoC-based architecture, and a comprehensive validation system. The core library is framework-agnostic by design, but currently only the React adapter is fully implemented.
+
+The project uses modern TypeScript development patterns including dependency injection, reactive state management, and a modular component architecture. While designed to be framework-agnostic, the current focus is on perfecting the React implementation before expanding to other frameworks.
 
 ## 🚀 Quick Start
 
-### Installation
+> **⚠️ Important Note**: The NPM packages are not yet available. FORMULAR is currently in active development and the packages will be published with version 2.0. For now, you can explore the codebase and contribute to the project development.
+
+### Installation (Coming Soon)
 
 ```bash
-# Using npm
+# Using npm (available in v2.0)
 npm install formular.dev.lib
 
-# Using pnpm (recommended)
+# Using pnpm (recommended - available in v2.0)
 pnpm add formular.dev.lib
 
-# Using yarn
+# Using yarn (available in v2.0)
 yarn add formular.dev.lib
+```
+
+### Development Setup
+
+To explore and contribute to FORMULAR:
+
+```bash
+# Clone the repository
+git clone https://github.com/binaryjack/formular.dev
+cd formular.dev
+
+# Install dependencies using PNPM (as per contributing guidelines)
+pnpm install
+
+# Start development environment
+pnpm run dev
 ```
 
 ### Basic Usage
@@ -90,35 +127,54 @@ const MyForm = () => {
 }
 ```
 
-## ✨ Core Features
+## ✨ Current Features (What's Actually Built)
 
-### 🎯 **Framework-Agnostic Form Management**
-- **Universal Integration**: Works seamlessly with React, Vue.js, Angular, SvelteJS, SolidJS, or vanilla JavaScript
-- **Modular Architecture**: Use only what you need - core validation, input management, or full form suite
-- **Zero Dependencies**: Core library has no external dependencies for maximum compatibility
+### 🎯 **Core Form Management (React Implementation)**
+- **React Integration**: Full working React components with form context and state management
+- **FormularManager**: Central form management service for creating and managing form instances  
+- **Field Management**: Complete field binding, validation, and state tracking through React hooks
+- **TypeScript Support**: Comprehensive type definitions throughout the codebase
 
-### 📋 **Advanced Input & Field Management**
-- **Intelligent Input Engine**: Modular input system with specialized variants for different field types
-- **Value Parsing Strategies**: Type-safe value conversion between DOM, JavaScript objects, and formatted strings
-- **Field State Management**: Comprehensive tracking of validation state, user interactions, and field lifecycle
+### 📋 **Working React Components**
+- **Input Components**: InputText, Password (with visibility toggle), CheckInput, RadioInput, Select
+- **Advanced Inputs**: DatePicker, RangeSlider, RichTextEditor (RTE), ToggleButton, SwitchButton
+- **Form Container**: FormularForm component with submission handling and context provider
+- **Field Infrastructure**: FieldSet wrapper, validation display, focus management
+- **Specialized Components**: ReadOnlyField, DelayInput, MaskedInput
 
-### ✅ **Comprehensive Validation System**
-- **20+ Built-in Validators**: Email, phone, names, passwords, dates, currencies, and more
-- **Country-Specific Validation**: Native support for 12+ countries with specialized patterns
-- **🇨🇭 Switzerland Focus**: Dedicated validators for Swiss NPA, AHV, and phone number formats
-- **Multi-Country Support**: Validate across multiple countries simultaneously
-- **Custom Validators**: Easy extension system for domain-specific validation rules
+### ✅ **Validation System (Implemented)**
+- **18+ Working Validators**: Email, phone, names, passwords, dates, currency, age, username, time, numeric, URL, credit card, SSN
+- **Country-Specific Validators**: Phone, postal code, and SSN validation for multiple countries
+- **🇨🇭 Switzerland Validators**: AHV (social security), NPA (postal codes), Swiss phone numbers
+- **Multi-Country Support**: Validate across multiple countries with single validator calls
+- **Validation Engine**: Real-time validation with configurable trigger events (onChange, onBlur, etc.)
 
-### 🔧 **Enterprise-Grade Architecture**
-- **IoC Container**: Advanced dependency injection with lazy resolution and lifecycle management
-- **Reactive State Management**: Signals-based reactive programming with automatic cleanup
-- **Performance Optimized**: Batched notifications, lazy loading, and efficient re-renders
+### 🔧 **Architecture (Currently Working)**
+- **IoC Container**: Service manager with dependency injection, lazy resolution, and lifecycle management
+- **Notification System**: Observer pattern with batched updates and priority handling  
+- **React Hooks Integration**: useField, useForm, useService hooks for form and field management
+- **Form State Management**: Complete form lifecycle with isDirty, isValid, isBusy tracking
 - **Memory Management**: Automatic cleanup and circular dependency detection
 
-### 🔒 **Developer Experience**
+### 🔒 **Developer Experience (Current State)**
 - **Full TypeScript Support**: Comprehensive type definitions with intelligent auto-completion
-- **Rich Debugging Tools**: Development utilities and error reporting
-- **Extensible Design**: Plugin architecture for custom validators, input types, and countries
+- **Development Tools**: Form debugging components and development utilities
+- **Component Documentation**: Extensive JSDoc comments and usage examples in component files
+- **Test Infrastructure**: Jest setup with initial test files (expanding coverage)
+
+## 🚧 What's Not Yet Available
+
+### ⏳ **Framework Adapters (Foundation Only)**
+- **Vue.js, Angular, Svelte, SolidJS**: Basic folder structure exists, but adapters not implemented
+- **Vanilla JavaScript**: Core logic is framework-agnostic but browser integration incomplete
+
+### 📦 **Package Distribution**
+- **NPM Packages**: Not yet published - all packages are in development
+- **Build System**: Vite configuration exists but packages need preparation for publishing
+
+### 🎨 **Design System Integration**
+- **Design Tokens**: Tokens defined but not fully integrated into components
+- **Theming**: Foundation exists but not complete component coverage
 
 ## 🏗️ Repository Features
 
@@ -138,13 +194,24 @@ const MyForm = () => {
 
 ---
 
-## How FORMULAR Works
+## How FORMULAR Currently Works
 
-FORMULAR is built using a sophisticated combination of design patterns, dependency injection, and modular architecture to provide a robust and extensible framework for form management. The library features a comprehensive IoC (Inversion of Control) container, reactive state management through signals, and a highly optimized notification system.
+FORMULAR is built using TypeScript and modern React patterns. The library features a service-based architecture with dependency injection, reactive state management through React hooks, and a comprehensive validation system.
 
+**Architecture Overview:**
+- **FormularManager**: Central service for creating and managing form instances
+- **React Components**: 15+ working input components with full form integration
+- **Service Container**: IoC container managing dependencies and services
+- **Validation Engine**: Configurable validation with 18+ built-in validators
+- **Notification System**: Observer pattern for reactive state updates
 
+**Current Implementation:**
+- React components with full TypeScript support
+- Working form submission and validation
+- Field state management and tracking
+- Comprehensive component documentation
 
-> **Note**: Full vanilla JavaScript browser support and framework adapters are actively being developed. Currently, FORMULAR requires a build environment but works with any modern bundler.
+> **Note**: The core library is designed to be framework-agnostic, but currently only the React adapter is fully implemented. Other framework adapters have basic folder structure but require development.
 
 ---
 
@@ -152,14 +219,17 @@ FORMULAR is built using a sophisticated combination of design patterns, dependen
 
 We welcome contributions to FORMULAR! The project is actively maintained and open to community involvement.
 
+> **📧 Getting Started**: Before contributing, please send an email to [admin@formular.dev](mailto:admin@formular.dev) to introduce yourself and discuss your interest in contributing. This helps us coordinate efforts and provide you with the best guidance for getting started.
+
 ### 🚀 How to Get Started
 
-1. **🍴 Fork the Repository**: Start by forking the repository on GitHub
-2. **📚 Explore the Codebase**: Familiarize yourself with the monorepo structure and architecture
-3. **🐛 Report Issues**: Found a bug or have a feature request? Open an issue on GitHub
-4. **💻 Submit Pull Requests**: Implement a feature or fix a bug and submit a pull request
-5. **📖 Improve Documentation**: Help enhance documentation, tutorials, and examples
-6. **🧪 Write Tests**: Follow our [Contributing Guidelines](./CONTRIBUTING.md) for test implementation
+1. **📧 Send an Introduction Email**: Contact [admin@formular.dev](mailto:admin@formular.dev) to introduce yourself and your areas of interest
+2. **🍴 Fork the Repository**: Start by forking the repository on GitHub
+3. **📚 Explore the Codebase**: Familiarize yourself with the monorepo structure and architecture
+4. **🐛 Report Issues**: Found a bug or have a feature request? Open an issue on GitHub
+5. **💻 Submit Pull Requests**: Implement a feature or fix a bug and submit a pull request
+6. **📖 Improve Documentation**: Help enhance documentation, tutorials, and examples
+7. **🧪 Write Tests**: Follow our [Contributing Guidelines](./CONTRIBUTING.md) for test implementation
 
 ### 🎯 Priority Contribution Areas
 
@@ -194,16 +264,42 @@ We're always looking for passionate developers, designers, and contributors to j
 - **Sharing ideas** for new features and improvements
 
 **Get in touch:** 
-- 📧 Email: [piana.tadeo@formular.dev](mailto:piana.tadeo@formular.dev)
+- 📧 Email: [admin@formular.dev](mailto:admin@formular.dev)
 - 💬 GitHub Discussions: [Join the conversation](https://github.com/pianatadeo/formular.dev/discussions)
 - 🐛 Issues: [Report bugs or request features](https://github.com/pianatadeo/formular.dev/issues)
 - 🔀 Pull Requests: [Contribute directly to the codebase](https://github.com/pianatadeo/formular.dev/pulls)
 
-## ✅ Current Status (Updated June 2025)
+## 🚧 Work In Progress Areas (Updated June 2025)
 
-🚧 Working on monorepo intégration 
-🚧 Unit testing 
-🚧 Demo Pages
+We're actively working on several key areas where contributions are especially welcome. These represent immediate development priorities:
+
+### � **Core Library Development**
+- **Configuration Manager** �🚧 - Centralized configuration system for form and validation settings
+- **Core Library Documentation** 📚 - Comprehensive API documentation and architectural guides
+- **Type Safety Enhancements** 🛡️ - Strengthening TypeScript definitions and generic constraints
+- **Performance Profiling Tools** ⚡ - Built-in performance monitoring and optimization utilities
+
+### 🧪 **Testing & Quality Assurance**
+- **Unit Testing Expansion** 🧪 - Following our [Contributing Guidelines](./CONTRIBUTING.md) for test implementation
+- **Integration Testing Suite** 🔗 - Cross-package integration and end-to-end testing
+- **Test Coverage Reporting** � - Automated coverage tracking and reporting
+
+### 🎨 **User Experience & Documentation**
+- **Demo Pages & Examples** 🌐 - Interactive demonstrations and real-world use cases
+- **Component Playground** 🎛️ - Interactive component explorer and testing environment
+- **Video Tutorials** 📹 - Step-by-step guides for common patterns and advanced features
+
+### 🏗️ **Infrastructure & Tooling**
+- **Monorepo Integration** 📦 - Finalizing cross-package dependencies and build optimization
+- **Development Environment Setup** �️ - Streamlined onboarding for new contributors
+- **Automated Release Pipeline** 🚀 - CI/CD workflows for package publishing
+
+### 💡 **Experimental Features**
+- **Form Builder UI** 🎨 - Visual drag-and-drop form construction interface
+- **AI-Assisted Validation** 🤖 - Smart validation suggestions and form optimization
+- **Real-time Collaboration** 👥 - Multi-user form editing capabilities
+
+> **Want to contribute to any of these areas?** Please send an email to [admin@formular.dev](mailto:admin@formular.dev) mentioning your area of interest!
 
 
 ## 🗺️ Roadmap
@@ -216,7 +312,9 @@ We're always looking for passionate developers, designers, and contributors to j
     - Country-specific validation system ✅
     - Switzerland-focused validation (NPA, AHV) ✅
     - Multi-country validation support ✅
-    - Comprehensive validator library (20+ validators) ✅    - **IoC Service Manager Implementation** ✅
+    - Comprehensive validator library (20+ validators) ✅
+    
+    - **IoC Service Manager Implementation** ✅
         - Advanced dependency injection with lazy resolution ✅
         - Circular dependency detection ✅
         - Service lifetime management (singleton, transient, scoped) ✅
@@ -237,18 +335,18 @@ We're always looking for passionate developers, designers, and contributors to j
         - DOM register builders ✅
 
     - **Monorepo Architecture** ✅
-        - PNPM workspace configuration ✅
-        - Multi-package structure ✅
+        - PNPM workspace configuration ✅        - Multi-package structure ✅
         - Shared assets management ✅
         - Cross-package dependencies ✅
 
-**Version 1.3** 🚧 **IN DEVELOPMENT**
+- **Version 1.3** 🚧 **IN DEVELOPMENT**:
 
-    - **Signals Implementation** ✅
-        - Reactive programming with signals ✅
-        - Observable subject patterns ✅
+    - **Observable Subject Pattern** ✅
+        - Reactive programming foundation ✅
+        - Observable subject implementation ✅
+        - Strong and weak observer subscriptions ✅
         - Memory management and cleanup ✅
-        - React hooks integration ✅
+        - React hooks integration with observables ✅
 
     - **Rich Text Editor (RTE)** ✅
         - Advanced RTE component ✅
@@ -272,24 +370,31 @@ We're always looking for passionate developers, designers, and contributors to j
         - Dependency injection patterns ✅
         - Entry points and lifecycle management ✅
         - React integration patterns ✅
-        - Component documentation 🚧
-
-    - **Framework Adapter Foundation** ✅
+        - Component documentation 🚧    - **Framework Adapter Foundation** ✅
         - Base structure for Vue.js adapter ✅
         - Angular adapter foundation ✅
         - Vanilla JavaScript adapter foundation ✅
-        **Version 2.0** 🚧 **PLANNED** 
-    - **Complete Framework Adapters** �
+
+- **Version 2.0** 🚧 **PLANNED**:
+    
+    - **Complete Framework Adapters** 📦
         - Vue.js 3 full adapter with composition API
         - Angular 15+ adapter with reactive forms integration
         - SvelteJS adapter with stores integration
         - Vanilla JavaScript browser support (foundation ready)
 
-    - **NPM Package Publishing** 🚧
-        - formular.dev.lib core package
+    - **NPM Package Publishing** 📦 **PRIORITY**
+        - formular.dev.lib core package (first public release)
         - formular.dev.react components package
         - formular.dev.design-system package
-        - Complete package documentation
+        - Complete package documentation and installation guides
+
+    - **Signals Implementation** 🔄 **NEW**
+        - True signals-based reactive programming
+        - Computed signals with automatic dependency tracking
+        - Effect system for side effect management
+        - Signal-based form state management
+        - Performance optimized signal updates
 
     - **Enhanced Documentation Platform** 📚
         - Interactive documentation website

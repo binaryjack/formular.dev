@@ -3,10 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>FORMULAR - Framework Agnostic Form Library</title>
-        <meta
+        <title>FORMULAR - Framework Agnostic Form Library</title>        <meta
             name="description"
-            content="A modern, framework-agnostic form library with comprehensive validation, TypeScript support, and sophisticated architecture patterns."
+            content="A modern, framework-agnostic form and input management library with comprehensive validation and TypeScript support. React implementation available, Vue.js and Angular adapters planned."
         />
 
         <!-- Favicon -->
@@ -638,14 +637,12 @@
     <body>
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-content">
-                <div class="logo">
-                    <img src="./src/assets/3x/Artboard 1@3x.png" alt="FORMULAR Logo" />
-                </div>
-                <h1>FORMULAR DEV</h1>
+            <div class="hero-content">                <div class="logo">
+                    <img src="../shared-assets/assets/3x/Artboard 1@3x.png" alt="FORMULAR Logo" />
+                </div><h1>FORMULAR DEV</h1>
                 <p class="subtitle">
-                    A sophisticated, framework-agnostic form library with comprehensive validation,
-                    TypeScript support, and advanced architecture patterns.
+                    A sophisticated, framework-agnostic form and input management library with 
+                    comprehensive validation, TypeScript support, and advanced architecture patterns.
                 </p>
                 <div class="cta-buttons">
                     <a href="https://formular.dev/" class="btn btn-primary"> 🚀 Get Started </a>
@@ -657,38 +654,42 @@
         <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
-                <div class="section-header fade-in">
-                    <h2 class="section-title">Powerful Features</h2>
+                <div class="section-header fade-in">                    <h2 class="section-title">Powerful Form & Input Management</h2>
                     <p class="section-subtitle">
-                        Everything you need to build sophisticated forms with confidence
+                        Everything you need for sophisticated, framework-agnostic form handling
                     </p>
                 </div>
 
-                <div class="features-grid">
-                    <div class="feature-card fade-in">
+                <div class="features-grid">                    <div class="feature-card fade-in">
                         <div class="feature-icon">🎯</div>
-                        <h3 class="feature-title">Framework Agnostic</h3>
+                        <h3 class="feature-title">Framework-Agnostic Core</h3>
                         <p class="feature-description">
-                            Works seamlessly with React, Vue.js, Angular, or plain JavaScript. One
-                            library, multiple frameworks.
+                            Designed to work with any framework. Core form and input management is 
+                            framework-independent. React adapter available now, others coming in v2.0.
                         </p>
                     </div>
 
                     <div class="feature-card fade-in">
+                        <div class="feature-icon">📋</div>
+                        <h3 class="feature-title">Advanced Form Management</h3>
+                        <p class="feature-description">
+                            Sophisticated form state management, field binding, lifecycle control, 
+                            and input engine with modular variants and parsing strategies.
+                        </p>
+                    </div><div class="feature-card fade-in">
                         <div class="feature-icon">✅</div>
                         <h3 class="feature-title">Comprehensive Validation</h3>
                         <p class="feature-description">
-                            20+ built-in validators with country-specific support for 12+ countries.
+                            18+ built-in validators with country-specific support for 12+ countries.
                             Special focus on Swiss formats (NPA, AHV, phone numbers).
                         </p>
                     </div>
 
                     <div class="feature-card fade-in">
-                        <div class="feature-icon">🔧</div>
-                        <h3 class="feature-title">Advanced Architecture</h3>
+                        <div class="feature-icon">🔧</div>                        <h3 class="feature-title">Advanced Architecture</h3>
                         <p class="feature-description">
                             Built with sophisticated IoC container, reactive state management
-                            through signals, and optimized notification system.
+                            through observables, and optimized notification system.
                         </p>
                     </div>
 
@@ -739,12 +740,10 @@
                             Advanced dependency injection with lazy resolution, lifecycle
                             management, and circular dependency detection.
                         </p>
-                    </div>
-
-                    <div class="arch-component fade-in">
+                    </div>                    <div class="arch-component fade-in">
                         <h3>📡 Reactive State</h3>
                         <p>
-                            Observer pattern implementation with signals-based reactive programming
+                            Observer pattern implementation with reactive programming foundation
                             for real-time form state management.
                         </p>
                     </div>
@@ -782,51 +781,182 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Code Examples Section -->
+        </section>        <!-- Code Examples Section -->
         <section class="code-examples">
             <div class="container">
                 <div class="section-header fade-in">
-                    <h2 class="section-title">Simple Yet Powerful</h2>
+                    <h2 class="section-title">Framework-Agnostic Core</h2>
                     <p class="section-subtitle">
-                        Get started with elegant APIs and fluent builders
+                        One form engine, multiple framework adapters
                     </p>
-                </div>
-
+                </div>                <!-- Core Engine Example -->
                 <div class="code-container fade-in">
                     <pre
                         class="code-block"
-                    ><code><span class="code-comment">// Create forms with the fluent API</span>
-<span class="code-keyword">const</span> userSchema: <span class="code-keyword">IEntityScheme</span> = {
-    name: <span class="code-string">'userForm'</span>,
-    properties: [
-        <span class="code-keyword">new</span> <span class="code-function">FieldSchemaBuilder</span>()
-            .<span class="code-function">setName</span>(<span class="code-string">'username'</span>)
-            .<span class="code-function">setTypeInput</span>(<span class="code-string">'text'</span>)
-            .<span class="code-function">setValidationData</span>(<span class="code-keyword">true</span>, Validators.<span class="code-function">username</span>(<span class="code-string">'username'</span>, <span class="code-keyword">true</span>).<span class="code-function">build</span>())
-            .<span class="code-function">build</span>(),
+                    ><code><span class="code-comment">// 1. Define your form schema (framework-agnostic core)</span>
+<span class="code-keyword">import</span> { 
+    fileDescriptorMock, GenericValidationBuilder, 
+    requiredDataValidationMock, minLengthValidationMock, 
+    Validators 
+} <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
 
-        <span class="code-keyword">new</span> <span class="code-function">FieldSchemaBuilder</span>()
-            .<span class="code-function">setName</span>(<span class="code-string">'email'</span>)
-            .<span class="code-function">setTypeInput</span>(<span class="code-string">'email'</span>)
-            .<span class="code-function">setValidationData</span>(<span class="code-keyword">true</span>, Validators.<span class="code-function">email</span>(<span class="code-string">'email'</span>, <span class="code-keyword">true</span>).<span class="code-function">build</span>())
-            .<span class="code-function">build</span>()
-    ]
-}
+<span class="code-comment">// Create validation rules</span>
+<span class="code-keyword">const</span> emailValidation = <span class="code-keyword">new</span> <span class="code-function">GenericValidationBuilder</span>()
+    .<span class="code-function">setConstraints</span>([
+        <span class="code-function">requiredDataValidationMock</span>(<span class="code-string">'email'</span>, <span class="code-keyword">true</span>),
+        Validators.<span class="code-function">email</span>(<span class="code-string">'email'</span>, <span class="code-keyword">true</span>).<span class="code-function">build</span>()
+    ])
+    .<span class="code-function">build</span>()
 
-<span class="code-comment">// React integration with hooks</span>
-<span class="code-keyword">const</span> UserForm = () => {
-    <span class="code-keyword">const</span> { formInstance } = <span class="code-function">useFormularContext</span>()
-    
+<span class="code-keyword">const</span> phoneValidation = <span class="code-keyword">new</span> <span class="code-function">GenericValidationBuilder</span>()
+    .<span class="code-function">setConstraints</span>([
+        Validators.<span class="code-function">phoneNumber</span>(<span class="code-string">'phone'</span>, [<span class="code-string">'CH'</span>, <span class="code-string">'US'</span>, <span class="code-string">'FR'</span>]).<span class="code-function">build</span>()
+    ])
+    .<span class="code-function">build</span>()
+
+<span class="code-comment">// Create field descriptors</span>
+<span class="code-keyword">const</span> emailField = <span class="code-function">fileDescriptorMock</span>(<span class="code-string">'email'</span>, <span class="code-string">'Email Address'</span>, <span class="code-string">'email'</span>, emailValidation, [])
+<span class="code-keyword">const</span> phoneField = <span class="code-function">fileDescriptorMock</span>(<span class="code-string">'phone'</span>, <span class="code-string">'Phone Number'</span>, <span class="code-string">'tel'</span>, phoneValidation, [])</code></pre>
+                </div>
+
+                <!-- Framework Implementations -->
+                <div style="margin-top: 4rem;">
+                    <h3 style="color: #4facfe; text-align: center; font-size: 2rem; margin-bottom: 3rem;">Framework Implementations</h3>
+                    
+                    <!-- React Implementation -->
+                    <div class="code-container fade-in" style="margin-bottom: 2rem;">
+                        <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #4facfe;">
+                            <span style="color: #4facfe; font-weight: 600;">⚛️ React Implementation (Available Now)</span>
+                        </div>
+                        <pre class="code-block"><code><span class="code-comment">// React adapter with FormularForm and hooks</span>
+<span class="code-keyword">import</span> { useService } <span class="code-keyword">from</span> <span class="code-string">'@adapters/react/services/use-service'</span>
+<span class="code-keyword">import</span> { useField } <span class="code-keyword">from</span> <span class="code-string">'@adapters/react/fields/hooks/use-field'</span>
+<span class="code-keyword">import</span> FormularForm <span class="code-keyword">from</span> <span class="code-string">'@components/formular-form/formular-form'</span>
+<span class="code-keyword">import</span> InputText <span class="code-keyword">from</span> <span class="code-string">'@components/input-text/input-text'</span>
+<span class="code-keyword">import</span> { SFormularManager } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
+
+<span class="code-keyword">function</span> <span class="code-function">UserRegistrationForm</span>() {
+    <span class="code-keyword">const</span> { getService } = <span class="code-function">useService</span>()
+    <span class="code-keyword">const</span> formularManager = <span class="code-function">getService</span>(SFormularManager)
+
+    <span class="code-comment">// Create form from descriptors</span>
+    <span class="code-keyword">const</span> formular = formularManager?.<span class="code-function">createFromDescriptors</span>(
+        <span class="code-string">'user-registration'</span>, 
+        [emailField, phoneField]
+    )
+
+    <span class="code-keyword">const</span> <span class="code-function">handleSubmit</span> = (data) => {
+        console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+    }
+
     <span class="code-keyword">return</span> (
-        &lt;form&gt;
-            &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"username"</span> /&gt;
+        &lt;<span class="code-function">FormularForm</span> formular={formular} onSubmit={handleSubmit}&gt;
             &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"email"</span> /&gt;
-            &lt;button onClick={() => formInstance?.<span class="code-function">submit</span>()}&gt;Submit&lt;/button&gt;
-        &lt;/form&gt;
+            &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"phone"</span> /&gt;
+            &lt;button type=<span class="code-string">"submit"</span>&gt;Submit&lt;/button&gt;
+        &lt;/<span class="code-function">FormularForm</span>&gt;
     )
 }</code></pre>
+                    </div>                    <!-- Vue.js Implementation -->
+                    <div class="code-container fade-in" style="margin-bottom: 2rem;">
+                        <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #4fc08d;">
+                            <span style="color: #4fc08d; font-weight: 600;">💚 Vue.js Implementation (Planned v2.0)</span>
+                        </div>
+                        <pre class="code-block"><code><span class="code-comment">// Vue composables with reactivity</span>
+&lt;template&gt;
+  &lt;FormularForm 
+    :formular=<span class="code-string">"formular"</span> 
+    @submit=<span class="code-string">"handleSubmit"</span>
+  &gt;
+    &lt;InputText field-name=<span class="code-string">"email"</span> /&gt;
+    &lt;InputText field-name=<span class="code-string">"phone"</span> /&gt;
+    &lt;button type=<span class="code-string">"submit"</span> :disabled=<span class="code-string">"!formular?.isValid"</span>&gt;
+      Submit
+    &lt;/button&gt;
+  &lt;/FormularForm&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+<span class="code-keyword">import</span> { useFormularManager } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.vue'</span>
+
+<span class="code-keyword">const</span> { createFromDescriptors } = <span class="code-function">useFormularManager</span>()
+
+<span class="code-keyword">const</span> formular = <span class="code-function">createFromDescriptors</span>(
+  <span class="code-string">'user-registration'</span>, 
+  [emailField, phoneField]
+)
+
+<span class="code-keyword">const</span> <span class="code-function">handleSubmit</span> = (data) => {
+  console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+}
+&lt;/script&gt;</code></pre>
+                    </div>                    <!-- Angular Implementation -->
+                    <div class="code-container fade-in" style="margin-bottom: 2rem;">
+                        <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #dd0031;">
+                            <span style="color: #dd0031; font-weight: 600;">🅰️ Angular Implementation (Planned v2.0)</span>
+                        </div>
+                        <pre class="code-block"><code><span class="code-comment">// Angular service integration</span>
+<span class="code-keyword">@Component</span>({
+  selector: <span class="code-string">'app-user-form'</span>,
+  template: `
+    &lt;formular-form 
+      [formular]=<span class="code-string">"formular"</span> 
+      (onSubmit)=<span class="code-string">"handleSubmit($event)"</span>&gt;
+      &lt;formular-input 
+        fieldName=<span class="code-string">"email"</span>&gt;
+      &lt;/formular-input&gt;
+      &lt;formular-input 
+        fieldName=<span class="code-string">"phone"</span>&gt;
+      &lt;/formular-input&gt;
+      &lt;button type=<span class="code-string">"submit"</span> [disabled]=<span class="code-string">"!formular?.isValid"</span>&gt;
+        Submit
+      &lt;/button&gt;
+    &lt;/formular-form&gt;
+  `
+})
+<span class="code-keyword">export class</span> <span class="code-function">UserFormComponent</span> {
+  formular = <span class="code-keyword">this</span>.formularService.<span class="code-function">createFromDescriptors</span>(
+    <span class="code-string">'user-registration'</span>, 
+    [<span class="code-keyword">this</span>.emailField, <span class="code-keyword">this</span>.phoneField]
+  )
+
+  <span class="code-keyword">constructor</span>(<span class="code-keyword">private</span> formularService: FormularService) {}
+
+  <span class="code-function">handleSubmit</span>(data: any) {
+    console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+  }
+}</code></pre>
+                    </div>                    <!-- Vanilla JS Implementation -->
+                    <div class="code-container fade-in">
+                        <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #f7df1e;">
+                            <span style="color: #f7df1e; font-weight: 600;">🟨 Vanilla JavaScript (Planned v2.0)</span>
+                        </div>
+                        <pre class="code-block"><code><span class="code-comment">// Pure JavaScript integration</span>
+<span class="code-keyword">import</span> { FormularManager, DOMAdapter } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.vanilla'</span>
+
+<span class="code-comment">// Create form manager with service container</span>
+<span class="code-keyword">const</span> formularManager = <span class="code-keyword">new</span> <span class="code-function">FormularManager</span>(serviceManager, notificationManager)
+
+<span class="code-comment">// Create form from descriptors</span>
+<span class="code-keyword">const</span> formular = formularManager.<span class="code-function">createFromDescriptors</span>(
+    <span class="code-string">'user-registration'</span>, 
+    [emailField, phoneField]
+)
+
+<span class="code-comment">// Bind to existing HTML form</span>
+<span class="code-keyword">const</span> domAdapter = <span class="code-keyword">new</span> <span class="code-function">DOMAdapter</span>(formular)
+domAdapter.<span class="code-function">bindToForm</span>(<span class="code-string">'#user-registration-form'</span>)
+
+<span class="code-comment">// Listen to form events</span>
+formular.<span class="code-function">notificationManager</span>.<span class="code-function">subscribe</span>(<span class="code-string">'validation'</span>, (field, isValid, errors) => {
+    <span class="code-keyword">const</span> errorDiv = document.<span class="code-function">querySelector</span>(`#${field.name}-errors`)
+    errorDiv.innerHTML = errors.<span class="code-function">map</span>(err => `&lt;span&gt;${err.message}&lt;/span&gt;`).<span class="code-function">join</span>(<span class="code-string">''</span>)
+})
+
+formular.<span class="code-function">notificationManager</span>.<span class="code-function">subscribe</span>(<span class="code-string">'submit'</span>, (data) => {
+    console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+})</code></pre>
+                    </div>
                 </div>
             </div>
         </section>
@@ -892,33 +1022,29 @@
                             max-width: 700px;
                             margin-left: auto;
                             margin-right: auto;
-                        "
-                    >
+                        "                    >
                         Help expand FORMULAR's reach by contributing framework-specific adapters and
                         integrations. We're actively looking for contributors to develop specialized
-                        hooks, components, and utilities.
+                        hooks, components, and utilities for planned v2.0 framework support.
                     </p>
 
-                    <div class="framework-adapters">
-                        <div class="adapter-card fade-in">
+                    <div class="framework-adapters">                        <div class="adapter-card fade-in">
                             <div class="framework-logo">⚛️</div>
-                            <h4>React Hooks</h4>
+                            <h4>React Adapter ✅</h4>
                             <p>
-                                Enhance React integration with custom hooks, context providers, and
-                                component wrappers.
+                                First implementation available. Provides React-specific hooks, context providers, and
+                                component wrappers for the core form engine.
                             </p>
                             <div class="tech-tags">
                                 <span>useFormular</span>
                                 <span>useField</span>
                                 <span>Context API</span>
                             </div>
-                        </div>
-
-                        <div class="adapter-card fade-in">
+                        </div><div class="adapter-card fade-in">
                             <div class="framework-logo">🅰️</div>
-                            <h4>Angular Services</h4>
+                            <h4>Angular Services 🚧</h4>
                             <p>
-                                Build Angular services, directives, and reactive forms integration
+                                Planned for v2.0: Angular services, directives, and reactive forms integration
                                 for seamless Angular development.
                             </p>
                             <div class="tech-tags">
@@ -926,13 +1052,11 @@
                                 <span>Directives</span>
                                 <span>Reactive Forms</span>
                             </div>
-                        </div>
-
-                        <div class="adapter-card fade-in">
+                        </div>                        <div class="adapter-card fade-in">
                             <div class="framework-logo">💚</div>
-                            <h4>Vue.js Composables</h4>
+                            <h4>Vue.js Composables 🚧</h4>
                             <p>
-                                Create Vue 3 composables, plugins, and reactive integrations using
+                                Planned for v2.0: Vue 3 composables, plugins, and reactive integrations using
                                 the Composition API.
                             </p>
                             <div class="tech-tags">
@@ -940,13 +1064,11 @@
                                 <span>Plugins</span>
                                 <span>Reactivity</span>
                             </div>
-                        </div>
-
-                        <div class="adapter-card fade-in">
+                        </div>                        <div class="adapter-card fade-in">
                             <div class="framework-logo">🔷</div>
-                            <h4>Svelte Actions</h4>
+                            <h4>Svelte Actions 🚧</h4>
                             <p>
-                                Develop Svelte actions, stores, and component integrations for the
+                                Planned for v2.0: Svelte actions, stores, and component integrations for the
                                 growing Svelte ecosystem.
                             </p>
                             <div class="tech-tags">
