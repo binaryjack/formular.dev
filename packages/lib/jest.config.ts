@@ -33,9 +33,10 @@ const config: Config = {
         '^@utility/(.*)$': '<rootDir>/src/core/framework/utility/$1',
         '^@common/(.*)$': '<rootDir>/src/core/framework/common/$1',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
-    }, // transform: {
-    //     '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
-    // },
+    },
+    transform: {
+        '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: 'tsconfig.json' }]
+    },
     testMatch: ['<rootDir>/src/**/*.(spec|test).ts?(x)'], // Look recursively in src folder and subfolders
     setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'] // Optional: Jest setup file
     // All imported modules in your tests should be mocked automatically
