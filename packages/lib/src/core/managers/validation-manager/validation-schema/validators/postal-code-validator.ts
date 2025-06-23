@@ -9,12 +9,14 @@ import {
     postalCodeUKPattern,
     postalCodeUSPattern
 } from '../validation.regex.patterns'
+import { PostalCodeRegionType } from './types/postal-code-region.type'
 
-export type PostalCodeRegion = 'US' | 'CA' | 'UK'
+// Backward compatibility alias
+export type PostalCodeRegion = PostalCodeRegionType
 
 export const postalCodeValidator = (
     name: string,
-    region: PostalCodeRegion = 'US',
+    region: PostalCodeRegionType = 'US',
     required: boolean = true
 ) => {
     const constraints: IValidationConstraintBuilder<any>[] = []

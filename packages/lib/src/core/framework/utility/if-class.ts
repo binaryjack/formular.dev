@@ -1,7 +1,4 @@
-export interface IIfClass {
-    classN: string
-    addIf?: boolean
-}
+import { IIfClass } from './interfaces/i-if-class'
 
 export const newIFClass = (classN: string, addIf?: boolean) => {
     return { classN, addIf }

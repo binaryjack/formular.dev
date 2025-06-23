@@ -7,6 +7,7 @@ import {
     Validators
 } from '@core/managers/validation-manager/validation-schema/validators'
 import { eMailValidator } from '../presets/e-mail-builder'
+import { ValidatorNameType } from './types/validator-name.type'
 
 // Example usage of individual validators
 export const UserFormValidators = {
@@ -43,11 +44,11 @@ export const buildUserFormField = () => {
 }
 
 // Type-safe validator usage
-export type ValidatorName = keyof typeof Validators
+export type ValidatorName = ValidatorNameType
 
 // Helper function to create validation rules
 export const createValidationRule = (
-    validatorName: ValidatorName,
+    validatorName: ValidatorNameType,
     fieldName: string,
     required: boolean = true
 ) => {

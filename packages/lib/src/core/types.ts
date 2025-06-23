@@ -1,4 +1,5 @@
 // Export all types and interfaces from the core folder and subfolders
+export * from './enums'
 export * from './factories/types'
 export * from './formular-engine/types'
 export * from './framework/types'

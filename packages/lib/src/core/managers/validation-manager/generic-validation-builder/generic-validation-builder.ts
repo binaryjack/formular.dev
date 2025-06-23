@@ -2,6 +2,7 @@ import { IValidationConstraintBuilder } from '../constraint-builder/validation-c
 import { IValidationOptions } from '../validation-manager.types'
 
 export interface IGenericValidationBuilder {
+    addConstraint(arg0: any): unknown
     new (): IGenericValidationBuilder
     constraints: IValidationConstraintBuilder<any>[]
     setConstraints: <T>(constraints: IValidationConstraintBuilder<T>[]) => IGenericValidationBuilder

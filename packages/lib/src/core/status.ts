@@ -1,6 +1,1 @@
-export enum LoadingStatus {
-    Loaded = 'Loaded',
-    InProgress = 'InProgress',
-    Reload = 'Reload',
-    Error = 'Error'
-}
+export { LoadingStatusEnum as LoadingStatus } from './enums/loading-status.enum'

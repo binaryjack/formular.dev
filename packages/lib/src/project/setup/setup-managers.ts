@@ -39,6 +39,7 @@ import {
     ValidationTriggerService
 } from '../services/validation-trigger-service'
 import { SValueStrategyService, ValueStrategyService } from '../services/value-strategy-service'
+import { setupValidationPatterns } from './setup-validation-patterns'
 
 export const setupManagers = function (sm: IServiceManager) {
     if (!sm) {
@@ -46,6 +47,9 @@ export const setupManagers = function (sm: IServiceManager) {
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+
+    // Setup validation patterns first (this includes configuration services)
+    setupValidationPatterns(sm)
 
     // First register the ServiceManager instance under its interface identifier
     sm.register(SServiceManager, () => sm, { lifetime: 'singleton' })

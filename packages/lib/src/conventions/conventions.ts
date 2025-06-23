@@ -1,3 +1,22 @@
+/**
+ * FORMULAR - Legacy Conventions (DEPRECATED)
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * @deprecated This file is deprecated. Use ConventionsConfigPresets instead.
+ * @see @project/config/conventions-config-presets.ts
+ * @see @project/config/CONVENTIONS_PRESETS_INTEGRATION_GUIDE.md
+ *
+ * Migration path:
+ * 1. Replace: import { conventions } from './conventions'
+ * 2. With: const configPresets = createConfigurationPresetFactory(serviceManager)
+ * 3. Use: configPresets.conventions.eventTriggers.default() instead of conventions.events.onChange.triggerDelay
+ *
+ * For gradual migration, use:
+ * import { createLegacyConventionsFromPresets } from '@project/config/conventions-migration-helper'
+ * const conventions = createLegacyConventionsFromPresets(serviceManager)
+ */
+
 import { DateFormatsEnum } from '../core/framework/types/date/date.types'
 import { getSystemDateSeparator } from '../core/framework/types/date/getters/get-local-system-separator'
 import { MissingPropEnum } from './enums/missing-prop.enum'
