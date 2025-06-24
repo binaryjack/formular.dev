@@ -121,3 +121,6 @@ export const colors = {
 export type ColorPalette = typeof colors
 export type ColorName = keyof ColorPalette
 export type ColorShade = keyof ColorPalette[ColorName]
+
+// Semantic variants for components
+export type SemanticVariant = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'

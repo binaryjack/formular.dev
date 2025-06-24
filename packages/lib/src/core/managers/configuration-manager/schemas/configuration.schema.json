@@ -1,0 +1,123 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/configuration.json",
+    "title": "Formular Configuration",
+    "description": "Complete configuration schema for Formular form library",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Configuration name identifier"
+        },
+        "targetEnvironment": {
+            "type": "string",
+            "description": "Target environment (e.g., 'development', 'production')",
+            "enum": ["development", "staging", "production"]
+        },
+        "cultures": {
+            "type": "object",
+            "description": "Culture and localization settings",
+            "properties": {
+                "defaultCulture": {
+                    "$ref": "culture.schema.json",
+                    "description": "Default culture configuration"
+                },
+                "supportedCultures": {
+                    "type": "array",
+                    "description": "Array of supported cultures",
+                    "items": {
+                        "$ref": "culture.schema.json"
+                    }
+                },
+                "lokalizeTokensReplacement": {
+                    "type": "array",
+                    "description": "Token replacement configurations for localization",
+                    "items": {
+                        "$ref": "replacement-token.schema.json"
+                    }
+                }
+            },
+            "required": ["defaultCulture", "supportedCultures", "lokalizeTokensReplacement"],
+            "additionalProperties": false
+        },
+        "rendering": {
+            "type": "object",
+            "description": "Rendering configuration settings",
+            "properties": {
+                "components": {
+                    "type": "array",
+                    "description": "Component rendering configurations",
+                    "items": {
+                        "$ref": "rendering.schema.json"
+                    }
+                },
+                "commands": {
+                    "type": "array",
+                    "description": "Command configurations",
+                    "items": {
+                        "$ref": "command.schema.json"
+                    }
+                },
+                "suffixes": {
+                    "type": "array",
+                    "description": "Suffix configurations",
+                    "items": {
+                        "$ref": "suffix.schema.json"
+                    }
+                }
+            },
+            "required": ["components", "commands", "suffixes"],
+            "additionalProperties": false
+        },
+        "behavior": {
+            "type": "object",
+            "description": "Form behavior and validation settings",
+            "properties": {
+                "form": {
+                    "$ref": "form-behavior.schema.json",
+                    "description": "Form behavior configuration"
+                },
+                "validations": {
+                    "type": "object",
+                    "description": "Validation configuration settings",
+                    "properties": {
+                        "triggers": {
+                            "type": "array",
+                            "description": "Validation trigger configurations",
+                            "items": {
+                                "$ref": "event-trigger.schema.json"
+                            }
+                        },
+                        "patterns": {
+                            "type": "array",
+                            "description": "Validation pattern configurations",
+                            "items": {
+                                "$ref": "validation-pattern.schema.json"
+                            }
+                        }
+                    },
+                    "required": ["triggers", "patterns"],
+                    "additionalProperties": false
+                },
+                "customValidations": {
+                    "type": "array",
+                    "description": "Custom validation strategy configurations",
+                    "items": {
+                        "$ref": "validation-method-strategy.schema.json"
+                    }
+                },
+                "events": {
+                    "type": "array",
+                    "description": "Event trigger configurations",
+                    "items": {
+                        "$ref": "event-trigger.schema.json"
+                    }
+                }
+            },
+            "required": ["form", "validations", "customValidations", "events"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "targetEnvironment", "cultures", "rendering", "behavior"],
+    "additionalProperties": false
+}

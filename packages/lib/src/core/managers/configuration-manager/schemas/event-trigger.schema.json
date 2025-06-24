@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/event-trigger.json",
+    "title": "Event Trigger Configuration",
+    "description": "Event trigger settings for form behavior",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The event trigger name identifier"
+        },
+        "triggerDelay": {
+            "type": "number",
+            "description": "Delay in milliseconds before the trigger is activated",
+            "minimum": 0
+        }
+    },
+    "required": ["name", "triggerDelay"],
+    "additionalProperties": false
+}

@@ -25,11 +25,14 @@
 
 ## Coding Style
 
-- Always use prototyped style for classes; never use the `class` keyword (class sugar syntax).
+- ALWAYS use prototyped style for classes; NEVER use the `class` keyword (class sugar syntax).
 - Classes and their methods/functions must follow this style:
     ```ts
     export const myFunction = function(this: ...) { ... }
     ```
+
+- Any of the prototype functions of the class (as described above) should be placed into an individual file into the `prototype` folder, then they must be referenced into the `prototype-based` class file under `Object.assign(MyClass.prototype, {myFunction1, myFunction2 ... etc.})`
+
 - Each interface (Excepted for those which are not the ones for the props component in React) should reside in an individual file and placed in a folder `interfaces`, the file should follow this naming convention: `i-my-interface-name.ts`
 
 - An interface are always prefixed with `I`.

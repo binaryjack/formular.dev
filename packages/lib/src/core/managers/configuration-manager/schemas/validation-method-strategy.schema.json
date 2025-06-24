@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/validation-method-strategy.json",
+    "title": "Validation Method Strategy Configuration",
+    "description": "Custom validation strategy configuration",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Unique name identifier for this validation strategy"
+        },
+        "validate": {
+            "type": "string",
+            "description": "Function name or reference for synchronous validation"
+        },
+        "validateAsync": {
+            "type": "string",
+            "description": "Function name or reference for asynchronous validation"
+        }
+    },
+    "required": ["name", "validate", "validateAsync"],
+    "additionalProperties": false
+}

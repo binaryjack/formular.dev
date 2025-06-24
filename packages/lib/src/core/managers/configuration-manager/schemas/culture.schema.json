@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/culture.json",
+    "title": "Culture Configuration",
+    "description": "Culture settings for localization and formatting",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The culture name (e.g., 'en-US', 'fr-FR')"
+        },
+        "dateFormat": {
+            "type": "string",
+            "description": "Date format pattern (e.g., 'MM/dd/yyyy', 'dd/MM/yyyy')"
+        },
+        "timeFormat": {
+            "type": "string",
+            "description": "Time format pattern (e.g., 'HH:mm:ss', 'hh:mm:ss tt')"
+        },
+        "currencySymbol": {
+            "type": "string",
+            "description": "Currency symbol for this culture"
+        },
+        "separator": {
+            "type": "string",
+            "description": "Decimal separator character"
+        }
+    },
+    "required": ["name", "dateFormat", "timeFormat", "currencySymbol", "separator"],
+    "additionalProperties": false
+}

@@ -10,6 +10,9 @@
 // Design tokens
 export * from './tokens'
 
+// Component types
+export * from './components'
+
 // Utilities and style helpers
 export * from './utilities'
 

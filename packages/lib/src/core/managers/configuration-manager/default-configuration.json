@@ -1,0 +1,194 @@
+{
+    "name": "default-formular-configuration",
+    "targetEnvironment": "development",
+    "cultures": {
+        "defaultCulture": {
+            "name": "en-US",
+            "dateFormat": "MM/dd/yyyy",
+            "timeFormat": "hh:mm:ss tt",
+            "currencySymbol": "$",
+            "separator": "."
+        },
+        "supportedCultures": [
+            {
+                "name": "en-US",
+                "dateFormat": "MM/dd/yyyy",
+                "timeFormat": "hh:mm:ss tt",
+                "currencySymbol": "$",
+                "separator": "."
+            },
+            {
+                "name": "fr-FR",
+                "dateFormat": "dd/MM/yyyy",
+                "timeFormat": "HH:mm:ss",
+                "currencySymbol": "€",
+                "separator": ","
+            },
+            {
+                "name": "de-DE",
+                "dateFormat": "dd.MM.yyyy",
+                "timeFormat": "HH:mm:ss",
+                "currencySymbol": "€",
+                "separator": ","
+            }
+        ],
+        "lokalizeTokensReplacement": [
+            {
+                "name": "validation-required",
+                "token": "{{VALIDATION_REQUIRED}}"
+            },
+            {
+                "name": "validation-email",
+                "token": "{{VALIDATION_EMAIL}}"
+            },
+            {
+                "name": "validation-min-length",
+                "token": "{{VALIDATION_MIN_LENGTH}}"
+            }
+        ]
+    },
+    "rendering": {
+        "components": [
+            {
+                "name": "input-text",
+                "height": "40px",
+                "width": "100%"
+            },
+            {
+                "name": "input-email",
+                "height": "40px",
+                "width": "100%"
+            },
+            {
+                "name": "input-password",
+                "height": "40px",
+                "width": "100%"
+            },
+            {
+                "name": "textarea",
+                "height": "120px",
+                "width": "100%"
+            }
+        ],
+        "commands": [
+            {
+                "name": "submit-button",
+                "rounded": true,
+                "size": "medium",
+                "width": "auto",
+                "height": "40px",
+                "className": "btn btn-primary"
+            },
+            {
+                "name": "cancel-button",
+                "rounded": true,
+                "size": "medium",
+                "width": "auto",
+                "height": "40px",
+                "className": "btn btn-secondary"
+            },
+            {
+                "name": "reset-button",
+                "rounded": false,
+                "size": "small",
+                "width": "auto",
+                "height": "32px",
+                "className": "btn btn-outline"
+            }
+        ],
+        "suffixes": [
+            {
+                "name": "required-indicator",
+                "value": "*"
+            },
+            {
+                "name": "optional-indicator",
+                "value": "(optional)"
+            },
+            {
+                "name": "currency-suffix",
+                "value": "USD"
+            }
+        ]
+    },
+    "behavior": {
+        "form": {
+            "name": "default-form-behavior",
+            "enforceConfigurationCheck": true,
+            "validationTriggers": ["onBlur", "onSubmit"]
+        },
+        "validations": {
+            "triggers": [
+                {
+                    "name": "on-blur-trigger",
+                    "triggerDelay": 300
+                },
+                {
+                    "name": "on-change-trigger",
+                    "triggerDelay": 500
+                },
+                {
+                    "name": "on-submit-trigger",
+                    "triggerDelay": 0
+                }
+            ],
+            "patterns": [
+                {
+                    "name": "email-pattern",
+                    "cultureName": "en-US",
+                    "regex": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+                },
+                {
+                    "name": "phone-pattern-us",
+                    "cultureName": "en-US",
+                    "regex": "^\\+?1?[-\\s.]?\\(?[0-9]{3}\\)?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{4}$"
+                },
+                {
+                    "name": "postal-code-us",
+                    "cultureName": "en-US",
+                    "regex": "^[0-9]{5}(-[0-9]{4})?$"
+                },
+                {
+                    "name": "postal-code-fr",
+                    "cultureName": "fr-FR",
+                    "regex": "^[0-9]{5}$"
+                }
+            ]
+        },
+        "customValidations": [
+            {
+                "name": "EmailValidator",
+                "validate": "validateEmail",
+                "validateAsync": "validateEmailAsync"
+            },
+            {
+                "name": "PasswordStrengthValidator",
+                "validate": "validatePasswordStrength",
+                "validateAsync": "validatePasswordStrengthAsync"
+            },
+            {
+                "name": "UniqueUsernameValidator",
+                "validate": "validateUniqueUsername",
+                "validateAsync": "validateUniqueUsernameAsync"
+            }
+        ],
+        "events": [
+            {
+                "name": "form-load-event",
+                "triggerDelay": 0
+            },
+            {
+                "name": "field-focus-event",
+                "triggerDelay": 100
+            },
+            {
+                "name": "field-blur-event",
+                "triggerDelay": 300
+            },
+            {
+                "name": "form-submit-event",
+                "triggerDelay": 0
+            }
+        ]
+    }
+}

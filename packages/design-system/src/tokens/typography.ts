@@ -83,14 +83,20 @@ export const typography = {
         wide: '0.025em',
         wider: '0.05em',
         widest: '0.1em'
-    },
-
-    // Text decoration
+    }, // Text decoration
     textDecoration: {
         none: 'none',
         underline: 'underline',
         overline: 'overline',
         'line-through': 'line-through'
+    },
+
+    // Text transform (case)
+    textTransform: {
+        none: 'none',
+        capitalize: 'capitalize',
+        uppercase: 'uppercase',
+        lowercase: 'lowercase'
     }
 } as const
 
@@ -98,3 +104,4 @@ export type Typography = typeof typography
 export type FontFamily = keyof Typography['fontFamily']
 export type FontSize = keyof Typography['fontSize']
 export type FontWeight = keyof Typography['fontWeight']
+export type TextTransform = keyof Typography['textTransform']

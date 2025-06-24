@@ -1,0 +1,19 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/suffix.json",
+    "title": "Suffix Configuration",
+    "description": "Suffix settings for form elements",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The suffix name identifier"
+        },
+        "value": {
+            "type": "string",
+            "description": "The suffix value to append"
+        }
+    },
+    "required": ["name", "value"],
+    "additionalProperties": false
+}

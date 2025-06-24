@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/command.json",
+    "title": "Command Configuration",
+    "description": "Command rendering configuration",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The command name identifier"
+        },
+        "rounded": {
+            "type": "boolean",
+            "description": "Whether the command should have rounded corners"
+        },
+        "size": {
+            "type": "string",
+            "description": "Size of the command (e.g., 'small', 'medium', 'large')"
+        },
+        "width": {
+            "type": "string",
+            "description": "Width of the command element"
+        },
+        "height": {
+            "type": "string",
+            "description": "Height of the command element"
+        },
+        "className": {
+            "type": "string",
+            "description": "CSS class name to apply to the command"
+        }
+    },
+    "required": ["name", "rounded", "size", "width", "height", "className"],
+    "additionalProperties": false
+}

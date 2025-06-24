@@ -20,12 +20,13 @@
 import { DateFormatsEnum } from '../core/framework/types/date/date.types'
 import { getSystemDateSeparator } from '../core/framework/types/date/getters/get-local-system-separator'
 import { MissingPropEnum } from './enums/missing-prop.enum'
-import { IButtonVariant } from './interfaces/i-button-variant'
+import { IConventions } from './interfaces/i-conventions'
 
 // Re-export the enum so it can be imported from conventions
 export { MissingPropEnum }
+export type { IConventions }
 
-export const conventions = {
+export const conventions: IConventions = {
     IsMissing: function (property: MissingPropEnum, componentName: string): never {
         throw Error(
             `MISSING ${property.toUpperCase()}! ${componentName} component requires an ${property}. 
@@ -99,13 +100,13 @@ export const conventions = {
             width: '1.8em',
             height: '1.8em',
             className: 'ml-0'
-        } as Partial<IButtonVariant>,
+        },
         submit: {
             rounded: true,
             size: 'lg',
             width: '5em',
             height: '5em',
             className: 'ml-0'
-        } as Partial<IButtonVariant>
+        }
     }
 }

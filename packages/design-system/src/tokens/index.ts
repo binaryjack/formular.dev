@@ -28,7 +28,13 @@ export {
     type Breakpoint,
     type BreakpointValue
 } from './breakpoints'
-export { colors, type ColorName, type ColorPalette, type ColorShade } from './colors'
+export {
+    colors,
+    type ColorName,
+    type ColorPalette,
+    type ColorShade,
+    type SemanticVariant
+} from './colors'
 export { shadows, type Shadow, type ShadowKey } from './shadows'
 export {
     componentSpacing,
@@ -42,6 +48,7 @@ export {
     type FontFamily,
     type FontSize,
     type FontWeight,
+    type TextTransform,
     type Typography
 } from './typography'
 export {

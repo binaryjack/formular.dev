@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/rendering.json",
+    "title": "Rendering Configuration",
+    "description": "Rendering settings for components",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The rendering configuration name identifier"
+        },
+        "height": {
+            "type": "string",
+            "description": "Height of the rendered component"
+        },
+        "width": {
+            "type": "string",
+            "description": "Width of the rendered component"
+        }
+    },
+    "required": ["name", "height", "width"],
+    "additionalProperties": false
+}

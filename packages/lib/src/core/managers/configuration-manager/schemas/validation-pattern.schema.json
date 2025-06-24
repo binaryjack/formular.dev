@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://formular.dev/schemas/validation-pattern.json",
+    "title": "Validation Pattern Configuration",
+    "description": "Validation pattern settings for form validation",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "The validation pattern name identifier"
+        },
+        "cultureName": {
+            "type": "string",
+            "description": "The culture this pattern applies to"
+        },
+        "regex": {
+            "type": "string",
+            "description": "Regular expression pattern for validation (as string)",
+            "format": "regex"
+        }
+    },
+    "required": ["name", "cultureName", "regex"],
+    "additionalProperties": false
+}
