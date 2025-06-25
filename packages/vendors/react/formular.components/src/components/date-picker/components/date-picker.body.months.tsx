@@ -1,11 +1,11 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from 'react-icons/fa'
 
-import { Button } from '../../button/button'
+import { Button, IButtonVariant } from '../../button/button'
 import { Portal } from '../../portals/portals'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/date-picker.models'
 import './date-picker.body.css'
 
-import { conventions } from 'formular.dev.lib'
+import useAppContext from '@components/context/app-context/app-context.context'
 import DatePickerCell from './date-picker.cell'
 import { useDatePickerContext } from './date-picker.context'
 
@@ -24,6 +24,13 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
         previous,
         next
     } = useDatePickerContext()
+
+    const { getConfiguration } = useAppContext()
+    const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'basic'
+    )
 
     const handleMovePrevious = () => previous('MONTH')
 
@@ -69,7 +76,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-previous'}
                         title={'previous (<=)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={handleMovePrevious}
                     >
                         <FaArrowCircleLeft />
@@ -83,7 +90,7 @@ const DatePickerBodyMonths = ({ id }: IDatePickerBodyMonthsProps) => {
                     <Button
                         id={'dp-next'}
                         title={'next (=>)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={handleMoveNext}
                     >
                         <FaArrowCircleRight />

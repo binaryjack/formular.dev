@@ -23,7 +23,6 @@ import { hasChanges } from './prototype/has-changes'
 import { initialize } from './prototype/intialize'
 import { initializeProperties } from './prototype/intialize-properties'
 
-import { conventions } from '@conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
@@ -33,6 +32,7 @@ import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
 import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
 import { IValueManager } from '@core/managers/value-manager/value-manager.types'
+import { IServiceManager } from '@core/types'
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
@@ -46,6 +46,7 @@ import { setInputBusy } from './prototype/set-input-busy'
 
 export const InputBase = function (
     this: IInputBase,
+    serviceManager: IServiceManager,
     descriptor: IFieldDescriptor | null,
     domManagerInstance: IDomManager<HTMLInputElement> | null,
     notifierInstance: INotificationManager | null,
@@ -78,7 +79,7 @@ export const InputBase = function (
     const notifyChange = (eventType: 'onValidate' | 'onUiUpdate') => {
         this.notificationManager?.debounceNotify(
             eventType,
-            conventions.events.onUiUpdate.triggerDelay,
+            delay,
             newEvent(
                 this.name,
                 setInputBusy.name,

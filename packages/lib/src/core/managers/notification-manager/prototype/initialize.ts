@@ -10,7 +10,7 @@ export const initialize = function <T extends HTMLElement>(this: INotificationMa
         Object.values(NotificationPriority)
             .filter((p) => typeof p === 'number')
             .forEach((priority) => {
-                this.priorityQueues.set(priority as NotificationPriority, [])
+                this.priorityQueues.set(priority as number, [])
             })
     }
 

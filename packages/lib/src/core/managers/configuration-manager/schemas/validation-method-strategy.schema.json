@@ -10,11 +10,11 @@
             "description": "Unique name identifier for this validation strategy"
         },
         "validate": {
-            "type": "string",
+            "type": "object",
             "description": "Function name or reference for synchronous validation"
         },
         "validateAsync": {
-            "type": "string",
+            "type": "object",
             "description": "Function name or reference for asynchronous validation"
         }
     },

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 
-import { conventions, MissingPropEnum } from 'formular.dev.lib'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -124,10 +124,7 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ??
-                conventions.IsMissing(MissingPropEnum.ID, ToggleButtonInput.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, ToggleButtonInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -146,12 +143,11 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
             }}
         >
             <ToggleButton
-                id={`${instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, ToggleButtonInput.name)}-toggle`}
+                id={`${instance?.input?.name ?? isMissing(MissingPropEnum.ID, ToggleButtonInput.name)}-toggle`}
                 toggle={toggleState}
                 onToggle={handleToggleChange}
                 name={
-                    instance?.input?.name ??
-                    conventions.IsMissing(MissingPropEnum.NAME, ToggleButtonInput.name)
+                    instance?.input?.name ?? isMissing(MissingPropEnum.NAME, ToggleButtonInput.name)
                 }
                 children={children}
             />

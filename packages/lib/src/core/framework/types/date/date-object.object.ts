@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { DateFormatsEnum } from '@core/framework/types/date/date.types'
 import { INDate } from '@core/framework/types/date/i-n-date'
 import { DateObjectTypes } from './date-object.types'
@@ -6,9 +5,14 @@ import { validateDateFormat } from './date-picker.utils'
 import { getPaddedNumber } from './getters/get-padded-number'
 import { IDateObject } from './i-date-object'
 
-export const DateObject = function (this: IDateObject, date?: Date, name: string = '') {
+export const DateObject = function (
+    this: IDateObject,
+    date?: Date,
+    name: string = '',
+    separator: string = '/'
+) {
     this.name = name
-    this.separator = conventions.dataTypes.date.separator
+    this.separator = separator
     this.dateObject = date
         ? { day: date.getDate(), month: date.getMonth(), year: date.getFullYear() }
         : {
@@ -105,15 +109,21 @@ DateObject.prototype = {
         const year = this.dateObject.year
 
         if (format === DateFormatsEnum.MM_DD_YYYY) {
-            return `${getPaddedNumber(month, 2)}${this.separator}${getPaddedNumber(day, 2)}${this.separator}${year}`
+            return `${getPaddedNumber(month, 2)}${this.separator}${getPaddedNumber(day, 2)}${
+                this.separator
+            }${year}`
         }
 
         if (format === DateFormatsEnum.DD_MM_YYYY) {
-            return `${getPaddedNumber(day, 2)}${this.separator}${getPaddedNumber(month, 2)}${this.separator}${year}`
+            return `${getPaddedNumber(day, 2)}${this.separator}${getPaddedNumber(month, 2)}${
+                this.separator
+            }${year}`
         }
 
         if (format === DateFormatsEnum.YYYY_MM_DD) {
-            return `${year}${this.separator}${getPaddedNumber(month, 2)}${this.separator}${getPaddedNumber(day, 2)}`
+            return `${year}${this.separator}${getPaddedNumber(month, 2)}${
+                this.separator
+            }${getPaddedNumber(day, 2)}`
         }
         return ''
     },

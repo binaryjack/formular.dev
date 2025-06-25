@@ -1,5 +1,6 @@
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import { getValidationPresets } from '@project/validation/validation-config-presets'
+// TODO: Update to use new configuration manager
+// import { getValidationPresets } from '@project/validation/validation-config-presets'
 import {
     IValidationConstraintBuilder,
     ValidationConstraintBuilder
@@ -62,21 +63,20 @@ export const currencyValidatorWithPresets = (
                 .setErrorMessage(ValidationLocalizeKeys.currencyError)
                 .setGuideMessage(ValidationLocalizeKeys.currencyGuide)
         )
-    }
-
-    // Get pattern from ValidationConfigPresets
+    } // Get pattern from ValidationConfigPresets
     let currencyPattern: RegExp
-    try {
-        const presets = getValidationPresets(serviceManager)
-        currencyPattern = presets.currency
-    } catch (error: any) {
-        console.warn(
-            'ValidationConfigPresets not available, using fallback pattern:',
-            error.message
-        )
-        // Fallback to hardcoded pattern
-        currencyPattern = /^\d+([,.]\d+)*([,.]\d{1,2})?$/
-    }
+    // TODO: Update to use configuration manager patterns
+    // try {
+    //     const presets = getValidationPresets(serviceManager)
+    //     currencyPattern = presets.currency
+    // } catch (error: any) {
+    //     console.warn(
+    //         'ValidationConfigPresets not available, using fallback pattern:',
+    //         error.message
+    //     )
+    // Fallback to hardcoded pattern
+    currencyPattern = /^\d+([,.]\d+)*([,.]\d{1,2})?$/
+    // }
 
     // Currency pattern validation using preset
     constraints.push(

@@ -1,5 +1,8 @@
 export { getConfigByName } from './get-config-by-name'
+export { getDefaultConfiguration } from './get-default-configuration'
 export { loadJson } from './load-json'
+export { mergeConfigurationWithDefaults } from './merge-configuration-with-defaults'
 export { printConfiguration } from './print-configuration'
 export { setConfiguration } from './set-configuration'
 export { useConfiguration } from './use-configuration'
+export { validateConfiguration } from './validate-configuration'

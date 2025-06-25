@@ -6,15 +6,6 @@
  * Main library entry point exposing all public APIs
  */
 
-// Unified Configuration System (New - Recommended)
-export { FormularConfig } from './core/unified-config'
-export type {
-    ConfigLoadResult,
-    ConfigSource,
-    FormularConfig as FormularConfigType,
-    PartialFormularConfig
-} from './core/unified-config'
-
 export * from './conventions'
 export * from './core'
 export * from './project'

@@ -25,26 +25,32 @@
 
 ## Coding Style
 
+### Class
 - ALWAYS use prototyped style for classes; NEVER use the `class` keyword (class sugar syntax).
 - Classes and their methods/functions must follow this style:
     ```ts
     export const myFunction = function(this: ...) { ... }
     ```
-
+### Class Methods
 - Any of the prototype functions of the class (as described above) should be placed into an individual file into the `prototype` folder, then they must be referenced into the `prototype-based` class file under `Object.assign(MyClass.prototype, {myFunction1, myFunction2 ... etc.})`
 
-- Each interface (Excepted for those which are not the ones for the props component in React) should reside in an individual file and placed in a folder `interfaces`, the file should follow this naming convention: `i-my-interface-name.ts`
+### interfaces
+- One interface per file.
+- place them in the closest folder `interfaces`, or create one related to the current treated topic.
+- naming convention: `i-my-interface-name.ts`.
+- An interface name are always prefixed with `I`  example `IMyInterface`.
+- Exception: In th ecase of a react component Keep the `IMyComponentProps` in the same file as the `MyComponent` Component.
 
-- An interface are always prefixed with `I`.
 
+### Enums
 - Each enum should reside in an individual file and placed in a folder `enums`, the file name should follow this naming convention: `my-enum-name.enum.ts`
-
 - An enum are always suffixed by Enum
 
+### Types
 - Each type should reside  in an individual file and placed in a folder `types`, the file name should follow this naming convention: `my-interface-name.type.ts`
-
 - An type are always suffixed by Type
 
+### Exports
 - For the lib project, all the folders must have their:
   - `index.ts` that exports all the relevant objects classes etc. files paths in the current folder and /or of the sub folders 
   - `types.ts` that exports all the relevant types, interfaces files path in the current folder and /or of the sub folders 

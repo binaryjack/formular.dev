@@ -5,6 +5,8 @@
 import { AppContext, IAppContext } from './app-context.context'
 
 import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
+import { useService } from '@adapters/react/services/use-service'
+import { IConfigurationManager } from 'formular.dev.lib'
 import { useState } from 'react'
 import { DrawerSlotCenter } from '../../drawer/components/drawer-slot.center'
 import { IDebug } from '../debug/debug.types'
@@ -40,6 +42,15 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
 
     const { options } = useVisualDebugContext()
+    const { getService } = useService()
+    const configurationManager = getService<IConfigurationManager>('IConfigurationManager')
+
+    const getConfigurationByPath = function <T>(...path: string[]): T | undefined {
+        if (configurationManager) {
+            return configurationManager.getConfigByName(...path) as T
+        }
+        return undefined
+    }
 
     const contextOutput: IAppContext = {
         breakpoints: breakpoints,
@@ -47,7 +58,8 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
         isMobileDevice: false,
         debug: options,
         holdScroll,
-        setHoldScroll: (hold: boolean) => setHoldScroll(hold)
+        setHoldScroll: (hold: boolean) => setHoldScroll(hold),
+        getConfiguration: getConfigurationByPath
     }
 
     return (

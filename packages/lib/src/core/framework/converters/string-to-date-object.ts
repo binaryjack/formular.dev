@@ -1,7 +1,6 @@
-import { conventions } from '@conventions/conventions'
-import { DateObject, IDateObject } from '../types/date'
+import { DateFormatsEnum, DateObject, IDateObject } from '../types/date'
 
-export const stringToDateObject = (value: string): IDateObject | null => {
+export const stringToDateObject = (value: string, format: DateFormatsEnum): IDateObject | null => {
     if (value === null || value === undefined) {
         return null
     }
@@ -13,6 +12,6 @@ export const stringToDateObject = (value: string): IDateObject | null => {
             }: cannot get the value as date, is not date compatible value: ${JSON.stringify(value)}`
         )
 
-    date?.setFromString?.(value, conventions.dataTypes.date.formatDisplay)
+    date?.setFromString?.(value, format)
     return date
 }

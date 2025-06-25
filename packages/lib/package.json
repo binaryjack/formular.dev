@@ -17,7 +17,8 @@
             "types": "./dist/types/formular-dev.es.d.ts",
             "import": "./dist/formular-dev.es.js",
             "require": "./dist/formular-dev.cjs.js"
-        }
+        },
+        "./config": "./src/core/managers/configuration-manager/default/default-configuration.json"
     },
     "scripts": {
         "build": "vite build --mode production",

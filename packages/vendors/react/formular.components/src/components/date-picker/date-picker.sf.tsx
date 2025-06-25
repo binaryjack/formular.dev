@@ -9,12 +9,13 @@ import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
 import { useMemo } from 'react'
 
+import useAppContext from '@components/context/app-context/app-context.context'
 import {
-    conventions,
     customEvent,
     DateFormatsEnum,
     formatDate,
     INDate,
+    isMissing,
     MissingPropEnum
 } from 'formular.dev.lib'
 import { DatePickerSelectionModeType } from './core/date-picker.types'
@@ -30,13 +31,49 @@ interface DatePickerSFProps {
 
 export const DatePickerSF = ({
     fieldName,
-    separator = conventions.dataTypes.date.separator,
-    dataFormat = conventions.dataTypes.date.formatValue,
-    displayFormat = conventions.dataTypes.date.formatDisplay,
+    separator,
+    dataFormat,
+    displayFormat,
     defaultSelectionMode = 'single'
 }: DatePickerSFProps) => {
     const { formInstance } = useFormularContext()
     const { instance, flags } = useField(formInstance?.getField(fieldName))
+
+    const { getConfiguration } = useAppContext()
+    const defaultSeparator = getConfiguration<string | undefined>(
+        'conventions',
+        'dataTypes',
+        'date',
+        'separator'
+    )
+    const defaultDataFormat = getConfiguration<DateFormatsEnum | undefined>(
+        'conventions',
+        'dataTypes',
+        'date',
+        'formatValue'
+    )
+    const defaultDisplayFormat = getConfiguration<DateFormatsEnum | undefined>(
+        'conventions',
+        'dataTypes',
+        'date',
+        'formatDisplay'
+    )
+    const drawerHeight = getConfiguration<string | undefined>(
+        'conventions',
+        'components',
+        'drawer',
+        'height'
+    )
+    const drawerWidth = getConfiguration<string | undefined>(
+        'conventions',
+        'components',
+        'drawer',
+        'width'
+    )
+
+    const finalSeparator = separator ?? defaultSeparator
+    const finalDataFormat = dataFormat ?? defaultDataFormat
+    const finalDisplayFormat = displayFormat ?? defaultDisplayFormat
 
     const { setToggleState } = useToggleableContext()
 
@@ -76,10 +113,7 @@ export const DatePickerSF = ({
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ??
-                conventions.IsMissing(MissingPropEnum.ID, DatePickerSF.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, DatePickerSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -90,22 +124,19 @@ export const DatePickerSF = ({
             }}
             itemsChildren={
                 <DatePickerContentDrawer
-                    id={
-                        instance?.input?.name ??
-                        conventions.IsMissing(MissingPropEnum.NAME, DatePickerSF.name)
-                    }
+                    id={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, DatePickerSF.name)}
                     onSelectDate={onSelectDate}
                     /** this only acts from the drawer */
                     onClearField={() => instance?.input?.clear()}
-                    separator={separator}
-                    dataFormat={dataFormat}
-                    displayFormat={displayFormat}
+                    separator={finalSeparator}
+                    dataFormat={finalDataFormat}
+                    displayFormat={finalDisplayFormat}
                     defaultDate={defaultValue as string}
                     defaultSelectionMode={defaultSelectionMode}
                 />
             }
-            itemsDrawerHeight={conventions.components.drawer.height}
-            itemsDrawerWidth={conventions.components.drawer.width}
+            itemsDrawerHeight={drawerHeight}
+            itemsDrawerWidth={drawerWidth}
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}
@@ -120,9 +151,9 @@ export const DatePickerSF = ({
                 {...instance?.register(customEvent('onKeyDown', handleKeyDown as any))}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"
-                data-separator={separator}
-                date-format={dataFormat}
-                display-format={displayFormat}
+                data-separator={finalSeparator}
+                date-format={finalDataFormat}
+                display-format={finalDisplayFormat}
             />
         </FieldSet>
     )

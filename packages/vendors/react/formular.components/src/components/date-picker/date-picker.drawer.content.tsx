@@ -2,8 +2,9 @@ import { useCallback, useEffect, useState } from 'react'
 
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
-import { conventions, DateFormatsEnum, DateObject, INDate } from 'formular.dev.lib'
+import { DateFormatsEnum, DateObject, INDate } from 'formular.dev.lib'
 
+import useAppContext from '@components/context/app-context/app-context.context'
 import { useDrawerContext } from '../drawer/components/drawer.context'
 import { DatePickerContext, IDatePickerContext } from './components/date-picker.context'
 import { computeDaysGrid } from './core/computed/compute-days-grid'
@@ -117,6 +118,14 @@ const DatePickerContentDrawer = ({
 
     const { setOpenState, drawerHeight, drawerWidth } = useDrawerContext()
 
+    const { getConfiguration } = useAppContext()
+    const defaultDisplayFormat = getConfiguration<DateFormatsEnum | undefined>(
+        'conventions',
+        'dataTypes',
+        'date',
+        'formatDisplay'
+    )
+
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e.stopPropagation()
         e.preventDefault()
@@ -187,7 +196,7 @@ const DatePickerContentDrawer = ({
             const dateTemp = new DateObject(new Date(), 'default', separator)
             dateTemp?.setFromString?.(
                 defaultDate,
-                displayFormat ?? conventions.dataTypes.date.formatDisplay
+                displayFormat ?? defaultDisplayFormat ?? DateFormatsEnum.DD_MM_YYYY
             )
             if (!dateTemp) {
                 console.error(new Error(`Provideed default date is not suitable`))

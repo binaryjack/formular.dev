@@ -1,4 +1,5 @@
-import { conventions, DateFormatsEnum } from 'formular.dev.lib'
+import useAppContext from '@components/context/app-context/app-context.context'
+import { DateFormatsEnum } from 'formular.dev.lib'
 import { memo } from 'react'
 import { Toggleable } from '../toggleable/toggleable'
 import { DatePickerSelectionModeType } from './core/date-picker.types'
@@ -107,12 +108,21 @@ interface DatePickerProps {
 const DatePicker = memo(
     ({
         fieldName,
-        separator = conventions.dataTypes.date.separator,
+        separator,
         dataFormat = DateFormatsEnum.YYYY_MM_DD,
         displayFormat = DateFormatsEnum.DD_MM_YYYY,
         defaultSelectionMode = 'single',
         ...rest
     }: DatePickerProps) => {
+        const { getConfiguration } = useAppContext()
+        const defaultSeparator = getConfiguration<string | undefined>(
+            'conventions',
+            'dataTypes',
+            'date',
+            'separator'
+        )
+
+        const finalSeparator = separator ?? defaultSeparator
         if (!fieldName) {
             console.error('DatePicker: "fieldName" is required.')
             return null
@@ -124,7 +134,7 @@ const DatePicker = memo(
             return ' '
         }
 
-        const resolvedSeparator = separator || getDefaultSeparator(displayFormat)
+        const resolvedSeparator = finalSeparator ?? getDefaultSeparator(displayFormat)
 
         return (
             /**

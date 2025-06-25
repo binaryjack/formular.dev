@@ -10,5 +10,5 @@ export { default as suffixSchema } from './suffix.schema.json'
 export { default as validationMethodStrategySchema } from './validation-method-strategy.schema.json'
 export { default as validationPatternSchema } from './validation-pattern.schema.json'
 
-// Default configuration export
-export { default as defaultConfiguration } from '../default-configuration.json'
+// Default configuration export - now using TypeScript export
+export { defaultConfiguration } from '../default/default-configuration'

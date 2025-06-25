@@ -9,17 +9,18 @@
 import React, { useEffect, useMemo } from 'react'
 
 import {
-    conventions,
     IExtendedInput,
     IFormular,
     IFormularFlags,
     InputDataTypes,
+    isMissing,
     LoadingStatus,
     MissingPropEnum,
     notification
 } from 'formular.dev.lib'
-import { Button } from '../button/button'
+import { Button, IButtonVariant } from '../button/button'
 
+import useAppContext from '@components/context/app-context/app-context.context'
 import { formularContext, IFormularContext } from './formular-form.context'
 import './formular-form.css'
 import FormularFormDebug from './formular-form.debug'
@@ -95,6 +96,13 @@ const FormularForm = <T extends object>({
 }: IFormularProps<T>) => {
     const [messages, setMessages] = React.useState<string[]>([])
     const [count, setCount] = React.useState(0)
+
+    const { getConfiguration } = useAppContext()
+    const submitConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'submit'
+    )
 
     const formularInstance = useMemo(() => {
         return formular
@@ -188,11 +196,11 @@ const FormularForm = <T extends object>({
             </div>
             {onSubmit && (
                 <Button
-                    id={`${formularInstance?.id ?? conventions.IsMissing(MissingPropEnum.ID, FormularForm.name)}-submit`}
+                    id={`${formularInstance?.id ?? isMissing(MissingPropEnum.ID, FormularForm.name)}-submit`}
                     title={`Submit`}
                     children={`Submit`}
                     loading={isloading || formularInstance.isBusy === LoadingStatus.InProgress}
-                    variantProperties={conventions.commands.submit}
+                    variantProperties={submitConfig}
                     onClickCallback={handleSubmit}
                 />
             )}

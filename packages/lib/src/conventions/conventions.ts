@@ -27,14 +27,6 @@ export { MissingPropEnum }
 export type { IConventions }
 
 export const conventions: IConventions = {
-    IsMissing: function (property: MissingPropEnum, componentName: string): never {
-        throw Error(
-            `MISSING ${property.toUpperCase()}! ${componentName} component requires an ${property}. 
-            This is probably due to the instance of the field 
-            which has not the right name has it has being declared 
-            in the model!`
-        )
-    },
     suffix: {
         labelId: '-label',
         describedById: '-describedby'

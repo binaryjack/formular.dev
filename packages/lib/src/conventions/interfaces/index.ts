@@ -1,5 +1,3 @@
-export * from './i-button-variant'
-export * from './i-color-correspondance'
 export * from './i-commands'
 export * from './i-components'
 export * from './i-conventions'

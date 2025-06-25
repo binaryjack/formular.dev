@@ -14,7 +14,7 @@ export function setBatchConfig(this: INotificationManager, config: BatchConfig):
         Object.values(NotificationPriority)
             .filter((p) => typeof p === 'number')
             .forEach((priority) => {
-                this.priorityQueues.set(priority as NotificationPriority, [])
+                this.priorityQueues.set(priority as number, [])
             })
     }
 }

@@ -3,10 +3,13 @@ import { IConfiguration } from './interfaces/i-configuration'
 import { IConfigurationManager } from './interfaces/i-configuration-manager'
 import {
     getConfigByName,
+    getDefaultConfiguration,
     loadJson,
+    mergeConfigurationWithDefaults,
     printConfiguration,
     setConfiguration,
-    useConfiguration
+    useConfiguration,
+    validateConfiguration
 } from './prototype'
 
 /**
@@ -25,5 +28,8 @@ Object.assign(ConfigurationManager.prototype, {
     setConfiguration,
     useConfiguration,
     loadJson,
-    printConfiguration
+    printConfiguration,
+    validateConfiguration,
+    mergeConfigurationWithDefaults,
+    getDefaultConfiguration
 })

@@ -2,7 +2,7 @@ import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
-import { conventions, ISelectBaseInput, MissingPropEnum } from 'formular.dev.lib'
+import { ISelectBaseInput, isMissing, MissingPropEnum } from 'formular.dev.lib'
 import { useMemo } from 'react'
 
 import FieldSet from '../field-set/field-set'
@@ -43,9 +43,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, SelectSF.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, SelectSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

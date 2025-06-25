@@ -1,4 +1,3 @@
-import { MissingPropEnum } from '../enums/missing-prop.enum'
 import { ICommands } from './i-commands'
 import { IComponents } from './i-components'
 import { IDataTypes } from './i-data-types'
@@ -9,7 +8,6 @@ import { ITokens } from './i-tokens'
 import { IValidations } from './i-validations'
 
 export interface IConventions<TButtonVariant = Record<string, any>> {
-    IsMissing: (property: MissingPropEnum, componentName: string) => never
     suffix: ISuffix
     tokens: ITokens
     validations: IValidations

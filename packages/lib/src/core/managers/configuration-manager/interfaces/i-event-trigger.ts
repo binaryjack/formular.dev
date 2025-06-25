@@ -1,4 +1,6 @@
+import { EventsType } from '@core/framework'
+
 export interface IEventTrigger {
-    name: string
+    name: EventsType
     triggerDelay: number
 }

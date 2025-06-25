@@ -1,7 +1,8 @@
 import { Button, IButtonVariant } from '@components/button/button'
 
-import { conventions, ToggleableStateType } from 'formular.dev.lib'
+import { ToggleableStateType } from 'formular.dev.lib'
 
+import useAppContext from '@components/context/app-context/app-context.context'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
 export interface IChevronToggleButtonProps {
@@ -20,11 +21,18 @@ export const ChevronToggleButton = ({
     handleDrawerOpenState,
     variantProperties
 }: IChevronToggleButtonProps) => {
+    const { getConfiguration } = useAppContext()
+    const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'basic'
+    )
+
     return (
         <Button
             id={`${id}-toggle-drawer-btn`}
             title={'Toggle Drawer'}
-            variantProperties={{ ...conventions.commands.basic, ...variantProperties }}
+            variantProperties={{ ...basicConfig, ...variantProperties }}
             onClickCallback={(e) =>
                 handleDrawerOpenState(
                     e,

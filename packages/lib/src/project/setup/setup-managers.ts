@@ -1,3 +1,5 @@
+import { ConfigurationManager } from '@core/managers/configuration-manager'
+import { SConfigurationManager } from '@core/managers/configuration-manager/interfaces/i-configuration-manager'
 import {
     InputConfigProvider,
     SInputConfigProvider
@@ -39,17 +41,17 @@ import {
     ValidationTriggerService
 } from '../services/validation-trigger-service'
 import { SValueStrategyService, ValueStrategyService } from '../services/value-strategy-service'
-import { setupValidationPatterns } from './setup-validation-patterns'
+// TODO: Re-enable after updating setup-validation-patterns to use new configuration manager
+// import { setupValidationPatterns } from './setup-validation-patterns'
 
 export const setupManagers = function (sm: IServiceManager) {
     if (!sm) {
         throw new Error(
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
-    }
-
-    // Setup validation patterns first (this includes configuration services)
-    setupValidationPatterns(sm)
+    } // Setup validation patterns first (this includes configuration services)
+    // TODO: Re-enable after updating setup-validation-patterns to use new configuration manager
+    // setupValidationPatterns(sm)
 
     // First register the ServiceManager instance under its interface identifier
     sm.register(SServiceManager, () => sm, { lifetime: 'singleton' })
@@ -86,6 +88,11 @@ export const setupManagers = function (sm: IServiceManager) {
 
     sm.register(SAutoTrackerNotificationManager, () => new NotificationManager(), {
         lifetime: 'singleton'
+    })
+
+    sm.registerClass(SConfigurationManager, ConfigurationManager, {
+        lifetime: 'singleton',
+        dependencies: [SServiceManager]
     })
 
     sm.registerClass(SNotificationManager, NotificationManager, {

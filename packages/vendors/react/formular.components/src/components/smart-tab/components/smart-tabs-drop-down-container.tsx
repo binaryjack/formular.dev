@@ -2,7 +2,7 @@ import { ChevronToggleButton } from '@components/chevron-toggle-button/chevron-t
 
 import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
 
-import { conventions, ToggleableStateType } from 'formular.dev.lib'
+import { ToggleableStateType } from 'formular.dev.lib'
 import { ITabManager } from '../types/i-tab-manager'
 import { SmartTab } from './smart-tab'
 import './smart-tabs-drop-down-container.css'
@@ -31,7 +31,6 @@ export const SmartTabsDropDownContainer = ({
                     <ChevronToggleButton
                         id={`smart-tabs-dropdown-button`}
                         toggleState={toggleState}
-                        variantProperties={conventions.commands.basic}
                         handleDrawerOpenState={handleToggleState}
                     />
                 </div>

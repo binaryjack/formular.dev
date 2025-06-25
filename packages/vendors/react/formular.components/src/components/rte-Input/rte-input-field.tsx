@@ -5,7 +5,7 @@ import useFormularContext from '../formular-form/formular-form.context'
 
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
-import { conventions, MissingPropEnum } from 'formular.dev.lib'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import ValidationResultComponent from '../validation-result/validation-result'
 import { deserializeEngineState } from './core/io/deserialize-engine-state'
 import { serializeEngineState } from './core/io/serialize-engine-state '
@@ -62,10 +62,7 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ??
-                conventions.IsMissing(MissingPropEnum.ID, RteInputField.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RteInputField.name)}
             label={instance?.input?.label}
             type="richtext"
             flags={flags}

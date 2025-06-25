@@ -1,6 +1,8 @@
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import { IConfiguration } from './i-configuration'
 
+export const SConfigurationManager = Symbol('IConfigurationManager')
+
 export interface IConfigurationManager {
     new (sm: IServiceManager): IConfigurationManager
     sm: IServiceManager
@@ -40,4 +42,24 @@ export interface IConfigurationManager {
      * @returns
      */
     printConfiguration: () => void
+
+    /**
+     * Validates a configuration object and merges it with defaults
+     * @param config - Partial configuration to validate
+     * @returns Complete validated configuration
+     */
+    validateConfiguration: (config: Partial<IConfiguration>) => IConfiguration
+
+    /**
+     * Merges a partial configuration with the default configuration
+     * @param config - Partial configuration to merge with defaults
+     * @returns Complete configuration with defaults applied
+     */
+    mergeConfigurationWithDefaults: (config: Partial<IConfiguration>) => IConfiguration
+
+    /**
+     * Gets the default configuration object
+     * @returns The default configuration
+     */
+    getDefaultConfiguration: () => IConfiguration
 }

@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import useFormularContext from '@components/formular-form/formular-form.context'
-import React from 'react'
-import { Button } from '../button/button'
 
-import { conventions, MissingPropEnum } from 'formular.dev.lib'
+import { Button, IButtonVariant } from '../button/button'
+
+import useAppContext from '@components/context/app-context/app-context.context'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import { Portal } from '../portals/portals'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -108,6 +109,13 @@ const Password = ({ fieldName }: IPasswordProps) => {
     const { instance, flags } = useField(formInstance?.getField(fieldName))
     const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
+    const { getConfiguration } = useAppContext()
+    const primaryConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'primary'
+    )
+
     const handleDelete = () => {
         instance?.input?.clear()
     }
@@ -120,8 +128,7 @@ const Password = ({ fieldName }: IPasswordProps) => {
         setIsPasswordVisible((prev) => !prev)
     }
 
-    const fieldId =
-        instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, Password.name)
+    const fieldId = instance?.input?.name ?? isMissing(MissingPropEnum.ID, Password.name)
 
     useEffect(() => {
         instance?.register()
@@ -163,7 +170,7 @@ const Password = ({ fieldName }: IPasswordProps) => {
                         <Button
                             id={`${fieldId}-toggle-password`}
                             title={'toggle password visibility'}
-                            variantProperties={conventions.commands.basic}
+                            variantProperties={primaryConfig}
                             onClickCallback={togglePasswordVisibility}
                             aria-label="Toggle password visibility"
                         >

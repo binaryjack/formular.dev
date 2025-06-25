@@ -1,3 +1,4 @@
+export * from './configuration-manager/index'
 export * from './dom-manager/index'
 export * from './formular-manager/index'
 export * from './initialization-manager/index'

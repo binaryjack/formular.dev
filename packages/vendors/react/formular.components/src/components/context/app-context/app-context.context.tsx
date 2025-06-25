@@ -8,6 +8,7 @@ export interface IAppContext {
     isMobileDevice: boolean
     debug?: IDebug
     holdScroll: boolean
+    getConfiguration: <T>(...path: string[]) => T | undefined
     setHoldScroll: (hold: boolean) => void
 }
 
@@ -22,6 +23,9 @@ export const appContextDefault = {
     holdScroll: false,
     setHoldScroll: () => {
         return
+    },
+    getConfiguration: function <T>(...path: string[]) {
+        return {} as T
     }
 }
 

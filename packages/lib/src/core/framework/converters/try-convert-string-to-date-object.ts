@@ -1,11 +1,13 @@
-import { conventions } from '@conventions/conventions'
-import { DateObject, IDateObject } from '../types/date'
+import { DateFormatsEnum, DateObject, IDateObject } from '../types/date'
 
-export const tryConvertStringToDateObject = function (value: string): IDateObject | string {
+export const tryConvertStringToDateObject = function (
+    value: string,
+    format: DateFormatsEnum
+): IDateObject | string {
     try {
         const dte = new DateObject()
         if (dte.setFromString) {
-            dte.setFromString(value, conventions.dataTypes.date.formatDisplay)
+            dte.setFromString(value, format)
         }
         return dte
     } catch {

@@ -1,23 +1,24 @@
-import { conventions } from '@conventions/conventions'
 import { ValidationLocalizeKeys } from '../../managers/validation-manager/validation-schema/validation.localize.keys'
 import translations from './locale.en.json'
 import { IValidationLocalize } from './localize.type'
 
 export type TranslatioBuilderType = (
-    translations: IValidationLocalize
+    translations: IValidationLocalize,
+    token1: string,
+    token2: string
 ) => (key: ValidationLocalizeKeys) => (data?: string, data2?: string) => string
 
 export const getTranslationBuilder: TranslatioBuilderType =
-    (translations: IValidationLocalize) =>
+    (translations: IValidationLocalize, token1: string, token2: string) =>
     (key: ValidationLocalizeKeys) =>
     (data?: string, data2?: string) => {
         const translation = translations.validations.find((t) => t.key === key)
         if (translation) {
             return translation.value
-                .replace(conventions.tokens.validationDataToken1, data ?? '')
-                .replace(conventions.tokens.validationDataToken2, data2 ?? '')
-                .replace(conventions.tokens.validationDataToken1, '')
-                .replace(conventions.tokens.validationDataToken2, '')
+                .replace(token1, data ?? '')
+                .replace(token2, data2 ?? '')
+                .replace(token1, '')
+                .replace(token2, '')
         }
         return ''
     }

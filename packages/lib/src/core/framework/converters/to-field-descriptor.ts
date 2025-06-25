@@ -1,26 +1,23 @@
-import { conventions, MissingPropEnum } from '@conventions/conventions'
+import { MissingPropEnum } from '@conventions/conventions'
 
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'
 import { IEntityScheme } from '../schema/field-schema/field-schema-types'
+import { isMissing } from '../validators'
 
 export const mapSchemaToFieldDescriptor = (scheme: IEntityScheme): IFieldDescriptor[] => {
     const output: IFieldDescriptor[] = []
 
     scheme.properties.forEach((f) => {
         const newF: IFieldDescriptor = {
-            id: f.id ?? conventions.IsMissing(MissingPropEnum.ID, mapSchemaToFieldDescriptor.name),
+            id: f.id ?? isMissing(MissingPropEnum.ID, mapSchemaToFieldDescriptor.name),
             isDirty: false,
             isFocus: false,
             isPristine: true,
             isValid: false,
             loaded: false,
-            label:
-                f.name ??
-                conventions.IsMissing(MissingPropEnum.LABEL, mapSchemaToFieldDescriptor.name),
-            name:
-                f.name ??
-                conventions.IsMissing(MissingPropEnum.NAME, mapSchemaToFieldDescriptor.name),
+            label: f.name ?? isMissing(MissingPropEnum.LABEL, mapSchemaToFieldDescriptor.name),
+            name: f.name ?? isMissing(MissingPropEnum.NAME, mapSchemaToFieldDescriptor.name),
             type: f.type,
             value: null,
             target: f.target === null || f.target === '' ? undefined : f.target,

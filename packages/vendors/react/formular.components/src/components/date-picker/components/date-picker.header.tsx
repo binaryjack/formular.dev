@@ -1,13 +1,14 @@
 import { MdClear } from 'react-icons/md'
 import { TbCalendar, TbCalendarCancel, TbCalendarSearch } from 'react-icons/tb'
 
-import { conventions } from 'formular.dev.lib'
-import { Button } from '../../button/button'
+import { Button, IButtonVariant } from '../../button/button'
 import { useDrawerContext } from '../../drawer/components/drawer.context'
 import { PortalSlot } from '../../portals/portals-slot'
 import { useDatePickerContext } from './date-picker.context'
 import './date-picker.header.css'
 import DatePickerSwitch from './date-picker.switch'
+
+import useAppContext from '@components/context/app-context/app-context.context'
 interface IDatePickerDrawerHeaderProps {
     id: string
 }
@@ -52,6 +53,13 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
 
     const { toggleState } = useDrawerContext()
 
+    const { getConfiguration } = useAppContext()
+    const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'basic'
+    )
+
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         e.stopPropagation()
@@ -77,7 +85,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'go to selected (s)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={jumpToSelection}
                     >
                         <div className={`mr-1`}>Selected</div>
@@ -90,7 +98,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'go to now (n)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={jumpToNow}
                     >
                         <div className={`mr-1`}>Now</div>
@@ -103,7 +111,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         disabled={selectedCells.length === 0}
                         id={'dp-now'}
                         title={'clear selection (c)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={clear}
                     >
                         <TbCalendarCancel />
@@ -114,7 +122,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                         tabindex={toggleState === 'open' ? 0 : -1}
                         id={'dp-now'}
                         title={'close (Escape)'}
-                        variantProperties={conventions.commands.basic}
+                        variantProperties={basicConfig}
                         onClickCallback={close}
                     >
                         <MdClear />
@@ -131,7 +139,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-year'}
                             title={'year selection (y)'}
-                            variantProperties={conventions.commands.basic}
+                            variantProperties={basicConfig}
                             onClickCallback={yearSelection}
                         >
                             {internalDate?.getFullYear()}
@@ -142,7 +150,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-month'}
                             title={'month selection (m)'}
-                            variantProperties={conventions.commands.basic}
+                            variantProperties={basicConfig}
                             onClickCallback={monthSelection}
                         >
                             {(internalDate?.getMonth() || internalDate?.getMonth() === 0
@@ -158,7 +166,7 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
                             tabindex={toggleState === 'open' ? 0 : -1}
                             id={'dp-day'}
                             title={'day selection (d)'}
-                            variantProperties={conventions.commands.basic}
+                            variantProperties={basicConfig}
                             onClickCallback={daySelection}
                         >
                             {internalDate?.getDate?.()?.toString()?.padStart(2, '0')}

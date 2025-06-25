@@ -1,6 +1,6 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
 
-import { conventions, IExtendedInput, IOptionItem, MissingPropEnum } from 'formular.dev.lib'
+import { IExtendedInput, IOptionItem, isMissing, MissingPropEnum } from 'formular.dev.lib'
 
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
@@ -110,9 +110,7 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ?? conventions.IsMissing(MissingPropEnum.ID, RadioInput.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RadioInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

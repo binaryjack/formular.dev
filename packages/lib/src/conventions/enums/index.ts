@@ -1,5 +1,2 @@
-export * from './app-break-point-sizes.enum'
 export * from './missing-prop.enum'
 export * from './screen-orientation.enum'
-export * from './text-weight.enum'
-export * from './variant-name.enum'

@@ -1,6 +1,6 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
 
-import { conventions, MissingPropEnum } from 'formular.dev.lib'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import './readonly-field.css'
@@ -16,10 +16,7 @@ export const ReadOnlyField = ({ fieldName }: IReadOnlyFieldProps) => {
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ??
-                conventions.IsMissing(MissingPropEnum.ID, ReadOnlyField.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, ReadOnlyField.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

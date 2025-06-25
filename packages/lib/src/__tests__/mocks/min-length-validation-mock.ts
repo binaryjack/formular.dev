@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { ValidationConstraintBuilder } from '@core/managers/validation-manager/constraint-builder/validation-constraint-builder'
 
 export const minLengthValidationMock = (name: string, value: number) =>
@@ -6,8 +5,6 @@ export const minLengthValidationMock = (name: string, value: number) =>
         .setConstraint(value)
         .setName(name)
         .setErrorMessage(
-            `This field requires a value with a length of at least ${conventions.tokens.validationDataToken1} characters!`
+            `This field requires a value with a length of at least |data1| characters!`
         )
-        .setGuideMessage(
-            `Please enter a value with more than ${conventions.tokens.validationDataToken1} characters.`
-        )
+        .setGuideMessage(`Please enter a value with more than |data1| characters.`)

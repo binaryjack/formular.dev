@@ -1,13 +1,14 @@
 import { useCenterElementTrigger } from '@adapters/react/hooks/screen/use-center-element'
-import { Button } from '@components/button/button'
+import { Button, IButtonVariant } from '@components/button/button'
 
 import { CenterElementDebug } from '@components/context/debug/center-element-debug'
 import { DrawerSlot } from '@components/drawer/components/drawer-slot'
 import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
 import { Drawer } from '@components/drawer/drawer'
 import { PasswordToggle } from '@components/password/password.toggle'
-import { conventions, IFieldStateFlags } from 'formular.dev.lib'
+import { IFieldStateFlags } from 'formular.dev.lib'
 
+import useAppContext from '@components/context/app-context/app-context.context'
 import { MdClose } from 'react-icons/md'
 
 /**
@@ -154,6 +155,14 @@ const FieldSet = <TType,>({
     const { scrollPosition, elementRef, elementPositionRefs, toggle } =
         useCenterElementTrigger<HTMLFieldSetElement>()
 
+    const { getConfiguration } = useAppContext()
+    const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
+        'conventions',
+        'commands',
+        'basic'
+    )
+    const labelIdSuffix = getConfiguration<string | undefined>('conventions', 'suffix', 'labelId')
+
     console.log('FieldSet rendered with flags:', flags)
 
     return (
@@ -176,12 +185,12 @@ const FieldSet = <TType,>({
                         /**
                          * ARIA Notice:
                          * For label ID is important to keep it as it is because we do use
-                         * the ID of the input suffixed with conventions.suffix.labelId so it matches
+                         * the ID of the input suffixed with labelIdSuffix so it matches
                          * ARIA Labelledby whitin FieldInput setup method
                          * @see FieldInput
-                         * @see conventions.suffix.labelId
+                         * @see labelIdSuffix
                          * */
-                        id={`${inputId}${conventions.suffix.labelId}`}
+                        id={`${inputId}${labelIdSuffix}`}
                         htmlFor={inputId}
                         className={`label inline-block mr-2 ${flags.valid ? '' : 'label-error text-ellipsis'}`}
                     >
@@ -229,7 +238,7 @@ const FieldSet = <TType,>({
                             <Button
                                 id={`${inputId}-clear-field-btn`}
                                 title={'Clear'}
-                                variantProperties={conventions.commands.basic}
+                                variantProperties={basicConfig}
                                 onClickCallback={() => onClear?.()}
                             >
                                 {<MdClose />}

@@ -3,7 +3,7 @@ import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-va
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { useCallback } from 'react'
 
-import { conventions, MissingPropEnum } from 'formular.dev.lib'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -68,10 +68,7 @@ export const RangeSliderSF = ({
 
     return (
         <FieldSet
-            inputId={
-                instance?.input?.name ??
-                conventions.IsMissing(MissingPropEnum.ID, RangeSliderSF.name)
-            }
+            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RangeSliderSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
