@@ -1,5 +1,7 @@
+import { IConfigurationManager } from '../configuration-manager'
+import { SConfigurationManager } from '../configuration-manager/interfaces/i-configuration-manager'
+import { IServiceManager } from '../types'
 import { IDomManager } from './dom-manager.types'
-
 /**
  * DomManager is a prototype-based manager for handling collections of DOM elements and their state.
  *
@@ -41,7 +43,33 @@ import { initialize } from './prototype/initialize'
  * @template T - The type of HTMLElement managed.
  * @this {IDomManager<T>}
  */
-export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>) {
+/**
+ * Manages a collection of DOM elements and provides lifecycle management for them.
+ *
+ * @template T - The type of HTMLElement managed by this instance.
+ * @param this - The instance context implementing {@link IDomManager}.
+ * @param serviceManager - The service manager used for dependency injection and service resolution.
+ *
+ * @remarks
+ * - Initializes internal state, including the managed elements, tracker, and initialization flag.
+ * - Defines a read-only `dependencyName` property for identification.
+ *
+ * @example
+ * ```typescript
+ * const manager = new DomManager<HTMLDivElement>(serviceManager);
+ * ```
+ */
+export const DomManager = function <T extends HTMLElement>(
+    this: IDomManager<T>,
+    serviceManager: IServiceManager
+) {
+    /**
+     *  The service manager used for dependency injection and service resolution.
+     *  @type {IServiceManager}
+     *  @remarks
+     *  This manager is used to resole dependencies and services required by the DomManager.
+     */
+    this.serviceManager = serviceManager || null
     /**
      * The managed DOM elements.
      * @type {T[]}
@@ -57,6 +85,11 @@ export const DomManager = function <T extends HTMLElement>(this: IDomManager<T>)
      * @type {boolean}
      */
     this.isInitialized = false
+
+    const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
+    this.labelId = config?.getConfigByName<string>('rendering', 'suffixes', 'labelId') ?? ''
+    this.describedById =
+        config?.getConfigByName<string>('rendering', 'suffixes', 'describedById') ?? ''
 
     Object.defineProperty(this, 'dependencyName', {
         value: DomManager.name,

@@ -1,5 +1,5 @@
-import { conventions } from '@conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
+
 import { IExtendedInput } from '../input-base.types'
 import { onFocusHandle } from './on-focus-handle'
 
@@ -8,7 +8,7 @@ export const onKeyUpHandle = function (f: IExtendedInput) {
     // console.log('onFocusHandle', f.name, f.value)
     f.input.notificationManager?.debounceNotify(
         'onValidate',
-        conventions.validations.triggerDelay,
+        f.input.validationDelay,
         newEvent(
             f.input.name,
             onFocusHandle.name,

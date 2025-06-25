@@ -8,7 +8,7 @@
  * @param {string} id - The ID of the element to set ARIA attributes for.
  * @param {string} name - The name to set for the element.
  */
-import { conventions } from '@conventions/conventions'
+
 import { IDomManager } from '../dom-manager.types'
 
 /**
@@ -25,6 +25,6 @@ export function dmAriaSet<T extends HTMLElement>(this: IDomManager<T>, id: strin
         )
         return
     }
-    element.setAttribute('aria-labelledby', `${id}${conventions.suffix.labelId}`)
+    element.setAttribute('aria-labelledby', `${id}${this.labelId}`)
     element.setAttribute('name', name)
 }

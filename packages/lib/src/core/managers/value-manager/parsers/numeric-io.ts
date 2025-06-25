@@ -1,26 +1,26 @@
+import { isNumber } from '@core/framework/utility/is-number'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 
-import { isNumber } from '@core/framework/utility/is-number'
 import { TGetter, TSetter } from '../value-manager.types'
 
-export const numericGetter: TGetter<number | null> = (exfield: IExtendedInput): number | null => {
-    if (exfield.input.value !== null && !isNumber(exfield.input.value)) {
+export const numericGetter: TGetter<number | null> = (extInput: IExtendedInput): number | null => {
+    if (extInput.input.value !== null && !isNumber(extInput.input.value)) {
         throw new Error(
-            `${numericGetter.name}: cannot get the value as number, is not number compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
+            `${numericGetter.name}: cannot get the value as number, is not number compatible value: ${JSON.stringify(extInput.input.value)}, field: ${extInput.input?.id}`
         )
     }
-    return exfield.input.value as number | null
+    return extInput.input.value as number | null
 }
 
 export const numericSetter: TSetter<number | null> = function (
-    exfield: IExtendedInput,
+    extInput: IExtendedInput,
     value: any | null
 ) {
     if ((value !== null || value !== undefined) && !isNumber(value)) {
         throw new Error(
-            `${numericGetter.name}: cannot set the value as number, is not number compatible value: ${JSON.stringify(exfield.input.value)}, field: ${exfield.input?.id}`
+            `${numericGetter.name}: cannot set the value as number, is not number compatible value: ${JSON.stringify(extInput.input.value)}, field: ${extInput.input?.id}`
         )
     }
-    exfield.input.domManager.dmSetValue(exfield.input.id.toString(), value)
-    exfield.input.value = value
+    extInput.input.domManager.dmSetValue(extInput.input.id.toString(), value)
+    extInput.input.value = value
 }

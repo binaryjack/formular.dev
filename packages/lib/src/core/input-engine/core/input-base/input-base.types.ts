@@ -35,14 +35,30 @@ import {
     IValueManager,
     IValueManagerProperties
 } from '@core/managers/value-manager/value-manager.types'
+import { IServiceManager } from '@core/types'
+
 import { IInitilizationCheckResult } from './prototype/check-initialized'
 
 export const SInputBase = Symbol.for('IInputBase')
 
+export interface IServiceInjectableProperties {
+    serviceManager: IServiceManager
+    // Configured Delays
+    inputDelay: number
+    validationDelay: number
+    onUiUpdateDelay: number
+    observablesDelay: number
+    // Configured Suffixes
+    labelId: string
+    describedById: string
+    // Configured Date
+    displayDateFormat: string
+}
+
 /**
  * Should be the root base of a field's properties
  */
-export interface IInputProperties extends IFieldDescriptor {
+export interface IInputProperties extends IFieldDescriptor, IServiceInjectableProperties {
     [key: string]: any
     id: number
     name: string
@@ -61,6 +77,7 @@ export interface IInputProperties extends IFieldDescriptor {
     originalValue: InputDataTypes
     validationResults: IValidationResult[]
 
+    // Manages the cursor position for masked inputs.
     cursorPosition: number | null
     /** message helper method : uses treacker and fallbacks to console */
     message: (type: TrackingType, source: string, message: string) => void
@@ -103,6 +120,7 @@ export type IInput = IInputBase & Omit<IFieldDescriptor, 'validationOptions' | '
 
 export interface IInputBase extends IInputProperties, IInitializableDependency {
     new (
+        serviceManager: IServiceManager,
         descriptor: IFieldDescriptor | null,
         domManagerInstance: IDomManager<HTMLInputElement> | null,
         notifierInstance: INotificationManager | null,

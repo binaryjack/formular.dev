@@ -1,7 +1,9 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
-
 import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
+import { IServiceInjectableProperties } from '@core/types'
+
 import { IInitializableDependency } from '../initialization-manager/initialization-manager.types'
+import { IServiceManager } from '../types'
 
 export const SDomManager = Symbol.for('IDomManager')
 
@@ -12,11 +14,14 @@ export interface IAria {
 
 export type IDomManager<T extends HTMLElement> = IDomManagerBase<T> & ITrackingManager
 
-export interface IDomManagerBase<T extends HTMLElement> extends IInitializableDependency {
-    new (): IDomManager<T>
+export interface IDomManagerBase<T extends HTMLElement>
+    extends IInitializableDependency,
+        IServiceInjectableProperties {
+    new (serviceManager: IServiceManager): IDomManager<T>
     elements: T[]
     tracker: ITrackingManager | null
     internalHTMLElementRef: HTMLInputElement[] | null
+
     ref: (o: HTMLInputElement | null) => void
     dmSetFocus: (id: string) => void
     dmRegister: (element: T | null) => void

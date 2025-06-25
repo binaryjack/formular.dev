@@ -1,6 +1,7 @@
 import { conventions } from '@conventions/conventions'
 import { IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
+
 import { IInputBase } from '../input-base.types'
 
 /**
@@ -14,9 +15,10 @@ export const triggerUiUpdateNotification = <T extends IEvents>(
         return
     }
 
-    ;(data.fieldRef.input as unknown as IInputBase)?.notificationManager?.debounceNotify(
+    const baseInput = data.fieldRef.input as unknown as IInputBase
+    baseInput?.notificationManager?.debounceNotify(
         'onUiUpdate',
-        conventions.events.onUiUpdate.triggerDelay,
+        baseInput.onUiUpdateDelay,
         newEvent(
             data.fieldRef.input.name,
             functionName,

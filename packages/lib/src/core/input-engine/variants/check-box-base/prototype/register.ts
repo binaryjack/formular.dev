@@ -2,7 +2,6 @@
  * The register function is used to register the event handlers for the field input.
  */
 
-import { conventions } from '@conventions/conventions'
 import { aria } from '@core/input-engine/core/accessibility/arias'
 import { DomRegisterBuilder } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -51,8 +50,8 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 export const register = function <FieldValuesTypes>(
     this: IExtendedInput
 ): Partial<HTMLInputElement> {
-    const lableId = `${this.input.id}${conventions.suffix.labelId}`
-    const describedbyId = `${this.input.id}${conventions.suffix.describedById}`
+    const lableId = `${this.input.id}${this.input.labelId}`
+    const describedbyId = `${this.input.id}${this.input.describedById}`
 
     const arias = [
         aria('labelledby', lableId),

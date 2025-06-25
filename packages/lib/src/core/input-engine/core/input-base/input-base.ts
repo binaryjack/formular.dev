@@ -6,7 +6,25 @@
  * Core input field implementation with reactive state and validation
  */
 
+import { newEvent } from '@core/framework/events/new-event'
+import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
+import {
+    IConfigurationManager,
+    SConfigurationManager
+} from '@core/managers/configuration-manager/interfaces/i-configuration-manager'
+import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
+import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
+import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
+import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
+import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
+import { IValueManager } from '@core/managers/value-manager/value-manager.types'
+import { IServiceManager } from '@core/types'
+
 import { useDomManager } from './dependencies/use-dom-manager'
+import { useDrawerManager } from './dependencies/use-drawer-manager'
+import { useNotificationManager } from './dependencies/use-notification-manager'
+import { useStyleManager } from './dependencies/use-style-manager'
 import { useTrackingManager } from './dependencies/use-tracking-manager'
 import { useValidationManager } from './dependencies/use-validation-manager'
 import { useValueManager } from './dependencies/use-value-manager'
@@ -18,27 +36,13 @@ import { focus } from './prototype/focus'
 import { handleOnBlur } from './prototype/handle-on-blur'
 import { handleOnClear } from './prototype/handle-on-clear'
 import { handleOnFocus } from './prototype/handle-on-focus'
+import { handleOnKeyPress } from './prototype/handle-on-key-press'
+import { handleOnKeyUp } from './prototype/handle-on-key-up'
 import { handleValidation } from './prototype/handle-validation'
+import { handleValidationAsync } from './prototype/handle-validation-async'
 import { hasChanges } from './prototype/has-changes'
 import { initialize } from './prototype/intialize'
 import { initializeProperties } from './prototype/intialize-properties'
-
-import { newEvent } from '@core/framework/events/new-event'
-import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
-import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
-import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
-import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
-import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
-import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
-import { IValueManager } from '@core/managers/value-manager/value-manager.types'
-import { IServiceManager } from '@core/types'
-import { useDrawerManager } from './dependencies/use-drawer-manager'
-import { useNotificationManager } from './dependencies/use-notification-manager'
-import { useStyleManager } from './dependencies/use-style-manager'
-import { handleOnKeyPress } from './prototype/handle-on-key-press'
-import { handleOnKeyUp } from './prototype/handle-on-key-up'
-import { handleValidationAsync } from './prototype/handle-validation-async'
 import { message } from './prototype/message'
 import { refreshUi } from './prototype/refresh-ui'
 import { setFocus } from './prototype/set-focus'
@@ -66,12 +70,22 @@ export const InputBase = function (
     if (styleManager !== null) this.useStyleManager(styleManager)
 
     this.isInitialized = false
-
+    this.serviceManager = serviceManager
     Object.defineProperty(this, 'dependencyName', {
         value: InputBase.name && InputBase.name.length > 0 ? InputBase.name : 'InputBase',
         writable: false, // Prevent modification
         configurable: false // Prevent deletion or redefinition
     })
+
+    const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
+    this.inputDelay = config?.getConfigByName<number>('input', 'delay') ?? 100
+    this.validationDelay = config?.getConfigByName<number>('validations', 'triggerDelay') ?? 100
+    this.onUiUpdateDelay =
+        config?.getConfigByName<number>('behavior', 'events', 'onUiUpdate') ?? 100
+
+    this.labelId = config?.getConfigByName<string>('rendering', 'suffixes', 'labelId') ?? ''
+    this.describedById =
+        config?.getConfigByName<string>('rendering', 'suffixes', 'describedById') ?? ''
 
     this.validationResults = []
 
@@ -79,7 +93,7 @@ export const InputBase = function (
     const notifyChange = (eventType: 'onValidate' | 'onUiUpdate') => {
         this.notificationManager?.debounceNotify(
             eventType,
-            delay,
+            this.inputDelay,
             newEvent(
                 this.name,
                 setInputBusy.name,
