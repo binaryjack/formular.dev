@@ -1,4 +1,4 @@
-import { MissingPropEnum } from '@conventions/enums'
+import { MissingPropEnum } from '@common/missing-prop.enum'
 
 export const isMissing = function (property: MissingPropEnum, componentName: string): never {
     throw new Error(

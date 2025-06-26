@@ -9,7 +9,7 @@ export const onKeyPressHandle = function (f: IExtendedInput) {
     // console.log('onFocusHandle', f.name, f.value)
     f.input.notificationManager?.debounceNotify(
         'onValidate',
-        f.input.validationDelay,
+        f.input.onValidateDelay,
         newEvent(
             f.input.name,
             onFocusHandle.name,

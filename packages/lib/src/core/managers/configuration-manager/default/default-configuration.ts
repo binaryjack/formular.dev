@@ -89,12 +89,6 @@ export const defaultConfiguration: IConfiguration = {
             validationTriggers: ['onBlur', 'onSubmit']
         },
         validations: {
-            triggers: [
-                {
-                    name: 'onValidate',
-                    triggerDelay: 500
-                }
-            ],
             patterns: [
                 {
                     name: 'email-pattern',
@@ -120,6 +114,10 @@ export const defaultConfiguration: IConfiguration = {
         },
         customValidations: [],
         events: [
+            {
+                name: 'onValidate',
+                triggerDelay: 500
+            },
             {
                 name: 'onChange',
                 triggerDelay: 500

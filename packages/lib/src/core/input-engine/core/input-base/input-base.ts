@@ -21,6 +21,7 @@ import { IValidationManager } from '@core/managers/validation-manager/validation
 import { IValueManager } from '@core/managers/value-manager/value-manager.types'
 import { IServiceManager } from '@core/types'
 
+import { ICulture } from '@core/managers'
 import { useDomManager } from './dependencies/use-dom-manager'
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
@@ -79,13 +80,18 @@ export const InputBase = function (
 
     const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
     this.inputDelay = config?.getConfigByName<number>('input', 'delay') ?? 100
-    this.validationDelay = config?.getConfigByName<number>('validations', 'triggerDelay') ?? 100
+    this.onValidateDelay =
+        config?.getConfigByName<number>('behavior', 'events', 'onValidate') ?? 100
     this.onUiUpdateDelay =
         config?.getConfigByName<number>('behavior', 'events', 'onUiUpdate') ?? 100
 
     this.labelId = config?.getConfigByName<string>('rendering', 'suffixes', 'labelId') ?? ''
     this.describedById =
         config?.getConfigByName<string>('rendering', 'suffixes', 'describedById') ?? ''
+
+    this.onClickDelay = config?.getConfigByName<number>('behavior', 'events', 'onClick') ?? 100
+    this.culture =
+        config?.getConfigByName<ICulture>('cultures', 'defaultCulture') ?? ({} as ICulture)
 
     this.validationResults = []
 

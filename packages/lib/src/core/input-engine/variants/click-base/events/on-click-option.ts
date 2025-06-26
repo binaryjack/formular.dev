@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../../../core/input-base/input-base.types'
 
@@ -7,7 +6,7 @@ export const onClickOption = <T extends IExtendedInput>(f: T, optionId: string, 
 
     f.input?.notificationManager?.debounceNotify(
         'onClick',
-        conventions.events.onClick.triggerDelay,
+        f.input.onClickDelay,
         newEvent(
             f.input.name,
             onClickOption.name,

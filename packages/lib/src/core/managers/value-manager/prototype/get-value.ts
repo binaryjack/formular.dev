@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
 import { DateObject } from '@core/framework/types/date/date-object.object'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
@@ -35,7 +34,7 @@ export function getValue(
                     if (!dte || value === null || value === undefined) {
                         return null
                     }
-                    dte?.setFromString?.(value as string, conventions.dataTypes.date.formatDisplay)
+                    dte?.setFromString?.(value as string, field.input.culture.dateFormat)
                     return dte?.toDate?.().getTime()
                 }
                 return value

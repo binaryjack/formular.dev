@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
 
@@ -19,14 +18,7 @@ export const triggerUiUpdateNotification = <T extends IEvents>(
     baseInput?.notificationManager?.debounceNotify(
         'onUiUpdate',
         baseInput.onUiUpdateDelay,
-        newEvent(
-            data.fieldRef.input.name,
-            functionName,
-            'onUiUpdate',
-            'field',
-            data.fieldRef.input.name,
-            data.fieldRef
-        )
+        newEvent(baseInput.name, functionName, 'onUiUpdate', 'field', baseInput.name, data.fieldRef)
     )
 }
 
@@ -40,16 +32,16 @@ export const triggerValidationChangeNotification = <T extends IEvents>(
     if (!data?.fieldRef?.input?.notificationManager) {
         return
     }
-
-    ;(data.fieldRef.input as unknown as IInputBase)?.notificationManager?.debounceNotify(
+    const baseInput = data.fieldRef.input as unknown as IInputBase
+    baseInput?.notificationManager?.debounceNotify(
         'onValidationChange',
-        conventions.events.onUiUpdate.triggerDelay,
+        baseInput.onUiUpdateDelay,
         newEvent(
-            data.fieldRef.input.name,
+            baseInput.name,
             functionName,
             'onValidationChange',
             'field',
-            data.fieldRef.input.name,
+            baseInput.name,
             data.fieldRef
         )
     )

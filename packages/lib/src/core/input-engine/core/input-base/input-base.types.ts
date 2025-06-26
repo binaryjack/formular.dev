@@ -37,22 +37,27 @@ import {
 } from '@core/managers/value-manager/value-manager.types'
 import { IServiceManager } from '@core/types'
 
+import { ICulture } from '@core/managers'
 import { IInitilizationCheckResult } from './prototype/check-initialized'
 
 export const SInputBase = Symbol.for('IInputBase')
 
+/** This will probably need to be refactored as soon as I have the proof thats the configuration approach is correct */
 export interface IServiceInjectableProperties {
     serviceManager: IServiceManager
     // Configured Delays
     inputDelay: number
-    validationDelay: number
+    onValidateDelay: number
     onUiUpdateDelay: number
     observablesDelay: number
     // Configured Suffixes
     labelId: string
     describedById: string
     // Configured Date
-    displayDateFormat: string
+    culture: ICulture
+
+    onClickDelay: number
+    onChangeDelay: number
 }
 
 /**

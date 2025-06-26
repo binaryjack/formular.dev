@@ -27,7 +27,6 @@ export interface IConfiguration {
     behavior: {
         form: IFormBehavior
         validations: {
-            triggers: IEventTrigger[]
             patterns: IValidationPattern[]
         }
         customValidations: IValidationMethodStrategy[]

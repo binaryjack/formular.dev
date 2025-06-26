@@ -1,4 +1,4 @@
-import { MissingPropEnum } from '@conventions/conventions'
+import { MissingPropEnum } from '@common/missing-prop.enum'
 
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../schema/descriptor/field.descriptor'

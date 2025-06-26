@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInput } from '../../../core/input-base/input-base.types'
 
@@ -9,7 +8,7 @@ export const onClick = (f: IExtendedInput, e: Event) => {
 
     f.input.notificationManager?.debounceNotify(
         'onClick',
-        conventions.events.onUiUpdate.triggerDelay,
+        f.input.onUiUpdateDelay,
         newEvent(f.input.name, onClick.name, 'onClick', `field.${onClick.name}`, f.input.name, f)
     )
 

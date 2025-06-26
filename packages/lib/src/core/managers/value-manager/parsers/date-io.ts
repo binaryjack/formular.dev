@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import {
     isNDate,
     isNullEmptyOrUndefined,
@@ -19,7 +18,7 @@ export const dateGetter: TGetter<string | null> = (extInput: IExtendedInput): st
             const value = tryConvertINDateToDateObject(extInput.input.objectValue)
 
             if (value instanceof DateObject) {
-                return value.toString?.(conventions.dataTypes.date.formatDisplay) ?? null
+                return value.toString?.(extInput.input.culture.dateFormat) ?? null
             }
         }
     }
@@ -32,14 +31,14 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
 ) {
     try {
         if (typeof value === 'string' && value.length === 10) {
-            value = tryConvertStringToDateObject(value, extInput.input.dateFormat)
+            value = tryConvertStringToDateObject(value, extInput.input.culture.dateFormat)
         }
         if (isNDate(value)) {
             value = tryConvertINDateToDateObject(value)
         }
 
         if (value instanceof DateObject) {
-            const dateString = value.toString?.(conventions.dataTypes.date.formatDisplay) ?? null
+            const dateString = value.toString?.(extInput.input.culture.dateFormat) ?? null
 
             extInput.input.domManager.dmSetValue(extInput.input.id.toString(), dateString)
             extInput.input.value = dateString

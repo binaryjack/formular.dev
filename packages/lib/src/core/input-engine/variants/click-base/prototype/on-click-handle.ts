@@ -1,4 +1,3 @@
-import { conventions } from '@conventions/conventions'
 import { IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
 import { IClickBaseInput } from '../click-base-input.types'
@@ -8,7 +7,7 @@ export const onClickHandle = function <T extends IEvents>(this: IClickBaseInput,
     // console.log('onClickHandle', f.name, f.value)
     data?.fieldRef?.input.notificationManager?.debounceNotify(
         'onValidate',
-        conventions.validations.triggerDelay,
+        data?.fieldRef?.input.onValidateDelay,
         newEvent(
             data?.fieldRef?.input.name,
             onClickHandle.name,

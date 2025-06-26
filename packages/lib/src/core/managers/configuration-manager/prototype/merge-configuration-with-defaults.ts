@@ -41,9 +41,6 @@ export function mergeConfigurationWithDefaults(
             validations: {
                 ...defaultConfiguration.behavior.validations,
                 ...config.behavior?.validations,
-                triggers:
-                    config.behavior?.validations?.triggers ||
-                    defaultConfiguration.behavior.validations.triggers,
                 patterns:
                     config.behavior?.validations?.patterns ||
                     defaultConfiguration.behavior.validations.patterns

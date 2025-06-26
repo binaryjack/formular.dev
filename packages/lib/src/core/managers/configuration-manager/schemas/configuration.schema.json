@@ -81,13 +81,6 @@
                     "type": "object",
                     "description": "Validation configuration settings",
                     "properties": {
-                        "triggers": {
-                            "type": "array",
-                            "description": "Validation trigger configurations",
-                            "items": {
-                                "$ref": "event-trigger.schema.json"
-                            }
-                        },
                         "patterns": {
                             "type": "array",
                             "description": "Validation pattern configurations",

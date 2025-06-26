@@ -87,12 +87,6 @@
             "validationTriggers": ["onBlur", "onSubmit"]
         },
         "validations": {
-            "triggers": [
-                {
-                    "name": "onValidate",
-                    "triggerDelay": 500
-                }
-            ],
             "patterns": [
                 {
                     "name": "email-pattern",
@@ -118,6 +112,10 @@
         },
         "customValidations": [],
         "events": [
+            {
+                "name": "onValidate",
+                "triggerDelay": 500
+            },
             {
                 "name": "onChange",
                 "triggerDelay": 500

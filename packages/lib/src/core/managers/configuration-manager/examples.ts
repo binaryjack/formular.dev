@@ -65,7 +65,6 @@ export function customConfigurationExample() {
                 validationTriggers: ['onBlur', 'onSubmit', 'onChange']
             },
             validations: {
-                triggers: [],
                 patterns: []
             },
             customValidations: [],
@@ -168,7 +167,7 @@ export function multiEnvironmentExample() {
                 enforceConfigurationCheck: true,
                 validationTriggers: ['onChange', 'onBlur'] // More relaxed validation
             },
-            validations: { triggers: [], patterns: [] },
+            validations: { patterns: [] },
             customValidations: [],
             events: []
         }
@@ -184,7 +183,7 @@ export function multiEnvironmentExample() {
                 enforceConfigurationCheck: true,
                 validationTriggers: ['onBlur', 'onSubmit']
             },
-            validations: { triggers: [], patterns: [] },
+            validations: { patterns: [] },
             customValidations: [],
             events: []
         }
@@ -200,7 +199,7 @@ export function multiEnvironmentExample() {
                 enforceConfigurationCheck: true,
                 validationTriggers: ['onSubmit'] // Strict validation only on submit
             },
-            validations: { triggers: [], patterns: [] },
+            validations: { patterns: [] },
             customValidations: [],
             events: []
         }
@@ -315,12 +314,6 @@ export function validationPatternsExample() {
                 validationTriggers: ['onChange', 'onBlur', 'onSubmit']
             },
             validations: {
-                triggers: [
-                    {
-                        name: 'onValidate',
-                        triggerDelay: 300
-                    }
-                ],
                 patterns: [
                     {
                         name: 'strong-password',
@@ -335,7 +328,12 @@ export function validationPatternsExample() {
                 ]
             },
             customValidations: [],
-            events: []
+            events: [
+                {
+                    name: 'onValidate',
+                    triggerDelay: 300
+                }
+            ]
         }
     }
 

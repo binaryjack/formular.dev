@@ -7,7 +7,7 @@ export const onSelectHandle = (f: IExtendedInput) => {
     // console.log('onSelectHandle', f.name, f.value)
     f.input.notificationManager?.debounceNotify(
         'onValidate',
-        f.input.validationDelay,
+        f.input.onValidateDelay,
         newEvent(
             f.input.name,
             onSelectHandle.name,
