@@ -26,7 +26,6 @@ export const getConfigByName = function <T>(
 
     if (!current) {
         console.warn(`Default Configuration not found! Searched Path: ${names.join('.')}`)
-
         return undefined
     }
 
@@ -35,8 +34,15 @@ export const getConfigByName = function <T>(
         return current.find((item: any) => item && item.name === lastElement) as T | undefined
     }
 
-    // If it's an object, search by Object.keys(current).find(key => current[key][lastElement] === true)
+    // If it's an object, first try direct property access
     if (typeof current === 'object') {
+        // Direct property access - this handles simple nested objects
+        if (current.hasOwnProperty(lastElement)) {
+            return current[lastElement] as T | undefined
+        }
+
+        // Fallback to the original logic for special cases
+        // Search by Object.keys(current).find(key => current[key][lastElement] === true)
         const foundKey = Object.keys(current).find((key) => {
             const item = current[key]
             return item && typeof item === 'object' && item[lastElement] === true

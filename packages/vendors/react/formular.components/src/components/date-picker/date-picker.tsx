@@ -116,9 +116,8 @@ const DatePicker = memo(
     }: DatePickerProps) => {
         const { getConfiguration } = useAppContext()
         const defaultSeparator = getConfiguration<string | undefined>(
-            'conventions',
-            'dataTypes',
-            'date',
+            'cultures',
+            'defaultCulture',
             'separator'
         )
 

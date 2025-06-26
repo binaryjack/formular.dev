@@ -157,11 +157,11 @@ const FieldSet = <TType,>({
 
     const { getConfiguration } = useAppContext()
     const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
-        'basic'
+        'primary'
     )
-    const labelIdSuffix = getConfiguration<string | undefined>('conventions', 'suffix', 'labelId')
+    const labelIdSuffix = getConfiguration<string | undefined>('rendering', 'suffixes', 'labelId')
 
     console.log('FieldSet rendered with flags:', flags)
 

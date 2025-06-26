@@ -1,4 +1,4 @@
-import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
 import { InitializationManager } from './initialization-manager'
 import { IInitializableDependency } from './initialization-manager.types'
 
@@ -15,3 +15,4 @@ export function sequenceInitializer(
 
     IM.executeSequences()
 }
+

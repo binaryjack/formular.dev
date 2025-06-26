@@ -97,24 +97,24 @@ export { SSelectInputService } from './core/factories/input-builder-services/sel
 export { STextInputService } from './core/factories/input-builder-services/text-input-service'
 
 // =============================================
-// PROJECT SERVICES
+// SETUP SERVICES
 // =============================================
 
 // Strategy Services
-export { STrackingStrategyService } from './project/services/tracking-strategy-service'
-export { SValidationStrategyService } from './project/services/validation-strategy-service'
-export { SValidationTriggerService } from './project/services/validation-trigger-service'
-export { SValueStrategyService } from './project/services/value-strategy-service'
+export { STrackingStrategyService } from './setup/services/tracking-strategy-service'
+export { SValidationStrategyService } from './setup/services/validation-strategy-service'
+export { SValidationTriggerService } from './setup/services/validation-trigger-service'
+export { SValueStrategyService } from './setup/services/value-strategy-service'
 
-// Other Project Services
-export { SFieldDescriptorService } from './project/services/field-descriptor-service'
+// Other Setup Services
+export { SFieldDescriptorService } from './setup/services/field-descriptor-service'
 
 // =============================================
 // PROVIDERS & DESCRIPTORS
 // =============================================
 
 // Configuration Providers
-export { SInputConfigProvider } from './project/provider/configuration/input-configuration/input-config-provider'
+export { SInputConfigProvider } from './setup/providers/configuration/input-configuration/input-config-provider'
 
 // Field Descriptors
 export { SFieldDescriptor } from './core/framework/schema/descriptor/field.descriptor'

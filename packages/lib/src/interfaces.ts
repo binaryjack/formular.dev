@@ -178,21 +178,21 @@ export type { IInputFactory } from './core/factories/input-factory/input-factory
 // =============================================
 
 // Strategy Services
-export type { ITrackingStrategyService } from './project/services/tracking-strategy-service'
-export type { IValidationStrategyService } from './project/services/validation-strategy-service'
-export type { IValidationTriggerService } from './project/services/validation-trigger-service'
-export type { IValueStrategyService } from './project/services/value-strategy-service'
+export type { ITrackingStrategyService } from './setup/services/tracking-strategy-service'
+export type { IValidationStrategyService } from './setup/services/validation-strategy-service'
+export type { IValidationTriggerService } from './setup/services/validation-trigger-service'
+export type { IValueStrategyService } from './setup/services/value-strategy-service'
 
-// Other Project Services
-export type { IFieldDescriptorService } from './project/services/field-descriptor-service'
+// Other Setup Services
+export type { IFieldDescriptorService } from './setup/services/field-descriptor-service'
 
 // =============================================
 // PROVIDERS & DESCRIPTORS
 // =============================================
 
 // Configuration Providers
-export type { IInputConfigProvider } from './project/provider/configuration/input-configuration/input-config-provider'
-export type { IInputConfiguration } from './project/provider/interfaces/i-input-configuration'
+export type { IInputConfigProvider } from './setup/providers/configuration/input-configuration/input-config-provider'
+export type { IInputConfiguration } from './setup/providers/interfaces/i-input-configuration'
 
 // Field Descriptors
 export type { IFieldDescriptor } from './core/framework/schema/descriptor/field.descriptor'
@@ -204,8 +204,8 @@ export type { IFieldDescriptor } from './core/framework/schema/descriptor/field.
 // Schema Types
 export type { IFieldSchemeFactory } from './core/framework/schema/field-schema-factory/field-schema-factory.types'
 export type {
-    IApplicationScheme,
     IAppSchemeToObjectAction,
+    IApplicationScheme,
     IEntityScheme,
     IFieldSchema,
     IFieldSchemaBuilder
@@ -241,7 +241,7 @@ export type { IObservableSubject } from './core/observers/observable-subject/obs
 // PROJECT INTERFACES
 // =============================================
 
-export type { IAppLifeCycleInstance } from './project/interfaces/i-app-lifecycle-instances'
+export type { IAppLifeCycleInstance } from './setup/deprecated/i-app-lifecycle-instances'
 
 // =============================================
 // INTERFACE DOCUMENTATION

@@ -1,8 +1,4 @@
-// const DropdownButtonPortal = React.lazy(
-//     () => import('@components/portals/DropdownButtonPortal')
-// )
-
-import { AppContext, IAppContext } from './app-context.context'
+import { AppContext, IAppContext } from './app-context-enhanced.context'
 
 import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
 import {
@@ -37,6 +33,20 @@ interface AppContextProps {
  *
  * @param {AppContextProps} props - The properties for the AppContextProvider component.
  * @returns {JSX.Element} The enhanced AppContextProvider component.
+ *
+ * @example
+ * ```tsx
+ * <AppContextProvider
+ *   setupOptions={{
+ *     includeCoreManagers: true,
+ *     includeFormularManager: true,
+ *     includeInputEngine: true,
+ *     includeBaseConfigurations: true
+ *   }}
+ * >
+ *   <App />
+ * </AppContextProvider>
+ * ```
  */
 const AppContextProvider = ({
     debug,

@@ -1,8 +1,7 @@
 import './index.css'
 
-// Remove the separate ServiceManagerProvider import
-// import { ServiceManagerProvider } from '@adapters/react'
-import { AppContextProvider } from '@components/context/app-context/app-context'
+// import { ServiceManagerProvider } from '@adapters/react' // ❌ Remove this
+import { AppContextProvider } from '@components/context/app-context/app-context-enhanced' // ✅ Use enhanced version
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
 import ReactDOM from 'react-dom/client'

@@ -16,6 +16,7 @@ import {
     formatDate,
     ICulture,
     INDate,
+    IRendering,
     isMissing,
     MissingPropEnum
 } from 'formular.dev.lib'
@@ -44,36 +45,11 @@ export const DatePickerSF = ({
 
     const culture = getConfiguration<ICulture | undefined>('cultures', 'defaultCulture')
 
-    const defaultSeparator = getConfiguration<string | undefined>(
-        'conventions',
-        'dataTypes',
-        'date',
-        'separator'
-    )
-    const defaultDataFormat = getConfiguration<DateFormatsEnum | undefined>(
-        'conventions',
-        'dataTypes',
-        'date',
-        'formatValue'
-    )
-    const defaultDisplayFormat = getConfiguration<DateFormatsEnum | undefined>(
-        'conventions',
-        'dataTypes',
-        'date',
-        'formatDisplay'
-    )
-    const drawerHeight = getConfiguration<string | undefined>(
-        'conventions',
-        'components',
-        'drawer',
-        'height'
-    )
-    const drawerWidth = getConfiguration<string | undefined>(
-        'conventions',
-        'components',
-        'drawer',
-        'width'
-    )
+    const defaultSeparator = culture?.separator
+
+    const defaultDataFormat = culture?.dateFormat ?? DateFormatsEnum.DD_MM_YYYY
+    const defaultDisplayFormat = culture?.dateFormat ?? DateFormatsEnum.DD_MM_YYYY
+    const drawer = getConfiguration<IRendering | undefined>('rendering', 'components', 'drawer')
 
     const finalSeparator = separator ?? defaultSeparator
     const finalDataFormat = dataFormat ?? defaultDataFormat
@@ -139,8 +115,8 @@ export const DatePickerSF = ({
                     defaultSelectionMode={defaultSelectionMode}
                 />
             }
-            itemsDrawerHeight={drawerHeight}
-            itemsDrawerWidth={drawerWidth}
+            itemsDrawerHeight={drawer?.height ?? '350px'}
+            itemsDrawerWidth={drawer?.width ?? '250px'}
             validationChildren={
                 <ValidationResultComponent
                     validationResults={instance?.input?.validationResults ?? []}

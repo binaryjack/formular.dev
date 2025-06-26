@@ -3,8 +3,8 @@ import {
     IValidationStrategyService,
     IValidationTriggerService,
     IValueStrategyService
-} from '@project/services'
-import { IInputConfiguration } from '@project/types'
+} from '../../../services'
+import { IInputConfiguration } from '../../interfaces/i-input-configuration'
 
 export const SInputConfigProvider = Symbol.for('IInputConfigProvider')
 

@@ -1,5 +1,8 @@
 import { ConfigurationManager } from '@core/managers/configuration-manager'
-import { SConfigurationManager } from '@core/managers/configuration-manager/interfaces/i-configuration-manager'
+import {
+    IConfigurationManager,
+    SConfigurationManager
+} from '@core/managers/configuration-manager/interfaces/i-configuration-manager'
 import { DomManager } from '../../core/managers/dom-manager/dom-manager'
 import { SDomManager } from '../../core/managers/dom-manager/dom-manager.types'
 import { NotificationManager } from '../../core/managers/notification-manager/notification-manager'
@@ -59,6 +62,12 @@ export const setupManagers = function (sm: IServiceManager) {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
     })
+
+    // Initialize the configuration manager with the default configuration
+    const configManager = sm.resolve<IConfigurationManager>(SConfigurationManager)
+    const defaultConfig = configManager.getDefaultConfiguration()
+    configManager.setConfiguration('default', defaultConfig)
+    configManager.useConfiguration('default')
 
     sm.registerClass(SFieldDescriptorService, FieldDescriptorService, {
         lifetime: 'singleton',

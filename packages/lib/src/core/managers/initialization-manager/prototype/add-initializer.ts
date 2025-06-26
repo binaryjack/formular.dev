@@ -3,7 +3,7 @@
  * @param name - The name of the initializer.
  * @param initializer - The initializer function.
  */
-import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
 import { InitializationDelegate } from '../delegates/initialization-delegate'
 import type { IInitializationManager } from '../initialization-manager.types'
 
@@ -20,3 +20,4 @@ export const addInitializer = function (
         this.initializer?.setNextSequence?.(newDelegate)
     }
 }
+

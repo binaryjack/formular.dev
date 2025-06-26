@@ -120,7 +120,7 @@ const DatePickerContentDrawer = ({
 
     const { getConfiguration } = useAppContext()
     const defaultDisplayFormat = getConfiguration<DateFormatsEnum | undefined>(
-        'conventions',
+        'rendering',
         'dataTypes',
         'date',
         'formatDisplay'

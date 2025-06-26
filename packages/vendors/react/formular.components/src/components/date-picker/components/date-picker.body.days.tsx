@@ -27,9 +27,9 @@ const DatePickerBodyDays = ({ id }: IDatePickerBodyDaysProps) => {
 
     const { getConfiguration } = useAppContext()
     const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
-        'basic'
+        'primary'
     )
 
     const handleDisplayInfos = (cell: IDatePickerCell) => {}

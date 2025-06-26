@@ -55,9 +55,9 @@ const DatePickerDrawerHeader = ({ id }: IDatePickerDrawerHeaderProps) => {
 
     const { getConfiguration } = useAppContext()
     const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
-        'basic'
+        'primary'
     )
 
     const yearSelection = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

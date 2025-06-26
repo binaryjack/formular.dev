@@ -3,7 +3,6 @@ import { useService } from '@adapters/react/services/use-service'
 import DatePicker from '@components/date-picker/date-picker'
 import FormularForm from '@components/formular-form/formular-form'
 import {
-    defaultConfiguration,
     fileDescriptorMock,
     GenericValidationBuilder,
     IConfigurationManager,
@@ -44,10 +43,33 @@ const optionsMocks: IOptionItem[] = []
 
 const ValidationDemoDatePicker = () => {
     const { getService } = useService()
-    const configurationManager = getService<IConfigurationManager>(SConfigurationManager)
-    configurationManager?.setConfiguration('development', defaultConfiguration)
-    configurationManager?.useConfiguration('development')
+
     const formularManager = getService<IFormularManager>(SFormularManager)
+    const configurationManager = getService<IConfigurationManager>(SConfigurationManager)
+
+    // Access basic configuration properly
+    console.log('=== CONFIGURATION ACCESS ===')
+    if (configurationManager) {
+        console.log('Configuration Manager Available: true')
+        console.log('Active Configuration:', configurationManager.activeConfiguration?.name)
+
+        // Correct way to access configuration values using getConfigByName
+        const formBehavior = configurationManager.getConfigByName('behavior', 'form')
+        const validationTriggers = configurationManager.getConfigByName(
+            'behavior',
+            'form',
+            'validationTriggers'
+        )
+        const defaultCulture = configurationManager.getConfigByName('cultures', 'defaultCulture')
+        const targetEnvironment = configurationManager.activeConfiguration?.targetEnvironment
+
+        console.log('Form Behavior:', formBehavior)
+        console.log('Validation Triggers:', validationTriggers)
+        console.log('Default Culture:', defaultCulture)
+        console.log('Target Environment:', targetEnvironment)
+    } else {
+        console.error('Configuration Manager not available!')
+    }
 
     const descriptor = fileDescriptorMock(
         fieldName,

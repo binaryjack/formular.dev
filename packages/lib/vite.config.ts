@@ -71,7 +71,7 @@ export default defineConfig(({ mode }) => {
                 '@tests': resolve(__dirname, 'src/__tests__'),
                 '@mocks': resolve(__dirname, 'src/mocks'),
                 '@conventions': resolve(__dirname, 'src/conventions'),
-                '@project': resolve(__dirname, 'src/project'),
+                '@project': resolve(__dirname, 'src/setup'),
                 '@core': resolve(__dirname, 'src/core'),
                 '@fields': resolve(__dirname, 'src/core/fields'),
                 '@factory': resolve(__dirname, 'src/core/factory'),

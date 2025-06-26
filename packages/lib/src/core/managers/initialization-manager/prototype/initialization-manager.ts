@@ -2,7 +2,7 @@
  * InitializationManager constructor function.
  * @param params - The configuration parameters.
  */
-import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
 import type { IInitializationManager } from '../initialization-manager.types'
 
 export const InitializationManager = function (
@@ -12,3 +12,4 @@ export const InitializationManager = function (
     this.params = params
     this.initializer = undefined
 }
+

@@ -1,6 +1,6 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 
-import { IInputConfiguration } from '@project/provider/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
 import { IInitializationManager } from '../initialization-manager.types'
 
 export interface IInitializationDelegate {
@@ -57,3 +57,4 @@ export const InitializationDelegate = function (
     this.execute = execute
     this.setNextSequence = setNext
 } as any as IInitializationDelegate
+

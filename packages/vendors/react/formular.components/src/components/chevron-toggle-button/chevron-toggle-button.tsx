@@ -23,7 +23,7 @@ export const ChevronToggleButton = ({
 }: IChevronToggleButtonProps) => {
     const { getConfiguration } = useAppContext()
     const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
         'basic'
     )

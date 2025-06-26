@@ -9,11 +9,11 @@ import { sequenceInitializer } from '@core/managers/initialization-manager/seque
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 
-import { baseDependencyList } from '@project/provider/configuration/base-dependency/dependency.list.settings'
+import { baseDependencyList } from '@project/providers/configuration/base-dependency/dependency.list.settings'
 import {
     IInputConfigProvider,
     SInputConfigProvider
-} from '@project/provider/configuration/input-configuration/input-config-provider'
+} from '@project/providers/configuration/input-configuration/input-config-provider'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const SMaskedInputService = Symbol.for('IMaskedInputService')
@@ -66,3 +66,4 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
     }
     // Register the base input service with the service manager
 } as any as IMaskedInputService
+

@@ -1,6 +1,9 @@
+import { useService } from '@adapters/react'
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
 import ValidationDemoDatePicker from '@demo/validation-demos/validation-demo-date-picker'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
+import type { IConfigurationManager } from 'formular.dev.lib'
+import { SConfigurationManager } from 'formular.dev.lib'
 
 interface IApp extends Node {
     testName?: string
@@ -97,6 +100,45 @@ const validationDemo = () => (
 //     // eslint-disable-next-line react-hooks/exhaustive-deps
 // }, [])
 
+const ConfigurationTest = () => {
+    const { getService } = useService()
+
+    try {
+        const configManager = getService<IConfigurationManager>(SConfigurationManager)
+
+        if (!configManager) {
+            return <div style={{ color: 'red' }}>❌ ConfigurationManager not found in DI</div>
+        }
+
+        const activeConfig = configManager.activeConfiguration
+
+        if (!activeConfig || Object.keys(activeConfig).length === 0) {
+            return <div style={{ color: 'red' }}>❌ Active configuration is empty</div>
+        }
+
+        return (
+            <div style={{ padding: '10px', border: '1px solid #ccc', margin: '10px 0' }}>
+                <h3 style={{ color: 'green' }}>✅ Configuration Manager Working!</h3>
+                <p>
+                    <strong>Configuration Name:</strong> {activeConfig.name}
+                </p>
+                <p>
+                    <strong>Environment:</strong> {activeConfig.targetEnvironment}
+                </p>
+                <p>
+                    <strong>Default Culture:</strong> {activeConfig.cultures?.defaultCulture?.name}
+                </p>
+            </div>
+        )
+    } catch (error) {
+        return (
+            <div style={{ color: 'red' }}>
+                ❌ Error accessing configuration: {(error as Error).message}
+            </div>
+        )
+    }
+}
+
 const App = () => {
     return (
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
@@ -108,6 +150,7 @@ const App = () => {
                 {/* <ValidationDemoDelayInput /> */}
                 {/* <ValidationDemoPassword /> */}
                 {/* <FormDemo /> */}
+                <ConfigurationTest />
             </BoundaryErrorCatcher>
         </div>
     )

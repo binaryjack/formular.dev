@@ -30,7 +30,7 @@ const config: Config = {
         '^@components/(.*)$': '<rootDir>/src/components/$1',
         '^@adapters/(.*)$': '<rootDir>/src/adapters/$1',
         '^@fields/(.*)$': '<rootDir>/src/core/fields/$1',
-        '^@project/(.*)$': '<rootDir>/src/project/$1',
+        '^@project/(.*)$': '<rootDir>/src/setup/$1',
         '^@factory/(.*)$': '<rootDir>/src/core/field-engine/generator/factory/$1',
         '^@framework/(.*)$': '<rootDir>/src/core/framework/$1',
         '^@utility/(.*)$': '<rootDir>/src/core/framework/utility/$1',

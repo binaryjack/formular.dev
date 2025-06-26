@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masked Input Fix Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .test-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+        .test-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .pass { background-color: #d4edda; color: #155724; }
+        .fail { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        .log {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Masked Input Reset Fix Test</h1>
+    
+    <div class="test-section">
+        <h2>Manual Test Instructions</h2>
+        <div class="info status">
+            <strong>Test the Date Picker Fix:</strong>
+            <ol>
+                <li>Open the React application at <a href="http://localhost:5173" target="_blank" rel="noopener">http://localhost:5173</a></li>
+                <li>Navigate to the "Validation Demo Date Picker" page</li>
+                <li>Try typing a date character by character: <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>2</code>, <code>0</code>, <code>2</code>, <code>4</code></li>
+                <li>Watch for the input resetting when you type the 10th character</li>
+                <li>Check the browser console for debug logs starting with 🔥, 🗓️, 🎭</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Simple HTML Masked Input Test</h2>
+        <p>This is a basic test to verify masking behavior (not using the actual library):</p>
+        
+        <label for="testInput">Date Input (##/##/####):</label><br>
+        <input type="text" id="testInput" class="test-input" placeholder="MM/DD/YYYY" maxlength="10">
+        
+        <div id="testStatus" class="status info">Type a date to test the masking behavior</div>
+        <div id="testLog" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Expected Behavior After Fix</h2>
+        <div class="pass status">
+            <strong>✅ What should happen:</strong>
+            <ul>
+                <li>You can type all 10 characters without the input resetting</li>
+                <li>Invalid dates like "12/34/2024" are preserved during typing</li>
+                <li>The input only attempts date conversion when the date looks valid</li>
+                <li>Console shows debug logs indicating masked input detection</li>
+                <li>No more premature resets to null/empty</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Debugging Information</h2>
+        <div class="info status">
+            <strong>Look for these console messages:</strong>
+            <ul>
+                <li><code>🔥 Masked onChange called</code> - Shows masked input processing</li>
+                <li><code>🗓️ dateSetter called</code> - Shows date setter invocation</li>
+                <li><code>🎭 Masked input check</code> - Shows masked input detection</li>
+                <li><code>⏸️ Skipping conversion for masked input</code> - Shows our fix working</li>
+                <li><code>🛡️ Preserving partial input</code> - Shows error recovery</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Simple masking test for the HTML input
+        const testInput = document.getElementById('testInput');
+        const testStatus = document.getElementById('testStatus');
+        const testLog = document.getElementById('testLog');
+        
+        let logs = [];
+        
+        function addLog(message) {
+            logs.push(new Date().toLocaleTimeString() + ': ' + message);
+            testLog.innerHTML = logs.slice(-10).join('<br>');
+        }
+        
+        function processMaskedValue(mask, value) {
+            if (!value) return '';
+            
+            let processedValue = '';
+            let index = 0;
+            
+            for (let i = 0; i < value.length; i++) {
+                if (index >= mask.length) break;
+                
+                if (mask[index] === '#') {
+                    if (/\d/.test(value[i])) {
+                        processedValue += value[i];
+                        index++;
+                    }
+                } else {
+                    processedValue += mask[index];
+                    index++;
+                    i = i - 1; // go back and check the current character again
+                }
+            }
+            
+            return processedValue;
+        }
+        
+        testInput.addEventListener('input', function(e) {
+            const rawValue = e.target.value.replace(/\D/g, '');
+            const formattedValue = processMaskedValue('##/##/####', rawValue);
+            
+            addLog(`Input: "${e.target.value}" -> Raw: "${rawValue}" -> Formatted: "${formattedValue}"`);
+            
+            e.target.value = formattedValue;
+            
+            if (formattedValue.length === 10) {
+                testStatus.className = 'status info';
+                testStatus.innerHTML = `<strong>📝 Complete date entered:</strong> ${formattedValue}`;
+            } else {
+                testStatus.className = 'status info';
+                testStatus.innerHTML = `<strong>⏳ Typing in progress:</strong> ${formattedValue} (${formattedValue.length}/10 characters)`;
+            }
+        });
+        
+        // Add initial log
+        addLog('Test initialized. Start typing in the input field above.');
+    </script>
+</body>
+</html>

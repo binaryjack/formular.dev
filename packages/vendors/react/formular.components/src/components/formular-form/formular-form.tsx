@@ -99,7 +99,7 @@ const FormularForm = <T extends object>({
 
     const { getConfiguration } = useAppContext()
     const submitConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
         'submit'
     )
