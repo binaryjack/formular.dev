@@ -2,6 +2,7 @@ import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descri
 import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
 import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
+import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import { IStyleManager } from '@core/managers/style-manager/style-manager.types'
 import { ITrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { IValidationManager } from '@core/managers/validation-manager/validation-manager.types'
@@ -9,6 +10,7 @@ import { IValueManager } from '@core/managers/value-manager/value-manager.types'
 import { InputBase } from '../../../../../core/input-engine/core/input-base/input-base'
 
 export interface InputBaseMockBuilderOptions {
+    serviceManager?: Partial<IServiceManager>
     descriptor?: Partial<IFieldDescriptor>
     domManager?: Partial<IDomManager<HTMLInputElement>>
     notificationManager?: Partial<INotificationManager>
@@ -21,6 +23,11 @@ export interface InputBaseMockBuilderOptions {
 
 export function buildInputBaseMock(options: InputBaseMockBuilderOptions = {}) {
     const {
+        serviceManager = {
+            lazy: () => () => ({
+                getConfigByName: () => undefined
+            })
+        },
         descriptor = { name: 'mockField' },
         domManager = {},
         notificationManager = {},
@@ -32,6 +39,7 @@ export function buildInputBaseMock(options: InputBaseMockBuilderOptions = {}) {
     } = options
 
     return new (InputBase as any)(
+        serviceManager as IServiceManager,
         descriptor as IFieldDescriptor,
         domManager as IDomManager<HTMLInputElement>,
         notificationManager as INotificationManager,

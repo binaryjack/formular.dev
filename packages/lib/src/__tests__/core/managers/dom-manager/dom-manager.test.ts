@@ -5,7 +5,17 @@ describe('DomManager', () => {
     let element: HTMLInputElement
 
     beforeEach(() => {
-        manager = new (DomManager as any)() // TypeScript workaround
+        const serviceManager = {
+            lazy: () => () => ({
+                getConfigByName: (group: string, section: string, key: string) => {
+                    if (group === 'rendering' && section === 'suffixes' && key === 'labelId') {
+                        return '-label'
+                    }
+                    return ''
+                }
+            })
+        }
+        manager = new (DomManager as any)(serviceManager) // TypeScript workaround
         manager.initialize()
         element = document.createElement('input')
         element.id = 'test-input'

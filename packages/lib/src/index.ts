@@ -6,7 +6,6 @@
  * Main library entry point exposing all public APIs
  */
 
-export * from './conventions'
 export * from './core'
 export * from './project'
 
