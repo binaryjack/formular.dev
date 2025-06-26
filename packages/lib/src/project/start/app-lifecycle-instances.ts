@@ -4,6 +4,10 @@
  * Licensed under MIT License
  *
  * Main entry point for initializing the FORMULAR system and managing global instances
+ *
+ * @deprecated This global singleton approach is deprecated.
+ * Use ServiceManagerFactory and SetupHelpers instead for better control and testability.
+ * See migration guide for more information.
  */
 
 import { ServiceManager } from '../../core/managers/service-manager/service-manager'
@@ -22,11 +26,24 @@ export const applifeCylceInstance: IAppLifeCycleInstance = (function () {
     let globalServiceManager: IServiceManager | null = null
 
     const getGlobalServiceManager = function (): IServiceManager {
+        if (process.env.NODE_ENV === 'development') {
+            console.warn(
+                '⚠️ DEPRECATED: applifeCylceInstance.getGlobalServiceManager() is deprecated. ' +
+                    'Use ServiceManagerFactory.create() or SetupHelpers instead. ' +
+                    'See migration guide for more information.'
+            )
+        }
         globalServiceManager ??= new ServiceManager()
         return globalServiceManager
     }
 
     const resetServiceManager = function () {
+        if (process.env.NODE_ENV === 'development') {
+            console.warn(
+                '⚠️ DEPRECATED: applifeCylceInstance.resetServiceManager() is deprecated. ' +
+                    'Use proper service manager lifecycle management instead.'
+            )
+        }
         if (globalServiceManager) {
             globalServiceManager.dispose()
             globalServiceManager = null
@@ -42,11 +59,14 @@ export const applifeCylceInstance: IAppLifeCycleInstance = (function () {
     /** To be used as instance for AUTO TRACKER
      * for debugging purposes only.
      * This is not used in production.
-     * therefore we should TODO: toggle this off with a flag
+     * Flag to toggle debug validation
      */
+    const enableDebugValidation =
+        process.env.NODE_ENV === 'development' &&
+        process.env.FORMULAR_ENABLE_DEBUG_VALIDATION !== 'false'
 
     // Validate dependencies in development
-    if (process.env.NODE_ENV === 'development') {
+    if (enableDebugValidation) {
         try {
             getGlobalServiceManager().validateNoCycles()
             console.log('🔍 Dependency validation passed')

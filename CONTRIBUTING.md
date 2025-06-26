@@ -94,3 +94,177 @@ Please follow these rules for all code contributions and code generation in this
 ## Dependencies 
 
 - Do never add external third library into the `lib` without permission and explaining why it's needed.
+
+## Architectural Decisions & FAQ
+
+### Q: Why prototype-based classes instead of modern `class` syntax?
+**A:** This is a strategic decision for maximum compatibility and performance. Prototype-based classes:
+- Are more reliable and don't rely on syntactic sugar abstractions
+- Avoid potential performance overhead from transpilation and additional runtime checks
+- Ensure consistency across the entire monorepo since all packages serve similar purposes
+- Provide better compatibility across different JavaScript environments
+- Result in smaller bundle sizes due to no class syntax transformation
+- Give explicit control over the prototype chain without hidden behaviors
+
+### Q: Why one interface per file? Isn't this excessive?
+**A:** While it creates more files, this approach:
+- Provides excellent organization and separation of concerns
+- Makes interfaces easier to locate and maintain
+- Enables more granular imports and explicit dependencies
+- Works well with good folder structure
+- Note: Modern bundlers handle tree-shaking well regardless, so this is primarily an organizational choice
+
+### Q: Should tests really mirror the entire src/ structure under __tests__/?
+**A:** This is under consideration. A "per topic" approach closer to the objects being tested might be more practical. The current rule may be refined based on project evolution.
+
+### Q: Do we need index.ts AND types.ts in every folder?
+**A:** We should establish thresholds based on folder complexity. Small folders with few exports might not need this separation.
+
+**Proposed Threshold Rules:**
+- Folders with 1-3 files: Use single `index.ts` for all exports
+- Folders with 4+ files OR mixed types/implementations: Use both `index.ts` and `types.ts`
+- Complex domains: Always separate for better organization
+
+## Performance & Bundle Considerations
+
+### Tree Shaking Optimization
+- Keep interfaces, types, and enums in separate files to enable better tree shaking
+- Use named exports exclusively (avoid default exports in library code)
+- Minimize re-exports when possible
+
+### Bundle Size Monitoring
+- Regularly audit bundle sizes for the `lib` package
+- Use tools like `webpack-bundle-analyzer` or Vite's built-in analysis
+- Consider the impact of new dependencies on bundle size
+
+## Code Quality & Formatting
+
+### ESLint Configuration
+- Follow the existing ESLint configuration in each package
+- Ensure consistent code formatting across the monorepo
+- Use TypeScript-specific ESLint rules
+
+### Prettier Configuration
+- Maintain consistent code formatting
+- Configure for TypeScript, React, and SCSS files
+- Integrate with VS Code for automatic formatting
+
+## Git Workflow & Commit Guidelines
+
+### Commit Message Format
+Follow conventional commits format:
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+Examples:
+- `feat(lib): add new signal processing function`
+- `fix(components): resolve button click handler issue`
+- `docs(contributing): update architectural decisions`
+
+### Branch Naming
+- Feature branches: `feature/description-of-feature`
+- Bug fixes: `fix/description-of-fix`
+- Documentation: `docs/description-of-docs`
+
+### Pull Request Guidelines
+- Include clear description of changes
+- Reference related issues
+- Ensure all tests pass
+- Update documentation if needed
+- Follow the established coding style
+
+## Version Management
+
+### Semantic Versioning
+- Follow semantic versioning (semver) for all packages
+- Use PNPM workspace versioning for coordinated releases
+- Document breaking changes in CHANGELOG.md
+
+### Release Process
+- Use conventional commits to generate changelogs
+- Coordinate releases across workspace packages
+- Tag releases appropriately
+
+## Development Environment
+
+### Required Tools
+- Node.js (latest LTS)
+- PNPM (latest stable)
+- VS Code with recommended extensions
+- TypeScript (latest stable)
+
+### Recommended VS Code Extensions
+- TypeScript and JavaScript Language Features
+- ESLint
+- Prettier
+- Tailwind CSS IntelliSense
+- Vite
+
+## Testing Strategy Refinement
+
+### Test Organization Options
+Given the concerns about mirroring structure, consider these approaches:
+
+**Option 1: Topic-Based Testing (Recommended)**
+```
+src/__tests__/
+  ├── core/           # Tests for core functionality
+  ├── components/     # Tests for React components  
+  ├── utilities/      # Tests for utility functions
+  └── integration/    # Integration tests
+```
+
+**Option 2: Feature-Based Testing**
+```
+src/__tests__/
+  ├── signal-processing/
+  ├── data-validation/
+  └── user-interface/
+```
+
+**Option 3: Hybrid Approach**
+- Use topic-based for complex domains
+- Use mirrored structure for simple utilities
+- Use integration folder for cross-cutting tests
+
+### Test Naming Conventions
+- Unit tests: `feature-name.test.ts`
+- Integration tests: `feature-integration.test.ts`
+- Component tests: `component-name.test.tsx`
+
+## Documentation Standards
+
+### Code Documentation
+- Use JSDoc comments for all public APIs
+- Include examples in documentation
+- Document complex algorithms and business logic
+
+### README Requirements
+Each package should have:
+- Clear description of purpose
+- Installation instructions
+- Basic usage examples
+- API documentation links
+
+## Security Considerations
+
+### Dependency Security
+- Regularly audit dependencies with `pnpm audit`
+- Keep dependencies up to date
+- Justify any security exceptions
+
+### Code Security
+- Validate inputs at boundaries
+- Use TypeScript strict mode
+- Follow OWASP guidelines for web applications
+
+---
+
+**Note:** This document is living and should be updated as the project evolves and new patterns emerge.

@@ -56,6 +56,11 @@ export const setupManagers = function (sm: IServiceManager) {
     // First register the ServiceManager instance under its interface identifier
     sm.register(SServiceManager, () => sm, { lifetime: 'singleton' })
 
+    sm.registerClass(SConfigurationManager, ConfigurationManager, {
+        lifetime: 'singleton',
+        dependencies: [SServiceManager]
+    })
+
     sm.registerClass(SFieldDescriptorService, FieldDescriptorService, {
         lifetime: 'singleton',
         dependencies: [SServiceManager]
@@ -88,11 +93,6 @@ export const setupManagers = function (sm: IServiceManager) {
 
     sm.register(SAutoTrackerNotificationManager, () => new NotificationManager(), {
         lifetime: 'singleton'
-    })
-
-    sm.registerClass(SConfigurationManager, ConfigurationManager, {
-        lifetime: 'singleton',
-        dependencies: [SServiceManager]
     })
 
     sm.registerClass(SNotificationManager, NotificationManager, {

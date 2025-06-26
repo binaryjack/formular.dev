@@ -1,4 +1,7 @@
 export * from './abstract-service-base'
+export * from './factory/i-service-manager-factory'
+export * from './factory/i-service-manager-setup-options'
+export * from './factory/service-manager-factory'
 export * from './service-locator'
 export * from './service-manager'
 export * from './service-manager.types'

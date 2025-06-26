@@ -6,7 +6,7 @@ import { AppContext, IAppContext } from './app-context.context'
 
 import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
 import { useService } from '@adapters/react/services/use-service'
-import { IConfigurationManager } from 'formular.dev.lib'
+import { IConfigurationManager, SConfigurationManager } from 'formular.dev.lib'
 import { useState } from 'react'
 import { DrawerSlotCenter } from '../../drawer/components/drawer-slot.center'
 import { IDebug } from '../debug/debug.types'
@@ -43,11 +43,13 @@ const AppContextProvider = ({ debug, children }: AppContextProps) => {
 
     const { options } = useVisualDebugContext()
     const { getService } = useService()
-    const configurationManager = getService<IConfigurationManager>('IConfigurationManager')
+    const configurationManager = getService<IConfigurationManager>(SConfigurationManager)
 
     const getConfigurationByPath = function <T>(...path: string[]): T | undefined {
         if (configurationManager) {
-            return configurationManager.getConfigByName(...path) as T
+            const value = configurationManager.getConfigByName(...path) as T
+            console.log('getConfigurationByPath', path, value)
+            return value
         }
         return undefined
     }

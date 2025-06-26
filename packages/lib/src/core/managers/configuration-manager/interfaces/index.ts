@@ -1,5 +1,6 @@
 export type { ICommand } from './i-command'
 export type { IConfiguration } from './i-configuration'
+export { SConfigurationManager } from './i-configuration-manager'
 export type { IConfigurationManager } from './i-configuration-manager'
 export type { ICulture } from './i-culture'
 export type { IEventTrigger } from './i-event-trigger'

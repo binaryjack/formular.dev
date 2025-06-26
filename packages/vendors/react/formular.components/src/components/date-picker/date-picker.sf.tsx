@@ -14,6 +14,7 @@ import {
     customEvent,
     DateFormatsEnum,
     formatDate,
+    ICulture,
     INDate,
     isMissing,
     MissingPropEnum
@@ -40,6 +41,9 @@ export const DatePickerSF = ({
     const { instance, flags } = useField(formInstance?.getField(fieldName))
 
     const { getConfiguration } = useAppContext()
+
+    const culture = getConfiguration<ICulture | undefined>('cultures', 'defaultCulture')
+
     const defaultSeparator = getConfiguration<string | undefined>(
         'conventions',
         'dataTypes',

@@ -1,7 +1,7 @@
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import { IConfiguration } from './i-configuration'
 
-export const SConfigurationManager = Symbol('IConfigurationManager')
+export const SConfigurationManager = Symbol.for('IConfigurationManager')
 
 export interface IConfigurationManager {
     new (sm: IServiceManager): IConfigurationManager

@@ -5,8 +5,10 @@ import InputText from '@components/input-text/input-text'
 import { useService } from '@adapters/react/services/use-service'
 
 import {
+    defaultConfiguration,
     fileDescriptorMock,
     GenericValidationBuilder,
+    IConfigurationManager,
     IFormular,
     IFormularManager,
     IOptionItem,
@@ -43,6 +45,11 @@ const optionsMocks: IOptionItem[] = []
 
 const ValidationDemoTextInput = () => {
     const { getService } = useService()
+
+    const configurationManager = getService<IConfigurationManager>(SFormularManager)
+    configurationManager?.setConfiguration('development', defaultConfiguration)
+    configurationManager?.useConfiguration('development')
+
     const formularManager = getService<IFormularManager>(SFormularManager)
 
     const descriptor = fileDescriptorMock(

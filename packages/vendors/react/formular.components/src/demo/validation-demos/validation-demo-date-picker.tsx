@@ -3,8 +3,10 @@ import { useService } from '@adapters/react/services/use-service'
 import DatePicker from '@components/date-picker/date-picker'
 import FormularForm from '@components/formular-form/formular-form'
 import {
+    defaultConfiguration,
     fileDescriptorMock,
     GenericValidationBuilder,
+    IConfigurationManager,
     IFormular,
     IFormularManager,
     IOptionItem,
@@ -13,6 +15,7 @@ import {
     minLengthValidationMock,
     minValidationMock,
     requiredDataValidationMock,
+    SConfigurationManager,
     SFormularManager
 } from 'formular.dev.lib'
 import { useEffect, useState } from 'react'
@@ -41,6 +44,9 @@ const optionsMocks: IOptionItem[] = []
 
 const ValidationDemoDatePicker = () => {
     const { getService } = useService()
+    const configurationManager = getService<IConfigurationManager>(SConfigurationManager)
+    configurationManager?.setConfiguration('development', defaultConfiguration)
+    configurationManager?.useConfiguration('development')
     const formularManager = getService<IFormularManager>(SFormularManager)
 
     const descriptor = fileDescriptorMock(

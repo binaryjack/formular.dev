@@ -111,7 +111,7 @@ const Password = ({ fieldName }: IPasswordProps) => {
 
     const { getConfiguration } = useAppContext()
     const primaryConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
-        'conventions',
+        'rendering',
         'commands',
         'primary'
     )

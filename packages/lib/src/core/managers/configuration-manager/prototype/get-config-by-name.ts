@@ -25,6 +25,8 @@ export const getConfigByName = function <T>(
     const lastElement = names[names.length - 1]
 
     if (!current) {
+        console.warn(`Default Configuration not found! Searched Path: ${names.join('.')}`)
+
         return undefined
     }
 
