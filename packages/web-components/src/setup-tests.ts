@@ -2,9 +2,9 @@ import '@testing-library/jest-dom';
 
 // Setup for web components testing
 class MockCustomElements {
-  static define = jest.fn();
-  static get = jest.fn();
-  static whenDefined = jest.fn(() => Promise.resolve());
+  static readonly define = jest.fn();
+  static readonly get = jest.fn();
+  static readonly whenDefined = jest.fn(() => Promise.resolve());
 }
 
 // Mock customElements if not available in test environment

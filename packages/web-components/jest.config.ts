@@ -1,4 +1,4 @@
-import type { Config } from 'jest'
+import type { Config } from 'jest';
 
 const config: Config = {
   preset: 'ts-jest',
@@ -7,6 +7,7 @@ const config: Config = {
   testMatch: ['**/__tests__/**/*.(ts|tsx|js)', '**/*.(test|spec).(ts|tsx|js)'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
   },
   collectCoverageFrom: [
     'src/**/*.(ts|tsx)',

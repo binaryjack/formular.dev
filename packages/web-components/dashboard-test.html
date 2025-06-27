@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .test-controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .test-controls h2 {
+            margin-top: 0;
+            color: #2d2d2d;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary { background: #007acc; color: white; }
+        .btn-success { background: #28a745; color: white; }
+        .btn-warning { background: #ffc107; color: black; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-info { background: #17a2b8; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        
+        .test-components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .test-component {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #007acc;
+        }
+        
+        .test-component h3 {
+            margin: 0 0 10px 0;
+            color: #2d2d2d;
+            font-size: 16px;
+        }
+        
+        .test-component .status {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+        
+        .status-active { background: #d4edda; color: #155724; }
+        .status-idle { background: #f8f9fa; color: #6c757d; }
+        
+        .performance-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #007acc;
+        }
+        
+        .performance-info h3 {
+            margin: 0 0 10px 0;
+            color: #0056b3;
+        }
+        
+        .logs {
+            background: #2d2d2d;
+            color: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+        
+        .log-info { color: #17a2b8; }
+        .log-success { color: #28a745; }
+        .log-warning { color: #ffc107; }
+        .log-error { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Performance Dashboard - Live Test</h1>
+    
+    <div class="test-controls">
+        <h2>Dashboard Controls</h2>
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="testDashboard.toggleDashboard()">Toggle Dashboard</button>
+            <button class="btn btn-info" onclick="testDashboard.clearMetrics()">Clear Metrics</button>
+            <button class="btn btn-success" onclick="testDashboard.runBenchmark()">Run Benchmark</button>
+            <button class="btn btn-warning" onclick="testDashboard.exportMetrics()">Export Data</button>
+        </div>
+        
+        <h2>Component Tests</h2>
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="testDashboard.createComponent()">Create Component</button>
+            <button class="btn btn-success" onclick="testDashboard.simulateRenders()">Simulate Renders</button>
+            <button class="btn btn-info" onclick="testDashboard.simulateEvents()">Simulate Events</button>
+            <button class="btn btn-warning" onclick="testDashboard.stressTest()">Stress Test</button>
+        </div>
+    </div>
+    
+    <div class="test-components" id="test-components">
+        <!-- Dynamic components will be added here -->
+    </div>
+    
+    <div class="performance-info">
+        <h3>📊 Real-time Performance Info</h3>
+        <div id="performance-info">
+            Loading dashboard...
+        </div>
+    </div>
+    
+    <div class="logs" id="logs">
+        <div class="log-entry log-info">🚀 Dashboard test page loaded</div>
+        <div class="log-entry log-info">📊 Performance monitoring active</div>
+    </div>
+
+    <!-- Try to load TypeScript version first, fallback to JavaScript -->
+    <script type="module">
+        let PerformanceDashboard;
+        
+        try {
+            // Try TypeScript version first
+            const module = await import('./src/debugging/performance-dashboard.js');
+            PerformanceDashboard = module.PerformanceDashboard;
+        } catch (error) {
+            console.log('TypeScript version failed, trying CommonJS version:', error);
+            // Fallback to CommonJS if available (for now we'll simulate)
+            console.log('Using fallback dashboard implementation');
+            
+            // Minimal fallback implementation for testing
+            PerformanceDashboard = class {
+                constructor(config = {}) {
+                    this.isVisible = config.visible ?? true;
+                    this.metrics = {
+                        components: new Map(),
+                        events: [],
+                        renders: [],
+                        memory: { usage: 0, peak: 0, limit: 50 },
+                        thresholds: { renderTime: 16, memoryGrowth: 50, eventQueue: 100 }
+                    };
+                    console.log('Fallback dashboard initialized');
+                }
+                
+                trackComponent(id, metadata = {}) {
+                    this.metrics.components.set(id, {
+                        id, type: metadata.type || 'unknown', renders: 0, events: 0,
+                        createdAt: Date.now(), metadata
+                    });
+                }
+                
+                trackRender(componentId, renderTime) {
+                    const component = this.metrics.components.get(componentId);
+                    if (component) component.renders++;
+                    this.metrics.renders.push(renderTime);
+                    if (this.metrics.renders.length > 100) {
+                        this.metrics.renders = this.metrics.renders.slice(-100);
+                    }
+                }
+                
+                trackEvent(componentId, eventType, data = {}) {
+                    const component = this.metrics.components.get(componentId);
+                    if (component) component.events++;
+                    this.metrics.events.push({ componentId, eventType, timestamp: Date.now(), data });
+                    if (this.metrics.events.length > 50) {
+                        this.metrics.events = this.metrics.events.slice(-50);
+                    }
+                }
+                
+                clearMetrics() {
+                    this.metrics.components.clear();
+                    this.metrics.events = [];
+                    this.metrics.renders = [];
+                }
+                
+                toggle() { this.isVisible = !this.isVisible; }
+                runBenchmark(options = {}) {
+                    const { componentCount = 20, renderCount = 50, eventCount = 100 } = options;
+                    for (let i = 0; i < componentCount; i++) {
+                        this.trackComponent(`benchmark-${i}`, { type: 'benchmark' });
+                    }
+                    for (let i = 0; i < renderCount; i++) {
+                        this.trackRender(`benchmark-${i % componentCount}`, Math.random() * 20);
+                    }
+                    for (let i = 0; i < eventCount; i++) {
+                        this.trackEvent(`benchmark-${i % componentCount}`, 'test-event');
+                    }
+                }
+                exportMetrics() {
+                    const data = JSON.stringify(this.metrics, null, 2);
+                    const blob = new Blob([data], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `metrics-${Date.now()}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }
+                destroy() {}
+            };
+        }
+        
+        // Initialize dashboard
+        const dashboard = new PerformanceDashboard({
+            visible: true,
+            updateInterval: 500
+        });
+        
+        // Test utilities
+        const testDashboard = {
+            componentCounter: 0,
+            
+            log(message, type = 'info') {
+                const logs = document.getElementById('logs');
+                const entry = document.createElement('div');
+                entry.className = `log-entry log-${type}`;
+                entry.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+                logs.insertBefore(entry, logs.firstChild);
+                
+                // Limit log entries
+                const entries = logs.querySelectorAll('.log-entry');
+                if (entries.length > 20) {
+                    entries[entries.length - 1].remove();
+                }
+            },
+            
+            updatePerformanceInfo() {
+                const info = document.getElementById('performance-info');
+                const metrics = dashboard.metrics;
+                const avgRender = metrics.renders.length ? 
+                    (metrics.renders.reduce((a, b) => a + b, 0) / metrics.renders.length).toFixed(2) : 0;
+                
+                info.innerHTML = `
+                    <p><strong>Components:</strong> ${metrics.components.size}</p>
+                    <p><strong>Total Renders:</strong> ${metrics.renders.length}</p>
+                    <p><strong>Total Events:</strong> ${metrics.events.length}</p>
+                    <p><strong>Memory:</strong> ${metrics.memory.usage}MB / ${metrics.memory.peak}MB peak</p>
+                    <p><strong>Avg Render Time:</strong> ${avgRender}ms</p>
+                `;
+            },
+            
+            toggleDashboard() {
+                dashboard.toggle();
+                this.log('Dashboard visibility toggled', 'info');
+            },
+            
+            clearMetrics() {
+                dashboard.clearMetrics();
+                this.log('All metrics cleared', 'warning');
+                document.getElementById('test-components').innerHTML = '';
+                this.componentCounter = 0;
+                this.updatePerformanceInfo();
+            },
+            
+            runBenchmark() {
+                this.log('Starting benchmark test...', 'info');
+                dashboard.runBenchmark({
+                    componentCount: 20,
+                    renderCount: 50,
+                    eventCount: 100
+                });
+                this.log('Benchmark completed!', 'success');
+                this.updatePerformanceInfo();
+            },
+            
+            exportMetrics() {
+                dashboard.exportMetrics();
+                this.log('Metrics exported to file', 'success');
+            },
+            
+            createComponent() {
+                const id = `test-component-${++this.componentCounter}`;
+                const types = ['input', 'button', 'modal', 'dropdown', 'form'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                
+                dashboard.trackComponent(id, {
+                    type,
+                    created: Date.now(),
+                    props: { name: `Test ${this.componentCounter}` }
+                });
+                
+                this.addVisualComponent(id, type);
+                this.log(`Created component: ${id} (${type})`, 'success');
+                this.updatePerformanceInfo();
+            },
+            
+            addVisualComponent(id, type) {
+                const container = document.getElementById('test-components');
+                const component = document.createElement('div');
+                component.className = 'test-component';
+                component.id = id;
+                component.innerHTML = `
+                    <h3>${id}</h3>
+                    <p>Type: ${type}</p>
+                    <p>Renders: <span class="render-count">0</span></p>
+                    <p>Events: <span class="event-count">0</span></p>
+                    <div class="status status-active">Active</div>
+                `;
+                
+                // Add click handler to generate events
+                component.addEventListener('click', () => {
+                    this.simulateComponentEvent(id);
+                });
+                
+                container.appendChild(component);
+            },
+            
+            simulateRenders() {
+                const components = Array.from(dashboard.metrics.components.keys());
+                if (components.length === 0) {
+                    this.log('No components to render. Create some first!', 'warning');
+                    return;
+                }
+                
+                const count = 3 + Math.floor(Math.random() * 5);
+                for (let i = 0; i < count; i++) {
+                    const componentId = components[Math.floor(Math.random() * components.length)];
+                    const renderTime = 5 + Math.random() * 20; // 5-25ms
+                    
+                    dashboard.trackRender(componentId, renderTime);
+                    this.updateComponentDisplay(componentId);
+                }
+                
+                this.log(`Simulated ${count} renders`, 'info');
+                this.updatePerformanceInfo();
+            },
+            
+            simulateEvents() {
+                const components = Array.from(dashboard.metrics.components.keys());
+                if (components.length === 0) {
+                    this.log('No components for events. Create some first!', 'warning');
+                    return;
+                }
+                
+                const events = ['click', 'change', 'focus', 'blur', 'input'];
+                const count = 2 + Math.floor(Math.random() * 4);
+                
+                for (let i = 0; i < count; i++) {
+                    const componentId = components[Math.floor(Math.random() * components.length)];
+                    const eventType = events[Math.floor(Math.random() * events.length)];
+                    
+                    dashboard.trackEvent(componentId, eventType, {
+                        target: 'simulated',
+                        timestamp: Date.now()
+                    });
+                    this.updateComponentDisplay(componentId);
+                }
+                
+                this.log(`Simulated ${count} events`, 'info');
+                this.updatePerformanceInfo();
+            },
+            
+            simulateComponentEvent(componentId) {
+                dashboard.trackEvent(componentId, 'click', {
+                    target: 'visual-component',
+                    timestamp: Date.now()
+                });
+                this.updateComponentDisplay(componentId);
+                this.updatePerformanceInfo();
+                this.log(`Event triggered on ${componentId}`, 'info');
+            },
+            
+            updateComponentDisplay(componentId) {
+                const element = document.getElementById(componentId);
+                if (!element) return;
+                
+                const component = dashboard.metrics.components.get(componentId);
+                if (!component) return;
+                
+                const renderCount = element.querySelector('.render-count');
+                const eventCount = element.querySelector('.event-count');
+                
+                if (renderCount) renderCount.textContent = component.renders;
+                if (eventCount) eventCount.textContent = component.events;
+            },
+            
+            stressTest() {
+                this.log('Starting stress test...', 'warning');
+                
+                // Create multiple components
+                for (let i = 0; i < 10; i++) {
+                    this.createComponent();
+                }
+                
+                // Simulate activity
+                let iterations = 0;
+                const interval = setInterval(() => {
+                    this.simulateRenders();
+                    this.simulateEvents();
+                    iterations++;
+                    
+                    if (iterations >= 20) {
+                        clearInterval(interval);
+                        this.log('Stress test completed!', 'success');
+                    }
+                }, 100);
+            }
+        };
+        
+        // Make testDashboard globally available
+        window.testDashboard = testDashboard;
+        window.dashboard = dashboard;
+        
+        // Update performance info regularly
+        setInterval(() => {
+            testDashboard.updatePerformanceInfo();
+        }, 1000);
+        
+        // Initial update
+        testDashboard.updatePerformanceInfo();
+        testDashboard.log('Dashboard ready! Click buttons to test functionality.', 'success');
+        testDashboard.log('Using fallback dashboard implementation for now', 'info');
+    </script>
+</body>
+</html>

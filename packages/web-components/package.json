@@ -25,6 +25,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "dashboard": "python -m http.server 8080",
+    "dashboard:open": "python -m http.server 8080 && start http://localhost:8080/dashboard-test.html",
     "lint": "echo \"Linting temporarily disabled - please setup ESLint 9+ flat config\"",
     "lint:fix": "echo \"Linting temporarily disabled - please setup ESLint 9+ flat config\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\"",
