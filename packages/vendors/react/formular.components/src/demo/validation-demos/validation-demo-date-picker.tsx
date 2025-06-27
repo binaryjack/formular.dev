@@ -17,7 +17,7 @@ import {
     SConfigurationManager,
     SFormularManager
 } from 'formular.dev.lib'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BooleanConstraint } from './components/boolean-constraint'
 import { DateConstraint } from './components/date-constraint'
 import { FormsContentFrame } from './components/form-content-frame'
@@ -85,7 +85,8 @@ const ValidationDemoDatePicker = () => {
     ]) as IFormular<ISubmitObject>
 
     const { instance } = useField(formular.fields[0])
-    const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
+
+    const [internalForm] = useState<IFormular<ISubmitObject> | null>(formular)
 
     const {
         submissionObject,
@@ -106,10 +107,7 @@ const ValidationDemoDatePicker = () => {
         'validateOnFormFirstSubmit'
     )
 
-    useEffect(() => {
-        formular.setTriggerKeyWord(triggerKeyWord)
-        setInternalForm(formular)
-    }, [])
+    formular.setTriggerKeyWord(triggerKeyWord)
 
     const handleSubmit = (data: any) => {
         setSubmissionObject({} as ISubmitObject)

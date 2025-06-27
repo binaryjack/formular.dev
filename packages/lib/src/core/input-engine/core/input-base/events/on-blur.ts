@@ -6,12 +6,6 @@ export const onBlur = (f: IExtendedInput, e: Event) => {
     f.input.isFocus = false
     f.input.styleManager?.update('focus', f.input.isFocus)
 
-    // f?.input.notificationManager?.debounceNotify(
-    //     'onBlur',
-    //     conventions.events.onBlur.triggerDelay,
-    //     newEvent(f.input.name, onBlur.name, 'onBlur', `field.${onBlur.name}`, f.input.name, f)
-    // )
-
     f.input.cursorPosition = null
 
     e.stopPropagation()

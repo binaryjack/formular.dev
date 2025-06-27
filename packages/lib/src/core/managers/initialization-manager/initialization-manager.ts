@@ -1,4 +1,4 @@
-import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@setup/providers/interfaces/i-input-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 // import type { IInitializationDelegate } from './delegates/initialization-delegate'
 // Import all prototype functions
@@ -22,4 +22,3 @@ Object.assign(InitializationManager.prototype, {
     addInitializer,
     executeSequences
 })
-

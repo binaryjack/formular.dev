@@ -33,6 +33,7 @@ interface IButtonProps {
     icon?: React.ReactNode
     disabled?: boolean
     isToggle?: boolean
+    isPressed?: boolean // Add this to properly handle toggle state
     tabindex?: number
 }
 export const Button = ({
@@ -45,6 +46,7 @@ export const Button = ({
     icon,
     disabled,
     isToggle,
+    isPressed = false, // Add default value
     tabindex = -1
 }: IButtonProps) => {
     const {
@@ -79,13 +81,27 @@ export const Button = ({
     } = useRippleEffect(onClickCallback, (disabled ?? false) || loading)
 
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        // e.stopPropagation()
-        // e.preventDefault()
+        e.stopPropagation()
+        // Prevent default only if necessary to avoid interference with click events
     }
 
     const handleOnMouseUp = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        // e.stopPropagation()
-        // e.preventDefault()
+        e.stopPropagation()
+        // Prevent default only if necessary to avoid interference with click events
+    }
+
+    // Enhanced click handler to ensure proper event handling
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        // Ensure click is only processed on the button element itself
+        if (e.currentTarget !== e.target && !e.currentTarget.contains(e.target as Node)) {
+            return
+        }
+
+        // Stop propagation to prevent event bubbling issues
+        e.stopPropagation()
+
+        // Call the ripple effect handler
+        onClick(e)
     }
 
     return (
@@ -97,14 +113,14 @@ export const Button = ({
             ref={buttonRef}
             disabled={disabled || loading}
             aria-busy={disabled || loading ? 'true' : 'false'}
-            aria-pressed={isToggle ? 'true' : 'false'}
+            aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
             className={`btn-wrapper ${btnBaseClasses} ${className} ${sizes.px} ${sizes.my}`}
             style={{
                 width: width ?? 'unset',
                 maxWidth: sizes.width ?? 'unset',
                 height: height ?? sizes.height
             }}
-            onClick={onClick}
+            onClick={handleClick}
             onMouseDown={handleOnMouseDown}
             onMouseUp={handleOnMouseUp}
         >
@@ -120,23 +136,30 @@ export const Button = ({
                             lg:justify-center
                             xl:justify-center
                             2xl:justify-center`}
+                style={{ pointerEvents: 'none' }} // Prevent this div from interfering with click events
             >
-                <div className={`flex flex-row  items-center justify-center overflow-hidden`}>
+                <div
+                    className={`flex flex-row  items-center justify-center overflow-hidden`}
+                    style={{ pointerEvents: 'none' }} // Prevent this div from interfering with click events
+                >
                     {loading ? (
                         <div className={`flex loading  mr-1`}>
                             <Spinner {...getSpinnerVariant?.(size, variant)} />
                         </div>
                     ) : icon ? (
-                        <div className={`icon mx-[100px]`}>{icon}</div>
+                        <div className={`icon mx-[100px]`} style={{ pointerEvents: 'none' }}>
+                            {icon}
+                        </div>
                     ) : (
                         <></>
                     )}
                     <span
                         className={`relative flex ripple ${variant} ${classRef}`}
-                        style={{ ...rippleStyle }}
+                        style={{ ...rippleStyle, pointerEvents: 'none' }}
                     />
                     <span
                         className={`flex content ${sizeConverter?.(size)} text-nowrap ${weight} `}
+                        style={{ pointerEvents: 'none' }}
                     >
                         {children}
                     </span>

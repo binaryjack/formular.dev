@@ -14,9 +14,3 @@ export * from './services'
 
 // Providers
 export * from './providers'
-
-// Migration utilities (temporary)
-export * from './migration'
-
-// Deprecated items (to be removed in future version)
-export * from './deprecated'

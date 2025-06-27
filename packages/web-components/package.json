@@ -1,0 +1,69 @@
+{
+  "name": "webcomponents.formular.dev",
+  "version": "1.0.0",
+  "description": "Web Components library built with formular.dev.lib for form management and design-system for styling",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "custom-elements.json"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./custom-elements": "./custom-elements.json"
+  },
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build && tsc --emitDeclarationOnly",
+    "build:analyze": "vite build --mode analyze",
+    "preview": "vite preview",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "echo \"Linting temporarily disabled - please setup ESLint 9+ flat config\"",
+    "lint:fix": "echo \"Linting temporarily disabled - please setup ESLint 9+ flat config\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\"",
+    "analyze-elements": "wca analyze \"src/**/*.tsx\" --outFile custom-elements.json"
+  },
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "formular",
+    "typescript",
+    "vite",
+    "design-system"
+  ],
+  "author": "Piana Tadeo",
+  "license": "MIT",
+  "dependencies": {
+    "formular.dev.lib": "workspace:*",
+    "formular.design.system": "workspace:*",
+    "lit": "^3.1.0",
+    "lit-html": "^3.1.0"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.9.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^24.0.1",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-lit": "^1.11.0",
+    "jest": "^30.0.0",
+    "jest-environment-jsdom": "^30.0.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.6.3",
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4",
+    "web-component-analyzer": "^2.0.0"
+  },
+  "customElements": "custom-elements.json"
+}

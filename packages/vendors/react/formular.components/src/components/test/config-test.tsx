@@ -11,14 +11,6 @@ export const ConfigTest: React.FC = () => {
     // Test retrieving the culture object
     const culture = getConfiguration<ICulture | undefined>('cultures', 'defaultCulture')
 
-    // Test retrieving a simple string
-    const separator = getConfiguration<string | undefined>(
-        'conventions',
-        'dataTypes',
-        'date',
-        'separator'
-    )
-
     // Test retrieving the entire cultures object
     const cultures = getConfiguration<any>('cultures')
 
@@ -40,12 +32,12 @@ export const ConfigTest: React.FC = () => {
             </div>
 
             <div style={{ marginBottom: '20px' }}>
-                <h3>Date Separator (conventions.dataTypes.date.separator):</h3>
+                <h3>Date Separator (culture?.separator):</h3>
                 <pre style={{ background: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
-                    {separator ?? 'undefined'}
+                    {culture?.separator ?? 'undefined'}
                 </pre>
                 <p>
-                    <strong>Type:</strong> {typeof separator}
+                    <strong>Type:</strong> {typeof culture?.separator}
                 </p>
             </div>
 
@@ -62,7 +54,7 @@ export const ConfigTest: React.FC = () => {
                     <li>✅ Culture has name: {culture?.name ?? 'MISSING'}</li>
                     <li>✅ Culture has dateFormat: {culture?.dateFormat ?? 'MISSING'}</li>
                     <li>✅ Culture has currencySymbol: {culture?.currencySymbol ?? 'MISSING'}</li>
-                    <li>✅ Separator value: {separator ?? 'MISSING'}</li>
+                    <li>✅ Separator value: {culture?.separator ?? 'MISSING'}</li>
                 </ul>
             </div>
         </div>

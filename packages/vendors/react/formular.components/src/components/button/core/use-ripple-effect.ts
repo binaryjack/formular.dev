@@ -18,13 +18,23 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
         const btn = mainRef?.current as unknown as HTMLButtonElement
         if (!btn) return
 
-        const btnClientWidth = btn.getBoundingClientRect().width
-        const btnClientHeight = btn.getBoundingClientRect().height
+        // Ensure the click is within the button boundaries
+        const rect = btn.getBoundingClientRect()
+        const isWithinBounds =
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+
+        if (!isWithinBounds) return
+
+        const btnClientWidth = rect.width
+        const btnClientHeight = rect.height
 
         const diameter = Math.max(btnClientWidth, btnClientHeight)
 
-        const btnOffsetTop = btn.getBoundingClientRect().top
-        const btnOffsetLeft = btn.getBoundingClientRect().left
+        const btnOffsetTop = rect.top
+        const btnOffsetLeft = rect.left
 
         const radius = diameter / 2
         /** determine initial diameter */
@@ -45,7 +55,13 @@ const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEven
 
         setClassRef('animate')
 
-        onClickCallback(e)
+        // Call the callback after setting up the ripple effect
+        try {
+            onClickCallback(e)
+        } catch (error) {
+            console.error('Error in button click callback:', error)
+        }
+
         const to = setTimeout(() => {
             setClassRef('')
             clearTimeout(to)

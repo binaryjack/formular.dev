@@ -238,12 +238,6 @@ export type { IIfClass } from './core/framework/utility/interfaces/i-if-class'
 export type { IObservableSubject } from './core/observers/observable-subject/observable-subject.types'
 
 // =============================================
-// PROJECT INTERFACES
-// =============================================
-
-export type { IAppLifeCycleInstance } from './setup/deprecated/i-app-lifecycle-instances'
-
-// =============================================
 // INTERFACE DOCUMENTATION
 // =============================================
 

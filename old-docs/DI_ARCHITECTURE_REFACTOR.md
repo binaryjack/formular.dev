@@ -106,12 +106,12 @@ const serviceManager = useMemo(() => {
 
 ```typescript
 import { IServiceManager, ServiceManager } from '../service-manager'
-import { setupManagers } from '@project/setup/setup-managers'
+import { setupManagers } from '@setup/setup/setup-managers'
 import { setupFormularManager } from '@core/managers/formular-manager/service/setup-formular-manager'
-import { setupBaseInputClasses } from '@project/setup/setup-base-input-classes'
+import { setupBaseInputClasses } from '@setup/setup/setup-base-input-classes'
 import { setupInputsRegistry } from '@core/factories/setup/setup-input-registry'
 import { setupInputsFactory } from '@core/factories/setup/setup-input-factory'
-import { setupBaseFieldsConfiguration } from '@project/setup/setup-base-input-configurations'
+import { setupBaseFieldsConfiguration } from '@setup/setup/setup-base-input-configurations'
 
 export interface IServiceManagerSetupOptions {
     /** Include core managers (Configuration, Validation, etc.) */

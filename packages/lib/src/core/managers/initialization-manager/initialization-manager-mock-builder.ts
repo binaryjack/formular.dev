@@ -1,4 +1,4 @@
-import type { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
+import type { IInputConfiguration } from '@setup/providers/interfaces/i-input-configuration'
 import type { IInitializationManager } from './initialization-manager.types'
 
 /**
@@ -22,4 +22,3 @@ export function createInitializationManagerMock(
     }
     return mock
 }
-

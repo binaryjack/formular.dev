@@ -7,7 +7,7 @@ import {
 import {
     IValidationTriggerService,
     ValidationTriggerService
-} from '@project/services/validation-trigger-service'
+} from '@setup/services/validation-trigger-service'
 
 describe('ValidationTriggerService', () => {
     let mockServiceManager: jest.Mocked<IServiceManager>

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useState } from 'react'
 
 import InputText from '@components/input-text/input-text'
 
@@ -16,9 +16,22 @@ import Select from '@components/select-input/select-input'
 import SwitchButtonInput from '@components/switch-button/switch-button-input'
 import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
 
-import { DateFormatsEnum, DateObject, IFieldDescriptor, INDate } from 'formular.dev.lib'
-import { demoFormInstance } from './form-demo.instance'
-import { FormOutputFieldsNames } from './form-demo.schema'
+import { useService } from '@adapters/react'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+import { useDemoSettings } from '@demo/validation-demos/hooks/useDemoSettings'
+import { ISubmitObject } from '@demo/validation-demos/validation-demo-text-input'
+import {
+    DateFormatsEnum,
+    DateObject,
+    IConfigurationManager,
+    IFieldDescriptor,
+    IFormular,
+    IFormularManager,
+    INDate,
+    SConfigurationManager,
+    SFormularManager
+} from 'formular.dev.lib'
+import { FormOutputFieldsNames, controlsDemoSchema } from './form-demo.schema'
 
 // build a schema for the fields to be used
 // const item = controlDemoSchema
@@ -38,6 +51,33 @@ interface IFieldDemoProps {
 }
 
 const FormDemo = () => {
+    const { getService } = useService()
+
+    const formularManager = getService<IFormularManager>(SFormularManager)
+    const configurationManager = getService<IConfigurationManager>(SConfigurationManager)
+
+    const formular = formularManager?.createFromSchema(
+        controlsDemoSchema
+    ) as IFormular<ISubmitObject>
+
+    const { instance } = useField(formular.fields[0])
+
+    const [internalForm] = useState<IFormular<ISubmitObject> | null>(formular)
+
+    const { triggerKeyWord } = useDemoSettings<ISubmitObject>(
+        instance,
+        internalForm,
+        {},
+        'onFocus',
+        'onBlur',
+        'onChange',
+        'onSubmit',
+        'onClear',
+        'validateOnFormFirstSubmit'
+    )
+
+    formular.setTriggerKeyWord(triggerKeyWord)
+
     const handleSubmit = (data: any) => {
         console.log(data)
     }
@@ -55,16 +95,8 @@ const FormDemo = () => {
         )
     }
 
-    const fieldSelect = useMemo(() => {
-        return demoFormInstance?.fields.find((o: any) => o.name === 'selectOptionsId')
-    }, [demoFormInstance])
-
-    if (!demoFormInstance) {
-        return <>Unable to locate demoFormInstance!</>
-    }
-
     return (
-        <FormularForm formular={demoFormInstance} onSubmit={handleSubmit}>
+        <FormularForm formular={formular} onSubmit={handleSubmit}>
             {/* <DatePickerContentDrawer
                 onSelectDate={onSelectDate}
                 id={'DatePickerDrawerDemoStatic'}

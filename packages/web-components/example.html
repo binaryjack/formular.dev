@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components Example - webcomponents.formular.dev</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .example {
+            margin: 2rem 0;
+        }
+        
+        h1, h2 {
+            color: #374151;
+        }
+        
+        .code-block {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>webcomponents.formular.dev Examples</h1>
+    
+    <p>This page demonstrates the web components provided by the webcomponents.formular.dev library.</p>
+    
+    <div class="container">
+        <h2>Form Input Examples</h2>
+        
+        <div class="example">
+            <h3>Basic Text Input</h3>
+            <formular-input 
+                label="Full Name" 
+                placeholder="Enter your full name"
+                type="text">
+            </formular-input>
+        </div>
+        
+        <div class="example">
+            <h3>Email Input with Validation</h3>
+            <formular-input 
+                label="Email Address" 
+                placeholder="Enter your email"
+                type="email"
+                required>
+            </formular-input>
+        </div>
+        
+        <div class="example">
+            <h3>Password Input</h3>
+            <formular-input 
+                label="Password" 
+                placeholder="Enter a secure password"
+                type="password"
+                required>
+            </formular-input>
+        </div>
+        
+        <div class="example">
+            <h3>Disabled Input</h3>
+            <formular-input 
+                label="Read Only Field" 
+                value="This field is disabled"
+                disabled>
+            </formular-input>
+        </div>
+        
+        <div class="example">
+            <h3>Input with Error</h3>
+            <formular-input 
+                label="Username" 
+                placeholder="Choose a username"
+                value="usr"
+                error="Username must be at least 4 characters">
+            </formular-input>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>JavaScript Integration</h2>
+        <div class="code-block">
+// Listen for input changes
+document.addEventListener('formular-input', (event) => {
+    console.log('Input changed:', event.detail);
+});
+
+// Programmatically create and configure components
+const input = document.createElement('formular-input');
+input.label = 'Dynamic Input';
+input.placeholder = 'Created with JavaScript';
+document.body.appendChild(input);
+        </div>
+        
+        <button onclick="addDynamicInput()">Add Dynamic Input</button>
+        <div id="dynamic-container"></div>
+    </div>
+    
+    <!-- Load the web components library -->
+    <!-- Note: In development, you would load from the built dist/ folder -->
+    <script type="module">
+        // This would normally be: import 'webcomponents.formular.dev';
+        console.log('Web components would be imported here');
+        
+        // Mock the components for this example
+        class MockFormularInput extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+                this.render();
+            }
+            
+            static get observedAttributes() {
+                return ['label', 'placeholder', 'type', 'value', 'error', 'disabled', 'required'];
+            }
+            
+            attributeChangedCallback() {
+                this.render();
+            }
+            
+            render() {
+                const label = this.getAttribute('label') || '';
+                const placeholder = this.getAttribute('placeholder') || '';
+                const type = this.getAttribute('type') || 'text';
+                const value = this.getAttribute('value') || '';
+                const error = this.getAttribute('error') || '';
+                const disabled = this.hasAttribute('disabled');
+                const required = this.hasAttribute('required');
+                
+                this.shadowRoot.innerHTML = `
+                    <style>
+                        :host {
+                            display: block;
+                            margin-bottom: 1rem;
+                        }
+                        .container { margin-bottom: 1rem; }
+                        label { 
+                            display: block; 
+                            margin-bottom: 0.5rem; 
+                            font-weight: 500; 
+                            color: #374151; 
+                        }
+                        .required::after { content: ' *'; color: #ef4444; }
+                        input { 
+                            width: 100%; 
+                            padding: 0.75rem; 
+                            border: 2px solid #d1d5db; 
+                            border-radius: 0.5rem; 
+                            font-size: 1rem;
+                            box-sizing: border-box;
+                        }
+                        input:focus { 
+                            outline: none; 
+                            border-color: #3b82f6; 
+                            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+                        }
+                        input:disabled { 
+                            background-color: #f9fafb; 
+                            cursor: not-allowed; 
+                            opacity: 0.6; 
+                        }
+                        .error { border-color: #ef4444; }
+                        .error-message { 
+                            margin-top: 0.25rem; 
+                            font-size: 0.875rem; 
+                            color: #ef4444; 
+                        }
+                    </style>
+                    <div class="container">
+                        ${label ? `<label class="${required ? 'required' : ''}">${label}</label>` : ''}
+                        <input 
+                            type="${type}" 
+                            placeholder="${placeholder}" 
+                            value="${value}"
+                            class="${error ? 'error' : ''}"
+                            ${disabled ? 'disabled' : ''}
+                            ${required ? 'required' : ''}
+                        />
+                        ${error ? `<div class="error-message">${error}</div>` : ''}
+                    </div>
+                `;
+                
+                const input = this.shadowRoot.querySelector('input');
+                input.addEventListener('input', (e) => {
+                    this.dispatchEvent(new CustomEvent('formular-input', {
+                        detail: { value: e.target.value, name: this.getAttribute('name') },
+                        bubbles: true,
+                        composed: true
+                    }));
+                });
+            }
+        }
+        
+        customElements.define('formular-input', MockFormularInput);
+        
+        // Add event listener
+        document.addEventListener('formular-input', (event) => {
+            console.log('Input changed:', event.detail);
+        });
+        
+        // Global function for the button
+        window.addDynamicInput = function() {
+            const container = document.getElementById('dynamic-container');
+            const input = document.createElement('formular-input');
+            input.setAttribute('label', 'Dynamic Input ' + (container.children.length + 1));
+            input.setAttribute('placeholder', 'Created with JavaScript');
+            container.appendChild(input);
+        };
+    </script>
+</body>
+</html>

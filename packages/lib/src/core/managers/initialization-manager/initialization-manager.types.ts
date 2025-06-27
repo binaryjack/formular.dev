@@ -1,5 +1,5 @@
 // Export all types and interfaces from initialization-manager
-import type { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
+import type { IInputConfiguration } from '@setup/providers/interfaces/i-input-configuration'
 import type { IInitializationDelegate } from './delegates/initialization-delegate'
 export interface IInitializationManager {
     new (params: IInputConfiguration): IInitializationManager
@@ -16,4 +16,3 @@ export interface IInitializableDependency {
     /** initializes the dependency */
     initialize: (params: IInputConfiguration) => void
 }
-

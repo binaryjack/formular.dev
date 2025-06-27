@@ -38,7 +38,7 @@ export const CustomConfigurationExample = () => {
         includeInputEngine: false, // Skip input engine for this app
         includeBaseConfigurations: false,
         customSetup: [
-            (sm) => {
+            (_sm) => {
                 // Register custom services here
                 // sm.registerClass(SMyCustomService, MyCustomService)
             }
@@ -109,7 +109,7 @@ export const TestingExample = () => {
     beforeEach(() => {
         serviceManager = SetupHelpers.forTesting({
             customSetup: [
-                (sm) => {
+                (_sm) => {
                     // Register mock services
                     // sm.registerInstance(SMockService, mockServiceInstance)
                 }

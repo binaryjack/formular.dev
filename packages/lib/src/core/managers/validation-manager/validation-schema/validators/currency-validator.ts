@@ -1,6 +1,6 @@
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 // TODO: Update to use new configuration manager
-// import { getValidationPresets } from '@project/validation/validation-config-presets'
+// import { getValidationPresets } from '@setup/validation/validation-config-presets'
 import {
     IValidationConstraintBuilder,
     ValidationConstraintBuilder

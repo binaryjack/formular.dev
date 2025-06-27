@@ -16,11 +16,11 @@ import { sequenceInitializer } from '@core/managers/initialization-manager/seque
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 
-import { baseDependencyList } from '@project/providers/configuration/base-dependency/dependency.list.settings'
+import { baseDependencyList } from '@setup/providers/configuration/base-dependency/dependency.list.settings'
 import {
     IInputConfigProvider,
     SInputConfigProvider
-} from '@project/providers/configuration/input-configuration/input-config-provider'
+} from '@setup/providers/configuration/input-configuration/input-config-provider'
 import { IBaseInputService, SBaseInputService } from './base-input-service'
 
 export const SRadioInputService = Symbol.for('IRadioInputService')
@@ -79,4 +79,3 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
     }
     // Register the base input service with the service manager
 } as any as IRadioInputService
-

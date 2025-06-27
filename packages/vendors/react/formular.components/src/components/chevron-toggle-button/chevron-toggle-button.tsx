@@ -25,7 +25,7 @@ export const ChevronToggleButton = ({
     const basicConfig = getConfiguration<Partial<IButtonVariant> | undefined>(
         'rendering',
         'commands',
-        'basic'
+        'primary'
     )
 
     return (

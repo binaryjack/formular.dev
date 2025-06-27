@@ -3,7 +3,7 @@ import { IServiceManager } from '@core/managers/service-manager/service-manager.
 import {
     FieldDescriptorService,
     IFieldDescriptorService
-} from '@project/services/field-descriptor-service'
+} from '@setup/services/field-descriptor-service'
 
 // Mock the ServiceManager
 const mockServiceManager = {} as IServiceManager
@@ -40,7 +40,7 @@ const createMockDescriptor = (id: number, name: string): IFieldDescriptor =>
         events: {},
         style: {},
         attributes: {}
-    }) as IFieldDescriptor
+    } as IFieldDescriptor)
 
 describe('FieldDescriptorService', () => {
     let service: IFieldDescriptorService

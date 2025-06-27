@@ -7,6 +7,7 @@ export const useStyleManager = function (
     styleManager: IStyleManager
 ): IInputBase {
     try {
+        if (!styleManager) return this
         this.styleManager = styleManager
         this.styleManager.input = this
         return this

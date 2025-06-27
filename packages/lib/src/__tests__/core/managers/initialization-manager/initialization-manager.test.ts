@@ -1,5 +1,5 @@
 import { InitializationManager } from '@core/managers/initialization-manager/initialization-manager'
-import { IInputConfiguration } from '@project/providers/interfaces/i-input-configuration'
+import { IInputConfiguration } from '@setup/providers/interfaces/i-input-configuration'
 
 describe('InitializationManager', () => {
     const config: IInputConfiguration = {} as IInputConfiguration
@@ -26,4 +26,3 @@ describe('InitializationManager', () => {
         expect(calls).toEqual(['first', 'second'])
     })
 })
-
