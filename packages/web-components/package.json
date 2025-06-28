@@ -1,7 +1,7 @@
 {
   "name": "webcomponents.formular.dev",
   "version": "1.0.0",
-  "description": "Web Components library built with formular.dev.lib for form management and design-system for styling",
+  "description": "Web Components library built with formular.dev.lib for form management and design-system for styling using vanilla Custom Elements",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,7 @@
     "lint:fix": "echo \"Linting temporarily disabled - please setup ESLint 9+ flat config\"",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,scss,json,md}\"",
-    "analyze-elements": "wca analyze \"src/**/*.tsx\" --outFile custom-elements.json"
+    "analyze-elements": "wca analyze \"src/**/*.ts\" --outFile custom-elements.json"
   },
   "keywords": [
     "web-components",
@@ -45,9 +45,7 @@
   "license": "MIT",
   "dependencies": {
     "formular.dev.lib": "workspace:*",
-    "formular.design.system": "workspace:*",
-    "lit": "^3.1.0",
-    "lit-html": "^3.1.0"
+    "formular.design.system": "workspace:*"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.9.0",
@@ -57,7 +55,6 @@
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-lit": "^1.11.0",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "prettier": "^3.2.5",

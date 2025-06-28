@@ -37,6 +37,11 @@ export interface IDomManagerBase<T extends HTMLElement>
     dmAriaSet: (id: string, name: string) => void
     dmAddArias: (id: string, arias: IAria[]) => void
     dmUpdateAria: <T extends HTMLElement>(id: string, aria: IAria) => void
+
+    // Extension methods for modular functionality
+    extend: (extensionName: string, extension: Record<string, any>) => void
+    hasExtension: (extensionName: string) => boolean
+    extensions?: Map<string, Record<string, any>>
 }
 export const DomUtils = {
     getElementById: (id: string): HTMLElement | null => document.getElementById(id),

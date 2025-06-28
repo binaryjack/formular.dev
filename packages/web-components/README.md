@@ -1,16 +1,18 @@
 # webcomponents.formular.dev
 
-A modern web components library built with TypeScript, Lit, and Vite. This package provides form-focused web components that integrate seamlessly with `formular.dev.lib` for form management and `formular.design.system` for consistent styling with Tailwind CSS.
+A modern web components library built with TypeScript and Vite using vanilla Custom Elements. This package provides form-focused web components that integrate seamlessly with `formular.dev.lib` for form management and `formular.design.system` for consistent styling with Tailwind CSS.
 
 ## Features
 
-- 🚀 **Modern Web Components**: Built with Lit for performance and standards compliance
+- 🚀 **Vanilla Web Components**: Built with pure Custom Elements API for maximum compatibility and performance
 - 📝 **Form Integration**: Seamless integration with formular.dev.lib for form management
 - 🎨 **Design System**: Consistent styling with formular.design.system and Tailwind CSS
 - 💪 **TypeScript**: Full TypeScript support with strict type checking
 - 🔧 **Vite**: Fast development and optimized builds
 - ✅ **Testing**: Comprehensive test setup with Jest
 - 📏 **Code Quality**: ESLint and Prettier configuration
+- 🎯 **Prototype-Based**: Following formular.dev coding standards with prototype-based class patterns
+- 🧩 **FwcElement Base**: Built on FwcElement (Formular Web Components Element) for consistent architecture
 
 ## Installation
 
@@ -49,7 +51,7 @@ pnpm --filter webcomponents.formular.dev dev
 ### TypeScript Integration
 
 ```typescript
-import { FormInputElement } from 'webcomponents.formular.dev';
+import { FormInputElement, FwcElement } from 'webcomponents.formular.dev';
 
 // Type-safe component usage
 const inputElement = document.createElement('formular-input') as FormInputElement;
@@ -58,6 +60,14 @@ inputElement.placeholder = 'Enter username';
 inputElement.required = true;
 
 document.body.appendChild(inputElement);
+
+// Creating custom components extending FwcElement
+export const MyCustomElement = function(this: HTMLElement) {
+  FwcElement.call(this);
+}
+
+MyCustomElement.prototype = Object.create(FwcElement.prototype);
+MyCustomElement.prototype.constructor = MyCustomElement;
 ```
 
 ### Event Handling
@@ -99,6 +109,11 @@ src/
 ├── components/          # Web components
 │   ├── form-input/     # Form input component
 │   └── index.ts        # Component exports
+├── core/               # Core functionality
+│   └── base/           # FwcElement base class
+│       ├── formular-element.ts  # FwcElement constructor
+│       ├── interfaces/ # Interface definitions
+│       └── prototype/  # Prototype methods
 ├── types/              # Type definitions
 ├── interfaces/         # Interface definitions
 ├── enums/              # Enum definitions
@@ -106,6 +121,56 @@ src/
 ├── __tests__/          # Test files
 ├── index.ts            # Main entry point
 └── types.ts            # Type exports
+```
+
+### FwcElement (Formular Web Components Element)
+
+All components in this library extend from `FwcElement`, which provides:
+
+- **Manager Integration**: Automatic DOM and Notification manager setup (StyleManager optional for basic components)
+- **Lifecycle Management**: Proper custom element lifecycle handling
+- **Shadow DOM Support**: Built-in shadow DOM capabilities
+- **Attribute Reactivity**: Automatic attribute change handling
+- **Prototype-Based**: Following CONTRIBUTING.md guidelines
+
+#### Creating Components with FwcElement
+
+```typescript
+import { FwcElement, type IFormularElementInstance } from './core/base';
+
+// Define custom component interface
+interface IMyComponentInstance extends IFormularElementInstance {
+  myProperty: string;
+  myMethod(): void;
+}
+
+// Create prototype-based constructor
+export const MyComponent = function(this: IMyComponentInstance) {
+  FwcElement.call(this);
+  this.myProperty = 'initial value';
+}
+
+// Set up prototype inheritance
+MyComponent.prototype = Object.create(FwcElement.prototype);
+MyComponent.prototype.constructor = MyComponent;
+
+// Define observed attributes
+MyComponent.observedAttributes = ['my-property'];
+
+// Add custom methods
+Object.assign(MyComponent.prototype, {
+  connectedCallback: function(this: IMyComponentInstance) {
+    FwcElement.prototype.connectedCallback.call(this);
+    // Custom initialization
+  },
+  
+  myMethod: function(this: IMyComponentInstance) {
+    // Custom method implementation
+  }
+});
+
+// Register the custom element
+customElements.define('my-component', MyComponent as any);
 ```
 
 ### Development Commands
@@ -175,7 +240,6 @@ This project follows the guidelines defined in `CONTRIBUTING.md`:
 ### Runtime Dependencies
 - `formular.dev.lib`: Form management and validation
 - `formular.design.system`: Design tokens and styling
-- `lit`: Web component framework
 
 ### Development Dependencies
 - TypeScript

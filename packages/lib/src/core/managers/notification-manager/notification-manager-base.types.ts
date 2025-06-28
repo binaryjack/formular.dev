@@ -49,6 +49,11 @@ export interface INotificationManager extends IInitializableDependency {
     observers: IObservableSubject
     autoTracker?: INotificationManager
 
+    // Extension methods for modular functionality
+    extend: (extensionName: string, extension: Record<string, any>) => void
+    hasExtension: (extensionName: string) => boolean
+    extensions?: Map<string, Record<string, any>>
+
     // Batching properties
     batchQueue: Array<{ type: EventsType; data?: IEvents; priority: number }>
     priorityQueues: Map<number, Array<{ type: EventsType; data?: IEvents; priority: number }>>

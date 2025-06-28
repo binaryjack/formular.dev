@@ -6,6 +6,7 @@ import { batchNotify } from './prototype/batch-notify'
 import { debounceNotify } from './prototype/debounce-notify'
 import { dismiss } from './prototype/dismiss'
 import { dispose } from './prototype/dispose'
+import { extend } from './prototype/extend'
 import {
     flushPendingNotifications,
     groupEventsByType,
@@ -15,6 +16,7 @@ import {
     processSimpleBatch
 } from './prototype/flush-pending-notifications'
 import { getRegisteredNotifierNames } from './prototype/get-registered-notifier-names'
+import { hasExtension } from './prototype/has-extension'
 import { initialize } from './prototype/initialize'
 import { notify } from './prototype/notify'
 import { processBatch, scheduleBatch } from './prototype/schedule-batch'
@@ -73,5 +75,7 @@ Object.assign(NotificationManager.prototype, {
     processSimpleBatch,
     processNotificationBatch,
     groupEventsByType,
-    processEventGroup
+    processEventGroup,
+    extend,
+    hasExtension
 })

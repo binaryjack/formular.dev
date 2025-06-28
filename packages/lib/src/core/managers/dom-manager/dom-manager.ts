@@ -34,6 +34,8 @@ import { dmSetFocus } from './prototype/dm-set-focus'
 import { dmSetSelected } from './prototype/dm-set-selected'
 import { dmSetValue } from './prototype/dm-set-value'
 import { dmUpdateAria } from './prototype/dm-update-aria'
+import { extend } from './prototype/extend'
+import { hasExtension } from './prototype/has-extension'
 import { initialize } from './prototype/initialize'
 
 /**
@@ -119,6 +121,8 @@ export const DomManager = function <T extends HTMLElement>(
  * - ./prototype/dm-add-arias: Adds ARIA attributes to elements.
  * - ./prototype/dm-aria-set: Sets a specific ARIA attribute.
  * - ./prototype/dm-update-aria: Updates ARIA attributes.
+ * - ./prototype/extend: Adds extension methods to DomManager.
+ * - ./prototype/has-extension: Checks for the existence of extension methods.
  */
 Object.assign(DomManager.prototype, {
     initialize,
@@ -135,5 +139,7 @@ Object.assign(DomManager.prototype, {
     dmSetSelected,
     dmAddArias,
     dmAriaSet,
-    dmUpdateAria
+    dmUpdateAria,
+    extend,
+    hasExtension
 })

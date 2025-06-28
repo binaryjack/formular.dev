@@ -1,7 +1,9 @@
 import { classNames } from './prototype/class-names'
+import { extend } from './prototype/extend'
 import { get } from './prototype/get'
 import { getFlagsList } from './prototype/get-flags-list'
 import { getFlagsObject } from './prototype/get-flags-object'
+import { hasExtension } from './prototype/has-extension'
 import { initialize } from './prototype/initialize'
 import { update } from './prototype/update'
 import { IStyleManager } from './style-manager.types'
@@ -30,5 +32,7 @@ Object.assign(StyleManager.prototype, {
     update,
     get,
     getFlagsList,
-    getFlagsObject
+    getFlagsObject,
+    extend,
+    hasExtension
 })

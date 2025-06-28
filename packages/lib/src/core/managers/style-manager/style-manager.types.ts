@@ -131,4 +131,9 @@ export interface IStyleManager extends IFieldStyleProperties, IExtendedInputBase
      * @returns Space-separated string of CSS class names based on current state
      */
     classNames: () => string
+
+    // Extension methods for modular functionality
+    extend?: (extensionName: string, extension: Record<string, any>) => void
+    hasExtension?: (extensionName: string) => boolean
+    extensions?: Map<string, Record<string, any>>
 }
