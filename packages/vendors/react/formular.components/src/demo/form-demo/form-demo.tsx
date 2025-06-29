@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import InputText from '@components/input-text/input-text'
 
-import CheckInput from '@components/check-Input/check-Input'
+import CheckInput from '@components/check-Input/check-input'
 
 import Password from '@components/password/password'
 import RadioInput from '@components/radio-input/radio-input'

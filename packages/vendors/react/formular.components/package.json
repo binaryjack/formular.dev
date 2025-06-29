@@ -63,7 +63,6 @@
         "vite-plugin-checker": "^0.8.0",
         "vite-plugin-dts": "^4.5.4",
         "vite-plugin-eslint": "^1.8.1",
-        "vite-plugin-static-copy": "^2.0.0",
-        "vite-plugin-svg": "^0.7.0"
+        "vite-plugin-static-copy": "^2.0.0"
     }
 }

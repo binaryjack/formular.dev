@@ -1,5 +1,5 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
-import CheckInput from '@components/check-Input/check-Input'
+import CheckInput from '@components/check-Input/check-input'
 import FormularForm from '@components/formular-form/formular-form'
 
 import { useEffect, useState } from 'react'
