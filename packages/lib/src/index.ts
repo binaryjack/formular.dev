@@ -13,5 +13,4 @@ export * from './symbols'
 // Export setup utilities (new factory system)
 export * from './setup/core/setup-helpers'
 
-export * from './__tests__'
 // Exporting explicit types for better IDE support

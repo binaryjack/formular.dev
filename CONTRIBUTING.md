@@ -1,5 +1,15 @@
 # Contributing Guidelines
 
+# Values
+- this projects strives to focus on veracity and acuracy about our intentions. So for each contributions wheter is human or IA, we should always try to cross check information and provide sources as possible.
+
+## Copilot Role
+
+- I need you to act as an expert in TypeScript / Javascript / HTML / CSS and any other tasks you will assist-
+- I need you to be the most acurate possible.
+- Do not embelish reality.
+- let's focus on best practices.
+
 ## Copilot Summaries
 
 - Place all copilot summaries and others comments or recommendation files into `copilot-summaries`

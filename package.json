@@ -19,11 +19,26 @@
     "test": "pnpm run --recursive test",
     "test:lib": "pnpm --filter formular.dev.lib test",
     "test:components": "pnpm --filter formular.components test",
-    "test:coverage": "pnpm run --recursive test:coverage"
+    "test:coverage": "pnpm run --recursive test:coverage",
+    "audit": "pnpm audit --recursive",
+    "audit:fix": "pnpm audit --fix --recursive",
+    "audit:prod": "pnpm audit --prod --recursive",
+    "deps:check": "pnpm outdated --recursive",
+    "deps:update": "pnpm update --recursive",
+    "security:check": "pnpm audit && pnpm outdated",
+    "security:full": "pnpm audit --recursive && pnpm outdated --recursive && pnpm run lint",
+    "security:report": "pnpm audit --json > security-audit.json && echo 'Security audit saved to security-audit.json'",
+    "lint": "pnpm run --recursive lint",
+    "format": "pnpm run --recursive format"
+  },
+  "pnpm": {
+    "overrides": {
+      "nth-check": ">=2.0.1"
+    }
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "pnpm": "^8.15.9",
+    "pnpm": "^10.0.0",
     "typescript": "^5.8.3"
   }
 }

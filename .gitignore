@@ -1,12 +1,27 @@
 # Node modules
 node_modules/
 
+# Package lock files (except root)
+packages/*/pnpm-lock.yaml
+packages/*/yarn.lock
+packages/*/package-lock.json
+packages/*/*/pnpm-lock.yaml
+packages/*/*/yarn.lock
+packages/*/*/package-lock.json
+
 # Logs
 logs/
 *.log
 
 # Build output
 dist/
+build/
+lib/
+
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
 
 # IDE files
 .vscode/
