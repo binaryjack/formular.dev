@@ -654,9 +654,10 @@
         <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
-                <div class="section-header fade-in">                    <h2 class="section-title">Powerful Form & Input Management</h2>
+                <div class="section-header fade-in">
+                    <h2 class="section-title">Production-Ready Form Architecture</h2>
                     <p class="section-subtitle">
-                        Everything you need for sophisticated, framework-agnostic form handling
+                        Advanced dependency injection, reactive programming, and framework-agnostic design
                     </p>
                 </div>
 
@@ -664,32 +665,35 @@
                         <div class="feature-icon">🎯</div>
                         <h3 class="feature-title">Framework-Agnostic Core</h3>
                         <p class="feature-description">
-                            Designed to work with any framework. Core form and input management is 
-                            framework-independent. React adapter available now, others coming in v2.0.
+                            Designed to work with any framework using dependency injection. Core form management 
+                            is framework-independent. React adapter complete, Web Components production-ready.
                         </p>
                     </div>
 
                     <div class="feature-card fade-in">
                         <div class="feature-icon">📋</div>
-                        <h3 class="feature-title">Advanced Form Management</h3>
+                        <h3 class="feature-title">Service-Based Architecture</h3>
                         <p class="feature-description">
-                            Sophisticated form state management, field binding, lifecycle control, 
-                            and input engine with modular variants and parsing strategies.
-                        </p>
-                    </div><div class="feature-card fade-in">
-                        <div class="feature-icon">✅</div>
-                        <h3 class="feature-title">Comprehensive Validation</h3>
-                        <p class="feature-description">
-                            18+ built-in validators with country-specific support for 12+ countries.
-                            Special focus on Swiss formats (NPA, AHV, phone numbers).
+                            IoC container system with ServiceManagerFactory, builder patterns for form creation, 
+                            and reactive state management through high-performance notification system.
                         </p>
                     </div>
 
                     <div class="feature-card fade-in">
-                        <div class="feature-icon">🔧</div>                        <h3 class="feature-title">Advanced Architecture</h3>
+                        <div class="feature-icon">✅</div>
+                        <h3 class="feature-title">Comprehensive Validation</h3>
                         <p class="feature-description">
-                            Built with sophisticated IoC container, reactive state management
-                            through observables, and optimized notification system.
+                            18+ built-in validators with multi-country support. Special focus on Swiss formats 
+                            (NPA, AHV, phone numbers) and enterprise-grade validation rules.
+                        </p>
+                    </div>
+
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔧</div>
+                        <h3 class="feature-title">React Components Development</h3>
+                        <p class="feature-description">
+                            15+ React components with hooks integration and IoC container support. 
+                            Functional for development, undergoing quality improvements for release.
                         </p>
                     </div>
 
@@ -697,7 +701,19 @@
                         <div class="feature-icon">⚡</div>
                         <h3 class="feature-title">Performance Optimized</h3>
                         <p class="feature-description">
-                            Efficient validation with batching and debouncing. Lazy dependency
+                            Prototype-based classes, batched notifications, lazy dependency resolution,
+                            and automatic memory management with circular dependency detection.
+                        </p>
+                    </div>
+
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🚧</div>
+                        <h3 class="feature-title">Web Components Foundation</h3>
+                        <p class="feature-description">
+                            Experimental Web Components framework with basic foundation, sample components, 
+                            and architectural patterns. Currently in development phase.
+                        </p>
+                    </div>
                             resolution for optimal performance.
                         </p>
                     </div>
@@ -735,33 +751,52 @@
 
                 <div class="architecture-grid">
                     <div class="arch-component fade-in">
-                        <h3>🏗️ IoC Container</h3>
+                        <h3>🏗️ ServiceManagerFactory</h3>
                         <p>
-                            Advanced dependency injection with lazy resolution, lifecycle
-                            management, and circular dependency detection.
-                        </p>
-                    </div>                    <div class="arch-component fade-in">
-                        <h3>📡 Reactive State</h3>
-                        <p>
-                            Observer pattern implementation with reactive programming foundation
-                            for real-time form state management.
+                            Advanced IoC container factory with multiple configuration options,
+                            lazy dependency resolution, and automatic lifecycle management.
                         </p>
                     </div>
 
                     <div class="arch-component fade-in">
-                        <h3>🔄 Notification System</h3>
+                        <h3>📡 Reactive Notifications</h3>
                         <p>
-                            High-performance batched notification manager with priority queuing and
-                            microtask scheduling.
+                            High-performance observer pattern with batched updates, priority handling,
+                            and optimized memory management for real-time state synchronization.
                         </p>
                     </div>
 
                     <div class="arch-component fade-in">
-                        <h3>🏭 Factory Pattern</h3>
+                        <h3>🧩 Web Components Foundation</h3>
                         <p>
-                            Sophisticated factory pattern with specialized builder services for
-                            different input types and validation strategies.
+                            Experimental Web Components architecture with FwcElement base patterns, 
+                            basic reactive properties, and sample component implementations.
                         </p>
+                    </div>
+
+                    <div class="arch-component fade-in">
+                        <h3>🏭 Builder Patterns</h3>
+                        <p>
+                            Fluent API design with FormularManagerBuilder for form configuration,
+                            validation rule composition, and service container setup.
+                        </p>
+                    </div>
+
+                    <div class="arch-component fade-in">
+                        <h3>⚡ Performance Core</h3>
+                        <p>
+                            Prototype-based classes avoiding transpilation overhead, automatic
+                            cleanup systems, and circular dependency detection for optimal performance.
+                        </p>
+                    </div>
+
+                    <div class="arch-component fade-in">
+                        <h3>🛡️ Type Safety</h3>
+                        <p>
+                            Comprehensive TypeScript definitions with intelligent auto-completion,
+                            strict type checking, and runtime type validation.
+                        </p>
+                    </div>
                     </div>
 
                     <div class="arch-component fade-in">
@@ -793,30 +828,42 @@
                 <div class="code-container fade-in">
                     <pre
                         class="code-block"
-                    ><code><span class="code-comment">// 1. Define your form schema (framework-agnostic core)</span>
+                    ><code><span class="code-comment">// 1. Import the library and create service manager</span>
 <span class="code-keyword">import</span> { 
-    fileDescriptorMock, GenericValidationBuilder, 
-    requiredDataValidationMock, minLengthValidationMock, 
-    Validators 
+    ServiceManagerFactory, FormularManagerBuilder, 
+    Validators, IFieldDescriptor 
 } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
 
-<span class="code-comment">// Create validation rules</span>
-<span class="code-keyword">const</span> emailValidation = <span class="code-keyword">new</span> <span class="code-function">GenericValidationBuilder</span>()
-    .<span class="code-function">setConstraints</span>([
-        <span class="code-function">requiredDataValidationMock</span>(<span class="code-string">'email'</span>, <span class="code-keyword">true</span>),
-        Validators.<span class="code-function">email</span>(<span class="code-string">'email'</span>, <span class="code-keyword">true</span>).<span class="code-function">build</span>()
-    ])
+<span class="code-comment">// Create service manager using the new factory system</span>
+<span class="code-keyword">const</span> serviceManager = ServiceManagerFactory.<span class="code-function">createDefault</span>()
+<span class="code-keyword">const</span> formularManager = serviceManager.<span class="code-function">getService</span>(<span class="code-string">'IFormularManager'</span>)
+
+<span class="code-comment">// Create validation rules using the builder pattern</span>
+<span class="code-keyword">const</span> emailValidation = <span class="code-keyword">new</span> <span class="code-function">FormularManagerBuilder</span>()
+    .<span class="code-function">addValidation</span>(Validators.<span class="code-function">required</span>(<span class="code-string">'Email is required'</span>))
+    .<span class="code-function">addValidation</span>(Validators.<span class="code-function">email</span>(<span class="code-string">'Please enter a valid email'</span>))
     .<span class="code-function">build</span>()
 
-<span class="code-keyword">const</span> phoneValidation = <span class="code-keyword">new</span> <span class="code-function">GenericValidationBuilder</span>()
-    .<span class="code-function">setConstraints</span>([
-        Validators.<span class="code-function">phoneNumber</span>(<span class="code-string">'phone'</span>, [<span class="code-string">'CH'</span>, <span class="code-string">'US'</span>, <span class="code-string">'FR'</span>]).<span class="code-function">build</span>()
-    ])
+<span class="code-keyword">const</span> phoneValidation = <span class="code-keyword">new</span> <span class="code-function">FormularManagerBuilder</span>()
+    .<span class="code-function">addValidation</span>(Validators.<span class="code-function">phoneNumber</span>([<span class="code-string">'CH'</span>, <span class="code-string">'US'</span>, <span class="code-string">'FR'</span>]))
     .<span class="code-function">build</span>()
 
-<span class="code-comment">// Create field descriptors</span>
-<span class="code-keyword">const</span> emailField = <span class="code-function">fileDescriptorMock</span>(<span class="code-string">'email'</span>, <span class="code-string">'Email Address'</span>, <span class="code-string">'email'</span>, emailValidation, [])
-<span class="code-keyword">const</span> phoneField = <span class="code-function">fileDescriptorMock</span>(<span class="code-string">'phone'</span>, <span class="code-string">'Phone Number'</span>, <span class="code-string">'tel'</span>, phoneValidation, [])</code></pre>
+<span class="code-comment">// Create field descriptors using the updated API</span>
+<span class="code-keyword">const</span> emailField: IFieldDescriptor = {
+    name: <span class="code-string">'email'</span>,
+    label: <span class="code-string">'Email Address'</span>,
+    type: <span class="code-string">'email'</span>,
+    validation: emailValidation,
+    required: <span class="code-keyword">true</span>
+}
+
+<span class="code-keyword">const</span> phoneField: IFieldDescriptor = {
+    name: <span class="code-string">'phone'</span>,
+    label: <span class="code-string">'Phone Number'</span>,
+    type: <span class="code-string">'tel'</span>,
+    validation: phoneValidation,
+    required: <span class="code-keyword">false</span>
+}</code></pre>
                 </div>
 
                 <!-- Framework Implementations -->
@@ -828,18 +875,18 @@
                         <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #4facfe;">
                             <span style="color: #4facfe; font-weight: 600;">⚛️ React Implementation (Available Now)</span>
                         </div>
-                        <pre class="code-block"><code><span class="code-comment">// React adapter with FormularForm and hooks</span>
+                        <pre class="code-block"><code><span class="code-comment">// React adapter with modern service-based architecture (in development)</span>
 <span class="code-keyword">import</span> { useService } <span class="code-keyword">from</span> <span class="code-string">'@adapters/react/services/use-service'</span>
 <span class="code-keyword">import</span> { useField } <span class="code-keyword">from</span> <span class="code-string">'@adapters/react/fields/hooks/use-field'</span>
 <span class="code-keyword">import</span> FormularForm <span class="code-keyword">from</span> <span class="code-string">'@components/formular-form/formular-form'</span>
 <span class="code-keyword">import</span> InputText <span class="code-keyword">from</span> <span class="code-string">'@components/input-text/input-text'</span>
-<span class="code-keyword">import</span> { SFormularManager } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
+<span class="code-keyword">import</span> { ServiceManagerFactory } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
 
-<span class="code-keyword">function</span> <span class="code-function">UserRegistrationForm</span>() {
+<span class="code-function">function</span> <span class="code-function">UserRegistrationForm</span>() {
     <span class="code-keyword">const</span> { getService } = <span class="code-function">useService</span>()
-    <span class="code-keyword">const</span> formularManager = <span class="code-function">getService</span>(SFormularManager)
+    <span class="code-keyword">const</span> formularManager = <span class="code-function">getService</span>(<span class="code-string">'IFormularManager'</span>)
 
-    <span class="code-comment">// Create form from descriptors</span>
+    <span class="code-comment">// Create form instance using IoC container</span>
     <span class="code-keyword">const</span> formular = formularManager?.<span class="code-function">createFromDescriptors</span>(
         <span class="code-string">'user-registration'</span>, 
         [emailField, phoneField]
@@ -847,16 +894,21 @@
 
     <span class="code-keyword">const</span> <span class="code-function">handleSubmit</span> = (data) => {
         console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+        <span class="code-comment">// Form data is automatically validated and typed</span>
     }
 
     <span class="code-keyword">return</span> (
         &lt;<span class="code-function">FormularForm</span> formular={formular} onSubmit={handleSubmit}&gt;
             &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"email"</span> /&gt;
             &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"phone"</span> /&gt;
-            &lt;button type=<span class="code-string">"submit"</span>&gt;Submit&lt;/button&gt;
+            &lt;button type=<span class="code-string">"submit"</span> disabled={!formular?.isValid}&gt;
+                Submit
+            &lt;/button&gt;
         &lt;/<span class="code-function">FormularForm</span>&gt;
     )
-}</code></pre>
+}
+
+<span class="code-comment">// Note: React components are functional but undergoing quality improvements</span></code></pre>
                     </div>                    <!-- Vue.js Implementation -->
                     <div class="code-container fade-in" style="margin-bottom: 2rem;">
                         <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #4fc08d;">
@@ -931,30 +983,42 @@
                         <div style="background: #2d3748; padding: 1rem; border-radius: 10px 10px 0 0; border-bottom: 2px solid #f7df1e;">
                             <span style="color: #f7df1e; font-weight: 600;">🟨 Vanilla JavaScript (Planned v2.0)</span>
                         </div>
-                        <pre class="code-block"><code><span class="code-comment">// Pure JavaScript integration</span>
-<span class="code-keyword">import</span> { FormularManager, DOMAdapter } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.vanilla'</span>
+                        <pre class="code-block"><code><span class="code-comment">// Pure JavaScript integration with service container</span>
+<span class="code-keyword">import</span> { ServiceManagerFactory, FormularManagerBuilder } <span class="code-keyword">from</span> <span class="code-string">'formular.dev.lib'</span>
 
-<span class="code-comment">// Create form manager with service container</span>
-<span class="code-keyword">const</span> formularManager = <span class="code-keyword">new</span> <span class="code-function">FormularManager</span>(serviceManager, notificationManager)
+<span class="code-comment">// Create service container with dependency injection</span>
+<span class="code-keyword">const</span> serviceManager = ServiceManagerFactory.<span class="code-function">createDefault</span>()
+<span class="code-keyword">const</span> formularManager = serviceManager.<span class="code-function">getService</span>(<span class="code-string">'IFormularManager'</span>)
+<span class="code-keyword">const</span> notificationManager = serviceManager.<span class="code-function">getService</span>(<span class="code-string">'INotificationManager'</span>)
 
-<span class="code-comment">// Create form from descriptors</span>
+<span class="code-comment">// Create form instance from descriptors</span>
 <span class="code-keyword">const</span> formular = formularManager.<span class="code-function">createFromDescriptors</span>(
     <span class="code-string">'user-registration'</span>, 
     [emailField, phoneField]
 )
 
-<span class="code-comment">// Bind to existing HTML form</span>
-<span class="code-keyword">const</span> domAdapter = <span class="code-keyword">new</span> <span class="code-function">DOMAdapter</span>(formular)
-domAdapter.<span class="code-function">bindToForm</span>(<span class="code-string">'#user-registration-form'</span>)
+<span class="code-comment">// Bind to existing HTML form with modern API</span>
+<span class="code-keyword">const</span> formElement = document.<span class="code-function">getElementById</span>(<span class="code-string">'user-registration-form'</span>)
+formular.<span class="code-function">bindToDOM</span>(formElement)
 
-<span class="code-comment">// Listen to form events</span>
-formular.<span class="code-function">notificationManager</span>.<span class="code-function">subscribe</span>(<span class="code-string">'validation'</span>, (field, isValid, errors) => {
-    <span class="code-keyword">const</span> errorDiv = document.<span class="code-function">querySelector</span>(`#${field.name}-errors`)
-    errorDiv.innerHTML = errors.<span class="code-function">map</span>(err => `&lt;span&gt;${err.message}&lt;/span&gt;`).<span class="code-function">join</span>(<span class="code-string">''</span>)
+<span class="code-comment">// Listen to form events using reactive notifications</span>
+notificationManager.<span class="code-function">subscribe</span>(<span class="code-string">'field:validation'</span>, (event) => {
+    <span class="code-keyword">const</span> { field, isValid, errors } = event.data
+    <span class="code-keyword">const</span> errorContainer = document.<span class="code-function">querySelector</span>(`#${field.name}-errors`)
+    
+    <span class="code-keyword">if</span> (errorContainer) {
+        errorContainer.innerHTML = errors.<span class="code-function">map</span>(err => 
+            `&lt;span class="error-message"&gt;${err.message}&lt;/span&gt;`
+        ).<span class="code-function">join</span>(<span class="code-string">''</span>)
+    }
 })
 
-formular.<span class="code-function">notificationManager</span>.<span class="code-function">subscribe</span>(<span class="code-string">'submit'</span>, (data) => {
-    console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, data)
+<span class="code-comment">// Handle form submission with automatic validation</span>
+notificationManager.<span class="code-function">subscribe</span>(<span class="code-string">'form:submit'</span>, (event) => {
+    <span class="code-keyword">if</span> (event.data.isValid) {
+        console.<span class="code-function">log</span>(<span class="code-string">'Form submitted:'</span>, event.data.formData)
+        <span class="code-comment">// Process valid form data</span>
+    }
 })</code></pre>
                     </div>
                 </div>

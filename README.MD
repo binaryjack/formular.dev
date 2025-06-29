@@ -24,9 +24,9 @@
 
 FORMULAR is a TypeScript-based form management library currently in active development. The project features a working React implementation with comprehensive form management capabilities, including validation, field management, and state tracking.
 
-**Current Status**: The library has a complete React implementation with 15+ working components, an IoC-based architecture, and a comprehensive validation system. The core library is framework-agnostic by design, but currently only the React adapter is fully implemented.
+**Current Status**: The library has a working React implementation with 15+ components that function but need quality improvements before release. The core library features an IoC-based architecture and a comprehensive validation system. The core library is framework-agnostic by design, with the React adapter currently in development for production quality.
 
-The project uses modern TypeScript development patterns including dependency injection, reactive state management, and a modular component architecture. While designed to be framework-agnostic, the current focus is on perfecting the React implementation before expanding to other frameworks.
+The project uses modern TypeScript development patterns including dependency injection, reactive state management, and a modular component architecture. While designed to be framework-agnostic, the current focus is on perfecting the React implementation to production quality before expanding to other frameworks.
 
 ## 🚀 Quick Start
 
@@ -64,21 +64,32 @@ pnpm run dev
 ### Basic Usage
 
 ```tsx
-import { useFormularContext, InputText } from 'formular.dev.react'
-import { Validators } from 'formular.dev.lib'
+import { ServiceManagerFactory, FormularManagerBuilder, Validators } from 'formular.dev.lib'
+import { useService } from 'formular.dev.react'
 
 const MyForm = () => {
-    const { formInstance } = useFormularContext()
+    const { getService } = useService()
+    const formularManager = getService('IFormularManager')
+    
+    // Create form with validation
+    const formular = formularManager.createFromDescriptors('my-form', [
+        {
+            name: 'email',
+            label: 'Email Address',
+            type: 'email',
+            validation: new FormularManagerBuilder()
+                .addValidation(Validators.required())
+                .addValidation(Validators.email())
+                .build(),
+            required: true
+        }
+    ])
 
     return (
-        <form onSubmit={(e) => {
-            e.preventDefault()
-            console.log('Form Data:', formInstance?.getValues())
-        }}>
+        <FormularForm formular={formular} onSubmit={(data) => console.log(data)}>
             <InputText fieldName="email" />
-            <InputText fieldName="password" />
             <button type="submit">Submit</button>
-        </form>
+        </FormularForm>
     )
 }
 ```
@@ -86,10 +97,11 @@ const MyForm = () => {
 ## ✨ Current Features (What's Actually Built)
 
 ### 🎯 **Core Form Management (React Implementation)**
-- **React Integration**: Full working React components with form context and state management
-- **FormularManager**: Central form management service for creating and managing form instances  
-- **Field Management**: Complete field binding, validation, and state tracking through React hooks
-- **TypeScript Support**: Comprehensive type definitions throughout the codebase
+- **React Integration**: Full working React components with dependency injection service container
+- **ServiceManagerFactory**: IoC container system with lazy dependency resolution and lifecycle management
+- **FormularManager**: Central form management service with builder pattern and descriptor-based form creation
+- **Field Management**: Complete field binding, validation, and reactive state tracking through React hooks
+- **TypeScript Support**: Comprehensive type definitions with intelligent auto-completion throughout the codebase
 
 ### 📋 **Working React Components**
 - **Input Components**: InputText, Password (with visibility toggle), CheckInput, RadioInput, Select
@@ -97,6 +109,7 @@ const MyForm = () => {
 - **Form Container**: FormularForm component with submission handling and context provider
 - **Field Infrastructure**: FieldSet wrapper, validation display, focus management
 - **Specialized Components**: ReadOnlyField, DelayInput, MaskedInput
+- **Development Status**: Components are functional but need quality improvements for production release
 
 ### ✅ **Validation System (Implemented)**
 - **18+ Working Validators**: Email, phone, names, passwords, dates, currency, age, username, time, numeric, URL, credit card, SSN
@@ -106,11 +119,13 @@ const MyForm = () => {
 - **Validation Engine**: Real-time validation with configurable trigger events (onChange, onBlur, etc.)
 
 ### 🔧 **Architecture (Currently Working)**
-- **IoC Container**: Service manager with dependency injection, lazy resolution, and lifecycle management
-- **Notification System**: Observer pattern with batched updates and priority handling  
-- **React Hooks Integration**: useField, useForm, useService hooks for form and field management
-- **Form State Management**: Complete form lifecycle with isDirty, isValid, isBusy tracking
-- **Memory Management**: Automatic cleanup and circular dependency detection
+- **IoC Container**: Advanced service manager with dependency injection, lazy resolution, and lifecycle management
+- **ServiceManagerFactory**: Factory pattern for creating configured service containers with different setups
+- **Notification System**: High-performance observer pattern with batched updates and priority handling  
+- **React Hooks Integration**: useField, useForm, useService hooks for seamless form and dependency management
+- **Form State Management**: Complete form lifecycle with isDirty, isValid, isBusy tracking and reactive updates
+- **Memory Management**: Automatic cleanup, circular dependency detection, and optimized garbage collection
+- **Prototype-based Classes**: Performance-optimized class architecture following contributing guidelines
 
 ### 🔒 **Developer Experience (Current State)**
 - **Full TypeScript Support**: Comprehensive type definitions with intelligent auto-completion
@@ -122,6 +137,7 @@ const MyForm = () => {
 
 ### ⏳ **Framework Adapters (Foundation Only)**
 - **Vue.js, Angular, Svelte, SolidJS**: Basic folder structure exists, but adapters not implemented
+- **Web Components**: 🚧 **Experimental framework** with basic foundation and sample components
 - **Vanilla JavaScript**: Core logic is framework-agnostic but browser integration incomplete
 
 ### 📦 **Package Distribution**
@@ -152,22 +168,31 @@ const MyForm = () => {
 
 ## How FORMULAR Currently Works
 
-FORMULAR is built using TypeScript and modern React patterns. The library features a service-based architecture with dependency injection, reactive state management through React hooks, and a comprehensive validation system.
+FORMULAR is built using TypeScript and modern architectural patterns with a focus on dependency injection and reactive programming. The library features a service-based architecture with IoC container, reactive state management through React hooks, and a comprehensive validation system.
 
 **Architecture Overview:**
-- **FormularManager**: Central service for creating and managing form instances
-- **React Components**: 15+ working input components with full form integration
-- **Service Container**: IoC container managing dependencies and services
-- **Validation Engine**: Configurable validation with 18+ built-in validators
-- **Notification System**: Observer pattern for reactive state updates
+- **ServiceManagerFactory**: IoC container factory providing dependency injection with lazy resolution
+- **FormularManager**: Central service for creating and managing form instances using builder patterns
+- **React Components**: 15+ working input components with full form integration and service container support
+- **Service Container**: Advanced IoC container managing dependencies, services, and lifecycle with circular dependency detection
+- **Validation Engine**: Configurable validation with 18+ built-in validators supporting multi-country rules
+- **Notification System**: High-performance observer pattern for reactive state updates with batching and priority handling
 
 **Current Implementation:**
-- React components with full TypeScript support
-- Working form submission and validation
-- Field state management and tracking
-- Comprehensive component documentation
+- React components with full TypeScript support and dependency injection (in development)
+- Working form submission, validation, and reactive state management (functional but needs polish)
+- Field state management and tracking with automatic cleanup (implemented but needs improvement)
+- Comprehensive component documentation following JSDoc standards (in progress)
+- Prototype-based class architecture for optimal performance (implemented)
 
-> **Note**: The core library is designed to be framework-agnostic, but currently only the React adapter is fully implemented. Other framework adapters have basic folder structure but require development.
+**Key Features in Production:**
+- **Service Manager Factory**: Create configured dependency injection containers
+- **Builder Pattern**: Fluent API for form and validation configuration
+- **Reactive Hooks**: useService, useField, useForm for seamless React integration
+- **Multi-Country Validation**: Phone, postal code, and region-specific validation rules
+- **Performance Optimized**: Batched notifications, lazy loading, and memory management
+
+> **Note**: The core library is designed to be framework-agnostic with a complete service architecture and is production-ready. The React adapter is functional for development but needs quality improvements before release. Web Components package contains experimental foundation and samples. Other framework adapters have basic folder structure but require development.
 
 ---
 
@@ -296,6 +321,25 @@ We're actively working on several key areas where contributions are especially w
         - Cross-package dependencies ✅
 
 - **Version 1.3** 🚧 **IN DEVELOPMENT**:
+    
+    - **Web Components Framework** 🚧 **EXPERIMENTAL**
+        - Basic framework foundation and architecture patterns ✅
+        - FwcElement base class foundation (experimental) 🚧
+        - Manager factory system for enhanced IoC capabilities ✅
+        - Sample components for testing framework concepts 🚧
+        - Template engine foundation (experimental) 🚧
+        - Not yet production-ready - framework development in progress 🚧
+        
+    - **Enhanced Service Architecture** ✅ **COMPLETED**
+        - ServiceManagerFactory with multiple configuration options ✅
+        - Builder pattern integration across core classes ✅
+        - Enhanced lifecycle management and cleanup ✅
+        - Performance optimizations and memory management ✅
+
+    - **Updated Documentation and Architecture** 🚧 **IN PROGRESS**
+        - API documentation reflecting new service factory patterns 🚧
+        - Updated code examples and integration guides 🚧
+        - Architecture documentation updates ✅
 
     - **Observable Subject Pattern** ✅
         - Reactive programming foundation ✅

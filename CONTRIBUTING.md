@@ -65,6 +65,11 @@
   - `index.ts` that exports all the relevant objects classes etc. files paths in the current folder and /or of the sub folders 
   - `types.ts` that exports all the relevant types, interfaces files path in the current folder and /or of the sub folders 
 
+#### Exception: Mock Exports for Testing
+- **Exception**: The `__tests__/mocks` folder is exported from the main library index to allow consumers to use mock objects for their own testing.
+- This exception enables external packages and applications to leverage the library's test mocks without requiring them to create their own mock implementations.
+- Mock files in this folder should be comprehensive and represent realistic data structures for testing purposes. 
+
 ## React 
 
 - For react components :
