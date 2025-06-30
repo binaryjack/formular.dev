@@ -70,6 +70,30 @@ export const WebComponentNotificationExtensions = {
     _batchQueues: new Map<string, BatchQueue>(),
     _globalDebugMode: false,
     _notificationId: 0,
+    _isExtensionInitialized: false,
+
+    /**
+     * Initialize the web component notification extensions
+     * Called after the manager is properly initialized
+     */
+    initializeWebComponentExtensions: function(): void {
+        if (this._isExtensionInitialized) {
+            return
+        }
+
+        // Initialize notification registries if not already present
+        if (!this._componentConfigs) {
+            this._componentConfigs = new Map<string, ComponentNotificationConfig>()
+        }
+        if (!this._notificationHistory) {
+            this._notificationHistory = new Map<string, ComponentNotification[]>()
+        }
+        if (!this._batchQueues) {
+            this._batchQueues = new Map<string, BatchQueue>()
+        }
+
+        this._isExtensionInitialized = true
+    },
 
     /**
      * Configures notification settings for a component

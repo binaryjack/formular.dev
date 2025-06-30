@@ -10,27 +10,8 @@
  * - DOM tree inspection for debugging
  */
 
-/**
- * Component tracking interface for debugging and lifecycle management
- */
-interface ComponentRegistration {
-    id: string
-    element: HTMLElement
-    shadowRoot?: ShadowRoot
-    template?: HTMLTemplateElement
-    registeredAt: Date
-    lastUpdate?: Date
-}
-
-/**
- * Template cache for performance optimization
- */
-interface TemplateCache {
-    html: string
-    styles?: string
-    template: HTMLTemplateElement
-    createdAt: Date
-}
+import { IComponentRegistration } from '../interfaces/i-component-registration'
+import { ITemplateCache } from '../interfaces/i-template-cache'
 
 /**
  * Web Component DOM Extensions
@@ -38,9 +19,30 @@ interface TemplateCache {
  */
 export const WebComponentDOMExtensions = {
     // Component registry for tracking and debugging
-    _componentRegistry: new Map<string, ComponentRegistration>(),
-    _templateCache: new Map<string, TemplateCache>(),
+    _componentRegistry: new Map<string, IComponentRegistration>(),
+    _templateCache: new Map<string, ITemplateCache>(),
     _mutationObserver: null as MutationObserver | null,
+    _isExtensionInitialized: false,
+
+    /**
+     * Initialize the web component DOM extensions
+     * Called after the manager is properly initialized
+     */
+    initializeWebComponentExtensions: function(): void {
+        if (this._isExtensionInitialized) {
+            return
+        }
+
+        // Initialize component registry and template cache if not already present
+        if (!this._componentRegistry) {
+            this._componentRegistry = new Map<string, IComponentRegistration>()
+        }
+        if (!this._templateCache) {
+            this._templateCache = new Map<string, ITemplateCache>()
+        }
+
+        this._isExtensionInitialized = true
+    },
 
     /**
      * Creates a shadow root for the given element with specified options
@@ -49,6 +51,11 @@ export const WebComponentDOMExtensions = {
      * @returns The created shadow root
      */
     createShadowRoot: function(element: HTMLElement, options: ShadowRootInit = { mode: 'open' }): ShadowRoot {
+        // Ensure extensions are initialized
+        if (!this._isExtensionInitialized) {
+            this.initializeWebComponentExtensions()
+        }
+
         if (element.shadowRoot) {
             console.warn('Element already has a shadow root')
             return element.shadowRoot
@@ -80,6 +87,11 @@ export const WebComponentDOMExtensions = {
      * @returns The created template element
      */
     createTemplate: function(html: string, styles?: string, cacheKey?: string): HTMLTemplateElement {
+        // Ensure extensions are initialized
+        if (!this._isExtensionInitialized) {
+            this.initializeWebComponentExtensions()
+        }
+
         // Check cache first if cache key provided
         if (cacheKey && this._templateCache.has(cacheKey)) {
             const cached = this._templateCache.get(cacheKey)!
@@ -126,7 +138,7 @@ export const WebComponentDOMExtensions = {
      * @param template - Optional template associated with the component
      */
     registerComponent: function(componentId: string, element: HTMLElement, template?: HTMLTemplateElement): void {
-        const registration: ComponentRegistration = {
+        const registration: IComponentRegistration = {
             id: componentId,
             element,
             template,
@@ -157,7 +169,7 @@ export const WebComponentDOMExtensions = {
      * @param componentId - The component ID to look up
      * @returns The component registration or undefined
      */
-    getComponentRegistration: function(componentId: string): ComponentRegistration | undefined {
+    getComponentRegistration: function(componentId: string): IComponentRegistration | undefined {
         return this._componentRegistry.get(componentId)
     },
 
@@ -165,7 +177,7 @@ export const WebComponentDOMExtensions = {
      * Gets all registered components for debugging
      * @returns Array of all component registrations
      */
-    getAllComponents: function(): ComponentRegistration[] {
+    getAllComponents: function(): IComponentRegistration[] {
         return Array.from(this._componentRegistry.values())
     },
 
@@ -203,7 +215,6 @@ export const WebComponentDOMExtensions = {
 
             return info
         }
-
         return getNodeInfo(element, 0)
     },
 

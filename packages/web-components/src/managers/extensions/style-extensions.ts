@@ -40,6 +40,30 @@ export const WebComponentStyleExtensions = {
     _componentStyles: new Map<string, ComponentStyleRegistration>(),
     _themes: new Map<string, ThemeDefinition>(),
     _globalCSSVariables: new Map<string, string>(),
+    _isExtensionInitialized: false,
+
+    /**
+     * Initialize the web component style extensions
+     * Called after the manager is properly initialized
+     */
+    initializeWebComponentExtensions: function(): void {
+        if (this._isExtensionInitialized) {
+            return
+        }
+
+        // Initialize style registries if not already present
+        if (!this._componentStyles) {
+            this._componentStyles = new Map<string, ComponentStyleRegistration>()
+        }
+        if (!this._themes) {
+            this._themes = new Map<string, ThemeDefinition>()
+        }
+        if (!this._globalCSSVariables) {
+            this._globalCSSVariables = new Map<string, string>()
+        }
+
+        this._isExtensionInitialized = true
+    },
 
     /**
      * Adds component-scoped styles to a shadow root
