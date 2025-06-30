@@ -5,15 +5,15 @@
  * Central export point for all web component managers and extensions
  */
 
-// Export the manager factory and validation utilities
+// Export the manager factory and its components
 export {
-    createWebComponentManagers,
-    defaultManagerConfig,
-    validateWebComponentManagers, WebComponentDomManager, webComponentManagers, WebComponentNotificationManager, WebComponentStyleManager
-} from './manager-factory/manager-factory'
+    defaultManagerConfig, ManagerFactory, managerFactory, validateWebComponentManagers, WebComponentDomManager, webComponentManagers, WebComponentNotificationManager,
+    WebComponentStyleManager
+} from './manager-factory'
 
 // Export types from interfaces
 export type { IManagerFactoryConfig, IWebComponentManagers } from './interfaces'
+export type { IManagerFactory } from './manager-factory/types'
 
 // Export the ReactiveManager for direct use
 export { ReactiveManager, reactiveManager } from './reactive-manager/reactive-manager'
@@ -22,7 +22,4 @@ export { ReactiveManager, reactiveManager } from './reactive-manager/reactive-ma
 export { WebComponentDOMExtensions } from './extensions/dom-extensions'
 export { WebComponentNotificationExtensions } from './extensions/notification-extensions'
 export { WebComponentStyleExtensions } from './extensions/style-extensions'
-
-// Re-export useful types (if needed for external use)
-export type { }
 
