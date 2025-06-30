@@ -1,6 +1,8 @@
-import useAppContext from '@components/context/app-context/app-context.context'
 import { DateFormatsEnum } from 'formular.dev.lib'
 import { memo } from 'react'
+
+import useAppContext from '@components/context/app-context/app-context.context'
+
 import { Toggleable } from '../toggleable/toggleable'
 import { DatePickerSelectionModeType } from './core/date-picker.types'
 import { DatePickerSF } from './date-picker.sf'
@@ -13,9 +15,9 @@ interface DatePickerProps {
     fieldName: string
     /** The separator used in the date format (default: '-') */
     separator?: string
-    /** The format for storing the date data (default: 'yyyy/mm/dd') */
+    /** The format for storing the date data (default: 'yyyy/MM/dd') */
     dataFormat?: DateFormatsEnum
-    /** The format for displaying the date to users (default: 'dd/mm/yyyy') */
+    /** The format for displaying the date to users (default: 'dd/MM/yyyy') */
     displayFormat?: DateFormatsEnum
 
     defaultSelectionMode?: DatePickerSelectionModeType

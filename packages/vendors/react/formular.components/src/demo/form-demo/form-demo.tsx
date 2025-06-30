@@ -1,25 +1,3 @@
-import { useState } from 'react'
-
-import InputText from '@components/input-text/input-text'
-
-import CheckInput from '@components/check-Input/check-input'
-
-import Password from '@components/password/password'
-import RadioInput from '@components/radio-input/radio-input'
-import { RangeSlider } from '@components/range-slider/range-slider'
-import { ReadOnlyField } from '@components/readonly-field/readonly-field'
-
-import DatePicker from '@components/date-picker/date-picker'
-import FormularForm from '@components/formular-form/formular-form'
-import RteInputField from '@components/rte-Input/rte-input-field'
-import Select from '@components/select-input/select-input'
-import SwitchButtonInput from '@components/switch-button/switch-button-input'
-import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
-
-import { useService } from '@adapters/react'
-import { useField } from '@adapters/react/fields/hooks/use-field'
-import { useDemoSettings } from '@demo/validation-demos/hooks/useDemoSettings'
-import { ISubmitObject } from '@demo/validation-demos/validation-demo-text-input'
 import {
     DateFormatsEnum,
     DateObject,
@@ -31,7 +9,26 @@ import {
     SConfigurationManager,
     SFormularManager
 } from 'formular.dev.lib'
-import { FormOutputFieldsNames, controlsDemoSchema } from './form-demo.schema'
+import { useState } from 'react'
+
+import { useService } from '@adapters/react'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+import CheckInput from '@components/check-Input/check-Input'
+import DatePicker from '@components/date-picker/date-picker'
+import FormularForm from '@components/formular-form/formular-form'
+import InputText from '@components/input-text/input-text'
+import Password from '@components/password/password'
+import RadioInput from '@components/radio-input/radio-input'
+import { RangeSlider } from '@components/range-slider/range-slider'
+import { ReadOnlyField } from '@components/readonly-field/readonly-field'
+import RteInputField from '@components/rte-Input/rte-input-field'
+import Select from '@components/select-input/select-input'
+import SwitchButtonInput from '@components/switch-button/switch-button-input'
+import ToggleButtonInput from '@components/toggle-button/toggle-button-input'
+import { useDemoSettings } from '@demo/validation-demos/hooks/useDemoSettings'
+import { ISubmitObject } from '@demo/validation-demos/validation-demo-text-input'
+
+import { controlsDemoSchema, FormOutputFieldsNames } from './form-demo.schema'
 
 // build a schema for the fields to be used
 // const item = controlDemoSchema

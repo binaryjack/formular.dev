@@ -3,7 +3,7 @@
  * Following CONTRIBUTING.md: One interface per file with I prefix
  */
 
-import { WebComponentManagers } from '../../managers'
+import { IWebComponentManagers } from '../../managers'
 import { TemplateResult } from '../../template'
 import { ComponentLifecycleEnum } from '../enums/component-lifecycle.enum'
 import { IComponentConfig } from './i-component-config'
@@ -20,7 +20,7 @@ export interface IBaseComponentInstance extends HTMLElement {
     readonly properties: Record<string, IPropertyConfig>
     
     /** Manager instances for this component */
-    managers: WebComponentManagers
+    managers: IWebComponentManagers
     
     /** Component's unique identifier */
     componentId: string

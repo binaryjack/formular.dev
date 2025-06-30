@@ -6,15 +6,15 @@
  * This is the central point for setting up all managers with their extensions
  */
 
-import { IManagerFactoryConfig } from '../interfaces/i-manager-factory-config'
-import { IWebComponentManagers } from '../interfaces/i-web-component-managers'
-import { IManagerFactory } from './interfaces/i-manager-factory'
+import { IManagerFactoryConfig } from '../interfaces/i-manager-factory-config';
+import { IWebComponentManagers } from '../interfaces/i-web-component-managers';
+import { IManagerFactory } from './interfaces/i-manager-factory';
 // Import all prototype methods
 import {
     configureManagers, createFallbackManagers, createManagerInstances, createWebComponentManagers,
     initializeManagers, logManagerInitialization, validateWebComponentManagers,
     WebComponentDomManager, WebComponentNotificationManager, WebComponentStyleManager
-} from './prototype'
+} from './prototype';
 
 /**
  * ManagerFactory Constructor Function
@@ -61,9 +61,12 @@ export const managerFactory = new (ManagerFactory)()
  */
 export const webComponentManagers: IWebComponentManagers = managerFactory.createWebComponentManagers(defaultManagerConfig)
 
+// Export the factory function for standalone use
+export { createWebComponentManagers } from './prototype';
+
 // Export the individual manager constructors for direct use if needed
-export { WebComponentDomManager, WebComponentNotificationManager, WebComponentStyleManager }
+export { WebComponentDomManager, WebComponentNotificationManager, WebComponentStyleManager };
 
 // Export the validation function for standalone use
-export { validateWebComponentManagers }
+export { validateWebComponentManagers };
 

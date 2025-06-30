@@ -16,6 +16,7 @@ import {
 import { IRadioBaseInputProperties } from '@core/input-engine/variants/radio-base/radio-base-input.types'
 import { ISelectBaseInputProperties } from '@core/input-engine/variants/select-base/select-base-input.types'
 import { ITextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
+import { ICulture } from '@core/managers'
 import { IDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { IInitializableDependency } from '@core/managers/initialization-manager/initialization-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
@@ -37,7 +38,6 @@ import {
 } from '@core/managers/value-manager/value-manager.types'
 import { IServiceManager } from '@core/types'
 
-import { ICulture } from '@core/managers'
 import { IInitilizationCheckResult } from './prototype/check-initialized'
 
 export const SInputBase = Symbol.for('IInputBase')

@@ -7,8 +7,9 @@
 
 // Export the manager factory and its components
 export {
-    defaultManagerConfig, ManagerFactory, managerFactory, validateWebComponentManagers, WebComponentDomManager, webComponentManagers, WebComponentNotificationManager,
-    WebComponentStyleManager
+    ManagerFactory, WebComponentDomManager, WebComponentNotificationManager,
+    WebComponentStyleManager, createWebComponentManagers,
+    defaultManagerConfig, managerFactory, validateWebComponentManagers, webComponentManagers
 } from './manager-factory'
 
 // Export types from interfaces

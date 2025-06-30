@@ -20,7 +20,10 @@ import { TextBaseInput } from '@core/input-engine/variants/text-base/text-base-i
 import { STextBaseInput } from '@core/input-engine/variants/text-base/text-base-input.types'
 import { SDomManager } from '@core/managers/dom-manager/dom-manager.types'
 import { SNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
-import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
+import {
+    IServiceManager,
+    SServiceManager
+} from '@core/managers/service-manager/service-manager.types'
 import { SStyleManager } from '@core/managers/style-manager/style-manager.types'
 import { STrackingManager } from '@core/managers/tracking-manager/tracker-manager.types'
 import { SValidationManager } from '@core/managers/validation-manager/validation-manager.types'
@@ -35,6 +38,7 @@ export const setupBaseInputClasses = function (sm: IServiceManager) {
     sm.registerClass(SInputBase, InputBase, {
         lifetime: 'transient',
         dependencies: [
+            SServiceManager,
             null,
             SDomManager,
             SNotificationManager,

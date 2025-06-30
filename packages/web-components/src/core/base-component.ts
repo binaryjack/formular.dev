@@ -8,7 +8,7 @@
  * @version 1.0.0
  */
 
-import { createWebComponentManagers, WebComponentManagers } from '../managers'
+import { createWebComponentManagers, IWebComponentManagers } from '../managers'
 import { createTemplate, processTemplate, TemplateResult } from '../template'
 
 /**
@@ -105,7 +105,7 @@ export class BaseComponent extends HTMLElement {
     static readonly properties: Record<string, PropertyConfig> = {}
 
     /** Manager instances for this component */
-    protected managers: WebComponentManagers
+    protected managers: IWebComponentManagers
 
     /** Component's unique identifier */
     protected componentId: string

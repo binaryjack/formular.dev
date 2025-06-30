@@ -9,6 +9,7 @@
 import { newEvent } from '@core/framework/events/new-event'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
+import { ICulture } from '@core/managers'
 import {
     IConfigurationManager,
     SConfigurationManager
@@ -21,7 +22,6 @@ import { IValidationManager } from '@core/managers/validation-manager/validation
 import { IValueManager } from '@core/managers/value-manager/value-manager.types'
 import { IServiceManager } from '@core/types'
 
-import { ICulture } from '@core/managers'
 import { useDomManager } from './dependencies/use-dom-manager'
 import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
