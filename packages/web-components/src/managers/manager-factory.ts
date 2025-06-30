@@ -6,24 +6,76 @@
  * This is the central point for setting up all managers with their extensions
  */
 
+// Import core managers from formular.dev.lib
+import {
+    DomManager as LibDomManager, NotificationManager as LibNotificationManager,
+    StyleManager as LibStyleManager
+} from 'formular.dev.lib'
+
 import { WebComponentDOMExtensions } from './extensions/dom-extensions'
 import { WebComponentNotificationExtensions } from './extensions/notification-extensions'
 import { WebComponentStyleExtensions } from './extensions/style-extensions'
 import { ReactiveManager } from './reactive-manager'
 
-// Try to import core managers with fallback
-let DomManager: any, StyleManager: any, NotificationManager: any
+/**
+ * Web Component DomManager - extends the lib DomManager
+ */
+export const WebComponentDomManager = function(this: any, serviceManager?: any) {
+    // Call the parent constructor
+    LibDomManager.call(this, serviceManager)
+    
+    // Add web component specific properties
+    this._webComponentExtensions = new Map()
+    
+    return this
+} as any
 
-try {
-    // Try to import from formular.dev.lib
-    const coreLib = require('formular.dev.lib')
-    DomManager = coreLib.DomManager
-    StyleManager = coreLib.StyleManager 
-    NotificationManager = coreLib.NotificationManager
-} catch (error) {
-    console.warn('formular.dev.lib not available, using fallback managers')
-    // These will be set to fallback implementations below
-}
+// Set up prototype inheritance
+WebComponentDomManager.prototype = Object.create(LibDomManager.prototype)
+WebComponentDomManager.prototype.constructor = WebComponentDomManager
+
+// Extend with web component functionality
+Object.assign(WebComponentDomManager.prototype, WebComponentDOMExtensions)
+
+/**
+ * Web Component StyleManager - extends the lib StyleManager
+ */
+export const WebComponentStyleManager = function(this: any) {
+    // Call the parent constructor
+    LibStyleManager.call(this)
+    
+    // Add web component specific properties
+    this._webComponentExtensions = new Map()
+    
+    return this
+} as any
+
+// Set up prototype inheritance
+WebComponentStyleManager.prototype = Object.create(LibStyleManager.prototype)
+WebComponentStyleManager.prototype.constructor = WebComponentStyleManager
+
+// Extend with web component functionality
+Object.assign(WebComponentStyleManager.prototype, WebComponentStyleExtensions)
+
+/**
+ * Web Component NotificationManager - extends the lib NotificationManager
+ */
+export const WebComponentNotificationManager = function(this: any, autoTracker?: any) {
+    // Call the parent constructor
+    LibNotificationManager.call(this, autoTracker)
+    
+    // Add web component specific properties
+    this._webComponentExtensions = new Map()
+    
+    return this
+} as any
+
+// Set up prototype inheritance
+WebComponentNotificationManager.prototype = Object.create(LibNotificationManager.prototype)
+WebComponentNotificationManager.prototype.constructor = WebComponentNotificationManager
+
+// Extend with web component functionality
+Object.assign(WebComponentNotificationManager.prototype, WebComponentNotificationExtensions)
 
 /**
  * Enhanced manager collection interface
@@ -57,25 +109,16 @@ export interface ManagerFactoryConfig {
 export const createWebComponentManagers = function(config: ManagerFactoryConfig = {}): WebComponentManagers {
     try {
         // Check if core managers are available
-        if (!DomManager || !StyleManager || !NotificationManager) {
+        if (!LibDomManager || !LibStyleManager || !LibNotificationManager) {
             console.warn('Core managers not available, using fallback managers')
             throw new Error('Core managers not available')
         }
 
-        // Create core manager instances
-        const domManager = new DomManager()
-        const styleManager = new StyleManager()
-        const notificationManager = new NotificationManager()
-        const reactiveManager = new (ReactiveManager as any)()
-
-        // Extend DomManager with web component capabilities
-        domManager.extend('webComponents', WebComponentDOMExtensions)
-
-        // Extend StyleManager with web component capabilities  
-        styleManager.extend('webComponents', WebComponentStyleExtensions)
-
-        // Extend NotificationManager with web component capabilities
-        notificationManager.extend('webComponents', WebComponentNotificationExtensions)
+        // Create enhanced manager instances that extend lib managers
+        const domManager = new WebComponentDomManager()
+        const styleManager = new WebComponentStyleManager()
+        const notificationManager = new WebComponentNotificationManager()
+        const reactiveManager = new ReactiveManager()
 
         // Initialize all managers
         domManager.initialize()
@@ -85,7 +128,9 @@ export const createWebComponentManagers = function(config: ManagerFactoryConfig 
 
         // Configure managers based on config
         if (config.enableDebugMode) {
-            notificationManager.setGlobalDebugMode(true)
+            if (notificationManager.setGlobalDebugMode) {
+                notificationManager.setGlobalDebugMode(true)
+            }
         }
 
         if (config.batchUpdateDelay && reactiveManager.batchConfig) {
@@ -95,9 +140,9 @@ export const createWebComponentManagers = function(config: ManagerFactoryConfig 
         // Log successful initialization in debug mode
         if (config.enableDebugMode) {
             console.log('🚀 Web Component Managers initialized:', {
-                domManager: domManager.hasExtension('webComponents'),
-                styleManager: styleManager.hasExtension('webComponents'),
-                notificationManager: notificationManager.hasExtension('webComponents'),
+                domManager: domManager.hasExtension ? domManager.hasExtension('webComponents') : true,
+                styleManager: styleManager.hasExtension ? styleManager.hasExtension('webComponents') : true,
+                notificationManager: notificationManager.hasExtension ? notificationManager.hasExtension('webComponents') : true,
                 reactiveManager: reactiveManager.isInitialized
             })
         }
@@ -168,7 +213,7 @@ function createFallbackManagers(config: ManagerFactoryConfig = {}): WebComponent
         hasExtension: (name: string) => fallbackNotificationManager.extensions.has(name),
     }
 
-    const fallbackReactiveManager = new (ReactiveManager as any)()
+    const fallbackReactiveManager = new ReactiveManager()
 
     // Initialize fallback managers
     fallbackDomManager.initialize()

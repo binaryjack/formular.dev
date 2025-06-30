@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Button Component</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            line-height: 1.6;
+        }
+        .debug-info { 
+            background: #f0f0f0; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-radius: 4px; 
+            font-family: monospace;
+        }
+        .error { background: #fee; color: #c00; }
+        .success { background: #efe; color: #060; }
+        .test-area {
+            border: 2px dashed #ccc;
+            padding: 2rem;
+            margin: 2rem 0;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug Button Component</h1>
+    
+    <div class="debug-info">
+        <div id="debug-output">Starting debug...</div>
+    </div>
+    
+    <div class="test-area">
+        <h3>Test Area:</h3>
+        <p>Buttons should appear below this line:</p>
+        <div id="button-container">
+            <!-- We'll add buttons here programmatically -->
+        </div>
+        
+        <hr style="margin: 2rem 0;">
+        
+        <p>Manual HTML test:</p>
+        <formular-button variant="primary" label="Manual Button"></formular-button>
+    </div>
+
+    <script>
+        const debug = document.getElementById('debug-output');
+        const container = document.getElementById('button-container');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : '';
+            debug.innerHTML += `<div class="${className}">[${timestamp}] ${message}</div>`;
+            console.log(`[${timestamp}] ${message}`);
+        }
+        
+        // Check if the script can run
+        log('Debug script loaded');
+        
+        // Check if module imports work
+        log('Attempting to load web components module...');
+        
+        import('./dist/index.esm.js')
+            .then(module => {
+                log('✅ Module loaded successfully', 'success');
+                log(`Module exports: ${Object.keys(module).join(', ')}`);
+                
+                if (module.ButtonComponent) {
+                    log('✅ ButtonComponent found in module', 'success');
+                    log(`ButtonComponent type: ${typeof module.ButtonComponent}`);
+                } else {
+                    log('❌ ButtonComponent NOT found in module', 'error');
+                }
+                
+                // Check custom elements registry
+                setTimeout(() => {
+                    const customElement = customElements.get('formular-button');
+                    if (customElement) {
+                        log('✅ formular-button is registered in custom elements', 'success');
+                        log(`Custom element constructor: ${customElement.name}`);
+                        
+                        // Try to create a button programmatically
+                        log('Attempting to create button programmatically...');
+                        const button = document.createElement('formular-button');
+                        button.setAttribute('variant', 'primary');
+                        button.setAttribute('label', 'Programmatic Button');
+                        button.style.display = 'block';
+                        button.style.margin = '10px 0';
+                        
+                        // Add some debug styling
+                        button.style.border = '2px solid red';
+                        button.style.minHeight = '40px';
+                        button.style.background = 'yellow';
+                        
+                        container.appendChild(button);
+                        log('✅ Button added to DOM', 'success');
+                        
+                        // Check if button has rendered
+                        setTimeout(() => {
+                            const shadowRoot = button.shadowRoot;
+                            if (shadowRoot) {
+                                log('✅ Shadow DOM exists', 'success');
+                                log(`Shadow DOM innerHTML length: ${shadowRoot.innerHTML.length}`);
+                                if (shadowRoot.innerHTML.length > 0) {
+                                    log(`Shadow DOM content preview: ${shadowRoot.innerHTML.substring(0, 200)}...`);
+                                } else {
+                                    log('❌ Shadow DOM is empty', 'error');
+                                }
+                            } else {
+                                log('❌ No shadow DOM found', 'error');
+                            }
+                            
+                            // Check button dimensions
+                            const rect = button.getBoundingClientRect();
+                            log(`Button dimensions: ${rect.width}x${rect.height}`);
+                            log(`Button position: ${rect.left}, ${rect.top}`);
+                            
+                            // Check computed styles
+                            const styles = window.getComputedStyle(button);
+                            log(`Button display: ${styles.display}`);
+                            log(`Button visibility: ${styles.visibility}`);
+                            log(`Button opacity: ${styles.opacity}`);
+                        }, 500);
+                        
+                    } else {
+                        log('❌ formular-button NOT registered in custom elements', 'error');
+                        log('Available custom elements:');
+                        // This is a bit tricky since there's no direct way to list all custom elements
+                        // But we can check some common ones
+                        const commonElements = ['my-component', 'form-input', 'base-component'];
+                        commonElements.forEach(name => {
+                            if (customElements.get(name)) {
+                                log(`  - ${name} is registered`);
+                            }
+                        });
+                    }
+                }, 100);
+                
+            })
+            .catch(error => {
+                log(`❌ Failed to load module: ${error.message}`, 'error');
+                log(`Error details: ${error.stack}`);
+            });
+    </script>
+</body>
+</html>

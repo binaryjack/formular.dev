@@ -7,7 +7,10 @@
 
 // Export the manager factory and validation utilities
 export {
-    createWebComponentManagers, defaultManagerConfig, validateWebComponentManagers, webComponentManagers
+    WebComponentDomManager, WebComponentNotificationManager, WebComponentStyleManager, createWebComponentManagers,
+    defaultManagerConfig,
+    validateWebComponentManagers,
+    webComponentManagers
 } from './manager-factory'
 
 // Export types
