@@ -19,6 +19,20 @@ export interface IAppContext {
     getConfiguration: <T>(...path: string[]) => T | undefined
 }
 
+export const appContextDefault: Partial<IAppContext> = {
+    breakpoints: undefined,
+    media: undefined,
+    isMobileDevice: false,
+    debug: undefined,
+    holdScroll: false,
+    setHoldScroll: () => {
+        return
+    },
+    getConfiguration: function <T>(...path: string[]) {
+        return {} as T
+    }
+}
+
 export const AppContext = createContext<IAppContext | null>(null)
 
 const useAppContext = (): IAppContext => {

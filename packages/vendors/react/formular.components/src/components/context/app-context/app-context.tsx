@@ -54,7 +54,22 @@ const AppContextProvider = ({
         if (externalServiceManager) {
             return externalServiceManager
         }
-        return ServiceManagerFactory.create(setupOptions)
+
+        try {
+            const manager = ServiceManagerFactory.create(setupOptions)
+            console.log('ServiceManager created successfully with options:', setupOptions)
+            return manager
+        } catch (error) {
+            console.error('Failed to create ServiceManager:', error)
+            // Return a minimal mock service manager as fallback
+            return {
+                dispose: () => {},
+                lazy: () => () => null,
+                resolve: () => null,
+                isRegistered: () => false,
+                services: {}
+            } as any
+        }
     })
 
     const serviceManager = externalServiceManager || internalServiceManager
@@ -73,11 +88,11 @@ const AppContextProvider = ({
     const getService = useMemo(() => {
         return function <T>(identifier: ServiceIdType<T>): T | undefined {
             try {
-                const resolver = serviceManager.lazy<T>(identifier)
+                const resolver = (serviceManager as any).lazy(identifier)
                 if (!resolver) {
                     throw new Error(`Service not found for identifier: ${identifier?.toString()}`)
                 }
-                return resolver()
+                return resolver() as T
             } catch (error: any) {
                 console.warn(
                     `getService: Error resolving service ${identifier?.toString()}:`,
@@ -91,7 +106,7 @@ const AppContextProvider = ({
     const getServiceSync = useMemo(() => {
         return function <T>(identifier: ServiceIdType<T>): T {
             try {
-                return serviceManager.resolve<T>(identifier)
+                return (serviceManager as any).resolve(identifier) as T
             } catch (error: any) {
                 throw new Error(
                     `getServiceSync: Error resolving service ${identifier?.toString()}: ${error.message}`

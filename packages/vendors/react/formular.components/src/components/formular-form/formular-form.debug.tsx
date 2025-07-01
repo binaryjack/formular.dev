@@ -30,7 +30,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
                     validationErrors:
                         field.input.validationResults?.map((v: IValidationResult) => v.error) || [],
                     type: field.input.type,
-                    flags: field.input.styleManager?.getFlagsObject?.() || {}
+                    flags: field.input?.styleManager?.getFlagsObject?.() || {}
                 }
                 return acc
             },

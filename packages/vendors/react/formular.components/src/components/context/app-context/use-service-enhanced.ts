@@ -3,7 +3,7 @@
  * This maintains the same interface as before while using the new merged context
  */
 
-import useAppContext from './app-context-enhanced.context'
+import useAppContext from './app-context.context'
 
 /**
  * React hook for accessing services from the merged app context.

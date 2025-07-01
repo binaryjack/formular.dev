@@ -1,6 +1,6 @@
 import { useService } from '@adapters/react'
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
-import { ButtonsDemo } from '@demo/buttons/buttons-demo'
+import ValidationDemoDatePicker from '@demo/validation-demos/validation-demo-date-picker'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 import type { IConfigurationManager } from 'formular.dev.lib'
 import { SConfigurationManager } from 'formular.dev.lib'
@@ -144,8 +144,8 @@ const App = () => {
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
             {/* <Demos /> */}
             <BoundaryErrorCatcher>
-                <ButtonsDemo />
-                {/* <ValidationDemoDatePicker /> */}
+                {/* <ButtonsDemo /> */}
+                <ValidationDemoDatePicker />
                 {/* <ValidationDemoCheckInput /> */}
                 {/* <ValidationDemoDatePicker /> */}
                 {/* <ValidationDemoDelayInput /> */}

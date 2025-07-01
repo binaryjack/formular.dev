@@ -5,7 +5,7 @@ import {
     defaultFieldStateFlags,
     notification
 } from 'formular.dev.lib'
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useRef, useSyncExternalStore } from 'react'
 
 /**
  * Return type for the useField hook.
@@ -35,6 +35,8 @@ export type useFieldHookType = <T extends IInputBase | IExtendedInput>(
  * This hook provides a reactive interface between FORMULAR field instances and React components.
  * It automatically subscribes to field changes and updates the component when the field state
  * changes, ensuring the UI stays in sync with the underlying field data and validation state.
+ *
+ * Uses React 18+ useSyncExternalStore for optimal performance and concurrent rendering compatibility.
  *
  * The hook manages:
  * - Field state flags (isValid, isDirty, isPristine, isFocus, etc.)
@@ -95,87 +97,72 @@ export type useFieldHookType = <T extends IInputBase | IExtendedInput>(
 export const useField = <T extends IExtendedInput | IInputBase>(
     field?: T
 ): IUseFieldHookReturn<T> => {
-    const [flags, setFlags] = React.useState<IFieldStateFlags>(defaultFieldStateFlags)
-    const [value, setValue] = React.useState(field?.input?.value)
-    const [renderCount, setRenderCount] = React.useState(0)
+    // Cache the last snapshot to avoid creating new objects on every call
+    const lastSnapshotRef = useRef<IFieldStateFlags>(defaultFieldStateFlags)
 
-    const stableField = React.useMemo(() => field, [field])
+    // Subscribe function for useSyncExternalStore
+    const subscribe = useCallback(
+        (callback: () => void) => {
+            if (!field) {
+                return () => {}
+            }
 
-    // Add logging to track useField behavior
-    // console.log('useField initialized for field:', field?.input?.name)    // Optimize handleRefresh to avoid redundant updates
-    const handleRefresh = useCallback(() => {
-        const newFlags = stableField?.input.styleManager?.getFlagsObject?.()
-        const newValue = stableField?.input?.value
-        console.log('useField handleRefresh triggered for field:', stableField?.input?.name)
-        // More efficient comparison for boolean flags
-        const flagsChanged =
-            newFlags &&
-            (!flags ||
-                Object.keys(newFlags).some(
-                    (key) =>
-                        newFlags[key as keyof IFieldStateFlags] !==
-                        flags[key as keyof IFieldStateFlags]
-                ))
+            console.log('useField subscribing to field:', field?.input?.name)
 
-        if (flagsChanged) {
-            setFlags(newFlags)
+            const notifications = [
+                notification(field, callback, 'onUiUpdate', 'useField.onUiUpdate', 'useField'),
+                notification(field, callback, 'onFocus', 'useField.onFocus', 'useField'),
+                notification(field, callback, 'onBlur', 'useField.onBlur', 'useField')
+            ]
+
+            notifications.forEach((notif) => field.input.notificationManager?.accept(notif))
+
+            return () => {
+                console.log('useField unsubscribing from field:', field?.input?.name)
+                field.input.notificationManager?.observers.unSubscribe(callback)
+                notifications.forEach((notif) => field.input.notificationManager?.dismiss(notif))
+            }
+        },
+        [field]
+    )
+
+    // Snapshot function for useSyncExternalStore - must return stable references
+    const getSnapshot = useCallback(() => {
+        if (!field) {
+            return defaultFieldStateFlags
         }
-        // Update value
-        if (newValue !== value) {
-            setValue(newValue)
+
+        const styleManager = field?.input?.styleManager
+        const newFlags = styleManager?.getFlagsObject?.() ?? defaultFieldStateFlags
+
+        // Only update the cached snapshot if the flags have actually changed
+        const lastSnapshot = lastSnapshotRef.current
+        const hasChanged =
+            !lastSnapshot ||
+            Object.keys(newFlags).some(
+                (key) =>
+                    newFlags[key as keyof IFieldStateFlags] !==
+                    lastSnapshot[key as keyof IFieldStateFlags]
+            )
+
+        if (hasChanged) {
+            console.log(
+                'useField getSnapshot - flags changed for field:',
+                field?.input?.name,
+                'new flags:',
+                newFlags
+            )
+            lastSnapshotRef.current = newFlags
         }
-        setRenderCount((prev) => prev + 1)
-    }, [stableField, flags, value])
 
-    // Optimize useEffect dependencies
-    useEffect(() => {
-        const classNames = stableField?.input.styleManager?.classNames()
-        if (classNames) {
-            console.log('useField useEffect triggered for field:', stableField?.input?.name)
-            setFlags(stableField?.input.styleManager?.getFlagsObject?.())
-        }
-    }, [stableField?.input.styleManager?.classNames])
+        return lastSnapshotRef.current
+    }, [field])
 
-    useEffect(() => {
-        if (!stableField) return
-        /** Bind the function handleRefresh to followng field events*/
-        const notifications = [
-            notification(
-                stableField,
-                handleRefresh,
-                'onUiUpdate',
-                'useField.onUiUpdate',
-                'useField'
-            ),
-            // notification(
-            //     stableField,
-            //     handleRefresh,
-            //     'onValueChange',
-            //     'useField.onValueChange',
-            //     'useField'
-            // ),
-            // notification(
-            //     stableField,
-            //     handleRefresh,
-            //     'onValidationChange',
-            //     'useField.onValidationChange',
-            //     'useField'
-            // ),
-            notification(stableField, handleRefresh, 'onFocus', 'useField.onFocus', 'useField'),
-            notification(stableField, handleRefresh, 'onBlur', 'useField.onBlur', 'useField')
-        ]
-
-        notifications.forEach((notif) => stableField.input.notificationManager?.accept(notif))
-
-        return () => {
-            stableField.input.notificationManager?.observers.unSubscribe(handleRefresh)
-            notifications.forEach((notif) => stableField.input.notificationManager?.dismiss(notif))
-            console.log('useField cleanup for field:', stableField?.input?.name)
-        }
-    }, [stableField])
+    // Use React 18+ useSyncExternalStore for optimal performance
+    const flags = useSyncExternalStore(subscribe, getSnapshot)
 
     return {
-        instance: stableField,
+        instance: field,
         flags
     }
 }
