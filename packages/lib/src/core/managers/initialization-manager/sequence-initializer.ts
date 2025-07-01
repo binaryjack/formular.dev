@@ -10,7 +10,9 @@ export function sequenceInitializer(
     const IM = new InitializationManager(config)
 
     dependencies.forEach((dep) => {
-        IM.addInitializer(dep.dependencyName, dep.initialize.bind(dep))
+        if (dep.dependencyName && dep.initialize) {
+            IM.addInitializer(dep.dependencyName, dep.initialize.bind(dep))
+        }
     })
 
     IM.executeSequences()

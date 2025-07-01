@@ -144,7 +144,6 @@ export interface IInputBase extends IInputProperties, IInitializableDependency {
     useTrackingManager: (trackerInstance: ITrackingManager) => IInputBase
     useValidationManager: (validationStrategyInstance: IValidationManager) => IInputBase
     useValueManager: (valueStrategyInstance: IValueManager) => IInputBase
-    useDrawerManager: (drawerBase: IDrawerBaseInput) => IInputBase
     useStyleManager: (styleManager: IStyleManager) => IInputBase
 }
 

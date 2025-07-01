@@ -2,6 +2,10 @@ import {
     IServiceManager,
     SServiceManager
 } from '@core/managers/service-manager/service-manager.types'
+import {
+    MaskedWithDrawerInputService,
+    SMaskedWithDrawerInputService
+} from '../input-builder-services'
 import { BaseInputService, SBaseInputService } from '../input-builder-services/base-input-service'
 import {
     CheckInputService,
@@ -52,6 +56,11 @@ export const setupInputsRegistry = function (sm: IServiceManager) {
     })
 
     sm.registerClass(SMaskedInputService, MaskedInputService, {
+        lifetime: 'transient',
+        dependencies: [SServiceManager]
+    })
+
+    sm.registerClass(SMaskedWithDrawerInputService, MaskedWithDrawerInputService, {
         lifetime: 'transient',
         dependencies: [SServiceManager]
     })

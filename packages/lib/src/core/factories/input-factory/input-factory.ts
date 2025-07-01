@@ -6,10 +6,6 @@ import {
     SCheckInputService
 } from '@core/factories/input-builder-services/check-input-service'
 import {
-    IMaskedInputService,
-    SMaskedInputService
-} from '@core/factories/input-builder-services/masked-input-service'
-import {
     IRadioInputService,
     SRadioInputService
 } from '@core/factories/input-builder-services/radio-input-service'
@@ -22,6 +18,10 @@ import {
     STextInputService
 } from '@core/factories/input-builder-services/text-input-service'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
+import {
+    IMaskedWithDrawerInputService,
+    SMaskedWithDrawerInputService
+} from '../input-builder-services'
 import { InputTypeMap } from './mapping/input-type-map'
 
 export const SInputFactory = Symbol.for('IInputFactory')
@@ -59,7 +59,9 @@ export const InputFactory = function (this: IInputFactory, serviceManager: IServ
                 const srs = this.sm.lazy<IRadioInputService>(SRadioInputService)?.()
                 return srs.build.bind(srs) as IBuilder<T>
             case 'date':
-                const sms = this.sm.lazy<IMaskedInputService>(SMaskedInputService)?.()
+                const sms = this.sm.lazy<IMaskedWithDrawerInputService>(
+                    SMaskedWithDrawerInputService
+                )?.()
                 return sms.build.bind(sms) as IBuilder<T>
             case 'text':
             default:

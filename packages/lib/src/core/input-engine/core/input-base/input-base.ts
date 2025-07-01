@@ -23,7 +23,6 @@ import { IValueManager } from '@core/managers/value-manager/value-manager.types'
 import { IServiceManager } from '@core/types'
 
 import { useDomManager } from './dependencies/use-dom-manager'
-import { useDrawerManager } from './dependencies/use-drawer-manager'
 import { useNotificationManager } from './dependencies/use-notification-manager'
 import { useStyleManager } from './dependencies/use-style-manager'
 import { useTrackingManager } from './dependencies/use-tracking-manager'
@@ -164,7 +163,6 @@ Object.assign(InputBase.prototype, {
     handleValidation,
     handleOnKeyPress,
     handleOnKeyUp,
-    useDrawerManager,
     useValueManager,
     useStyleManager,
     useDomManager,
