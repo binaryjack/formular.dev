@@ -7,10 +7,8 @@ import { useMemo } from 'react'
 
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
-import '../input-text/input-text.css'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import ValidationResultComponent from '../validation-result/validation-result'
-import './select-input.css'
 import SelectDrawerContent from './select-input.drawer.content'
 
 interface ISelectProps {

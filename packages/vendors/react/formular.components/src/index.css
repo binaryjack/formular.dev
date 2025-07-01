@@ -1,9 +1,2 @@
-/** base */
-@import "tailwindcss/base";
-@import "tailwindcss/utilities";
-@import "tailwindcss/screens";
-/** COMPONENTS */
-@import "tailwindcss/components";
-@import './style/globals.css';
-@import '@components/button/button.css';
-/** utils */
+/** Import Design System Base Styles */
+@import 'formular.design.system/styles';

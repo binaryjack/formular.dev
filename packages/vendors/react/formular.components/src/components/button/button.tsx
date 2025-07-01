@@ -12,6 +12,14 @@ import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import { conditionalClass } from 'formular.dev.lib'
 import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'
+import {
+    getBaseButtonClasses,
+    getDisabledClasses,
+    getLoadingClasses,
+    mapRippleToDesignSystem,
+    mapSizeToDesignSystem,
+    mapVariantToDesignSystem
+} from './utils/design-system-mapper'
 export interface IButtonVariant {
     variant: VariantNameType
     size: AppBreakPointSizesType
@@ -61,11 +69,11 @@ export const Button = ({
     } = variantProperties
 
     const btnBaseClasses = conditionalClass([
-        `${sizeConverter?.(size)}`,
-        `btn-${variant}`,
-        disabled ? 'disabled' : '',
-        loading ? 'loading' : '',
-        `text-${sizeConverter?.(size)}`,
+        getBaseButtonClasses(),
+        mapSizeToDesignSystem(size),
+        mapVariantToDesignSystem(variant),
+        disabled ? getDisabledClasses() : '',
+        loading ? getLoadingClasses() : '',
         `${rounded ? 'rounded' : ''}`,
         textCase
     ])
@@ -114,7 +122,7 @@ export const Button = ({
             disabled={disabled || loading}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
-            className={`btn-wrapper ${btnBaseClasses} ${className} ${sizes.px} ${sizes.my}`}
+            className={`${btnBaseClasses} ${className ?? ''}`}
             style={{
                 width: width ?? 'unset',
                 maxWidth: sizes.width ?? 'unset',
@@ -124,6 +132,12 @@ export const Button = ({
             onMouseDown={handleOnMouseDown}
             onMouseUp={handleOnMouseUp}
         >
+            {/* Ripple effect - positioned absolutely to avoid affecting layout */}
+            <span
+                className={`absolute inset-0 ripple ${mapRippleToDesignSystem(variant)} ${classRef}`}
+                style={{ ...rippleStyle, pointerEvents: 'none' }}
+            />
+
             <div
                 /** Here after I want to keep all the breakpoints even if they does the same just in order to
                  * get used to them
@@ -153,10 +167,6 @@ export const Button = ({
                     ) : (
                         <></>
                     )}
-                    <span
-                        className={`relative flex ripple ${variant} ${classRef}`}
-                        style={{ ...rippleStyle, pointerEvents: 'none' }}
-                    />
                     <span
                         className={`flex content ${sizeConverter?.(size)} text-nowrap ${weight} `}
                         style={{ pointerEvents: 'none' }}

@@ -1,6 +1,5 @@
 import { Typography } from '@components/typography/typography'
 import { ITab } from '../types/i-tab'
-import './smart-tab.css'
 export interface SmartTabProps {
     tab: ITab
     onSelect: (id: string) => void

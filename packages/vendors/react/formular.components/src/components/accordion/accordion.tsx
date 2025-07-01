@@ -2,7 +2,6 @@ import { Toggleable } from '@components/toggleable/toggleable'
 
 import { ToggleableStateType } from 'formular.dev.lib'
 import { AccordionContainer } from './accordion-container'
-import './accordion.css'
 export interface IAccordionProps {
     id: string
     children?: React.ReactNode

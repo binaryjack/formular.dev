@@ -5,7 +5,6 @@ import { Button, IButtonVariant } from '../../button/button'
 import { useDrawerContext } from '../../drawer/components/drawer.context'
 import { PortalSlot } from '../../portals/portals-slot'
 import { useDatePickerContext } from './date-picker.context'
-import './date-picker.header.css'
 import DatePickerSwitch from './date-picker.switch'
 
 import useAppContext from '@components/context/app-context/app-context.context'

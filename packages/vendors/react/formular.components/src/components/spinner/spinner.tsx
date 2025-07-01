@@ -1,5 +1,3 @@
-import './spinner.css'
-
 interface SpinnerProps {
     width?: number
     height?: number

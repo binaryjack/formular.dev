@@ -8,7 +8,6 @@
 
 import { newEvent } from '@core/framework/events/new-event'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { IDrawerBaseInput } from '@core/input-engine/variants/drawer-base/drawer-base-input.types'
 import { ICulture } from '@core/managers'
 import {
     IConfigurationManager,
@@ -57,7 +56,6 @@ export const InputBase = function (
     trackerInstance: ITrackingManager | null,
     validationManagerInstance: IValidationManager | null,
     valueManagerInstance: IValueManager | null,
-    drawerBase: IDrawerBaseInput | null,
     styleManager: IStyleManager | null
 ) {
     if (descriptor !== null) this.initializeProperties(descriptor)
@@ -66,7 +64,6 @@ export const InputBase = function (
     if (trackerInstance !== null) this.useTrackingManager(trackerInstance)
     if (validationManagerInstance !== null) this.useValidationManager(validationManagerInstance)
     if (valueManagerInstance !== null) this.useValueManager(valueManagerInstance)
-    if (drawerBase !== null) this.useDrawerManager(drawerBase)
     if (styleManager !== null) this.useStyleManager(styleManager)
 
     this.isInitialized = false

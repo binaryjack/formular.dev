@@ -1,7 +1,0 @@
-@tailwind components;
-
-@keyframes spinner-animation {
-    100% {
-        transform: rotate(360deg)
-    }
-}

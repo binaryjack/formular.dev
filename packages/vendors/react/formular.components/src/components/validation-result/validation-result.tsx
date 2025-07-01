@@ -1,5 +1,4 @@
 import { EventsType, IValidationResult } from 'formular.dev.lib'
-import './validation-result.css'
 
 import { useMemo } from 'react'
 

@@ -1,5 +1,4 @@
 import React from 'react'
-import './typography.css'
 
 export interface ITypographyProps<T extends HTMLElement> {
     size?: 'small' | 'medium' | 'large'

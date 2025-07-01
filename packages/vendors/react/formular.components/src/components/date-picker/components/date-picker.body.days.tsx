@@ -4,7 +4,6 @@ import { Button, IButtonVariant } from '../../button/button'
 import { Portal } from '../../portals/portals'
 import { computeRange } from '../core/computed/compute-range'
 import { IDatePickerCell, IDatePickerRow } from '../core/models/date-picker.models'
-import './date-picker.body.css'
 
 import useAppContext from '@components/context/app-context/app-context.context'
 import DatePickerCell from './date-picker.cell'

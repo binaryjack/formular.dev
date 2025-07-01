@@ -6,7 +6,6 @@ import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
-import './input-text.css'
 
 /**
  * Props for the InputText component.

@@ -5,7 +5,6 @@ import { IExtendedInput, IOptionItem, isMissing, MissingPropEnum } from 'formula
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
-import './radio-input.css'
 import RadioInputOption from './radio-input.option'
 
 // Create a more complete interface for radio inputs

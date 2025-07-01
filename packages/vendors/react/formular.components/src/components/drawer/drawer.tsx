@@ -12,7 +12,6 @@ import { useCallback, useEffect } from 'react'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
 import { DrawerContext, IDrawerContext } from './components/drawer.context'
 import { DrawerTopBottomPortal } from './components/drawer.top-bottom.portal'
-import './drawer.css'
 
 interface IDrawerProps {
     id: string

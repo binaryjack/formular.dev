@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { ifClass, newIFClass } from 'formular.dev.lib'
 import { DatePickerDisplayType } from '../core/date-picker.types'
 import { IDatePickerCell } from '../core/models/date-picker.models'
-import './date-picker.cell.css'
 import DatePickerSwitch from './date-picker.switch'
 interface IDatePickerCellProps {
     item: IDatePickerCell

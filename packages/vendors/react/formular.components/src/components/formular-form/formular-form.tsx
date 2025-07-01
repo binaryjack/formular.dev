@@ -22,7 +22,6 @@ import { Button, IButtonVariant } from '../button/button'
 
 import useAppContext from '@components/context/app-context/app-context.context'
 import { formularContext, IFormularContext } from './formular-form.context'
-import './formular-form.css'
 import FormularFormDebug from './formular-form.debug'
 
 /**
