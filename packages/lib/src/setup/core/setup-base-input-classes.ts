@@ -35,58 +35,72 @@ export const setupBaseInputClasses = function (sm: IServiceManager) {
             'ServiceManager is not provided. Please provide a valid ServiceManager instance.'
         )
     }
+
+    // ========================================
+    // PHASE 1: BASE INPUT VARIANTS (No dependencies on other inputs)
+    // ========================================
+
+    // Register base input variants first (they don't depend on each other)
+    sm.registerClass(STextBaseInput, TextBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SOptionBaseInput, OptionBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SClickBaseInput, ClickBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SMaskedBaseInput, MaskedBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SRadioBaseInput, RadioBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SSelectBaseInput, SelectBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SNumericBaseInput, NumericBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SDrawerBaseInput, DrawerBaseInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    sm.registerClass(SCheckBoxBaseInput, CheckBoxInput, {
+        lifetime: 'transient',
+        dependencies: []
+    })
+
+    // ========================================
+    // PHASE 2: CORE INPUT BASE (Dependencies: Core Managers + Input Variants)
+    // ========================================
+
+    // Register the core InputBase after all variants are registered
     sm.registerClass(SInputBase, InputBase, {
         lifetime: 'transient',
         dependencies: [
             SServiceManager,
-            null,
             SDomManager,
             SNotificationManager,
             STrackingManager,
             SValidationManager,
             SValueManager,
-            SDrawerBaseInput,
             SStyleManager
         ]
-    })
-    sm.registerClass(STextBaseInput, TextBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SOptionBaseInput, OptionBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SClickBaseInput, ClickBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SMaskedBaseInput, MaskedBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SRadioBaseInput, RadioBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SSelectBaseInput, SelectBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SNumericBaseInput, NumericBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SDrawerBaseInput, DrawerBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SClickBaseInput, ClickBaseInput, {
-        lifetime: 'transient',
-        dependencies: []
-    })
-    sm.registerClass(SCheckBoxBaseInput, CheckBoxInput, {
-        lifetime: 'transient',
-        dependencies: []
     })
 }
