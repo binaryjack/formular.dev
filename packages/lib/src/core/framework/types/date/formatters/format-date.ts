@@ -16,14 +16,20 @@ export const formatDate = (date?: INDate, format?: DateFormatsEnum) => {
     if (!date || !format) return ''
 
     switch (format) {
-        case 'yyyy/mm/dd':
-            return `${date?.year}-${date?.month.toString().padStart(2, '0')}-${date?.day.toString().padStart(2, '0')}`
+        case DateFormatsEnum.YYYY_MM_DD:
+            return `${date?.year}-${date?.month.toString().padStart(2, '0')}-${date?.day
+                .toString()
+                .padStart(2, '0')}`
 
-        case 'mm/dd/yyyy':
-            return `${date?.month.toString().padStart(2, '0')}-${date?.day.toString().padStart(2, '0')}-${date?.year}`
+        case DateFormatsEnum.MM_DD_YYYY:
+            return `${date?.month.toString().padStart(2, '0')}-${date?.day
+                .toString()
+                .padStart(2, '0')}-${date?.year}`
 
-        case 'dd/mm/yyyy':
+        case DateFormatsEnum.DD_MM_YYYY:
         default:
-            return `${date?.day.toString().padStart(2, '0')}-${date?.month.toString().padStart(2, '0')}-${date?.year}`
+            return `${date?.day.toString().padStart(2, '0')}-${date?.month
+                .toString()
+                .padStart(2, '0')}-${date?.year}`
     }
 }

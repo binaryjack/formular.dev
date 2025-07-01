@@ -16,4 +16,4 @@ export * from './setup/core/setup-helpers'
 // Export test mocks for consumer testing (see CONTRIBUTING.md exception)
 export * from './__tests__/mocks'
 
-// Exporting explicit types for better IDE support
+// Export explicit types for better IDE support

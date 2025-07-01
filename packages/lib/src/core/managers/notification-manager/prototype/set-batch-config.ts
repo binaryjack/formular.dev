@@ -7,6 +7,11 @@ import { BatchConfig, NotificationPriority } from '../notification-manager.types
  * @param {BatchConfig} config - The batch configuration to apply
  */
 export function setBatchConfig(this: INotificationManager, config: BatchConfig): void {
+    // Handle null config gracefully
+    if (!config) {
+        return
+    }
+
     this.batchConfig = { ...this.batchConfig, ...config }
 
     // Initialize priority queues if priority is enabled

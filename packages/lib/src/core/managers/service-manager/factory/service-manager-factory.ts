@@ -28,6 +28,8 @@ export const ServiceManagerFactory: IServiceManagerFactory = {
      * Creates a new service manager instance with specified features
      */
     create(options: IServiceManagerSetupOptions = {}): IServiceManager {
+        // Handle null/undefined options safely
+        const safeOptions = options || {}
         const {
             includeCoreManagers = true,
             includeFormularManager = true,
@@ -36,7 +38,7 @@ export const ServiceManagerFactory: IServiceManagerFactory = {
             customSetup = [],
             parent,
             skipValidation = false
-        } = options
+        } = safeOptions
 
         const serviceManager = new ServiceManager(parent)
 
