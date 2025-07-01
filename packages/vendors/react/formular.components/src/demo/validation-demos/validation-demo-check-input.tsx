@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useService } from '@adapters/react/services/use-service'
-import CheckInput from '@components/check-Input/check-Input'
+import CheckInput from '@components/check-Input/check-input'
 import FormularForm from '@components/formular-form/formular-form'
 
 import { BooleanConstraint } from './components/boolean-constraint'

@@ -13,7 +13,7 @@ import { useState } from 'react'
 
 import { useService } from '@adapters/react'
 import { useField } from '@adapters/react/fields/hooks/use-field'
-import CheckInput from '@components/check-Input/check-Input'
+import CheckInput from '@components/check-Input/check-input'
 import DatePicker from '@components/date-picker/date-picker'
 import FormularForm from '@components/formular-form/formular-form'
 import InputText from '@components/input-text/input-text'
