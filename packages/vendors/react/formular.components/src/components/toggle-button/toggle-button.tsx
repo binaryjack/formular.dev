@@ -1,15 +1,6 @@
+import type { ColorVariant, Size } from 'formular.design.system'
+import { cx } from 'formular.design.system'
 import { useEffect, useState } from 'react'
-
-import {
-    // filepath: e:/Sources/SignalsPatternsReact/src/components/toggle/Toggle.tsx
-    AppBreakPointSizesType,
-    TextCaseType,
-    TextWeightType,
-    VariantNameType
-} from '../../style/global.types'
-
-import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
-import './toggle-button.css'
 
 interface IToggleButtonProps {
     id: string
@@ -17,10 +8,8 @@ interface IToggleButtonProps {
     toggle: boolean
     children: React.ReactNode
     disabled?: boolean
-    size?: AppBreakPointSizesType
-    variant?: VariantNameType
-    textCase?: TextCaseType
-    weight?: TextWeightType
+    size?: Size
+    variant?: ColorVariant
     className?: string
     width?: string
     height?: string
@@ -33,10 +22,8 @@ export const ToggleButton = ({
     toggle,
     className,
     children,
-    size = 'sm',
+    size = 'md',
     variant = 'primary',
-    textCase = 'normal-case',
-    weight = 'normal',
     onToggle,
     width = '34px',
     height = '34px',
@@ -55,19 +42,19 @@ export const ToggleButton = ({
         onToggle(id, newState)
     }
 
-    const btnBaseClasses = [
-        isOn
-            ? `border-3 border-solid toggle-button-${variant}-active`
-            : `border-2 border-solid toggle-button-${variant}`,
-        `${sizeConverter?.(size)}`,
-        `${textCase}`,
-        `${weight}`,
+    const btnBaseClasses = cx(
+        'toggle-button-wrapper',
+        isOn ? `toggle-button-${variant}-active` : `toggle-button-${variant}`,
         'rounded',
         'cursor-pointer',
         'transition-all',
         'duration-150',
-        'ease-in-out'
-    ].join(' ')
+        'ease-in-out',
+        {
+            'opacity-50 cursor-not-allowed': disabled
+        },
+        className
+    )
 
     return (
         <button
@@ -81,9 +68,9 @@ export const ToggleButton = ({
                 maxWidth: width,
                 height: height
             }}
-            className={`toggle-button-wrapper ${btnBaseClasses} ${className}`}
+            className={btnBaseClasses}
         >
-            {children}
+            <div className="content">{children}</div>
         </button>
     )
 }

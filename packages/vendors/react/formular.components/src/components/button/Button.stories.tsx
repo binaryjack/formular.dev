@@ -14,7 +14,7 @@ const meta: Meta<typeof Button> = {
         docs: {
             description: {
                 component:
-                    'A customizable button component with various variants, sizes, and interactive states. Features ripple effects, loading states, and accessibility support.'
+                    'A customizable button component that uses the design system for consistent styling. Features ripple effects, loading states, accessibility support, and multiple variants.'
             }
         }
     },
@@ -75,280 +75,351 @@ export const Default: Story = {
         onClickCallback: handleClick('button-clicked'),
         variantProperties: {
             variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+// Design System Variants
+export const Primary: Story = {
+    args: {
+        id: 'primary-button',
+        title: 'Primary Button',
+        children: 'Primary',
+        onClickCallback: handleClick('primary-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+export const Secondary: Story = {
+    args: {
+        id: 'secondary-button',
+        title: 'Secondary Button',
+        children: 'Secondary',
+        onClickCallback: handleClick('secondary-clicked'),
+        variantProperties: {
+            variant: 'secondary',
+            size: 'sm'
+        }
+    }
+}
+
+export const Success: Story = {
+    args: {
+        id: 'success-button',
+        title: 'Success Button',
+        children: 'Success',
+        onClickCallback: handleClick('success-clicked'),
+        variantProperties: {
+            variant: 'success',
+            size: 'sm'
+        }
+    }
+}
+
+export const Warning: Story = {
+    args: {
+        id: 'warning-button',
+        title: 'Warning Button',
+        children: 'Warning',
+        onClickCallback: handleClick('warning-clicked'),
+        variantProperties: {
+            variant: 'warning',
+            size: 'sm'
+        }
+    }
+}
+
+export const Danger: Story = {
+    args: {
+        id: 'danger-button',
+        title: 'Danger Button',
+        children: 'Danger',
+        onClickCallback: handleClick('danger-clicked'),
+        variantProperties: {
+            variant: 'danger',
+            size: 'sm'
+        }
+    }
+}
+
+export const Info: Story = {
+    args: {
+        id: 'info-button',
+        title: 'Info Button',
+        children: 'Info',
+        onClickCallback: handleClick('info-clicked'),
+        variantProperties: {
+            variant: 'info',
+            size: 'sm'
+        }
+    }
+}
+
+// Design System Sizes
+export const ExtraSmall: Story = {
+    args: {
+        id: 'xs-button',
+        title: 'Extra Small Button',
+        children: 'XS',
+        onClickCallback: handleClick('xs-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'xs'
+        }
+    }
+}
+
+export const Small: Story = {
+    args: {
+        id: 'sm-button',
+        title: 'Small Button',
+        children: 'Small',
+        onClickCallback: handleClick('sm-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+export const Medium: Story = {
+    args: {
+        id: 'md-button',
+        title: 'Medium Button',
+        children: 'Medium',
+        onClickCallback: handleClick('md-clicked'),
+        variantProperties: {
+            variant: 'primary',
             size: 'md'
         }
     }
 }
 
-// All Button Sizes
-export const Sizes: Story = {
+export const Large: Story = {
+    args: {
+        id: 'lg-button',
+        title: 'Large Button',
+        children: 'Large',
+        onClickCallback: handleClick('lg-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'lg'
+        }
+    }
+}
+
+export const ExtraLarge: Story = {
+    args: {
+        id: 'xl-button',
+        title: 'Extra Large Button',
+        children: 'XL',
+        onClickCallback: handleClick('xl-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'xl'
+        }
+    }
+}
+
+// States
+export const Loading: Story = {
+    args: {
+        id: 'loading-button',
+        title: 'Loading Button',
+        children: 'Loading...',
+        loading: true,
+        onClickCallback: handleClick('loading-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+export const Disabled: Story = {
+    args: {
+        id: 'disabled-button',
+        title: 'Disabled Button',
+        children: 'Disabled',
+        disabled: true,
+        onClickCallback: handleClick('disabled-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+export const Toggle: Story = {
+    args: {
+        id: 'toggle-button',
+        title: 'Toggle Button',
+        children: 'Toggle Me',
+        isToggle: true,
+        isPressed: false,
+        onClickCallback: handleClick('toggle-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+export const TogglePressed: Story = {
+    args: {
+        id: 'toggle-pressed-button',
+        title: 'Toggle Pressed Button',
+        children: 'Pressed',
+        isToggle: true,
+        isPressed: true,
+        onClickCallback: handleClick('toggle-pressed-clicked'),
+        variantProperties: {
+            variant: 'primary',
+            size: 'sm'
+        }
+    }
+}
+
+// Showcase Examples
+export const VariantShowcase: Story = {
     render: () => (
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex flex-wrap gap-4">
             <Button
-                id="size-2xs"
-                title="2XS Button"
-                children="2XS"
-                variantProperties={{ variant: 'primary', size: '2xs' }}
-                onClickCallback={handleClick('2xs-clicked')}
+                id="showcase-primary"
+                title="Primary"
+                children="Primary"
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('primary-showcase')}
             />
             <Button
+                id="showcase-secondary"
+                title="Secondary"
+                children="Secondary"
+                variantProperties={{ variant: 'secondary', size: 'sm' }}
+                onClickCallback={handleClick('secondary-showcase')}
+            />
+            <Button
+                id="showcase-success"
+                title="Success"
+                children="Success"
+                variantProperties={{ variant: 'success', size: 'sm' }}
+                onClickCallback={handleClick('success-showcase')}
+            />
+            <Button
+                id="showcase-warning"
+                title="Warning"
+                children="Warning"
+                variantProperties={{ variant: 'warning', size: 'sm' }}
+                onClickCallback={handleClick('warning-showcase')}
+            />
+            <Button
+                id="showcase-danger"
+                title="Danger"
+                children="Danger"
+                variantProperties={{ variant: 'danger', size: 'sm' }}
+                onClickCallback={handleClick('danger-showcase')}
+            />
+            <Button
+                id="showcase-info"
+                title="Info"
+                children="Info"
+                variantProperties={{ variant: 'info', size: 'sm' }}
+                onClickCallback={handleClick('info-showcase')}
+            />
+        </div>
+    )
+}
+
+export const SizeShowcase: Story = {
+    render: () => (
+        <div className="flex items-center gap-4">
+            <Button
                 id="size-xs"
-                title="XS Button"
+                title="XS"
                 children="XS"
                 variantProperties={{ variant: 'primary', size: 'xs' }}
-                onClickCallback={handleClick('xs-clicked')}
+                onClickCallback={handleClick('xs-size')}
             />
             <Button
                 id="size-sm"
-                title="SM Button"
+                title="SM"
                 children="SM"
                 variantProperties={{ variant: 'primary', size: 'sm' }}
-                onClickCallback={handleClick('sm-clicked')}
+                onClickCallback={handleClick('sm-size')}
             />
             <Button
                 id="size-md"
-                title="MD Button"
+                title="MD"
                 children="MD"
                 variantProperties={{ variant: 'primary', size: 'md' }}
-                onClickCallback={handleClick('md-clicked')}
+                onClickCallback={handleClick('md-size')}
             />
             <Button
                 id="size-lg"
-                title="LG Button"
+                title="LG"
                 children="LG"
                 variantProperties={{ variant: 'primary', size: 'lg' }}
-                onClickCallback={handleClick('lg-clicked')}
+                onClickCallback={handleClick('lg-size')}
             />
             <Button
                 id="size-xl"
-                title="XL Button"
+                title="XL"
                 children="XL"
                 variantProperties={{ variant: 'primary', size: 'xl' }}
-                onClickCallback={handleClick('xl-clicked')}
-            />
-            <Button
-                id="size-2xl"
-                title="2XL Button"
-                children="2XL"
-                variantProperties={{ variant: 'primary', size: '2xl' }}
-                onClickCallback={handleClick('2xl-clicked')}
+                onClickCallback={handleClick('xl-size')}
             />
         </div>
     )
 }
 
-// All Button Variants
-export const Variants: Story = {
+export const StateShowcase: Story = {
     render: () => (
-        <div className="flex items-center gap-4 flex-wrap">
-            <Button
-                id="variant-primary"
-                title="Primary Button"
-                children="Primary"
-                variantProperties={{ variant: 'primary', size: 'md' }}
-                onClickCallback={handleClick('primary-clicked')}
-            />
-            <Button
-                id="variant-secondary"
-                title="Secondary Button"
-                children="Secondary"
-                variantProperties={{ variant: 'secondary', size: 'md' }}
-                onClickCallback={handleClick('secondary-clicked')}
-            />
-            <Button
-                id="variant-info"
-                title="Info Button"
-                children="Info"
-                variantProperties={{ variant: 'info', size: 'md' }}
-                onClickCallback={handleClick('info-clicked')}
-            />
-            <Button
-                id="variant-success"
-                title="Success Button"
-                children="Success"
-                variantProperties={{ variant: 'success', size: 'md' }}
-                onClickCallback={handleClick('success-clicked')}
-            />
-            <Button
-                id="variant-warning"
-                title="Warning Button"
-                children="Warning"
-                variantProperties={{ variant: 'warning', size: 'md' }}
-                onClickCallback={handleClick('warning-clicked')}
-            />
-            <Button
-                id="variant-danger"
-                title="Danger Button"
-                children="Danger"
-                variantProperties={{ variant: 'danger', size: 'md' }}
-                onClickCallback={handleClick('danger-clicked')}
-            />
-        </div>
-    )
-}
-
-// Button States
-export const States: Story = {
-    render: () => (
-        <div className="flex items-center gap-4 flex-wrap">
+        <div className="flex flex-wrap gap-4">
             <Button
                 id="state-normal"
-                title="Normal Button"
+                title="Normal"
                 children="Normal"
-                variantProperties={{ variant: 'primary', size: 'md' }}
-                onClickCallback={handleClick('normal-clicked')}
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('normal-state')}
             />
             <Button
                 id="state-loading"
-                title="Loading Button"
+                title="Loading"
                 children="Loading"
-                variantProperties={{ variant: 'primary', size: 'md' }}
                 loading={true}
-                onClickCallback={handleClick('loading-clicked')}
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('loading-state')}
             />
             <Button
                 id="state-disabled"
-                title="Disabled Button"
+                title="Disabled"
                 children="Disabled"
-                variantProperties={{ variant: 'primary', size: 'md' }}
                 disabled={true}
-                onClickCallback={handleClick('disabled-clicked')}
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('disabled-state')}
             />
             <Button
                 id="state-toggle-off"
                 title="Toggle Off"
                 children="Toggle Off"
-                variantProperties={{ variant: 'secondary', size: 'md' }}
                 isToggle={true}
                 isPressed={false}
-                onClickCallback={handleClick('toggle-off-clicked')}
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('toggle-off')}
             />
             <Button
                 id="state-toggle-on"
                 title="Toggle On"
                 children="Toggle On"
-                variantProperties={{ variant: 'primary', size: 'md' }}
                 isToggle={true}
                 isPressed={true}
-                onClickCallback={handleClick('toggle-on-clicked')}
+                variantProperties={{ variant: 'primary', size: 'sm' }}
+                onClickCallback={handleClick('toggle-on')}
             />
-        </div>
-    )
-}
-
-// Text Cases
-export const TextCases: Story = {
-    render: () => (
-        <div className="flex items-center gap-4 flex-wrap">
-            <Button
-                id="case-normal"
-                title="Normal Case"
-                children="Normal Case"
-                variantProperties={{
-                    variant: 'primary',
-                    size: 'md',
-                    textCase: 'normal-case'
-                }}
-                onClickCallback={handleClick('normal-case-clicked')}
-            />
-            <Button
-                id="case-uppercase"
-                title="Uppercase"
-                children="Uppercase"
-                variantProperties={{
-                    variant: 'primary',
-                    size: 'md',
-                    textCase: 'uppercase'
-                }}
-                onClickCallback={handleClick('uppercase-clicked')}
-            />
-            <Button
-                id="case-lowercase"
-                title="Lowercase"
-                children="Lowercase"
-                variantProperties={{
-                    variant: 'primary',
-                    size: 'md',
-                    textCase: 'lowercase'
-                }}
-                onClickCallback={handleClick('lowercase-clicked')}
-            />
-            <Button
-                id="case-capitalize"
-                title="Capitalize"
-                children="Capitalize"
-                variantProperties={{
-                    variant: 'primary',
-                    size: 'md',
-                    textCase: 'capitalize'
-                }}
-                onClickCallback={handleClick('capitalize-clicked')}
-            />
-        </div>
-    )
-}
-
-// Interactive Showcase
-export const InteractiveShowcase: Story = {
-    render: () => (
-        <div className="space-y-6 p-6">
-            <h3 className="text-lg font-semibold">Interactive Button Demo</h3>
-
-            <div className="space-y-4">
-                <div>
-                    <h4 className="text-md font-medium mb-2">Primary Actions</h4>
-                    <div className="flex gap-2">
-                        <Button
-                            id="save-btn"
-                            title="Save"
-                            children="Save"
-                            variantProperties={{ variant: 'primary', size: 'md' }}
-                            onClickCallback={handleClick('Save button clicked')}
-                        />
-                        <Button
-                            id="cancel-btn"
-                            title="Cancel"
-                            children="Cancel"
-                            variantProperties={{ variant: 'secondary', size: 'md' }}
-                            onClickCallback={handleClick('Cancel button clicked')}
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <h4 className="text-md font-medium mb-2">Status Actions</h4>
-                    <div className="flex gap-2">
-                        <Button
-                            id="info-btn"
-                            title="Info"
-                            children="ℹ️ Info"
-                            variantProperties={{ variant: 'info', size: 'sm' }}
-                            onClickCallback={handleClick('Info button clicked')}
-                        />
-                        <Button
-                            id="success-btn"
-                            title="Success"
-                            children="✅ Success"
-                            variantProperties={{ variant: 'success', size: 'sm' }}
-                            onClickCallback={handleClick('Success button clicked')}
-                        />
-                        <Button
-                            id="warning-btn"
-                            title="Warning"
-                            children="⚠️ Warning"
-                            variantProperties={{ variant: 'warning', size: 'sm' }}
-                            onClickCallback={handleClick('Warning button clicked')}
-                        />
-                        <Button
-                            id="danger-btn"
-                            title="Danger"
-                            children="🚫 Delete"
-                            variantProperties={{ variant: 'danger', size: 'sm' }}
-                            onClickCallback={handleClick('Danger button clicked')}
-                        />
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }

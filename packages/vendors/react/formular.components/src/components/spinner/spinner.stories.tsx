@@ -9,42 +9,48 @@ const meta: Meta<typeof Spinner> = {
         docs: {
             description: {
                 component:
-                    'A customizable loading spinner component with SVG animation. Used throughout the application for loading states.'
+                    'A customizable loading spinner component with SVG animation. Uses design system colors and sizes for consistency across the application.'
             }
         }
     },
     argTypes: {
+        size: {
+            control: 'select',
+            options: ['xs', 'sm', 'md', 'lg', 'xl'],
+            description: 'Size variant from the design system'
+        },
+        color: {
+            control: 'select',
+            options: ['primary', 'secondary', 'success', 'warning', 'danger', 'info', 'neutral'],
+            description: 'Color variant from the design system'
+        },
         width: {
             control: { type: 'range', min: 16, max: 200, step: 4 },
-            description: 'Width of the spinner in pixels'
+            description: 'Custom width in pixels (overrides size)'
         },
         height: {
             control: { type: 'range', min: 16, max: 200, step: 4 },
-            description: 'Height of the spinner in pixels'
+            description: 'Custom height in pixels (overrides size)'
         },
         strokeWidth: {
             control: { type: 'range', min: 1, max: 10, step: 0.5 },
-            description: 'Width of the spinner stroke'
+            description: 'Custom stroke width (overrides size)'
         },
-        strokeOppacity: {
+        strokeOpacity: {
             control: { type: 'range', min: 0, max: 1, step: 0.05 },
             description: 'Opacity of the background circle stroke'
         },
         strokeColor: {
             control: 'color',
-            description: 'Color of the background circle'
+            description: 'Custom color for the background circle'
         },
         activeColor: {
             control: 'color',
-            description: 'Color of the active spinning segment'
+            description: 'Custom color for the active spinning segment'
         },
-        frameWidth: {
-            control: { type: 'range', min: 20, max: 100, step: 2 },
-            description: 'SVG viewBox frame width'
-        },
-        frameHeight: {
-            control: { type: 'range', min: 20, max: 100, step: 2 },
-            description: 'SVG viewBox frame height'
+        className: {
+            control: 'text',
+            description: 'Additional CSS classes'
         }
     },
     tags: ['autodocs']
@@ -58,192 +64,171 @@ export const Default: Story = {
     args: {}
 }
 
-// Small spinner
+// Size variations
+export const ExtraSmall: Story = {
+    args: {
+        size: 'xs'
+    }
+}
+
 export const Small: Story = {
     args: {
-        width: 24,
-        height: 24,
-        strokeWidth: 2
+        size: 'sm'
     }
 }
 
-// Medium spinner
 export const Medium: Story = {
     args: {
-        width: 40,
-        height: 40,
-        strokeWidth: 3
+        size: 'md'
     }
 }
 
-// Large spinner
 export const Large: Story = {
     args: {
-        width: 64,
-        height: 64,
-        strokeWidth: 4
+        size: 'lg'
     }
 }
 
-// Extra large spinner
 export const ExtraLarge: Story = {
     args: {
-        width: 100,
-        height: 100,
-        strokeWidth: 5
+        size: 'xl'
     }
 }
 
-// Custom colors
-export const CustomColors: Story = {
+// Color variations
+export const Primary: Story = {
     args: {
-        width: 48,
-        height: 48,
-        strokeWidth: 3,
-        strokeColor: '#e2e8f0',
-        activeColor: '#3b82f6'
+        color: 'primary',
+        size: 'lg'
     }
 }
 
-// High contrast
-export const HighContrast: Story = {
+export const Secondary: Story = {
     args: {
-        width: 48,
-        height: 48,
-        strokeWidth: 4,
-        strokeColor: '#000000',
-        activeColor: '#ffffff',
-        strokeOppacity: 0.1
+        color: 'secondary',
+        size: 'lg'
     }
 }
 
-// Subtle spinner
-export const Subtle: Story = {
-    args: {
-        width: 32,
-        height: 32,
-        strokeWidth: 2,
-        strokeColor: '#f1f5f9',
-        activeColor: '#64748b',
-        strokeOppacity: 0.3
-    }
-}
-
-// Success theme
 export const Success: Story = {
     args: {
-        width: 40,
-        height: 40,
-        strokeWidth: 3,
-        strokeColor: '#dcfce7',
-        activeColor: '#22c55e'
+        color: 'success',
+        size: 'lg'
     }
 }
 
-// Warning theme
 export const Warning: Story = {
     args: {
-        width: 40,
-        height: 40,
-        strokeWidth: 3,
-        strokeColor: '#fef3c7',
-        activeColor: '#f59e0b'
+        color: 'warning',
+        size: 'lg'
     }
 }
 
-// Danger theme
 export const Danger: Story = {
     args: {
-        width: 40,
-        height: 40,
-        strokeWidth: 3,
-        strokeColor: '#fee2e2',
-        activeColor: '#ef4444'
+        color: 'danger',
+        size: 'lg'
     }
 }
 
-// Different sizes showcase
+export const Info: Story = {
+    args: {
+        color: 'info',
+        size: 'lg'
+    }
+}
+
+// Size showcase
 export const SizeShowcase: Story = {
     render: () => (
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
             <div className="text-center">
-                <Spinner width={16} height={16} strokeWidth={2} />
-                <p className="mt-2 text-sm">16px</p>
+                <Spinner size="xs" />
+                <p className="mt-2 text-xs">XS</p>
             </div>
             <div className="text-center">
-                <Spinner width={24} height={24} strokeWidth={2} />
-                <p className="mt-2 text-sm">24px</p>
+                <Spinner size="sm" />
+                <p className="mt-2 text-xs">SM</p>
             </div>
             <div className="text-center">
-                <Spinner width={32} height={32} strokeWidth={3} />
-                <p className="mt-2 text-sm">32px</p>
+                <Spinner size="md" />
+                <p className="mt-2 text-xs">MD</p>
             </div>
             <div className="text-center">
-                <Spinner width={48} height={48} strokeWidth={3} />
-                <p className="mt-2 text-sm">48px</p>
+                <Spinner size="lg" />
+                <p className="mt-2 text-xs">LG</p>
             </div>
             <div className="text-center">
-                <Spinner width={64} height={64} strokeWidth={4} />
-                <p className="mt-2 text-sm">64px</p>
+                <Spinner size="xl" />
+                <p className="mt-2 text-xs">XL</p>
             </div>
         </div>
     )
 }
 
-// Color variations showcase
+// Color showcase
 export const ColorShowcase: Story = {
     render: () => (
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
             <div className="text-center">
-                <Spinner
-                    width={40}
-                    height={40}
-                    strokeWidth={3}
-                    strokeColor="#fee2e2"
-                    activeColor="#ef4444"
-                />
-                <p className="mt-2 text-sm">Red</p>
+                <Spinner color="primary" size="lg" />
+                <p className="mt-2 text-xs">Primary</p>
             </div>
             <div className="text-center">
-                <Spinner
-                    width={40}
-                    height={40}
-                    strokeWidth={3}
-                    strokeColor="#fef3c7"
-                    activeColor="#f59e0b"
-                />
-                <p className="mt-2 text-sm">Orange</p>
+                <Spinner color="secondary" size="lg" />
+                <p className="mt-2 text-xs">Secondary</p>
             </div>
             <div className="text-center">
-                <Spinner
-                    width={40}
-                    height={40}
-                    strokeWidth={3}
-                    strokeColor="#dcfce7"
-                    activeColor="#22c55e"
-                />
-                <p className="mt-2 text-sm">Green</p>
+                <Spinner color="success" size="lg" />
+                <p className="mt-2 text-xs">Success</p>
             </div>
             <div className="text-center">
-                <Spinner
-                    width={40}
-                    height={40}
-                    strokeWidth={3}
-                    strokeColor="#dbeafe"
-                    activeColor="#3b82f6"
-                />
-                <p className="mt-2 text-sm">Blue</p>
+                <Spinner color="warning" size="lg" />
+                <p className="mt-2 text-xs">Warning</p>
             </div>
             <div className="text-center">
-                <Spinner
-                    width={40}
-                    height={40}
-                    strokeWidth={3}
-                    strokeColor="#e9d5ff"
-                    activeColor="#8b5cf6"
-                />
-                <p className="mt-2 text-sm">Purple</p>
+                <Spinner color="danger" size="lg" />
+                <p className="mt-2 text-xs">Danger</p>
             </div>
+            <div className="text-center">
+                <Spinner color="info" size="lg" />
+                <p className="mt-2 text-xs">Info</p>
+            </div>
+        </div>
+    )
+}
+
+// Custom styling
+export const CustomStyling: Story = {
+    args: {
+        width: 48,
+        height: 48,
+        strokeWidth: 4,
+        strokeOpacity: 0.1,
+        strokeColor: '#e5e7eb',
+        activeColor: '#3b82f6',
+        className: 'drop-shadow-lg'
+    }
+}
+
+// In context examples
+export const InButton: Story = {
+    render: () => (
+        <button
+            className="btn-base btn-primary btn-size-md inline-flex items-center gap-2"
+            disabled
+        >
+            <Spinner size="sm" color="secondary" />
+            Loading...
+        </button>
+    )
+}
+
+export const InCard: Story = {
+    render: () => (
+        <div className="card-base p-6 w-64 text-center">
+            <Spinner size="lg" color="primary" className="mx-auto mb-4" />
+            <p className="text-gray-600">Loading content...</p>
         </div>
     )
 }

@@ -9,17 +9,10 @@ import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 
 import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 
-import { conditionalClass } from 'formular.dev.lib'
+// Import design system utilities
+import { cx, generateButtonStyles } from 'formular.design.system'
 import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'
-import {
-    getBaseButtonClasses,
-    getDisabledClasses,
-    getLoadingClasses,
-    mapRippleToDesignSystem,
-    mapSizeToDesignSystem,
-    mapVariantToDesignSystem
-} from './utils/design-system-mapper'
 export interface IButtonVariant {
     variant: VariantNameType
     size: AppBreakPointSizesType
@@ -68,15 +61,19 @@ export const Button = ({
         className
     } = variantProperties
 
-    const btnBaseClasses = conditionalClass([
-        getBaseButtonClasses(),
-        mapSizeToDesignSystem(size),
-        mapVariantToDesignSystem(variant),
-        disabled ? getDisabledClasses() : '',
-        loading ? getLoadingClasses() : '',
-        `${rounded ? 'rounded' : ''}`,
-        textCase
-    ])
+    const btnBaseClasses = cx(
+        'btn-base', // Base button classes from design system
+        generateButtonStyles('solid', variant as any, size as any),
+        {
+            'state-disabled': disabled,
+            'state-loading': loading,
+            rounded: rounded,
+            'opacity-50': disabled || loading,
+            'cursor-not-allowed': disabled || loading
+        },
+        textCase,
+        className
+    )
 
     const sizes = getButtonXYSizes(size)
 
@@ -134,7 +131,7 @@ export const Button = ({
         >
             {/* Ripple effect - positioned absolutely to avoid affecting layout */}
             <span
-                className={`absolute inset-0 ripple ${mapRippleToDesignSystem(variant)} ${classRef}`}
+                className={`absolute inset-0 ripple bg-${variant}-200 ${classRef}`}
                 style={{ ...rippleStyle, pointerEvents: 'none' }}
             />
 

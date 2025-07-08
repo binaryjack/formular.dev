@@ -1,4 +1,6 @@
 import { EventsType, IValidationResult } from 'formular.dev.lib'
+// Import design system utilities
+import { cx, generateValidationStyles } from 'formular.design.system'
 
 import { useMemo } from 'react'
 
@@ -27,7 +29,12 @@ const ValidationResultComponent = ({ validationResults, isFocus }: ValidationRes
     }
 
     return (
-        <div className={`validation-result ${valid ? 'valid' : 'invalid'}`}>
+        <div
+            className={cx('validation-result', {
+                valid: valid,
+                invalid: !valid
+            })}
+        >
             <div className={`validation-result-drawer`}>
                 {validationResults.map((result, index) => {
                     if (!result.triggerEventTypes) return null
@@ -45,11 +52,15 @@ const ValidationResultComponent = ({ validationResults, isFocus }: ValidationRes
                     return (
                         <div key={`${result.fieldName}-${index}`}>
                             {isFocus && showGuide && result.guide && (
-                                <div className="guide">{result.guide}</div>
+                                <div className={generateValidationStyles('info')}>
+                                    {result.guide}
+                                </div>
                             )}
 
                             {!isFocus && showError && result.error && (
-                                <div className="error">{result.error}</div>
+                                <div className={generateValidationStyles('error')}>
+                                    {result.error}
+                                </div>
                             )}
                         </div>
                     )

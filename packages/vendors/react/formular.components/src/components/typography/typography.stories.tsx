@@ -5,28 +5,47 @@ const meta: Meta<typeof Typography> = {
     title: 'Components/Typography',
     component: Typography,
     parameters: {
-        layout: 'centered',
+        layout: 'padded',
         docs: {
             description: {
                 component:
-                    'A flexible typography component that can render different HTML elements with consistent styling. Supports ellipsis text overflow and multiple sizes.'
+                    'A flexible typography component that uses design system text sizes and font weights for consistent styling across the application. Supports all HTML text elements and custom styling.'
             }
         }
     },
     argTypes: {
         size: {
             control: 'select',
-            options: ['small', 'medium', 'large'],
-            description: 'Size variant of the typography'
+            options: ['xs', 'sm', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl'],
+            description: 'Text size variant from the design system'
         },
-        ellipsis: {
-            control: 'boolean',
-            description: 'Whether to truncate text with ellipsis'
+        weight: {
+            control: 'select',
+            options: ['light', 'normal', 'medium', 'semibold', 'bold'],
+            description: 'Font weight variant from the design system'
         },
         as: {
             control: 'select',
-            options: ['span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'label'],
+            options: [
+                'span',
+                'p',
+                'h1',
+                'h2',
+                'h3',
+                'h4',
+                'h5',
+                'h6',
+                'div',
+                'label',
+                'small',
+                'strong',
+                'em'
+            ],
             description: 'HTML element to render'
+        },
+        ellipsis: {
+            control: 'boolean',
+            description: 'Truncate text with ellipsis if it overflows'
         },
         className: {
             control: 'text',
@@ -34,211 +53,275 @@ const meta: Meta<typeof Typography> = {
         },
         children: {
             control: 'text',
-            description: 'Content to display'
+            description: 'Text content to display'
         }
-    },
-    tags: ['autodocs']
+    }
 }
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof Typography>
 
-// Default typography
+// Default story
 export const Default: Story = {
     args: {
-        children: 'This is default typography text'
+        children: 'This is the default typography text',
+        size: 'base',
+        weight: 'normal'
     }
 }
 
-// Size variations
-export const Small: Story = {
-    args: {
-        size: 'small',
-        children: 'This is small typography text'
+// Size variants showcase
+export const Sizes: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <Typography size="xs">Extra Small Text (xs)</Typography>
+            <Typography size="sm">Small Text (sm)</Typography>
+            <Typography size="base">Base Text (base)</Typography>
+            <Typography size="lg">Large Text (lg)</Typography>
+            <Typography size="xl">Extra Large Text (xl)</Typography>
+            <Typography size="2xl">2XL Text (2xl)</Typography>
+            <Typography size="3xl">3XL Text (3xl)</Typography>
+            <Typography size="4xl">4XL Text (4xl)</Typography>
+            <Typography size="5xl">5XL Text (5xl)</Typography>
+            <Typography size="6xl">6XL Text (6xl)</Typography>
+            <Typography size="7xl">7XL Text (7xl)</Typography>
+        </div>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Showcase of all available text sizes from the design system.'
+            }
+        }
     }
 }
 
-export const Medium: Story = {
-    args: {
-        size: 'medium',
-        children: 'This is medium typography text'
+// Weight variants showcase
+export const Weights: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <Typography weight="light" size="lg">
+                Light weight text
+            </Typography>
+            <Typography weight="normal" size="lg">
+                Normal weight text
+            </Typography>
+            <Typography weight="medium" size="lg">
+                Medium weight text
+            </Typography>
+            <Typography weight="semibold" size="lg">
+                Semibold weight text
+            </Typography>
+            <Typography weight="bold" size="lg">
+                Bold weight text
+            </Typography>
+        </div>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Showcase of all available font weights from the design system.'
+            }
+        }
     }
 }
 
-export const Large: Story = {
-    args: {
-        size: 'large',
-        children: 'This is large typography text'
+// HTML element variants
+export const Elements: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <Typography as="h1" size="4xl" weight="bold">
+                Heading 1
+            </Typography>
+            <Typography as="h2" size="3xl" weight="semibold">
+                Heading 2
+            </Typography>
+            <Typography as="h3" size="2xl" weight="semibold">
+                Heading 3
+            </Typography>
+            <Typography as="h4" size="xl" weight="medium">
+                Heading 4
+            </Typography>
+            <Typography as="h5" size="lg" weight="medium">
+                Heading 5
+            </Typography>
+            <Typography as="h6" size="base" weight="medium">
+                Heading 6
+            </Typography>
+            <Typography as="p" size="base">
+                This is a paragraph with regular text content.
+            </Typography>
+            <Typography as="small" size="sm" weight="light">
+                Small disclaimer text
+            </Typography>
+            <Typography as="strong" size="base" weight="bold">
+                Strong emphasized text
+            </Typography>
+            <Typography as="em" size="base">
+                Emphasized italic text
+            </Typography>
+            <Typography as="label" size="sm" weight="medium">
+                Form label text
+            </Typography>
+        </div>
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Typography component rendered as different HTML elements with appropriate styling.'
+            }
+        }
     }
 }
 
-// HTML element variations
-export const AsHeading1: Story = {
-    args: {
-        as: 'h1',
-        size: 'large',
-        children: 'This is a Heading 1'
-    }
-}
-
-export const AsHeading2: Story = {
-    args: {
-        as: 'h2',
-        size: 'large',
-        children: 'This is a Heading 2'
-    }
-}
-
-export const AsHeading3: Story = {
-    args: {
-        as: 'h3',
-        size: 'medium',
-        children: 'This is a Heading 3'
-    }
-}
-
-export const AsParagraph: Story = {
-    args: {
-        as: 'p',
-        size: 'medium',
-        children:
-            'This is a paragraph with some longer text content to demonstrate how the typography component works with paragraph elements.'
-    }
-}
-
-export const AsLabel: Story = {
-    args: {
-        as: 'label',
-        size: 'small',
-        children: 'Form Label'
-    }
-}
-
-// Ellipsis examples
-export const WithEllipsis: Story = {
-    args: {
-        ellipsis: true,
-        children:
-            'This is a very long text that should be truncated with ellipsis when it exceeds the container width',
-        className: 'max-w-xs'
-    }
-}
-
-export const EllipsisComparison: Story = {
+// Ellipsis truncation
+export const Ellipsis: Story = {
     render: () => (
         <div className="space-y-4 max-w-md">
             <div>
-                <h4 className="mb-2 font-semibold">Without Ellipsis:</h4>
-                <Typography ellipsis={false} className="border p-2">
+                <Typography as="h4" size="lg" weight="semibold" className="mb-2">
+                    Without Ellipsis:
+                </Typography>
+                <Typography size="base">
                     This is a very long text that will wrap to multiple lines when it exceeds the
-                    container width
+                    container width and doesn't get truncated.
                 </Typography>
             </div>
             <div>
-                <h4 className="mb-2 font-semibold">With Ellipsis:</h4>
-                <Typography ellipsis={true} className="border p-2">
-                    This is a very long text that will be truncated with ellipsis when it exceeds
-                    the container width
+                <Typography as="h4" size="lg" weight="semibold" className="mb-2">
+                    With Ellipsis:
+                </Typography>
+                <Typography size="base" ellipsis>
+                    This is a very long text that will be truncated with an ellipsis when it exceeds
+                    the container width.
                 </Typography>
             </div>
         </div>
-    )
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Demonstration of text truncation with ellipsis overflow handling.'
+            }
+        }
+    }
 }
 
-// All sizes showcase
-export const SizeShowcase: Story = {
-    render: () => (
-        <div className="space-y-4">
-            <Typography size="small">
-                Small size typography - perfect for captions, labels, and secondary text
-            </Typography>
-            <Typography size="medium">
-                Medium size typography - ideal for body text and general content
-            </Typography>
-            <Typography size="large">
-                Large size typography - great for headings and emphasized text
-            </Typography>
-        </div>
-    )
-}
-
-// Different HTML elements showcase
-export const ElementShowcase: Story = {
-    render: () => (
-        <div className="space-y-4">
-            <Typography as="h1" size="large">
-                Heading 1 Element
-            </Typography>
-            <Typography as="h2" size="large">
-                Heading 2 Element
-            </Typography>
-            <Typography as="h3" size="medium">
-                Heading 3 Element
-            </Typography>
-            <Typography as="p" size="medium">
-                This is a paragraph element with medium size typography. It demonstrates how the
-                component can render different HTML elements while maintaining consistent styling.
-            </Typography>
-            <Typography as="span" size="small">
-                Inline span element
-            </Typography>
-            <Typography as="label" size="small">
-                Label element
-            </Typography>
-            <Typography as="div" size="medium">
-                Div element container
-            </Typography>
-        </div>
-    )
-}
-
-// Custom styling example
+// Custom styling
 export const CustomStyling: Story = {
     render: () => (
         <div className="space-y-4">
-            <Typography size="large" className="text-blue-600 font-bold">
-                Custom styled large text in blue
+            <Typography size="2xl" weight="bold" className="text-blue-600 underline">
+                Custom styled text with additional classes
             </Typography>
-            <Typography size="medium" className="text-green-500 italic">
-                Custom styled medium text in green and italic
+            <Typography
+                size="lg"
+                weight="medium"
+                className="bg-yellow-100 px-3 py-1 rounded border-l-4 border-yellow-500"
+            >
+                Text with background and border styling
             </Typography>
-            <Typography size="small" className="text-gray-400 uppercase tracking-wide">
-                Custom styled small text with uppercase and letter spacing
+            <Typography size="base" className="text-gray-600 italic">
+                Subtle muted text with italic styling
             </Typography>
         </div>
-    )
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Examples of typography with custom CSS classes for additional styling.'
+            }
+        }
+    }
 }
 
-// Real-world usage examples
-export const RealWorldExamples: Story = {
+// Design system showcase
+export const DesignSystemShowcase: Story = {
     render: () => (
-        <div className="space-y-6 max-w-lg">
-            <div className="border rounded-lg p-4">
-                <Typography as="h3" size="large" className="mb-2 font-semibold">
-                    Card Title
+        <div className="space-y-6">
+            <div>
+                <Typography as="h2" size="3xl" weight="bold" className="mb-4 text-gray-800">
+                    Design System Typography
                 </Typography>
-                <Typography as="p" size="medium" className="mb-3 text-gray-600">
-                    This is a card description that explains what this card is about and provides
-                    some context.
-                </Typography>
-                <Typography as="span" size="small" className="text-gray-400">
-                    Last updated: 2 hours ago
+                <Typography size="lg" className="text-gray-600 mb-6">
+                    This component uses design system utilities for consistent text sizing and font
+                    weights.
                 </Typography>
             </div>
 
-            <div className="space-y-2">
-                <Typography as="label" size="small" className="block font-medium text-gray-700">
-                    Email Address
-                </Typography>
-                <input
-                    type="email"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="Enter your email"
-                />
-                <Typography size="small" className="text-gray-500">
-                    We'll never share your email with anyone else.
-                </Typography>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                    <Typography as="h3" size="xl" weight="semibold" className="text-gray-800">
+                        Size Scale
+                    </Typography>
+                    <div className="space-y-2">
+                        <Typography size="xs" className="text-gray-600">
+                            text-xs • 12px
+                        </Typography>
+                        <Typography size="sm" className="text-gray-600">
+                            text-sm • 14px
+                        </Typography>
+                        <Typography size="base" className="text-gray-600">
+                            text-base • 16px
+                        </Typography>
+                        <Typography size="lg" className="text-gray-600">
+                            text-lg • 18px
+                        </Typography>
+                        <Typography size="xl" className="text-gray-600">
+                            text-xl • 20px
+                        </Typography>
+                    </div>
+                </div>
+
+                <div className="space-y-3">
+                    <Typography as="h3" size="xl" weight="semibold" className="text-gray-800">
+                        Weight Scale
+                    </Typography>
+                    <div className="space-y-2">
+                        <Typography weight="light" className="text-gray-600">
+                            font-light • 300
+                        </Typography>
+                        <Typography weight="normal" className="text-gray-600">
+                            font-normal • 400
+                        </Typography>
+                        <Typography weight="medium" className="text-gray-600">
+                            font-medium • 500
+                        </Typography>
+                        <Typography weight="semibold" className="text-gray-600">
+                            font-semibold • 600
+                        </Typography>
+                        <Typography weight="bold" className="text-gray-600">
+                            font-bold • 700
+                        </Typography>
+                    </div>
+                </div>
             </div>
         </div>
-    )
+    ),
+    parameters: {
+        docs: {
+            description: {
+                story: 'Comprehensive showcase of the typography component with design system integration.'
+            }
+        }
+    }
+}
+
+// Interactive playground
+export const Playground: Story = {
+    args: {
+        children: 'Edit this text in the controls panel',
+        size: 'lg',
+        weight: 'medium',
+        as: 'p',
+        ellipsis: false,
+        className: ''
+    },
+    parameters: {
+        docs: {
+            description: {
+                story: 'Interactive playground to test different typography configurations.'
+            }
+        }
+    }
 }

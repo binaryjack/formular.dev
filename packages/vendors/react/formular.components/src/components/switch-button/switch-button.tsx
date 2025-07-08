@@ -1,13 +1,5 @@
 import { useEffect, useState } from 'react'
-import './switch-button.base.css'
-import './switch-button.danger.css'
-import './switch-button.info.css'
-import './switch-button.primary.css'
-import './switch-button.secondary.css'
-import './switch-button.sizes.css'
-import './switch-button.success.css'
 import { ISwitchButtonOptions } from './switch-button.types'
-import './switch-button.warning.css'
 
 interface ISwitchButtonProps {
     fieldName: string

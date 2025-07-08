@@ -1,49 +1,78 @@
+import type { ColorVariant, Size } from 'formular.design.system'
+import { colorUtils, cx } from 'formular.design.system'
+
 interface SpinnerProps {
+    size?: Size
+    color?: ColorVariant
     width?: number
     height?: number
     strokeWidth?: number
-    strokeOppacity?: number
+    strokeOpacity?: number
     strokeColor?: string
     activeColor?: string
     frameWidth?: number
     frameHeight?: number
+    className?: string
+}
+
+const sizeMap: Record<Size, { width: number; height: number; strokeWidth: number }> = {
+    xs: { width: 12, height: 12, strokeWidth: 2 },
+    sm: { width: 16, height: 16, strokeWidth: 2 },
+    md: { width: 20, height: 20, strokeWidth: 3 },
+    lg: { width: 24, height: 24, strokeWidth: 3 },
+    xl: { width: 32, height: 32, strokeWidth: 4 }
 }
 
 const Spinner = ({
+    size = 'md',
+    color = 'primary',
+    width,
+    height,
+    strokeWidth,
+    strokeOpacity = 0.25,
+    strokeColor,
+    activeColor,
     frameWidth = 42,
     frameHeight = 42,
-    width = 100,
-    height = 100,
-    strokeOppacity = 0.25,
-    strokeWidth = 3,
-    strokeColor = '#979797',
-    activeColor = '#2E3A4B'
+    className
 }: SpinnerProps) => {
+    const sizeConfig = sizeMap[size]
+    const finalWidth = width ?? sizeConfig.width
+    const finalHeight = height ?? sizeConfig.height
+    const finalStrokeWidth = strokeWidth ?? sizeConfig.strokeWidth
+
+    const finalStrokeColor = strokeColor ?? colorUtils.getColor('neutral', 300)
+    const finalActiveColor = activeColor ?? colorUtils.getColor(color, 500)
+
+    const spinnerClasses = cx('af-spinner', 'animate-spin', className)
+
     const Styles = {
         spinner: {
-            animation: 'spinner-animation 900ms linear infinite',
             display: 'flex',
-            width: `${width}px`,
-            height: `${height}px`
+            width: `${finalWidth}px`,
+            height: `${finalHeight}px`
         },
 
         circle: {
-            stroke: strokeColor,
-            strokeOpacity: strokeOppacity
+            stroke: finalStrokeColor,
+            strokeOpacity: strokeOpacity
         },
 
         segment: {
-            stroke: activeColor
+            stroke: finalActiveColor
         }
     }
 
     return (
-        <span className={`af-spinner`} style={{ width: `${width}px`, height: `${height}px` }}>
+        <span
+            className={spinnerClasses}
+            style={{ width: `${finalWidth}px`, height: `${finalHeight}px` }}
+        >
             <svg style={Styles.spinner} viewBox={`0 0 ${frameWidth} ${frameHeight}`}>
                 <g
                     fill="none"
-                    transform={`translate(${strokeWidth} ${strokeWidth})`}
-                    strokeWidth={strokeWidth}
+                    transform={`translate(${finalStrokeWidth} ${finalStrokeWidth})`}
+                    strokeWidth={finalStrokeWidth}
                 >
                     <circle style={Styles.circle} cx="18" cy="18" r="18" />
 

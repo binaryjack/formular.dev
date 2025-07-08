@@ -3,7 +3,6 @@ import { useField } from '@adapters/react/fields/hooks/use-field'
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
-import './readonly-field.css'
 // filepath: e:/Sources/SignalsPatternsReact/src/components/id-field/id-field.tsx
 
 interface IReadOnlyFieldProps {
