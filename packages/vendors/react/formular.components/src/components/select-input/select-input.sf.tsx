@@ -2,6 +2,7 @@ import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useFieldDefaultValue } from '@adapters/react/hooks/use-field-default-value'
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
+import { cx } from 'formular.design.system'
 import { ISelectBaseInput, isMissing, MissingPropEnum } from 'formular.dev.lib'
 import { useMemo } from 'react'
 
@@ -74,7 +75,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
             <input
                 tabIndex={0}
                 data-class="base-input"
-                className="base-input"
+                className={cx('w-full outline-none p-2 border-0')}
                 {...instance?.register()}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"

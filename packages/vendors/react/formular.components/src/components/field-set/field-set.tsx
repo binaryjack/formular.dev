@@ -1,11 +1,11 @@
 import { useCenterElementTrigger } from '@adapters/react/hooks/screen/use-center-element'
 import { Button, IButtonVariant } from '@components/button/button'
-
 import { CenterElementDebug } from '@components/context/debug/center-element-debug'
 import { DrawerSlot } from '@components/drawer/components/drawer-slot'
 import { DrawerToggle } from '@components/drawer/components/drawer.toggle'
 import { Drawer } from '@components/drawer/drawer'
 import { PasswordToggle } from '@components/password/password.toggle'
+import { cx } from 'formular.design.system'
 import { IFieldStateFlags } from 'formular.dev.lib'
 
 import useAppContext from '@components/context/app-context/app-context.context'
@@ -163,24 +163,26 @@ const FieldSet = <TType,>({
     )
     const labelIdSuffix = getConfiguration<string | undefined>('rendering', 'suffixes', 'labelId')
 
+    // Fix for configuration returning object instead of string
+    const safeLabelIdSuffix = typeof labelIdSuffix === 'string' ? labelIdSuffix : '-label'
+
     console.log('FieldSet rendered with flags:', flags)
 
     return (
         <fieldset
             ref={elementRef}
             id={`${inputId}-fieldset`}
-            className={`fieldset fieldset-container  ${flags.valid ? 'valid border-green-800' : 'invalid border-red-800'} ${className}`}
+            className={cx(
+                'border rounded p-3',
+                flags.valid ? 'border-success-600' : 'border-error-600',
+                className
+            )}
             data-type={type}
             data-testid={`test-${inputId}`}
             onClick={onClick}
         >
-            <div
-                className={`relative flex  w-full h-full
-                flex-col               
-                lg:flex-row
-               `}
-            >
-                <div className={`flex items-center justify-start  lg:w-[10em]`}>
+            <div className={cx('relative flex w-full h-full', 'flex-col lg:flex-row')}>
+                <div className={cx('flex items-center justify-start lg:w-[10em]')}>
                     <label
                         /**
                          * ARIA Notice:
@@ -190,20 +192,29 @@ const FieldSet = <TType,>({
                          * @see FieldInput
                          * @see labelIdSuffix
                          * */
-                        id={`${inputId}${labelIdSuffix}`}
+                        id={`${inputId}${safeLabelIdSuffix}`}
                         htmlFor={inputId}
-                        className={`label inline-block mr-2 ${flags.valid ? '' : 'label-error text-ellipsis'}`}
+                        className={cx(
+                            'inline-block mr-2',
+                            flags.valid ? 'text-secondary-700' : 'text-error-600 text-ellipsis'
+                        )}
                     >
                         {label}
                         {flags.busy ? (
-                            <span className="loading loading-spinner loading-sm">{flags.busy}</span>
+                            <span className={cx('inline-block ml-2')}>
+                                <div
+                                    className={cx(
+                                        'animate-spin w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full'
+                                    )}
+                                ></div>
+                            </span>
                         ) : (
                             ''
                         )}
                     </label>
                 </div>
-                <div className={`input-container flex flex-row w-full`}>
-                    <div className={`input-content flex flex-col mr-2 w-full`}>
+                <div className={cx('flex flex-row w-full')}>
+                    <div className={cx('flex flex-col mr-2 w-full')}>
                         <DrawerSlot
                             id={inputId}
                             slotName={'drawer-slot'}
@@ -233,7 +244,7 @@ const FieldSet = <TType,>({
                         />
                     </div>
 
-                    <div className={`input-commands flex flex-row `}>
+                    <div className={cx('flex flex-row')}>
                         {onClear && (
                             <Button
                                 id={`${inputId}-clear-field-btn`}
@@ -250,14 +261,21 @@ const FieldSet = <TType,>({
                 </div>
 
                 <div
-                    className={`input-container-focus-indicator flex ${flags.focus ? 'focus' : ''}`}
+                    className={cx(
+                        'absolute bottom-0 left-0 right-0 h-0.5',
+                        flags.focus ? 'bg-primary-600' : 'bg-transparent'
+                    )}
                 />
-                {flags.required && <div className={`input-container-required-indicator flex`} />}
+                {flags.required && (
+                    <div
+                        className={cx('absolute top-0 right-0 w-2 h-2 bg-error-600 rounded-full')}
+                    />
+                )}
             </div>
 
             {validationChildren && (
-                <div className={`relative bottom-0 left-0 flex flex-col mt-1`}>
-                    <div className={`${flags.focus ? 'validation-success' : 'validation-error'}`}>
+                <div className={cx('relative flex flex-col mt-1')}>
+                    <div className={cx(flags.focus ? 'text-success-600' : 'text-error-600')}>
                         {validationChildren}
                     </div>
                 </div>

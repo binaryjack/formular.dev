@@ -1,3 +1,4 @@
+import { cx } from 'formular.design.system'
 import { IOptionItem } from 'formular.dev.lib'
 import SelectDrawerOption from './select-input.drawer.option'
 
@@ -16,7 +17,7 @@ const SelectDrawerOptions = ({
     onHandleSelectItem
 }: ISelectDrawerOptionsProps) => {
     return (
-        <div className={`select-list`}>
+        <div className={cx('space-y-1 max-h-60 overflow-y-auto')}>
             {options.map((option: IOptionItem) => {
                 return (
                     <SelectDrawerOption

@@ -25,6 +25,8 @@ interface AppContextProps {
     serviceManager?: IServiceManager
     setupOptions?: IServiceManagerSetupOptions
     autoDispose?: boolean
+    // Layout options
+    layoutMode?: 'fullscreen' | 'storybook' | 'embedded'
 }
 
 /**
@@ -43,7 +45,8 @@ const AppContextProvider = ({
     children,
     serviceManager: externalServiceManager,
     setupOptions,
-    autoDispose = true
+    autoDispose = true,
+    layoutMode = 'fullscreen'
 }: AppContextProps) => {
     const [holdScroll, setHoldScroll] = useState<boolean>(false)
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
@@ -153,13 +156,27 @@ const AppContextProvider = ({
 
     return (
         <AppContext.Provider value={contextOutput}>
-            <div className="z-50 absolute flex flex-1 items-center justify-center top-0 w-full  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
-            <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
+            {layoutMode === 'fullscreen' && (
+                <div className="z-50 absolute flex flex-1 items-center justify-center top-0 w-full  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            )}
 
-            <div className="body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-full  h-auto bg-gray-900">
+            {layoutMode === 'fullscreen' && (
+                <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
+            )}
+
+            <div
+                className={
+                    layoutMode === 'fullscreen'
+                        ? 'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-full  h-auto bg-gray-900'
+                        : 'body-container flex flex-col overflow-y-auto p-4 items-stretch justify-stretch w-full h-auto'
+                }
+            >
                 {children}
             </div>
-            <div className="z-50 absolute flex flex-1 items-center justify-center bottom-0 w-full  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+
+            {layoutMode === 'fullscreen' && (
+                <div className="z-50 absolute flex flex-1 items-center justify-center bottom-0 w-full  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            )}
         </AppContext.Provider>
     )
 }

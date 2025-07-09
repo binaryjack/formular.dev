@@ -83,8 +83,9 @@ export const setupManagers = function (sm: IServiceManager) {
     // ========================================
 
     // Core Managers - depend on configuration
-    sm.register(SDomManager, () => new DomManager(), {
-        lifetime: 'singleton'
+    sm.registerClass(SDomManager, DomManager, {
+        lifetime: 'singleton',
+        dependencies: [SServiceManager]
     })
 
     sm.register(SStyleManager, () => new StyleManager(), {
@@ -131,17 +132,17 @@ export const setupManagers = function (sm: IServiceManager) {
 
     sm.registerClass(SValidationStrategyService, ValidationStrategyService, {
         lifetime: 'singleton',
-        dependencies: [SServiceManager, SValidationManager]
+        dependencies: [SServiceManager]
     })
 
     sm.registerClass(SValueStrategyService, ValueStrategyService, {
         lifetime: 'singleton',
-        dependencies: [SServiceManager, SValueManager]
+        dependencies: [SServiceManager]
     })
 
     sm.registerClass(STrackingStrategyService, TrackingStrategyService, {
         lifetime: 'singleton',
-        dependencies: [SServiceManager, STrackingManager]
+        dependencies: [SServiceManager]
     })
 
     // ========================================

@@ -1,3 +1,4 @@
+import { cx } from 'formular.design.system'
 import { IOptionItem } from 'formular.dev.lib'
 
 interface ISelectDrawerOptionProps {
@@ -18,7 +19,10 @@ const SelectDrawerOption = ({
         <div
             id={option.id}
             data-sequence-id={option.sequenceId}
-            className={`select-item ${isSelected ? 'selected' : ''}`}
+            className={cx(
+                'p-2 hover:bg-primary-50 cursor-pointer',
+                isSelected ? 'bg-primary-100' : ''
+            )}
             onClick={(e) => onHandleSelectItem(e, option)}
         >
             {option.text}

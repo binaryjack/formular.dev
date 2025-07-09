@@ -8,3 +8,5 @@
 
 // Export React adapters and utilities
 export * from './adapters'
+
+// Component exports will be added as components get proper index files

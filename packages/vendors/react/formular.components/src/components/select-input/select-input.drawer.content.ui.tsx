@@ -2,6 +2,7 @@ import { SlMagnifier } from 'react-icons/sl'
 
 import DelayInput from '../delay-input/delay-input'
 
+import { cx } from 'formular.design.system'
 import { IOptionItem } from 'formular.dev.lib'
 import { useDrawerContext } from '../drawer/components/drawer.context'
 import SelectDrawerOptions from './select-input.drawer.options'
@@ -37,13 +38,13 @@ const SelectDrawerContentUI = ({
 
     return (
         <div
-            className={`select-container overflow-hidden`}
+            className={cx('bg-white rounded shadow-lg p-3 overflow-hidden')}
             onKeyDown={handleKeyDown}
             style={{ width: width, height: height }}
         >
-            <div className={` flex flex-row justify-center items-center w-full mt-1 mb-1 `}>
+            <div className={cx('flex flex-row justify-center items-center w-full mt-1 mb-1')}>
                 <i
-                    className={`flex icon-box mr-1 h-6`}
+                    className={cx('flex items-center justify-center mr-1 h-6 text-secondary-500')}
                     onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
@@ -54,7 +55,7 @@ const SelectDrawerContentUI = ({
                 <DelayInput
                     tabIndex={0}
                     canGotFocus={toggleState === 'open'}
-                    classNames={`flex input-sm-p mr-1 w-full`}
+                    classNames="w-full px-3 py-2 border border-secondary-200 rounded focus:border-primary-500 focus:outline-none"
                     delay={filterTriggerDelay}
                     onChangeCallback={onFilterItems}
                     onClearCallback={onClearFilter}

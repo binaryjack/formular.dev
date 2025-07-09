@@ -6,7 +6,7 @@ import {
     IValidationOptions,
     SFormularManager
 } from 'formular.dev.lib'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { useService } from '@adapters/react/services/use-service'
@@ -44,7 +44,7 @@ const ValidationDemoCheckInput = () => {
     ]) as IFormular<ISubmitObject>
 
     const { instance } = useField(formular.fields[0])
-    const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject> | null>(null)
+    const [internalForm, setInternalForm] = useState<IFormular<ISubmitObject>>(formular)
 
     const {
         submissionObject,
@@ -65,10 +65,7 @@ const ValidationDemoCheckInput = () => {
         'validateOnFormFirstSubmit'
     )
 
-    useEffect(() => {
-        formular.setTriggerKeyWord(triggerKeyWord)
-        setInternalForm(formular)
-    }, [])
+    formular.setTriggerKeyWord(triggerKeyWord)
 
     const handleSubmit = (data: any) => {
         setSubmissionObject({} as ISubmitObject)
@@ -76,32 +73,28 @@ const ValidationDemoCheckInput = () => {
     }
 
     return (
-        <>
-            {internalForm && (
-                <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
-                    <FormsContentFrame
-                        childrenRequired={
-                            <BooleanConstraint
-                                validationOptions={instance?.input?.validationOptions ?? {}}
-                                handleValidationOptionChange={handleValidationOptionChange}
-                                fieldName={fieldName}
-                                type={'required'}
-                                errorMessage={'This field is required'}
-                                guideMessage={'This field must be filled out.'}
-                            />
-                        }
-                        childrenTriggerMode={
-                            <TriggerMode
-                                triggerKeyWord={triggerKeyWord}
-                                handleTriggerModeChange={handleTriggerModeChange}
-                            />
-                        }
-                        childrenInput={<CheckInput fieldName={fieldName} checked={true} />}
-                        childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
+        <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
+            <FormsContentFrame
+                childrenRequired={
+                    <BooleanConstraint
+                        validationOptions={instance?.input?.validationOptions ?? {}}
+                        handleValidationOptionChange={handleValidationOptionChange}
+                        fieldName={fieldName}
+                        type={'required'}
+                        errorMessage={'This field is required'}
+                        guideMessage={'This field must be filled out.'}
                     />
-                </FormularForm>
-            )}
-        </>
+                }
+                childrenTriggerMode={
+                    <TriggerMode
+                        triggerKeyWord={triggerKeyWord}
+                        handleTriggerModeChange={handleTriggerModeChange}
+                    />
+                }
+                childrenInput={<CheckInput fieldName={fieldName} checked={true} />}
+                childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
+            />
+        </FormularForm>
     )
 }
 

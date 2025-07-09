@@ -1,4 +1,4 @@
-import { IConfigurationManager } from '../configuration-manager'
+import { IConfigurationManager, ISuffix } from '../configuration-manager'
 import { SConfigurationManager } from '../configuration-manager/interfaces/i-configuration-manager'
 import { IServiceManager } from '../types'
 import { IDomManager } from './dom-manager.types'
@@ -89,14 +89,31 @@ export const DomManager = function <T extends HTMLElement>(
     this.isInitialized = false
 
     const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
-    this.labelId = config?.getConfigByName<string>('rendering', 'suffixes', 'labelId') ?? ''
-    this.describedById =
-        config?.getConfigByName<string>('rendering', 'suffixes', 'describedById') ?? ''
+    const rawLabelId = config?.getConfigByName<ISuffix>('rendering', 'suffixes', 'labelId') ?? null
+    const rawDescribedById =
+        config?.getConfigByName<ISuffix>('rendering', 'suffixes', 'describedById') ?? null
+
+    // Fix for configuration returning object instead of string
+
+    Object.defineProperty(this, 'describedById', {
+        value: rawDescribedById?.value ?? '-described-by',
+        writable: false, // Prevent modification
+        configurable: false, // Prevent deletion or redefinition,
+        enumerable: true // Make it enumerable for iteration
+    })
+
+    Object.defineProperty(this, 'labelId', {
+        value: rawLabelId?.value ?? '-label',
+        writable: false, // Prevent modification
+        configurable: false, // Prevent deletion or redefinition,
+        enumerable: true
+    })
 
     Object.defineProperty(this, 'dependencyName', {
         value: DomManager.name,
         writable: false, // Prevent modification
-        configurable: false // Prevent deletion or redefinition
+        configurable: false, // Prevent deletion or redefinition,
+        enumerable: true
     })
 } as any as IDomManager<any>
 

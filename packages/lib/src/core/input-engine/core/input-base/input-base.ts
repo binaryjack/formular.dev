@@ -75,15 +75,14 @@ export const InputBase = function (
     })
 
     const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
-    this.inputDelay = config?.getConfigByName<number>('input', 'delay') ?? 100
+    this.inputDelay = config?.getConfigByName<number>('behavior', 'events', 'onChange') ?? 100
     this.onValidateDelay =
         config?.getConfigByName<number>('behavior', 'events', 'onValidate') ?? 100
     this.onUiUpdateDelay =
         config?.getConfigByName<number>('behavior', 'events', 'onUiUpdate') ?? 100
 
-    this.labelId = config?.getConfigByName<string>('rendering', 'suffixes', 'labelId') ?? ''
-    this.describedById =
-        config?.getConfigByName<string>('rendering', 'suffixes', 'describedById') ?? ''
+    this.labelId = this.domManager?.labelId ?? '-label'
+    this.describedById = this.domManager?.describedById ?? '-described-by'
 
     this.onClickDelay = config?.getConfigByName<number>('behavior', 'events', 'onClick') ?? 100
     this.culture =

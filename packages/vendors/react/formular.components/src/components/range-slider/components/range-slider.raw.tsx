@@ -1,7 +1,6 @@
 /* eslint-disable sonarjs/no-nested-template-literals */
 /* eslint-disable sonarjs/cognitive-complexity */
-import './range-slider.css'
-
+import { cx } from 'formular.design.system'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import RangeSliderDebug from '../debug/range-slider-debug'
@@ -291,14 +290,26 @@ export const RangeSliderRaw = ({
     }, [onGeneralMouseUp])
 
     return (
-        <div className={`range-slider`} onMouseLeave={onMouseLeave} onMouseEnter={onMouseEnter}>
+        <div
+            className={cx('relative flex items-center justify-center w-full h-full')}
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
+        >
             {error ? (
-                <div className={`error`}>{error}</div>
+                <div
+                    className={cx(
+                        'bg-yellow-100 text-error-600 w-full h-full flex items-center justify-center'
+                    )}
+                >
+                    {error}
+                </div>
             ) : (
-                <div className={`range-slider-container`}>
+                <div className={cx('relative flex items-center justify-center h-full w-full')}>
                     <div
                         draggable={false}
-                        className={`range-slider-box`}
+                        className={cx(
+                            'relative flex flex-row items-center justify-start w-full h-full cursor-pointer'
+                        )}
                         ref={containerRef}
                         onMouseMove={onMouseMove}
                         onMouseUp={onMouseUp}
@@ -321,11 +332,14 @@ export const RangeSliderRaw = ({
                             </>
                         )}
                         <div
-                            className={`range-slider-vue-background ${isMouseDown ? 'set' : ''}`}
+                            className={cx(
+                                'relative flex flex-row items-center justify-start w-full h-2',
+                                isMouseDown ? 'bg-secondary-300' : 'bg-secondary-200'
+                            )}
                             onMouseUp={onMouseUp}
                         />
                         <div
-                            className={`${id}-range-slider-vue-snap range-slider-bar `}
+                            className={cx('absolute flex items-center justify-center')}
                             style={{
                                 height: `${slideBarHeight}px`,
                                 width: `${
@@ -341,7 +355,10 @@ export const RangeSliderRaw = ({
                         />
                         <div
                             draggable={false}
-                            className={`${id}-range-slider-handle ${handleStyle} range-slider-bar-handle `}
+                            className={cx(
+                                'absolute flex items-center justify-center z-10',
+                                handleStyle === 'circle' ? 'rounded-full' : ''
+                            )}
                             onMouseDown={onMouseDown}
                             onMouseUp={onMouseUp}
                             style={{

@@ -1,31 +1,20 @@
-import './index.css'
+/**
+ * FORMULAR - React Components Library Demo Index
+ * Copyright (c) 2025 Piana Tadeo
+ * Licensed under MIT License
+ *
+ * Demo and development exports - for showcasing components
+ * This file is used for development and testing purposes only
+ */
 
-// Remove the separate ServiceManagerProvider import
-// import { ServiceManagerProvider } from '@adapters/react'
-import { AppContextProvider } from '@components/context/app-context/app-context'
-import { VisualDebug } from '@components/context/debug/visual-debug'
-import { ScrollContext } from '@components/context/scrolling/scrolling'
-import ReactDOM from 'react-dom/client'
-import App from './app'
+// Re-export the main library exports
+export * from './index'
 
-document.title = import.meta.env.VITE_APP_NAME ?? ''
-const rootComponent = document.getElementById('root')
+// Export demo-specific components and utilities
+export { default as App } from './app'
+export { default as TestApp } from './test-app'
 
-const root = ReactDOM.createRoot(rootComponent!)
-root.render(
-    <VisualDebug>
-        <ScrollContext>
-            {/* ✅ Single provider that handles both app context and service manager */}
-            <AppContextProvider
-                setupOptions={{
-                    includeCoreManagers: true,
-                    includeFormularManager: true,
-                    includeInputEngine: true,
-                    includeBaseConfigurations: true
-                }}
-            >
-                <App />
-            </AppContextProvider>
-        </ScrollContext>
-    </VisualDebug>
-)
+// Export development utilities
+export * from './components/context/app-context/app-context'
+export * from './components/context/debug/visual-debug'
+export * from './components/context/scrolling/scrolling'

@@ -1,5 +1,6 @@
 import useDebouncer from '@adapters/react/hooks/use-debouncer'
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
+import { cx } from 'formular.design.system'
 import { useEffect, useRef, useState } from 'react'
 
 interface IDelayInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -54,7 +55,11 @@ const DelayInput = ({
         <input
             ref={inputRef}
             onChange={handleOnChanged}
-            className={classNames ?? 'base-input'}
+            className={
+                classNames
+                    ? cx(classNames)
+                    : cx('w-full outline-none p-2 border border-secondary-200 rounded')
+            }
             onKeyDown={handleKeyDown}
             tabIndex={tabIndex}
             {...rest}

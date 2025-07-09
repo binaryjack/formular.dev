@@ -1,4 +1,5 @@
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
+import { cx } from 'formular.design.system'
 import { IExtendedInput, IOptionItem } from 'formular.dev.lib'
 
 // Create a more complete interface for radio inputs
@@ -21,12 +22,18 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
     const { handleKeyDown } = useKeyBindings({ onDeleteCallback: handleDelete })
 
     return (
-        <div className={`radio-item-group`}>
+        <div className={cx('flex items-center py-1', 'radio-item-group')}>
             <input
                 tabIndex={0}
                 data-sequence-id={option.sequenceId}
                 data-class="base-radio"
-                className="base-radio "
+                className={cx(
+                    'form-radio w-4 h-4',
+                    'text-primary-600 border-secondary-300',
+                    'focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50',
+                    'transition duration-150 ease-in-out',
+                    'base-radio'
+                )}
                 type="radio"
                 name={field.input.name}
                 value={option.value}
@@ -36,7 +43,7 @@ const RadioInputOption = ({ field, option }: IRadioInputOptionProps) => {
             />
             <label
                 htmlFor={`option-${option.id}`}
-                className={`ml-2 cursor-pointer select-none`}
+                className={cx('ml-2 cursor-pointer select-none', 'text-secondary-700 font-medium')}
                 {...field?.registerLabel(option)}
             >
                 {option.text}

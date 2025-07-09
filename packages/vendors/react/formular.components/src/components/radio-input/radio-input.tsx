@@ -1,5 +1,5 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
-
+import { cx } from 'formular.design.system'
 import { IExtendedInput, IOptionItem, isMissing, MissingPropEnum } from 'formular.dev.lib'
 
 import FieldSet from '../field-set/field-set'
@@ -124,7 +124,10 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
             }
             onClear={() => instance?.input?.clear()}
         >
-            <ul className={`radio-group`} data-selected={instance?.input?.value ?? ''}>
+            <ul
+                className={cx('flex flex-col space-y-1')}
+                data-selected={instance?.input?.value ?? ''}
+            >
                 {instance?.optionBase?.options?.map((option: IOptionItem) => {
                     return (
                         <RadioInputOption

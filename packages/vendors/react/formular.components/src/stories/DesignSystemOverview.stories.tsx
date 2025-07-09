@@ -525,6 +525,85 @@ export const AllComponents: Story = {
                     </div>
                 </div>
             </section>
+
+            {/* Form Inputs Preview Section */}
+            <section>
+                <Typography as="h2" size="3xl" weight="bold" className="mb-6">
+                    Form Inputs
+                </Typography>
+                <div className="space-y-8">
+                    <Typography as="p" size="base">
+                        Form inputs have been migrated to use the design system, including radio
+                        buttons, select inputs, and more. For full interactive examples, see the
+                        individual component stories.
+                    </Typography>
+                    <div className="grid grid-cols-1 gap-6">
+                        <div className="p-4 border border-gray-200 rounded-lg">
+                            <Typography as="h3" size="lg" weight="semibold" className="mb-3">
+                                Form Components
+                            </Typography>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="p-3 bg-gray-50 rounded">
+                                    <Typography
+                                        as="h4"
+                                        size="base"
+                                        weight="medium"
+                                        className="mb-2"
+                                    >
+                                        Radio Inputs
+                                    </Typography>
+                                    <Typography as="p" size="sm" className="text-gray-600 mb-3">
+                                        See <code>RadioInput.stories.tsx</code> for interactive
+                                        examples
+                                    </Typography>
+                                </div>
+                                <div className="p-3 bg-gray-50 rounded">
+                                    <Typography
+                                        as="h4"
+                                        size="base"
+                                        weight="medium"
+                                        className="mb-2"
+                                    >
+                                        Select Inputs
+                                    </Typography>
+                                    <Typography as="p" size="sm" className="text-gray-600 mb-3">
+                                        See <code>SelectInput.stories.tsx</code> for interactive
+                                        examples
+                                    </Typography>
+                                </div>
+                                <div className="p-3 bg-gray-50 rounded">
+                                    <Typography
+                                        as="h4"
+                                        size="base"
+                                        weight="medium"
+                                        className="mb-2"
+                                    >
+                                        Text Inputs
+                                    </Typography>
+                                    <Typography as="p" size="sm" className="text-gray-600 mb-3">
+                                        See <code>InputText.stories.tsx</code> for interactive
+                                        examples
+                                    </Typography>
+                                </div>
+                                <div className="p-3 bg-gray-50 rounded">
+                                    <Typography
+                                        as="h4"
+                                        size="base"
+                                        weight="medium"
+                                        className="mb-2"
+                                    >
+                                        Check Inputs
+                                    </Typography>
+                                    <Typography as="p" size="sm" className="text-gray-600 mb-3">
+                                        See <code>CheckInput.stories.tsx</code> for interactive
+                                        examples
+                                    </Typography>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     )
 }
