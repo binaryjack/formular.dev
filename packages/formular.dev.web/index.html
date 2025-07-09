@@ -863,7 +863,35 @@
     type: <span class="code-string">'tel'</span>,
     validation: phoneValidation,
     required: <span class="code-keyword">false</span>
-}</code></pre>
+}
+
+<span class="code-comment">// Create field descriptor for date picker</span>
+<span class="code-keyword">const</span> dateField: IFieldDescriptor = {
+    name: <span class="code-string">'date'</span>,
+    label: <span class="code-string">'Date'</span>,
+    type: <span class="code-string">'date'</span>,
+    validation: <span class="code-keyword">new</span> <span class="code-function">FormularManagerBuilder</span>()
+        .<span class="code-function">addValidation</span>(Validators.<span class="code-function">required</span>(<span class="code-string">'Date is required'</span>))
+        .<span class="code-function">build</span>(),
+    required: <span class="code-keyword">true</span>
+}
+
+<span class="code-comment">// Add date picker field to form descriptors</span>
+<span class="code-keyword">const</span> formular = formularManager.<span class="code-function">createFromDescriptors</span>(
+    <span class="code-string">'user-registration'</span>, 
+    [emailField, phoneField, dateField]
+)
+
+<span class="code-comment">// Bind to existing HTML form with modern API</span>
+<span class="code-keyword">const</span> formElement = document.<span class="code-function">getElementById</span>(<span class="code-string">'user-registration-form'</span>)
+formular.<span class="code-function">bindToDOM</span>(formElement)
+
+<span class="code-comment">// Update HTML to include date picker field</span>
+...existing code...
+&lt;label for="date"&gt;Date&lt;/label&gt;
+&lt;input type="date" id="date" name="date" required /&gt;
+&lt;div id="date-errors" class="error-container"&gt;&lt;/div&gt;
+...existing code...</code></pre>
                 </div>
 
                 <!-- Framework Implementations -->
@@ -901,6 +929,9 @@
         &lt;<span class="code-function">FormularForm</span> formular={formular} onSubmit={handleSubmit}&gt;
             &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"email"</span> /&gt;
             &lt;<span class="code-function">InputText</span> fieldName=<span class="code-string">"phone"</span> /&gt;
+            &lt;label for="date"&gt;Date&lt;/label&gt;
+            &lt;input type="date" id="date" name="date" required /&gt;
+            &lt;div id="date-errors" class="error-container"&gt;&lt;/div&gt;
             &lt;button type=<span class="code-string">"submit"</span> disabled={!formular?.isValid}&gt;
                 Submit
             &lt;/button&gt;
@@ -922,6 +953,9 @@
   &gt;
     &lt;InputText field-name=<span class="code-string">"email"</span> /&gt;
     &lt;InputText field-name=<span class="code-string">"phone"</span> /&gt;
+    &lt;label for="date"&gt;Date&lt;/label&gt;
+    &lt;input type="date" id="date" name="date" required /&gt;
+    &lt;div id="date-errors" class="error-container"&gt;&lt;/div&gt;
     &lt;button type=<span class="code-string">"submit"</span> :disabled=<span class="code-string">"!formular?.isValid"</span>&gt;
       Submit
     &lt;/button&gt;
@@ -960,6 +994,9 @@
       &lt;formular-input 
         fieldName=<span class="code-string">"phone"</span>&gt;
       &lt;/formular-input&gt;
+      &lt;label for="date"&gt;Date&lt;/label&gt;
+      &lt;input type="date" id="date" name="date" required /&gt;
+      &lt;div id="date-errors" class="error-container"&gt;&lt;/div&gt;
       &lt;button type=<span class="code-string">"submit"</span> [disabled]=<span class="code-string">"!formular?.isValid"</span>&gt;
         Submit
       &lt;/button&gt;
@@ -1159,6 +1196,16 @@ notificationManager.<span class="code-function">subscribe</span>(<span class="co
                 </a>
             </div>
         </section>
+
+        <!-- Development Status -->
+        <div style="text-align: center; margin-top: 20px;">
+            <p style="color: #718096; font-size: 1rem;">
+                <strong>Note:</strong> FORMULAR is currently in active development and not yet published. Stay tuned for updates!
+            </p>
+            <p style="color: #718096; font-size: 1rem;">
+                <a href="https://docs.formular.dev/" style="color: #667eea; text-decoration: none;">View Full Documentation</a>
+            </p>
+        </div>
 
         <!-- Footer -->
         <footer class="footer">
