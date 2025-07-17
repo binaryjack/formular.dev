@@ -30,6 +30,59 @@
                 "!${workspaceFolder}/packages/lib/**"
             ],
             "trace": "verbose" // Add for debugging the debugger itself
+        },
+        {
+            "name": "Debug Storybook",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:6006",
+            "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
+            "sourceMaps": true,
+            "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile-storybook",
+            "runtimeArgs": [
+                "--remote-debugging-port=9223"
+            ],
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///*": "*",
+                "/src/*": "${webRoot}/src/*",
+                "/*": "*",
+                // Map the lib source files correctly
+                "/node_modules/.vite/deps/formular__dev__lib.js*": "${workspaceFolder}/packages/lib/src/*",
+                "formular.dev.lib/*": "${workspaceFolder}/packages/lib/src/*"
+            },
+            "smartStep": true,
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
+                "!${workspaceFolder}/packages/lib/**"
+            ],
+            "trace": true
+        },
+        {
+            "name": "Debug Storybook - Attach",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9223,
+            "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
+            "sourceMaps": true,
+            "sourceMapPathOverrides": {
+                "webpack:///./*": "${webRoot}/*",
+                "webpack:///src/*": "${webRoot}/src/*",
+                "webpack:///*": "*",
+                "/src/*": "${webRoot}/src/*",
+                "/*": "*",
+                // Map the lib source files correctly
+                "/node_modules/.vite/deps/formular__dev__lib.js*": "${workspaceFolder}/packages/lib/src/*",
+                "formular.dev.lib/*": "${workspaceFolder}/packages/lib/src/*"
+            },
+            "smartStep": true,
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**",
+                "!${workspaceFolder}/packages/lib/**"
+            ]
         }
     ]
 }

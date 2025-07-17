@@ -16,6 +16,9 @@ export const defaultOutputTrackingProvider = function (this: ITrackingOutputProv
                 break
             case 'info':
             default:
+                if (data.message.includes('unexpected error. p.func is not a function')) {
+                    console.log('p.func')
+                }
                 console.info(`info:${data.source}\n${data.message} `)
                 break
         }

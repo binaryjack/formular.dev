@@ -140,7 +140,8 @@ export interface IServiceManager {
      * @returns Resolved service instance
      * @throws Error if service cannot be resolved
      */
-    resolve: <T>(identifier: ServiceIdType<T>, ...parameters: any[]) => T /**
+    resolve: <T>(identifier: ServiceIdType<T>, ...parameters: any[]) => T
+    /**
      * Attempts to resolve a service, returning undefined if not found
      * @param identifier - Unique identifier for the service
      * @param parameters - Additional parameters to pass to the factory
@@ -183,6 +184,12 @@ export interface IServiceManager {
      * @returns Human-readable service name
      */
     getServiceName: (identifier: ServiceIdType) => string
+
+    /**
+     * Gets a list of all registered service identifiers
+     * @returns Array of service identifiers
+     */
+    getRegisteredServices: () => ServiceIdType[]
 
     /**
      * Throws an error if the service manager has been disposed

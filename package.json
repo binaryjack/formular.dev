@@ -16,8 +16,6 @@
     "dev": "concurrently \"pnpm run dev:lib\" \"pnpm run dev:components\"",
     "dev:lib": "pnpm --filter formular.dev.lib dev",
     "dev:components": "pnpm --filter formular.components dev",
-    "storybook": "pnpm --filter formular.components storybook",
-    "build-storybook": "pnpm --filter formular.components build-storybook",
     "test": "pnpm run --recursive test",
     "test:lib": "pnpm --filter formular.dev.lib test",
     "test:components": "pnpm --filter formular.components test",
