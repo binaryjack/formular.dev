@@ -1,7 +1,6 @@
 import { useService } from '@adapters/react'
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
 import ValidationDemoCheckInput from '@demo/validation-demos/validation-demo-check-input'
-import ValidationDemoDatePicker from '@demo/validation-demos/validation-demo-date-picker'
 import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
 import type { IConfigurationManager } from 'formular.dev.lib'
 import { SConfigurationManager } from 'formular.dev.lib'

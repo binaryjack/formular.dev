@@ -94,7 +94,7 @@ const FormularFormDebug = <T extends object>({ formular, count }: FormyDebugProp
     const flags = getFormFlags()
 
     return (
-        <div className="form-debug flex flex-col p-2 w-full h-full bg-gray-100 border rounded">
+        <div className="form-debug flex flex-col m-1 p-2 w-full h-full bg-gray-100 border rounded">
             <div className="debug-header mb-2">
                 <h3>Form Debug Panel</h3>
                 <div className="text-sm text-gray-600">

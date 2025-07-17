@@ -115,6 +115,7 @@ const CheckInput = ({ fieldName, checked, disabled }: ICheckInputProps) => {
 
     return (
         <FieldSet
+            hasFocusIndicator={false}
             inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, CheckInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}

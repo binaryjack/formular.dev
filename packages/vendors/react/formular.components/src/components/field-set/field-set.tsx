@@ -39,6 +39,8 @@ interface IFieldSetProps<TType> {
     validationChildren?: React.ReactNode
     /** Additional CSS classes */
     className?: string
+    /** Whether the field has a focus indicator */
+    hasFocusIndicator?: boolean
     /** Callback when field receives focus */
     onSetFocus?: () => void
     /** Callback when field is cleared */
@@ -147,6 +149,7 @@ const FieldSet = <TType,>({
     validationChildren,
     onSetFocus,
     className,
+    hasFocusIndicator = true,
     onClear,
     onClick,
     itemsDrawerWidth,
@@ -260,21 +263,25 @@ const FieldSet = <TType,>({
                     </div>
                 </div>
 
-                <div
-                    className={cx(
-                        'absolute bottom-0 left-0 right-0 h-0.5',
-                        flags.focus ? 'bg-primary-600' : 'bg-transparent'
-                    )}
-                />
+                {hasFocusIndicator && (
+                    <div
+                        className={cx(
+                            'focus-indicator absolute bottom-0 left-0 right-0 h-0.5 ',
+                            flags.focus ? 'bg-primary-600' : 'bg-transparent'
+                        )}
+                    />
+                )}
                 {flags.required && (
                     <div
-                        className={cx('absolute top-0 right-0 w-2 h-2 bg-error-600 rounded-full')}
+                        className={cx(
+                            'required-flag absolute top-0 right-0 w-2 h-2 bg-error-600 rounded-full'
+                        )}
                     />
                 )}
             </div>
 
             {validationChildren && (
-                <div className={cx('relative flex flex-col mt-1')}>
+                <div className={cx('validations-flag relative flex flex-col mt-1 ')}>
                     <div className={cx(flags.focus ? 'text-success-600' : 'text-error-600')}>
                         {validationChildren}
                     </div>

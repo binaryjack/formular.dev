@@ -79,6 +79,7 @@ export default defineConfig(({ mode }) => {
                 '@patterns': resolve(__dirname, 'src/patterns'),
                 '@style': resolve(__dirname, 'src/style'),
                 '@utils': resolve(__dirname, 'src/utils'),
+                '@pages': resolve(__dirname, 'src/pages'),
                 // Add alias for the lib to help with source mapping
                 'formular.dev.lib': resolve(__dirname, '../../../lib/src/index.ts')
             }

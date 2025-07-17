@@ -55,6 +55,10 @@ const AppContextProvider = ({
     // Service manager setup (similar to ServiceManagerProvider)
     const [internalServiceManager] = React.useState(() => {
         if (externalServiceManager) {
+            if (externalServiceManager.getRegisteredServices?.()?.length === 0) {
+                externalServiceManager = ServiceManagerFactory.create(setupOptions)
+            }
+
             return externalServiceManager
         }
 

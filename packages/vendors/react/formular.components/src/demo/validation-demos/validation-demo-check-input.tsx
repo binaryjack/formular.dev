@@ -73,28 +73,30 @@ const ValidationDemoCheckInput = () => {
     }
 
     return (
-        <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
-            <FormsContentFrame
-                childrenRequired={
-                    <BooleanConstraint
-                        validationOptions={instance?.input?.validationOptions ?? {}}
-                        handleValidationOptionChange={handleValidationOptionChange}
-                        fieldName={fieldName}
-                        type={'required'}
-                        errorMessage={'This field is required'}
-                        guideMessage={'This field must be filled out.'}
-                    />
-                }
-                childrenTriggerMode={
-                    <TriggerMode
-                        triggerKeyWord={triggerKeyWord}
-                        handleTriggerModeChange={handleTriggerModeChange}
-                    />
-                }
-                childrenInput={<CheckInput fieldName={fieldName} checked={true} />}
-                childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
-            />
-        </FormularForm>
+        <FormsContentFrame
+            childrenRequired={
+                <BooleanConstraint
+                    validationOptions={instance?.input?.validationOptions ?? {}}
+                    handleValidationOptionChange={handleValidationOptionChange}
+                    fieldName={fieldName}
+                    type={'required'}
+                    errorMessage={'This field is required'}
+                    guideMessage={'This field must be filled out.'}
+                />
+            }
+            childrenTriggerMode={
+                <TriggerMode
+                    triggerKeyWord={triggerKeyWord}
+                    handleTriggerModeChange={handleTriggerModeChange}
+                />
+            }
+            childrenInput={
+                <FormularForm formular={internalForm} onSubmit={handleSubmit} isloading={false}>
+                    <CheckInput fieldName={fieldName} checked={true} />
+                </FormularForm>
+            }
+            childrenSubmissionObjectResult={JSON.stringify(submissionObject, null, 2)}
+        />
     )
 }
 

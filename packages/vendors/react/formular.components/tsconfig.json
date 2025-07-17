@@ -27,6 +27,7 @@
             "@demo/*": ["src/demo/*"],
             "@patterns/*": ["src/patterns/*"],
             "@style/*": ["src/style/*"],
+            "@pages/*": ["src/pages/*"],
             "formular.dev.lib": ["../../../lib/dist/formular-dev.es.d.ts"],
             "formular.dev.lib/*": ["../../../lib/dist/*"]
         }

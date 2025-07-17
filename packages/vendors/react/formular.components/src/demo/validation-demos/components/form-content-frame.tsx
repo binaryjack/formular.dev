@@ -52,13 +52,14 @@ export const FormsContentFrame = ({
                         </div>
                     </div>
                 </Accordion>
-                <div className="input-container w-full mt-4 mb-4">{childrenInput}</div>
                 <div className="w-full">
+                    <div className="input-container w-full mt-4 mb-4">{childrenInput}</div>
                     <h3 className="text-lg font-bold">Submission Object:</h3>
                     {childrenSubmissionObjectResult}
                 </div>
             </div>
-            <div className="sandbox-container flex  p-1 w-full h-auto mt-1">
+            <div className="sandbox-container flex flex-col  p-0 w-full h-auto mt-0 bg-white">
+                <h1 className="flex p-1">Component Observer Notifications</h1>
                 <NotifierDebugUi
                     internalNotifierInstance={(autoTracker as INotificationManager) ?? undefined}
                 />

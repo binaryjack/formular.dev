@@ -103,6 +103,8 @@ const FormularForm = <T extends object>({
         'submit'
     )
 
+    submitConfig && (submitConfig.height = '40px')
+
     const formularInstance = useMemo(() => {
         return formular
     }, [formular])
@@ -176,9 +178,9 @@ const FormularForm = <T extends object>({
 
     return (
         <formularContext.Provider value={output}>
-            <div>{formularInstance.triggerKeyWordType.join(' ')}</div>
-            <div>{formularInstance.isDirty ? 'Has changes!' : 'pristine'}</div>
-            <form data-form-id={`${formularInstance.id}`} className={`formular `}>
+            <div>{formularInstance?.triggerKeyWordType?.join(' ')}</div>
+            <div>{formularInstance?.isDirty ? 'Has changes!' : 'pristine'}</div>
+            <form data-form-id={`${formularInstance?.id}`} className={`formular `}>
                 {children}
             </form>
             <div className={`formular-messages`}>

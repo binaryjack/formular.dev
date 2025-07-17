@@ -1,6 +1,5 @@
 import useAppContext from '@components/context/app-context/app-context.context'
 import { cx } from 'formular.design.system'
-import { useEffect, useState } from 'react'
 import { LayoutModeEnum } from '../enum/layout-mode-enum'
 export interface IMasterDetailLayoutProps {
     menu: React.ReactNode
@@ -9,17 +8,11 @@ export interface IMasterDetailLayoutProps {
 
 export const MasterDetailLayout = ({ menu, body }: IMasterDetailLayoutProps) => {
     const { media } = useAppContext()
-    const [mode, setMode] = useState<LayoutModeEnum | undefined>()
-    useEffect(() => {
-        if (media?.media === undefined) return
-        const mode = ['sm', 'md'].includes(media.media)
-            ? LayoutModeEnum.VERTICAL
-            : ['2xs', 'xs'].includes(media.media)
-              ? LayoutModeEnum.MOBILE
-              : LayoutModeEnum.HORIZONTAL
-
-        setMode(mode)
-    }, [media?.media])
+    const mode = ['sm', 'md'].includes(media?.media ?? '')
+        ? LayoutModeEnum.VERTICAL
+        : ['2xs', 'xs'].includes(media?.media ?? '')
+          ? LayoutModeEnum.MOBILE
+          : LayoutModeEnum.HORIZONTAL
 
     return (
         <div
