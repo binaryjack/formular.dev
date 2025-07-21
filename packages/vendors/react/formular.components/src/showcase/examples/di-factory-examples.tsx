@@ -12,7 +12,7 @@ import {
     ServiceManagerFactory,
     SetupHelpers
 } from 'formular.dev.lib'
-import { ServiceManagerProvider, useService } from '../adapters/react'
+import { ServiceManagerProvider, useService } from '../../adapters/react'
 
 /**
  * Example 1: Basic form application setup

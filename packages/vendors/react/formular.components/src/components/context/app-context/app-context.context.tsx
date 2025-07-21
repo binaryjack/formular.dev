@@ -1,17 +1,23 @@
 import { IMedia, IMediaBreakpoints } from '@adapters/react/hooks/screen/screen.models'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import { IServiceManager, ServiceIdType } from 'formular.dev.lib'
 import { createContext, useContext } from 'react'
 import { IDebug } from '../debug/debug.types'
+
+export interface ILayoutModes {
+    mobile: LayoutModeEnum
+    desktop: LayoutModeEnum
+}
 
 export interface IAppContext {
     // Existing app context properties
     breakpoints?: IMediaBreakpoints
     media?: IMedia
-    isMobileDevice: boolean
+    isMobileDevice: () => boolean
     debug?: IDebug
     holdScroll: boolean
     setHoldScroll: (hold: boolean) => void
-
+    layoutMode: ILayoutModes
     // Service manager functionality
     serviceManager: IServiceManager
     getService: <T>(identifier: ServiceIdType<T>) => T | undefined
@@ -22,7 +28,9 @@ export interface IAppContext {
 export const appContextDefault: Partial<IAppContext> = {
     breakpoints: undefined,
     media: undefined,
-    isMobileDevice: false,
+    isMobileDevice: () => {
+        return false
+    },
     debug: undefined,
     holdScroll: false,
     setHoldScroll: () => {

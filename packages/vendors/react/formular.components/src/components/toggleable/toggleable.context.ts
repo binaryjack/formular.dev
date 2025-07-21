@@ -3,7 +3,7 @@ import { createContext } from 'react'
 
 export interface IToggleableContextType {
     toggleState: ToggleableStateType
-    setToggleState: (state: ToggleableStateType) => void
+    setToggleState: (commandId?: string) => void
 }
 export const toggleableContextTypeDefault: IToggleableContextType = {
     toggleState: 'idle',

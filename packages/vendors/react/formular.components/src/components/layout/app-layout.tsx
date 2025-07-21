@@ -4,7 +4,7 @@
  * Licensed under MIT License
  */
 
-import { SmartNavigation } from '@components/navigation/smart-navigation'
+import { SmartNavigation } from 'src/showcase/navigation/smart-navigation'
 import { Link, Outlet } from 'react-router-dom'
 
 export const AppLayout = () => {
@@ -18,7 +18,7 @@ export const AppLayout = () => {
                                 FORMULAR
                             </Link>
                         </div>
-                        <div className="flex-1 flex justify-center">
+                        <div className="flex-1 flex justify-end">
                             <SmartNavigation />
                         </div>
                     </div>

@@ -2,9 +2,10 @@
 //     () => import('@components/portals/DropdownButtonPortal')
 // )
 
-import { AppContext, IAppContext } from './app-context.context'
+import { AppContext, IAppContext, ILayoutModes } from './app-context.context'
 
 import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import {
     IConfigurationManager,
     IServiceManager,
@@ -13,7 +14,7 @@ import {
     ServiceIdType,
     ServiceManagerFactory
 } from 'formular.dev.lib'
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { DrawerSlotCenter } from '../../drawer/components/drawer-slot.center'
 import { IDebug } from '../debug/debug.types'
 import { useVisualDebugContext } from '../debug/visual-debug.context'
@@ -26,7 +27,7 @@ interface AppContextProps {
     setupOptions?: IServiceManagerSetupOptions
     autoDispose?: boolean
     // Layout options
-    layoutMode?: 'fullscreen' | 'storybook' | 'embedded'
+    layoutMode?: ILayoutModes
 }
 
 /**
@@ -46,14 +47,17 @@ const AppContextProvider = ({
     serviceManager: externalServiceManager,
     setupOptions,
     autoDispose = true,
-    layoutMode = 'fullscreen'
-}: AppContextProps) => {
+    layoutMode = {
+        mobile: LayoutModeEnum.VERTICAL,
+        desktop: LayoutModeEnum.VERTICAL
+    }
+}: AppContextProps): JSX.Element => {
     const [holdScroll, setHoldScroll] = useState<boolean>(false)
     const { breakpoints, media, windowY, windowX } = useMediaScreens()
     const { options } = useVisualDebugContext()
 
     // Service manager setup (similar to ServiceManagerProvider)
-    const [internalServiceManager] = React.useState(() => {
+    const [internalServiceManager] = useState(() => {
         if (externalServiceManager) {
             if (externalServiceManager.getRegisteredServices?.()?.length === 0) {
                 externalServiceManager = ServiceManagerFactory.create(setupOptions)
@@ -83,7 +87,7 @@ const AppContextProvider = ({
     const isInternallyManaged = !externalServiceManager
 
     // Auto-dispose service manager when component unmounts
-    React.useEffect(() => {
+    useEffect(() => {
         return () => {
             if (isInternallyManaged && autoDispose) {
                 serviceManager.dispose()
@@ -146,11 +150,11 @@ const AppContextProvider = ({
         // App context properties
         breakpoints: breakpoints,
         media: media,
-        isMobileDevice: false,
+        isMobileDevice: () => ['2xs', 'xs', 'sm'].includes(media?.media ?? 'sm'),
         debug: options,
         holdScroll,
         setHoldScroll: (hold: boolean) => setHoldScroll(hold),
-
+        layoutMode,
         // Service manager functionality
         serviceManager,
         getService,
@@ -160,27 +164,18 @@ const AppContextProvider = ({
 
     return (
         <AppContext.Provider value={contextOutput}>
-            {layoutMode === 'fullscreen' && (
-                <div className="z-50 absolute flex flex-1 items-center justify-center top-0 w-full  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
-            )}
+            <div className="z-50 absolute flex flex-1 items-center justify-center top-0 w-full  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
 
-            {layoutMode === 'fullscreen' && (
-                <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
-            )}
+            <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
 
             <div
                 className={
-                    layoutMode === 'fullscreen'
-                        ? 'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-full  h-auto bg-gray-900'
-                        : 'body-container flex flex-col overflow-y-auto p-4 items-stretch justify-stretch w-full h-auto'
+                    'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-full  h-auto bg-gray-900'
                 }
             >
                 {children}
             </div>
-
-            {layoutMode === 'fullscreen' && (
-                <div className="z-50 absolute flex flex-1 items-center justify-center bottom-0 w-full  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
-            )}
+            <div className="z-50 absolute flex flex-1 items-center justify-center bottom-0 w-full  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
         </AppContext.Provider>
     )
 }

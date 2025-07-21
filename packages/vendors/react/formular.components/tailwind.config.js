@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-const designSystemConfig = require('formular.design.system/tailwind-config')
+const path = require('path')
+
+// Import design system config directly from the relative path
+const designSystemConfig = require('../../../design-system/tailwind.config.js')
 
 module.exports = {
     // Extend the design system config

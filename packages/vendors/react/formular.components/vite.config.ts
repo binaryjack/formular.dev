@@ -75,7 +75,7 @@ export default defineConfig(({ mode }) => {
                 '@mocks': resolve(__dirname, 'src/mocks'),
                 '@components': resolve(__dirname, 'src/components'),
                 '@adapters': resolve(__dirname, 'src/adapters'),
-                '@demo': resolve(__dirname, 'src/demo'),
+                '@demo': resolve(__dirname, 'src/showcase/demo'),
                 '@patterns': resolve(__dirname, 'src/patterns'),
                 '@style': resolve(__dirname, 'src/style'),
                 '@utils': resolve(__dirname, 'src/utils'),

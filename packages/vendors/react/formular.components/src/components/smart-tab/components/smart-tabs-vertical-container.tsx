@@ -1,10 +1,9 @@
 import { cx } from 'formular.design.system'
 import { ITabManager } from '../types/i-tab-manager'
-import { ITabManagerMock } from '../types/i-tab-manager-mock'
 import { SmartTab } from './smart-tab'
 
 export interface ISmartTabsVerticalContainerProps {
-    manager: ITabManager | ITabManagerMock
+    manager: ITabManager
     onSelect: (tabId: string) => void
 }
 

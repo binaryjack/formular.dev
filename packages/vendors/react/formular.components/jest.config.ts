@@ -35,7 +35,7 @@ const config: Config = {
         '^@framework/(.*)$': '<rootDir>/src/core/framework/$1',
         '^@utility/(.*)$': '<rootDir>/src/core/framework/utility/$1',
         '^@common/(.*)$': '<rootDir>/src/core/framework/common/$1',
-        '^@demo/(.*)$': '<rootDir>/src/demo/$1',
+        '^@demo/(.*)$': '<rootDir>/src/showcase/demo/$1',
         '^@patterns/(.*)$': '<rootDir>/src/patterns/$1',
         '^@style/(.*)$': '<rootDir>/src/style/$1',
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy'

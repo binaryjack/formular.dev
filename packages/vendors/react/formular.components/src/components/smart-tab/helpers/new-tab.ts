@@ -6,7 +6,8 @@ export const newTab = (
     icon?: React.ReactNode,
     disabled?: boolean,
     selected?: boolean,
-    onClick?: (id: string) => void
+    onClick?: (id: string) => void,
+    childrens?: ITab[]
 ): ITab => {
     return {
         id,
@@ -14,6 +15,7 @@ export const newTab = (
         icon,
         disabled,
         selected,
-        onClick
+        onClick,
+        childrens: childrens || []
     } as ITab
 }

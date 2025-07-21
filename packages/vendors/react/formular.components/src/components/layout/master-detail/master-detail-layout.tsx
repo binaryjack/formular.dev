@@ -4,15 +4,26 @@ import { LayoutModeEnum } from '../enum/layout-mode-enum'
 export interface IMasterDetailLayoutProps {
     menu: React.ReactNode
     body: React.ReactNode
+    desktopMode: LayoutModeEnum
+    mobileMode: LayoutModeEnum
 }
 
-export const MasterDetailLayout = ({ menu, body }: IMasterDetailLayoutProps) => {
+export const MasterDetailLayout = ({
+    menu,
+    body,
+    desktopMode,
+    mobileMode
+}: IMasterDetailLayoutProps) => {
     const { media } = useAppContext()
-    const mode = ['sm', 'md'].includes(media?.media ?? '')
-        ? LayoutModeEnum.VERTICAL
-        : ['2xs', 'xs'].includes(media?.media ?? '')
-          ? LayoutModeEnum.MOBILE
-          : LayoutModeEnum.HORIZONTAL
+
+    const isMobileDevice = ['2xs', 'xs'].includes(media?.media ?? '')
+    const isDesktopDevice = ['sm', 'md', 'lg'].includes(media?.media ?? '')
+
+    const mode = isMobileDevice
+        ? mobileMode
+        : isDesktopDevice
+          ? desktopMode
+          : LayoutModeEnum.VERTICAL
 
     return (
         <div
@@ -27,9 +38,9 @@ export const MasterDetailLayout = ({ menu, body }: IMasterDetailLayoutProps) => 
                 <>
                     <div
                         className={cx(
-                            'flex',
+                            'flex fixed h-full overflow-y-auto',
                             mode === LayoutModeEnum.VERTICAL &&
-                                'flex-none w-1/4 h-auto bg-gray-200',
+                                'flex-none min-w-1/5 h-auto bg-gray-200',
                             mode === LayoutModeEnum.HORIZONTAL &&
                                 'flex-none w-full h-auto bg-gray-200',
                             mode === LayoutModeEnum.MOBILE && 'flex-none w-full h-10 bg-gray-200'
@@ -37,7 +48,7 @@ export const MasterDetailLayout = ({ menu, body }: IMasterDetailLayoutProps) => 
                     >
                         {menu}
                     </div>
-                    <div className={cx('flex h-auto w-screen overflow-y-auto')}>{body}</div>
+                    <div className={cx('flex h-screen w-screen overflow-y-auto')}>{body}</div>
                 </>
             )}
         </div>

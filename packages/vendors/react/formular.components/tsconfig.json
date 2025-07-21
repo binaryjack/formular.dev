@@ -24,10 +24,10 @@
             "@mocks/*": ["src/__tests__/mocks/*"],
             "@components/*": ["src/components/*"],
             "@adapters/*": ["src/adapters/*"],
-            "@demo/*": ["src/demo/*"],
+            "@demo/*": ["src/showcase/demo/*"],
             "@patterns/*": ["src/patterns/*"],
             "@style/*": ["src/style/*"],
-            "@pages/*": ["src/pages/*"],
+            "@pages/*": ["src/showcase/pages/*"],
             "formular.dev.lib": ["../../../lib/dist/formular-dev.es.d.ts"],
             "formular.dev.lib/*": ["../../../lib/dist/*"]
         }

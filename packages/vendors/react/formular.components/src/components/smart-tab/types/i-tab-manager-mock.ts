@@ -1,22 +1,11 @@
-import { SmartTabsModeEnum } from '../enum/smart-tabs-mode-enum'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import { ITab } from './i-tab'
-
-export interface ITabManagerMock {
-    tabs: ITab[]
-    selectedTabId?: string
-    mode: SmartTabsModeEnum
-    addTab: (tab: ITab) => void
-    removeTab: (id: string) => void
-    getTabs: () => ITab[]
-    getTabById: (id: string) => ITab | undefined
-    selectTab: (id: string) => void
-    getSelectedTab: () => ITab | undefined
-}
+import { ITabManager } from './i-tab-manager'
 
 export const createTabManager = (
     tabs: ITab[],
-    mode: SmartTabsModeEnum = SmartTabsModeEnum.HORIZONTAL
-): ITabManagerMock => {
+    mode: LayoutModeEnum = LayoutModeEnum.HORIZONTAL
+): ITabManager => {
     return {
         tabs,
         selectedTabId: tabs.find((tab) => tab.selected)?.id ?? tabs[0]?.id,
@@ -38,5 +27,5 @@ export const createTabManager = (
             })
         },
         getSelectedTab: () => tabs.find((tab) => tab.selected)
-    }
+    } as any as ITabManager
 }

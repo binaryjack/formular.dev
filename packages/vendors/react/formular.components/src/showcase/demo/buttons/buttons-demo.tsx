@@ -5,7 +5,7 @@ import {
     getSizeTypeName,
     getVariantTypeName,
     VariantNameArray
-} from '../../style/global.types'
+} from '../../../style/global.types'
 
 interface IButtonDemo {
     id: string

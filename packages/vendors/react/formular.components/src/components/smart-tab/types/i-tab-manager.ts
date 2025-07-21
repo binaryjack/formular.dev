@@ -1,11 +1,13 @@
-import { SmartTabsModeEnum } from '../enum/smart-tabs-mode-enum'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
+import { INotificationManager } from 'formular.dev.lib/types/formular-dev.es'
 import { ITab } from './i-tab'
 
 export interface ITabManager {
-    new (tabs: ITab[]): ITabManager
+    new (tabs?: ITab[]): ITabManager
+    notificationManager: INotificationManager
     tabs: ITab[]
     selectedTabId?: string
-    mode: SmartTabsModeEnum
+    mode: LayoutModeEnum
     addTab: (tab: ITab) => void
     removeTab: (id: string) => void
     getTabs: () => ITab[]

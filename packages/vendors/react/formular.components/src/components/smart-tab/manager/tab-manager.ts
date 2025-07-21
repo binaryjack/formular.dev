@@ -1,4 +1,4 @@
-import { SmartTabsModeEnum } from '../enum/smart-tabs-mode-enum'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import { ITab } from '../types/i-tab'
 import { ITabManager } from '../types/i-tab-manager'
 import { addTab } from './prototype/add-tab'
@@ -8,10 +8,10 @@ import { getTabs } from './prototype/get-tabs'
 import { removeTab } from './prototype/remove-tab'
 import { selectTab } from './prototype/select-tab'
 
-export const TabManager = function (this: ITabManager, tabs: ITab[]) {
-    this.tabs = tabs ? tabs : []
+export const TabManager = function (this: ITabManager, tabs?: ITab[]) {
+    this.tabs = tabs ?? []
     this.selectedTabId = undefined
-    this.mode = SmartTabsModeEnum.HORIZONTAL
+    this.mode = LayoutModeEnum.HORIZONTAL
 } as any as ITabManager
 
 Object.assign(TabManager.prototype, {

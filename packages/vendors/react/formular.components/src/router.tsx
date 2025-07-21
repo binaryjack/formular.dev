@@ -5,8 +5,14 @@
  */
 
 import { AppLayout } from '@components/layout/app-layout'
-import { ButtonsPage, DemosPage, FormsPage, HomePage, ValidationPage } from '@pages/index'
 import { createBrowserRouter } from 'react-router-dom'
+import {
+    ButtonsPage,
+    DemosPage,
+    FormsPage,
+    HomePage,
+    ValidationPage
+} from 'src/showcase/pages/index'
 
 export const router = createBrowserRouter([
     {

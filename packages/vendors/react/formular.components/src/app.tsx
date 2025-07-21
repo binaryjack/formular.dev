@@ -1,9 +1,10 @@
 import { useService } from '@adapters/react'
 import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-boundary-catcher'
-import ValidationDemoCheckInput from '@demo/validation-demos/validation-demo-check-input'
-import ValidationDemoTextInput from '@demo/validation-demos/validation-demo-text-input'
+
 import type { IConfigurationManager } from 'formular.dev.lib'
 import { SConfigurationManager } from 'formular.dev.lib'
+import { SmartTabsDemo } from './showcase/demo/smart-tabs-demo/smart-tabs-demo'
+import ValidationDemoTextInput from './showcase/demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
     testName?: string
@@ -144,14 +145,15 @@ const App = () => {
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
             {/* <Demos /> */}
             <BoundaryErrorCatcher>
+                <SmartTabsDemo />
                 {/* <ButtonsDemo /> */}
                 {/* <ValidationDemoDatePicker /> */}
-                <ValidationDemoCheckInput />
+                {/* <ValidationDemoCheckInput /> */}
                 {/* <ValidationDemoDatePicker /> */}
                 {/* <ValidationDemoDelayInput /> */}
                 {/* <ValidationDemoPassword /> */}
                 {/* <FormDemo /> */}
-                <ConfigurationTest />
+                {/* <ConfigurationTest /> */}
             </BoundaryErrorCatcher>
         </div>
     )

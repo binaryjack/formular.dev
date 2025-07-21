@@ -4,7 +4,7 @@
  * Licensed under MIT License
  */
 
-import { SmartTabsHorizontalContainer } from '@components/smart-tab/components/smart-tabs-horizontal-container'
+import { SmartTabsVerticalContainer } from '@components/smart-tab/components/smart-tabs-vertical-container'
 import { newTab } from '@components/smart-tab/helpers/new-tab'
 import { ITab } from '@components/smart-tab/types/i-tab'
 import { createTabManager } from '@components/smart-tab/types/i-tab-manager-mock'
@@ -76,7 +76,7 @@ export const SmartNavigation = ({ className }: ISmartNavigationProps) => {
 
     return (
         <div className={className}>
-            <SmartTabsHorizontalContainer manager={tabManager} onSelect={handleTabSelected} />
+            <SmartTabsVerticalContainer manager={tabManager} onSelect={handleTabSelected} />
         </div>
     )
 }
