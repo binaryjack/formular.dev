@@ -4,12 +4,35 @@ import { Toggleable } from '@components/toggleable/toggleable'
 import { SmartTabsDropDownContainer } from './components/smart-tabs-drop-down-container'
 import { SmartTabsHorizontalContainer } from './components/smart-tabs-horizontal-container'
 import { SmartTabsVerticalContainer } from './components/smart-tabs-vertical-container'
+import { ISmartTabContainerContext, SmartTabContainerContext } from './smart-tabs-container.context'
 import { ITab } from './types/i-tab'
 import { ITabManager } from './types/i-tab-manager'
 
 export interface ISmartTabsContainerProps {
     manager: ITabManager
-    onSelected: (tab: ITab) => void
+    onSelected: (e: React.MouseEvent, tab: ITab) => void
+}
+
+export interface IRenderSmartTabsContainerProps {
+    manager: ITabManager
+    mode: LayoutModeEnum
+}
+
+const RenderSmartTab = ({ manager, mode }: IRenderSmartTabsContainerProps) => {
+    switch (mode) {
+        case LayoutModeEnum.HORIZONTAL:
+            return <SmartTabsHorizontalContainer manager={manager} />
+        case LayoutModeEnum.VERTICAL:
+            return <SmartTabsVerticalContainer manager={manager} />
+        case LayoutModeEnum.MOBILE:
+            return (
+                <Toggleable>
+                    <SmartTabsDropDownContainer manager={manager} />
+                </Toggleable>
+            )
+        default:
+            return <>ERROR</>
+    }
 }
 
 export const SmartTabsContainer = ({ manager, onSelected }: ISmartTabsContainerProps) => {
@@ -17,25 +40,21 @@ export const SmartTabsContainer = ({ manager, onSelected }: ISmartTabsContainerP
 
     const mode = isMobileDevice() ? layoutMode.mobile : layoutMode.desktop
 
-    const handleOnSelect = (id: string) => {
+    const handleOnSelect = (e: React.MouseEvent, id: string) => {
         const tb = manager.getTabById(id)
         if (!tb) return
         manager.selectTab(id)
-        onSelected(tb)
+        onSelected(e, tb)
     }
 
-    switch (mode) {
-        case LayoutModeEnum.HORIZONTAL:
-            return <SmartTabsHorizontalContainer manager={manager} onSelect={handleOnSelect} />
-        case LayoutModeEnum.VERTICAL:
-            return <SmartTabsVerticalContainer manager={manager} onSelect={handleOnSelect} />
-        case LayoutModeEnum.MOBILE:
-            return (
-                <Toggleable>
-                    <SmartTabsDropDownContainer manager={manager} onSelect={handleOnSelect} />
-                </Toggleable>
-            )
-        default:
-            return <>ERROR</>
+    const outputContext: ISmartTabContainerContext = {
+        manager,
+        selectTab: handleOnSelect
     }
+
+    return (
+        <SmartTabContainerContext.Provider value={outputContext}>
+            <RenderSmartTab manager={manager} mode={mode} />
+        </SmartTabContainerContext.Provider>
+    )
 }

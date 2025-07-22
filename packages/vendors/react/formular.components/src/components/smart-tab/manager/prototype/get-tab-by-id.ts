@@ -1,12 +1,18 @@
 import { ITab } from '@components/smart-tab/types/i-tab'
 
-export const getTabById = function (this: any, id: string) {
-    const tab = this.tabs.find((tab: ITab) => tab.id === id)
-    if (tab && !tab.disabled) {
-        this.selectedTabId = id
-        this.tabs.forEach((t: any) => {
-            t.selected = t.id === id
-        })
+function* getTabRecursive(tabs: ITab[], selectId: string): any {
+    for (const tab of tabs) {
+        if (tab.id === selectId) {
+            yield tab
+        }
+        if (tab.childrens) {
+            yield getTabRecursive(tab.childrens, selectId)
+        }
     }
+    yield undefined
+}
+
+export const getTabById = async function (this: any, id: string) {
+    const tab = await getTabRecursive(this.tabs, id)
     return tab
 }

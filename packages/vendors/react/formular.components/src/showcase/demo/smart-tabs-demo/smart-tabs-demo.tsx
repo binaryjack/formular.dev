@@ -1,9 +1,8 @@
+import { useTabs } from '@adapters/react/fields/hooks/use-tabs'
 import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import { MasterDetailLayout } from '@components/layout/master-detail/master-detail-layout'
 import { newTab } from '@components/smart-tab/helpers/new-tab'
-import { TabManager } from '@components/smart-tab/manager/tab-manager'
 import { SmartTabsMain } from '@components/smart-tab/smart-tabs-main'
-import { NotificationManager } from 'formular.dev.lib/types/formular-dev.es'
 import {
     TbAbacus,
     TbAd2,
@@ -35,11 +34,8 @@ const tabs = [
     ])
 ]
 
-const notificationManagerInstance = new NotificationManager()
-const tabManager = new TabManager(tabs)
-tabManager.notificationManager = notificationManagerInstance
-
 export const SmartTabsDemo = () => {
+    const { hashPrint, tabManager } = useTabs(tabs)
     return (
         <MasterDetailLayout
             menu={<SmartTabsMain manager={tabManager} onSelected={() => {}} />}

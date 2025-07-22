@@ -3,35 +3,37 @@ import { Toggleable } from '@components/toggleable/toggleable'
 import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
 import { Typography } from '@components/typography/typography'
 import { cx } from 'formular.design.system'
+import { useSmartTabCotext } from '../smart-tabs-container.context'
 import { ITab } from '../types/i-tab'
 
 export interface SmartTabProps {
     tab: ITab
     initialState?: 'open' | 'closed'
-    onSelect: (id: string) => void
 }
 
-export const SmartTab = ({ tab, onSelect }: SmartTabProps) => (
+export const SmartTab = ({ tab }: SmartTabProps) => (
     <Toggleable id={`tab-${tab.id}`}>
-        <SmartTabToggleable tab={tab} onSelect={onSelect} />
+        <SmartTabToggleable tab={tab} />
     </Toggleable>
 )
 
-export const SmartTabToggleable = ({ tab, onSelect }: SmartTabProps) => {
+export const SmartTabToggleable = ({ tab }: SmartTabProps) => {
     const { setToggleState, toggleState } = useToggleableContext()
+
+    const { selectTab } = useSmartTabCotext()
 
     const handleToggleState = () => {
         if (!tab.childrens) return
         setToggleState(`tab-${tab.id}`)
     }
 
-    const handleClick = () => {
+    const handleClick = (e: React.MouseEvent, id: string) => {
         if (tab.disabled) return
 
         if (tab.onClick) {
-            tab.onClick(tab.id)
+            tab.onClick(id)
         }
-        onSelect?.(tab.id)
+        selectTab?.(e, id)
     }
 
     const hasChildrens = tab.childrens && tab.childrens.length > 0
@@ -46,7 +48,7 @@ export const SmartTabToggleable = ({ tab, onSelect }: SmartTabProps) => {
                         : 'hover:bg-secondary-500',
                     tab.disabled && 'opacity-50 cursor-not-allowed'
                 )}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e, tab.id)}
                 aria-selected={tab.selected}
                 role="tab"
                 tabIndex={tab.disabled ? -1 : 0}
@@ -80,9 +82,7 @@ export const SmartTabToggleable = ({ tab, onSelect }: SmartTabProps) => {
                             : 'translate-y-0 animation-fade-out hidden'
                     )}
                 >
-                    {tab.childrens?.map((child) => (
-                        <SmartTab key={child.id} tab={child} onSelect={onSelect} />
-                    ))}
+                    {tab.childrens?.map((child) => <SmartTab key={child.id} tab={child} />)}
                 </div>
             )}
         </>

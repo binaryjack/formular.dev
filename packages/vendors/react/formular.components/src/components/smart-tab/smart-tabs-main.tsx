@@ -4,7 +4,7 @@ import { ITabManager } from './types/i-tab-manager'
 
 export interface ISmartTabsMainProps {
     manager: ITabManager
-    onSelected: (tab: ITab) => void
+    onSelected: (e: React.MouseEvent, tab: ITab) => void
 }
 
 export const SmartTabsMain = ({ manager, onSelected }: ISmartTabsMainProps) => {

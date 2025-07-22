@@ -3,6 +3,7 @@ import { eventSignature } from '@core/framework/events/event-signature'
 import { EventsType, IEvents } from '@core/framework/events/events.types'
 import { newEvent } from '@core/framework/events/new-event'
 import { IExtendedInputBase, IInputBase } from '@core/input-engine/core/input-base/input-base.types'
+import { logManager } from '@core/managers/log-manager'
 import {
     INotification,
     TNotificationMethod,
@@ -17,7 +18,7 @@ export const newNotificationVisitor = <T>(
 }
 
 export const notification = <
-    T extends CallableFunction | IExtendedInputBase | IInputBase | IFormular<any>,
+    T extends CallableFunction | IExtendedInputBase | IInputBase | IFormular<any> | object,
     TEvt extends IEvents
 >(
     owner: T,
@@ -37,8 +38,13 @@ export const notification = <
             owner?.dependencyName === 'InputBase'
                 ? (owner as IInputBase)?.name
                 : (owner as IExtendedInputBase).input?.name
-    } else {
+    } else if ('name' in owner) {
         name = owner?.name
+    } else if ('label' in owner) {
+        name = owner?.label as unknown as string
+    } else {
+        logManager(undefined, 'warning', target, 'Notification object has no name!')
+        name = 'unknown-object'
     }
 
     return newNotificationVisitor(

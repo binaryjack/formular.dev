@@ -7,13 +7,9 @@ import { ITabManager } from '../types/i-tab-manager'
 import { SmartTab } from './smart-tab'
 export interface ISmartTabsDropDownContainerProps {
     manager: ITabManager
-    onSelect: (tabId: string) => void
 }
 
-export const SmartTabsDropDownContainer = ({
-    manager,
-    onSelect
-}: ISmartTabsDropDownContainerProps) => {
+export const SmartTabsDropDownContainer = ({ manager }: ISmartTabsDropDownContainerProps) => {
     const { setToggleState, toggleState } = useToggleableContext()
 
     const handleToggleState = (e: React.MouseEvent, state: ToggleableStateType) => {
@@ -48,7 +44,7 @@ export const SmartTabsDropDownContainer = ({
                 }}
             >
                 {manager.getTabs().map((tab) => {
-                    return <SmartTab key={tab.id} tab={tab} onSelect={onSelect} />
+                    return <SmartTab key={tab.id} tab={tab} />
                 })}
             </div>
         </div>

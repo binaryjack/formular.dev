@@ -12,4 +12,5 @@ const selectTabRecursive = (tabs: ITab[], selectId: string) => {
 
 export const selectTab = function (this: ITabManager, id: string) {
     selectTabRecursive(this.tabs, id)
+    this.getHash()
 }

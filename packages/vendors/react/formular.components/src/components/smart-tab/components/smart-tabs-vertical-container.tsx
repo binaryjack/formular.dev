@@ -4,18 +4,14 @@ import { SmartTab } from './smart-tab'
 
 export interface ISmartTabsVerticalContainerProps {
     manager: ITabManager
-    onSelect: (tabId: string) => void
 }
 
-export const SmartTabsVerticalContainer = ({
-    manager,
-    onSelect
-}: ISmartTabsVerticalContainerProps) => {
+export const SmartTabsVerticalContainer = ({ manager }: ISmartTabsVerticalContainerProps) => {
     return (
         <div className={cx('flex flex-col border-r border-secondary-200 w-56')}>
             <div className={cx('flex flex-col')}>
                 {manager.getTabs().map((tab) => {
-                    return <SmartTab key={tab.id} tab={tab} onSelect={onSelect} />
+                    return <SmartTab key={tab.id} tab={tab} />
                 })}
             </div>
         </div>

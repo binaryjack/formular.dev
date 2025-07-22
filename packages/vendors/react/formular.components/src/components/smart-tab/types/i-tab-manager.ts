@@ -8,6 +8,7 @@ export interface ITabManager {
     tabs: ITab[]
     selectedTabId?: string
     mode: LayoutModeEnum
+    getHash: () => number
     addTab: (tab: ITab) => void
     removeTab: (id: string) => void
     getTabs: () => ITab[]

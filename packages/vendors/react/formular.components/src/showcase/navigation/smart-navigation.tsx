@@ -59,7 +59,7 @@ export const SmartNavigation = ({ className }: ISmartNavigationProps) => {
         }))
     )
 
-    const handleTabSelected = (tabId: string) => {
+    const handleTabSelected = (e: React.MouseEvent, tabId: string) => {
         const routeMap: Record<string, string> = {
             home: '/',
             demos: '/demos',
@@ -76,7 +76,7 @@ export const SmartNavigation = ({ className }: ISmartNavigationProps) => {
 
     return (
         <div className={className}>
-            <SmartTabsVerticalContainer manager={tabManager} onSelect={handleTabSelected} />
+            <SmartTabsVerticalContainer manager={tabManager} />
         </div>
     )
 }
