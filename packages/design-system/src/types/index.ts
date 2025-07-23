@@ -8,6 +8,20 @@
 import { colors } from '../tokens/colors'
 import { spacing } from '../tokens/spacing'
 
+// Re-export component variant types
+export type {
+    ComponentSizeType,
+    ElementPositionType,
+    OrientationType,
+    ScreenOrientationType,
+    TextCaseType,
+    TextWeightType,
+    ValueOf,
+    VariantNameType
+} from './component-variants'
+
+export { DrawerBreakPointSizes } from './component-variants'
+
 // Component size variants (for utility classes)
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 

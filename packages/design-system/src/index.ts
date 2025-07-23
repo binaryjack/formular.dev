@@ -18,17 +18,29 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
-    CSSCustomProperties,
     ColorVariant,
+    ComponentSizeType,
     ComponentState,
+    CSSCustomProperties,
+    ElementPositionType,
+    OrientationType,
     ResponsiveValue,
+    ScreenOrientationType,
     Size,
     SpacingSize,
     StyleConfig,
     StyleUtility,
+    TextCaseType,
+    TextWeightType,
     ThemeConfig,
-    Variant
+    // Component variant types
+    ValueOf,
+    Variant,
+    VariantNameType
 } from './types'
+
+// Export constants
+export { DrawerBreakPointSizes } from './types/component-variants'
 
 // CSS imports (for bundlers that support CSS imports)
 import './styles/base.css'
