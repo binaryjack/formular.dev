@@ -76,7 +76,7 @@ export const SmartTabToggleable = ({ tab }: SmartTabProps) => {
             {hasChildrens && (
                 <div
                     className={cx(
-                        'relative flex flex-col bg-white text-black shadow-lg rounded-md mt-0',
+                        'relative flex flex-col bg-gray-800 text-white-200 shadow-lg rounded-md mt-0',
                         toggleState === 'open'
                             ? 'translate-y-0 animation-fade-in flex'
                             : 'translate-y-0 animation-fade-out hidden'

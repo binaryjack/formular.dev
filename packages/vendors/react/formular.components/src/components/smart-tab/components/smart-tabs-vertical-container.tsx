@@ -8,8 +8,8 @@ export interface ISmartTabsVerticalContainerProps {
 
 export const SmartTabsVerticalContainer = ({ manager }: ISmartTabsVerticalContainerProps) => {
     return (
-        <div className={cx('flex flex-col border-r border-secondary-200 w-56')}>
-            <div className={cx('flex flex-col')}>
+        <div className={cx('flex flex-1 w-[200px] overflow-hidden')}>
+            <div className={cx('flex flex-col flex-1 ')}>
                 {manager.getTabs().map((tab) => {
                     return <SmartTab key={tab.id} tab={tab} />
                 })}

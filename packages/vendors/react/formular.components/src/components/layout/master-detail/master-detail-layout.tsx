@@ -28,20 +28,18 @@ export const MasterDetailLayout = ({
     return (
         <div
             className={cx(
-                'flex   h-screen w-screen flex-1',
+                'flex ',
                 mode === LayoutModeEnum.VERTICAL && 'flex-row bg-blue-300',
                 mode === LayoutModeEnum.HORIZONTAL && 'flex-col bg-green-200',
                 mode === LayoutModeEnum.MOBILE && 'flex-col bg-red-200'
             )}
         >
             {mode && (
-                <div className=" flex flex-row h-full w-full  overflow-hidden">
-                    <div className={cx('flex overflow-hidden')}>
-                        <div className={cx('flex relative w-auto h-auto overflow-y-auto')}>
-                            {menu}
-                        </div>
+                <div className={'flex overflow-hidden'}>
+                    <div className={'flex overflow-hidden'}>{menu}</div>
+                    <div className={'flex flex-row flex-1 overflow-hidden'}>
+                        <div className={'flex flex-row overflow-y-auto'}>{body}</div>
                     </div>
-                    <div className={cx('flex relative h-full w-full overflow-y-auto')}>{body}</div>
                 </div>
             )}
         </div>
