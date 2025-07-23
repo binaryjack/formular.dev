@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 
-import { ElementPositionOutputType } from '../../../style/global.types'
+import { ElementPositionType } from 'formular.design.system'
 import { useVisualDebugContext } from '../../context/debug/visual-debug.context'
 import { PortalSlot } from '../../portals/portals-slot'
 
 interface DrawerSlotProps {
     id: string
     slotName: string
-    opensToThe: ElementPositionOutputType
+    opensToThe: ElementPositionType
     conditionalShow?: boolean
     // Define your props here
 }

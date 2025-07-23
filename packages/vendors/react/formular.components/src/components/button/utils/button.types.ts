@@ -1,4 +1,4 @@
-import { AppBreakPointSizesType } from '../../../style/global.types'
+import { ComponentSizeType } from 'formular.design.system'
 
 export interface IButtonBaseSize {
     width: string
@@ -16,6 +16,6 @@ export const buttonSizes: Record<string, IButtonBaseSize> = {
     '2xl': { width: '10em', height: '2em', px: 'p-0', my: 'm-0' }
 }
 
-export const getButtonXYSizes = (size: AppBreakPointSizesType) => {
+export const getButtonXYSizes = (size: ComponentSizeType) => {
     return buttonSizes[size]
 }

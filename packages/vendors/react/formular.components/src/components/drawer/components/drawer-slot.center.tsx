@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 
 import { useTriggerOnAddOrRemoveChildren } from '@adapters/react/hooks/use-trigger-on-add-or-remove-children'
-import { ElementPositionOutputType } from '../../../style/global.types'
+import { ElementPositionType } from 'formular.design.system'
 import { useVisualDebugContext } from '../../context/debug/visual-debug.context'
 import { useScrollingContext } from '../../context/scrolling/scrolling.context'
 import { PortalSlot } from '../../portals/portals-slot'
@@ -12,7 +12,7 @@ interface DrawerSlotProps {
     id: string
     slotName: string
 
-    opensToThe: ElementPositionOutputType
+    opensToThe: ElementPositionType
     // Define your props here
 }
 

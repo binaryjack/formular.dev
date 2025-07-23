@@ -33,7 +33,7 @@ export const SmartTabToggleable = ({ tab }: SmartTabProps) => {
         if (tab.onClick) {
             tab.onClick(id)
         }
-        selectTab?.(e, id)
+        selectTab?.(e, tab)
     }
 
     const hasChildrens = tab.childrens && tab.childrens.length > 0

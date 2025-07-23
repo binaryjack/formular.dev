@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import useAppContext from '@components/context/app-context/app-context.context'
 import { useScrollingContext } from '@components/context/scrolling/scrolling.context'
 
-import { DrawerBreakPointType, ElementPositionOutputType } from '@style/global.types'
+import { DrawerBreakPointSizes, ElementPositionType } from 'formular.design.system'
 import { useElementRef } from '../use-element-ref'
 
 export const useCenterElementTrigger = <T extends HTMLElement>() => {
@@ -12,7 +12,7 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
     /** gets the scrolling screenProperties handled by the Scrolling context */
     const { screenProperties } = useScrollingContext()
 
-    const [toggle, setToggle] = useState<ElementPositionOutputType>('center')
+    const [toggle, setToggle] = useState<ElementPositionType>('center')
     const [scrollPosition, setScrollPosition] = useState<any>({})
     /** use this output to ref the div which will be used as a horizontal reference kept at the middle of the screen */
     const elementRef = useRef<T>(null)
@@ -27,14 +27,14 @@ export const useCenterElementTrigger = <T extends HTMLElement>() => {
         const elementHalfHeight = elementPositionRefs.height ? elementPositionRefs.height / 2 : 0
         const triggerPosition = elementHalfHeight + screenTop
 
-        // Ensure DrawerBreakPointType is an array
+        // Ensure DrawerBreakPointSizes is an array
         const isLaptopAndHigher =
-            Array.isArray(DrawerBreakPointType) && DrawerBreakPointType.includes(media.media)
+            Array.isArray(DrawerBreakPointSizes) && DrawerBreakPointSizes.includes(media.media)
 
         const isPositionTop = isLaptopAndHigher && screenProperties.screenTop > triggerPosition
         const isPositionBottom = isLaptopAndHigher && screenProperties.screenTop <= triggerPosition
 
-        const targetPositionToggle: ElementPositionOutputType = isPositionTop
+        const targetPositionToggle: ElementPositionType = isPositionTop
             ? 'top'
             : isPositionBottom
               ? 'bottom'

@@ -164,18 +164,18 @@ const AppContextProvider = ({
 
     return (
         <AppContext.Provider value={contextOutput}>
-            <div className="z-50 absolute flex flex-1 items-center justify-center top-0 w-full  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            <div className="z-50 fixed flex flex-1 items-center justify-center top-0 w-screen  max-h-[20px] bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
 
             <DrawerSlotCenter id={'center'} slotName={'drawer-slot'} opensToThe="center" />
 
             <div
                 className={
-                    'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-full  h-auto bg-gray-900'
+                    'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-auto  h-auto bg-gray-900'
                 }
             >
                 {children}
             </div>
-            <div className="z-50 absolute flex flex-1 items-center justify-center bottom-0 w-full  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            <div className="z-50 fixed flex flex-1 items-center justify-center bottom-0 w-screen  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
         </AppContext.Provider>
     )
 }

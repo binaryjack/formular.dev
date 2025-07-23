@@ -1,4 +1,4 @@
-import { AppBreakPointSizesType, ScreenOrientationType } from '@style/global.types'
+import { ComponentSizeType, ScreenOrientationType } from 'formular.design.system'
 import { IMedia, IMediaBreakpoints, IMediaRange, IMediaScreen } from './screen.models'
 
 export const getMediaBreakpoints = (media: IMedia) => {
@@ -17,24 +17,20 @@ export const newMediaRange = (
     min: number,
     x: number,
     y: number,
-    media: AppBreakPointSizesType
+    media: ComponentSizeType
 ): IMediaRange => {
     const max = Math.max(x, y)
     return { min, max, x, y, media }
 }
 
-export const newMediaScreen = (
-    x: number,
-    y: number,
-    media: AppBreakPointSizesType
-): IMediaScreen => {
+export const newMediaScreen = (x: number, y: number, media: ComponentSizeType): IMediaScreen => {
     return { x, y, media }
 }
 
 export const newMedia = (
     x: number,
     y: number,
-    media: AppBreakPointSizesType,
+    media: ComponentSizeType,
     orientation: ScreenOrientationType
 ): IMedia => {
     return { x, y, media, orientation }

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 
 import useThrottle from '@adapters/react/hooks/use-throttle'
 
+import { ElementPositionType } from 'formular.design.system'
 import { ToggleableStateType } from 'formular.dev.lib'
-import { ElementPositionOutputType } from '../../../style/global.types'
 import useAppContext from '../../context/app-context/app-context.context'
 import { useScrollingContext } from '../../context/scrolling/scrolling.context'
 
@@ -11,7 +11,7 @@ export type OverflowingEdgeType = 'top' | 'bottom' | 'none'
 
 export const useDrawerIsOverflowing = <T extends HTMLElement>(
     element: T,
-    position: ElementPositionOutputType,
+    position: ElementPositionType,
     toggleState?: ToggleableStateType,
     height?: string
 ) => {

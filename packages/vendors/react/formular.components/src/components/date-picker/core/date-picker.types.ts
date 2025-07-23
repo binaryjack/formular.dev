@@ -1,5 +1,5 @@
+import { ValueOf } from 'formular.design.system'
 import { DateFormatsEnum } from 'formular.dev.lib'
-import { ValueOf } from '../../../style/global.types'
 /**
  * Explanation:
         ([0-2][0-9]|3[0-1]): Matches days 01 to 31.

@@ -1,4 +1,4 @@
-import { AppBreakPointSizesType } from '@style/global.types'
+import { ComponentSizeType } from 'formular.design.system'
 
 const correlatedSizes: Record<string, string> = {
     '2xs': 'xxs',
@@ -10,4 +10,4 @@ const correlatedSizes: Record<string, string> = {
     '2xl': 'xxl'
 }
 
-export const sizeConverter = (size: AppBreakPointSizesType) => correlatedSizes[size]
+export const sizeConverter = (size: ComponentSizeType) => correlatedSizes[size]

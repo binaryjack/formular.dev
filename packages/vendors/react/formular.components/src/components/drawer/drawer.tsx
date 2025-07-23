@@ -6,7 +6,7 @@ import useAppContext from '@components/context/app-context/app-context.context'
 import { Portal } from '@components/portals/portals'
 import { useToggleableContext } from '@components/toggleable/toggleable.context.hook'
 
-import { ElementPositionOutputType } from '@style/global.types'
+import { ElementPositionType } from 'formular.design.system'
 import { ToggleableStateType } from 'formular.dev.lib'
 import { useCallback, useEffect } from 'react'
 import { DrawerCenterPortal } from './components/drawer.center.portal'
@@ -16,7 +16,7 @@ import { DrawerTopBottomPortal } from './components/drawer.top-bottom.portal'
 interface IDrawerProps {
     id: string
     children: React.ReactNode
-    position: ElementPositionOutputType
+    position: ElementPositionType
     width?: string
     height?: string
 }

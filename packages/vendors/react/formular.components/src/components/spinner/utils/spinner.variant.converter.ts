@@ -1,8 +1,4 @@
-import {
-    AppBreakPointSizesType,
-    getCorrespondingVariantColors,
-    VariantNameType
-} from '../../../style/global.types'
+import { ComponentSizeType, VariantNameType } from 'formular.design.system'
 
 export interface ISpinnerVariantProperties {
     width: number
@@ -44,23 +40,33 @@ const spinnerStrokeSizes: Record<string, number> = {
     '2xl': 6
 }
 
-export const spinnerSizeConverter = (size: AppBreakPointSizesType) => {
+export const spinnerSizeConverter = (size: ComponentSizeType) => {
     return spinnerSizes[size]
 }
 
-export const spinnerFrameSizeConverter = (size: AppBreakPointSizesType) => {
+export const spinnerFrameSizeConverter = (size: ComponentSizeType) => {
     return spinnerFrameSizes[size]
 }
 
-export const spinnerStrokeSizeConverter = (size: AppBreakPointSizesType) => {
+export const spinnerStrokeSizeConverter = (size: ComponentSizeType) => {
     return spinnerStrokeSizes[size]
 }
 
-export const getSpinnerVariant = (
-    variantSize: AppBreakPointSizesType,
-    variantName: VariantNameType
-) => {
-    const color = getCorrespondingVariantColors(variantName)
+// Simple color mapping for spinner variants (replaces legacy colorsCorrecpondance)
+const getSpinnerColors = (variant: VariantNameType) => {
+    const colorMap: Record<VariantNameType, { bg: string; fg: string }> = {
+        primary: { bg: '#3b82f6', fg: '#ffffff' },
+        secondary: { bg: '#6b7280', fg: '#f3f4f6' },
+        success: { bg: '#10b981', fg: '#ffffff' },
+        warning: { bg: '#f59e0b', fg: '#ffffff' },
+        danger: { bg: '#ef4444', fg: '#ffffff' },
+        info: { bg: '#06b6d4', fg: '#ffffff' }
+    }
+    return colorMap[variant]
+}
+
+export const getSpinnerVariant = (variantSize: ComponentSizeType, variantName: VariantNameType) => {
+    const color = getSpinnerColors(variantName)
     return {
         width: spinnerSizeConverter(variantSize),
         height: spinnerSizeConverter(variantSize),

@@ -1,10 +1,10 @@
+import { ElementPositionType } from 'formular.design.system'
 import { ToggleableStateType } from 'formular.dev.lib'
-import { ElementPositionOutputType } from '../../../style/global.types'
 import { Portal } from '../../portals/portals'
 
 interface IDrawerCenterPortalProps {
     id: string
-    position: ElementPositionOutputType
+    position: ElementPositionType
     drawerContainerRef: React.RefObject<HTMLDivElement>
     children: React.ReactNode
     width?: string

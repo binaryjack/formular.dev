@@ -1,7 +1,7 @@
-import { AppBreakPointSizesType, orientationTypes, VariantNameType } from '../../style/global.types'
+import { ComponentSizeType, OrientationType, VariantNameType } from 'formular.design.system'
 
 export interface ISwitchButtonOptions {
-    orientation?: orientationTypes
-    size?: AppBreakPointSizesType
+    orientation?: OrientationType
+    size?: ComponentSizeType
     variant?: VariantNameType
 }

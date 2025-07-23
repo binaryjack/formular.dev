@@ -1,9 +1,10 @@
 import { createContext, useContext } from 'react'
+import { ITab } from './types/i-tab'
 import { ITabManager } from './types/i-tab-manager'
 
 export interface ISmartTabContainerContext {
     manager?: ITabManager
-    selectTab: (e: React.MouseEvent, id: string) => void
+    selectTab: (e: React.MouseEvent, tab: ITab) => void
 }
 
 export const defaultSmartTabContainerContext: ISmartTabContainerContext = {

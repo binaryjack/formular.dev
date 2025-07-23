@@ -10,8 +10,9 @@ import { AppContextProvider } from '@components/context/app-context/app-context'
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
 import ReactDOM from 'react-dom/client'
-import App from './app'
+import { RouterProvider } from 'react-router-dom'
 import './index.css'
+import { router } from './showcase/routes/router'
 
 document.title = import.meta.env.VITE_APP_NAME ?? 'FORMULAR React Components'
 const rootComponent = document.getElementById('root')
@@ -32,8 +33,7 @@ root.render(
                     includeBaseConfigurations: true
                 }}
             >
-                <App />
-                {/* <RouterProvider router={router} /> */}
+                <RouterProvider router={router} />
             </AppContextProvider>
         </ScrollContext>
     </VisualDebug>

@@ -40,11 +40,10 @@ export const SmartTabsContainer = ({ manager, onSelected }: ISmartTabsContainerP
 
     const mode = isMobileDevice() ? layoutMode.mobile : layoutMode.desktop
 
-    const handleOnSelect = (e: React.MouseEvent, id: string) => {
-        const tb = manager.getTabById(id)
-        if (!tb) return
-        manager.selectTab(id)
-        onSelected(e, tb)
+    const handleOnSelect = async (e: React.MouseEvent, tab: ITab) => {
+        if (!tab) return
+        manager.selectTab(tab.id)
+        onSelected(e, tab)
     }
 
     const outputContext: ISmartTabContainerContext = {

@@ -76,6 +76,7 @@ export default defineConfig(({ mode }) => {
                 '@components': resolve(__dirname, 'src/components'),
                 '@adapters': resolve(__dirname, 'src/adapters'),
                 '@demo': resolve(__dirname, 'src/showcase/demo'),
+                '@showcase': resolve(__dirname, 'src/showcase'),
                 '@patterns': resolve(__dirname, 'src/patterns'),
                 '@style': resolve(__dirname, 'src/style'),
                 '@utils': resolve(__dirname, 'src/utils'),

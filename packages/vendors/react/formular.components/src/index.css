@@ -1,2 +1,3 @@
 /** Import Design System Base Styles */
+@import './style/globals.css';
 @import 'formular.design.system/styles';

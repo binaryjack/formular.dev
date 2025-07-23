@@ -25,6 +25,7 @@
             "@components/*": ["src/components/*"],
             "@adapters/*": ["src/adapters/*"],
             "@demo/*": ["src/showcase/demo/*"],
+            "@showcase/*": ["src/showcase/*"],
             "@patterns/*": ["src/patterns/*"],
             "@style/*": ["src/style/*"],
             "@pages/*": ["src/showcase/pages/*"],

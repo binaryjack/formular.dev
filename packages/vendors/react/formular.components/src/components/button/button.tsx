@@ -1,21 +1,20 @@
 import {
-    AppBreakPointSizesType,
+    ComponentSizeType,
     TextCaseType,
     TextWeightType,
-    VariantNameType
-} from '../../style/global.types'
+    VariantNameType,
+    cx,
+    generateButtonStyles
+} from 'formular.design.system'
 import Spinner from '../spinner/spinner'
 import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 
 import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
-
-// Import design system utilities
-import { cx, generateButtonStyles } from 'formular.design.system'
 import useRippleEffect from './core/use-ripple-effect'
 import { getButtonXYSizes } from './utils/button.types'
 export interface IButtonVariant {
     variant: VariantNameType
-    size: AppBreakPointSizesType
+    size: ComponentSizeType
     textCase: TextCaseType
     weight: TextWeightType
     rounded: boolean

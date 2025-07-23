@@ -1,4 +1,4 @@
-import { AppBreakPointSizesType, ScreenOrientationType } from '@style/global.types'
+import { ComponentSizeType, ScreenOrientationType } from 'formular.design.system'
 
 export interface IMediaBreakpoints {
     /** Extra Small Screen 320 * 480px */
@@ -26,7 +26,7 @@ export interface IMediaBreakpoints {
 export interface IMediaScreen {
     x: number
     y: number
-    media: AppBreakPointSizesType
+    media: ComponentSizeType
 }
 
 export interface IMediaRange extends IMediaScreen {

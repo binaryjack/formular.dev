@@ -1,11 +1,21 @@
 import { Button, IButtonVariant } from '@components/button/button'
+import { ComponentSizeType, VariantNameType } from 'formular.design.system'
 import { useState } from 'react'
-import {
-    AppBreakPointSizesArray,
-    getSizeTypeName,
-    getVariantTypeName,
-    VariantNameArray
-} from '../../../style/global.types'
+
+// Convert to arrays for the demo
+const ComponentSizeArray: ComponentSizeType[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl']
+const VariantNameArray: VariantNameType[] = [
+    'primary',
+    'secondary',
+    'info',
+    'danger',
+    'success',
+    'warning'
+]
+
+// Simple type converters
+const getSizeTypeName = (size: string): ComponentSizeType => size as ComponentSizeType
+const getVariantTypeName = (variant: string): VariantNameType => variant as VariantNameType
 
 interface IButtonDemo {
     id: string
@@ -36,7 +46,7 @@ const getButtonsCombinations = (
                     loadingStates
                         // .filter((o) => o === false)
                         .forEach((loading) => {
-                            AppBreakPointSizesArray.forEach((size) => {
+                            ComponentSizeArray.forEach((size) => {
                                 VariantNameArray
                                     // .filter((o) => o === 'primary')
                                     .forEach((variant) => {

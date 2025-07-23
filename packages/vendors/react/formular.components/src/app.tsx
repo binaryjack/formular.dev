@@ -3,7 +3,6 @@ import { BoundaryErrorCatcher } from '@components/error-boundary-catcher/error-b
 
 import type { IConfigurationManager } from 'formular.dev.lib'
 import { SConfigurationManager } from 'formular.dev.lib'
-import { SmartTabsDemo } from './showcase/demo/smart-tabs-demo/smart-tabs-demo'
 import ValidationDemoTextInput from './showcase/demo/validation-demos/validation-demo-text-input'
 
 interface IApp extends Node {
@@ -145,7 +144,7 @@ const App = () => {
         <div className={`app flex flex-col items-center justify-center min-w-[200px] `}>
             {/* <Demos /> */}
             <BoundaryErrorCatcher>
-                <SmartTabsDemo />
+                <></>
                 {/* <ButtonsDemo /> */}
                 {/* <ValidationDemoDatePicker /> */}
                 {/* <ValidationDemoCheckInput /> */}
