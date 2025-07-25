@@ -82,7 +82,13 @@ export default defineConfig(({ mode }) => {
                 '@utils': resolve(__dirname, 'src/utils'),
                 '@pages': resolve(__dirname, 'src/pages'),
                 // Add alias for the lib to help with source mapping
-                'formular.dev.lib': resolve(__dirname, '../../../lib/src/index.ts')
+                'formular.dev.lib': resolve(__dirname, '../../../lib/src/index.ts'),
+                // Add alias for the design system to help with CSS imports
+                'formular.design.system': resolve(__dirname, '../../../design-system/src/index.ts'),
+                'formular.design.system/styles': resolve(
+                    __dirname,
+                    '../../../design-system/src/styles/index.css'
+                )
             }
         },
         // Ensure proper CSS handling for Emotion

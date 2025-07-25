@@ -19,8 +19,8 @@ export const generateButtonStyles = (
     color: ColorVariant = 'primary',
     size: Size = 'md'
 ): string => {
-    const baseClasses = 'btn-base'
-    const sizeClasses = `btn-size-${size}`
+    const baseClasses = 'btn' // Changed from 'btn-base' to 'btn'
+    const sizeClasses = `btn-${size}` // Changed from 'btn-size-${size}' to 'btn-${size}'
 
     let variantClasses = ''
     switch (variant) {

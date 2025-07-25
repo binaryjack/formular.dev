@@ -11,7 +11,6 @@ import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 
 import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import useRippleEffect from './core/use-ripple-effect'
-import { getButtonXYSizes } from './utils/button.types'
 export interface IButtonVariant {
     variant: VariantNameType
     size: ComponentSizeType
@@ -61,8 +60,7 @@ export const Button = ({
     } = variantProperties
 
     const btnBaseClasses = cx(
-        'btn-base', // Base button classes from design system
-        generateButtonStyles('solid', variant as any, size as any),
+        generateButtonStyles('solid', variant as any, size as any), // This already includes 'btn' base class
         {
             'state-disabled': disabled,
             'state-loading': loading,
@@ -73,8 +71,6 @@ export const Button = ({
         textCase,
         className
     )
-
-    const sizes = getButtonXYSizes(size)
 
     const {
         mainRef: buttonRef,
@@ -115,14 +111,13 @@ export const Button = ({
             title={title}
             type="button"
             ref={buttonRef}
-            disabled={disabled || loading}
+            disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
-            className={`${btnBaseClasses} ${className ?? ''}`}
+            className={`${btnBaseClasses} ${className ?? ''} p-1`}
             style={{
                 width: width ?? 'unset',
-                maxWidth: sizes.width ?? 'unset',
-                height: height ?? sizes.height
+                height: height ?? 'unset'
             }}
             onClick={handleClick}
             onMouseDown={handleOnMouseDown}

@@ -1,3 +1,2 @@
-/** Import Design System Base Styles */
-@import './style/globals.css';
-@import 'formular.design.system/styles';
+/** Import Design System - includes Tailwind directives and component styles */
+@import '../../../../design-system/src/styles/index.css';

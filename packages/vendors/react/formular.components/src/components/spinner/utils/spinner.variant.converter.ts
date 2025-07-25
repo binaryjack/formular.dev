@@ -10,7 +10,7 @@ export interface ISpinnerVariantProperties {
     activeColor: string
 }
 
-const spinnerSizes: Record<string, number> = {
+const spinnerSizes: Record<ComponentSizeType, number> = {
     '2xs': 8,
     xs: 12,
     sm: 15,
@@ -20,7 +20,7 @@ const spinnerSizes: Record<string, number> = {
     '2xl': 30
 }
 
-const spinnerFrameSizes: Record<string, number> = {
+const spinnerFrameSizes: Record<ComponentSizeType, number> = {
     '2xs': 42,
     xs: 42,
     sm: 42,
@@ -30,7 +30,7 @@ const spinnerFrameSizes: Record<string, number> = {
     '2xl': 48
 }
 
-const spinnerStrokeSizes: Record<string, number> = {
+const spinnerStrokeSizes: Record<ComponentSizeType, number> = {
     '2xs': 3,
     xs: 3,
     sm: 3,
@@ -60,7 +60,8 @@ const getSpinnerColors = (variant: VariantNameType) => {
         success: { bg: '#10b981', fg: '#ffffff' },
         warning: { bg: '#f59e0b', fg: '#ffffff' },
         danger: { bg: '#ef4444', fg: '#ffffff' },
-        info: { bg: '#06b6d4', fg: '#ffffff' }
+        info: { bg: '#06b6d4', fg: '#ffffff' },
+        neutral: { bg: '#9ca3af', fg: '#ffffff' }
     }
     return colorMap[variant]
 }

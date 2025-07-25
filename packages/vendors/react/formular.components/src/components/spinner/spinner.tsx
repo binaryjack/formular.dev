@@ -16,11 +16,13 @@ interface SpinnerProps {
 }
 
 const sizeMap: Record<Size, { width: number; height: number; strokeWidth: number }> = {
+    '2xs': { width: 8, height: 8, strokeWidth: 1 },
     xs: { width: 12, height: 12, strokeWidth: 2 },
     sm: { width: 16, height: 16, strokeWidth: 2 },
     md: { width: 20, height: 20, strokeWidth: 3 },
     lg: { width: 24, height: 24, strokeWidth: 3 },
-    xl: { width: 32, height: 32, strokeWidth: 4 }
+    xl: { width: 32, height: 32, strokeWidth: 4 },
+    '2xl': { width: 40, height: 40, strokeWidth: 5 }
 }
 
 const Spinner = ({

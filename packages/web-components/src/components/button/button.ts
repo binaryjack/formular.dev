@@ -101,29 +101,37 @@ const _setupStyles = function(this: HTMLElement & IButtonInstance) {
   
   const styleElement = document.createElement('style')
   styleElement.textContent = `
+    /* Import design system tokens */
+    @import url('../../../design-system/src/styles/tokens.css');
+    @import url('../../../design-system/src/styles/components.css');
+    
     :host {
       display: inline-block;
     }
     
     .formular-button {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 500;
-      border-radius: 0.375rem;
-      border: 1px solid transparent;
-      transition: all 0.2s ease-in-out;
+      font-family: var(--font-family-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+      font-weight: var(--font-weight-medium, 500);
+      line-height: var(--line-height-none, 1);
+      border: none;
+      border-radius: var(--radius, 0.375rem);
+      transition: all var(--duration-fast, 0.15s) var(--ease-in-out, ease-in-out);
       cursor: pointer;
       text-decoration: none;
       outline: none;
-      position: relative;
       overflow: hidden;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
     }
     
     .formular-button:focus {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
+      outline: none;
+      box-shadow: 0 0 0 3px var(--color-primary-500, #3b82f6)/20;
     }
     
     .formular-button:disabled {
@@ -131,65 +139,97 @@ const _setupStyles = function(this: HTMLElement & IButtonInstance) {
       cursor: not-allowed;
     }
     
-    /* Size variants */
+    /* Size variants using design system tokens */
     .formular-button--sm {
-      padding: 0.5rem 0.75rem;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
+      font-size: var(--font-size-xs, 0.875rem);
+      padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 0.75rem);
+      gap: var(--spacing-sm, 0.5rem);
+      min-height: 32px;
     }
     
     .formular-button--md {
-      padding: 0.625rem 1rem;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: var(--font-size-sm, 1rem);
+      padding: var(--spacing-md, 0.625rem) var(--spacing-lg, 1rem);
+      gap: var(--spacing-sm, 0.5rem);
+      min-height: 40px;
     }
     
     .formular-button--lg {
-      padding: 0.75rem 1.5rem;
-      font-size: 1.125rem;
-      line-height: 1.75rem;
+      font-size: var(--font-size-md, 1.125rem);
+      padding: var(--spacing-lg, 0.75rem) var(--spacing-xl, 1.5rem);
+      gap: var(--spacing-md, 0.75rem);
+      min-height: 48px;
     }
     
-    /* Color variants */
+    /* Color variants using design system tokens */
     .formular-button--primary {
-      background-color: #3b82f6;
-      color: white;
+      background-color: var(--color-primary-500, #3b82f6);
+      color: var(--color-text-on-primary, #ffffff);
     }
     
     .formular-button--primary:hover:not(:disabled) {
-      background-color: #2563eb;
+      background-color: var(--color-primary-600, #2563eb);
+    }
+    
+    .formular-button--primary:focus:not(:disabled) {
+      background-color: var(--color-primary-600, #2563eb);
+      box-shadow: 0 0 0 3px var(--color-primary-500, #3b82f6)/20;
     }
     
     .formular-button--primary:active:not(:disabled) {
-      background-color: #1d4ed8;
+      background-color: var(--color-primary-700, #1d4ed8);
+    }
+    
+    .formular-button--primary:disabled {
+      background-color: var(--color-primary-300, #93c5fd);
     }
     
     .formular-button--secondary {
-      background-color: #64748b;
-      color: white;
+      background-color: var(--color-secondary-500, #64748b);
+      color: var(--color-text-on-primary, #ffffff);
     }
     
     .formular-button--secondary:hover:not(:disabled) {
-      background-color: #475569;
+      background-color: var(--color-secondary-600, #475569);
+    }
+    
+    .formular-button--secondary:focus:not(:disabled) {
+      background-color: var(--color-secondary-600, #475569);
+      box-shadow: 0 0 0 3px var(--color-secondary-500, #64748b)/20;
     }
     
     .formular-button--secondary:active:not(:disabled) {
-      background-color: #334155;
+      background-color: var(--color-secondary-700, #334155);
+    }
+    
+    .formular-button--secondary:disabled {
+      background-color: var(--color-secondary-300, #cbd5e1);
     }
     
     .formular-button--outline {
       background-color: transparent;
-      color: #374151;
-      border-color: #d1d5db;
+      color: var(--color-text-primary, #374151);
+      border: 1px solid var(--color-border-primary, #d1d5db);
     }
     
     .formular-button--outline:hover:not(:disabled) {
-      background-color: #f9fafb;
-      border-color: #9ca3af;
+      background-color: var(--color-surface-primary, #f9fafb);
+      border-color: var(--color-border-secondary, #9ca3af);
+    }
+    
+    .formular-button--outline:focus:not(:disabled) {
+      background-color: var(--color-surface-primary, #f9fafb);
+      border-color: var(--color-primary-500, #3b82f6);
+      box-shadow: 0 0 0 3px var(--color-primary-500, #3b82f6)/20;
     }
     
     .formular-button--outline:active:not(:disabled) {
-      background-color: #f3f4f6;
+      background-color: var(--color-surface-secondary, #f3f4f6);
+    }
+    
+    .formular-button--outline:disabled {
+      color: var(--color-text-muted, #9ca3af);
+      border-color: var(--color-border-muted, #e5e5e5);
     }
     
     /* Full width */
