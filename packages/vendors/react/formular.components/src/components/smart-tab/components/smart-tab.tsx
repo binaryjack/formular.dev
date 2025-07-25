@@ -53,9 +53,8 @@ export const SmartTabToggleable = ({ tab }: SmartTabProps) => {
                 role="tab"
                 tabIndex={tab.disabled ? -1 : 0}
             >
-                {tab.selected ? '▶ ' : '    '}
                 {tab.icon && <span className={cx('mr-2')}>{tab.icon}</span>}
-                <div className={cx('flex-1')}>
+                <div className={cx('flex-1 mr-1')}>
                     <Typography size="sm" as="div" className={cx('font-medium')}>
                         {tab.label}
                     </Typography>

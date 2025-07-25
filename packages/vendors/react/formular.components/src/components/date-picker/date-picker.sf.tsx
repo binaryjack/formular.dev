@@ -10,6 +10,7 @@ import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { useMemo } from 'react'
 
 import useAppContext from '@components/context/app-context/app-context.context'
+import { cx, generateInputStyles } from 'formular.design.system'
 import {
     customEvent,
     DateFormatsEnum,
@@ -128,6 +129,17 @@ export const DatePickerSF = ({
             <input
                 tabIndex={0}
                 data-class="base-input"
+                className={cx(
+                    generateInputStyles('md', {
+                        error: !!instance?.input?.validationResults?.length,
+                        focused: flags.focus,
+                        disabled: false,
+                        hovered: false,
+                        pressed: false,
+                        loading: false
+                    }),
+                    'w-full'
+                )}
                 {...instance?.register(customEvent('onKeyDown', handleKeyDown as any))}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"

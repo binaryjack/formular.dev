@@ -1,0 +1,19 @@
+/**
+ * FORMULAR Design System - Main Entry Point
+ * 
+ * This file imports all the design system layers in the correct order:
+ * 1. Design Tokens - CSS custom properties and variables
+ * 2. Primitives - Basic building blocks
+ * 3. Components - UI component variants
+ * 4. Utilities - Helper classes
+ * 5. Tailwind Base, Components & Utilities
+ */
+/* Design System Imports - Must come before @tailwind */
+@import './tokens.css';
+@import './primitives.css';
+@import './components-clean.css';
+@import './utilities.css';
+/* Tailwind CSS Layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

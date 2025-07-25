@@ -1,5 +1,4 @@
 import useAppContext from '@components/context/app-context/app-context.context'
-import { cx } from 'formular.design.system'
 import { LayoutModeEnum } from '../enum/layout-mode-enum'
 export interface IMasterDetailLayoutProps {
     menu: React.ReactNode
@@ -26,22 +25,11 @@ export const MasterDetailLayout = ({
           : LayoutModeEnum.VERTICAL
 
     return (
-        <div
-            className={cx(
-                'flex ',
-                mode === LayoutModeEnum.VERTICAL && 'flex-row bg-blue-300',
-                mode === LayoutModeEnum.HORIZONTAL && 'flex-col bg-green-200',
-                mode === LayoutModeEnum.MOBILE && 'flex-col bg-red-200'
-            )}
-        >
-            {mode && (
-                <div className={'flex overflow-hidden'}>
-                    <div className={'flex overflow-hidden'}>{menu}</div>
-                    <div className={'flex flex-row flex-1 overflow-hidden'}>
-                        <div className={'flex flex-row overflow-y-auto'}>{body}</div>
-                    </div>
-                </div>
-            )}
+        <div className={'flex flex-row w-screen h-screen  overflow-hidden'}>
+            <div className={'flex w-[200px]'}>{menu}</div>
+            <div className={'flex flex-1 flex-row  overflow-hidden'}>
+                <div className={'flex flex-1 flex-row overflow-y-auto'}>{body}</div>
+            </div>
         </div>
     )
 }

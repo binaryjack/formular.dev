@@ -8,7 +8,8 @@
 import { animations } from '../tokens/animations'
 import { colors } from '../tokens/colors'
 import { spacing } from '../tokens/spacing'
-import type { ColorVariant, ComponentState, Size, Variant } from '../types'
+import type { ColorVariant, Size, Variant } from '../types'
+import type { IComponentState } from '../types/interfaces'
 
 /**
  * Generate button style classes
@@ -43,7 +44,7 @@ export const generateButtonStyles = (
 /**
  * Generate input style classes
  */
-export const generateInputStyles = (size: Size = 'md', state?: ComponentState): string => {
+export const generateInputStyles = (size: Size = 'md', state?: IComponentState): string => {
     const baseClasses = 'input-base'
     const sizeClasses = `input-size-${size}`
 
@@ -153,6 +154,12 @@ export const createComponentCSSVars = (
  * Size mapping utilities
  */
 export const sizeMap = {
+    '2xs': {
+        padding: spacing[0.5],
+        fontSize: 'text-2xs',
+        height: '20px',
+        iconSize: '10px'
+    },
     xs: {
         padding: spacing[1],
         fontSize: 'text-2xs',
@@ -182,6 +189,12 @@ export const sizeMap = {
         fontSize: 'text-xl',
         height: '56px',
         iconSize: '28px'
+    },
+    '2xl': {
+        padding: spacing[8],
+        fontSize: 'text-2xl',
+        height: '64px',
+        iconSize: '32px'
     }
 } as const
 
@@ -283,13 +296,16 @@ export const spacingUtils = {
      */
     generatePadding: (size: Size): string => {
         const paddingMap = {
+            '2xs': 'p-0.5',
             xs: 'p-1',
             sm: 'p-2',
             md: 'p-3',
             lg: 'p-4',
-            xl: 'p-6'
+            xl: 'p-6',
+            '2xl': 'p-8',
+            '3xl': 'p-12'
         }
-        return paddingMap[size]
+        return paddingMap[size] || paddingMap.md
     },
 
     /**
@@ -297,12 +313,15 @@ export const spacingUtils = {
      */
     generateMargin: (size: Size): string => {
         const marginMap = {
+            '2xs': 'm-0.5',
             xs: 'm-1',
             sm: 'm-2',
             md: 'm-3',
             lg: 'm-4',
-            xl: 'm-6'
+            xl: 'm-6',
+            '2xl': 'm-8',
+            '3xl': 'm-12'
         }
-        return marginMap[size]
+        return marginMap[size] || marginMap.md
     }
 }

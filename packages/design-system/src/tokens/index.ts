@@ -38,8 +38,11 @@ export {
 export { shadows, type Shadow, type ShadowKey } from './shadows'
 export {
     componentSpacing,
+    semanticSpacing,
     spacing,
     type ComponentSpacing,
+    type SemanticSpacing,
+    type SemanticSpacingKey,
     type Spacing,
     type SpacingKey
 } from './spacing'
@@ -65,7 +68,7 @@ import { borderRadius, componentBorderRadius } from './border-radius'
 import { breakpoints, breakpointValues, mediaQueries } from './breakpoints'
 import { colors } from './colors'
 import { shadows } from './shadows'
-import { componentSpacing, spacing } from './spacing'
+import { componentSpacing, semanticSpacing, spacing } from './spacing'
 import { typography } from './typography'
 import { componentZIndex, zIndex } from './z-index'
 
@@ -74,6 +77,7 @@ export const tokens = {
     colors,
     typography,
     spacing,
+    semanticSpacing,
     componentSpacing,
     breakpoints,
     breakpointValues,

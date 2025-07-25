@@ -9,6 +9,7 @@ import useFormularContext from '@components/formular-form/formular-form.context'
 import { Button, IButtonVariant } from '../button/button'
 
 import useAppContext from '@components/context/app-context/app-context.context'
+import { cx, generateInputStyles } from 'formular.design.system'
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import { Portal } from '../portals/portals'
@@ -150,16 +151,26 @@ const Password = ({ fieldName }: IPasswordProps) => {
             }
             onClear={() => instance?.input?.clear()}
         >
-            <div className="relative flex items-center w-full">
+            <div className={cx('relative flex items-center w-full')}>
                 <input
                     tabIndex={0}
-                    data-class="base-input "
+                    data-class="base-input"
+                    className={cx(
+                        generateInputStyles('md', {
+                            error: !!instance?.input?.validationResults?.length,
+                            focused: flags.focus,
+                            disabled: false,
+                            hovered: false,
+                            pressed: false,
+                            loading: false
+                        }),
+                        'w-full pr-12'
+                    )}
                     {...instance?.register()}
                     ref={(r) => instance?.ref(r)}
                     onKeyDown={handleKeyDown}
                     autoComplete="off"
                     type={isPasswordVisible ? 'text' : 'password'}
-                    className="password-input"
                 />
 
                 <Portal

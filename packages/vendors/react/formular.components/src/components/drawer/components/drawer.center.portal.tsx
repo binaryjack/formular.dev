@@ -28,20 +28,16 @@ export const DrawerCenterPortal = ({
             <>
                 <div
                     id={`${id}-overlay`}
-                    className={`drawer-slot-overlay`}
+                    className="drawer-slot-overlay fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 ease-in-out"
                     style={{
-                        animation:
-                            toggleState === 'open'
-                                ? `openOverlay 0.3s ease-in-out forwards`
-                                : toggleState === 'closed'
-                                  ? `closeOverlay 0.3s ease-in-out forwards`
-                                  : 'idle forwards'
+                        opacity: toggleState === 'open' ? 1 : 0,
+                        visibility: toggleState === 'open' ? 'visible' : 'hidden'
                     }}
                 />
                 <div
                     ref={drawerContainerRef}
                     id={`${id}-drawer-wrapper`}
-                    className={`flex absolute drawer-container overflow-hidden`}
+                    className="flex absolute drawer-container overflow-hidden transform transition-transform duration-300 ease-in-out"
                     style={{
                         width: width,
                         height: height,

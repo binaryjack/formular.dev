@@ -19,7 +19,7 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./styles": "./src/styles/base.css",
+    "./styles": "./src/styles/index.css",
     "./tokens": {
       "import": "./dist/tokens/index.js",
       "require": "./dist/tokens/index.js",

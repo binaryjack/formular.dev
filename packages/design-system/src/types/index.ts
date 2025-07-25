@@ -5,90 +5,81 @@
  * Focused on supporting the formular.components library.
  */
 
-import { colors } from '../tokens/colors'
-import { spacing } from '../tokens/spacing'
-
-// Re-export component variant types
+// Re-export all types from the new organized structure
 export type {
+    ColorPaletteType,
     ComponentSizeType,
+    ComponentVariantType,
+    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
+    ResponsiveValueType,
     ScreenOrientationType,
+    SpacingSizeType,
+    StyleUtilityType,
     TextCaseType,
     TextWeightType,
-    ValueOf,
-    VariantNameType
-} from './component-variants'
+    ValueOfType,
+    VisualVariantType
+} from './types'
 
-export { DrawerBreakPointSizes } from './component-variants'
+export type { IComponentState, IStyleConfig, IThemeConfig } from './interfaces'
 
-// Component size variants (for utility classes)
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export { DrawerBreakPointSizes } from './utilities'
 
-// Component color variants based on design tokens
-export type ColorVariant =
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'info'
-    | 'neutral'
+// Import types for re-export as legacy aliases
+import type {
+    ColorPaletteType,
+    ComponentSizeType,
+    ComponentVariantType,
+    CSSCustomPropertiesType,
+    ResponsiveValueType,
+    SpacingSizeType,
+    StyleUtilityType,
+    ValueOfType,
+    VisualVariantType
+} from './types'
 
-// Component visual variants (for utility classes)
-export type Variant = 'solid' | 'outline' | 'ghost' | 'link'
+import type { IComponentState, IStyleConfig, IThemeConfig } from './interfaces'
 
-// Component spacing variants
-export type SpacingSize = keyof typeof spacing
+// Legacy type aliases for backward compatibility
+// These will be deprecated in future versions
 
-// Color palette type
-export type ColorPalette = typeof colors
+/** @deprecated Use ComponentSizeType instead */
+export type Size = ComponentSizeType
 
-// Component state types for styling
-export interface ComponentState {
-    /** Whether the component is focused */
-    focused: boolean
-    /** Whether the component is hovered */
-    hovered: boolean
-    /** Whether the component is pressed/active */
-    pressed: boolean
-    /** Whether the component is disabled */
-    disabled: boolean
-    /** Whether the component is in an error state */
-    error: boolean
-    /** Whether the component is loading */
-    loading: boolean
-}
+/** @deprecated Use ComponentVariantType instead */
+export type ColorVariant = ComponentVariantType
 
-// Style configuration for components
-export interface StyleConfig {
-    /** Base CSS classes */
-    base?: string
-    /** Variant-specific classes */
-    variants?: Record<string, string>
-    /** Size-specific classes */
-    sizes?: Record<Size, string>
-    /** Color-specific classes */
-    colors?: Record<ColorVariant, string>
-    /** State-specific classes */
-    states?: Partial<Record<keyof ComponentState, string>>
-}
+/** @deprecated Use VisualVariantType instead */
+export type Variant = VisualVariantType
 
-// Theme configuration
-export interface ThemeConfig {
-    /** Color tokens */
-    colors: ColorPalette
-    /** Spacing tokens */
-    spacing: typeof spacing
-    /** Component style configurations */
-    components?: Record<string, StyleConfig>
-}
+/** @deprecated Use ComponentVariantType instead */
+export type VariantNameType = ComponentVariantType
 
-// CSS custom properties type
-export type CSSCustomProperties = Record<`--${string}`, string | number>
+/** @deprecated Use SpacingSizeType instead */
+export type SpacingSize = SpacingSizeType
 
-// Responsive values
-export type ResponsiveValue<T> = T | Partial<Record<string, T>>
+/** @deprecated Use ColorPaletteType instead */
+export type ColorPalette = ColorPaletteType
 
-// Style utilities return type
-export type StyleUtility = string | string[] | Record<string, boolean>
+/** @deprecated Use IComponentState instead */
+export type ComponentState = IComponentState
+
+/** @deprecated Use IStyleConfig instead */
+export type StyleConfig = IStyleConfig
+
+/** @deprecated Use IThemeConfig instead */
+export type ThemeConfig = IThemeConfig
+
+/** @deprecated Use CSSCustomPropertiesType instead */
+export type CSSCustomProperties = CSSCustomPropertiesType
+
+/** @deprecated Use ResponsiveValueType instead */
+export type ResponsiveValue<T> = ResponsiveValueType<T>
+
+/** @deprecated Use StyleUtilityType instead */
+export type StyleUtility = StyleUtilityType
+
+/** @deprecated Use ValueOfType instead */
+export type ValueOf<T> = ValueOfType<T>

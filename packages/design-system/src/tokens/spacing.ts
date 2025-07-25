@@ -59,6 +59,18 @@ export const spacing = {
     384: '96rem' // 1536px
 } as const
 
+// Semantic spacing tokens for components (aligned with CSS tokens)
+export const semanticSpacing = {
+    '2xs': spacing[0.5], // 2px
+    xs: spacing[1], // 4px
+    sm: spacing[2], // 8px
+    md: spacing[4], // 16px
+    lg: spacing[6], // 24px
+    xl: spacing[8], // 32px
+    '2xl': spacing[12], // 48px
+    '3xl': spacing[16] // 64px
+} as const
+
 // Component-specific spacing
 export const componentSpacing = {
     // Field spacing
@@ -91,5 +103,7 @@ export const componentSpacing = {
 } as const
 
 export type Spacing = typeof spacing
+export type SemanticSpacing = typeof semanticSpacing
 export type SpacingKey = keyof Spacing
+export type SemanticSpacingKey = keyof SemanticSpacing
 export type ComponentSpacing = typeof componentSpacing

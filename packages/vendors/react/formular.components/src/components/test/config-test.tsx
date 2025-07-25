@@ -1,4 +1,5 @@
 import useAppContext from '@components/context/app-context/app-context.context'
+import { cx } from 'formular.design.system'
 import { ICulture } from 'formular.dev.lib'
 import React from 'react'
 
@@ -15,15 +16,17 @@ export const ConfigTest: React.FC = () => {
     const cultures = getConfiguration<any>('cultures')
 
     return (
-        <div style={{ padding: '20px', fontFamily: 'monospace' }}>
-            <h2>Configuration Test Results</h2>
+        <div className={cx('p-5 font-mono')}>
+            <h2 className="text-xl font-bold mb-4">Configuration Test Results</h2>
 
-            <div style={{ marginBottom: '20px' }}>
-                <h3>Culture Object (cultures.defaultCulture):</h3>
-                <pre style={{ background: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
+            <div className={cx('mb-5')}>
+                <h3 className="text-lg font-semibold mb-2">
+                    Culture Object (cultures.defaultCulture):
+                </h3>
+                <pre className={cx('bg-gray-100 p-3 rounded border text-sm overflow-auto')}>
                     {culture ? JSON.stringify(culture, null, 2) : 'undefined'}
                 </pre>
-                <p>
+                <p className="mt-2">
                     <strong>Type:</strong> {typeof culture}
                 </p>
                 <p>
@@ -31,26 +34,26 @@ export const ConfigTest: React.FC = () => {
                 </p>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-                <h3>Date Separator (culture?.separator):</h3>
-                <pre style={{ background: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
+            <div className={cx('mb-5')}>
+                <h3 className="text-lg font-semibold mb-2">Date Separator (culture?.separator):</h3>
+                <pre className={cx('bg-gray-100 p-3 rounded border text-sm overflow-auto')}>
                     {culture?.separator ?? 'undefined'}
                 </pre>
-                <p>
+                <p className="mt-2">
                     <strong>Type:</strong> {typeof culture?.separator}
                 </p>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-                <h3>Entire Cultures Object:</h3>
-                <pre style={{ background: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
+            <div className={cx('mb-5')}>
+                <h3 className="text-lg font-semibold mb-2">Entire Cultures Object:</h3>
+                <pre className={cx('bg-gray-100 p-3 rounded border text-sm overflow-auto')}>
                     {cultures ? JSON.stringify(cultures, null, 2) : 'undefined'}
                 </pre>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
-                <h3>Test Results:</h3>
-                <ul>
+            <div className={cx('mb-5')}>
+                <h3 className="text-lg font-semibold mb-2">Test Results:</h3>
+                <ul className="list-disc list-inside space-y-1">
                     <li>✅ Culture has name: {culture?.name ?? 'MISSING'}</li>
                     <li>✅ Culture has dateFormat: {culture?.dateFormat ?? 'MISSING'}</li>
                     <li>✅ Culture has currencySymbol: {culture?.currencySymbol ?? 'MISSING'}</li>

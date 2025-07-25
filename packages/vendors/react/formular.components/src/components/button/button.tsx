@@ -138,7 +138,7 @@ export const Button = ({
                 /** Here after I want to keep all the breakpoints even if they does the same just in order to
                  * get used to them
                  */
-                className={`flex flex-row flex-1  items-center 
+                className={`flex flex-row flex-1 items-center 
                             2xs:justify-center 
                             xs:justify-center
                             sm:justify-center
@@ -153,7 +153,7 @@ export const Button = ({
                     style={{ pointerEvents: 'none' }} // Prevent this div from interfering with click events
                 >
                     {loading ? (
-                        <div className={`flex loading  mr-1`}>
+                        <div className={`flex loading mr-1`}>
                             <Spinner {...getSpinnerVariant?.(size, variant)} />
                         </div>
                     ) : icon ? (

@@ -1,0 +1,473 @@
+/**
+ * Design System Primitives
+ * 
+ * Basic primitive styles that use design tokens.
+ * These serve as building blocks for components.
+ */
+@layer components {
+
+    /* ===============================================
+       PRIMITIVE BASE CLASSES
+       =============================================== */
+    /* Base Interactive Element */
+    .primitive-interactive {
+        transition: all var(--duration-fast) var(--ease-in-out);
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        outline: none;
+    }
+
+    .primitive-interactive:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+    }
+
+    /* Base Button Primitive */
+    .primitive-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-family-sans);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--line-height-none);
+        border: none;
+        border-radius: var(--radius);
+        transition: all var(--duration-fast) var(--ease-in-out);
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+        overflow: hidden;
+        text-decoration: none;
+    }
+
+    .primitive-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-primary-500);
+    }
+
+    .primitive-button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    /* Button Sizes */
+    .primitive-button-2xs {
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-2xs) var(--spacing-xs);
+        gap: var(--spacing-2xs);
+        min-height: 20px;
+    }
+
+    .primitive-button-xs {
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        gap: var(--spacing-xs);
+        min-height: 24px;
+    }
+
+    .primitive-button-sm {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-sm);
+        min-height: 32px;
+    }
+
+    .primitive-button-md {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        gap: var(--spacing-sm);
+        min-height: 40px;
+    }
+
+    .primitive-button-lg {
+        font-size: var(--font-size-md);
+        padding: var(--spacing-lg) var(--spacing-xl);
+        gap: var(--spacing-md);
+        min-height: 48px;
+    }
+
+    .primitive-button-xl {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-xl) var(--spacing-2xl);
+        gap: var(--spacing-md);
+        min-height: 56px;
+    }
+
+    .primitive-button-2xl {
+        font-size: var(--font-size-xl);
+        padding: var(--spacing-2xl) var(--spacing-3xl);
+        gap: var(--spacing-lg);
+        min-height: 64px;
+    }
+
+    /* Base Input Primitive */
+    .primitive-input {
+        width: 100%;
+        font-family: var(--font-family-sans);
+        font-weight: var(--font-weight-normal);
+        line-height: var(--line-height-normal);
+        background-color: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-primary);
+        border-radius: var(--radius);
+        transition: all var(--duration-fast) var(--ease-in-out);
+        outline: none;
+    }
+
+    .primitive-input::placeholder {
+        color: var(--color-text-placeholder);
+    }
+
+    .primitive-input:focus {
+        border-color: var(--color-primary-500);
+        box-shadow: 0 0 0 3px var(--color-primary-500)/20;
+    }
+
+    .primitive-input:disabled {
+        background-color: var(--color-surface-secondary);
+        border-color: var(--color-border-secondary);
+        cursor: not-allowed;
+        color: var(--color-text-muted);
+    }
+
+    /* Input Sizes */
+    .primitive-input-2xs {
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-2xs) var(--spacing-xs);
+        min-height: 20px;
+    }
+
+    .primitive-input-xs {
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        min-height: 24px;
+    }
+
+    .primitive-input-sm {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 32px;
+    }
+
+    .primitive-input-md {
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-md);
+        min-height: 40px;
+    }
+
+    .primitive-input-lg {
+        font-size: var(--font-size-md);
+        padding: var(--spacing-md) var(--spacing-lg);
+        min-height: 48px;
+    }
+
+    .primitive-input-xl {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-lg) var(--spacing-xl);
+        min-height: 56px;
+    }
+
+    .primitive-input-2xl {
+        font-size: var(--font-size-xl);
+        padding: var(--spacing-2xl) var(--spacing-3xl);
+        min-height: 64px;
+    }
+
+    /* Base Card Primitive */
+    .primitive-card {
+        background-color: var(--color-surface-elevated);
+        border-radius: var(--radius);
+        border: 1px solid var(--color-border-secondary);
+    }
+
+    .primitive-card-padded {
+        padding: var(--spacing-lg);
+    }
+
+    .primitive-card-elevated {
+        box-shadow: var(--shadow-md);
+        border: none;
+    }
+
+    /* Base Typography Primitives */
+    .primitive-text {
+        font-family: var(--font-family-sans);
+        color: var(--color-text-primary);
+        line-height: var(--line-height-normal);
+    }
+
+    .primitive-text-primary {
+        color: var(--color-text-primary);
+    }
+
+    .primitive-text-secondary {
+        color: var(--color-text-secondary);
+    }
+
+    .primitive-text-muted {
+        color: var(--color-text-muted);
+    }
+
+    /* Typography Sizes */
+    .primitive-text-2xs {
+        font-size: var(--font-size-2xs);
+    }
+
+    .primitive-text-xs {
+        font-size: var(--font-size-xs);
+    }
+
+    .primitive-text-sm {
+        font-size: var(--font-size-sm);
+    }
+
+    .primitive-text-md {
+        font-size: var(--font-size-md);
+    }
+
+    .primitive-text-lg {
+        font-size: var(--font-size-lg);
+    }
+
+    .primitive-text-xl {
+        font-size: var(--font-size-xl);
+    }
+
+    .primitive-text-2xl {
+        font-size: var(--font-size-2xl);
+    }
+
+    .primitive-text-3xl {
+        font-size: var(--font-size-3xl);
+    }
+
+    /* Typography Weights */
+    .primitive-text-light {
+        font-weight: var(--font-weight-light);
+    }
+
+    .primitive-text-normal {
+        font-weight: var(--font-weight-normal);
+    }
+
+    .primitive-text-medium {
+        font-weight: var(--font-weight-medium);
+    }
+
+    .primitive-text-semibold {
+        font-weight: var(--font-weight-semibold);
+    }
+
+    .primitive-text-bold {
+        font-weight: var(--font-weight-bold);
+    }
+
+    /* Base Field Container */
+    .primitive-field {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: var(--spacing-xs);
+    }
+
+    .primitive-field-label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        line-height: var(--line-height-tight);
+    }
+
+    .primitive-field-label-required::after {
+        content: " *";
+        color: var(--color-danger-500);
+    }
+
+    .primitive-field-help {
+        font-size: var(--font-size-2xs);
+        color: var(--color-text-muted);
+        line-height: var(--line-height-normal);
+    }
+
+    /* Base Layout Primitives */
+    .primitive-stack {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .primitive-stack-2xs {
+        gap: var(--spacing-2xs);
+    }
+
+    .primitive-stack-xs {
+        gap: var(--spacing-xs);
+    }
+
+    .primitive-stack-sm {
+        gap: var(--spacing-sm);
+    }
+
+    .primitive-stack-md {
+        gap: var(--spacing-md);
+    }
+
+    .primitive-stack-lg {
+        gap: var(--spacing-lg);
+    }
+
+    .primitive-stack-xl {
+        gap: var(--spacing-xl);
+    }
+
+    .primitive-stack-2xl {
+        gap: var(--spacing-2xl);
+    }
+
+    .primitive-inline {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .primitive-inline-2xs {
+        gap: var(--spacing-2xs);
+    }
+
+    .primitive-inline-xs {
+        gap: var(--spacing-xs);
+    }
+
+    .primitive-inline-sm {
+        gap: var(--spacing-sm);
+    }
+
+    .primitive-inline-md {
+        gap: var(--spacing-md);
+    }
+
+    .primitive-inline-lg {
+        gap: var(--spacing-lg);
+    }
+
+    .primitive-inline-xl {
+        gap: var(--spacing-xl);
+    }
+
+    .primitive-inline-2xl {
+        gap: var(--spacing-2xl);
+    }
+
+    /* Base Surface Primitives */
+    .primitive-surface {
+        background-color: var(--color-surface-elevated);
+    }
+
+    .primitive-surface-primary {
+        background-color: var(--color-surface-primary);
+    }
+
+    .primitive-surface-secondary {
+        background-color: var(--color-surface-secondary);
+    }
+
+    /* Base Border Primitives */
+    .primitive-border {
+        border: 1px solid var(--color-border-primary);
+    }
+
+    .primitive-border-secondary {
+        border: 1px solid var(--color-border-secondary);
+    }
+
+    .primitive-border-muted {
+        border: 1px solid var(--color-border-muted);
+    }
+
+    /* Base Border Radius Primitives */
+    .primitive-rounded-none {
+        border-radius: var(--radius-none);
+    }
+
+    .primitive-rounded-xs {
+        border-radius: var(--radius-xs);
+    }
+
+    .primitive-rounded-sm {
+        border-radius: var(--radius-sm);
+    }
+
+    .primitive-rounded-md {
+        border-radius: var(--radius-md);
+    }
+
+    .primitive-rounded-lg {
+        border-radius: var(--radius-lg);
+    }
+
+    .primitive-rounded-xl {
+        border-radius: var(--radius-xl);
+    }
+
+    .primitive-rounded-2xl {
+        border-radius: var(--radius-2xl);
+    }
+
+    .primitive-rounded-full {
+        border-radius: var(--radius-full);
+    }
+
+    /* Base Shadow Primitives */
+    .primitive-shadow-xs {
+        box-shadow: var(--shadow-xs);
+    }
+
+    .primitive-shadow-sm {
+        box-shadow: var(--shadow-sm);
+    }
+
+    .primitive-shadow-md {
+        box-shadow: var(--shadow-md);
+    }
+
+    .primitive-shadow-lg {
+        box-shadow: var(--shadow-lg);
+    }
+
+    .primitive-shadow-xl {
+        box-shadow: var(--shadow-xl);
+    }
+
+    .primitive-shadow-2xl {
+        box-shadow: var(--shadow-2xl);
+    }
+
+    /* Base Animation Primitives */
+    .primitive-transition {
+        transition: all var(--duration-fast) var(--ease-in-out);
+    }
+
+    .primitive-transition-slow {
+        transition: all var(--duration-slow) var(--ease-in-out);
+    }
+
+    .primitive-transition-spring {
+        transition: all var(--duration-normal) var(--ease-spring);
+    }
+
+    /* Focus Primitives */
+    .primitive-focus-ring {
+        outline: none;
+    }
+
+    .primitive-focus-ring:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+    }
+
+    .primitive-focus-ring-inset:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: -2px;
+    }
+}

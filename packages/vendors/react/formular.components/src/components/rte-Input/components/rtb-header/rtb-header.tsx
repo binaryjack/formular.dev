@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Button } from '../../../button/button'
 import { ToggleButton } from '../../../toggle-button/toggle-button'
 import { isFormatActive } from '../../core/helpers/is-format-active'
 import { FormatsEnum, IEngineState, IMouseState } from '../../core/rti-engine.types'
@@ -81,23 +82,31 @@ export const RtbHeader = ({
                 children={<strong>LI</strong>}
             />
 
-            <button
-                type="button"
+            <Button
+                id="undo-button"
                 title="Undo"
-                onClick={handleUndo}
-                className="mx-1 px-2 py-1 border border-gray-300 rounded"
+                onClickCallback={handleUndo}
+                variantProperties={{
+                    size: 'sm',
+                    variant: 'secondary',
+                    className: 'mx-1'
+                }}
             >
                 ↩️ Undo
-            </button>
+            </Button>
 
-            <button
-                type="button"
+            <Button
+                id="redo-button"
                 title="Redo"
-                onClick={handleRedo}
-                className="mx-1 px-2 py-1 border border-gray-300 rounded"
+                onClickCallback={handleRedo}
+                variantProperties={{
+                    size: 'sm',
+                    variant: 'secondary',
+                    className: 'mx-1'
+                }}
             >
                 ↪️ Redo
-            </button>
+            </Button>
             <div
                 className={` w-[35px] h-[25px] mx-3 overflow-hidden ${mouseState?.down && !mouseState?.move ? 'bg-cyan-700 text-white' : mouseState?.down && mouseState?.move ? 'bg-red-500  text-white' : ''}`}
             >

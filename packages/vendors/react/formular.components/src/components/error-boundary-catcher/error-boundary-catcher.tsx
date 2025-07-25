@@ -1,3 +1,4 @@
+import { cx } from 'formular.design.system'
 import React, { Component, ReactNode } from 'react'
 
 interface BoundaryErrorCatcherProps {
@@ -43,12 +44,21 @@ export class BoundaryErrorCatcher extends Component<
             // Render fallback UI if provided, otherwise show a default message
             return (
                 fallback ?? (
-                    <div style={{ padding: '1rem', backgroundColor: '#f8d7da', color: '#721c24' }}>
-                        <h2>Something went wrong.</h2>
-                        {error && <p>Error: {error.message}</p>}
+                    <div
+                        className={cx(
+                            'p-4 bg-red-50 border border-red-200 rounded-md text-red-800'
+                        )}
+                    >
+                        <h2 className="text-lg font-semibold mb-2">Something went wrong.</h2>
+                        {error && <p className="text-sm mb-2">Error: {error.message}</p>}
                         {errorInfo && (
-                            <details style={{ whiteSpace: 'pre-wrap' }}>
-                                {errorInfo.componentStack}
+                            <details className="text-xs whitespace-pre-wrap">
+                                <summary className="cursor-pointer font-medium">
+                                    Error Details
+                                </summary>
+                                <div className="mt-2 p-2 bg-red-100 rounded border">
+                                    {errorInfo.componentStack}
+                                </div>
                             </details>
                         )}
                     </div>
