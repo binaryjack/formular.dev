@@ -509,6 +509,62 @@
         flex: none;
     }
 
+    /* Combined flex utilities for common patterns */
+    .flex-between {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .flex-start {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .flex-end {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    /* ===============================================
+       TEXT SIZE UTILITIES (EM-based)
+       =============================================== */
+    .text-micro {
+        font-size: 0.4em;
+    }
+
+    .text-mini {
+        font-size: 0.8em;
+    }
+
+    .text-base-em {
+        font-size: 1em;
+    }
+
+    .text-large-em {
+        font-size: 1.15em;
+    }
+
+    .text-xl-em {
+        font-size: 1.35em;
+    }
+
+    .text-2xl-em {
+        font-size: 1.65em;
+    }
+
+    .text-3xl-em {
+        font-size: 2em;
+    }
+
     /* ===============================================
        POSITION UTILITIES
        =============================================== */

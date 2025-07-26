@@ -1,10 +1,10 @@
 import {
     ComponentSizeType,
-    TextCaseType,
-    TextWeightType,
-    VariantNameType,
+    ComponentVariantType,
     cx,
-    generateButtonStyles
+    generateButtonStyles,
+    TextCaseType,
+    TextWeightType
 } from 'formular.design.system'
 import Spinner from '../spinner/spinner'
 import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
@@ -12,7 +12,7 @@ import { getSpinnerVariant } from '../spinner/utils/spinner.variant.converter'
 import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import useRippleEffect from './core/use-ripple-effect'
 export interface IButtonVariant {
-    variant: VariantNameType
+    variant: ComponentVariantType
     size: ComponentSizeType
     textCase: TextCaseType
     weight: TextWeightType
@@ -64,10 +64,11 @@ export const Button = ({
         {
             'state-disabled': disabled,
             'state-loading': loading,
-            rounded: rounded,
             'opacity-50': disabled || loading,
             'cursor-not-allowed': disabled || loading
         },
+        // Apply border-radius styling based on rounded prop
+        !rounded && 'rounded-none', // When rounded=false, remove border-radius. When true, use default.
         textCase,
         className
     )
@@ -76,8 +77,7 @@ export const Button = ({
         mainRef: buttonRef,
         castedRefObject,
         onClick,
-        classRef,
-        rippleStyle
+        ripples
     } = useRippleEffect(onClickCallback, (disabled ?? false) || loading)
 
     const handleOnMouseDown = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -97,10 +97,7 @@ export const Button = ({
             return
         }
 
-        // Stop propagation to prevent event bubbling issues
-        e.stopPropagation()
-
-        // Call the ripple effect handler
+        // Call the ripple effect handler (which includes the callback)
         onClick(e)
     }
 
@@ -114,7 +111,7 @@ export const Button = ({
             disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
-            className={`${btnBaseClasses} ${className ?? ''} p-1`}
+            className={`btn-wrapper ${btnBaseClasses} ${className ?? ''} p-1 relative overflow-hidden`}
             style={{
                 width: width ?? 'unset',
                 height: height ?? 'unset'
@@ -123,17 +120,39 @@ export const Button = ({
             onMouseDown={handleOnMouseDown}
             onMouseUp={handleOnMouseUp}
         >
-            {/* Ripple effect - positioned absolutely to avoid affecting layout */}
-            <span
-                className={`absolute inset-0 ripple bg-${variant}-200 ${classRef}`}
-                style={{ ...rippleStyle, pointerEvents: 'none' }}
-            />
+            {/* Ripple effects - positioned absolutely to avoid affecting layout */}
+            {ripples.map((ripple) => (
+                <span
+                    key={ripple.id}
+                    className={`absolute`}
+                    style={{
+                        ...ripple.style,
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                        borderRadius: '50%',
+                        transform: `scale(${ripple.scale})`,
+                        opacity: ripple.opacity,
+                        backgroundColor:
+                            variant === 'primary'
+                                ? 'rgba(255, 255, 255, 0.8)'
+                                : variant === 'secondary'
+                                  ? 'rgba(255, 255, 255, 0.6)'
+                                  : variant === 'danger'
+                                    ? 'rgba(255, 255, 255, 0.8)'
+                                    : variant === 'success'
+                                      ? 'rgba(255, 255, 255, 0.8)'
+                                      : variant === 'warning'
+                                        ? 'rgba(0, 0, 0, 0.6)'
+                                        : 'rgba(255, 255, 255, 0.8)' // info and default
+                    }}
+                />
+            ))}
 
             <div
                 /** Here after I want to keep all the breakpoints even if they does the same just in order to
                  * get used to them
                  */
-                className={`flex flex-row flex-1 items-center 
+                className={`relative z-10 flex flex-row flex-1 items-center 
                             2xs:justify-center 
                             xs:justify-center
                             sm:justify-center

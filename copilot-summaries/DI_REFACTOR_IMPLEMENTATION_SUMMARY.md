@@ -175,7 +175,7 @@ const { getService, getServiceSync, serviceManager } = useService()
 
 ## 📈 Performance Impact
 
-### Bundle Size Optimization
+### Bundle ComponentSizeType Optimization
 - Tree shaking enables smaller bundles for minimal configurations
 - Consumers can exclude unused features
 - Factory pattern adds minimal overhead

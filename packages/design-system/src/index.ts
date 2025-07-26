@@ -18,41 +18,26 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
-    CSSCustomProperties,
-    CSSCustomPropertiesType,
     ColorPaletteType,
-    // Legacy aliases (deprecated)
-    ColorVariant,
     ComponentSizeType,
-    ComponentState,
     ComponentVariantType,
+    CSSCustomPropertiesType,
     ElementPositionType,
-    // Interfaces
-    IComponentState,
-    IStyleConfig,
-    IThemeConfig,
     OrientationType,
-    ResponsiveValue,
     ResponsiveValueType,
     ScreenOrientationType,
-    Size,
-    SpacingSize,
-    SpacingSizeType,
-    StyleConfig,
-    StyleUtility,
+    SpacingSizeTypeType,
     StyleUtilityType,
     TextCaseType,
     TextWeightType,
-    ThemeConfig,
-    ValueOf,
     ValueOfType,
-    Variant,
-    VariantNameType,
     VisualVariantType
-} from './types/index'
+} from './types/types'
+
+export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
 
 // Export constants
-export { DrawerBreakPointSizes } from './types/index'
+export { DrawerBreakPointSizes } from './types/utilities'
 
 // CSS imports (for bundlers that support CSS imports)
 import './styles/index.css'

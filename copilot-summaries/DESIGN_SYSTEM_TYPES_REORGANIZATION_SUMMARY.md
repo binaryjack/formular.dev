@@ -7,7 +7,7 @@ Reorganized the design system types structure to eliminate inconsistencies and i
 
 ### 1. Inconsistencies Resolved
 
-#### Size Types Unification
+#### ComponentSizeType Types Unification
 - **Before**: Two different size types existed:
   - `ComponentSizeType`: `'2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'`
   - `Size`: `'xs' | 'sm' | 'md' | 'lg' | 'xl'`
@@ -15,8 +15,8 @@ Reorganized the design system types structure to eliminate inconsistencies and i
 
 #### Variant Types Unification
 - **Before**: Multiple overlapping variant types:
-  - `VariantNameType`: `'primary' | 'secondary' | 'info' | 'danger' | 'success' | 'warning'`
-  - `ColorVariant`: `'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'`
+  - `ComponentVariantType`: `'primary' | 'secondary' | 'info' | 'danger' | 'success' | 'warning'`
+  - `ComponentVariantType`: `'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'`
 - **After**: Unified into `ComponentVariantType` with complete set
 
 ### 2. File Structure Reorganization
@@ -75,10 +75,10 @@ src/types/
 All existing types are preserved as deprecated aliases:
 ```typescript
 /** @deprecated Use ComponentSizeType instead */
-export type Size = ComponentSizeType
+export type ComponentSizeType = ComponentSizeType
 
 /** @deprecated Use ComponentVariantType instead */
-export type ColorVariant = ComponentVariantType
+export type ComponentVariantType = ComponentVariantType
 
 /** @deprecated Use VisualVariantType instead */
 export type Variant = VisualVariantType
@@ -109,11 +109,11 @@ interface ButtonProps {
 
 ### Legacy Compatibility
 ```typescript
-import type { Size, ColorVariant } from '@design-system/types'
+import type { Size, ComponentVariantType } from '@design-system/types'
 
 interface ButtonProps {
-  size: Size // Still works but deprecated
-  variant: ColorVariant // Still works but deprecated
+  size: ComponentSizeType // Still works but deprecated
+  variant: ComponentVariantType // Still works but deprecated
 }
 ```
 

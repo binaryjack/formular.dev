@@ -197,7 +197,7 @@ import {
 4. **Prototype Classes**: Optimized class architecture avoiding transpilation overhead
 5. **Tree Shaking**: Modular exports for optimal bundle sizes
 
-### Bundle Size Impact
+### Bundle ComponentSizeType Impact
 
 - **Core Library**: ~45KB minified (framework-agnostic)
 - **React Adapter**: ~25KB additional (with components)

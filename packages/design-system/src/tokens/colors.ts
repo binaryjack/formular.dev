@@ -118,7 +118,7 @@ export const colors = {
     current: 'currentColor'
 } as const
 
-export type ColorPalette = typeof colors
+export type ColorPaletteType = typeof colors
 export type ColorName = keyof ColorPalette
 export type ColorShade = keyof ColorPalette[ColorName]
 

@@ -42,9 +42,9 @@ export const SmartTabToggleable = ({ tab }: SmartTabProps) => {
         <>
             <div
                 className={cx(
-                    'px-4 py-2 cursor-pointer transition-colors flex items-center select-none',
+                    'px-4 py-2 cursor-pointer transition-colors flex items-center select-none   text-primary-600',
                     tab.selected
-                        ? 'border-b-2 border-primary-500 text-primary-700 bg-primary-50'
+                        ? 'border-b-2 border-primary-500 text-primary-600 bg-primary-50'
                         : 'hover:bg-secondary-500',
                     tab.disabled && 'opacity-50 cursor-not-allowed'
                 )}

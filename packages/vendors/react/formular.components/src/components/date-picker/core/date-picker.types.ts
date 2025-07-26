@@ -1,4 +1,4 @@
-import { ValueOf } from 'formular.design.system'
+import { ValueOfType } from 'formular.design.system'
 import { DateFormatsEnum } from 'formular.dev.lib'
 /**
  * Explanation:
@@ -29,7 +29,7 @@ export const MMddYYYYRegex = /^([0][1-9]|1[0-2])([-/])([0-2][0-9]|3[0-1])\2(\d{4
  */
 export const yyyyMMDDRegex = /^(\d{4})([-/])([0][1-9]|1[0-2])\2([0-2][0-9]|3[0-1])$/
 
-export type DatePickerFormatType = ValueOf<DateFormatsEnum>
+export type DatePickerFormatType = ValueOfType<DateFormatsEnum>
 export const DatePickerFormatArray: string[] = Object.values(DateFormatsEnum)
 /** indicates  */
 export type DatePickerGridModeType = 'YEAR' | 'MONTH' | 'DAY'

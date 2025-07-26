@@ -1,10 +1,11 @@
 import { Button } from '@components/button/button'
-import { ComponentSizeType, VariantNameType } from 'formular.design.system'
+import { ToggleButton } from '@components/toggle-button/toggle-button'
+import { ComponentSizeType, ComponentVariantType } from 'formular.design.system'
 import { useState } from 'react'
 
 // Convert to arrays for the demo
 const ComponentSizeArray: ComponentSizeType[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl']
-const VariantNameArray: VariantNameType[] = [
+const VariantNameArray: ComponentVariantType[] = [
     'primary',
     'secondary',
     'info',
@@ -15,7 +16,7 @@ const VariantNameArray: VariantNameType[] = [
 
 export const ButtonsDemo = () => {
     const [clickedInfo, setClickedInfo] = useState<string[]>([])
-    const [selectedVariant, setSelectedVariant] = useState<VariantNameType>('primary')
+    const [selectedVariant, setSelectedVariant] = useState<ComponentVariantType>('primary')
     const [selectedSize, setSelectedSize] = useState<ComponentSizeType>('md')
     const [isDisabled, setIsDisabled] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -61,7 +62,7 @@ export const ButtonsDemo = () => {
                         id="variant-select"
                         title="Select button variant"
                         value={selectedVariant}
-                        onChange={(e) => setSelectedVariant(e.target.value as VariantNameType)}
+                        onChange={(e) => setSelectedVariant(e.target.value as ComponentVariantType)}
                         className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     >
                         {VariantNameArray.map((variant) => (
@@ -72,7 +73,7 @@ export const ButtonsDemo = () => {
                     </select>
                 </div>
 
-                {/* Size Selector */}
+                {/* ComponentSizeType Selector */}
                 <div>
                     <label
                         htmlFor="size-select"
@@ -122,21 +123,18 @@ export const ButtonsDemo = () => {
                         >
                             Disabled
                         </label>
-                        <button
+                        <ToggleButton
                             id="disabled-toggle"
-                            type="button"
-                            title={`Toggle disabled state - currently ${isDisabled ? 'enabled' : 'disabled'}`}
-                            onClick={() => setIsDisabled(!isDisabled)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                                isDisabled ? 'bg-blue-600' : 'bg-gray-200'
-                            }`}
+                            name={`Toggle disabled state - currently ${isDisabled ? 'enabled' : 'disabled'}`}
+                            toggle={isDisabled}
+                            onToggle={(id, newState) => setIsDisabled(newState)}
+                            size="sm"
+                            variant="primary"
+                            width="44px"
+                            height="24px"
                         >
-                            <span
-                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                                    isDisabled ? 'translate-x-6' : 'translate-x-1'
-                                }`}
-                            />
-                        </button>
+                            <span className="sr-only">Toggle disabled state</span>
+                        </ToggleButton>
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -146,21 +144,18 @@ export const ButtonsDemo = () => {
                         >
                             Loading
                         </label>
-                        <button
+                        <ToggleButton
                             id="loading-toggle"
-                            type="button"
-                            title={`Toggle loading state - currently ${isLoading ? 'loading' : 'not loading'}`}
-                            onClick={() => setIsLoading(!isLoading)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                                isLoading ? 'bg-blue-600' : 'bg-gray-200'
-                            }`}
+                            name={`Toggle loading state - currently ${isLoading ? 'loading' : 'not loading'}`}
+                            toggle={isLoading}
+                            onToggle={(id, newState) => setIsLoading(newState)}
+                            size="sm"
+                            variant="primary"
+                            width="44px"
+                            height="24px"
                         >
-                            <span
-                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                                    isLoading ? 'translate-x-6' : 'translate-x-1'
-                                }`}
-                            />
-                        </button>
+                            <span className="sr-only">Toggle loading state</span>
+                        </ToggleButton>
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -170,21 +165,18 @@ export const ButtonsDemo = () => {
                         >
                             Rounded
                         </label>
-                        <button
+                        <ToggleButton
                             id="rounded-toggle"
-                            type="button"
-                            title={`Toggle rounded corners - currently ${isRounded ? 'rounded' : 'square'}`}
-                            onClick={() => setIsRounded(!isRounded)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                                isRounded ? 'bg-blue-600' : 'bg-gray-200'
-                            }`}
+                            name={`Toggle rounded corners - currently ${isRounded ? 'rounded' : 'square'}`}
+                            toggle={isRounded}
+                            onToggle={(id, newState) => setIsRounded(newState)}
+                            size="sm"
+                            variant="primary"
+                            width="44px"
+                            height="24px"
                         >
-                            <span
-                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                                    isRounded ? 'translate-x-6' : 'translate-x-1'
-                                }`}
-                            />
-                        </button>
+                            <span className="sr-only">Toggle rounded corners</span>
+                        </ToggleButton>
                     </div>
                 </div>
 

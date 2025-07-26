@@ -48,7 +48,7 @@
 #### **Toggle Button Component** ✅
 - **File**: `packages/vendors/react/formular.components/src/components/toggle-button/toggle-button.tsx`
 - **Changes**:
-  - Migrated to use design system props (`Size`, `ColorVariant`)
+  - Migrated to use design system props (`Size`, `ComponentVariantType`)
   - Uses `cx` utility for class management
   - All styling handled through design system classes
 - **Status**: Fully migrated and tested

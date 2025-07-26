@@ -8,16 +8,16 @@
 import { animations } from '../tokens/animations'
 import { colors } from '../tokens/colors'
 import { spacing } from '../tokens/spacing'
-import type { ColorVariant, Size, Variant } from '../types'
+import type { ComponentSizeType, ComponentVariantType, VisualVariantType } from '../types'
 import type { IComponentState } from '../types/interfaces'
 
 /**
  * Generate button style classes
  */
 export const generateButtonStyles = (
-    variant: Variant = 'solid',
-    color: ColorVariant = 'primary',
-    size: Size = 'md'
+    variant: VisualVariantType = 'solid',
+    color: ComponentVariantType = 'primary',
+    size: ComponentSizeType = 'md'
 ): string => {
     const baseClasses = 'btn' // Changed from 'btn-base' to 'btn'
     const sizeClasses = `btn-${size}` // Changed from 'btn-size-${size}' to 'btn-${size}'
@@ -44,7 +44,10 @@ export const generateButtonStyles = (
 /**
  * Generate input style classes
  */
-export const generateInputStyles = (size: Size = 'md', state?: IComponentState): string => {
+export const generateInputStyles = (
+    size: ComponentSizeType = 'md',
+    state?: IComponentState
+): string => {
     const baseClasses = 'input-base'
     const sizeClasses = `input-size-${size}`
 
@@ -116,7 +119,7 @@ export const generateCardStyles = (
 /**
  * Generate focus ring classes
  */
-export const generateFocusRing = (color: ColorVariant = 'primary'): string => {
+export const generateFocusRing = (color: ComponentVariantType = 'primary'): string => {
     return `focus-ring-${color}`
 }
 
@@ -151,7 +154,7 @@ export const createComponentCSSVars = (
 }
 
 /**
- * Size mapping utilities
+ * ComponentSizeType mapping utilities
  */
 export const sizeMap = {
     '2xs': {
@@ -205,7 +208,7 @@ export const colorUtils = {
     /**
      * Get color value by variant and shade
      */
-    getColor: (variant: ColorVariant, shade: number = 500): string => {
+    getColor: (variant: ComponentVariantType, shade: number = 500): string => {
         const colorPalette = colors[variant]
         if (typeof colorPalette === 'object') {
             return (colorPalette as Record<string, string>)[shade.toString()] || ''
@@ -216,7 +219,7 @@ export const colorUtils = {
     /**
      * Generate CSS custom properties for colors
      */
-    generateColorVars: (variant: ColorVariant): Record<string, string> => {
+    generateColorVars: (variant: ComponentVariantType): Record<string, string> => {
         const colorPalette = colors[variant]
         const vars: Record<string, string> = {}
 
@@ -294,7 +297,7 @@ export const spacingUtils = {
     /**
      * Generate padding classes
      */
-    generatePadding: (size: Size): string => {
+    generatePadding: (size: ComponentSizeType): string => {
         const paddingMap = {
             '2xs': 'p-0.5',
             xs: 'p-1',
@@ -311,7 +314,7 @@ export const spacingUtils = {
     /**
      * Generate margin classes
      */
-    generateMargin: (size: Size): string => {
+    generateMargin: (size: ComponentSizeType): string => {
         const marginMap = {
             '2xs': 'm-0.5',
             xs: 'm-1',

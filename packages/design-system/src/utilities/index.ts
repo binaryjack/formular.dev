@@ -148,7 +148,7 @@ export const getVariant = <T>(variant: string, variants: Record<string, T>): T |
  * Creates size-based utility classes
  * Common pattern for component sizing
  *
- * @param size - Size key (e.g., 'sm', 'md', 'lg')
+ * @param size - ComponentSizeType key (e.g., 'sm', 'md', 'lg')
  * @param sizeMap - Mapping of sizes to class names or styles
  * @returns The classes or styles for the size
  */

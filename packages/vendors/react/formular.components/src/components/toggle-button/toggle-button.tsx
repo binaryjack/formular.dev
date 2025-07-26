@@ -1,4 +1,4 @@
-import type { ColorVariant, Size } from 'formular.design.system'
+import type { ComponentSizeType, ComponentVariantType } from 'formular.design.system'
 import { cx } from 'formular.design.system'
 import { useEffect, useState } from 'react'
 
@@ -8,8 +8,8 @@ interface IToggleButtonProps {
     toggle: boolean
     children: React.ReactNode
     disabled?: boolean
-    size?: Size
-    variant?: ColorVariant
+    size?: ComponentSizeType
+    variant?: ComponentVariantType
     className?: string
     width?: string
     height?: string
@@ -45,6 +45,7 @@ export const ToggleButton = ({
     const btnBaseClasses = cx(
         'toggle-button-wrapper',
         isOn ? `toggle-button-${variant}-active` : `toggle-button-${variant}`,
+        `btn-${size}`, // Use standard button size classes
         'rounded',
         'cursor-pointer',
         'transition-all',

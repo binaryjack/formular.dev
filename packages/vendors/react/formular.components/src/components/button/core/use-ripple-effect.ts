@@ -1,79 +1,119 @@
 import { useObjectRef } from '@adapters/react/hooks/use-object-ref'
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useCallback, useState } from 'react'
+
+interface RippleData {
+    id: number
+    style: CSSProperties
+    scale: number
+    opacity: number
+}
 
 const useRippleEffect = <E extends React.MouseEvent<HTMLButtonElement, MouseEvent>>(
-    // buttonRef: React.RefObject<HTMLButtonElement>,
     onClickCallback: (e: E) => void,
     disabled: boolean
 ) => {
-    const [classRef, setClassRef] = useState<string>('')
-    const [rippleStyle, setRippleStyle] = useState<CSSProperties>({} as CSSProperties)
+    const [ripples, setRipples] = useState<RippleData[]>([])
 
     const { castedRefObject, mainRef } = useObjectRef<HTMLButtonElement>()
 
-    const onClick = (e: E) => {
-        if (disabled) return
+    const onClick = useCallback(
+        (e: E) => {
+            if (disabled) return
 
-        if (!mainRef?.current) return
-        const btn = mainRef?.current as unknown as HTMLButtonElement
-        if (!btn) return
+            if (!mainRef?.current) return
+            const btn = mainRef.current
 
-        // Ensure the click is within the button boundaries
-        const rect = btn.getBoundingClientRect()
-        const isWithinBounds =
-            e.clientX >= rect.left &&
-            e.clientX <= rect.right &&
-            e.clientY >= rect.top &&
-            e.clientY <= rect.bottom
+            // Ensure the click is within the button boundaries
+            const rect = btn.getBoundingClientRect()
+            const isWithinBounds =
+                e.clientX >= rect.left &&
+                e.clientX <= rect.right &&
+                e.clientY >= rect.top &&
+                e.clientY <= rect.bottom
 
-        if (!isWithinBounds) return
+            if (!isWithinBounds) return
 
-        const btnClientWidth = rect.width
-        const btnClientHeight = rect.height
+            // Calculate position relative to the button element
+            const relativeX = e.clientX - rect.left
+            const relativeY = e.clientY - rect.top
 
-        const diameter = Math.max(btnClientWidth, btnClientHeight)
+            // Calculate diameter to cover the entire button from click point
+            const btnWidth = rect.width
+            const btnHeight = rect.height
 
-        const btnOffsetTop = rect.top
-        const btnOffsetLeft = rect.left
+            const distanceToCorners = [
+                Math.sqrt(Math.pow(relativeX, 2) + Math.pow(relativeY, 2)),
+                Math.sqrt(Math.pow(btnWidth - relativeX, 2) + Math.pow(relativeY, 2)),
+                Math.sqrt(Math.pow(relativeX, 2) + Math.pow(btnHeight - relativeY, 2)),
+                Math.sqrt(Math.pow(btnWidth - relativeX, 2) + Math.pow(btnHeight - relativeY, 2))
+            ]
 
-        const radius = diameter / 2
-        /** determine initial diameter */
-        const width = `${diameter}px`
-        const height = `${diameter}px`
+            const maxDistance = Math.max(...distanceToCorners)
+            const diameter = maxDistance * 2
 
-        const left = `${e.clientX - (btnOffsetLeft + radius)}px`
-        const top = `${e.clientY - (btnOffsetTop + radius)}px`
+            // Create new ripple
+            const newRipple: RippleData = {
+                id: Date.now(),
+                style: {
+                    left: `${relativeX - diameter / 2}px`,
+                    top: `${relativeY - diameter / 2}px`,
+                    width: `${diameter}px`,
+                    height: `${diameter}px`
+                },
+                scale: 0,
+                opacity: 0.5
+            }
 
-        const _style: CSSProperties = {
-            left: `${left}`,
-            top: `${top}`,
-            width: `${width}`,
-            height: `${height}`
-        }
+            // Add new ripple to the list
+            setRipples((prev) => [...prev, newRipple])
 
-        setRippleStyle(_style)
+            // Animate the ripple manually using requestAnimationFrame
+            const startTime = Date.now()
+            const animationDuration = 300
 
-        setClassRef('animate')
+            const animate = () => {
+                const elapsed = Date.now() - startTime
+                const progress = Math.min(elapsed / animationDuration, 1)
 
-        // Call the callback after setting up the ripple effect
-        try {
-            onClickCallback(e)
-        } catch (error) {
-            console.error('Error in button click callback:', error)
-        }
+                setRipples((prev) =>
+                    prev.map((ripple) =>
+                        ripple.id === newRipple.id
+                            ? {
+                                  ...ripple,
+                                  scale: progress * 2,
+                                  opacity: 0.5 * (1 - progress)
+                              }
+                            : ripple
+                    )
+                )
 
-        const to = setTimeout(() => {
-            setClassRef('')
-            clearTimeout(to)
-        }, 300)
-    }
+                if (progress < 1) {
+                    requestAnimationFrame(animate)
+                } else {
+                    // Remove ripple after animation completes
+                    setTimeout(() => {
+                        setRipples((prev) => prev.filter((ripple) => ripple.id !== newRipple.id))
+                    }, 50)
+                }
+            }
+
+            requestAnimationFrame(animate)
+
+            // Call the original callback
+            try {
+                onClickCallback(e)
+            } catch (error) {
+                console.error('Error in button click callback:', error)
+            }
+        },
+        [disabled, mainRef, onClickCallback]
+    )
 
     return {
         mainRef,
         castedRefObject,
         onClick,
-        classRef,
-        rippleStyle
+        ripples
     }
 }
 

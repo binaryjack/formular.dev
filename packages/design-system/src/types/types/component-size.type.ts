@@ -1,5 +1,5 @@
 /**
- * Component Size Type
+ * Component ComponentSizeType Type
  *
  * Unified size type for all design system components.
  * Supports the complete range from extra small to extra large.

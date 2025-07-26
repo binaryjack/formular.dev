@@ -147,7 +147,7 @@ Please follow these rules for all code contributions and code generation in this
 - Use named exports exclusively (avoid default exports in library code)
 - Minimize re-exports when possible
 
-### Bundle Size Monitoring
+### Bundle ComponentSizeType Monitoring
 - Regularly audit bundle sizes for the `lib` package
 - Use tools like `webpack-bundle-analyzer` or Vite's built-in analysis
 - Consider the impact of new dependencies on bundle size

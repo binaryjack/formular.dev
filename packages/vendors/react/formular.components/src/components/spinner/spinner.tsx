@@ -1,9 +1,9 @@
-import type { ColorVariant, Size } from 'formular.design.system'
+import type { ComponentSizeType, ComponentVariantType } from 'formular.design.system'
 import { colorUtils, cx } from 'formular.design.system'
 
 interface SpinnerProps {
-    size?: Size
-    color?: ColorVariant
+    size?: ComponentSizeType
+    color?: ComponentVariantType
     width?: number
     height?: number
     strokeWidth?: number
@@ -15,7 +15,7 @@ interface SpinnerProps {
     className?: string
 }
 
-const sizeMap: Record<Size, { width: number; height: number; strokeWidth: number }> = {
+const sizeMap: Record<ComponentSizeType, { width: number; height: number; strokeWidth: number }> = {
     '2xs': { width: 8, height: 8, strokeWidth: 1 },
     xs: { width: 12, height: 12, strokeWidth: 2 },
     sm: { width: 16, height: 16, strokeWidth: 2 },

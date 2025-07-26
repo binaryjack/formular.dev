@@ -6,29 +6,18 @@
  */
 
 export type {
-    CSSCustomProperties,
     CSSCustomPropertiesType,
-    ColorPalette,
     ColorPaletteType,
-    ColorVariant,
     ComponentSizeType,
     ComponentVariantType,
     ElementPositionType,
     OrientationType,
-    ResponsiveValue,
     ResponsiveValueType,
     ScreenOrientationType,
-    // Legacy aliases (deprecated)
-    Size,
-    SpacingSize,
-    SpacingSizeType,
-    StyleUtility,
+    SpacingSizeTypeType,
     StyleUtilityType,
     TextCaseType,
     TextWeightType,
-    ValueOf,
     ValueOfType,
-    Variant,
-    VariantNameType,
     VisualVariantType
-} from './types/index'
+} from './types/types'

@@ -1,2 +1,12 @@
+/** 
+ * React Components Demo - Main Styles
+ * 
+ * Import order:
+ * 1. Design System - includes tokens, primitives, components, utilities
+ * 2. App-specific styles for this demo
+ * 3. Legacy global styles (deprecated)
+ */
 /** Import Design System - includes Tailwind directives and component styles */
 @import '../../../../design-system/src/styles/index.css';
+/** Import app-specific styles */
+@import './style/app-specific.css';

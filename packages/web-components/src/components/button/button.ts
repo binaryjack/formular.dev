@@ -139,7 +139,7 @@ const _setupStyles = function(this: HTMLElement & IButtonInstance) {
       cursor: not-allowed;
     }
     
-    /* Size variants using design system tokens */
+    /* ComponentSizeType variants using design system tokens */
     .formular-button--sm {
       font-size: var(--font-size-xs, 0.875rem);
       padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 0.75rem);

@@ -1,4 +1,4 @@
-import { ComponentSizeType, VariantNameType } from 'formular.design.system'
+import { ComponentSizeType, ComponentVariantType } from 'formular.design.system'
 
 export interface ISpinnerVariantProperties {
     width: number
@@ -53,8 +53,8 @@ export const spinnerStrokeSizeConverter = (size: ComponentSizeType) => {
 }
 
 // Simple color mapping for spinner variants (replaces legacy colorsCorrecpondance)
-const getSpinnerColors = (variant: VariantNameType) => {
-    const colorMap: Record<VariantNameType, { bg: string; fg: string }> = {
+const getSpinnerColors = (variant: ComponentVariantType) => {
+    const colorMap: Record<ComponentVariantType, { bg: string; fg: string }> = {
         primary: { bg: '#3b82f6', fg: '#ffffff' },
         secondary: { bg: '#6b7280', fg: '#f3f4f6' },
         success: { bg: '#10b981', fg: '#ffffff' },
@@ -66,7 +66,10 @@ const getSpinnerColors = (variant: VariantNameType) => {
     return colorMap[variant]
 }
 
-export const getSpinnerVariant = (variantSize: ComponentSizeType, variantName: VariantNameType) => {
+export const getSpinnerVariant = (
+    variantSize: ComponentSizeType,
+    variantName: ComponentVariantType
+) => {
     const color = getSpinnerColors(variantName)
     return {
         width: spinnerSizeConverter(variantSize),
