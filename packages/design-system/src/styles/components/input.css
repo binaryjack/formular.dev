@@ -1,0 +1,64 @@
+/**
+ * Input Component Styles
+ * 
+ * Input variants built using primitive styles.
+ */
+@layer components {
+
+    /* ===============================================
+       INPUT COMPONENT VARIANTS
+       =============================================== */
+    /* Input Base - extends primitive-input */
+    .input {
+        @apply primitive-input primitive-transition;
+    }
+
+    /* Input Sizes - extends primitive-input sizes */
+    .input-xs {
+        @apply primitive-input-xs;
+    }
+
+    .input-sm {
+        @apply primitive-input-sm;
+    }
+
+    .input-md {
+        @apply primitive-input-md;
+    }
+
+    .input-lg {
+        @apply primitive-input-lg;
+    }
+
+    .input-xl {
+        @apply primitive-input-xl;
+    }
+
+    /* Input States */
+    .input-error {
+        border-color: var(--color-danger-500);
+    }
+
+    .input-error:focus {
+        border-color: var(--color-danger-500);
+        box-shadow: 0 0 0 3px var(--color-danger-500)/20;
+    }
+
+    .input-success {
+        border-color: var(--color-success-500);
+    }
+
+    .input-success:focus {
+        border-color: var(--color-success-500);
+        box-shadow: 0 0 0 3px var(--color-success-500)/20;
+    }
+
+    .input-warning {
+        border-color: var(--color-warning-500);
+    }
+
+    .input-warning:focus {
+        border-color: var(--color-warning-500);
+        box-shadow: 0 0 0 3px var(--color-warning-500)/20;
+    }
+}

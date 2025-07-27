@@ -1,0 +1,37 @@
+/**
+ * Field Component Styles
+ * 
+ * Field variants built using primitive styles.
+ */
+@layer components {
+
+    /* ===============================================
+       FIELD COMPONENT VARIANTS
+       =============================================== */
+    /* Field Container - extends primitive-field */
+    .field {
+        @apply primitive-field;
+    }
+
+    .field-label {
+        @apply primitive-field-label;
+    }
+
+    .field-label-required {
+        @apply primitive-field-label-required;
+    }
+
+    .field-help {
+        @apply primitive-field-help;
+    }
+
+    .field-error {
+        @apply primitive-field-help;
+        color: var(--color-danger-500);
+    }
+
+    .field-success {
+        @apply primitive-field-help;
+        color: var(--color-success-500);
+    }
+}

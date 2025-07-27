@@ -1,0 +1,121 @@
+/**
+ * Switch Component Styles
+ * 
+ * Switch variants built using primitive styles.
+ */
+@layer components {
+
+    /* ===============================================
+       SWITCH COMPONENT VARIANTS
+       =============================================== */
+    /* Switch Base */
+    .switch {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    .switch-track {
+        position: relative;
+        width: 48px;
+        height: 24px;
+        border-radius: var(--radius-full);
+        transition: all var(--duration-normal) var(--ease-in-out);
+        background-color: var(--color-neutral-300);
+    }
+
+    .switch-thumb {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-surface-elevated);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--duration-normal) var(--ease-in-out);
+        transform: translateX(0);
+    }
+
+    .switch[data-checked="true"] .switch-track {
+        background-color: var(--color-primary-500);
+    }
+
+    .switch[data-checked="true"] .switch-thumb {
+        transform: translateX(24px);
+    }
+
+    .switch:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    /* Switch Sizes */
+    .switch-xs .switch-track {
+        width: 32px;
+        height: 16px;
+    }
+
+    .switch-xs .switch-thumb {
+        width: 12px;
+        height: 12px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-xs[data-checked="true"] .switch-thumb {
+        transform: translateX(16px);
+    }
+
+    .switch-sm .switch-track {
+        width: 40px;
+        height: 20px;
+    }
+
+    .switch-sm .switch-thumb {
+        width: 16px;
+        height: 16px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-sm[data-checked="true"] .switch-thumb {
+        transform: translateX(20px);
+    }
+
+    .switch-lg .switch-track {
+        width: 56px;
+        height: 28px;
+    }
+
+    .switch-lg .switch-thumb {
+        width: 24px;
+        height: 24px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-lg[data-checked="true"] .switch-thumb {
+        transform: translateX(28px);
+    }
+
+    /* Switch Color Variants */
+    .switch-success[data-checked="true"] .switch-track {
+        background-color: var(--color-success-500);
+    }
+
+    .switch-warning[data-checked="true"] .switch-track {
+        background-color: var(--color-warning-500);
+    }
+
+    .switch-danger[data-checked="true"] .switch-track {
+        background-color: var(--color-danger-500);
+    }
+
+    .switch-info[data-checked="true"] .switch-track {
+        background-color: var(--color-info-500);
+    }
+}

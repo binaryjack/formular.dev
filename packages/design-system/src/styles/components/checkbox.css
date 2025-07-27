@@ -1,0 +1,53 @@
+/**
+ * Checkbox Component Styles
+ * 
+ * Checkbox variants built using primitive styles.
+ */
+@layer components {
+
+    /* ===============================================
+       CHECKBOX COMPONENT VARIANTS
+       =============================================== */
+    .checkbox {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--color-border-primary);
+        border-radius: var(--radius-sm);
+        background-color: var(--color-surface-elevated);
+        cursor: pointer;
+        transition: all var(--duration-fast) var(--ease-in-out);
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    .checkbox:checked {
+        background-color: var(--color-primary-500);
+        border-color: var(--color-primary-500);
+    }
+
+    .checkbox:checked::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 6px;
+        width: 4px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    .checkbox:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--color-primary-500)/20;
+    }
+
+    .checkbox:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}

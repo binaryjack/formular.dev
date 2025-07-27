@@ -1,0 +1,32 @@
+/**
+ * Validation Component Styles
+ * 
+ * Validation message variants built using primitive styles.
+ */
+@layer components {
+
+    /* ===============================================
+       VALIDATION COMPONENT VARIANTS
+       =============================================== */
+    .validation-message {
+        @apply primitive-text-2xs;
+        margin-top: var(--spacing-xs);
+        line-height: var(--line-height-tight);
+    }
+
+    .validation-message-error {
+        color: var(--color-danger-500);
+    }
+
+    .validation-message-success {
+        color: var(--color-success-500);
+    }
+
+    .validation-message-warning {
+        color: var(--color-warning-500);
+    }
+
+    .validation-message-info {
+        color: var(--color-info-500);
+    }
+}

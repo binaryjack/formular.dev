@@ -10,18 +10,18 @@
 // Design tokens
 export * from './tokens'
 
-// Component types
-export * from './components'
-
 // Utilities and style helpers
 export * from './utilities'
 
+// Note: Component implementations are in framework-specific packages (react, vue, etc.)
+// This package only provides CSS styles and design tokens
+
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
+    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
     ComponentVariantType,
-    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,

@@ -1,8 +1,10 @@
 /**
  * Design System Components
  *
- * Main export file for all components
+ * The design-system package contains only CSS styles and design tokens.
+ * React components should be placed in the vendors/react package.
+ * This index file is kept for potential future use.
  */
 
-export * from './button'
-export * from './input'
+// No components exported from design-system package
+// Components are provided by framework-specific packages (react, vue, etc.)

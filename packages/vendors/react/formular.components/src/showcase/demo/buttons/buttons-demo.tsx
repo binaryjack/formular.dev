@@ -1,5 +1,5 @@
 import { Button } from '@components/button/button'
-import { ToggleButton } from '@components/toggle-button/toggle-button'
+import { SwitchButton } from '@components/switch-button/switch-button'
 import { ComponentSizeType, ComponentVariantType } from 'formular.design.system'
 import { useState } from 'react'
 
@@ -39,7 +39,6 @@ export const ButtonsDemo = () => {
 
     return (
         <div className={`p-6 flex flex-1 flex-row w-full h-full bg-slate-50 gap-6`}>
-            {/* Controls Panel */}
             <div
                 className={`flex flex-col w-1/3 h-full bg-white rounded-lg shadow-sm p-6 space-y-6`}
             >
@@ -123,18 +122,13 @@ export const ButtonsDemo = () => {
                         >
                             Disabled
                         </label>
-                        <ToggleButton
-                            id="disabled-toggle"
-                            name={`Toggle disabled state - currently ${isDisabled ? 'enabled' : 'disabled'}`}
-                            toggle={isDisabled}
-                            onToggle={(id, newState) => setIsDisabled(newState)}
-                            size="sm"
-                            variant="primary"
-                            width="44px"
-                            height="24px"
-                        >
-                            <span className="sr-only">Toggle disabled state</span>
-                        </ToggleButton>
+
+                        <SwitchButton
+                            fieldName={'toggle-2xs'}
+                            options={{ orientation: 'horizontal', size: '2xs' }}
+                            onToggle={(value) => setIsDisabled(value)}
+                            isToggle={isDisabled}
+                        />
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -144,18 +138,13 @@ export const ButtonsDemo = () => {
                         >
                             Loading
                         </label>
-                        <ToggleButton
-                            id="loading-toggle"
-                            name={`Toggle loading state - currently ${isLoading ? 'loading' : 'not loading'}`}
-                            toggle={isLoading}
-                            onToggle={(id, newState) => setIsLoading(newState)}
-                            size="sm"
-                            variant="primary"
-                            width="44px"
-                            height="24px"
-                        >
-                            <span className="sr-only">Toggle loading state</span>
-                        </ToggleButton>
+
+                        <SwitchButton
+                            fieldName={'toggle-2xs'}
+                            options={{ orientation: 'horizontal', size: '2xs' }}
+                            onToggle={(value) => setIsLoading(value)}
+                            isToggle={isLoading}
+                        />
                     </div>
 
                     <div className="flex items-center justify-between">
@@ -165,18 +154,13 @@ export const ButtonsDemo = () => {
                         >
                             Rounded
                         </label>
-                        <ToggleButton
-                            id="rounded-toggle"
-                            name={`Toggle rounded corners - currently ${isRounded ? 'rounded' : 'square'}`}
-                            toggle={isRounded}
-                            onToggle={(id, newState) => setIsRounded(newState)}
-                            size="sm"
-                            variant="primary"
-                            width="44px"
-                            height="24px"
-                        >
-                            <span className="sr-only">Toggle rounded corners</span>
-                        </ToggleButton>
+
+                        <SwitchButton
+                            fieldName={'toggle-2xs'}
+                            options={{ orientation: 'horizontal', size: '2xs' }}
+                            onToggle={(value) => setIsRounded(value)}
+                            isToggle={isRounded}
+                        />
                     </div>
                 </div>
 

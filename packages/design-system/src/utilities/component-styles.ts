@@ -99,6 +99,13 @@ export const generateValidationStyles = (
 }
 
 /**
+ * Generate button ripple style classes
+ */
+export const generateButtonRippleStyles = (color: ComponentVariantType = 'primary'): string => {
+    return `btn-ripple-${color}`
+}
+
+/**
  * Generate card style classes
  */
 export const generateCardStyles = (

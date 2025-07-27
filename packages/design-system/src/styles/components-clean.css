@@ -489,6 +489,120 @@
         opacity: 0.5;
     }
 
+    /* Switch Sizes */
+    .switch-2xs .switch-track {
+        width: 28px;
+        height: 14px;
+    }
+
+    .switch-2xs .switch-thumb {
+        width: 10px;
+        height: 10px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-2xs[data-checked="true"] .switch-thumb {
+        transform: translateX(14px);
+    }
+
+    .switch-xs .switch-track {
+        width: 32px;
+        height: 16px;
+    }
+
+    .switch-xs .switch-thumb {
+        width: 12px;
+        height: 12px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-xs[data-checked="true"] .switch-thumb {
+        transform: translateX(16px);
+    }
+
+    .switch-sm .switch-track {
+        width: 40px;
+        height: 20px;
+    }
+
+    .switch-sm .switch-thumb {
+        width: 16px;
+        height: 16px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-sm[data-checked="true"] .switch-thumb {
+        transform: translateX(20px);
+    }
+
+    .switch-lg .switch-track {
+        width: 56px;
+        height: 28px;
+    }
+
+    .switch-lg .switch-thumb {
+        width: 24px;
+        height: 24px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-lg[data-checked="true"] .switch-thumb {
+        transform: translateX(28px);
+    }
+
+    .switch-xl .switch-track {
+        width: 64px;
+        height: 32px;
+    }
+
+    .switch-xl .switch-thumb {
+        width: 28px;
+        height: 28px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-xl[data-checked="true"] .switch-thumb {
+        transform: translateX(32px);
+    }
+
+    .switch-2xl .switch-track {
+        width: 72px;
+        height: 36px;
+    }
+
+    .switch-2xl .switch-thumb {
+        width: 32px;
+        height: 32px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .switch-2xl[data-checked="true"] .switch-thumb {
+        transform: translateX(36px);
+    }
+
+    /* Switch Color Variants */
+    .switch-success[data-checked="true"] .switch-track {
+        background-color: var(--color-success-500);
+    }
+
+    .switch-warning[data-checked="true"] .switch-track {
+        background-color: var(--color-warning-500);
+    }
+
+    .switch-danger[data-checked="true"] .switch-track {
+        background-color: var(--color-danger-500);
+    }
+
+    .switch-info[data-checked="true"] .switch-track {
+        background-color: var(--color-info-500);
+    }
+
     /* ===============================================
        TOGGLE BUTTON COMPONENT VARIANTS
        =============================================== */

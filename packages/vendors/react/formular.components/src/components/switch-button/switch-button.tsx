@@ -29,16 +29,21 @@ export const SwitchButton = ({
         setIsOn(isToggle)
     }, [isToggle])
 
-    const switchClasses = [
-        'switch-button',
-        `switch-${orientation}`,
-        `switch-button-${size}`,
-        `switch-button-${variant}`,
-        isOn ? 'switch-on' : 'switch-off'
-    ].join(' ')
+    // Map size values to match design system CSS classes
+    // All sizes now supported: 2xs, xs, sm, md (default), lg, xl, 2xl
+    const getSizeClass = (size: string = 'md') => {
+        return size // All sizes are now available in the design system
+    }
 
-    const switchTrackClasses = ['switch-button-track', isOn ? 'switch-on' : 'switch-off'].join(' ')
-    const switchTrackThumb = ['switch-button-thumb', isOn ? 'switch-on' : 'switch-off'].join(' ')
+    const sizeClass = getSizeClass(size)
+
+    const switchClasses = [
+        'switch',
+        sizeClass !== 'md' ? `switch-${sizeClass}` : '', // md is default, no class needed
+        variant !== 'primary' ? `switch-${variant}` : '' // primary is default
+    ]
+        .filter(Boolean)
+        .join(' ')
 
     return (
         <div
@@ -48,9 +53,10 @@ export const SwitchButton = ({
             onClick={handleToggle}
             role="switch"
             aria-checked={isOn}
+            data-checked={isOn}
         >
-            <div className={switchTrackClasses}>
-                <div className={switchTrackThumb} />
+            <div className="switch-track">
+                <div className="switch-thumb" />
             </div>
         </div>
     )

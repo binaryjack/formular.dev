@@ -1,0 +1,58 @@
+/**
+ * Layout Component Styles
+ * 
+ * Layout components for organizing content structure.
+ */
+@layer components {
+
+    /* ===============================================
+       LAYOUT COMPONENT VARIANTS
+       =============================================== */
+    .stack {
+        @apply primitive-stack;
+    }
+
+    .stack-xs {
+        @apply primitive-stack-xs;
+    }
+
+    .stack-sm {
+        @apply primitive-stack-sm;
+    }
+
+    .stack-md {
+        @apply primitive-stack-md;
+    }
+
+    .stack-lg {
+        @apply primitive-stack-lg;
+    }
+
+    .stack-xl {
+        @apply primitive-stack-xl;
+    }
+
+    .inline {
+        @apply primitive-inline;
+    }
+
+    .inline-xs {
+        @apply primitive-inline-xs;
+    }
+
+    .inline-sm {
+        @apply primitive-inline-sm;
+    }
+
+    .inline-md {
+        @apply primitive-inline-md;
+    }
+
+    .inline-lg {
+        @apply primitive-inline-lg;
+    }
+
+    .inline-xl {
+        @apply primitive-inline-xl;
+    }
+}

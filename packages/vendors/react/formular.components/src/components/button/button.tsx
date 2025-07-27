@@ -101,6 +101,19 @@ export const Button = ({
         onClick(e)
     }
 
+    const rippleColor =
+        variant === 'primary'
+            ? 'rgba(255, 255, 255, 0.8)'
+            : variant === 'secondary'
+              ? 'rgba(255, 255, 255, 0.6)'
+              : variant === 'danger'
+                ? 'rgba(255, 255, 255, 0.8)'
+                : variant === 'success'
+                  ? 'rgba(255, 255, 255, 0.8)'
+                  : variant === 'warning'
+                    ? 'rgba(0, 0, 0, 0.6)'
+                    : 'rgba(255, 255, 255, 0.8)' // info and default
+
     return (
         <button
             tabIndex={tabindex}
@@ -124,26 +137,15 @@ export const Button = ({
             {ripples.map((ripple) => (
                 <span
                     key={ripple.id}
-                    className={`absolute`}
                     style={{
                         ...ripple.style,
+                        position: 'absolute',
                         pointerEvents: 'none',
                         zIndex: 0,
                         borderRadius: '50%',
                         transform: `scale(${ripple.scale})`,
                         opacity: ripple.opacity,
-                        backgroundColor:
-                            variant === 'primary'
-                                ? 'rgba(255, 255, 255, 0.8)'
-                                : variant === 'secondary'
-                                  ? 'rgba(255, 255, 255, 0.6)'
-                                  : variant === 'danger'
-                                    ? 'rgba(255, 255, 255, 0.8)'
-                                    : variant === 'success'
-                                      ? 'rgba(255, 255, 255, 0.8)'
-                                      : variant === 'warning'
-                                        ? 'rgba(0, 0, 0, 0.6)'
-                                        : 'rgba(255, 255, 255, 0.8)' // info and default
+                        background: rippleColor
                     }}
                 />
             ))}

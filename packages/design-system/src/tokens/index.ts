@@ -31,7 +31,7 @@ export {
 export {
     colors,
     type ColorName,
-    type ColorPalette,
+    type ColorPaletteType,
     type ColorShade,
     type SemanticVariant
 } from './colors'
