@@ -13,7 +13,7 @@ import { ToggleBuilder } from './builders-preset/toggle-builder'
 import { CheckBuilder } from './builders-preset/true-false-value-builder'
 import { UserIdBuilder } from './builders-preset/user-name-builder'
 
-const fieldSchemeFactory = new FieldSchemaFactory()
+const fieldSchemeFactory = new FieldSchemaFactory('name')
 
 fieldSchemeFactory.addBuilders(
     IdBuilder,

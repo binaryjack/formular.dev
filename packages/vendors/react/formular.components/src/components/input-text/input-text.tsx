@@ -90,7 +90,8 @@ const InputText = ({ fieldName }: IInputTextProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, InputText.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, InputText.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, InputText.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

@@ -33,12 +33,17 @@ export const PortalSlot = ({
     css,
     className,
     styles
-}: IPortalSlotProps) => (
-    <div
-        ref={drawerContainerRef}
-        id={`${id}-${slotName}-container`}
-        css={css}
-        className={className}
-        style={styles}
-    />
-)
+}: IPortalSlotProps) => {
+    const targetId = `${id}-${slotName}-container`
+    console.log('PortalSlot render:', { id, slotName, targetId })
+
+    return (
+        <div
+            ref={drawerContainerRef}
+            id={targetId}
+            css={css}
+            className={className}
+            style={styles}
+        />
+    )
+}

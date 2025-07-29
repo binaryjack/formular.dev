@@ -34,6 +34,9 @@ const SelectDrawerContent = ({
 
     const { drawerHeight, drawerWidth, toggleState, setOpenState } = useDrawerContext()
 
+    // Debug logging
+    console.log('SelectDrawerContent - toggleState:', toggleState, 'itemsCount:', items.length)
+
     const handleSelectItem = (
         e: React.MouseEvent<HTMLDivElement, MouseEvent>,
         item: IOptionItem

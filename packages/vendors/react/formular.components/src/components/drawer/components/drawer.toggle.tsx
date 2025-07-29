@@ -8,5 +8,7 @@ interface DrawerToggleProps {
     // Define your props here
 }
 
-export const DrawerToggle = ({ id, conditionnalShow = true }: DrawerToggleProps) =>
-    conditionnalShow ? <PortalSlot id={id} slotName={`toggle-drawer`} /> : <></>
+export const DrawerToggle = ({ id, conditionnalShow = true }: DrawerToggleProps) => {
+    console.log('DrawerToggle render:', { id, conditionnalShow })
+    return conditionnalShow ? <PortalSlot id={id} slotName={`toggle-drawer`} /> : <></>
+}

@@ -1,7 +1,7 @@
 import { logManager } from '@core/managers/log-manager/log-manager'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldSchemaBuilder } from '../../field-schema/field-schema-types'
-import { IOptionItem } from '../../options-schema/options.scheme.types'
+import { IOptionItem } from '../../option-schema/options.scheme.types'
 import { IFieldSchemeFactory } from '../field-schema-factory.types'
 
 /**

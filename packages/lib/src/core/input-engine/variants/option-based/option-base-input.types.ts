@@ -1,4 +1,4 @@
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { IExtendedInputBase, IInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IClickBaseInput } from '../click-base/click-base-input.types'
 

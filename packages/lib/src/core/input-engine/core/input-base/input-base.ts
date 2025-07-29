@@ -92,10 +92,13 @@ export const InputBase = function (
 
     // Helper to notify changes
     const notifyChange = (eventType: 'onValidate' | 'onUiUpdate') => {
-        this.notificationManager?.debounceNotify(
+        if (!this.isInitialized || this.notificationManager?.debounceNotify === undefined) {
+            return
+        }
+        this.notificationManager?.debounceNotify?.(
             eventType,
             this.inputDelay,
-            newEvent(
+            newEvent?.(
                 this.name,
                 setInputBusy.name,
                 eventType,

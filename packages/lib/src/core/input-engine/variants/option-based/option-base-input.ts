@@ -1,4 +1,4 @@
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { IOptionBaseInput } from './option-base-input.types'
 import { checkOptionsInitialized } from './prototype/check-options-initialized'
 import { getOptionById } from './prototype/get-option-by-id'

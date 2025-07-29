@@ -1,4 +1,4 @@
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { IExtendedInput, IInputBase } from '../input-base/input-base.types'
 
 export const referencer = function (context: IInputBase, ref: HTMLInputElement | null) {

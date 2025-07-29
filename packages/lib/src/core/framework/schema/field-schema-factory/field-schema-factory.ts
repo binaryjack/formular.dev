@@ -1,5 +1,6 @@
 import { IFieldSchemeFactory } from './field-schema-factory.types'
 import { addBuilders } from './prototype/add-builders'
+import { build } from './prototype/build'
 import { create } from './prototype/create'
 
 /**
@@ -9,11 +10,13 @@ import { create } from './prototype/create'
  *   - Register builders using addBuilders.
  *   - Create field schemas using the create method.
  */
-export const FieldSchemaFactory = function (this: IFieldSchemeFactory) {
+export const FieldSchemaFactory = function (this: IFieldSchemeFactory, name: string) {
+    this.name = name
     this.builders = []
 } as any as IFieldSchemeFactory
 
 Object.assign(FieldSchemaFactory.prototype, {
     addBuilders,
-    create
+    create,
+    build
 })

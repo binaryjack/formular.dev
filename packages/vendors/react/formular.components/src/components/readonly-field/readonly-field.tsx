@@ -15,7 +15,8 @@ export const ReadOnlyField = ({ fieldName }: IReadOnlyFieldProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, ReadOnlyField.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, ReadOnlyField.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, ReadOnlyField.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

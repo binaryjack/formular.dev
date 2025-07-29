@@ -109,7 +109,8 @@ const RadioInput = ({ fieldName }: IRadioInputProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RadioInput.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, RadioInput.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, RadioInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

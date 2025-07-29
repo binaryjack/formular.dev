@@ -1,4 +1,4 @@
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { DateObject } from '@core/framework/types/date/date-object.object'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IValueManager, OutputPurposeType } from '../value-manager.types'

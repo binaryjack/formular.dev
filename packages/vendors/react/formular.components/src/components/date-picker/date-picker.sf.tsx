@@ -94,7 +94,8 @@ export const DatePickerSF = ({
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, DatePickerSF.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, DatePickerSF.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, DatePickerSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

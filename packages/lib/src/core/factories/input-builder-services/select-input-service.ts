@@ -48,6 +48,7 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
             const _optionInput = this.sm.lazy<IOptionBaseInput>(SOptionBaseInput)?.()
             const _selectInput = this.sm.lazy<ISelectBaseInput>(SSelectBaseInput)?.()
 
+            _optionInput.options = descriptor.options
             _clickInput.input = _baseInput
             _optionInput.input = _baseInput
             _selectInput.input = _baseInput

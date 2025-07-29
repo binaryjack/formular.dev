@@ -5,7 +5,7 @@ import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IFieldGuide } from '@core/framework/models/errors/i-field-guide'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { INDate } from '../../types/date/i-n-date'
-import { IOptionItem } from '../options-schema/options.scheme.types'
+import { IOptionItem } from '../option-schema/options.scheme.types'
 
 export const SFieldDescriptor = Symbol.for('IFieldDescriptor')
 

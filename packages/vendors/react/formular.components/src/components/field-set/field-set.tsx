@@ -18,7 +18,9 @@ import { MdClose } from 'react-icons/md'
  */
 interface IFieldSetProps<TType> {
     /** Unique identifier for the input field */
-    inputId: string
+    id: number
+    /** Unique identifier for the input field, used for accessibility */
+    name: string
     /** Optional label text for the field */
     label?: string
     /** The type of input field (text, password, select, etc.) */
@@ -139,7 +141,8 @@ interface IFieldSetProps<TType> {
  * - All visual feedback is driven by the flags prop from the field state
  */
 const FieldSet = <TType,>({
-    inputId,
+    id,
+    name,
     label,
     type,
     isPasswordVisible,
@@ -172,127 +175,130 @@ const FieldSet = <TType,>({
     console.log('FieldSet rendered with flags:', flags)
 
     return (
-        <fieldset
-            ref={elementRef}
-            id={`${inputId}-fieldset`}
-            className={cx(
-                'border rounded p-3',
-                flags.valid ? 'border-success-600' : 'border-error-600',
-                className
-            )}
-            data-type={type}
-            data-testid={`test-${inputId}`}
-            onClick={onClick}
-        >
-            <div className={cx('relative flex w-full h-full', 'flex-col lg:flex-row')}>
-                <div className={cx('flex items-center justify-start lg:w-[10em]')}>
-                    <label
-                        /**
-                         * ARIA Notice:
-                         * For label ID is important to keep it as it is because we do use
-                         * the ID of the input suffixed with labelIdSuffix so it matches
-                         * ARIA Labelledby whitin FieldInput setup method
-                         * @see FieldInput
-                         * @see labelIdSuffix
-                         * */
-                        id={`${inputId}${safeLabelIdSuffix}`}
-                        htmlFor={inputId}
-                        className={cx(
-                            'inline-block mr-2',
-                            flags.valid ? 'text-secondary-700' : 'text-error-600 text-ellipsis'
-                        )}
-                    >
-                        {label}
-                        {flags.busy ? (
-                            <span className={cx('inline-block ml-2')}>
-                                <div
-                                    className={cx(
-                                        'animate-spin w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full'
-                                    )}
-                                ></div>
-                            </span>
-                        ) : (
-                            ''
-                        )}
-                    </label>
-                </div>
-                <div className={cx('flex flex-row w-full')}>
-                    <div className={cx('flex flex-col mr-2 w-full')}>
-                        <DrawerSlot
-                            id={inputId}
-                            slotName={'drawer-slot'}
-                            opensToThe="bottom"
-                            conditionalShow={!!itemsChildren}
-                        />
-                        {/** drawer depends always on a DrawerSlot which is the place where it will be rendered
-                         * it uses portal concept
-                         *
-                         * In order to decide from which origin it appears I use an association of hooks and contexts
-                         * useMedia
-                         */}
-                        <Drawer
-                            id={`${inputId}`}
-                            position={toggle}
-                            width={itemsDrawerWidth}
-                            height={itemsDrawerHeight}
+        <>
+            {/** Debugging information for development purposes */}
+            <fieldset
+                ref={elementRef}
+                id={`${id}-fieldset`}
+                className={cx(
+                    'border rounded p-3',
+                    flags.valid ? 'border-success-600' : 'border-error-600',
+                    className
+                )}
+                data-type={type}
+                data-testid={`test-${id}`}
+                onClick={onClick}
+            >
+                <div className={cx('relative flex w-full h-full', 'flex-col lg:flex-row')}>
+                    <div className={cx('flex items-center justify-start lg:w-[10em]')}>
+                        <label
+                            /**
+                             * ARIA Notice:
+                             * For label ID is important to keep it as it is because we do use
+                             * the ID of the input suffixed with labelIdSuffix so it matches
+                             * ARIA Labelledby whitin FieldInput setup method
+                             * @see FieldInput
+                             * @see labelIdSuffix
+                             * */
+                            id={`${id}${safeLabelIdSuffix}`}
+                            htmlFor={`${id}`}
+                            className={cx(
+                                'inline-block mr-2',
+                                flags.valid ? 'text-secondary-700' : 'text-error-600 text-ellipsis'
+                            )}
                         >
-                            <> {itemsChildren}</>
-                        </Drawer>
-                        {children}
-                        <DrawerSlot
-                            id={inputId}
-                            slotName={'drawer-slot'}
-                            opensToThe="top"
-                            conditionalShow={!!itemsChildren}
-                        />
+                            {label}
+                            {flags.busy ? (
+                                <span className={cx('inline-block ml-2')}>
+                                    <div
+                                        className={cx(
+                                            'animate-spin w-4 h-4 border-2 border-primary-600 border-t-transparent rounded-full'
+                                        )}
+                                    ></div>
+                                </span>
+                            ) : (
+                                ''
+                            )}
+                        </label>
                     </div>
-
-                    <div className={cx('flex flex-row')}>
-                        {onClear && (
-                            <Button
-                                id={`${inputId}-clear-field-btn`}
-                                title={'Clear'}
-                                variantProperties={basicConfig}
-                                onClickCallback={() => onClear?.()}
+                    <div className={cx('flex flex-row w-full')}>
+                        <div className={cx('flex flex-col mr-2 w-full')}>
+                            <DrawerSlot
+                                id={`${id}`}
+                                slotName={'drawer-slot'}
+                                opensToThe="bottom"
+                                conditionalShow={!!itemsChildren}
+                            />
+                            {/** drawer depends always on a DrawerSlot which is the place where it will be rendered
+                             * it uses portal concept
+                             *
+                             * In order to decide from which origin it appears I use an association of hooks and contexts
+                             * useMedia
+                             */}
+                            <Drawer
+                                id={`${id}-drawer`}
+                                position={toggle}
+                                width={itemsDrawerWidth}
+                                height={itemsDrawerHeight}
                             >
-                                {<MdClose />}
-                            </Button>
-                        )}
-                        <DrawerToggle id={inputId} conditionnalShow={!!itemsChildren} />
-                        <PasswordToggle id={inputId} conditionnalShow={type === 'password'} />
+                                <> {itemsChildren}</>
+                            </Drawer>
+                            {children}
+                            <DrawerSlot
+                                id={`${id}`}
+                                slotName={'drawer-slot'}
+                                opensToThe="top"
+                                conditionalShow={!!itemsChildren}
+                            />
+                        </div>
+
+                        <div className={cx('flex flex-row')}>
+                            {onClear && (
+                                <Button
+                                    id={`${id}-clear-field-btn`}
+                                    title={'Clear'}
+                                    variantProperties={basicConfig}
+                                    onClickCallback={() => onClear?.()}
+                                >
+                                    {<MdClose />}
+                                </Button>
+                            )}
+                            <DrawerToggle id={`${id}-drawer`} conditionnalShow={!!itemsChildren} />
+                            <PasswordToggle id={`${id}`} conditionnalShow={type === 'password'} />
+                        </div>
                     </div>
+
+                    {hasFocusIndicator && (
+                        <div
+                            className={cx(
+                                'focus-indicator absolute bottom-0 left-0 right-0 h-0.5 ',
+                                flags.focus ? 'bg-primary-600' : 'bg-transparent'
+                            )}
+                        />
+                    )}
+                    {flags.required && (
+                        <div
+                            className={cx(
+                                'required-flag absolute top-0 right-0 w-2 h-2 bg-error-600 rounded-full'
+                            )}
+                        />
+                    )}
                 </div>
 
-                {hasFocusIndicator && (
-                    <div
-                        className={cx(
-                            'focus-indicator absolute bottom-0 left-0 right-0 h-0.5 ',
-                            flags.focus ? 'bg-primary-600' : 'bg-transparent'
-                        )}
-                    />
-                )}
-                {flags.required && (
-                    <div
-                        className={cx(
-                            'required-flag absolute top-0 right-0 w-2 h-2 bg-error-600 rounded-full'
-                        )}
-                    />
-                )}
-            </div>
-
-            {validationChildren && (
-                <div className={cx('validations-flag relative flex flex-col mt-1 ')}>
-                    <div className={cx(flags.focus ? 'text-success-600' : 'text-error-600')}>
-                        {validationChildren}
+                {validationChildren && (
+                    <div className={cx('validations-flag relative flex flex-col mt-1 ')}>
+                        <div className={cx(flags.focus ? 'text-success-600' : 'text-error-600')}>
+                            {validationChildren}
+                        </div>
                     </div>
-                </div>
-            )}
-            <CenterElementDebug
-                centerScreen={scrollPosition.centerScreen}
-                parentHeight={elementPositionRefs.height}
-                screenTop={scrollPosition.screenTop}
-            />
-        </fieldset>
+                )}
+                <CenterElementDebug
+                    centerScreen={scrollPosition.centerScreen}
+                    parentHeight={elementPositionRefs.height}
+                    screenTop={scrollPosition.screenTop}
+                />
+            </fieldset>
+        </>
     )
 }
 

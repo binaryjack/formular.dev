@@ -1,4 +1,4 @@
-import { IOptionItem } from '../../options-schema/options.scheme.types'
+import { IOptionItem } from '../../option-schema/options.scheme.types'
 import { IFieldSchemaBuilder } from '../field-schema-types'
 
 export function setOptionData(this: IFieldSchemaBuilder, target: string, options: IOptionItem[]) {

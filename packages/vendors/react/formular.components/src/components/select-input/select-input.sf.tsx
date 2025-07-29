@@ -40,9 +40,20 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
         return instance?.input?.defaultValue
     }, [instance?.input?.value, instance?.input?.defaultValue])
 
+    console.log('SelectSF render - field data:', {
+        fieldName,
+        instance: instance?.input?.name,
+        optionsLength: instance?.optionBase?.options?.length,
+        options: instance?.optionBase?.options,
+        selectedOptionId: instance?.optionBase?.selectedOptionId,
+        fieldType: instance?.input?.type,
+        flags
+    })
+
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, SelectSF.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, SelectSF.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, SelectSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}
@@ -59,7 +70,7 @@ export const SelectSF = ({ fieldName }: ISelectProps) => {
                         (instance as unknown as ISelectBaseInput)?.onSelectItem(value)
                     }
                     selectedItemSequenceId={instance?.optionBase?.selectedOptionId ?? null}
-                    // defaultSelectedItem={defaultValue}
+                    //   defaultSelectedItem={defaultValue}
                 />
             }
             itemsDrawerHeight="350px"

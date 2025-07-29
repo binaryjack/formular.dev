@@ -124,7 +124,8 @@ const ToggleButtonInput = ({ fieldName, children }: IToggleButtonInputProps) => 
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, ToggleButtonInput.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, ToggleButtonInput.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, ToggleButtonInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

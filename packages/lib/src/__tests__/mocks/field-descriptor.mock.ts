@@ -1,5 +1,5 @@
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import { mockOptions } from './i-options-items.mock'
+import { mockOptions } from './mock-options'
 
 export const _mockDescriptor: IFieldDescriptor = {
     id: 0,

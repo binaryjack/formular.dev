@@ -18,10 +18,10 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
-    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
     ComponentVariantType,
+    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,
@@ -37,7 +37,7 @@ export type {
 export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
 
 // Export constants
-export { DrawerBreakPointSizes } from './types/utilities'
+export { DrawerBreakPointSizes, rippleColors } from './types/utilities'
 
 // CSS imports (for bundlers that support CSS imports)
 import './styles/index.css'

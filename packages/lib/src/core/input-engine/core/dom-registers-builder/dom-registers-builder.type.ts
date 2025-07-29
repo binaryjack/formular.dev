@@ -1,5 +1,5 @@
 import { EventsType } from '@core/framework/events/events.types'
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { IAria } from '@core/managers/dom-manager/dom-manager.types'
 import { IExtendedInput } from '../input-base/input-base.types'
 

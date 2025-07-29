@@ -62,7 +62,8 @@ const RteInputField = ({ fieldName }: IRteInputFieldProps) => {
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RteInputField.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, RteInputField.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, RteInputField.name)}
             label={instance?.input?.label}
             type="richtext"
             flags={flags}

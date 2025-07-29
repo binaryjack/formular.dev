@@ -27,9 +27,11 @@ export interface IPortalProps {
 }
 
 export const Portal = ({ id, slotName, children }: IPortalProps) => {
-    const elementDiv = document?.getElementById(
-        `${id}-${slotName}-container`
-    ) as unknown as HTMLElement
+    const targetId = `${id}-${slotName}-container`
+    const elementDiv = document?.getElementById(targetId) as unknown as HTMLElement
+
+    console.log('Portal render:', { id, slotName, targetId, elementFound: !!elementDiv })
+
     if (!elementDiv) return <></>
     return createPortal(children, elementDiv)
 }

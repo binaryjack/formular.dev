@@ -68,7 +68,8 @@ export const RangeSliderSF = ({
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, RangeSliderSF.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, RangeSliderSF.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, RangeSliderSF.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

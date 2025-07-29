@@ -1,6 +1,6 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IEvents } from '@core/framework/events/events.types'
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 
 import { ICustomHandler } from '@core/input-engine/core/dom-registers-builder/dom-registers-builder.type'
 import { IExtendedInputBase } from '@core/input-engine/core/input-base/input-base.types'

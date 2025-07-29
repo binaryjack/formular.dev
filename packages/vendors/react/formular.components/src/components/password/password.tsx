@@ -136,7 +136,8 @@ const Password = ({ fieldName }: IPasswordProps) => {
 
     return (
         <FieldSet
-            inputId={fieldId}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, Password.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, Password.name)}
             label={instance?.input?.label}
             type="password"
             flags={flags}

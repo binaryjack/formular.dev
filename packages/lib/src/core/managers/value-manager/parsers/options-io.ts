@@ -1,4 +1,4 @@
-import { IOptionItem } from '@core/framework/schema/options-schema/options.scheme.types'
+import { IOptionItem } from '@core/framework/schema/option-schema/options.scheme.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { TGetter, TSetter } from '../value-manager.types'
 
@@ -13,7 +13,11 @@ export const optionGetter: TGetter<IOptionItem | null> = (
         field.input.message(
             'info',
             'IFieldInput.setValue',
-            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id ${field.optionBase.selectedOptionId} or Value: ${field.input.value as string}`
+            `Unable to find the option for this field:  type: ${field.input.type}, name: ${
+                field.input.name
+            } option Id ${field.optionBase.selectedOptionId} or Value: ${
+                field.input.value as string
+            }`
         )
         return null
     }
@@ -38,7 +42,9 @@ export const optionSetter: TSetter<IOptionItem | null> = (
         field.input.message(
             'info',
             'IFieldInput.setValue',
-            `Unable to find the option for this field:  type: ${field.input.type}, name: ${field.input.name} option Id or Value: ${value as string}`
+            `Unable to find the option for this field:  type: ${field.input.type}, name: ${
+                field.input.name
+            } option Id or Value: ${value as string}`
         )
         return
     }

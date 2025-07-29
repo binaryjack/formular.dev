@@ -41,7 +41,8 @@ const SwitchButtonInput = ({
 
     return (
         <FieldSet
-            inputId={instance?.input?.name ?? isMissing(MissingPropEnum.ID, SwitchButtonInput.name)}
+            id={instance?.input?.id ?? isMissing(MissingPropEnum.ID, SwitchButtonInput.name)}
+            name={instance?.input?.name ?? isMissing(MissingPropEnum.NAME, SwitchButtonInput.name)}
             label={instance?.input?.label}
             type={instance?.input?.type}
             flags={flags}

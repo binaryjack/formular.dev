@@ -4,7 +4,7 @@ import { EventsType } from '@core/framework/events/events.types'
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
-import { IOptionItem } from '../options-schema/options.scheme.types'
+import { IOptionItem } from '../option-schema/options.scheme.types'
 
 export interface IFieldSchema extends IValidationOptions {
     readonly id: number | null

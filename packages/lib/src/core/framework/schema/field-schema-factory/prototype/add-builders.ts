@@ -5,6 +5,10 @@ import { IFieldSchemeFactory } from '../field-schema-factory.types'
  * Adds field schema builders to the factory.
  * @param builders Array of field schema builders to add.
  */
-export function addBuilders(this: IFieldSchemeFactory, ...builders: IFieldSchemaBuilder[]) {
+export function addBuilders(
+    this: IFieldSchemeFactory,
+    ...builders: IFieldSchemaBuilder[]
+): IFieldSchemeFactory {
     this.builders = [...builders]
+    return this
 }

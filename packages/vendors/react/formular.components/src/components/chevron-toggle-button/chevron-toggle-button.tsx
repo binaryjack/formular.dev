@@ -28,6 +28,8 @@ export const ChevronToggleButton = ({
         'primary'
     )
 
+    console.log('ChevronToggleButton render:', { id, toggleState })
+
     return (
         <Button
             id={`${id}-toggle-drawer-btn`}
