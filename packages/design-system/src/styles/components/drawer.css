@@ -1,0 +1,10 @@
+@layer components {
+    .drawer-content.animate {
+        animation-fill-mode: both;
+        animation-timing-function: ease-out;
+    }
+
+    .drawer-content {
+        transition: opacity 0.3s ease-out;
+    }
+}

@@ -26,14 +26,5 @@ export interface IButtonProps extends Partial<React.ComponentClass<'button'>> {
     disabled?: boolean
     isToggle?: boolean
     tabindex?: number
-    options?: {
-        variant: ComponentVariantType
-        size: ComponentSizeType
-        textCase: TextCaseType
-        weight: TextWeightType
-        rounded: boolean
-        width: string
-        height: string
-        className: string
-    }
+    options?: Partial<IButtonOptions>
 }

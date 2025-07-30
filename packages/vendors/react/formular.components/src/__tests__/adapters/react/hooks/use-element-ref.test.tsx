@@ -8,7 +8,8 @@ const mockScreenProperties = {
     height: 768,
     scrollY: 100,
     screenTop: 0,
-    centerScreen: 384,
+    centerScreenX: 384,
+    centerScreenY: 384,
     triggerPoint: 200,
     hasUpdates: 0
 }

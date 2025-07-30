@@ -6,7 +6,8 @@ export interface IScreenProperties {
     scrollY: number
 
     screenTop: number
-    centerScreen: number
+    centerScreenY: number
+    centerScreenX: number
     triggerPoint: number
 
     hasUpdates: number

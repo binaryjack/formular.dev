@@ -5,28 +5,28 @@ import { IScreenProperties, IScrollingContext, ScrollContextProvider } from './s
 
 interface IScrollContextProps {
     children: React.ReactNode
+    landMarkHeight?: number
 }
 
-export const ScrollContext = ({ children }: IScrollContextProps) => {
+export const ScrollContext = ({ children, landMarkHeight = 10 }: IScrollContextProps) => {
     const [screenProperties, setScreenProperties] = useState<IScreenProperties>(
         {} as IScreenProperties
     )
-
     const handle = useCallback(
         (eventName: string) => {
-            // console.log(eventName)
             setScreenProperties({
                 width: window.innerWidth,
                 height: window.innerHeight,
                 scrollY: window.scrollY,
                 screenTop: window.innerHeight / 2,
-                centerScreen: window.innerHeight / 2 + window.scrollY,
+                centerScreenX: window.innerWidth / 2 - landMarkHeight / 2,
+                centerScreenY: window.innerHeight / 2 + window.scrollY - landMarkHeight / 2,
                 triggerPoint: 0,
                 hasUpdates:
                     window.innerWidth + window.innerHeight + window.scrollY + window.screenTop
             })
         },
-        [window.innerHeight, window.innerWidth, window.scrollY]
+        [landMarkHeight]
     )
 
     useEffect(() => {
@@ -47,10 +47,20 @@ export const ScrollContext = ({ children }: IScrollContextProps) => {
         <ScrollContextProvider.Provider value={scrollingContextValue}>
             {children}
             <VisualLandmark
-                height={25}
+                height={landMarkHeight}
                 width={0}
-                top={screenProperties.centerScreen}
-                displayText={`${screenProperties.screenTop}`}
+                orientation="horizontal"
+                top={screenProperties.centerScreenY}
+                displayText={`Y: ${Math.round(screenProperties.centerScreenY)}`}
+                color={'bg-red-500'}
+            />
+
+            <VisualLandmark
+                height={0}
+                width={landMarkHeight}
+                orientation="vertical"
+                left={screenProperties.centerScreenX}
+                displayText={`X: ${Math.round(screenProperties.centerScreenX)}`}
                 color={'bg-red-500'}
             />
         </ScrollContextProvider.Provider>

@@ -78,6 +78,38 @@ export const animations = {
                 transform: 'translateY(0)',
                 animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
             }
+        },
+        drawerSlideInLeft: {
+            '0%': { transform: 'translateX(-100%)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' }
+        },
+        drawerSlideOutLeft: {
+            '0%': { transform: 'translateX(0)', opacity: '1' },
+            '100%': { transform: 'translateX(-100%)', opacity: '0' }
+        },
+        drawerSlideInRight: {
+            '0%': { transform: 'translateX(100%)', opacity: '0' },
+            '100%': { transform: 'translateX(0)', opacity: '1' }
+        },
+        drawerSlideOutRight: {
+            '0%': { transform: 'translateX(0)', opacity: '1' },
+            '100%': { transform: 'translateX(100%)', opacity: '0' }
+        },
+        drawerSlideInTop: {
+            '0%': { transform: 'translateY(-100%)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' }
+        },
+        drawerSlideOutTop: {
+            '0%': { transform: 'translateY(0)', opacity: '1' },
+            '100%': { transform: 'translateY(-100%)', opacity: '0' }
+        },
+        drawerSlideInBottom: {
+            '0%': { transform: 'translateY(100%)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' }
+        },
+        drawerSlideOutBottom: {
+            '0%': { transform: 'translateY(0)', opacity: '1' },
+            '100%': { transform: 'translateY(100%)', opacity: '0' }
         }
     },
 
@@ -91,6 +123,14 @@ export const animations = {
         'slide-right': 'slideRight 300ms ease-out',
         'scale-in': 'scaleIn 200ms ease-out',
         'scale-out': 'scaleOut 200ms ease-in',
+        'drawer-slide-in-left': 'drawerSlideInLeft 300ms ease-out',
+        'drawer-slide-out-left': 'drawerSlideOutLeft 300ms ease-in',
+        'drawer-slide-in-right': 'drawerSlideInRight 300ms ease-out',
+        'drawer-slide-out-right': 'drawerSlideOutRight 300ms ease-in',
+        'drawer-slide-in-top': 'drawerSlideInTop 300ms ease-out',
+        'drawer-slide-out-top': 'drawerSlideOutTop 300ms ease-in',
+        'drawer-slide-in-bottom': 'drawerSlideInBottom 300ms ease-out',
+        'drawer-slide-out-bottom': 'drawerSlideOutBottom 300ms ease-in',
         spin: 'spin 1s linear infinite',
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         bounce: 'bounce 1s infinite'
@@ -127,6 +167,17 @@ export const componentAnimations = {
     tooltip: {
         enter: animations.presets['fade-in'],
         exit: animations.presets['fade-out']
+    },
+
+    drawer: {
+        enterLeft: animations.presets['drawer-slide-in-left'],
+        exitLeft: animations.presets['drawer-slide-out-left'],
+        enterRight: animations.presets['drawer-slide-in-right'],
+        exitRight: animations.presets['drawer-slide-out-right'],
+        enterTop: animations.presets['drawer-slide-in-top'],
+        exitTop: animations.presets['drawer-slide-out-top'],
+        enterBottom: animations.presets['drawer-slide-in-bottom'],
+        exitBottom: animations.presets['drawer-slide-out-bottom']
     }
 } as const
 

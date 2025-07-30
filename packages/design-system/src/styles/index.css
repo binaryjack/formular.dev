@@ -11,7 +11,7 @@
 /* Design System Imports - Must come before @tailwind */
 @import './tokens.css';
 @import './primitives.css';
-@import './components-clean.css';
+@import './components.css';
 @import './utilities.css';
 /* Tailwind CSS Layers */
 @tailwind base;
