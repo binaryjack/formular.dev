@@ -1,61 +1,43 @@
 import { ElementPositionType } from 'formular.design.system'
-import { ToggleableStateType } from 'formular.dev.lib'
 import { IDrawerSize } from '../drawer.types'
-import { getAnimation } from './get-animation'
 
-export const getPositionStyles = (
-    toggleState: ToggleableStateType,
-    size: IDrawerSize,
-    drawerHolderRef: React.RefObject<HTMLDivElement>,
-    calculatedPosition: ElementPositionType
-) => {
+export const getPositionStyles = (size: IDrawerSize, calculatedPosition: ElementPositionType) => {
     const baseStyles = {
         width: size.width,
         height: size.height,
-        position: 'absolute' as const,
-        animation: getAnimation(toggleState, calculatedPosition),
-        zIndex: 10
+        zIndex: 9999
     }
-
-    const ownerRect = drawerHolderRef.current?.getBoundingClientRect()
-    if (!ownerRect) return baseStyles
 
     switch (calculatedPosition) {
         case 'top':
+        case 'top-right':
             return {
                 ...baseStyles,
+                transformOrigin: 'bottom',
                 bottom: `calc(100% + 8px)`,
                 left: 0
             }
         case 'top-left':
             return {
                 ...baseStyles,
+                transformOrigin: 'bottom',
                 bottom: `calc(100% + 8px)`,
                 right: 0
             }
-        case 'top-right':
-            return {
-                ...baseStyles,
-                bottom: `calc(100% + 8px)`,
-                left: 0
-            }
         case 'bottom':
+        case 'bottom-right':
             return {
                 ...baseStyles,
+                transformOrigin: 'top',
                 top: `calc(100% + 8px)`,
                 left: 0
             }
         case 'bottom-left':
             return {
                 ...baseStyles,
+                transformOrigin: 'top',
                 top: `calc(100% + 8px)`,
                 right: 0
-            }
-        case 'bottom-right':
-            return {
-                ...baseStyles,
-                top: `calc(100% + 8px)`,
-                left: 0
             }
         case 'left':
             return {

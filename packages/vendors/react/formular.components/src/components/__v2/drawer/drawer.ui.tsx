@@ -1,3 +1,4 @@
+import { useAnimationState } from '@adapters/react/hooks/use-animation-state'
 import { useScrollingContext } from '@components/context/scrolling/scrolling.context'
 import { ElementPositionType } from 'formular.design.system'
 import { useEffect, useRef, useState } from 'react'
@@ -16,20 +17,66 @@ export const Drawer = ({
     size = { width: 200, height: 300 }
 }: IDrawerProps) => {
     const { toggleState, setToggleState } = useToggleableContext(toggleContextId)
+    const { animationStates, drawerRef } = useAnimationState(toggleState)
     const { screenProperties } = useScrollingContext()
     const drawerHolderRef = useRef<HTMLDivElement>(null)
-    const [isAnimating, setIsAnimating] = useState(false)
-    const [shouldRender, setShouldRender] = useState(toggleState === 'open')
+
     const [calculatedPosition, setCalculatedPosition] = useState<ElementPositionType>(position)
 
     const drawerContext: IDrawerContext = {
-        state: 'idle',
+        state: toggleState,
         toggle: (state) => {
             console.log(`Drawer ${id} toggled to ${state}`)
         },
         width: `${size.width}px`,
         height: `${size.height}px`,
         toggleContextId: toggleContextId
+    }
+
+    // Get animation class based on toggle state and position
+    const getAnimationClass = (state: string, pos: ElementPositionType): string => {
+        // Add a base class to handle animation cancellation
+        const baseClass = 'transition-transform transition-opacity duration-300 ease-in-out'
+
+        if (state === 'opening') {
+            switch (pos) {
+                case 'left':
+                    return `${baseClass} animate-drawer-slide-in-left`
+                case 'right':
+                    return `${baseClass} animate-drawer-slide-in-right`
+                case 'top':
+                case 'top-left':
+                case 'top-right':
+                    return `${baseClass} animate-drawer-slide-in-bottom`
+                case 'bottom':
+                case 'bottom-left':
+                case 'bottom-right':
+                    return `${baseClass} animate-drawer-slide-in-top`
+                case 'center':
+                default:
+                    return `${baseClass} animate-fade-in`
+            }
+        }
+        if (state === 'closing') {
+            switch (pos) {
+                case 'left':
+                    return `${baseClass} animate-drawer-slide-out-left`
+                case 'right':
+                    return `${baseClass} animate-drawer-slide-out-right`
+                case 'top':
+                case 'top-left':
+                case 'top-right':
+                    return `${baseClass} animate-drawer-slide-out-bottom`
+                case 'bottom':
+                case 'bottom-left':
+                case 'bottom-right':
+                    return `${baseClass} animate-drawer-slide-out-top`
+                case 'center':
+                default:
+                    return `${baseClass} animate-fade-out`
+            }
+        }
+        return baseClass
     }
 
     useEffect(() => {
@@ -54,21 +101,6 @@ export const Drawer = ({
     }, [screenProperties, position, size])
 
     // Handle animation lifecycle
-    useEffect(() => {
-        if (toggleState === 'open') {
-            setShouldRender(true)
-            setIsAnimating(true)
-        } else if (toggleState === 'closed') {
-            setIsAnimating(true)
-            // Don't immediately hide - wait for animation to complete
-            const timer = setTimeout(() => {
-                setShouldRender(false)
-                setIsAnimating(false)
-            }, 300) // Match animation duration
-
-            return () => clearTimeout(timer)
-        }
-    }, [toggleState])
 
     if (!setToggleState) {
         console.error(`Drawer ${id} component must be used within a Toggleable context`)
@@ -79,23 +111,15 @@ export const Drawer = ({
         <DrawerContext.Provider value={drawerContext}>
             <div
                 id={id}
-                className={`drawer relative flex flex-row ${position}`}
+                className={`drawer  relative flex flex-row ${position}`}
                 ref={drawerHolderRef}
             >
-                <div className="flex flex-1">{owner}</div>
-
-                {shouldRender && (
+                <div className="flex flex-1   ">{owner}</div>
+                {animationStates.showDrawer && (
                     <div
-                        className={`drawer-content flex bg-white border shadow-lg ${
-                            isAnimating ? 'animate' : ''
-                        }`}
-                        style={getPositionStyles(
-                            toggleState,
-                            size,
-                            drawerHolderRef,
-                            calculatedPosition
-                        )}
-                        onAnimationEnd={() => setIsAnimating(false)}
+                        ref={drawerRef}
+                        className={`drawer-content absolute bg-white border shadow-lg ${getAnimationClass(animationStates.animation, calculatedPosition)}`}
+                        style={getPositionStyles(size, calculatedPosition)}
                     >
                         {children}
                     </div>

@@ -69,7 +69,7 @@ root.render(
                             width: 'auto',
                             height: 'auto',
                             left: '50px',
-                            top: '50px'
+                            bottom: '50px'
                         }}
                     >
                         <div className="bg-red-100 flex flex-row p-4 rounded-md shadow-md">
