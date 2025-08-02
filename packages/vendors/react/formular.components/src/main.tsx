@@ -72,14 +72,14 @@ root.render(
                             top: '50px'
                         }}
                     >
-                        <div className="bg-red-100 flex flex-row p-4 rounded-md shadow-md">
+                        <div className="bg-red-100 flex flex-row p-1 rounded-md shadow-md">
                             <Drawer
                                 owner={<BaseInput id={'text-input-2'} dataClass={'base-input'} />}
                                 id={'drawer-1'}
                                 toggleContextId={'toggleable-1'}
                                 position={'center'}
                             >
-                                <div className="p-4">
+                                <div className="p-2">
                                     <h2 className="text-lg font-bold">Drawer Content</h2>
                                     <p>This is a drawer component.</p>
                                 </div>
@@ -87,7 +87,7 @@ root.render(
                             <ChevronToggle
                                 id={'chevron-toggle-1'}
                                 toggleContextId={'toggleable-1'}
-                                initialToggleState={'idle'}
+                                initialToggleState={'closed'}
                             />
                         </div>
                     </Toggleable>

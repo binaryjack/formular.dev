@@ -3,7 +3,7 @@ import React from 'react'
 
 export interface IToggleableContextType {
     toggleState: ToggleableStateType
-    setToggleState: (commandId?: string) => void
+    setToggleState: (state?: ToggleableStateType) => void
     id?: string
     containerRef?: React.RefObject<HTMLDivElement>
 }

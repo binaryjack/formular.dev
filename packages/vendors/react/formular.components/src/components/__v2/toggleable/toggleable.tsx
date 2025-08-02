@@ -10,7 +10,11 @@ export const Toggleable = ({ children, id, initialState, style }: IToggleablePro
     const ToggleableContext = getToggleableContext(id)
     const toggleableContainerRef = useRef<HTMLDivElement>(null)
 
-    const handleToggleState = () => {
+    const handleToggleState = (state?: ToggleableStateType) => {
+        if (state) {
+            setToggleState(state)
+            return
+        }
         setToggleState((prevState) => (prevState === 'open' ? 'closed' : 'open'))
     }
 

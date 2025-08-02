@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 import { Button } from '../button/button.ui'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
@@ -22,6 +23,11 @@ export const ChevronToggle = ({
     ) : (
         <FaChevronUp />
     )
+
+    useEffect(() => {
+        if (!initialToggleState) return
+        setToggleState(initialToggleState)
+    }, [initialToggleState])
 
     const handleOnToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
