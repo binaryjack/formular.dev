@@ -1,99 +1,20 @@
 @layer components {
 
-    /* Drawer Animation Keyframes */
-    @keyframes drawerSlideInLeft {
-        0% {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes drawerSlideOutLeft {
-        0% {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        100% {
-            transform: translateX(-100%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes drawerSlideInRight {
-        0% {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-
-        100% {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes drawerSlideOutRight {
-        0% {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        100% {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes drawerSlideInTop {
+    /* Controllable drawer keyframes */
+    @keyframes drawerControllable {
         0% {
             transform: scaleY(0);
             opacity: 0;
         }
 
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-
-    @keyframes drawerSlideOutTop {
-        0% {
-            transform: scaleY(1);
-            opacity: 1;
-        }
-
-        100% {
-            transform: scaleY(0);
-            opacity: 0;
-        }
-    }
-
-    @keyframes drawerSlideInBottom {
-        0% {
-            transform: scaleY(0);
-            opacity: 0;
+        50% {
+            transform: scaleY(0.5);
+            opacity: 0.7;
         }
 
         100% {
             transform: scaleY(1);
             opacity: 1;
-        }
-    }
-
-    @keyframes drawerSlideOutBottom {
-        0% {
-            transform: scaleY(1);
-            opacity: 1;
-        }
-
-        100% {
-            transform: scaleY(0);
-            opacity: 0;
         }
     }
 
@@ -117,65 +38,26 @@
         }
     }
 
-    /* Drawer Animation Classes */
     .drawer-content {
-        animation-fill-mode: both;
-        animation-duration: 200ms;
+        /* Remove transition classes, let controller handle animations */
+        /* Keep positioning and visual styles */
+        position: absolute;
+        background: white;
+        border: 1px solid theme('colors.gray.200');
+        box-shadow: theme('boxShadow.lg');
+        z-index: 9999;
     }
 
-    .drawer-content.animate-drawer-slide-in-left {
-        animation: drawerSlideInLeft 300ms ease-out;
+    /* Fallback for browsers without WAAPI support */
+    .drawer-controllable {
+        --animation-progress: 0;
+        animation: drawerControllable 1s linear infinite;
+        animation-play-state: paused;
+        animation-delay: calc(var(--animation-progress) * -1s);
     }
 
-    .drawer-content.animate-drawer-slide-out-left {
-        animation: drawerSlideOutLeft 300ms ease-in;
-    }
-
-    .drawer-content.animate-drawer-slide-in-right {
-        animation: drawerSlideInRight 300ms ease-out;
-    }
-
-    .drawer-content.animate-drawer-slide-out-right {
-        animation: drawerSlideOutRight 300ms ease-in;
-    }
-
-    .drawer-content.animate-drawer-slide-in-top {
-        animation: drawerSlideInTop 300ms ease-out;
-    }
-
-    .drawer-content.animate-drawer-slide-out-top {
-        animation: drawerSlideOutTop 300ms ease-in;
-    }
-
-    .drawer-content.animate-drawer-slide-in-bottom {
-        animation: drawerSlideInBottom 300ms ease-out;
-    }
-
-    .drawer-content.animate-drawer-slide-out-bottom {
-        animation: drawerSlideOutBottom 300ms ease-in;
-    }
-
-    .drawer-content.animate-fade-in {
-        animation: fadeIn 200ms ease-out;
-    }
-
-    .drawer-content.animate-fade-out {
-        animation: fadeOut 200ms ease-in;
-    }
-
-    .drawer-content.animate-drawer-slide-in-left,
-    .drawer-content.animate-drawer-slide-in-right,
-    .drawer-content.animate-drawer-slide-in-top,
-    .drawer-content.animate-drawer-slide-in-bottom,
-    .drawer-content.animate-fade-in {
-        animation-play-state: running;
-    }
-
-    .drawer-content.animate-drawer-slide-out-left,
-    .drawer-content.animate-drawer-slide-out-right,
-    .drawer-content.animate-drawer-slide-out-top,
-    .drawer-content.animate-drawer-slide-out-bottom,
-    .drawer-content.animate-fade-out {
-        animation-play-state: running;
+    /* Enhanced version for WAAPI-supported browsers */
+    .drawer-controllable.waapi-supported {
+        animation: none;
     }
 }

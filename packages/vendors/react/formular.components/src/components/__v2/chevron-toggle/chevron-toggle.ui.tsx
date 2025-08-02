@@ -25,6 +25,7 @@ export const ChevronToggle = ({
 
     const handleOnToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        e.stopPropagation()
         setToggleState(onClickToggleState)
         onToggle?.(e, onClickToggleState)
     }

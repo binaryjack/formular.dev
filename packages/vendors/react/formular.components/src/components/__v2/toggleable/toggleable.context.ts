@@ -5,13 +5,15 @@ export interface IToggleableContextType {
     toggleState: ToggleableStateType
     setToggleState: (commandId?: string) => void
     id?: string
+    containerRef?: React.RefObject<HTMLDivElement>
 }
 export const toggleableContextTypeDefault: IToggleableContextType = {
     toggleState: 'idle',
     setToggleState: () => {
         return
     },
-    id: ''
+    id: '',
+    containerRef: undefined
 }
 
 const toggleableContextInstances = new Map<string, React.Context<IToggleableContextType>>()
