@@ -15,7 +15,9 @@ export const Toggleable = ({ children, id, initialState, style }: IToggleablePro
             setToggleState(state)
             return
         }
-        setToggleState((prevState) => (prevState === 'open' ? 'closed' : 'open'))
+        setToggleState((prevState: ToggleableStateType) =>
+            prevState === 'open' ? 'closed' : 'open'
+        )
     }
 
     const toggleableContext: IToggleableContextType = {

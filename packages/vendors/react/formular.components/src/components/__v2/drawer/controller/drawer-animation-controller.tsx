@@ -20,6 +20,7 @@ export const DrawerAnimationController = function (
     element: HTMLElement
 ): void {
     // Initialize instance properties
+
     this.element = element
     this.currentProgress = 0
     this.supportsWAAPI = 'animate' in element

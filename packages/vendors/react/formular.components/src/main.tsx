@@ -9,17 +9,33 @@
 import { BaseInput } from '@components/__v2/base-input/base-input.ui'
 import { BaseText } from '@components/__v2/base-text/base-text.ui'
 import { Button } from '@components/__v2/button/button.ui'
+import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input'
 import { ChevronToggle } from '@components/__v2/chevron-toggle/chevron-toggle.ui'
-import { Drawer } from '@components/__v2/drawer/drawer.ui'
+import { Drawer } from '@components/__v2/drawer/variants/drawer.ui'
+
+import { Accordion } from '@components/__v2/accordion/accordion.ui'
+import { RadioInput } from '@components/__v2/radio-input/radio-input.ui'
 import { StatusIcon } from '@components/__v2/status-icon/status-icon.ui'
 import { Toggleable } from '@components/__v2/toggleable/toggleable'
 import { AppContextProvider } from '@components/context/app-context/app-context'
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
 import Spinner from '@components/spinner/spinner'
+import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
 import ReactDOM from 'react-dom/client'
 import { MdReadMore } from 'react-icons/md'
 import './index.css'
+
+export const mainOptions = new OptionsBuilder()
+    .setOptions(
+        ...[
+            new OptionBuilder('Option 1').setValue('1'),
+            new OptionBuilder('Option 2').setValue('2'),
+            new OptionBuilder('Option 3').setValue('3'),
+            new OptionBuilder('Option 4').setValue('4')
+        ]
+    )
+    .build()
 
 document.title = import.meta.env.VITE_APP_NAME ?? 'FORMULAR React Components'
 const rootComponent = document.getElementById('root')
@@ -30,7 +46,7 @@ if (!rootComponent) {
 
 const root = ReactDOM.createRoot(rootComponent)
 root.render(
-    <VisualDebug options={{ enabled: true, color: 'bg-blue-100' }}>
+    <VisualDebug options={{ enabled: false, color: 'bg-blue-100' }}>
         <ScrollContext>
             <AppContextProvider
                 setupOptions={{
@@ -65,7 +81,6 @@ root.render(
                         id={'toggleable-1'}
                         initialState={'idle'}
                         style={{
-                            position: 'absolute',
                             width: 'auto',
                             height: 'auto',
                             left: '50px',
@@ -87,10 +102,26 @@ root.render(
                             <ChevronToggle
                                 id={'chevron-toggle-1'}
                                 toggleContextId={'toggleable-1'}
-                                initialToggleState={'closed'}
+                                initialToggleState={'idle'}
                             />
                         </div>
                     </Toggleable>
+
+                    <CheckboxInput
+                        id={'checkbox-1'}
+                        placeHolder={'Checkbox 1'}
+                        tabIndex={0}
+                        size={1.5}
+                        className={'bg-blue-100'}
+                        autoComplete="off"
+                        initialState={undefined}
+                    />
+
+                    <RadioInput id={'radio-input-1'} options={mainOptions} size={1} />
+
+                    <Accordion id={'accordion-1'} title={'Accordion-1'} initialState={'closed'}>
+                        <p>This is the content of Accordion 1.</p>
+                    </Accordion>
                 </div>
                 {/* <RouterProvider router={router} /> */}
             </AppContextProvider>

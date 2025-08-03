@@ -19,3 +19,11 @@ export interface IDrawerProps {
     position: ElementPositionType
     size?: IDrawerSize
 }
+
+export interface IExpandableDrawerProps {
+    id: string
+    toggleContextId: string
+    children: React.ReactNode
+    position: ElementPositionType
+    size?: IDrawerSize
+}

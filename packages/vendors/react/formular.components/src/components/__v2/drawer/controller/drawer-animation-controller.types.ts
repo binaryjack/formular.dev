@@ -1,5 +1,6 @@
 export interface IDrawerAnimationController {
     new (element: HTMLElement): IDrawerAnimationController
+
     element: HTMLElement
     supportsWAAPI: boolean
     animation?: Animation

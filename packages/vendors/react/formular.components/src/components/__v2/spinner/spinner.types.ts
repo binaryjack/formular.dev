@@ -9,7 +9,7 @@ export interface ISpinnerOverriders {
     activeColor?: string
 }
 
-export interface ISpinnerProps extends ISpinnerOverriders, Partial<React.ComponentClass<'span'>> {
+export interface ISpinnerProps extends ISpinnerOverriders, Partial<React.ComponentProps<'span'>> {
     size?: ComponentSizeType
     color?: ComponentVariantType
     className?: string

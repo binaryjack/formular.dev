@@ -48,6 +48,16 @@
         z-index: 9999;
     }
 
+    .expandable-drawer-content {
+        /* Remove transition classes, let controller handle animations */
+        /* Keep positioning and visual styles */
+        position: relative;
+        background: white;
+        transform-origin: top;
+        border: 1px solid theme('colors.gray.200');
+        box-shadow: theme('boxShadow.lg');
+    }
+
     /* Fallback for browsers without WAAPI support */
     .drawer-controllable {
         --animation-progress: 0;

@@ -1,10 +1,10 @@
 import { useComputedAnimationState } from '@adapters/react/hooks/use-computed-animation-state'
 import { useComputedDrawerPosition } from '@adapters/react/hooks/use-computed-drawer-position'
 import { useOnClickOutside } from '@adapters/react/hooks/use-on-click-outside'
-import { useToggleableContext } from '../toggleable/toggleable.context.hook'
-import { getPositionStyles } from './computed/get-position-styles'
-import { DrawerContext, IDrawerContext } from './drawer.context'
-import { IDrawerProps } from './drawer.types'
+import { useToggleableContext } from '../../toggleable/toggleable.context.hook'
+import { getPositionStyles } from '../computed/get-position-styles'
+import { DrawerContext, IDrawerContext } from '../context/drawer.context'
+import { IDrawerProps } from '../types/drawer.types'
 
 export const Drawer = ({
     owner,

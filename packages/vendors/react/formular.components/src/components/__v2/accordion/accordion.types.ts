@@ -1,9 +1,8 @@
 import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
-import { CSSProperties } from 'react'
 
-export interface IToggleableProviderProps {
+export interface IAccordionProps extends React.ComponentProps<'div'> {
     id: string
+    title: string
     children: React.ReactNode
     initialState?: ToggleableStateType
-    style?: CSSProperties
 }

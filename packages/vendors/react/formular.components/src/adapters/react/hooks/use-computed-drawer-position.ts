@@ -1,5 +1,5 @@
 import { calculateSmartPosition } from '@components/__v2/drawer/computed/calculate-smart-position'
-import { IDrawerSize } from '@components/__v2/drawer/drawer.types'
+import { IDrawerSize } from '@components/__v2/drawer/types/drawer.types'
 import { useScrollingContext } from '@components/context/scrolling/scrolling.context'
 import { ElementPositionType } from 'formular.design.system'
 import { useEffect, useRef, useState } from 'react'

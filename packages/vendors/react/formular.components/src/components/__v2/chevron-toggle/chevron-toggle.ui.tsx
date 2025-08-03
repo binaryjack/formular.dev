@@ -25,7 +25,7 @@ export const ChevronToggle = ({
     )
 
     useEffect(() => {
-        if (!initialToggleState) return
+        if (!initialToggleState || ['idle'].includes(initialToggleState)) return
         setToggleState(initialToggleState)
     }, [initialToggleState])
 

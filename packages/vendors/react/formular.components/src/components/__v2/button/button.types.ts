@@ -16,7 +16,7 @@ export interface IButtonOptions {
     className: string
 }
 
-export interface IButtonProps extends Partial<React.ComponentClass<'button'>> {
+export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     id: string
     title: string
     children?: React.ReactNode | string

@@ -1,5 +1,5 @@
 import { ElementPositionType } from 'formular.design.system'
-import { IDrawerSize } from '../drawer.types'
+import { IDrawerSize } from '../types/drawer.types'
 
 export const getPositionStyles = (size: IDrawerSize, calculatedPosition: ElementPositionType) => {
     const baseStyles = {

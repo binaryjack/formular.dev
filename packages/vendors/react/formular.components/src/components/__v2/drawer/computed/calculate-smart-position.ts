@@ -1,4 +1,4 @@
-import { IDrawerSize } from '../drawer.types'
+import { IDrawerSize } from '../types/drawer.types'
 
 export const calculateSmartPosition = (
     size: IDrawerSize,

@@ -1,7 +1,8 @@
 import { useField } from '@adapters/react/fields/hooks/use-field'
 import { cx } from 'formular.design.system'
-import { IExtendedInput, IOptionItem, isMissing, MissingPropEnum } from 'formular.dev.lib'
+import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 
+import { IExtendedInput, IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'

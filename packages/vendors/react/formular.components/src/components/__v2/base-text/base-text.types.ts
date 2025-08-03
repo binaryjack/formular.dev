@@ -1,5 +1,4 @@
-export interface IBaseTextProps extends Partial<React.ComponentClass<'label', 'span'>> {
-    id: string
+export interface IBaseTextProps extends Partial<React.ComponentProps<'label'>> {
     text: string
     htmlFor?: string
     className?: string
