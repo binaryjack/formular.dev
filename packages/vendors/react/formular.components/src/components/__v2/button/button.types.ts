@@ -1,20 +1,4 @@
-import {
-    ComponentSizeType,
-    ComponentVariantType,
-    TextCaseType,
-    TextWeightType
-} from 'formular.design.system'
-
-export interface IButtonOptions {
-    variant: ComponentVariantType
-    size: ComponentSizeType
-    textCase: TextCaseType
-    weight: TextWeightType
-    rounded: boolean
-    width: string
-    height: string
-    className: string
-}
+import { IComponentVariants } from '../component-variants'
 
 export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     id: string
@@ -26,5 +10,5 @@ export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     disabled?: boolean
     isToggle?: boolean
     tabindex?: number
-    options?: Partial<IButtonOptions>
+    variants?: Partial<IComponentVariants>
 }

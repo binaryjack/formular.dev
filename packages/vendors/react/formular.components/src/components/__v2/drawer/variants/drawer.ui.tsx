@@ -16,7 +16,7 @@ export const Drawer = ({
 }: IDrawerProps) => {
     const { toggleState, setToggleState, containerRef } = useToggleableContext(toggleContextId)
     const { calculatedPosition, drawerHolderRef } = useComputedDrawerPosition(position, size)
-    const { drawerRef } = useComputedAnimationState(toggleState)
+    const { drawerRef } = useComputedAnimationState(toggleState, 'dropdown')
 
     const drawerContext: IDrawerContext = {
         state: toggleState,

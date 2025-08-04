@@ -1,3 +1,4 @@
+import { DrawerType } from '../types/drawer.types'
 import type { IDrawerAnimationController } from './drawer-animation-controller.types'
 
 // Import all prototype methods
@@ -17,10 +18,11 @@ import { setupWAAPI } from './prototype/setup-waapi'
  */
 export const DrawerAnimationController = function (
     this: IDrawerAnimationController,
-    element: HTMLElement
+    element: HTMLElement,
+    drawerType: DrawerType
 ): void {
     // Initialize instance properties
-
+    this.drawerType = drawerType
     this.element = element
     this.currentProgress = 0
     this.supportsWAAPI = 'animate' in element
@@ -32,7 +34,7 @@ export const DrawerAnimationController = function (
     } else {
         this.setupCSSFallback()
     }
-} as any as new (element: HTMLElement) => IDrawerAnimationController
+} as any as IDrawerAnimationController
 
 // Assign all prototype methods
 Object.assign(DrawerAnimationController.prototype, {

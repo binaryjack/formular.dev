@@ -1,6 +1,8 @@
-export interface IDrawerAnimationController {
-    new (element: HTMLElement): IDrawerAnimationController
+import { DrawerType } from '../types/drawer.types'
 
+export interface IDrawerAnimationController {
+    new (element: HTMLElement, drawerType: DrawerType): IDrawerAnimationController
+    drawerType: DrawerType
     element: HTMLElement
     supportsWAAPI: boolean
     animation?: Animation

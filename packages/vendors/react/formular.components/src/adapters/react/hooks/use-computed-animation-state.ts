@@ -2,17 +2,16 @@ import {
     DrawerAnimationController,
     IDrawerAnimationController
 } from '@components/__v2/drawer/controller'
+import { DrawerType } from '@components/__v2/drawer/types/drawer.types'
 import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 import { useEffect, useRef, useState } from 'react'
 
 export type AnimationStateType = 'closed' | 'opening' | 'open' | 'closing'
 
-interface IAnimationStateSlice {
-    animation: AnimationStateType
-    showDrawer: boolean
-}
-
-export const useComputedAnimationState = (toggleState: ToggleableStateType) => {
+export const useComputedAnimationState = (
+    toggleState: ToggleableStateType,
+    drawerType: DrawerType
+) => {
     const controllerRef = useRef<IDrawerAnimationController | null>(null)
     const drawerRef = useRef<HTMLDivElement>(null)
 
@@ -21,7 +20,7 @@ export const useComputedAnimationState = (toggleState: ToggleableStateType) => {
     // Initialize animation controller
     useEffect(() => {
         if (drawerRef.current && !controllerRef.current) {
-            controllerRef.current = new DrawerAnimationController(drawerRef.current)
+            controllerRef.current = new DrawerAnimationController(drawerRef.current, drawerType)
         }
 
         return () => {

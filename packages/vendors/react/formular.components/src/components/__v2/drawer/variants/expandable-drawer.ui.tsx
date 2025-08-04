@@ -12,7 +12,7 @@ export const ExpandableDrawer = ({
     size = { width: 200, height: 300 }
 }: IExpandableDrawerProps) => {
     const { toggleState, setToggleState, containerRef } = useToggleableContext(toggleContextId)
-    const { drawerRef } = useComputedAnimationState(toggleState)
+    const { drawerRef } = useComputedAnimationState(toggleState, 'expandable')
 
     const drawerContext: IDrawerContext = {
         state: toggleState,
@@ -20,7 +20,7 @@ export const ExpandableDrawer = ({
             console.log(`Drawer ${id} toggled to ${state}`)
         },
         width: `${size.width}px`,
-        height: `auto`,
+        height: `unset`,
         toggleContextId: toggleContextId
     }
 
@@ -45,7 +45,7 @@ export const ExpandableDrawer = ({
             <div
                 id={id}
                 ref={drawerRef}
-                className="flex flex-col h-auto expandable-drawer-content relative bg-white border shadow-lg"
+                className="flex flex-col expandable-drawer-content bg-white border shadow-lg"
             >
                 {children}
             </div>

@@ -1,6 +1,6 @@
 export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     id: string
-    placeHolder?: string
+    label?: string
     tabIndex?: number
     className?: string
     initialState?: boolean

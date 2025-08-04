@@ -10,7 +10,7 @@ export const Button = ({
     title,
     children,
     onClick,
-    options = {
+    variants: options = {
         variant: 'primary',
         size: 'sm',
         textCase: 'normal-case',
