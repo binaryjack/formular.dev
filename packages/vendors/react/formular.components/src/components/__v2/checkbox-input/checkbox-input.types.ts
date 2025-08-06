@@ -1,3 +1,5 @@
+import { IGenericComponentVariants } from 'formular.design.system'
+
 export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     id: string
     label?: string
@@ -8,4 +10,5 @@ export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    variants?: Partial<IGenericComponentVariants>
 }

@@ -2,10 +2,10 @@ import { cx } from 'formular.design.system'
 
 import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
 import { Label } from '../label/label.ui'
-import { RadioOptionGroup } from './group/radio-option-group'
+import { RadioOptionGroup } from './group/radio-option-group.ui'
 import { IRadioInputProps } from './radio-input.types'
 
-export const RadioInput = ({ id, size, options }: IRadioInputProps) => {
+export const RadioInput = ({ id, variants, options }: IRadioInputProps) => {
     return (
         <div id={id} className={cx('radio-input', 'flex flex-col space-y-1')}>
             <Label htmlFor={id} text={id} />
@@ -18,12 +18,12 @@ export const RadioInput = ({ id, size, options }: IRadioInputProps) => {
                         tabIndex: 0,
                         name: `radio-${id}`,
                         initialState: option.selected,
-                        size: size
+                        variants: variants
                     }}
                     labelProps={{
                         htmlFor: option.id,
                         text: option.text,
-                        size: size
+                        variants: variants
                     }}
                 />
             ))}

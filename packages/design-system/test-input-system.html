@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FORMULAR Input System Test</title>
+        <link href="./src/styles/index.css" rel="stylesheet" />
+        <style>
+            body {
+                font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+                background-color: #f9fafb;
+                padding: 2rem;
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .section {
+                background: white;
+                padding: 2rem;
+                margin: 2rem 0;
+                border-radius: 0.5rem;
+                border: 1px solid #e5e7eb;
+            }
+
+            .grid {
+                display: grid;
+                gap: 1rem;
+                margin: 1rem 0;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            label {
+                display: block;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: #374151;
+            }
+
+            .input-group {
+                margin-bottom: 1.5rem;
+            }
+
+            h2 {
+                color: #1f2937;
+                border-bottom: 2px solid #3b82f6;
+                padding-bottom: 0.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h3 {
+                color: #4b5563;
+                margin: 1.5rem 0 1rem 0;
+            }
+
+            .demo-note {
+                background: #eff6ff;
+                border: 1px solid #bfdbfe;
+                border-radius: 0.375rem;
+                padding: 1rem;
+                margin: 1rem 0;
+                color: #1e40af;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>FORMULAR Design System - Input Component Test</h1>
+
+        <div class="demo-note">
+            <strong>Note:</strong> This test page demonstrates the enhanced input system with
+            granular control, replacing the @tailwindcss/forms plugin with a custom solution.
+        </div>
+
+        <div class="section">
+            <h2>Basic Input Styles</h2>
+
+            <div class="input-group">
+                <label for="input-default">Default Input (.input)</label>
+                <input
+                    type="text"
+                    id="input-default"
+                    class="input"
+                    placeholder="Enter some text..."
+                />
+            </div>
+
+            <div class="input-group">
+                <label for="input-native">Native Input (no classes)</label>
+                <input
+                    type="text"
+                    id="input-native"
+                    placeholder="Native styling from form-reset.css"
+                />
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Input Sizes</h2>
+
+            <div class="input-group">
+                <label for="input-xs">Extra Small (.input .input-xs)</label>
+                <input
+                    type="text"
+                    id="input-xs"
+                    class="input input-xs"
+                    placeholder="Extra small input"
+                />
+            </div>
+
+            <div class="input-group">
+                <label for="input-sm">Small (.input .input-sm)</label>
+                <input type="text" id="input-sm" class="input input-sm" placeholder="Small input" />
+            </div>
+
+            <div class="input-group">
+                <label for="input-md">Medium (.input .input-md)</label>
+                <input
+                    type="text"
+                    id="input-md"
+                    class="input input-md"
+                    placeholder="Medium input"
+                />
+            </div>
+
+            <div class="input-group">
+                <label for="input-lg">Large (.input .input-lg)</label>
+                <input type="text" id="input-lg" class="input input-lg" placeholder="Large input" />
+            </div>
+
+            <div class="input-group">
+                <label for="input-xl">Extra Large (.input .input-xl)</label>
+                <input
+                    type="text"
+                    id="input-xl"
+                    class="input input-xl"
+                    placeholder="Extra large input"
+                />
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Input States</h2>
+
+            <div class="grid grid-3">
+                <div class="input-group">
+                    <label for="input-error">Error State</label>
+                    <input
+                        type="text"
+                        id="input-error"
+                        class="input input-error"
+                        placeholder="Error input"
+                        value="Invalid value"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-success">Success State</label>
+                    <input
+                        type="text"
+                        id="input-success"
+                        class="input input-success"
+                        placeholder="Success input"
+                        value="Valid value"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-warning">Warning State</label>
+                    <input
+                        type="text"
+                        id="input-warning"
+                        class="input input-warning"
+                        placeholder="Warning input"
+                        value="Check this value"
+                    />
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="input-disabled">Disabled State</label>
+                <input
+                    type="text"
+                    id="input-disabled"
+                    class="input"
+                    placeholder="Disabled input"
+                    disabled
+                    value="Cannot edit this"
+                />
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Input Style Variants</h2>
+
+            <div class="input-group">
+                <label for="input-outline">Outline (Default)</label>
+                <input
+                    type="text"
+                    id="input-outline"
+                    class="input input-outline"
+                    placeholder="Outline style"
+                />
+            </div>
+
+            <div class="input-group">
+                <label for="input-filled">Filled Style</label>
+                <input
+                    type="text"
+                    id="input-filled"
+                    class="input input-filled"
+                    placeholder="Filled style"
+                />
+            </div>
+
+            <div class="input-group">
+                <label for="input-borderless">Borderless Style</label>
+                <input
+                    type="text"
+                    id="input-borderless"
+                    class="input input-borderless"
+                    placeholder="Borderless style"
+                />
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Different Input Types</h2>
+
+            <div class="grid grid-2">
+                <div class="input-group">
+                    <label for="input-email">Email</label>
+                    <input
+                        type="email"
+                        id="input-email"
+                        class="input"
+                        placeholder="your@email.com"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-password">Password</label>
+                    <input
+                        type="password"
+                        id="input-password"
+                        class="input"
+                        placeholder="Password"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-number">Number</label>
+                    <input type="number" id="input-number" class="input" placeholder="123" />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-date">Date</label>
+                    <input type="date" id="input-date" class="input" />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-tel">Telephone</label>
+                    <input
+                        type="tel"
+                        id="input-tel"
+                        class="input"
+                        placeholder="+1 (555) 123-4567"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-url">URL</label>
+                    <input
+                        type="url"
+                        id="input-url"
+                        class="input"
+                        placeholder="https://example.com"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Textarea Variants</h2>
+
+            <div class="input-group">
+                <label for="textarea-default">Default Textarea</label>
+                <textarea
+                    id="textarea-default"
+                    class="input input-textarea"
+                    placeholder="Enter your message..."
+                ></textarea>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="input-group">
+                    <label for="textarea-sm">Small Textarea</label>
+                    <textarea
+                        id="textarea-sm"
+                        class="input input-textarea input-textarea-sm"
+                        placeholder="Small textarea"
+                    ></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="textarea-lg">Large Textarea</label>
+                    <textarea
+                        id="textarea-lg"
+                        class="input input-textarea input-textarea-lg"
+                        placeholder="Large textarea"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="textarea-no-resize">No Resize Textarea</label>
+                <textarea
+                    id="textarea-no-resize"
+                    class="input input-textarea input-no-resize"
+                    placeholder="Cannot resize this"
+                ></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Select Elements</h2>
+
+            <div class="input-group">
+                <label for="select-default">Default Select</label>
+                <select id="select-default" class="input input-select">
+                    <option value="">Choose an option...</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="input-group">
+                    <label for="select-sm">Small Select</label>
+                    <select id="select-sm" class="input input-select input-sm">
+                        <option value="">Small select...</option>
+                        <option value="a">Option A</option>
+                        <option value="b">Option B</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select-lg">Large Select</label>
+                    <select id="select-lg" class="input input-select input-lg">
+                        <option value="">Large select...</option>
+                        <option value="x">Option X</option>
+                        <option value="y">Option Y</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Checkbox and Radio Inputs</h2>
+
+            <h3>Checkboxes</h3>
+            <div class="grid grid-2">
+                <div>
+                    <label style="display: flex; align-items: center; gap: 0.5rem">
+                        <input type="checkbox" checked />
+                        Checked checkbox
+                    </label>
+                </div>
+                <div>
+                    <label style="display: flex; align-items: center; gap: 0.5rem">
+                        <input type="checkbox" />
+                        Unchecked checkbox
+                    </label>
+                </div>
+                <div>
+                    <label style="display: flex; align-items: center; gap: 0.5rem">
+                        <input type="checkbox" disabled checked />
+                        Disabled checked
+                    </label>
+                </div>
+                <div>
+                    <label style="display: flex; align-items: center; gap: 0.5rem">
+                        <input type="checkbox" disabled />
+                        Disabled unchecked
+                    </label>
+                </div>
+            </div>
+
+            <h3>Radio Buttons</h3>
+            <div>
+                <label
+                    style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem"
+                >
+                    <input type="radio" name="radio-group" value="1" checked />
+                    Option 1 (selected)
+                </label>
+                <label
+                    style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem"
+                >
+                    <input type="radio" name="radio-group" value="2" />
+                    Option 2
+                </label>
+                <label
+                    style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem"
+                >
+                    <input type="radio" name="radio-group" value="3" />
+                    Option 3
+                </label>
+                <label
+                    style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem"
+                >
+                    <input type="radio" name="radio-disabled" value="4" disabled />
+                    Disabled option
+                </label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Utility Combinations</h2>
+
+            <div class="grid grid-2">
+                <div class="input-group">
+                    <label for="input-auto-width">Auto Width Input</label>
+                    <input
+                        type="text"
+                        id="input-auto-width"
+                        class="input input-auto"
+                        placeholder="Auto width"
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label for="input-lg-error">Large Error Input</label>
+                    <input
+                        type="text"
+                        id="input-lg-error"
+                        class="input input-lg input-error"
+                        placeholder="Large with error state"
+                    />
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="input-filled-success">Filled Success Input</label>
+                <input
+                    type="text"
+                    id="input-filled-success"
+                    class="input input-filled input-success"
+                    placeholder="Filled with success state"
+                    value="Great value!"
+                />
+            </div>
+        </div>
+
+        <script>
+            // Add some interactivity for demonstration
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log('FORMULAR Input System Test Page Loaded')
+
+                // Log focus events to demonstrate focus states
+                document.querySelectorAll('input, textarea, select').forEach(element => {
+                    element.addEventListener('focus', function () {
+                        console.log(`Focused: ${this.id || this.type || 'unknown'} element`)
+                    })
+                })
+            })
+        </script>
+    </body>
+</html>

@@ -5,248 +5,256 @@
  * These tokens should be used as the foundation for all other styles.
  */
 @layer base {
-    :root {
-        /* ===============================================
+   :root {
+      /* ===============================================
            COLOR TOKENS
            =============================================== */
-        /* Primary Colors */
-        --color-primary-50: theme('colors.primary.50');
-        --color-primary-100: theme('colors.primary.100');
-        --color-primary-200: theme('colors.primary.200');
-        --color-primary-300: theme('colors.primary.300');
-        --color-primary-400: theme('colors.primary.400');
-        --color-primary-500: theme('colors.primary.500');
-        --color-primary-600: theme('colors.primary.600');
-        --color-primary-700: theme('colors.primary.700');
-        --color-primary-800: theme('colors.primary.800');
-        --color-primary-900: theme('colors.primary.900');
-        --color-primary-950: theme('colors.primary.950');
-        /* Secondary Colors */
-        --color-secondary-50: theme('colors.secondary.50');
-        --color-secondary-100: theme('colors.secondary.100');
-        --color-secondary-200: theme('colors.secondary.200');
-        --color-secondary-300: theme('colors.secondary.300');
-        --color-secondary-400: theme('colors.secondary.400');
-        --color-secondary-500: theme('colors.secondary.500');
-        --color-secondary-600: theme('colors.secondary.600');
-        --color-secondary-700: theme('colors.secondary.700');
-        --color-secondary-800: theme('colors.secondary.800');
-        --color-secondary-900: theme('colors.secondary.900');
-        --color-secondary-950: theme('colors.secondary.950');
-        /* Semantic Colors */
-        --color-success-50: theme('colors.success.50');
-        --color-success-100: theme('colors.success.100');
-        --color-success-200: theme('colors.success.200');
-        --color-success-300: theme('colors.success.300');
-        --color-success-400: theme('colors.success.400');
-        --color-success-500: theme('colors.success.500');
-        --color-success-600: theme('colors.success.600');
-        --color-success-700: theme('colors.success.700');
-        --color-success-800: theme('colors.success.800');
-        --color-success-900: theme('colors.success.900');
-        --color-warning-50: theme('colors.warning.50');
-        --color-warning-100: theme('colors.warning.100');
-        --color-warning-200: theme('colors.warning.200');
-        --color-warning-300: theme('colors.warning.300');
-        --color-warning-400: theme('colors.warning.400');
-        --color-warning-500: theme('colors.warning.500');
-        --color-warning-600: theme('colors.warning.600');
-        --color-warning-700: theme('colors.warning.700');
-        --color-warning-800: theme('colors.warning.800');
-        --color-warning-900: theme('colors.warning.900');
-        --color-danger-50: theme('colors.danger.50');
-        --color-danger-100: theme('colors.danger.100');
-        --color-danger-200: theme('colors.danger.200');
-        --color-danger-300: theme('colors.danger.300');
-        --color-danger-400: theme('colors.danger.400');
-        --color-danger-500: theme('colors.danger.500');
-        --color-danger-600: theme('colors.danger.600');
-        --color-danger-700: theme('colors.danger.700');
-        --color-danger-800: theme('colors.danger.800');
-        --color-danger-900: theme('colors.danger.900');
-        --color-info-50: theme('colors.info.50');
-        --color-info-100: theme('colors.info.100');
-        --color-info-200: theme('colors.info.200');
-        --color-info-300: theme('colors.info.300');
-        --color-info-400: theme('colors.info.400');
-        --color-info-500: theme('colors.info.500');
-        --color-info-600: theme('colors.info.600');
-        --color-info-700: theme('colors.info.700');
-        --color-info-800: theme('colors.info.800');
-        --color-info-900: theme('colors.info.900');
-        /* Neutral Colors */
-        --color-neutral-50: theme('colors.neutral.50');
-        --color-neutral-100: theme('colors.neutral.100');
-        --color-neutral-200: theme('colors.neutral.200');
-        --color-neutral-300: theme('colors.neutral.300');
-        --color-neutral-400: theme('colors.neutral.400');
-        --color-neutral-500: theme('colors.neutral.500');
-        --color-neutral-600: theme('colors.neutral.600');
-        --color-neutral-700: theme('colors.neutral.700');
-        --color-neutral-800: theme('colors.neutral.800');
-        --color-neutral-900: theme('colors.neutral.900');
-        --color-neutral-950: theme('colors.neutral.950');
-        /* Surface Colors */
-        --color-surface-primary: var(--color-neutral-50);
-        --color-surface-secondary: var(--color-neutral-100);
-        --color-surface-elevated: #ffffff;
-        --color-surface-overlay: rgba(0, 0, 0, 0.5);
-        /* Text Colors */
-        --color-text-primary: var(--color-neutral-900);
-        --color-text-secondary: var(--color-neutral-700);
-        --color-text-muted: var(--color-neutral-500);
-        --color-text-placeholder: var(--color-neutral-400);
-        --color-text-on-primary: #ffffff;
-        --color-text-on-dark: #ffffff;
-        /* Border Colors */
-        --color-border-primary: var(--color-neutral-300);
-        --color-border-secondary: var(--color-neutral-200);
-        --color-border-muted: var(--color-neutral-100);
-        /* ===============================================
+      /* Primary Colors */
+      --color-primary-50: theme('colors.primary.50');
+      --color-primary-100: theme('colors.primary.100');
+      --color-primary-200: theme('colors.primary.200');
+      --color-primary-300: theme('colors.primary.300');
+      --color-primary-400: theme('colors.primary.400');
+      --color-primary-500: theme('colors.primary.500');
+      --color-primary-600: theme('colors.primary.600');
+      --color-primary-700: theme('colors.primary.700');
+      --color-primary-800: theme('colors.primary.800');
+      --color-primary-900: theme('colors.primary.900');
+      --color-primary-950: theme('colors.primary.950');
+      /* Secondary Colors */
+      --color-secondary-50: theme('colors.secondary.50');
+      --color-secondary-100: theme('colors.secondary.100');
+      --color-secondary-200: theme('colors.secondary.200');
+      --color-secondary-300: theme('colors.secondary.300');
+      --color-secondary-400: theme('colors.secondary.400');
+      --color-secondary-500: theme('colors.secondary.500');
+      --color-secondary-600: theme('colors.secondary.600');
+      --color-secondary-700: theme('colors.secondary.700');
+      --color-secondary-800: theme('colors.secondary.800');
+      --color-secondary-900: theme('colors.secondary.900');
+      --color-secondary-950: theme('colors.secondary.950');
+      /* Semantic Colors */
+      --color-success-50: theme('colors.success.50');
+      --color-success-100: theme('colors.success.100');
+      --color-success-200: theme('colors.success.200');
+      --color-success-300: theme('colors.success.300');
+      --color-success-400: theme('colors.success.400');
+      --color-success-500: theme('colors.success.500');
+      --color-success-600: theme('colors.success.600');
+      --color-success-700: theme('colors.success.700');
+      --color-success-800: theme('colors.success.800');
+      --color-success-900: theme('colors.success.900');
+      --color-warning-50: theme('colors.warning.50');
+      --color-warning-100: theme('colors.warning.100');
+      --color-warning-200: theme('colors.warning.200');
+      --color-warning-300: theme('colors.warning.300');
+      --color-warning-400: theme('colors.warning.400');
+      --color-warning-500: theme('colors.warning.500');
+      --color-warning-600: theme('colors.warning.600');
+      --color-warning-700: theme('colors.warning.700');
+      --color-warning-800: theme('colors.warning.800');
+      --color-warning-900: theme('colors.warning.900');
+      --color-danger-50: theme('colors.danger.50');
+      --color-danger-100: theme('colors.danger.100');
+      --color-danger-200: theme('colors.danger.200');
+      --color-danger-300: theme('colors.danger.300');
+      --color-danger-400: theme('colors.danger.400');
+      --color-danger-500: theme('colors.danger.500');
+      --color-danger-600: theme('colors.danger.600');
+      --color-danger-700: theme('colors.danger.700');
+      --color-danger-800: theme('colors.danger.800');
+      --color-danger-900: theme('colors.danger.900');
+      --color-info-50: theme('colors.info.50');
+      --color-info-100: theme('colors.info.100');
+      --color-info-200: theme('colors.info.200');
+      --color-info-300: theme('colors.info.300');
+      --color-info-400: theme('colors.info.400');
+      --color-info-500: theme('colors.info.500');
+      --color-info-600: theme('colors.info.600');
+      --color-info-700: theme('colors.info.700');
+      --color-info-800: theme('colors.info.800');
+      --color-info-900: theme('colors.info.900');
+      /* Neutral Colors */
+      --color-neutral-50: theme('colors.neutral.50');
+      --color-neutral-100: theme('colors.neutral.100');
+      --color-neutral-200: theme('colors.neutral.200');
+      --color-neutral-300: theme('colors.neutral.300');
+      --color-neutral-400: theme('colors.neutral.400');
+      --color-neutral-500: theme('colors.neutral.500');
+      --color-neutral-600: theme('colors.neutral.600');
+      --color-neutral-700: theme('colors.neutral.700');
+      --color-neutral-800: theme('colors.neutral.800');
+      --color-neutral-900: theme('colors.neutral.900');
+      --color-neutral-950: theme('colors.neutral.950');
+      /* Surface Colors */
+      --color-surface-primary: var(--color-neutral-50);
+      --color-surface-secondary: var(--color-neutral-100);
+      --color-surface-elevated: #ffffff;
+      --color-surface-overlay: rgba(0, 0, 0, 0.5);
+      /* Text Colors */
+      --color-text-primary: var(--color-neutral-900);
+      --color-text-secondary: var(--color-neutral-700);
+      --color-text-muted: var(--color-neutral-500);
+      --color-text-placeholder: var(--color-neutral-400);
+      --color-text-on-primary: #ffffff;
+      --color-text-on-dark: #ffffff;
+      /* Border Colors */
+      --color-border-primary: var(--color-neutral-300);
+      --color-border-secondary: var(--color-neutral-200);
+      --color-border-muted: var(--color-neutral-100);
+      /* ===============================================
            SPACING TOKENS
            =============================================== */
-        --spacing-2xs: theme('spacing[0.5]');
-        /* 2px */
-        --spacing-xs: theme('spacing.1');
-        /* 4px */
-        --spacing-sm: theme('spacing.2');
-        /* 8px */
-        --spacing-md: theme('spacing.4');
-        /* 16px */
-        --spacing-lg: theme('spacing.6');
-        /* 24px */
-        --spacing-xl: theme('spacing.8');
-        /* 32px */
-        --spacing-2xl: theme('spacing.12');
-        /* 48px */
-        --spacing-3xl: theme('spacing.16');
-        /* 64px */
-        /* Component Spacing */
-        --spacing-component-xs: var(--spacing-xs);
-        --spacing-component-sm: var(--spacing-sm);
-        --spacing-component-md: var(--spacing-md);
-        --spacing-component-lg: var(--spacing-lg);
-        --spacing-component-xl: var(--spacing-xl);
-        /* ===============================================
+      --spacing-2xs: theme('spacing[0.5]');
+      /* 2px */
+      --spacing-xs: theme('spacing.1');
+      /* 4px */
+      --spacing-sm: theme('spacing.2');
+      /* 8px */
+      --spacing-md: theme('spacing.4');
+      /* 16px */
+      --spacing-lg: theme('spacing.6');
+      /* 24px */
+      --spacing-xl: theme('spacing.8');
+      /* 32px */
+      --spacing-2xl: theme('spacing.12');
+      /* 48px */
+      --spacing-3xl: theme('spacing.16');
+      /* 64px */
+      /* Component Spacing */
+      --spacing-component-xs: var(--spacing-xs);
+      --spacing-component-sm: var(--spacing-sm);
+      --spacing-component-md: var(--spacing-md);
+      --spacing-component-lg: var(--spacing-lg);
+      --spacing-component-xl: var(--spacing-xl);
+      /* ===============================================
            TYPOGRAPHY TOKENS
            =============================================== */
-        /* Font Families */
-        --font-family-sans: theme('fontFamily.sans');
-        --font-family-mono: theme('fontFamily.mono');
-        --font-family-serif: theme('fontFamily.serif');
-        /* Font Sizes */
-        --font-size-2xs: theme('fontSize.xs');
-        /* 12px */
-        --font-size-xs: theme('fontSize.sm');
-        /* 14px */
-        --font-size-sm: theme('fontSize.base');
-        /* 16px */
-        --font-size-md: theme('fontSize.lg');
-        /* 18px */
-        --font-size-lg: theme('fontSize.xl');
-        /* 20px */
-        --font-size-xl: theme('fontSize.2xl');
-        /* 24px */
-        --font-size-2xl: theme('fontSize.3xl');
-        /* 30px */
-        --font-size-3xl: theme('fontSize.4xl');
-        /* 36px */
-        /* Font Weights */
-        --font-weight-light: 300;
-        --font-weight-normal: 400;
-        --font-weight-medium: 500;
-        --font-weight-semibold: 600;
-        --font-weight-bold: 700;
-        /* Line Heights */
-        --line-height-none: 1;
-        --line-height-tight: 1.25;
-        --line-height-normal: 1.5;
-        --line-height-relaxed: 1.75;
-        --line-height-loose: 2;
-        /* Letter Spacing */
-        --letter-spacing-tight: -0.025em;
-        --letter-spacing-normal: 0;
-        --letter-spacing-wide: 0.025em;
-        /* ===============================================
+      /* Font Families */
+      --font-family-sans: theme('fontFamily.sans');
+      --font-family-mono: theme('fontFamily.mono');
+      --font-family-serif: theme('fontFamily.serif');
+      /* Font Sizes */
+      --font-size-2xs: theme('fontSize.xs');
+      /* 12px */
+      --font-size-xs: theme('fontSize.sm');
+      /* 14px */
+      --font-size-sm: theme('fontSize.base');
+      /* 16px */
+      --font-size-md: theme('fontSize.lg');
+      /* 18px */
+      --font-size-lg: theme('fontSize.xl');
+      /* 20px */
+      --font-size-xl: theme('fontSize.2xl');
+      /* 24px */
+      --font-size-2xl: theme('fontSize.3xl');
+      /* 30px */
+      --font-size-3xl: theme('fontSize.4xl');
+      /* 36px */
+      /* Font Weights */
+      --font-weight-thin: 100;
+      --font-weight-extralight: 200;
+      --font-weight-light: 300;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+      --font-weight-extrabold: 800;
+      --font-weight-black: 900;
+      /* Line Heights */
+      --line-height-none: 1;
+      --line-height-tight: 1.25;
+      --line-height-snug: 1.375;
+      --line-height-normal: 1.5;
+      --line-height-relaxed: 1.75;
+      --line-height-loose: 2;
+      /* Letter Spacing */
+      --letter-spacing-tighter: -0.05em;
+      --letter-spacing-tight: -0.025em;
+      --letter-spacing-normal: 0;
+      --letter-spacing-wide: 0.025em;
+      --letter-spacing-wider: 0.05em;
+      --letter-spacing-widest: 0.1em;
+      /* ===============================================
            BORDER RADIUS TOKENS
            =============================================== */
-        --radius-none: 0;
-        --radius-xs: theme('borderRadius.sm');
-        /* 2px */
-        --radius-sm: theme('borderRadius.DEFAULT');
-        /* 4px */
-        --radius-md: theme('borderRadius.md');
-        /* 6px */
-        --radius-lg: theme('borderRadius.lg');
-        /* 8px */
-        --radius-xl: theme('borderRadius.xl');
-        /* 12px */
-        --radius-2xl: theme('borderRadius.2xl');
-        /* 16px */
-        --radius-full: theme('borderRadius.full');
-        /* 9999px */
-        /* Component Radius - default for components */
-        --radius: var(--radius-lg);
-        /* ===============================================
+      --radius-none: 0;
+      --radius-xs: theme('borderRadius.sm');
+      /* 2px */
+      --radius-sm: theme('borderRadius.DEFAULT');
+      /* 4px */
+      --radius-md: theme('borderRadius.md');
+      /* 6px */
+      --radius-lg: theme('borderRadius.lg');
+      /* 8px */
+      --radius-xl: theme('borderRadius.xl');
+      /* 12px */
+      --radius-2xl: theme('borderRadius.2xl');
+      /* 16px */
+      --radius-full: theme('borderRadius.full');
+      /* 9999px */
+      /* Component Radius - default for components */
+      --radius: var(--radius-lg);
+      /* ===============================================
            SHADOW TOKENS
            =============================================== */
-        --shadow-xs: theme('boxShadow.sm');
-        --shadow-sm: theme('boxShadow.DEFAULT');
-        --shadow-md: theme('boxShadow.md');
-        --shadow-lg: theme('boxShadow.lg');
-        --shadow-xl: theme('boxShadow.xl');
-        --shadow-2xl: theme('boxShadow.2xl');
-        /* Component Shadows */
-        --shadow-field: theme('boxShadow.field');
-        --shadow-field-focus: theme('boxShadow.field-focus');
-        --shadow-field-error: theme('boxShadow.field-error');
-        /* ===============================================
+      --shadow-xs: theme('boxShadow.sm');
+      --shadow-sm: theme('boxShadow.DEFAULT');
+      --shadow-md: theme('boxShadow.md');
+      --shadow-lg: theme('boxShadow.lg');
+      --shadow-xl: theme('boxShadow.xl');
+      --shadow-2xl: theme('boxShadow.2xl');
+      /* Component Shadows */
+      --shadow-field: theme('boxShadow.field');
+      --shadow-field-focus: theme('boxShadow.field-focus');
+      --shadow-field-error: theme('boxShadow.field-error');
+      /* ===============================================
            Z-INDEX TOKENS
            =============================================== */
-        --z-base: 0;
-        --z-raised: 1;
-        --z-dropdown: theme('zIndex.dropdown');
-        --z-overlay: theme('zIndex.overlay');
-        --z-modal: theme('zIndex.modal');
-        --z-popover: theme('zIndex.popover');
-        --z-tooltip: theme('zIndex.tooltip');
-        --z-toast: 60;
-        /* ===============================================
+      --z-base: 0;
+      --z-raised: 1;
+      --z-dropdown: theme('zIndex.dropdown');
+      --z-overlay: theme('zIndex.overlay');
+      --z-modal: theme('zIndex.modal');
+      --z-popover: theme('zIndex.popover');
+      --z-tooltip: theme('zIndex.tooltip');
+      --z-toast: 60;
+      /* ===============================================
            ANIMATION TOKENS
            =============================================== */
-        /* Duration */
-        --duration-fast: 150ms;
-        --duration-normal: 300ms;
-        --duration-slow: 500ms;
-        /* Easing */
-        --ease-linear: linear;
-        --ease-in: ease-in;
-        --ease-out: ease-out;
-        --ease-in-out: ease-in-out;
-        --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        /* ===============================================
+      /* Duration */
+      --duration-fast: 150ms;
+      --duration-normal: 300ms;
+      --duration-slow: 500ms;
+      /* Easing */
+      --ease-linear: linear;
+      --ease-in: ease-in;
+      --ease-out: ease-out;
+      --ease-in-out: ease-in-out;
+      --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      /* ===============================================
            BREAKPOINT TOKENS
            =============================================== */
-        --breakpoint-xs: 480px;
-        --breakpoint-sm: 640px;
-        --breakpoint-md: 768px;
-        --breakpoint-lg: 1024px;
-        --breakpoint-xl: 1280px;
-        --breakpoint-2xl: 1536px;
-    }
+      --breakpoint-xs: 480px;
+      --breakpoint-sm: 640px;
+      --breakpoint-md: 768px;
+      --breakpoint-lg: 1024px;
+      --breakpoint-xl: 1280px;
+      --breakpoint-2xl: 1536px;
+   }
 
-    /* ===============================================
+   /* ===============================================
        BASE RESET
        =============================================== */
-    * {
-        box-sizing: border-box;
-    }
+   * {
+      box-sizing: border-box;
+   }
 
-    body {
-        font-family: var(--font-family-sans);
-        line-height: var(--line-height-normal);
-        color: var(--color-text-primary);
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
+   body {
+      font-family: var(--font-family-sans);
+      line-height: var(--line-height-normal);
+      color: var(--color-text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+   }
 }

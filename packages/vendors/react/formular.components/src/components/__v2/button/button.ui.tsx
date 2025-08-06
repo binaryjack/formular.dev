@@ -10,15 +10,15 @@ export const Button = ({
     title,
     children,
     onClick,
-    variants: options = {
-        variant: 'primary',
-        size: 'sm',
+    variants = {
+        type: 'solid',
+        color: 'primary',
+        size: 'md',
+        rounded: true,
         textCase: 'normal-case',
         weight: 'normal',
-        rounded: false,
-        width: 'unset',
-        height: 'unset',
-        className: ''
+        className: '',
+        state: undefined
     },
     loading = false,
     icon,
@@ -26,25 +26,11 @@ export const Button = ({
     isToggle,
     tabindex = -1
 }: IButtonProps) => {
-    const {
-        rounded = false,
-        size = 'sm',
-        variant = 'primary',
-        textCase = 'normal-case',
-        width = 'unset',
-        height = 'unset',
-        weight = 'normal',
-        className
-    } = options
+    const { rounded, textCase, weight, className, state, type, color, size } = variants
 
     const btnBaseClasses = cx(
-        generateButtonStyles('solid', variant, size), // This already includes 'btn' base class
-        {
-            'state-disabled': disabled,
-            'state-loading': loading,
-            'opacity-50': disabled || loading,
-            'cursor-not-allowed': disabled || loading
-        },
+        generateButtonStyles(variants), // This already includes 'btn' base class
+
         // Apply border-radius styling based on rounded prop
         !rounded && 'rounded-none', // When rounded=false, remove border-radius. When true, use default.
         textCase,
@@ -58,7 +44,7 @@ export const Button = ({
         ripples
     } = useRippleEffect(onClick, (disabled ?? false) || loading)
 
-    const rColor = rippleColors(variant)
+    const rColor = rippleColors(color!)
     // Enhanced click handler to ensure proper event handling
     const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         // Ensure click is only processed on the button element itself
@@ -79,12 +65,8 @@ export const Button = ({
             disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? 'true' : 'false'}
-            style={{
-                width: width ?? 'unset',
-                height: height ?? 'unset'
-            }}
             onClick={handleClick}
-            className={`btn-wrapper ${btnBaseClasses} ${className ?? ''} p-1 relative overflow-hidden`}
+            className={`${btnBaseClasses} ${className ?? ''} relative overflow-hidden`}
         >
             {ripples.map((ripple) => (
                 <span
@@ -121,7 +103,7 @@ export const Button = ({
                 >
                     {loading ? (
                         <div className={`flex loading mr-1`}>
-                            <Spinner {...getSpinnerVariant?.(size, variant)} />
+                            <Spinner {...getSpinnerVariant?.(size!, color!)} />
                         </div>
                     ) : icon ? (
                         <div className={`icon mx-[100px]`} style={{ pointerEvents: 'none' }}>
@@ -131,7 +113,7 @@ export const Button = ({
                         <></>
                     )}
                     <span
-                        className={`flex content ${sizeConverter?.(size)} text-nowrap ${weight} `}
+                        className={`flex content ${sizeConverter?.(size!)} text-nowrap ${weight} `}
                         style={{ pointerEvents: 'none' }}
                     >
                         {children}

@@ -1,7 +1,7 @@
 import { Label } from '@components/__v2/label/label.ui'
 import { cx } from 'formular.design.system'
 import { RadioOption } from '../options/radio-option.ui'
-import { IRadioOptionGroup } from './radio-option-group.ui.types'
+import { IRadioOptionGroup } from './radio-option-group.types'
 
 export const RadioOptionGroup = ({ labelProps, radioOptionProps }: IRadioOptionGroup) => {
     return (

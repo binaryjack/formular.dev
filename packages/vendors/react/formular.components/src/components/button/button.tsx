@@ -60,13 +60,8 @@ export const Button = ({
     } = variantProperties
 
     const btnBaseClasses = cx(
-        generateButtonStyles('solid', variant as any, size as any), // This already includes 'btn' base class
-        {
-            'state-disabled': disabled,
-            'state-loading': loading,
-            'opacity-50': disabled || loading,
-            'cursor-not-allowed': disabled || loading
-        },
+        generateButtonStyles({}), // This already includes 'btn' base class
+
         // Apply border-radius styling based on rounded prop
         !rounded && 'rounded-none', // When rounded=false, remove border-radius. When true, use default.
         textCase,
@@ -124,7 +119,7 @@ export const Button = ({
             disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
-            className={`btn-wrapper ${btnBaseClasses} ${className ?? ''} p-1 relative overflow-hidden`}
+            className={`${btnBaseClasses} ${className ?? ''} relative overflow-hidden`}
             style={{
                 width: width ?? 'unset',
                 height: height ?? 'unset'

@@ -9,6 +9,8 @@ import {
     componentSupportsFeature,
     createComponentStyleGenerator,
     generateButtonComponentStyles,
+    generateButtonStyles,
+    generateButtonStylesV2,
     generateCardComponentStyles,
     generateComponentStyles,
     generateInputComponentStyles,
@@ -21,7 +23,7 @@ import {
 
 // Example 1: Direct usage with generateComponentStyles
 export const directUsageExamples = {
-    // Button examples
+    // Button examples using the generic API
     primaryButton: generateComponentStyles('button', {
         visualVariant: 'solid',
         variant: 'primary',
@@ -36,6 +38,33 @@ export const directUsageExamples = {
         rounded: false
     }),
     // Returns: "btn btn-lg btn-outline-secondary rounded-none"
+
+    // Button examples using the NEW developer-friendly API
+    solidButton: generateButtonStyles('solid', 'primary', 'md'),
+    // Returns: "btn btn-md btn-primary"
+
+    outlineButton: generateButtonStyles('outline', 'danger', 'lg'),
+    // Returns: "btn btn-lg btn-outline-danger"
+
+    ghostButton: generateButtonStyles('ghost', 'success', 'sm'),
+    // Returns: "btn btn-sm btn-ghost-success"
+
+    // Button examples using the V2 interface (recommended for new code)
+    buttonV2Example1: generateButtonStylesV2({
+        type: 'solid',
+        color: 'primary',
+        size: 'md'
+    }),
+    // Returns: "btn btn-md btn-primary"
+
+    buttonV2Example2: generateButtonStylesV2({
+        type: 'outline',
+        color: 'warning',
+        size: 'xl',
+        rounded: false,
+        className: 'custom-btn'
+    }),
+    // Returns: "btn btn-xl btn-outline-warning rounded-none custom-btn"
 
     // Input examples
     errorInput: generateComponentStyles('input', {
@@ -69,20 +98,15 @@ export const directUsageExamples = {
     }),
     // Returns: "card card-outlined shadow-sm"
 
-    // Form control examples
-    primaryCheckbox: generateComponentStyles('checkbox', {
-        variant: 'primary',
-        size: 'md'
-    }),
-    // Returns: "checkbox checkbox-md checkbox-primary"
+    // Form control examples (using base classes only - no variants in current CSS)
+    primaryCheckbox: generateComponentStyles('checkbox', {}),
+    // Returns: "checkbox"
 
-    largeSwitch: generateComponentStyles('switch', {
-        variant: 'success',
-        size: 'lg'
-    }),
-    // Returns: "switch switch-lg switch-success"
+    largeSwitch: generateComponentStyles('switch', {})
+    // Returns: "switch"
 
-    // Feedback examples
+    // Feedback examples - commented out until CSS files are created
+    /*
     dangerBadge: generateComponentStyles('badge', {
         visualVariant: 'solid',
         variant: 'danger',
@@ -95,6 +119,7 @@ export const directUsageExamples = {
         variant: 'warning'
     })
     // Returns: "alert alert-outline-warning"
+    */
 }
 
 // Example 2: Using pre-created generators for better performance
@@ -313,21 +338,73 @@ export const utilityExamples = {
  * Migration examples showing how to replace existing style generators
  */
 export const migrationExamples = {
-    // BEFORE: Using generateButtonStyles
+    // ===================================================================
+    // BUTTON MIGRATION EXAMPLES
+    // ===================================================================
+
+    // OLD: Using generateButtonStyles from component-styles.ts
     // generateButtonStyles('solid', 'primary', 'md')
     //
-    // AFTER: Using generic component styles
+    // NEW: Using developer-friendly API (recommended)
+    // generateButtonStyles('solid', 'primary', 'md')
+    //
+    // NEW: Using V2 interface (most explicit)
+    // generateButtonStylesV2({ type: 'solid', color: 'primary', size: 'md' })
+    //
+    // NEW: Using generic component styles (most flexible)
     // generateComponentStyles('button', { visualVariant: 'solid', variant: 'primary', size: 'md' })
-    // BEFORE: Using generateInputStyles
+
+    // Example conversions:
+    buttonExample1: {
+        // Before: generateButtonStyles('outline', 'danger', 'lg')
+        newApi: generateButtonStyles('outline', 'danger', 'lg'),
+        newV2: generateButtonStylesV2({ type: 'outline', color: 'danger', size: 'lg' }),
+        newGeneric: generateComponentStyles('button', {
+            visualVariant: 'outline',
+            variant: 'danger',
+            size: 'lg'
+        })
+    },
+
+    // ===================================================================
+    // INPUT MIGRATION EXAMPLES
+    // ===================================================================
+
+    // OLD: Using generateInputStyles from component-styles.ts
     // generateInputStyles('md', { error: true })
     //
-    // AFTER: Using generic component styles
+    // NEW: Using generic component styles (recommended)
     // generateComponentStyles('input', { size: 'md', state: { error: true } })
-    // BEFORE: Using generateCardStyles
+
+    inputExample1: {
+        // Before: generateInputStyles('lg', { focused: true, error: false })
+        newGeneric: generateComponentStyles('input', {
+            size: 'lg',
+            state: {
+                focused: true,
+                error: false,
+                disabled: false,
+                hovered: false,
+                pressed: false,
+                loading: false
+            }
+        })
+    },
+
+    // ===================================================================
+    // CARD MIGRATION EXAMPLES
+    // ===================================================================
+
+    // OLD: Using generateCardStyles from component-styles.ts
     // generateCardStyles('outlined')
     //
-    // AFTER: Using generic component styles
+    // NEW: Using generic component styles (recommended)
     // generateComponentStyles('card', { visualVariant: 'outlined' })
+
+    cardExample1: {
+        // Before: generateCardStyles('elevated')
+        newGeneric: generateComponentStyles('card', { visualVariant: 'elevated' })
+    }
 }
 
 // ===================================================================
@@ -341,8 +418,8 @@ export const performanceOptimizedGenerators = {
     card: createComponentStyleGenerator('card'),
     checkbox: createComponentStyleGenerator('checkbox'),
     radio: createComponentStyleGenerator('radio'),
-    badge: createComponentStyleGenerator('badge'),
-    alert: createComponentStyleGenerator('alert')
+    typography: createComponentStyleGenerator('typography'),
+    text: createComponentStyleGenerator('text')
 }
 
 // Then use them like:

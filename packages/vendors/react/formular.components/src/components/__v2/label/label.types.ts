@@ -1,6 +1,7 @@
+import { IGenericComponentVariants } from 'formular.design.system'
+
 export interface ILabelProps extends React.ComponentProps<'label'> {
     htmlFor: string
     text: string
-    classNames?: string
-    size?: number
+    variants?: Partial<IGenericComponentVariants>
 }

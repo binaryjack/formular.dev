@@ -7,6 +7,5 @@
  * 3. Legacy global styles (deprecated)
  */
 /** Import Design System - includes Tailwind directives and component styles */
-@import '../../../../design-system/src/styles/index.css';
 /** Import app-specific styles */
 @import './style/app-specific.css';

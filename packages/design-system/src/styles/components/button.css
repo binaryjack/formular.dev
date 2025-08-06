@@ -29,6 +29,14 @@
     }
 
     /* Button Sizes */
+    .btn-2xs {
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        gap: var(--spacing-xs);
+        min-height: 10px;
+    }
+
+    /* Button Sizes */
     .btn-xs {
         font-size: var(--font-size-2xs);
         padding: var(--spacing-xs) var(--spacing-sm);
@@ -62,6 +70,13 @@
         padding: var(--spacing-xl) var(--spacing-2xl);
         gap: var(--spacing-md);
         min-height: 56px;
+    }
+
+    .btn-2xl {
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-xl) var(--spacing-2xl);
+        gap: var(--spacing-md);
+        min-height: 60px;
     }
 
     /* Primary Button Variant */

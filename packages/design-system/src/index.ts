@@ -36,6 +36,13 @@ export type {
 
 export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
 
+// Export utility types
+export type {
+    ComponentType,
+    ExtendedVisualVariantType,
+    IGenericComponentVariants
+} from './utilities/generic-component-styles'
+
 // Export constants
 export { DrawerBreakPointSizes, rippleColors } from './types/utilities'
 

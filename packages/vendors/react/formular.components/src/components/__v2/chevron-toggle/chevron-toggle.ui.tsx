@@ -9,7 +9,7 @@ export const ChevronToggle = ({
     toggleContextId,
     initialToggleState,
     onToggle,
-    variants: options
+    variants
 }: IChevronToggleProps) => {
     const { toggleState, setToggleState } = useToggleableContext(toggleContextId)
 
@@ -40,7 +40,7 @@ export const ChevronToggle = ({
         <Button
             id={name}
             title={name}
-            variants={options}
+            variants={variants}
             aria-label={ariaLabel}
             aria-expanded={ariaExpanded}
             aria-controls={ariaControls}

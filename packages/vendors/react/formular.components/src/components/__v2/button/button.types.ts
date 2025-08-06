@@ -1,4 +1,4 @@
-import { IComponentVariants } from '../component-variants'
+import { IButtonVariants } from 'formular.design.system'
 
 export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     id: string
@@ -10,5 +10,5 @@ export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     disabled?: boolean
     isToggle?: boolean
     tabindex?: number
-    variants?: Partial<IComponentVariants>
+    variants?: Partial<IButtonVariants>
 }

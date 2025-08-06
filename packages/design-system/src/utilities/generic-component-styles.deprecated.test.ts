@@ -141,8 +141,40 @@ console.log(
 )
 // Expected: "radio radio-sm radio-danger"
 
-// Test Feedback Components
+// Test Typography Components
+console.log('\n--- Typography Styles ---')
+console.log(
+    'Primary text medium:',
+    generateComponentStyles('typography', {
+        variant: 'primary',
+        size: 'md'
+    })
+)
+// Expected: "primitive-text primitive-text-primary primitive-text-md"
+
+console.log(
+    'Secondary large text:',
+    generateComponentStyles('text', {
+        variant: 'secondary',
+        size: 'lg'
+    })
+)
+// Expected: "primitive-text primitive-text-secondary primitive-text-lg"
+
+console.log(
+    'Neutral small text (maps to muted):',
+    generateComponentStyles('typography', {
+        variant: 'neutral',
+        size: 'sm'
+    })
+)
+// Expected: "primitive-text primitive-text-muted primitive-text-sm"
+
+// Test Feedback Components - commented out until CSS files are created
 console.log('\n--- Feedback Component Styles ---')
+console.log('Warning badge: CSS file not available yet')
+console.log('Info outline alert: CSS file not available yet')
+/*
 console.log(
     'Warning badge:',
     generateComponentStyles('badge', {
@@ -161,6 +193,7 @@ console.log(
     })
 )
 // Expected: "alert alert-outline-info"
+*/
 
 // Test Custom Generators
 console.log('\n--- Custom Generator Test ---')

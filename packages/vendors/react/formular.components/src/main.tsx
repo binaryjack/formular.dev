@@ -7,12 +7,12 @@
  */
 
 import { BaseInput } from '@components/__v2/base-input/base-input.ui'
-import { BaseText } from '@components/__v2/base-text/base-text.ui'
 import { Button } from '@components/__v2/button/button.ui'
 import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
 
 import { Accordion } from '@components/__v2/accordion/accordion.ui'
 import { Dropdown } from '@components/__v2/dropdown/dropdown.ui'
+import { Label } from '@components/__v2/label/label.ui'
 import { RadioInput } from '@components/__v2/radio-input/radio-input.ui'
 import { StatusIcon } from '@components/__v2/status-icon/status-icon.ui'
 import { AppContextProvider } from '@components/context/app-context/app-context'
@@ -22,7 +22,6 @@ import Spinner from '@components/spinner/spinner'
 import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
 import ReactDOM from 'react-dom/client'
 import { MdReadMore } from 'react-icons/md'
-import './index.css'
 
 export const mainOptions = new OptionsBuilder()
     .setOptions(
@@ -55,23 +54,43 @@ root.render(
                 }}
             >
                 <div className="flex flex-col  w-screen items-center justify-center h-screen">
-                    <Button
-                        id={'button-1'}
-                        title={'Button 1'}
-                        children={'Button 1'}
-                        onClick={function (
-                            e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-                        ): void {
-                            console.log('Button 1 clicked', e)
-                        }}
-                    />
-                    <BaseText
-                        id={'text-1'}
-                        text={'Base Text 1'}
-                        htmlFor="text-input-1"
-                        className={'bg-slate-50 text-2xl'}
-                    />
-                    <BaseInput id={'text-input-1'} dataClass={'base-input'} />
+                    <div className="flex flex-row w-100 items-center justify-between bg-violet-400">
+                        <Label
+                            id={'text-1'}
+                            text={'Base Text 1'}
+                            htmlFor="text-input-1"
+                            className={'bg-slate-50'}
+                            variants={{ size: '2xl' }}
+                        />
+                        <BaseInput
+                            id={'text-input-1'}
+                            variants={{
+                                variant: 'secondary',
+                                size: 'xs',
+                                weight: 'bold',
+                                rounded: true,
+                                width: '10%',
+                                height: '10px'
+                            }}
+                        />
+                        <Button
+                            id={'button-1'}
+                            title={'Button 1'}
+                            children={'Button 1'}
+                            variants={{
+                                type: 'solid',
+                                color: 'danger',
+                                size: 'sm',
+                                rounded: true,
+                                weight: 'bold'
+                            }}
+                            onClick={function (
+                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                            ): void {
+                                console.log('Button 1 clicked', e)
+                            }}
+                        />
+                    </div>
                     <Spinner size="lg" color="primary" />
                     <StatusIcon id={'status-icon-1'} isLoading={true} icon={<MdReadMore />} />
 
@@ -92,7 +111,7 @@ root.render(
                         initialState={undefined}
                     />
 
-                    <RadioInput id={'radio-input-1'} options={mainOptions} size={1} />
+                    <RadioInput id={'radio-input-1'} options={mainOptions} />
 
                     <Accordion id={'accordion-1'} title={'Accordion-1'} initialState={'closed'}>
                         <p>This is the content of Accordion 1.</p>

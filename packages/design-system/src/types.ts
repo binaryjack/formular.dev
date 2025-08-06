@@ -21,3 +21,10 @@ export type {
     ValueOfType,
     VisualVariantType
 } from './types/types'
+
+// Re-export utility types for convenience
+export type {
+    ComponentType,
+    ExtendedVisualVariantType,
+    IGenericComponentVariants
+} from './utilities/generic-component-styles'

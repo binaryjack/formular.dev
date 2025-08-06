@@ -34,13 +34,13 @@ export const Dropdown = ({ id, label, initialState, options }: IDropdown) => {
                 height: 'auto'
             }}
         >
-            <div className="bg-red-100 flex flex-row p-1 items-center rounded-md shadow-md">
+            <div className="bg-red-100 flex flex-row items-center rounded-md shadow-md">
                 <Label htmlFor={`dropdown-input-${id}`} text={label} className={' mr-2'} />
                 <Drawer
                     owner={
                         <BaseInput
                             id={`dropdown-input-${id}`}
-                            dataClass={'base-input '}
+                            dataClass={'primitive-input'}
                             onChangeCallback={handleOnChanged}
                         />
                     }

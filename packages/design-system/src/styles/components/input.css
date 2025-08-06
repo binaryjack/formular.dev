@@ -1,42 +1,101 @@
 /**
  * Input Component Styles
  * 
- * Input variants built using primitive styles.
+ * Input variants built using primitive styles and enhanced with granular control.
+ * Works in conjunction with form-reset.css for consistent baseline styling.
  */
 @layer components {
 
     /* ===============================================
        INPUT COMPONENT VARIANTS
        =============================================== */
-    /* Input Base - extends primitive-input */
+    /* Input Base - extends primitive-input with enhanced control */
     .input {
         @apply primitive-input primitive-transition;
+        /* Override any remaining browser defaults */
+        font-family: var(--font-family-sans);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-normal);
+        line-height: var(--line-height-normal);
+        /* Ensure consistent sizing */
+        display: block;
+        width: 100%;
+        padding: var(--spacing-md);
+        /* Styling */
+        background-color: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-primary);
+        border-radius: var(--radius);
+        color: var(--color-text-primary);
+        /* Interaction */
+        transition: all var(--duration-fast) var(--ease-in-out);
     }
 
-    /* Input Sizes - extends primitive-input sizes */
+    .input::placeholder {
+        color: var(--color-text-placeholder);
+        opacity: 1;
+        /* Firefox fix */
+    }
+
+    .input:focus {
+        border-color: var(--color-primary-500);
+        box-shadow: 0 0 0 3px var(--color-primary-500)/20;
+        outline: none;
+    }
+
+    .input:disabled {
+        background-color: var(--color-surface-secondary);
+        border-color: var(--color-border-secondary);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* ===============================================
+       INPUT SIZE VARIANTS
+       =============================================== */
+    /* Input Sizes - with explicit padding control */
     .input-xs {
         @apply primitive-input-xs;
+        font-size: var(--font-size-2xs);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        min-height: 24px;
     }
 
     .input-sm {
         @apply primitive-input-sm;
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+        min-height: 32px;
     }
 
     .input-md {
         @apply primitive-input-md;
+        font-size: var(--font-size-sm);
+        padding: var(--spacing-md) var(--spacing-md);
+        min-height: 40px;
     }
 
     .input-lg {
         @apply primitive-input-lg;
+        font-size: var(--font-size-md);
+        padding: var(--spacing-md) var(--spacing-lg);
+        min-height: 48px;
     }
 
     .input-xl {
         @apply primitive-input-xl;
+        font-size: var(--font-size-lg);
+        padding: var(--spacing-lg) var(--spacing-xl);
+        min-height: 56px;
     }
 
-    /* Input States */
+    /* ===============================================
+       INPUT STATE VARIANTS
+       =============================================== */
+    /* Error State */
     .input-error {
         border-color: var(--color-danger-500);
+        background-color: var(--color-danger-50);
     }
 
     .input-error:focus {
@@ -44,8 +103,10 @@
         box-shadow: 0 0 0 3px var(--color-danger-500)/20;
     }
 
+    /* Success State */
     .input-success {
         border-color: var(--color-success-500);
+        background-color: var(--color-success-50);
     }
 
     .input-success:focus {
@@ -53,12 +114,114 @@
         box-shadow: 0 0 0 3px var(--color-success-500)/20;
     }
 
+    /* Warning State */
     .input-warning {
         border-color: var(--color-warning-500);
+        background-color: var(--color-warning-50);
     }
 
     .input-warning:focus {
         border-color: var(--color-warning-500);
         box-shadow: 0 0 0 3px var(--color-warning-500)/20;
+    }
+
+    /* ===============================================
+       INPUT STYLE VARIANTS
+       =============================================== */
+    /* Outline variant (default) */
+    .input-outline {
+        background-color: var(--color-surface-elevated);
+        border: 1px solid var(--color-border-primary);
+    }
+
+    /* Filled variant */
+    .input-filled {
+        background-color: var(--color-surface-secondary);
+        border: 1px solid transparent;
+    }
+
+    .input-filled:focus {
+        background-color: var(--color-surface-elevated);
+        border-color: var(--color-primary-500);
+    }
+
+    /* Borderless variant */
+    .input-borderless {
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-bottom: 1px solid var(--color-border-primary);
+        border-radius: 0;
+    }
+
+    .input-borderless:focus {
+        border-bottom-color: var(--color-primary-500);
+        box-shadow: 0 1px 0 0 var(--color-primary-500);
+    }
+
+    /* ===============================================
+       TEXTAREA SPECIFIC STYLES
+       =============================================== */
+    .input-textarea {
+        resize: vertical;
+        min-height: calc(var(--spacing-xl) * 4);
+        /* Approximately 3-4 lines */
+        padding: var(--spacing-md);
+        line-height: var(--line-height-relaxed);
+    }
+
+    .input-textarea-sm {
+        min-height: calc(var(--spacing-xl) * 3);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .input-textarea-lg {
+        min-height: calc(var(--spacing-xl) * 6);
+        padding: var(--spacing-lg);
+    }
+
+    /* ===============================================
+       SELECT SPECIFIC STYLES
+       =============================================== */
+    .input-select {
+        cursor: pointer;
+        padding-right: var(--spacing-xl);
+        /* Custom dropdown arrow using CSS */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right var(--spacing-md) center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+    }
+
+    .input-select:focus {
+        /* Update arrow color on focus */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%233b82f6' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    }
+
+    /* ===============================================
+       UTILITY MODIFIERS
+       =============================================== */
+    /* Full width input (default behavior, but can be explicit) */
+    .input-full {
+        width: 100%;
+    }
+
+    /* Auto width input */
+    .input-auto {
+        width: auto;
+    }
+
+    /* No resize for textareas */
+    .input-no-resize {
+        resize: none;
+    }
+
+    /* Horizontal resize only */
+    .input-resize-horizontal {
+        resize: horizontal;
+    }
+
+    /* Both directions resize */
+    .input-resize-both {
+        resize: both;
     }
 }

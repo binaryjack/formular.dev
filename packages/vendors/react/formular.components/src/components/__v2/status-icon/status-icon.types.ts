@@ -1,6 +1,8 @@
+import { IGenericComponentVariants } from 'formular.design.system'
+
 export interface IStatusIconProps extends Partial<React.ComponentProps<'div'>> {
     id: string
     isLoading: boolean
     icon: React.ReactNode
-    className?: string
+    variants?: Partial<IGenericComponentVariants>
 }
