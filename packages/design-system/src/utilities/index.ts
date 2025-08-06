@@ -18,9 +18,6 @@ import { colors } from '../tokens/colors'
 import { shadows } from '../tokens/shadows'
 import { spacing } from '../tokens/spacing'
 
-// Export generic component style utilities from generics folder
-export * from './generics'
-
 /**
  * Simple class name utility (lightweight alternative to clsx)
  * Combines class names and handles conditional classes

@@ -4,7 +4,7 @@ import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 // Import design system utilities
-import { cx, generateInputStyles } from 'formular.design.system'
+import { cx, genericStyle } from 'formular.design.system'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -111,13 +111,17 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 data-class="base-input"
                 className={cx(
                     'base-input',
-                    generateInputStyles('md', {
-                        error: (instance?.input?.validationResults?.length ?? 0) > 0,
-                        focused: instance?.input?.isFocus ?? false,
-                        disabled: instance?.input?.disabled ?? false,
-                        hovered: false,
-                        pressed: false,
-                        loading: false
+                    genericStyle({
+                        componentType: 'input',
+                        size: 'md',
+                        state: {
+                            error: (instance?.input?.validationResults?.length ?? 0) > 0,
+                            focused: instance?.input?.isFocus ?? false,
+                            disabled: instance?.input?.disabled ?? false,
+                            hovered: false,
+                            pressed: false,
+                            loading: false
+                        }
                     })
                 )}
                 {...instance?.register()}

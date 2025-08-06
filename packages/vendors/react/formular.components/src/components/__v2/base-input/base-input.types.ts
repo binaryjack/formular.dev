@@ -1,4 +1,4 @@
-import { IGenericComponentVariants } from 'formular.design.system'
+import { IGenericComponentVariantsV2 } from 'formular.design.system'
 
 export interface IBaseInputProps extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     dataClass?: string
@@ -9,5 +9,5 @@ export interface IBaseInputProps extends Omit<Partial<React.ComponentProps<'inpu
     onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     onChangeCallback?: (value: string) => void
-    variants?: Partial<IGenericComponentVariants>
+    variants?: Partial<IGenericComponentVariantsV2>
 }

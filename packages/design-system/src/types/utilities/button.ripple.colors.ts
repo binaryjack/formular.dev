@@ -9,7 +9,7 @@ export const rippleColors = (variant: ComponentVariantType) => {
         case 'secondary':
             return 'rgba(0, 0, 0, 0.1)'
         case 'danger':
-            return 'rgba(255, 0, 0, 0.2)'
+            return 'rgba(255, 200, 0, 0.6)'
         case 'success':
             return 'rgba(0, 255, 0, 0.2)'
         case 'warning':

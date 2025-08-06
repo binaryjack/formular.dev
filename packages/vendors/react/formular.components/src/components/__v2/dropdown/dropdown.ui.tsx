@@ -35,7 +35,11 @@ export const Dropdown = ({ id, label, initialState, options }: IDropdown) => {
             }}
         >
             <div className="bg-red-100 flex flex-row items-center rounded-md shadow-md">
-                <Label htmlFor={`dropdown-input-${id}`} text={label} className={' mr-2'} />
+                <Label
+                    htmlFor={`dropdown-input-${id}`}
+                    text={label}
+                    variants={{ className: 'mr-2' }}
+                />
                 <Drawer
                     owner={
                         <BaseInput

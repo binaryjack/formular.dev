@@ -43,6 +43,24 @@ export type {
     IGenericComponentVariants
 } from './utilities/generic-component-styles'
 
+// Export legacy utilities for backward compatibility
+export { colorUtils, generateValidationStyles } from './utilities/generic-component-styles'
+
+// Export V2 Experimental Generic Style System
+export {
+    COMPONENT_CONFIGS_V2,
+    componentSupportsFeatureV2,
+    genericStyle,
+    getAvailableComponentTypesV2
+} from './utilities/generics-v2'
+
+export type {
+    ComponentTypeV2,
+    IComponentStyleConfigV2,
+    IGenericComponentVariantsV2,
+    ITypographyConfig
+} from './utilities/generics-v2'
+
 // Export constants
 export { DrawerBreakPointSizes, rippleColors } from './types/utilities'
 

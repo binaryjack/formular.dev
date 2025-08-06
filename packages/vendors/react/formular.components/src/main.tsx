@@ -59,18 +59,29 @@ root.render(
                             id={'text-1'}
                             text={'Base Text 1'}
                             htmlFor="text-input-1"
-                            className={'bg-slate-50'}
-                            variants={{ size: '2xl' }}
+                            variants={{
+                                size: 'xl',
+                                variant: 'secondary',
+                                rounded: true,
+                                typography: {
+                                    size: '2xl',
+                                    variant: 'primary',
+                                    case: 'uppercase',
+                                    weight: 'bold'
+                                }
+                            }}
                         />
                         <BaseInput
                             id={'text-input-1'}
                             variants={{
                                 variant: 'secondary',
                                 size: 'xs',
-                                weight: 'bold',
                                 rounded: true,
                                 width: '10%',
-                                height: '10px'
+                                height: '10px',
+                                typography: {
+                                    weight: 'bold'
+                                }
                             }}
                         />
                         <Button
@@ -78,11 +89,10 @@ root.render(
                             title={'Button 1'}
                             children={'Button 1'}
                             variants={{
-                                type: 'solid',
-                                color: 'danger',
-                                size: 'sm',
-                                rounded: true,
-                                weight: 'bold'
+                                visualVariant: 'solid',
+                                variant: 'danger',
+                                size: 'md',
+                                rounded: true
                             }}
                             onClick={function (
                                 e: React.MouseEvent<HTMLButtonElement, MouseEvent>

@@ -1,5 +1,5 @@
 import useDebouncer from '@adapters/react/hooks/use-debouncer'
-import { cx, generateComponentStyles } from 'formular.design.system'
+import { cx, genericStyle } from 'formular.design.system'
 import { useState } from 'react'
 import { IBaseInputProps } from './base-input.types'
 
@@ -18,22 +18,27 @@ export const BaseInput = ({
     const {
         variant = 'primary',
         size = 'md',
-        weight = 'normal',
         rounded = false,
         width = 'unset',
         height = 'unset',
-        className = ''
+        className = '',
+        typography = {}
     } = variants
 
+    const { weight = 'normal' } = typography
+
     const classStyle = cx(
-        generateComponentStyles('input', {
+        genericStyle({
+            componentType: 'input',
             variant,
             size,
-            weight,
             rounded,
             width,
-            height
-        }) // This already includes 'btn' base class
+            height,
+            typography: {
+                weight
+            }
+        }) // Now using V2 unified API with typography separation
     )
 
     const [value, setValue] = useState('')

@@ -1,7 +1,7 @@
-import { sizeConverter } from '@adapters/react/hooks/screen/utils/screen.utils'
 import Spinner from '@components/spinner/spinner'
 import { getSpinnerVariant } from '@components/spinner/utils/spinner.variant.converter'
-import { cx, generateButtonStyles, rippleColors } from 'formular.design.system'
+import { genericStyle, rippleColors } from 'formular.design.system'
+import { Typography } from '../typography/typography.ui'
 import { IButtonProps } from './button.types'
 import useRippleEffect from './ripple/use-ripple-effect'
 
@@ -10,33 +10,17 @@ export const Button = ({
     title,
     children,
     onClick,
-    variants = {
-        type: 'solid',
-        color: 'primary',
-        size: 'md',
-        rounded: true,
-        textCase: 'normal-case',
-        weight: 'normal',
-        className: '',
-        state: undefined
-    },
+    variants = {},
     loading = false,
     icon,
     disabled,
     isToggle,
     tabindex = -1
 }: IButtonProps) => {
-    const { rounded, textCase, weight, className, state, type, color, size } = variants
-
-    const btnBaseClasses = cx(
-        generateButtonStyles(variants), // This already includes 'btn' base class
-
-        // Apply border-radius styling based on rounded prop
-        !rounded && 'rounded-none', // When rounded=false, remove border-radius. When true, use default.
-        textCase,
-        className
-    )
-
+    const btnClasses = genericStyle({
+        componentType: 'button',
+        ...variants
+    })
     const {
         mainRef: buttonRef,
         castedRefObject,
@@ -44,7 +28,7 @@ export const Button = ({
         ripples
     } = useRippleEffect(onClick, (disabled ?? false) || loading)
 
-    const rColor = rippleColors(color!)
+    const rColor = rippleColors(variants?.variant!)
     // Enhanced click handler to ensure proper event handling
     const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         // Ensure click is only processed on the button element itself
@@ -66,7 +50,7 @@ export const Button = ({
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? 'true' : 'false'}
             onClick={handleClick}
-            className={`${btnBaseClasses} ${className ?? ''} relative overflow-hidden`}
+            className={`${btnClasses}  relative overflow-hidden`}
         >
             {ripples.map((ripple) => (
                 <span
@@ -103,7 +87,9 @@ export const Button = ({
                 >
                     {loading ? (
                         <div className={`flex loading mr-1`}>
-                            <Spinner {...getSpinnerVariant?.(size!, color!)} />
+                            <Spinner
+                                {...getSpinnerVariant?.(variants?.size!, variants?.variant!)}
+                            />
                         </div>
                     ) : icon ? (
                         <div className={`icon mx-[100px]`} style={{ pointerEvents: 'none' }}>
@@ -112,12 +98,16 @@ export const Button = ({
                     ) : (
                         <></>
                     )}
-                    <span
-                        className={`flex content ${sizeConverter?.(size!)} text-nowrap ${weight} `}
+                    <Typography
+                        as={'span'}
+                        variants={{
+                            className: 'text-nowrap',
+                            ...variants.typography
+                        }}
                         style={{ pointerEvents: 'none' }}
                     >
                         {children}
-                    </span>
+                    </Typography>
                 </div>
             </div>
         </button>

@@ -30,5 +30,13 @@
     }
   },
   "include": ["src/**/*", "stories/**/*"],
-  "exclude": ["node_modules", "dist", "coverage", "**/*.test.*", "**/*.spec.*", "src/examples.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "src/examples.ts",
+    "src/utilities/_deprecated_backups/**/*"
+  ]
 }

@@ -1,4 +1,4 @@
-import { IGenericComponentVariants } from 'formular.design.system'
+import { IGenericComponentVariantsV2 } from 'formular.design.system'
 import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface IAccordionProps extends React.ComponentProps<'div'> {
@@ -6,5 +6,5 @@ export interface IAccordionProps extends React.ComponentProps<'div'> {
     title: string
     children: React.ReactNode
     initialState?: ToggleableStateType
-    variants?: Partial<IGenericComponentVariants>
+    variants?: Partial<IGenericComponentVariantsV2>
 }

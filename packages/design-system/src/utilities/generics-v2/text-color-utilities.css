@@ -1,0 +1,96 @@
+/**
+ * Text Color Utilities for V2 System
+ * 
+ * These CSS classes enable text-[variant] styling that's independent
+ * from component colors. Add these to your utilities.css file.
+ */
+/* ===============================================
+   TEXT COLOR UTILITIES - V2 SYSTEM
+   =============================================== */
+/* Primary text colors */
+.text-primary {
+    color: var(--color-primary-500);
+}
+
+.text-secondary {
+    color: var(--color-secondary-500);
+}
+
+.text-neutral {
+    color: var(--color-neutral-500);
+}
+
+/* Semantic text colors */
+.text-info {
+    color: var(--color-info-500);
+}
+
+.text-success {
+    color: var(--color-success-500);
+}
+
+.text-warning {
+    color: var(--color-warning-500);
+}
+
+.text-danger {
+    color: var(--color-danger-500);
+}
+
+/* Text color specificity overrides */
+/* Ensure text colors always win over component colors */
+[class*="btn"].text-primary {
+    color: var(--color-primary-500) !important;
+}
+
+[class*="btn"].text-secondary {
+    color: var(--color-secondary-500) !important;
+}
+
+[class*="btn"].text-neutral {
+    color: var(--color-neutral-500) !important;
+}
+
+[class*="btn"].text-info {
+    color: var(--color-info-500) !important;
+}
+
+[class*="btn"].text-success {
+    color: var(--color-success-500) !important;
+}
+
+[class*="btn"].text-warning {
+    color: var(--color-warning-500) !important;
+}
+
+[class*="btn"].text-danger {
+    color: var(--color-danger-500) !important;
+}
+
+[class*="input"].text-primary {
+    color: var(--color-primary-500) !important;
+}
+
+[class*="input"].text-secondary {
+    color: var(--color-secondary-500) !important;
+}
+
+[class*="input"].text-neutral {
+    color: var(--color-neutral-500) !important;
+}
+
+[class*="input"].text-info {
+    color: var(--color-info-500) !important;
+}
+
+[class*="input"].text-success {
+    color: var(--color-success-500) !important;
+}
+
+[class*="input"].text-warning {
+    color: var(--color-warning-500) !important;
+}
+
+[class*="input"].text-danger {
+    color: var(--color-danger-500) !important;
+}

@@ -2,7 +2,7 @@ import {
     ComponentSizeType,
     ComponentVariantType,
     cx,
-    generateButtonStyles,
+    genericStyle,
     TextCaseType,
     TextWeightType
 } from 'formular.design.system'
@@ -60,11 +60,18 @@ export const Button = ({
     } = variantProperties
 
     const btnBaseClasses = cx(
-        generateButtonStyles({}), // This already includes 'btn' base class
-
-        // Apply border-radius styling based on rounded prop
-        !rounded && 'rounded-none', // When rounded=false, remove border-radius. When true, use default.
-        textCase,
+        genericStyle({
+            componentType: 'button',
+            variant,
+            size,
+            rounded,
+            width,
+            height,
+            typography: {
+                weight,
+                case: textCase
+            }
+        }), // Using V2 unified API with typography separation
         className
     )
 

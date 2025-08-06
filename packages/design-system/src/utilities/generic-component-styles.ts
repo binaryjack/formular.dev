@@ -1,68 +1,68 @@
 /**
- * @deprecated This file is deprecated. Use individual imports from './generics/' instead.
+ * Generic Component Styles - Legacy Compatibility Layer
  *
- * This file exists for backward compatibility only.
- * All functionality has been moved to the './generics/' folder with proper separation of concerns.
+ * This file provides backward compatibility for the old generic component styles API.
+ * New projects should use the V2 system from generics-v2/.
  *
- * @example
- * Instead of:
- * ```typescript
- * import { generateComponentStyles } from './generic-component-styles'
- * ```
- *
- * Use:
- * ```typescript
- * import { generateComponentStyles } from './generics'
- * // or more specific imports:
- * import { generateComponentStyles } from './generics/generate-component-styles'
- * import { generateButtonStyles } from './generics/button-api'
- * ```
+ * @deprecated Use the V2 system instead: import { genericStyle } from 'formular.design.system'
  */
 
-// Re-export everything from generics for backward compatibility
-export {
-    animationUtils,
-    colorUtils,
-    COMPONENT_CONFIGS,
-    componentSupportsFeature,
-    createComponentCSSVars,
-    // Style generators
-    createComponentStyleGenerator,
-    generateButtonComponentStyles,
-    // Specialized utilities
-    generateButtonRippleStyles,
-    // Developer-friendly button API
-    generateButtonStyles,
-    generateCardComponentStyles,
-    generateCardStyles,
-    generateCheckboxComponentStyles,
-    // Core functionality
-    generateComponentStyles,
-    generateDisabledStyles,
-    generateFieldStyles,
-    generateFocusRing,
-    generateInputComponentStyles,
-    generateInputStyles,
-    generateLoadingStyles,
-    generateRadioComponentStyles,
-    generateSwitchComponentStyles,
-    generateTextComponentStyles,
-    generateTypographyComponentStyles,
-    generateValidationStyles,
-    // Utility functions
-    getAvailableComponentTypes,
-    getComponentConfig,
-    responsiveUtils,
-    // Design utilities
-    sizeMap,
-    spacingUtils
-} from './generics'
+import type { ComponentSizeType, ComponentVariantType } from '../types'
+import type { IComponentState } from '../types/interfaces'
+import { getColor } from './index'
+import type { ExtendedVisualVariantType } from './types/extended-visual-variant-type.type'
 
-// Re-export types and interfaces
-export type {
-    ComponentType,
-    ExtendedVisualVariantType,
-    IButtonVariants,
-    IComponentStyleConfig,
-    IGenericComponentVariants
-} from './generics'
+// Legacy type definitions for backward compatibility
+export type ComponentType =
+    | 'button'
+    | 'input'
+    | 'card'
+    | 'accordion'
+    | 'modal'
+    | 'badge'
+    | 'chip'
+    | 'typography'
+
+export interface IGenericComponentVariants {
+    variant?: ComponentVariantType
+    size?: ComponentSizeType
+    visualVariant?: ExtendedVisualVariantType
+    state?: IComponentState
+    rounded?: boolean
+    width?: string
+    height?: string
+    className?: string
+}
+
+// Re-export the extended visual variant type
+export type { ExtendedVisualVariantType }
+
+// Legacy stub implementations for backward compatibility
+export const colorUtils = {
+    getComponentColorVar: (variant: string, shade: string = '500') =>
+        `var(--color-${variant}-${shade})`,
+    generateColorVariables: () => ({}),
+    // Legacy getColor function for backward compatibility
+    getColor: (variant: ComponentVariantType, shade: number = 500): string => {
+        return getColor(variant, shade.toString()) || ''
+    }
+}
+
+export const generateValidationStyles = (validationType: string | boolean = false) => {
+    if (typeof validationType === 'string') {
+        switch (validationType) {
+            case 'error':
+                return 'border-red-500 text-red-500'
+            case 'info':
+                return 'border-blue-500 text-blue-500'
+            case 'success':
+                return 'border-green-500 text-green-500'
+            case 'warning':
+                return 'border-yellow-500 text-yellow-500'
+            default:
+                return ''
+        }
+    }
+    // Legacy boolean support
+    return validationType ? 'border-red-500 text-red-500' : ''
+}
