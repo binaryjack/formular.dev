@@ -5,6 +5,44 @@ module.exports = {
         './stories/**/*.{js,jsx,ts,tsx}',
         '../vendors/react/formular.components/src/**/*.{js,jsx,ts,tsx}'
     ],
+    safelist: [
+        // All button variant classes that genericStyle generates
+        'btn-primary-500',
+        'btn-primary-0',
+        'btn-primary-50',
+        'btn-secondary-500',
+        'btn-secondary-0',
+        'btn-secondary-50',
+        'btn-success-500',
+        'btn-warning-500',
+        'btn-danger-500',
+        'btn-info-500',
+        // Button size classes
+        'btn-2xs',
+        'btn-xs',
+        'btn-sm',
+        'btn-md',
+        'btn-lg',
+        'btn-xl',
+        'btn-2xl',
+        // Text color classes that genericStyle generates
+        'text-primary-50',
+        'text-primary-500',
+        'text-secondary-50',
+        'text-secondary-500',
+        'text-success-50',
+        'text-warning-50',
+        'text-danger-50',
+        'text-info-50',
+        // Text size classes
+        'text-2xs',
+        'text-xs',
+        'text-sm',
+        'text-md',
+        'text-lg',
+        'text-xl',
+        'text-2xl'
+    ],
     theme: {
         extend: {
             // Custom screen sizes based on existing formular.components config

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Button Color Test</title>
+    <style>
+        body {
+            padding: 2rem;
+            font-family: system-ui, sans-serif;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .button-test {
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        /* Simulating the design system colors */
+        :root {
+            --color-danger-500: #ef4444; /* red-500 */
+            --color-success-500: #10b981; /* emerald-500 */
+            --color-warning-500: #f59e0b; /* amber-500 */
+            --color-primary-500: #3b82f6; /* blue-500 */
+        }
+        
+        /* Solid buttons */
+        .btn-danger-solid {
+            background-color: var(--color-danger-500);
+            color: white;
+            border: none;
+        }
+        
+        .btn-success-solid {
+            background-color: var(--color-success-500);
+            color: white;
+            border: none;
+        }
+        
+        .btn-warning-solid {
+            background-color: var(--color-warning-500);
+            color: white;
+            border: none;
+        }
+        
+        /* Outlined buttons */
+        .btn-danger-outline {
+            background-color: transparent;
+            color: var(--color-danger-500);
+            border: 1px solid var(--color-danger-500);
+        }
+        
+        .btn-success-outline {
+            background-color: transparent;
+            color: var(--color-success-500);
+            border: 1px solid var(--color-success-500);
+        }
+        
+        .btn-warning-outline {
+            background-color: transparent;
+            color: var(--color-warning-500);
+            border: 1px solid var(--color-warning-500);
+        }
+        
+        /* Simulating what the system SHOULD generate */
+        .text-danger-generated {
+            color: var(--color-danger-500) !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Color Test - Expected Behavior</h1>
+    
+    <div class="test-section">
+        <h3>Solid Buttons (Reference)</h3>
+        <p>These show what color the outlined buttons' text should match</p>
+        <button class="button-test btn-danger-solid">Solid Danger</button>
+        <button class="button-test btn-success-solid">Solid Success</button>
+        <button class="button-test btn-warning-solid">Solid Warning</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Outlined Buttons (Should match solid backgrounds)</h3>
+        <p>Text and border should be same color as corresponding solid button background</p>
+        <button class="button-test btn-danger-outline">Outlined Danger</button>
+        <button class="button-test btn-success-outline">Outlined Success</button>
+        <button class="button-test btn-warning-outline">Outlined Warning</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Color Check</h3>
+        <p>Visual comparison - do these colors match?</p>
+        <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0;">
+            <div style="width: 50px; height: 50px; background-color: var(--color-danger-500);"></div>
+            <span>← Solid danger background</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem; margin: 1rem 0;">
+            <div style="width: 50px; height: 50px; background-color: white; border: 3px solid var(--color-danger-500); color: var(--color-danger-500); display: flex; align-items: center; justify-content: center; font-weight: bold;">A</div>
+            <span>← Outlined danger text/border</span>
+        </div>
+        <p><strong>Question:</strong> Do these two reds look the same to you?</p>
+    </div>
+
+    <div class="test-section">
+        <h3>CSS Variable Values</h3>
+        <div id="css-vars"></div>
+    </div>
+
+    <script>
+        // Show the actual CSS variable values
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+        
+        const vars = {
+            'danger-500': computedStyle.getPropertyValue('--color-danger-500'),
+            'success-500': computedStyle.getPropertyValue('--color-success-500'),
+            'warning-500': computedStyle.getPropertyValue('--color-warning-500'),
+            'primary-500': computedStyle.getPropertyValue('--color-primary-500'),
+        };
+        
+        let html = '';
+        for (const [name, value] of Object.entries(vars)) {
+            html += `<div><strong>--color-${name}:</strong> ${value}</div>`;
+        }
+        
+        document.getElementById('css-vars').innerHTML = html;
+    </script>
+</body>
+</html>

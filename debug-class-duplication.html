@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug GenericStyle Class Duplication</title>
+</head>
+<body>
+    <h1>Debug GenericStyle Class Duplication</h1>
+    <div id="debug-output"></div>
+    
+    <script type="module">
+        // Simulate the genericStyle function behavior
+        const VISUAL_VARIANT_RULE = {
+            solid: {
+                rules: [
+                    { fov: 'fore', shade: 50 },
+                    { fov: 'back', shade: 500 },
+                    { fov: 'border', shade: 500 }
+                ]
+            },
+            outlined: {
+                rules: [
+                    { fov: 'fore', shade: 500 },
+                    { fov: 'back', shade: 0 },
+                    { fov: 'border', shade: 500 }
+                ]
+            }
+        };
+
+        const COMPONENT_STYLE_CONFIG = {
+            button: {
+                prefix: 'btn',
+                defaultVariant: 'primary',
+                defaultAspect: { size: 'md', borders: false, rounded: false, width: undefined, height: undefined },
+                defaultVisualVariantType: 'solid',
+                defaultStates: { hasHover: true, hasRing: true, hasFocused: true, hasPressed: true, hasDisable: true, hasErrors: true }
+            },
+            typography: {
+                prefix: 'text',
+                defaultVariant: 'primary',
+                defaultAspect: { size: 'md', borders: false, rounded: false, width: undefined, height: undefined },
+                defaultVisualVariantType: 'solid',
+                defaultStates: { hasHover: false, hasRing: false, hasFocused: false, hasPressed: false, hasDisable: true, hasErrors: true }
+            }
+        };
+
+        const defaultStyleStates = {
+            hover: undefined,
+            ring: undefined,
+            focused: undefined,
+            pressed: undefined,
+            disabled: undefined,
+            errors: undefined
+        };
+
+        const defaultOutput = {
+            backGround: [],
+            borders: [],
+            composed: [],
+            states: { ...defaultStyleStates },
+            text: []
+        };
+
+        function defineStates(componentType, states) {
+            if (!states) return { ...defaultStyleStates };
+            
+            const output = { ...defaultStyleStates };
+            
+            if (states.hasDisable) {
+                output.disabled = `${componentType}-disabled`;
+            }
+            if (states.hasErrors) {
+                output.errors = `${componentType}-error`;
+            }
+            if (states.hasFocused) {
+                output.focused = `focus:${componentType}-focus`;
+            }
+            if (states.hasHover) {
+                output.hover = `hover:${componentType}-hover`;
+            }
+            if (states.hasPressed) {
+                output.pressed = `pressed:${componentType}-pressed`;
+            }
+            if (states.hasRing) {
+                output.ring = `ring:${componentType}-ring`;
+            }
+            
+            return output;
+        }
+
+        function defineVariants(variants, config) {
+            if (variants.componentTypes.length === 0) {
+                console.log(`GenericStyle V2: Processing failed has ${variants.componentTypes.length}`);
+                return { ...defaultOutput };
+            }
+            
+            const defaultVariant = variants?.variant ?? 'primary';
+            const foreVariant = variants?.typography?.variant ? variants?.typography?.variant : defaultVariant;
+
+            const visualVariantRule = VISUAL_VARIANT_RULE[variants?.visualVariant ?? 'solid'];
+            const fore = visualVariantRule.rules.find(o => o.fov === 'fore');
+            const back = visualVariantRule.rules.find(o => o.fov === 'back');
+            const border = visualVariantRule.rules.find(o => o.fov === 'border');
+
+            const output = {
+                backGround: [],
+                borders: [],
+                composed: [],
+                states: { ...defaultStyleStates },
+                text: []
+            };
+
+            console.log('🔍 Processing componentTypes:', variants.componentTypes);
+
+            for (const c of variants.componentTypes) {
+                const currentC = config[c];
+                console.log(`  🔧 Processing component: ${c}, config:`, currentC);
+                
+                if (c === 'typography') {
+                    output.text.push(`${currentC?.prefix}-${foreVariant}-${fore?.shade}`);
+                    output.text.push(`${currentC?.prefix}-${variants.typography?.size ?? currentC?.defaultAspect?.size ?? 'md'}`);
+                    console.log(`    📝 Added text classes:`, output.text);
+                } else {
+                    output.backGround.push(`${currentC?.prefix}-${defaultVariant}-${back?.shade}`);
+                    output.backGround.push(`${currentC?.prefix}-${variants.aspect?.size ?? currentC?.defaultAspect?.size ?? 'md'}`);
+                    console.log(`    🎨 Added background classes:`, output.backGround);
+                }
+
+                if (variants?.aspect?.borders ?? currentC.defaultAspect.borders) {
+                    output.borders.push(`${currentC?.prefix}-${foreVariant}-${border?.shade}`);
+                    console.log(`    🔲 Added border classes:`, output.borders);
+                }
+
+                if (variants?.aspect?.rounded ?? currentC.defaultAspect.rounded) {
+                    output.backGround.push(`rounded`);
+                    console.log(`    📐 Added rounded class`);
+                }
+
+                const states = defineStates(c, variants.states ?? currentC.defaultStates);
+                output.states = states;
+                console.log(`    🎭 Added states:`, states);
+            }
+
+            console.log('✅ Final output:', output);
+            return output;
+        }
+
+        function genericStyle(variants) {
+            let output = { ...defaultOutput };
+            output = { ...output, ...defineVariants(variants, COMPONENT_STYLE_CONFIG) };
+            return output;
+        }
+
+        // Test cases
+        const debugOutput = document.getElementById('debug-output');
+        
+        // Test 1: Simple button
+        console.log('=== TEST 1: Simple Button ===');
+        const buttonStyles = genericStyle({
+            componentTypes: ['button'],
+            variant: 'primary',
+            aspect: { size: 'sm' }
+        });
+        
+        debugOutput.innerHTML += `<h2>Test 1: Simple Button</h2>`;
+        debugOutput.innerHTML += `<p>Background: ${buttonStyles.backGround.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Text: ${buttonStyles.text.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Borders: ${buttonStyles.borders.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>States: ${Object.values(buttonStyles.states).filter(Boolean).join(', ')}</p>`;
+
+        // Test 2: Button with typography (like current Button component)
+        console.log('=== TEST 2: Button + Typography ===');
+        const buttonWithTypoStyles = genericStyle({
+            componentTypes: ['button', 'typography'],
+            variant: 'primary',
+            aspect: { size: 'sm' }
+        });
+        
+        debugOutput.innerHTML += `<h2>Test 2: Button + Typography</h2>`;
+        debugOutput.innerHTML += `<p>Background: ${buttonWithTypoStyles.backGround.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Text: ${buttonWithTypoStyles.text.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Borders: ${buttonWithTypoStyles.borders.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>States: ${Object.values(buttonWithTypoStyles.states).filter(Boolean).join(', ')}</p>`;
+
+        // Test 3: Check for duplicates by calling multiple times
+        console.log('=== TEST 3: Multiple Calls Check ===');
+        const call1 = genericStyle({ componentTypes: ['button'], variant: 'primary' });
+        const call2 = genericStyle({ componentTypes: ['button'], variant: 'primary' });
+        
+        debugOutput.innerHTML += `<h2>Test 3: Multiple Calls Check</h2>`;
+        debugOutput.innerHTML += `<p>Call 1 background: ${call1.backGround.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Call 2 background: ${call2.backGround.join(', ')}</p>`;
+        debugOutput.innerHTML += `<p>Are arrays equal? ${JSON.stringify(call1.backGround) === JSON.stringify(call2.backGround)}</p>`;
+    </script>
+</body>
+</html>

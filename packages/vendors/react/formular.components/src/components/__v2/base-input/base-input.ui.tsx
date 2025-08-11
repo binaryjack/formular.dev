@@ -15,31 +15,24 @@ export const BaseInput = ({
     variants = {},
     ...rest
 }: IBaseInputProps) => {
-    const {
-        variant = 'primary',
-        size = 'md',
-        rounded = false,
-        width = 'unset',
-        height = 'unset',
-        className = '',
-        typography = {}
-    } = variants
+    const classStyle = genericStyle({
+        componentTypes: ['input'],
+        ...variants
+    }) // Now using V2 unified API with typography separation
 
-    const { weight = 'normal' } = typography
-
-    const classStyle = cx(
-        genericStyle({
-            componentType: 'input',
-            variant,
-            size,
-            rounded,
-            width,
-            height,
-            typography: {
-                weight
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        console.log('🔍 BaseInput render:', {
+            id,
+            variants,
+            generatedClasses: {
+                backGround: classStyle.backGround,
+                text: classStyle.text,
+                borders: classStyle.borders,
+                states: Object.values(classStyle.states)
             }
-        }) // Now using V2 unified API with typography separation
-    )
+        })
+    }
 
     const [value, setValue] = useState('')
     useDebouncer(value, changeDelay, () => onChangeCallback?.(value))
@@ -56,7 +49,12 @@ export const BaseInput = ({
             data-class={dataClass}
             placeholder={placeHolder}
             tabIndex={tabIndex}
-            className={`${classStyle}`}
+            className={cx(
+                classStyle.backGround,
+                classStyle.text,
+                classStyle.borders,
+                ...Object.values(classStyle.states)
+            )}
             onKeyDown={onKeyDown}
             onKeyUp={onKeyUp}
             onChange={handleOnChange}

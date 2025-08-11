@@ -54,15 +54,91 @@ root.render(
                 }}
             >
                 <div className="flex flex-col  w-screen items-center justify-center h-screen">
+                    {/* 🎨 SMART CONTRAST TEST BUTTONS */}
+                    <div className="flex flex-col gap-2 p-4 bg-gray-100 rounded">
+                        <h3 className="text-sm font-bold">Smart Contrast Demo:</h3>
+                        <div className="flex gap-2 flex-wrap">
+                            <Button
+                                id={'btn-primary-solid'}
+                                title={'Primary Solid'}
+                                children={'Primary Solid'}
+                                onClick={() => console.log('Primary solid clicked')}
+                                variants={{
+                                    visualVariant: 'solid',
+                                    variant: 'primary',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                            <Button
+                                id={'btn-danger-solid'}
+                                title={'Danger Solid'}
+                                children={'Danger Solid'}
+                                onClick={() => console.log('Danger solid clicked')}
+                                variants={{
+                                    visualVariant: 'solid',
+                                    variant: 'danger',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                            <Button
+                                id={'btn-warning-solid'}
+                                title={'Warning Solid'}
+                                children={'Warning Solid'}
+                                onClick={() => console.log('Warning solid clicked')}
+                                variants={{
+                                    visualVariant: 'solid',
+                                    variant: 'warning',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                        </div>
+                        <div className="flex gap-2 flex-wrap">
+                            <Button
+                                id={'btn-primary-outline'}
+                                title={'Primary Outline'}
+                                children={'Primary Outline'}
+                                onClick={() => console.log('Primary outline clicked')}
+                                variants={{
+                                    visualVariant: 'outline',
+                                    variant: 'primary',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                            <Button
+                                id={'btn-danger-outline'}
+                                title={'Danger Outline'}
+                                children={'Danger Outline'}
+                                onClick={() => console.log('Danger outline clicked')}
+                                variants={{
+                                    visualVariant: 'outline',
+                                    variant: 'danger',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                            <Button
+                                id={'btn-success-ghost'}
+                                title={'Success Ghost'}
+                                children={'Success Ghost'}
+                                onClick={() => console.log('Success ghost clicked')}
+                                variants={{
+                                    visualVariant: 'ghost',
+                                    variant: 'success',
+                                    aspect: { size: 'sm' }
+                                }}
+                            />
+                        </div>
+                    </div>
                     <div className="flex flex-row w-100 items-center justify-between bg-violet-400">
                         <Label
                             id={'text-1'}
                             text={'Base Text 1'}
                             htmlFor="text-input-1"
                             variants={{
-                                size: 'xl',
                                 variant: 'secondary',
-                                rounded: true,
+                                aspect: {
+                                    size: 'xl',
+                                    rounded: true
+                                },
                                 typography: {
                                     size: '2xl',
                                     variant: 'primary',
@@ -75,10 +151,10 @@ root.render(
                             id={'text-input-1'}
                             variants={{
                                 variant: 'secondary',
-                                size: 'xs',
-                                rounded: true,
-                                width: '10%',
-                                height: '10px',
+                                aspect: {
+                                    size: 'xs',
+                                    rounded: false
+                                },
                                 typography: {
                                     weight: 'bold'
                                 }
@@ -90,9 +166,12 @@ root.render(
                             children={'Button 1'}
                             variants={{
                                 visualVariant: 'solid',
-                                variant: 'danger',
-                                size: 'md',
-                                rounded: true
+                                variant: 'primary',
+                                aspect: {
+                                    size: 'sm',
+                                    rounded: false
+                                },
+                                typography: { variant: 'neutral', size: 'sm' }
                             }}
                             onClick={function (
                                 e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -123,7 +202,16 @@ root.render(
 
                     <RadioInput id={'radio-input-1'} options={mainOptions} />
 
-                    <Accordion id={'accordion-1'} title={'Accordion-1'} initialState={'closed'}>
+                    <Accordion
+                        id={'accordion-1'}
+                        title={'Accordion-1'}
+                        initialState={'closed'}
+                        variants={{
+                            variant: 'primary',
+                            aspect: { size: 'xl', rounded: false },
+                            typography: { variant: 'neutral', size: 'sm' }
+                        }}
+                    >
                         <p>This is the content of Accordion 1.</p>
                         <p>This is the content of Accordion 1.</p>
                         <p>This is the content of Accordion 1.</p>

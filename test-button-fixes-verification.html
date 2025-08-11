@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Button Styling Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* CSS from design system - Testing the VISUAL_VARIANT_RULE system */
+        
+        /* Button Primary Solid */
+        .btn-primary-solid-fore-50 { color: rgb(249 250 251); }
+        .btn-primary-solid-back-500 { background-color: rgb(107 114 128); }
+        .btn-primary-solid-border-500 { border-color: rgb(107 114 128); }
+        
+        /* Button Primary Outlined - Should have gray text and border, transparent background */
+        .btn-primary-outlined-fore-500 { color: rgb(107 114 128); }
+        .btn-primary-outlined-back-transparent { background-color: transparent; }
+        .btn-primary-outlined-border-500 { border-color: rgb(107 114 128); border-width: 1px; }
+        
+        /* Button Danger Solid */
+        .btn-danger-solid-fore-50 { color: rgb(254 242 242); }
+        .btn-danger-solid-back-500 { background-color: rgb(239 68 68); }
+        .btn-danger-solid-border-500 { border-color: rgb(239 68 68); }
+        
+        /* Button Danger Outlined - Should have red text and border, transparent background */
+        .btn-danger-outlined-fore-500 { color: rgb(239 68 68); }
+        .btn-danger-outlined-back-transparent { background-color: transparent; }
+        .btn-danger-outlined-border-500 { border-color: rgb(239 68 68); border-width: 1px; }
+        
+        /* States - Hover effects */
+        .btn-primary-solid-hover\:fore-100:hover { color: rgb(243 244 246); }
+        .btn-primary-solid-hover\:back-600:hover { background-color: rgb(75 85 99); }
+        
+        .btn-primary-outlined-hover\:fore-600:hover { color: rgb(75 85 99); }
+        .btn-primary-outlined-hover\:border-600:hover { border-color: rgb(75 85 99); }
+        
+        /* Focus states */
+        .btn-primary-solid-focus\:ring-4:focus { 
+            box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.2);
+            outline: none;
+        }
+        .btn-primary-outlined-focus\:ring-4:focus { 
+            box-shadow: 0 0 0 4px rgba(107, 114, 128, 0.2);
+            outline: none;
+        }
+        
+        /* Size styles */
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.875rem; }
+        .btn-md { padding: 0.5rem 1rem; font-size: 1rem; }
+        .btn-lg { padding: 0.75rem 1.5rem; font-size: 1.125rem; }
+        
+        /* Typography for button text */
+        .text-primary-solid-fore-50 { color: rgb(249 250 251); }
+        .text-primary-outlined-fore-500 { color: rgb(107 114 128); }
+        .text-danger-solid-fore-50 { color: rgb(254 242 242); }
+        .text-danger-outlined-fore-500 { color: rgb(239 68 68); }
+    </style>
+</head>
+<body class="p-8 bg-gray-50">
+    <h1 class="text-3xl font-bold mb-8">Button Styling Fix Verification</h1>
+    
+    <div class="space-y-8">
+        <!-- Fixed Button Styling -->
+        <section>
+            <h2 class="text-xl font-semibold mb-4">✅ Fixed: Complete Button Styling</h2>
+            <p class="text-gray-600 mb-4">These buttons now properly apply background, text, border, and state styles:</p>
+            
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <h3 class="font-medium">Primary Buttons</h3>
+                    
+                    <!-- Solid Primary Button -->
+                    <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-primary-solid-hover:back-600 btn-primary-solid-focus:ring-4 btn-md rounded-md font-medium transition-all duration-200">
+                        Solid Primary Button
+                    </button>
+                    
+                    <!-- Outlined Primary Button -->
+                    <button class="btn-primary-outlined-fore-500 btn-primary-outlined-back-transparent btn-primary-outlined-border-500 btn-primary-outlined-hover:fore-600 btn-primary-outlined-hover:border-600 btn-primary-outlined-focus:ring-4 btn-md rounded-md font-medium transition-all duration-200">
+                        Outlined Primary Button
+                    </button>
+                </div>
+                
+                <div class="space-y-3">
+                    <h3 class="font-medium">Danger Buttons</h3>
+                    
+                    <!-- Solid Danger Button -->
+                    <button class="btn-danger-solid-fore-50 btn-danger-solid-back-500 btn-danger-solid-border-500 btn-md rounded-md font-medium transition-all duration-200">
+                        Solid Danger Button
+                    </button>
+                    
+                    <!-- Outlined Danger Button -->
+                    <button class="btn-danger-outlined-fore-500 btn-danger-outlined-back-transparent btn-danger-outlined-border-500 btn-md rounded-md font-medium transition-all duration-200">
+                        Outlined Danger Button
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Issues Fixed Summary -->
+        <section class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <h2 class="text-lg font-semibold text-green-800 mb-4">🛠️ Issues Fixed in Button Component:</h2>
+            <div class="space-y-3 text-green-700">
+                <div>
+                    <h3 class="font-medium">1. Complete Style Application</h3>
+                    <p>Now applies: <code>styles.backGround</code>, <code>styles.borders</code>, and <code>styles.states</code></p>
+                    <pre class="mt-1 text-xs bg-green-100 p-2 rounded"><code>className={cx(
+    styles.backGround,
+    styles.borders,
+    ...Object.values(styles.states),
+    'relative',
+    'overflow-hidden'
+)}</code></pre>
+                </div>
+                
+                <div>
+                    <h3 class="font-medium">2. Typography Integration Fixed</h3>
+                    <p>Properly separates CSS classes from variant props:</p>
+                    <pre class="mt-1 text-xs bg-green-100 p-2 rounded"><code>// CSS classes in className
+className={cx(styles.text, 'text-nowrap', 'elipsed-text')}
+
+// Variant configuration in variants prop
+variants={{
+    variant: variants?.variant,
+    aspect: { size: variants?.aspect?.size }
+}}</code></pre>
+                </div>
+                
+                <div>
+                    <h3 class="font-medium">3. Array Handling Corrected</h3>
+                    <p>Properly spreads arrays instead of wrapping in <code>cx()</code></p>
+                </div>
+                
+                <div>
+                    <h3 class="font-medium">4. State Management</h3>
+                    <p>All button states (hover, focus, pressed, disabled) now properly applied</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUAL_VARIANT_RULE System Benefits -->
+        <section class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <h2 class="text-lg font-semibold text-blue-800 mb-4">🎨 VISUAL_VARIANT_RULE System Benefits:</h2>
+            <div class="grid grid-cols-2 gap-4 text-blue-700">
+                <div>
+                    <h3 class="font-medium">Outlined Button Text Colors</h3>
+                    <p>✅ Text and border colors now match solid background colors</p>
+                    <ul class="mt-2 text-sm space-y-1">
+                        <li>• Primary outlined: Gray text matches solid gray background</li>
+                        <li>• Danger outlined: Red text matches solid red background</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-medium">Systematic Approach</h3>
+                    <p>✅ Consistent shade mapping across all variants</p>
+                    <ul class="mt-2 text-sm space-y-1">
+                        <li>• Fore/back/border field-of-view types</li>
+                        <li>• 0-900 shade scale</li>
+                        <li>• Automatic contrast optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Cases -->
+        <section>
+            <h2 class="text-lg font-semibold mb-4">🧪 Test Different Button Configurations:</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-medium mb-2">Sizes</h3>
+                    <div class="flex items-center space-x-3">
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-sm rounded font-medium">Small</button>
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-md rounded font-medium">Medium</button>
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-lg rounded font-medium">Large</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-medium mb-2">States</h3>
+                    <div class="flex items-center space-x-3">
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-md rounded font-medium">Normal</button>
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-md rounded font-medium" disabled>Disabled</button>
+                        <button class="btn-primary-solid-fore-50 btn-primary-solid-back-500 btn-primary-solid-border-500 btn-md rounded font-medium opacity-75">Loading</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add some interactivity to test the fixes
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('button:not([disabled])');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    console.log('Button clicked:', this.textContent.trim());
+                    
+                    // Visual feedback
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

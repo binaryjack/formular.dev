@@ -33,11 +33,20 @@ export {
     getAvailableComponentTypesV2
 } from './generic-style-generator-v2'
 
+// Composite style generator
+export { compositeStyle } from './composite-style-generator'
+
 // Type exports
 export type { IComponentStyleConfigV2 } from './configs/component-configs-v2'
 export type { IGenericComponentVariantsV2 } from './interfaces/i-generic-component-variants-v2'
 export type { ITypographyConfig } from './interfaces/i-typography-config'
 export type { ComponentTypeV2 } from './types/component-type-v2.type'
+
+// Composite types
+export type {
+    ICompositeComponentVariants,
+    ILayeredStyleOutput
+} from './interfaces/i-composite-component-variants'
 
 // Configuration exports (for advanced usage)
 export { COMPONENT_CONFIGS_V2 } from './configs/component-configs-v2'

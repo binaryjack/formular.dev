@@ -4,6 +4,8 @@
  * Utility functions for working with design tokens and creating consistent styles.
  */
 
+// No more old V2 exports - they will cause build errors to guide the migration
+
 // Type definitions for class value handling
 export type ClassValue =
     | string
@@ -21,7 +23,7 @@ import { spacing } from '../tokens/spacing'
 /**
  * Simple class name utility (lightweight alternative to clsx)
  * Combines class names and handles conditional classes
- *
+ * @deprecated !!!
  * @param inputs - Class names or conditional class objects
  * @returns Combined class string
  */
@@ -183,3 +185,5 @@ export const srOnly = () => {
 export const truncate = () => {
     return 'truncate'
 }
+
+export { clx } from './clx'

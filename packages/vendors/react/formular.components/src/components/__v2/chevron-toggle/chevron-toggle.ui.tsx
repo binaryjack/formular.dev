@@ -40,7 +40,16 @@ export const ChevronToggle = ({
         <Button
             id={name}
             title={name}
-            variants={variants}
+            variants={{
+                visualVariant: 'solid',
+                variant: 'primary',
+                aspect: {
+                    size: 'sm',
+                    rounded: false,
+                    width: '10px'
+                },
+                typography: { variant: 'neutral', size: 'sm' }
+            }}
             aria-label={ariaLabel}
             aria-expanded={ariaExpanded}
             aria-controls={ariaControls}

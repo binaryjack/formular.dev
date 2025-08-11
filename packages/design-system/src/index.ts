@@ -36,9 +36,8 @@ export type {
 
 export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
 
-// Export utility types
+// Export utility types (NEW VISUAL_VARIANT_RULE system types)
 export type {
-    ComponentType,
     ExtendedVisualVariantType,
     IGenericComponentVariants
 } from './utilities/generic-component-styles'
@@ -46,20 +45,22 @@ export type {
 // Export legacy utilities for backward compatibility
 export { colorUtils, generateValidationStyles } from './utilities/generic-component-styles'
 
-// Export V2 Experimental Generic Style System
+// Export NEW VISUAL_VARIANT_RULE System (replaces old V2 system)
 export {
-    COMPONENT_CONFIGS_V2,
-    componentSupportsFeatureV2,
     genericStyle,
-    getAvailableComponentTypesV2
-} from './utilities/generics-v2'
+    VariantRule,
+    VISUAL_VARIANT_RULE
+} from './utilities/generic-style/generic-style'
 
 export type {
-    ComponentTypeV2,
-    IComponentStyleConfigV2,
-    IGenericComponentVariantsV2,
-    ITypographyConfig
-} from './utilities/generics-v2'
+    ComponentType,
+    FieldOfViewType,
+    IClasses,
+    IComponentVariants,
+    IVariantRule,
+    IVisualVariantRules,
+    ShadesTypes
+} from './utilities/generic-style/generic-style'
 
 // Export constants
 export { DrawerBreakPointSizes, rippleColors } from './types/utilities'

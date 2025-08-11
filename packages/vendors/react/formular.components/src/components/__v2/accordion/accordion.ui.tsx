@@ -1,4 +1,4 @@
-import { genericStyle } from 'formular.design.system'
+import { cx, genericStyle } from 'formular.design.system'
 import { ChevronToggle } from '../chevron-toggle/chevron-toggle.ui'
 import { ExpandableDrawer } from '../drawer/variants/expandable-drawer.ui'
 import { Label } from '../label/label.ui'
@@ -12,13 +12,16 @@ export const Accordion = ({
     initialState,
     variants = {}
 }: IAccordionProps) => {
-    const accordionClasses = genericStyle({
-        componentType: 'accordion',
+    const styles = genericStyle({
+        componentTypes: ['accordion', 'typography'],
         ...variants
     })
 
     return (
-        <div className={accordionClasses}>
+        <div
+            id={`accordion-${id}-frame`}
+            className={cx(styles.backGround, styles.borders, ...Object.values(styles.states))}
+        >
             <Toggleable
                 id={`accordion-${id}`}
                 initialState={initialState}
@@ -29,8 +32,13 @@ export const Accordion = ({
                     width: 'auto'
                 }}
             >
-                <div className="relative flex  w-full items-center justify-between gap-2   bg-red-200 ">
-                    <Label htmlFor={`${id}-chevron-toggle`} text={title} />
+                <div className={`relative flex  w-full items-center justify-between gap-2 `}>
+                    <Label
+                        htmlFor={`${id}-chevron-toggle`}
+                        text={title}
+                        className={cx(styles.text, 'ml-2')}
+                        variants={variants}
+                    />
                     <ChevronToggle
                         id={`${id}`}
                         toggleContextId={`accordion-${id}`}

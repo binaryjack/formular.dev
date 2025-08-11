@@ -111,18 +111,25 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 data-class="base-input"
                 className={cx(
                     'base-input',
-                    genericStyle({
-                        componentType: 'input',
-                        size: 'md',
-                        state: {
-                            error: (instance?.input?.validationResults?.length ?? 0) > 0,
-                            focused: instance?.input?.isFocus ?? false,
-                            disabled: instance?.input?.disabled ?? false,
-                            hovered: false,
-                            pressed: false,
-                            loading: false
-                        }
-                    })
+                    ...(() => {
+                        const inputStyles = genericStyle({
+                            componentTypes: ['input'],
+                            aspect: { size: 'md' },
+                            states: {
+                                hasErrors: (instance?.input?.validationResults?.length ?? 0) > 0,
+                                hasFocused: instance?.input?.isFocus ?? false,
+                                hasDisable: instance?.input?.disabled ?? false,
+                                hasHover: false,
+                                hasPressed: false
+                            }
+                        })
+                        return [
+                            ...inputStyles.backGround,
+                            ...inputStyles.text,
+                            ...inputStyles.borders,
+                            ...Object.values(inputStyles.states)
+                        ]
+                    })()
                 )}
                 {...instance?.register()}
                 ref={(r) => instance?.ref(r)}

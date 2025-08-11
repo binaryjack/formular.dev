@@ -130,21 +130,7 @@ export const DatePickerSF = ({
             <input
                 tabIndex={0}
                 data-class="base-input"
-                className={cx(
-                    genericStyle({
-                        componentType: 'input',
-                        size: 'md',
-                        state: {
-                            error: !!instance?.input?.validationResults?.length,
-                            focused: flags.focus,
-                            disabled: false,
-                            hovered: false,
-                            pressed: false,
-                            loading: false
-                        }
-                    }),
-                    'w-full'
-                )}
+                className={cx(genericStyle({ componentTypes: ['input'] }).text, 'w-full')}
                 {...instance?.register(customEvent('onKeyDown', handleKeyDown as any))}
                 ref={(r) => instance?.ref(r)}
                 autoComplete="off"

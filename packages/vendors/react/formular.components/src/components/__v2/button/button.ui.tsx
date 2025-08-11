@@ -1,6 +1,6 @@
 import Spinner from '@components/spinner/spinner'
 import { getSpinnerVariant } from '@components/spinner/utils/spinner.variant.converter'
-import { genericStyle, rippleColors } from 'formular.design.system'
+import { clx, cx, genericStyle, rippleColors } from 'formular.design.system'
 import { Typography } from '../typography/typography.ui'
 import { IButtonProps } from './button.types'
 import useRippleEffect from './ripple/use-ripple-effect'
@@ -17,10 +17,11 @@ export const Button = ({
     isToggle,
     tabindex = -1
 }: IButtonProps) => {
-    const btnClasses = genericStyle({
-        componentType: 'button',
+    const styles = genericStyle({
+        componentTypes: ['button', 'typography'],
         ...variants
     })
+
     const {
         mainRef: buttonRef,
         castedRefObject,
@@ -50,7 +51,13 @@ export const Button = ({
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? 'true' : 'false'}
             onClick={handleClick}
-            className={`${btnClasses}  relative overflow-hidden`}
+            className={cx(
+                styles.backGround,
+                styles.borders,
+                ...Object.values(styles.states),
+                'relative',
+                'overflow-hidden'
+            )}
         >
             {ripples.map((ripple) => (
                 <span
@@ -88,7 +95,10 @@ export const Button = ({
                     {loading ? (
                         <div className={`flex loading mr-1`}>
                             <Spinner
-                                {...getSpinnerVariant?.(variants?.size!, variants?.variant!)}
+                                {...getSpinnerVariant?.(
+                                    variants?.aspect?.size!,
+                                    variants?.variant!
+                                )}
                             />
                         </div>
                     ) : icon ? (
@@ -100,9 +110,12 @@ export const Button = ({
                     )}
                     <Typography
                         as={'span'}
+                        className={clx(...styles.text, 'text-nowrap', 'elipsed-text')}
                         variants={{
-                            className: 'text-nowrap',
-                            ...variants.typography
+                            variant: variants?.variant,
+                            aspect: {
+                                size: variants?.aspect?.size
+                            }
                         }}
                         style={{ pointerEvents: 'none' }}
                     >

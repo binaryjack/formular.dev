@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Color Test</title>
+    <link rel="stylesheet" href="./packages/design-system/dist/formular.design.system.css">
+    <style>
+        body {
+            padding: 2rem;
+            font-family: system-ui, sans-serif;
+        }
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+        }
+        .button-test {
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Button Color Mapping Test</h1>
+    
+    <div class="test-section">
+        <h3>Solid Danger Button (Reference)</h3>
+        <p>Should have danger-500 background with white text</p>
+        <button class="button-test btn-danger">Solid Danger Button</button>
+        <div>Expected: danger-500 background, white text</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Manual Color Test</h3>
+        <p>Testing different danger color classes manually</p>
+        <div class="button-test" style="background: transparent; border: 1px solid var(--color-danger-500); color: var(--color-danger-500);">
+            Manual: border and text = danger-500
+        </div>
+        <div class="button-test text-danger" style="background: transparent; border: 1px solid currentColor;">
+            .text-danger class
+        </div>
+        <div class="button-test !text-danger" style="background: transparent; border: 1px solid currentColor;">
+            .!text-danger class
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h3>CSS Variable Inspector</h3>
+        <p>What colors are actually being used?</p>
+        <div id="color-info"></div>
+    </div>
+
+    <script>
+        // Get computed styles to see actual color values
+        const colorInfo = document.getElementById('color-info');
+        
+        // Test various color-related CSS variables
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+        
+        const colors = {
+            '--color-danger-500': computedStyle.getPropertyValue('--color-danger-500'),
+            '--color-text-on-primary': computedStyle.getPropertyValue('--color-text-on-primary'),
+        };
+        
+        let html = '<h4>CSS Variables:</h4>';
+        for (const [name, value] of Object.entries(colors)) {
+            html += `<div><strong>${name}:</strong> ${value}</div>`;
+        }
+        
+        // Test actual computed colors of elements
+        html += '<h4>Computed Colors:</h4>';
+        const solidButton = document.querySelector('.btn-danger');
+        if (solidButton) {
+            const solidStyles = getComputedStyle(solidButton);
+            html += `<div><strong>Solid danger background:</strong> ${solidStyles.backgroundColor}</div>`;
+            html += `<div><strong>Solid danger color:</strong> ${solidStyles.color}</div>`;
+        }
+        
+        const textDangerEl = document.querySelector('.text-danger');
+        if (textDangerEl) {
+            const textStyles = getComputedStyle(textDangerEl);
+            html += `<div><strong>.text-danger color:</strong> ${textStyles.color}</div>`;
+        }
+        
+        const importantTextDangerEl = document.querySelector('.\\!text-danger');
+        if (importantTextDangerEl) {
+            const importantStyles = getComputedStyle(importantTextDangerEl);
+            html += `<div><strong>.!text-danger color:</strong> ${importantStyles.color}</div>`;
+        }
+        
+        colorInfo.innerHTML = html;
+    </script>
+</body>
+</html>

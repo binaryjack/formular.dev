@@ -1,4 +1,4 @@
-import { IGenericComponentVariants } from 'formular.design.system'
+import { IComponentVariants } from 'formular.design.system'
 import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface IChevronToggleProps {
@@ -6,5 +6,5 @@ export interface IChevronToggleProps {
     toggleContextId: string
     initialToggleState: ToggleableStateType
     onToggle?: (e: React.MouseEvent<HTMLButtonElement>, state: ToggleableStateType) => void
-    variants?: Partial<IGenericComponentVariants>
+    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
 }

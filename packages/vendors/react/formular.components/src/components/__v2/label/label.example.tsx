@@ -11,7 +11,7 @@ export const LabelExample = () => {
                 text="Primary Large Label"
                 variants={{
                     variant: 'primary', // Generates: primitive-text-primary
-                    size: '2xl' // Generates: primitive-text-2xl
+                    aspect: { size: '2xl' } // Generates: primitive-text-2xl
                 }}
             />
 
@@ -20,7 +20,7 @@ export const LabelExample = () => {
                 text="Secondary Medium Label"
                 variants={{
                     variant: 'secondary', // Generates: primitive-text-secondary
-                    size: 'md' // Generates: primitive-text-md
+                    aspect: { size: 'md' } // Generates: primitive-text-md
                 }}
             />
 
@@ -29,8 +29,8 @@ export const LabelExample = () => {
                 text="Label with custom classes"
                 variants={{
                     variant: 'primary',
-                    size: 'lg',
-                    className: 'font-bold' // Additional custom classes can go here
+                    aspect: { size: 'lg' },
+                    typography: { weight: 'bold' }
                 }}
             />
         </div>

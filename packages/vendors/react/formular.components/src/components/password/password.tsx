@@ -9,7 +9,7 @@ import useFormularContext from '@components/formular-form/formular-form.context'
 import { Button, IButtonVariant } from '../button/button'
 
 import useAppContext from '@components/context/app-context/app-context.context'
-import { cx, genericStyle } from 'formular.design.system'
+import { cx } from 'formular.design.system'
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 import FieldSet from '../field-set/field-set'
 import { Portal } from '../portals/portals'
@@ -156,21 +156,7 @@ const Password = ({ fieldName }: IPasswordProps) => {
                 <input
                     tabIndex={0}
                     data-class="base-input"
-                    className={cx(
-                        genericStyle({
-                            componentType: 'input',
-                            size: 'md',
-                            state: {
-                                error: !!instance?.input?.validationResults?.length,
-                                focused: flags.focus,
-                                disabled: false,
-                                hovered: false,
-                                pressed: false,
-                                loading: false
-                            }
-                        }),
-                        'w-full pr-12'
-                    )}
+                    className={cx('w-full pr-12')}
                     {...instance?.register()}
                     ref={(r) => instance?.ref(r)}
                     onKeyDown={handleKeyDown}

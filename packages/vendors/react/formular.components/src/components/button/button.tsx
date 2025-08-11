@@ -1,7 +1,6 @@
 import {
     ComponentSizeType,
     ComponentVariantType,
-    cx,
     genericStyle,
     TextCaseType,
     TextWeightType
@@ -59,21 +58,9 @@ export const Button = ({
         className
     } = variantProperties
 
-    const btnBaseClasses = cx(
-        genericStyle({
-            componentType: 'button',
-            variant,
-            size,
-            rounded,
-            width,
-            height,
-            typography: {
-                weight,
-                case: textCase
-            }
-        }), // Using V2 unified API with typography separation
-        className
-    )
+    const btnBaseClasses = genericStyle({
+        componentTypes: ['button']
+    })
 
     const {
         mainRef: buttonRef,

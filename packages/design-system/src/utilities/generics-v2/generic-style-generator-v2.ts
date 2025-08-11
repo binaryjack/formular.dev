@@ -1,6 +1,8 @@
 import { ComponentSizeType, ComponentVariantType } from '@/types'
 import { IComponentState } from '@/types/interfaces'
+import type { ExtendedVisualVariantType } from '../types/extended-visual-variant-type.type'
 import { COMPONENT_CONFIGS_V2 } from './configs/component-configs-v2'
+import { getTextContrastVariant } from './configs/text-contrast-mapping'
 import type { IGenericComponentVariantsV2 } from './interfaces/i-generic-component-variants-v2'
 import type { ComponentTypeV2 } from './types/component-type-v2.type'
 
@@ -23,12 +25,46 @@ const COMPONENT_DEFAULTS = {
 const TEXT_AWARE_COMPONENTS: ComponentTypeV2[] = ['button', 'input']
 
 /**
+ * Generate smart text color class with proper shades for contrast
+ */
+const getSmartTextColorClass = (
+    textVariant: ComponentVariantType,
+    visualVariant: ExtendedVisualVariantType,
+    componentSupportsVisualVariants: boolean
+): string => {
+    // Only apply smart contrast to components that actually support visual variants (like buttons)
+    // Components like inputs don't have visual variants, so they should use normal text colors
+    if (!componentSupportsVisualVariants) {
+        return `text-${textVariant}` // Use normal text colors for components without visual variants
+    }
+
+    // For solid/elevated backgrounds, use light shades for contrast with !important to override CSS defaults
+    if (visualVariant === 'solid' || visualVariant === 'elevated') {
+        switch (textVariant) {
+            case 'neutral':
+                return '!text-neutral-50' // Very light neutral text with !important
+            case 'secondary':
+                return '!text-secondary-800' // Dark secondary for yellow backgrounds with !important
+            case 'primary':
+                return '!text-primary-700' // Dark primary for light backgrounds with !important
+            default:
+                return `!text-${textVariant}`
+        }
+    }
+
+    // For outline/ghost/link, use normal color variants with !important for consistency
+    return `!text-${textVariant}`
+}
+
+/**
  * Generate typography classes based on typography config
  */
 const generateTypographyClasses = (
     componentType: ComponentTypeV2,
     componentVariant: ComponentVariantType,
     componentSize: ComponentSizeType,
+    componentVisualVariant: ExtendedVisualVariantType,
+    hasVisualVariants: boolean,
     typographyConfig?: IGenericComponentVariantsV2['typography']
 ): string[] => {
     const classes: string[] = []
@@ -49,17 +85,34 @@ const generateTypographyClasses = (
     const resolvedSize =
         typographyConfig?.size ||
         (TEXT_AWARE_COMPONENTS.includes(componentType) ? componentSize : 'md')
+
+    // 🎨 SMART CONTRAST: Use intelligent text color based on visual variant and component color
+    const smartTextVariant = getTextContrastVariant(componentVisualVariant, componentVariant)
+
+    // Development logging for contrast decisions
+    if (process.env.NODE_ENV === 'development' && TEXT_AWARE_COMPONENTS.includes(componentType)) {
+        console.log(
+            `🎨 Smart Contrast: ${componentType} ${componentVisualVariant}-${componentVariant} → text-${smartTextVariant}`
+        )
+    }
+
     const resolvedVariant =
         typographyConfig?.variant ||
-        (TEXT_AWARE_COMPONENTS.includes(componentType) ? componentVariant : 'primary')
+        (TEXT_AWARE_COMPONENTS.includes(componentType) ? smartTextVariant : 'primary')
+
     const resolvedCase = typographyConfig?.case || COMPONENT_DEFAULTS.typography.case
     const resolvedWeight = typographyConfig?.weight || COMPONENT_DEFAULTS.typography.weight
 
     // Generate text size class
     classes.push(`text-${resolvedSize}`)
 
-    // Generate text color class
-    classes.push(`text-${resolvedVariant}`)
+    // Generate text color class with smart contrast
+    const textColorClass = getSmartTextColorClass(
+        resolvedVariant,
+        componentVisualVariant,
+        hasVisualVariants
+    )
+    classes.push(textColorClass)
 
     // Generate text case class (only if not default)
     if (resolvedCase !== 'normal-case') {
@@ -180,12 +233,22 @@ export const genericStyle = (variants: IGenericComponentVariantsV2): string => {
 
     // Visual variant + color variant classes
     if (config.hasVisualVariants && config.hasColorVariants) {
-        const variantClass = config.customPatterns?.visualVariant
-            ? config.customPatterns.visualVariant(resolvedVisualVariant, resolvedVariant)
-            : resolvedVisualVariant === 'solid'
-              ? `${config.prefix}-${resolvedVariant}`
-              : `${config.prefix}-${resolvedVisualVariant}-${resolvedVariant}`
-        classes.push(variantClass)
+        if (config.customPatterns?.visualVariant) {
+            const variantClass = config.customPatterns.visualVariant(
+                resolvedVisualVariant,
+                resolvedVariant
+            )
+            classes.push(variantClass)
+        } else if (resolvedVisualVariant === 'solid') {
+            // Solid: btn-primary (no base class needed)
+            classes.push(`${config.prefix}-${resolvedVariant}`)
+        } else {
+            // Outline/ghost: need base class + specific class
+            // Base class: btn-outline, btn-ghost
+            classes.push(`${config.prefix}-${resolvedVisualVariant}`)
+            // Specific class: btn-outline-primary, btn-ghost-primary
+            classes.push(`${config.prefix}-${resolvedVisualVariant}-${resolvedVariant}`)
+        }
     } else if (config.hasColorVariants) {
         // Only color variants (like progress, avatar)
         const variantClass = config.customPatterns?.variant
@@ -221,6 +284,8 @@ export const genericStyle = (variants: IGenericComponentVariantsV2): string => {
             variants.componentType,
             resolvedVariant,
             resolvedSize,
+            resolvedVisualVariant,
+            config.hasVisualVariants,
             variants.typography
         )
         classes.push(...typographyClasses)
