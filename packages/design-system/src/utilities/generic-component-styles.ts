@@ -2,9 +2,9 @@
  * Generic Component Styles - Legacy Compatibility Layer
  *
  * This file provides backward compatibility for the old generic component styles API.
- * New projects should use the V2 system from generics-v2/.
+ * New projects should use the new generic-style system.
  *
- * @deprecated Use the V2 system instead: import { genericStyle } from 'formular.design.system'
+ * @deprecated Use the new generic-style system instead: import { genericStyle } from 'formular.design.system'
  */
 
 import type { ComponentSizeType, ComponentVariantType } from '../types'

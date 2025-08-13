@@ -187,3 +187,19 @@ export const truncate = () => {
 }
 
 export { clx } from './clx'
+
+// Responsive Layout System
+export type {
+    FlexAlignementType,
+    FlexDirectionType,
+    IFieldLayout,
+    IFieldLayouts,
+    IFormLayoutConfig,
+    ILayoutClasses,
+    LayoutType,
+    OffsetType
+} from './responsive-layout/i-form-layout-config'
+
+export type { ResponsiveFormLayoutType } from './responsive-layout/responsive-form-layout'
+
+export { generateLayoutClasses } from './responsive-layout/i-form-layout-config'

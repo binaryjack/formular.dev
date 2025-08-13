@@ -37,7 +37,7 @@ export default defineConfig(({ mode }) => {
             },
             rollupOptions: {
                 // Externalize deps that shouldn't be bundled into the library
-                external: [],
+                external: ['formular.design.system'],
                 output: {
                     // Provide global variables to use in the UMD build
                     globals: {},

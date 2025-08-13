@@ -1,0 +1,42 @@
+.form-layout {
+    @apply w-full;
+}
+
+.form-fieldset {
+    @apply relative min-w-0;
+    /* Prevent grid item overflow */
+}
+
+.form-legend {
+    @apply text-sm font-medium text-gray-900 mb-2;
+}
+
+.form-fieldset-content {
+    @apply space-y-4;
+}
+
+/* Responsive grid utilities - extends your existing Tailwind config */
+.grid-cols-auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Gap utilities matching your design tokens */
+.gap-xs {
+    @apply gap-1;
+}
+
+.gap-sm {
+    @apply gap-2;
+}
+
+.gap-md {
+    @apply gap-4;
+}
+
+.gap-lg {
+    @apply gap-6;
+}
+
+.gap-xl {
+    @apply gap-8;
+}

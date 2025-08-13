@@ -18,10 +18,10 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
+    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
     ComponentVariantType,
-    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,
@@ -36,31 +36,52 @@ export type {
 
 export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
 
-// Export utility types (NEW VISUAL_VARIANT_RULE system types)
-export type {
-    ExtendedVisualVariantType,
-    IGenericComponentVariants
-} from './utilities/generic-component-styles'
+// Export utility types (legacy system)
+export type { IGenericComponentVariants } from './utilities/generic-component-styles'
 
 // Export legacy utilities for backward compatibility
 export { colorUtils, generateValidationStyles } from './utilities/generic-component-styles'
 
-// Export NEW VISUAL_VARIANT_RULE System (replaces old V2 system)
+// Export NEW Generic Style System (replaces old V2 system)
 export {
-    genericStyle,
+    COMPONENT_STYLE_CONFIG,
+    VISUAL_VARIANT_RULE,
     VariantRule,
-    VISUAL_VARIANT_RULE
-} from './utilities/generic-style/generic-style'
+    genericStyle
+} from './utilities/generic-style'
 
 export type {
+    ComponentConfigType,
     ComponentType,
+    ExtendedVisualVariantType,
     FieldOfViewType,
     IClasses,
+    IComponentAspect,
+    IComponentStyleConfig,
     IComponentVariants,
+    IStyleStates,
+    IStyleStatesConfig,
+    ITypographyConfig,
     IVariantRule,
     IVisualVariantRules,
-    ShadesTypes
-} from './utilities/generic-style/generic-style'
+    ShadesType
+} from './utilities/generic-style'
+
+// Export Responsive Layout System
+export type {
+    FlexAlignementType,
+    FlexDirectionType,
+    IFormLayoutConfig,
+    IFieldLayouts,
+    IFieldLayout,
+    IFieldLayouts as IFormLayoutVariants,
+    ILayoutClasses,
+    LayoutType,
+    OffsetType,
+    ResponsiveFormLayoutType
+} from './utilities'
+
+export { generateLayoutClasses } from './utilities'
 
 // Export constants
 export { DrawerBreakPointSizes, rippleColors } from './types/utilities'

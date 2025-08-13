@@ -13,7 +13,8 @@ export * from './symbols'
 // Export setup utilities (new factory system)
 export * from './setup/core/setup-helpers'
 
+// Export responsive layout system
+export * from './responsive-layout'
+
 // Export test mocks for consumer testing (see CONTRIBUTING.md exception)
 export * from './__tests__/mocks'
-
-// Export explicit types for better IDE support

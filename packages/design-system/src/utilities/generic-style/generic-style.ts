@@ -1,48 +1,23 @@
-import { ComponentSizeType, ComponentVariantType } from '@/types'
-import { ExtendedVisualVariantType } from '../generic-component-styles'
-import { ITypographyConfig } from '../generics-v2'
+// Import types and interfaces from their proper locations
+import type { ComponentConfigType } from './config/component-style-config'
+import { COMPONENT_STYLE_CONFIG } from './config/component-style-config'
+import type { IClasses } from './interfaces/i-classes'
+import type { IComponentVariants } from './interfaces/i-component-variants'
+import type { IStyleStates } from './interfaces/i-style-states'
+import type { IStyleStatesConfig } from './interfaces/i-style-states-config'
+import type { IVariantRule } from './interfaces/i-variant-rule'
+import type { IVisualVariantRules } from './interfaces/i-visual-variant-rules'
+import type { ComponentType } from './types/component-type.type'
+import type { ExtendedVisualVariantType } from './types/extended-visual-variant-type.type'
+import type { FieldOfViewType } from './types/field-of-view-type.type'
+import type { ShadesType } from './types/shades-type.type'
 
 // ===============================================
-// NEW VISUAL_VARIANT_RULE SYSTEM - MAIN EXPORTS
+// MAIN EXPORTS
 // ===============================================
-
-export type ComponentType = 'button' | 'typography' | 'input' | 'accordion'
-export type AppModeType = 'light' | 'dark'
-export type FieldOfViewType = 'fore' | 'back' | 'border'
-export type ShadesTypes = 0 | 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
-
-// Core interfaces for the new system
-export interface IVariantRule {
-    shade: ShadesTypes
-    fov: FieldOfViewType
-}
-
-export interface IVisualVariantRules {
-    rules: IVariantRule[]
-}
-
-export interface IClasses {
-    text: string[]
-    backGround: string[]
-    borders: string[]
-    states: IStyleStates
-    composed: string[]
-}
-
-export interface IComponentVariants {
-    componentTypes: ComponentType[]
-    variant?: ComponentVariantType
-    aspect?: IComponentAspect
-    visualVariant?: ExtendedVisualVariantType
-    states?: Partial<IStyleStatesConfig>
-    typography?: ITypographyConfig
-    backgroundClassName?: string
-    foregroundClassName?: string
-    mode?: AppModeType
-}
 
 // Helper function for creating variant rules
-export const VariantRule = (fov: FieldOfViewType, shade: ShadesTypes): IVariantRule => {
+export const VariantRule = (fov: FieldOfViewType, shade: ShadesType): IVariantRule => {
     return { shade, fov } as IVariantRule
 }
 
@@ -100,42 +75,6 @@ export const genericStyle = (variants: IComponentVariants): IClasses => {
 // INTERNAL IMPLEMENTATION - NOT FOR EXPORT
 // ===============================================
 
-type ComponentConfigType = Record<ComponentType, IComponentStyleConfig>
-
-interface IComponentAspect {
-    size?: ComponentSizeType
-    borders?: boolean
-    rounded?: boolean
-    width?: string
-    height?: string
-}
-
-interface IStyleStates {
-    hover?: string
-    ring?: string
-    focused?: string
-    pressed?: string
-    disabled?: string
-    errors?: string
-}
-
-interface IStyleStatesConfig {
-    hasHover?: boolean
-    hasRing?: boolean
-    hasFocused?: boolean
-    hasPressed?: boolean
-    hasDisable?: boolean
-    hasErrors?: boolean
-}
-
-interface IComponentStyleConfig {
-    prefix: string
-    defaultVariant: ComponentVariantType
-    defaultVisualVariantType: ExtendedVisualVariantType
-    defaultAspect: IComponentAspect
-    defaultStates: IStyleStatesConfig
-}
-
 const defaultStyleStates: IStyleStates = {
     hover: undefined,
     ring: undefined,
@@ -153,89 +92,6 @@ const createFreshOutput = (): IClasses => ({
     states: { ...defaultStyleStates },
     text: []
 })
-
-const COMPONENT_STYLE_CONFIG: Record<ComponentType, IComponentStyleConfig> = {
-    button: {
-        prefix: 'btn',
-        defaultVariant: 'primary',
-        defaultAspect: {
-            rounded: false,
-            borders: false,
-            size: 'md',
-            width: undefined,
-            height: undefined
-        },
-        defaultVisualVariantType: 'solid',
-        defaultStates: {
-            hasHover: true,
-            hasRing: true,
-            hasFocused: true,
-            hasPressed: true,
-            hasDisable: true,
-            hasErrors: true
-        }
-    },
-    typography: {
-        prefix: 'text',
-        defaultVariant: 'primary',
-        defaultAspect: {
-            rounded: false,
-            borders: false,
-            size: 'md',
-            width: undefined,
-            height: undefined
-        },
-        defaultVisualVariantType: 'solid',
-        defaultStates: {
-            hasHover: false,
-            hasRing: false,
-            hasFocused: false,
-            hasPressed: false,
-            hasDisable: true,
-            hasErrors: true
-        }
-    },
-    input: {
-        prefix: 'text',
-        defaultVariant: 'primary',
-        defaultAspect: {
-            rounded: false,
-            borders: false,
-            size: 'md',
-            width: undefined,
-            height: undefined
-        },
-        defaultVisualVariantType: 'solid',
-        defaultStates: {
-            hasHover: false,
-            hasRing: false,
-            hasFocused: false,
-            hasPressed: false,
-            hasDisable: true,
-            hasErrors: true
-        }
-    },
-    accordion: {
-        prefix: 'text',
-        defaultVariant: 'primary',
-        defaultAspect: {
-            rounded: false,
-            borders: false,
-            size: 'md',
-            width: undefined,
-            height: undefined
-        },
-        defaultVisualVariantType: 'solid',
-        defaultStates: {
-            hasHover: false,
-            hasRing: false,
-            hasFocused: false,
-            hasPressed: false,
-            hasDisable: true,
-            hasErrors: true
-        }
-    }
-}
 
 const defineStates = (componentType: ComponentType, states?: IStyleStatesConfig): IStyleStates => {
     if (!states) return defaultStyleStates

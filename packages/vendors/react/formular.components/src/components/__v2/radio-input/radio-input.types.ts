@@ -1,7 +1,8 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentVariants, IFieldLayouts } from 'formular.design.system'
+
 import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
 
-export interface IRadioInputProps extends React.ComponentProps<'div'> {
+export interface IRadioInputProps extends React.ComponentProps<'div'>, IFieldLayouts {
     id: string
     options: IOptionItem[]
     initialSelectedOption?: number
