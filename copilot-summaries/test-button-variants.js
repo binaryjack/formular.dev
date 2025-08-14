@@ -1,4 +1,4 @@
-import { genericStyle } from './packages/design-system/dist/index.esm.js'
+import { genericStyle } from '../packages/design-system/dist/index.esm.js';
 
 console.log('=== Typography classes for different variants ===');
 ['primary', 'secondary', 'success', 'warning', 'danger', 'info'].forEach(variant => {

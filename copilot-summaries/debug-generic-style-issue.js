@@ -1,5 +1,5 @@
 // Debug script to reproduce the genericStyle accumulation issue
-import { genericStyle } from './packages/design-system/dist/index.esm.js'
+import { genericStyle } from '../packages/design-system/dist/index.esm.js';
 
 console.log('=== Testing genericStyle Accumulation Issue ===');
 

@@ -48,7 +48,7 @@ export const Drawer = ({
         <DrawerContext.Provider value={drawerContext}>
             <div
                 id={id}
-                className={`drawer relative flex flex-row ${position}`}
+                className={`drawer relative flex flex-row flex-1 ${position}`}
                 ref={drawerHolderRef}
             >
                 <div className="flex flex-1">{owner}</div>

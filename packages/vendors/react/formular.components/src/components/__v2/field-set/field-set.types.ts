@@ -4,4 +4,10 @@ export interface IFieldSetProps extends React.ComponentProps<'div'>, IFieldLayou
     label: React.ReactNode
     input: React.ReactNode
     buttons: React.ReactNode
+    /** Optional CSS class overrides for field elements */
+    fieldClasses?: {
+        label?: string
+        inputContainer?: string
+        commands?: string
+    }
 }

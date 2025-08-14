@@ -52,7 +52,8 @@ export const Dropdown = ({
                         owner={
                             <BaseInput
                                 id={`dropdown-input-${id}`}
-                                dataClass={'primitive-input  flex-1'}
+                                dataClass={'primitive-input'}
+                                className={'w-full'}
                                 onChangeCallback={handleOnChanged}
                             />
                         }

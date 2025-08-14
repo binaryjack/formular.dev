@@ -1,5 +1,5 @@
 import useDebouncer from '@adapters/react/hooks/use-debouncer'
-import { cx, genericStyle } from 'formular.design.system'
+import { clx, genericStyle } from 'formular.design.system'
 import { useState } from 'react'
 import { IBaseInputProps } from './base-input.types'
 
@@ -43,18 +43,18 @@ export const BaseInput = ({
         setValue(e.target.value)
     }
 
+    const clbackGround = classStyle.backGround
+    const cltext = classStyle.text
+    const clborders = classStyle.borders
+    const clstates = Object.values(classStyle.states).filter((o) => !!o)
+
     return (
         <input
             id={id}
             data-class={dataClass}
             placeholder={placeHolder}
             tabIndex={tabIndex}
-            className={cx(
-                classStyle.backGround,
-                classStyle.text,
-                classStyle.borders,
-                ...Object.values(classStyle.states)
-            )}
+            className={clx(...clbackGround, ...cltext, ...clborders, ...clstates)}
             onKeyDown={onKeyDown}
             onKeyUp={onKeyUp}
             onChange={handleOnChange}

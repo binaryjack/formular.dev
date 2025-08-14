@@ -7,7 +7,11 @@ export const FormLayout = ({
     as: Component = 'div',
     ...layoutVariants
 }: IFormLayoutProps) => {
-    const { containerClasses } = generateLayoutClasses(layoutVariants)
+    const { containerClasses, fieldSetClasses } = generateLayoutClasses(layoutVariants)
 
-    return <Component className={`${containerClasses} ${className}`}>{children}</Component>
+    return (
+        <Component className={`${containerClasses} ${fieldSetClasses} ${className}`}>
+            {children}
+        </Component>
+    )
 }

@@ -6,4 +6,5 @@ export interface IToggleableProviderProps {
     children: React.ReactNode
     initialState?: ToggleableStateType
     style?: CSSProperties
+    className?: string
 }

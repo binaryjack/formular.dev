@@ -197,6 +197,7 @@
           /* 9999px */
           /* Component Radius - default for components */
           --radius: var(--radius-lg);
+          --radius-checkbox: var(--radius-sm);
           /* ===============================================
            SHADOW TOKENS
            =============================================== */

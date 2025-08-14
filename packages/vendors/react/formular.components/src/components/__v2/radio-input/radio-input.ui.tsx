@@ -4,14 +4,21 @@ import { Label } from '../label/label.ui'
 import { RadioOptionGroup } from './group/radio-option-group.ui'
 import { IRadioInputProps } from './radio-input.types'
 
-export const RadioInput = ({ id, variants, options, layout, layoutSet }: IRadioInputProps) => {
+export const RadioInput = ({
+    id,
+    variants,
+    mainLabelVariants,
+    options,
+    layout,
+    layoutSet
+}: IRadioInputProps) => {
     return (
         <FieldSet
             layout={layout}
             layoutSet={layoutSet}
-            label={<Label htmlFor={id} text={id} />}
+            label={<Label htmlFor={id} text={id} variants={mainLabelVariants} />}
             input={
-                <div className={`flex flex-col  xs:flex-row sm:flex-row `}>
+                <div className={`flex flex-col xs:flex-row sm:flex-row`}>
                     {options.map((option: IOptionItem, i: number) => (
                         <RadioOptionGroup
                             key={option.id}
@@ -28,6 +35,7 @@ export const RadioInput = ({ id, variants, options, layout, layoutSet }: IRadioI
                                 text: option.text,
                                 variants: variants
                             }}
+                            className="mr-2"
                         />
                     ))}
                 </div>

@@ -7,5 +7,6 @@ export interface IRadioInputProps extends React.ComponentProps<'div'>, IFieldLay
     options: IOptionItem[]
     initialSelectedOption?: number
     onSelectOption?: (option: IOptionItem) => void
+    mainLabelVariants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
     variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
 }

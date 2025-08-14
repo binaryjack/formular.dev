@@ -1,5 +1,5 @@
 // Test color mapping for outlined buttons
-const libExports = require('./packages/lib/dist/formular-dev.cjs.js');
+const libExports = require('../packages/lib/dist/formular-dev.cjs.js');
 
 console.log('Available exports from lib:', Object.keys(libExports));
 

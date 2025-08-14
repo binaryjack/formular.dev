@@ -190,10 +190,13 @@ export { clx } from './clx'
 
 // Responsive Layout System
 export type {
+    FieldLayoutDirection,
+    FieldProportionType,
     FlexAlignementType,
     FlexDirectionType,
     IFieldLayout,
     IFieldLayouts,
+    IFieldProportions,
     IFormLayoutConfig,
     ILayoutClasses,
     LayoutType,

@@ -202,9 +202,13 @@
         background-size: contain;
     }
 
+    input[type="checkbox"] {
+        border-radius: var(--radius-checkbox);
+    }
+
     /* Radio buttons are circular */
     input[type="radio"] {
-        border-radius: 50%;
+        border-radius: var(--radius-full);
     }
 
     /* Focus states for checkboxes and radios */

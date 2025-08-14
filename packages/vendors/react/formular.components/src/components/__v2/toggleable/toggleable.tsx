@@ -5,7 +5,13 @@ import { ToggleableStateType } from 'formular.dev.lib'
 import { getToggleableContext, IToggleableContextType } from './toggleable.context'
 import { IToggleableProviderProps } from './toggleable.types'
 
-export const Toggleable = ({ children, id, initialState, style }: IToggleableProviderProps) => {
+export const Toggleable = ({
+    children,
+    id,
+    initialState,
+    style,
+    className
+}: IToggleableProviderProps) => {
     const [toggleState, setToggleState] = useState<ToggleableStateType>(initialState ?? 'idle')
     const ToggleableContext = getToggleableContext(id)
     const toggleableContainerRef = useRef<HTMLDivElement>(null)
@@ -29,7 +35,13 @@ export const Toggleable = ({ children, id, initialState, style }: IToggleablePro
 
     return (
         <ToggleableContext.Provider value={toggleableContext}>
-            <div id={id} data-toggleable-container={id} ref={toggleableContainerRef} style={style}>
+            <div
+                id={id}
+                data-toggleable-container={id}
+                ref={toggleableContainerRef}
+                className={className}
+                style={style}
+            >
                 {children}
             </div>
         </ToggleableContext.Provider>

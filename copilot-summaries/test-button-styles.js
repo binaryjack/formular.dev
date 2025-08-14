@@ -1,5 +1,5 @@
 // Quick test to see what genericStyle returns  
-import { genericStyle } from './packages/design-system/dist/index.esm.js'
+import { genericStyle } from '../packages/design-system/dist/index.esm.js';
 
 console.log('=== Button Style Tests ===');
 console.log('Primary MD Solid:', genericStyle({ componentType: 'button', visualVariant: 'solid', variant: 'primary', size: 'md' }));

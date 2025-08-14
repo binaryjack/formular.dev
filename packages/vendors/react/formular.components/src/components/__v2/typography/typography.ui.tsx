@@ -1,4 +1,4 @@
-import { cx, genericStyle } from 'formular.design.system'
+import { clx, genericStyle } from 'formular.design.system'
 import { ITypographyProps } from './typography.types'
 
 export const Typography = ({
@@ -9,11 +9,11 @@ export const Typography = ({
 }: ITypographyProps) => {
     const textClasses =
         typeof variants === 'object'
-            ? cx(
-                  genericStyle({
+            ? clx(
+                  ...(genericStyle({
                       componentTypes: ['typography'],
                       ...variants
-                  })?.text
+                  })?.text ?? [])
               )
             : variants
 
