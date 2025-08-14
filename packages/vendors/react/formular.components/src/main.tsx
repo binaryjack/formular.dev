@@ -11,6 +11,7 @@ import { Button } from '@components/__v2/button/button.ui'
 import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
 
 import { Accordion } from '@components/__v2/accordion/accordion.ui'
+import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
 import { Dropdown } from '@components/__v2/dropdown/dropdown.ui'
 import { FieldSet } from '@components/__v2/field-set/field-set.ui'
 import { FormLayout } from '@components/__v2/form-layout/form-layout.ui'
@@ -32,6 +33,30 @@ export const mainOptions = new OptionsBuilder()
             new OptionBuilder('Option 2').setValue('2'),
             new OptionBuilder('Option 3').setValue('3'),
             new OptionBuilder('Option 4').setValue('4')
+        ]
+    )
+    .build()
+
+export const mainCheckOptions = new OptionsBuilder()
+    .setOptions(
+        ...[
+            new OptionBuilder('Option 1').setValue('1'),
+            new OptionBuilder('Option 2').setValue('2'),
+            new OptionBuilder('Option 3').setValue('3'),
+            new OptionBuilder('Option 4').setValue('4'),
+            new OptionBuilder('Option 5').setValue('5'),
+            new OptionBuilder('Option 6').setValue('6'),
+            new OptionBuilder('Option 7').setValue('7'),
+            new OptionBuilder('Option 8').setValue('8'),
+            new OptionBuilder('Option 9').setValue('9'),
+            new OptionBuilder('Option 10').setValue('10'),
+            new OptionBuilder('Option 11').setValue('11'),
+            new OptionBuilder('Option 12').setValue('12'),
+            new OptionBuilder('Option 13').setValue('13'),
+            new OptionBuilder('Option 14').setValue('14'),
+            new OptionBuilder('Option 15').setValue('15'),
+            new OptionBuilder('Option 16').setValue('16'),
+            new OptionBuilder('Option 17').setValue('17')
         ]
     )
     .build()
@@ -72,12 +97,6 @@ root.render(
                         }
                     }}
                 >
-                    <FieldSet
-                        label={<h2 className="text-2xl font-bold">Formular Components</h2>}
-                        input={undefined}
-                        buttons={undefined}
-                    />
-
                     <FieldSet
                         layoutSet={{
                             span: {
@@ -342,6 +361,16 @@ root.render(
                             Esse cillum dolore eu fugiat nulla pariatur.
                         </p>
                     </Accordion>
+
+                    <CheckGroupInput
+                        id={'check-group-input-1'}
+                        options={mainCheckOptions}
+                        mainLabelVariants={{
+                            variant: 'secondary',
+                            aspect: { size: 'sm', rounded: true },
+                            typography: { variant: 'secondary', size: 'sm', case: 'uppercase' }
+                        }}
+                    />
 
                     <RadioInput
                         id={'radio-input-1'}

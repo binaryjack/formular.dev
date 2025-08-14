@@ -31,7 +31,12 @@ export const CheckboxInput = ({
                 id={id}
                 data-class="base-checkbox "
                 tabIndex={tabIndex}
-                className={clx('form-checkbox', ...clborders, ...clstates)}
+                className={clx(
+                    'form-checkbox',
+
+                    ...clborders,
+                    ...clstates
+                )}
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
                 onChange={onChange}
@@ -49,6 +54,7 @@ export const CheckboxInput = ({
                     htmlFor={id}
                     text={label}
                     variants={clx(...cltext)}
+                    className={clx('cursor-pointer', 'select-none')}
                 />
             )}
         </div>

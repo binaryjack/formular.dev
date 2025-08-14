@@ -12,13 +12,24 @@ export const RadioInput = ({
     layout,
     layoutSet
 }: IRadioInputProps) => {
+    const orientation = options.length > 3 ? 'flex-col' : ' flex-col xs:flex-row sm:flex-row'
     return (
         <FieldSet
             layout={layout}
             layoutSet={layoutSet}
-            label={<Label htmlFor={id} text={id} variants={mainLabelVariants} />}
+            label={
+                <Label
+                    htmlFor={id}
+                    text={id}
+                    variants={mainLabelVariants}
+                    className="cursor-pointer select-none"
+                />
+            }
             input={
-                <div className={`flex flex-col xs:flex-row sm:flex-row`}>
+                <div
+                    id={id}
+                    className={`grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-2`}
+                >
                     {options.map((option: IOptionItem, i: number) => (
                         <RadioOptionGroup
                             key={option.id}
@@ -33,7 +44,8 @@ export const RadioInput = ({
                             labelProps={{
                                 htmlFor: option.id,
                                 text: option.text,
-                                variants: variants
+                                variants: variants,
+                                className: 'cursor-pointer select-none'
                             }}
                             className="mr-2"
                         />
