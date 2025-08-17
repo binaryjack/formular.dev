@@ -70,7 +70,7 @@ export const generateLayoutClasses = (variants: IFieldLayouts): ILayoutClasses =
         },
         fieldSpan: 1,
         direction: 'column',
-        alignment: 'stretch',
+        alignment: 'start', // Changed from 'stretch' to prevent height reservation in grid rows
         fieldProportions: {
             preset: 'balanced',
             direction: {
@@ -111,6 +111,91 @@ export const generateLayoutClasses = (variants: IFieldLayouts): ILayoutClasses =
         .join(' ')
 
     // Generate field element classes based on proportions
+    const proportions = mergedLayout.fieldProportions
+    const {
+        labelClasses,
+        inputContainerClasses,
+        commandClasses,
+        wrapperClasses,
+        inputCommandsWrapperClasses
+    } = generateFieldProportionClasses(proportions)
+
+    return {
+        containerClasses,
+        fieldSetClasses,
+        labelClasses,
+        inputContainerClasses,
+        commandClasses,
+        wrapperClasses,
+        inputCommandsWrapperClasses
+    }
+}
+
+/**
+ * Generate flex-based layout classes for natural column heights
+ * Alternative to grid-based layout when different column heights are desired
+ */
+export const generateFlexLayoutClasses = (variants: IFieldLayouts): ILayoutClasses => {
+    const { layout = {}, layoutSet: fieldSet = {} } = variants
+
+    const defaultLayout: IFormLayoutConfig = {
+        columns: {
+            '2xs': 1,
+            xs: 1,
+            sm: 2,
+            md: 2,
+            lg: 3,
+            xl: 3,
+            '2xl': 4
+        },
+        gap: {
+            '2xs': 'sm',
+            sm: 'md',
+            lg: 'lg'
+        },
+        fieldSpan: 1,
+        direction: 'row', // Flex direction for columns
+        alignment: 'start', // Natural alignment for flex
+        fieldProportions: {
+            preset: 'balanced',
+            direction: {
+                '2xs': 'stack',
+                xs: 'stack',
+                sm: 'hybrid',
+                md: 'inline',
+                lg: 'inline',
+                xl: 'inline',
+                '2xl': 'inline'
+            }
+        }
+    }
+
+    // Merge with user config
+    const mergedLayout = { ...defaultLayout, ...layout }
+
+    // Generate flex container classes
+    const containerClasses = [
+        'form-layout-flex',
+        'flex',
+        'flex-wrap',
+        'w-full',
+        generateResponsiveFlexGap(mergedLayout.gap),
+        generateResponsiveFlexAlignment(mergedLayout.alignment)
+    ]
+        .filter(Boolean)
+        .join(' ')
+
+    // Generate flex item classes (fieldset)
+    const fieldSetClasses = [
+        'form-fieldset-flex',
+        'relative',
+        generateResponsiveFlexBasis(mergedLayout.columns, fieldSet.span || 1),
+        fieldSet.order && generateResponsiveClasses('order', fieldSet.order)
+    ]
+        .filter(Boolean)
+        .join(' ')
+
+    // Generate field element classes (reuse existing logic)
     const proportions = mergedLayout.fieldProportions
     const {
         labelClasses,
@@ -299,4 +384,87 @@ const getInputCommandsWrapperClass = (direction: FieldLayoutDirection) => {
         default:
             return 'flex flex-col gap-2 w-full'
     }
+}
+
+// Helper functions for flex-based layout
+
+/**
+ * Generate responsive flex gap classes
+ */
+const generateResponsiveFlexGap = (gap: ResponsiveFormLayoutType<ComponentSizeType>): string => {
+    return generateResponsiveClasses('gap', gap)
+}
+
+/**
+ * Generate responsive flex alignment classes
+ */
+const generateResponsiveFlexAlignment = (
+    alignment: ResponsiveFormLayoutType<FlexAlignementType>
+): string => {
+    return generateResponsiveClasses('items', alignment)
+}
+
+/**
+ * Generate responsive flex-basis classes based on column count and span
+ * Creates proper Tailwind flex classes for grid-like column behavior
+ */
+const generateResponsiveFlexBasis = (
+    columns: ResponsiveFormLayoutType<LayoutType>,
+    span: ResponsiveFormLayoutType<LayoutType>
+): string => {
+    // Handle single values
+    if (typeof columns === 'number' && typeof span === 'number') {
+        return getFlexBasisClass(columns, span)
+    }
+
+    // Handle responsive values
+    const responsiveClasses: string[] = []
+
+    // Normalize both columns and span to objects for easier processing
+    const normalizedColumns = typeof columns === 'number' ? { '2xs': columns } : columns
+    const normalizedSpan = typeof span === 'number' ? { '2xs': span } : span
+
+    // Get all breakpoints from both columns and span
+    const breakpoints = new Set([...Object.keys(normalizedColumns), ...Object.keys(normalizedSpan)])
+
+    breakpoints.forEach(breakpoint => {
+        const colValue =
+            normalizedColumns[breakpoint as keyof typeof normalizedColumns] ||
+            normalizedColumns['2xs'] ||
+            1
+        const spanValue =
+            normalizedSpan[breakpoint as keyof typeof normalizedSpan] || normalizedSpan['2xs'] || 1
+
+        const flexClass = getFlexBasisClass(colValue, spanValue)
+        const className = breakpoint === '2xs' ? flexClass : `${breakpoint}:${flexClass}`
+
+        responsiveClasses.push(className)
+    })
+
+    return responsiveClasses.join(' ')
+}
+
+/**
+ * Get the appropriate Tailwind flex-basis class for grid-like columns
+ */
+const getFlexBasisClass = (columns: number, span: number): string => {
+    // Map to standard Tailwind width classes for common column layouts
+    if (columns === 1) return 'w-full'
+    if (columns === 2 && span === 1) return 'w-1/2'
+    if (columns === 3 && span === 1) return 'w-1/3'
+    if (columns === 4 && span === 1) return 'w-1/4'
+    if (columns === 6 && span === 1) return 'w-1/6'
+    if (columns === 12 && span === 1) return 'w-1/12'
+
+    // For span > 1
+    if (columns === 2 && span === 2) return 'w-full'
+    if (columns === 3 && span === 2) return 'w-2/3'
+    if (columns === 3 && span === 3) return 'w-full'
+    if (columns === 4 && span === 2) return 'w-2/4'
+    if (columns === 4 && span === 3) return 'w-3/4'
+    if (columns === 4 && span === 4) return 'w-full'
+
+    // Fallback for other combinations
+    const percentage = (span / columns) * 100
+    return `w-[${percentage}%]`
 }

@@ -71,9 +71,9 @@ export type {
 export type {
     FlexAlignementType,
     FlexDirectionType,
-    IFormLayoutConfig,
-    IFieldLayouts,
     IFieldLayout,
+    IFieldLayouts,
+    IFormLayoutConfig,
     IFieldLayouts as IFormLayoutVariants,
     ILayoutClasses,
     LayoutType,
@@ -81,7 +81,7 @@ export type {
     ResponsiveFormLayoutType
 } from './utilities'
 
-export { generateLayoutClasses } from './utilities'
+export { generateFlexLayoutClasses, generateLayoutClasses } from './utilities'
 
 // Export constants
 export { DrawerBreakPointSizes, rippleColors } from './types/utilities'

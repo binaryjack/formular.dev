@@ -205,4 +205,7 @@ export type {
 
 export type { ResponsiveFormLayoutType } from './responsive-layout/responsive-form-layout'
 
-export { generateLayoutClasses } from './responsive-layout/i-form-layout-config'
+export {
+    generateFlexLayoutClasses,
+    generateLayoutClasses
+} from './responsive-layout/i-form-layout-config'

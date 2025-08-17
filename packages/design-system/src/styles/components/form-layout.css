@@ -2,9 +2,21 @@
     @apply w-full;
 }
 
+.form-layout-flex {
+    @apply w-full;
+    /* Flex-specific optimizations for varying content heights */
+}
+
 .form-fieldset {
     @apply relative min-w-0;
     /* Prevent grid item overflow */
+}
+
+.form-fieldset-flex {
+    @apply relative min-w-0;
+    /* Flex-specific fieldset - allows natural content height */
+    align-self: flex-start;
+    /* Prevent stretching to match tallest column */
 }
 
 .form-legend {
@@ -82,4 +94,21 @@
 
 .gap-xl {
     @apply gap-8;
+}
+
+/* Additional Flex Layout optimizations */
+.form-layout-flex {
+    /* Ensure proper column flow */
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+}
+
+.form-fieldset-flex {
+    /* Prevent content overflow in flex columns */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    /* Ensure minimum width for proper proportions */
+    min-width: 0;
+    /* Maintain aspect ratio calculations */
+    box-sizing: border-box;
 }

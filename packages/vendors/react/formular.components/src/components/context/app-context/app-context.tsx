@@ -175,7 +175,7 @@ const AppContextProvider = ({
             >
                 {children}
             </div>
-            <div className="z-50 fixed flex flex-1 items-center justify-center bottom-0 w-screen  h-8 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
+            <div className="z-50 fixed flex flex-1 items-center justify-center bottom-0 w-screen h-6 bg-blue-900 text-blue-100 text-sm ">{`${media.media} - ${media.orientation} - x: ${windowX} y:${windowY}`}</div>
         </AppContext.Provider>
     )
 }
