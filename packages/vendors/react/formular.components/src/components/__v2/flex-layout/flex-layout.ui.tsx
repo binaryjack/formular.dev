@@ -1,11 +1,12 @@
-import { IFlexLayoutBreakPoints, IFlexLayoutProps } from './flex-layout.types'
+import { IFlexLayoutProps } from './flex-layout.types'
+import { generateStyle } from './generate-style'
 
 export const FlexLayout = ({
     id,
     grid = {
         rows: {
             '2xs': 'flex-col',
-            xs: 'xs:flex-row',
+            xs: 'xs:flex-col',
             sm: 'sm:flex-row',
             md: 'md:flex-row'
         },
@@ -15,23 +16,12 @@ export const FlexLayout = ({
     },
     children
 }: IFlexLayoutProps) => {
-    const { columns, rows, gaps } = grid || {}
-
-    const generateStyle = (rules?: IFlexLayoutBreakPoints) => {
-        if (!rules) return undefined
-        const output = Object.values(rules)
-            .filter((o) => o !== undefined || o !== '')
-            .map((o) => `${o}`)
-            .join(' ')
-
-        return output
-    }
+    const { rows, gaps } = grid || {}
 
     const className = `
                         h-screen
                         w-screen
                         flex
-                        bg-slate-300
                         p-0
                         overflow-y-auto
 

@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
             sourcemapIgnoreList: () => false, // Don't ignore any source maps for debugging
             hmr: {
                 overlay: true,
-                port: 24678 // Different port to avoid conflicts
+                port: 24679 // Different port to avoid conflicts
             },
             fs: {
                 allow: ['..', '../../../lib/src', '../../../lib/dist'] // Allow access to lib source and dist

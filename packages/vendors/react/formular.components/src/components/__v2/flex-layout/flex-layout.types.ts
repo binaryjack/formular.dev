@@ -16,6 +16,7 @@ export interface IFlexLayoutGrid {
 
 export interface IFlexLayoutProps extends React.ComponentProps<'div'> {
     id: string
+    name?: string
     grid?: IFlexLayoutGrid
     children?: React.ReactNode
 }

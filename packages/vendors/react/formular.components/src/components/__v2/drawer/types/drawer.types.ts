@@ -16,7 +16,6 @@ export interface IDrawerProps {
     id: string
     toggleContextId: string
     owner: React.ReactNode
-
     children: React.ReactNode
     position: ElementPositionType
     size?: IDrawerSize

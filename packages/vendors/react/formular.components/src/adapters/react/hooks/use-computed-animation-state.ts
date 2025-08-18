@@ -28,6 +28,16 @@ export const useComputedAnimationState = (
         }
     }, [])
 
+    // Update content height when the drawer is about to open for expandable drawers
+    useEffect(() => {
+        if (!controllerRef.current || drawerType !== 'expandable') return
+
+        // Update content height before opening
+        if (toggleState === 'open' && animationState === 'closed') {
+            controllerRef.current.updateContentHeight()
+        }
+    }, [toggleState, animationState, drawerType])
+
     // Handle toggleState changes and manage transitional states
     useEffect(() => {
         if (!controllerRef.current) return

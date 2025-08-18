@@ -25,7 +25,6 @@ export const CheckGroupInput = ({
         onSelectOptions?.(selectedOptions)
     }
 
-    const orientation = options.length > 3 ? 'flex-col' : ' flex-col xs:flex-row sm:flex-row'
     return (
         <FieldSet
             layout={layout}
@@ -39,11 +38,7 @@ export const CheckGroupInput = ({
                 />
             }
             input={
-                <div
-                    id={id}
-                    className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1`}
-                    {...rest}
-                >
+                <div id={id} className={`flex flex-1 flex-col`} {...rest}>
                     {options.map((option: IOptionItem, i: number) => (
                         <CheckboxInput
                             key={`ci-${option.id}`}
@@ -52,7 +47,7 @@ export const CheckGroupInput = ({
                             tabIndex={0}
                             onSelect={() => handleOnSelected(option)}
                             size={1}
-                            className={'bg-blue-100'}
+                            className={'flex w-auto'}
                             autoComplete="off"
                             initialState={undefined}
                         />

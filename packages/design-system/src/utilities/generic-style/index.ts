@@ -30,7 +30,14 @@
  */
 
 // Main function export
-export { genericStyle, VariantRule, VISUAL_VARIANT_RULE } from './generic-style'
+export {
+    EnhancedVariantRule,
+    SEMANTIC_VISUAL_VARIANT_RULE,
+    VISUAL_VARIANT_RULE,
+    VariantRule,
+    genericStyle,
+    semanticStyle
+} from './generic-style'
 
 // Configuration exports
 export { COMPONENT_STYLE_CONFIG } from './config/component-style-config'
@@ -40,6 +47,8 @@ export type { ComponentConfigType, IComponentStyleConfig } from './config/compon
 export type { IClasses } from './interfaces/i-classes'
 export type { IComponentAspect } from './interfaces/i-component-aspect'
 export type { IComponentVariants } from './interfaces/i-component-variants'
+export type { IEnhancedVariantRule } from './interfaces/i-enhanced-variant-rule'
+export type { ISemanticVisualVariantRules } from './interfaces/i-semantic-visual-variant-rules'
 export type { IStyleStates } from './interfaces/i-style-states'
 export type { IStyleStatesConfig } from './interfaces/i-style-states-config'
 export type { ITypographyConfig } from './interfaces/i-typography-config'

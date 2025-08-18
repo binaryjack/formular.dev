@@ -2,8 +2,27 @@ import type { IDrawerAnimationController } from '../drawer-animation-controller.
 
 export const setupWAAPI = function (this: IDrawerAnimationController): void {
     if (this.drawerType === 'expandable') {
-        // Measure content height for expandable drawers
+        // For expandable drawers, we need to dynamically measure content height
+        // First, temporarily show the element to measure its natural height
+        const originalHeight = this.element.style.height
+        const originalVisibility = this.element.style.visibility
+        const originalPosition = this.element.style.position
+
+        // Temporarily make it visible but off-screen to measure
+        this.element.style.visibility = 'hidden'
+        this.element.style.position = 'absolute'
+        this.element.style.height = 'auto'
+        this.element.style.maxHeight = 'none'
+
+        // Measure the natural content height
         const contentHeight = this.element.scrollHeight
+
+        // Restore original styles
+        this.element.style.height = originalHeight
+        this.element.style.visibility = originalVisibility
+        this.element.style.position = originalPosition
+
+        // Set the CSS custom property for content height
         this.element.style.setProperty('--content-height', `${contentHeight}px`)
 
         this.animation = this.element.animate(

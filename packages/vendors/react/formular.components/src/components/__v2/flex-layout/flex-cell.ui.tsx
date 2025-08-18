@@ -1,7 +1,10 @@
-import { IFlexLayoutBreakPoints, IFlexLayoutProps } from './flex-layout.types'
+import { Label } from '../label/label.ui'
+import { IFlexLayoutProps } from './flex-layout.types'
+import { generateStyle } from './generate-style'
 
 export const FlexCell = ({
     id,
+    name,
     grid = {
         gaps: {
             '2xs': 'gap-0'
@@ -11,27 +14,11 @@ export const FlexCell = ({
 }: IFlexLayoutProps) => {
     const { gaps } = grid || {}
 
-    const generateStyle = (rules?: IFlexLayoutBreakPoints) => {
-        if (!rules) return undefined
-        const output = Object.values(rules)
-            .filter((o) => o !== undefined || o !== '')
-            .map((o) => `${o}`)
-            .join(' ')
-
-        return output
-    }
-
-    const className = ` flex 
-                    flex-col                      
-                  
-                     bg-slate-100
-
-                        p-1
-                    ${generateStyle(gaps)}`
+    const className = ` flex flex-col p-1 ${generateStyle(gaps)}`
 
     return (
-        <div id={id} className={className}>
-            {id}
+        <div id={`flex-cell-${id}`} className={className}>
+            {name && <Label htmlFor={`flex-cell-${id}`} text={name} />}
             {children}
         </div>
     )

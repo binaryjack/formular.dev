@@ -8,6 +8,7 @@ import { open } from './prototype/open'
 import { setProgress } from './prototype/set-progress'
 import { setupCSSFallback } from './prototype/setup-css-fallback'
 import { setupWAAPI } from './prototype/setup-waapi'
+import { updateContentHeight } from './prototype/update-content-height'
 
 /**
  * Hybrid drawer animation controller that supports both Web Animations API
@@ -42,6 +43,7 @@ Object.assign(DrawerAnimationController.prototype, {
     setupCSSFallback,
     setProgress,
     animateToProgressAsync,
+    updateContentHeight,
     open,
     close
 })

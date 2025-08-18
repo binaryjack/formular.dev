@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Contrast Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Simulate your design system tokens */
+        :root {
+            /* Primary color scale */
+            --color-primary-50: #eff6ff;
+            --color-primary-400: #60a5fa;
+            --color-primary-500: #3b82f6;
+            --color-primary-600: #2563eb;
+            --color-primary-100: #dbeafe;
+            
+            /* Smart semantic tokens - Light mode */
+            --color-surface-variant-primary: var(--color-primary-500);
+            --color-text-on-variant-primary: var(--color-primary-50);
+            --color-text-variant-primary: var(--color-primary-600);
+            --color-border-variant-primary: var(--color-primary-500);
+        }
+
+        /* Dark mode overrides */
+        [data-theme="dark"] {
+            --color-surface-variant-primary: var(--color-primary-600);
+            --color-text-on-variant-primary: var(--color-primary-100);
+            --color-text-variant-primary: var(--color-primary-400);
+            --color-border-variant-primary: var(--color-primary-400);
+            
+            background-color: #1f2937;
+            color: #f9fafb;
+        }
+
+        /* Smart button classes */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 150ms ease-in-out;
+        }
+        
+        .btn-smart-primary {
+            background-color: var(--color-surface-variant-primary);
+            color: var(--color-text-on-variant-primary);
+            border: 1px solid var(--color-border-variant-primary);
+        }
+        
+        .btn-smart-primary:hover {
+            filter: brightness(1.1);
+        }
+
+        .btn-smart-outline-primary {
+            background-color: transparent;
+            color: var(--color-text-variant-primary);
+            border: 1px solid var(--color-border-variant-primary);
+        }
+        
+        .btn-smart-outline-primary:hover {
+            background-color: var(--color-surface-variant-primary);
+            color: var(--color-text-on-variant-primary);
+        }
+
+        /* Traditional button (problematic) */
+        .btn-traditional {
+            background-color: var(--color-primary-500);
+            color: var(--color-primary-50);
+        }
+
+        /* Utility classes */
+        .surface-variant-primary { background-color: var(--color-surface-variant-primary); }
+        .text-on-variant-primary { color: var(--color-text-on-variant-primary); }
+        .text-variant-primary { color: var(--color-text-variant-primary); }
+        
+        .demo-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+        }
+        
+        [data-theme="dark"] .demo-section {
+            border-color: #374151;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold">Smart Contrast Demo</h1>
+            <button 
+                id="themeToggle" 
+                class="btn btn-smart-outline-primary"
+                onclick="toggleTheme()"
+            >
+                Toggle Dark Mode
+            </button>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="text-xl font-semibold mb-4">🎨 Smart Buttons (Auto-Adapting)</h2>
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-smart-primary">Smart Solid Button</button>
+                <button class="btn btn-smart-outline-primary">Smart Outline Button</button>
+            </div>
+            <p class="text-sm mt-2 opacity-75">These buttons automatically adapt their contrast for both light and dark modes.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="text-xl font-semibold mb-4">⚠️ Traditional Button (Problematic)</h2>
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-traditional">Traditional Button</button>
+            </div>
+            <p class="text-sm mt-2 opacity-75">This button uses fixed colors and may have contrast issues in different themes.</p>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="text-xl font-semibold mb-4">🧩 Smart Utility Classes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="surface-variant-primary text-on-variant-primary p-4 rounded">
+                    <h3 class="font-semibold">Primary Surface</h3>
+                    <p class="text-sm opacity-90">Text automatically contrasts with background</p>
+                </div>
+                <div class="p-4 rounded border-2 border-variant-primary">
+                    <h3 class="font-semibold text-variant-primary">Primary Border</h3>
+                    <p class="text-sm opacity-75">Border and text adapt to theme</p>
+                </div>
+                <div class="p-4 rounded bg-gray-100 dark:bg-gray-800">
+                    <h3 class="font-semibold text-variant-primary">Neutral Surface</h3>
+                    <p class="text-sm text-variant-primary">Smart primary text on neutral background</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="text-xl font-semibold mb-4">📋 Implementation Code</h2>
+            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded font-mono text-sm overflow-x-auto">
+                <div class="mb-4">
+                    <h4 class="font-semibold mb-2">HTML:</h4>
+                    <code>&lt;button class="btn btn-smart-primary"&gt;Smart Button&lt;/button&gt;</code>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-semibold mb-2">CSS Tokens:</h4>
+                    <code>--color-surface-variant-primary: var(--color-primary-500); /* Light mode */</code><br>
+                    <code>[data-theme="dark"] { --color-surface-variant-primary: var(--color-primary-600); }</code>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">TypeScript (Generic Style System):</h4>
+                    <code>semanticStyle({ componentTypes: ['button'], variant: 'primary' })</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                html.removeAttribute('data-theme');
+                document.getElementById('themeToggle').textContent = 'Toggle Dark Mode';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').textContent = 'Toggle Light Mode';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -4,7 +4,7 @@ import { ITypographyProps } from './typography.types'
 export const Typography = ({
     as: Tag = 'span',
     children,
-    variants = {},
+    variants = { typography: { variant: 'secondary' } },
     ...rest
 }: ITypographyProps) => {
     const textClasses =
@@ -18,7 +18,7 @@ export const Typography = ({
             : variants
 
     return (
-        <Tag className={textClasses} {...rest}>
+        <Tag className={`text-black ${textClasses} `} {...rest}>
             {children}
         </Tag>
     )

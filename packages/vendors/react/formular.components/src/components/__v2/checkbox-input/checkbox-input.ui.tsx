@@ -26,7 +26,14 @@ export const CheckboxInput = ({
     const clstates = Object.values(classStyle.states).filter((o) => !!o)
 
     return (
-        <div className={clx('flex items-center py-1', 'radio-item-group', ...clbackGround)}>
+        <div
+            className={clx(
+                'flex items-center py-1',
+                'radio-item-group',
+                className ?? '',
+                ...clbackGround
+            )}
+        >
             <input
                 id={id}
                 data-class="base-checkbox "

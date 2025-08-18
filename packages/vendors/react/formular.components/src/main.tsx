@@ -8,7 +8,10 @@
 
 import { Accordion } from '@components/__v2/accordion/accordion.ui'
 import { Button } from '@components/__v2/button/button.ui'
+import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
+import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
 import { Dropdown } from '@components/__v2/dropdown/dropdown.ui'
+import { FieldSet } from '@components/__v2/field-set/field-set.ui'
 import { FlexCell } from '@components/__v2/flex-layout/flex-cell.ui'
 import { FlexCol } from '@components/__v2/flex-layout/flex-col.ui'
 import { FlexLayout } from '@components/__v2/flex-layout/flex-layout.ui'
@@ -18,6 +21,7 @@ import { Spinner } from '@components/__v2/spinner/spinner.ui'
 import { AppContextProvider } from '@components/context/app-context/app-context'
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
+
 import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
 import ReactDOM from 'react-dom/client'
 
@@ -70,6 +74,10 @@ const containerClasses = `flex flex-col gap-1 p-1 bg-slate-500 w-[calc(100vw)] h
 
 const columnsClasses = `flex flex-col gap-1 p-1  xs:w-[calc(100%)] md:w-[calc(50%)] xl:w-[calc(20%)]  bg-slate-200`
 
+const html = document.documentElement
+html.setAttribute('data-theme', 'light')
+const currentTheme = html.getAttribute('data-theme')
+
 root.render(
     <VisualDebug options={{ enabled: false, color: 'bg-blue-100' }}>
         <ScrollContext>
@@ -110,7 +118,7 @@ root.render(
                         <FlexCell id={'flex-cell-103'}>
                             <Accordion
                                 id={'accordion-1'}
-                                title={'Accordion-1'}
+                                title={'Short Accordion'}
                                 initialState={'closed'}
                                 variants={{
                                     variant: 'primary',
@@ -118,19 +126,17 @@ root.render(
                                     typography: { variant: 'primary', size: 'sm' }
                                 }}
                             >
-                                <p>This is the content of Accordion 1.</p>
-                                <p>This is the content of Accordion 1.</p>
-                                <p>This is the content of Accordion 1.</p>
+                                <p>This is a short accordion with minimal content.</p>
                             </Accordion>
 
                             <Accordion
-                                id={'accordion-1'}
-                                title={'Accordion-1'}
+                                id={'accordion-2'}
+                                title={'Medium Accordion'}
                                 initialState={'closed'}
                                 variants={{
-                                    variant: 'primary',
+                                    variant: 'secondary',
                                     aspect: { size: 'xl', rounded: false },
-                                    typography: { variant: 'primary', size: 'sm' }
+                                    typography: { variant: 'secondary', size: 'sm' }
                                 }}
                             >
                                 <p>
@@ -142,11 +148,51 @@ root.render(
                                     Ut enim ad minim veniam, quis nostrud exercitation ullamco.
                                     <br />
                                     Laboris nisi ut aliquip ex ea commodo consequat.
-                                    <br />
-                                    Duis aute irure dolor in reprehenderit in voluptate velit.
-                                    <br />
-                                    Esse cillum dolore eu fugiat nulla pariatur.
                                 </p>
+                            </Accordion>
+
+                            <Accordion
+                                id={'accordion-3'}
+                                title={'Long Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'success',
+                                    aspect: { size: 'xl', rounded: false },
+                                    typography: { variant: 'success', size: 'sm' }
+                                }}
+                            >
+                                <div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                                        do eiusmod tempor incididunt ut labore et dolore magna
+                                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                    <p>
+                                        Duis aute irure dolor in reprehenderit in voluptate velit
+                                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                                        occaecat cupidatat non proident, sunt in culpa qui officia
+                                        deserunt mollit anim id est laborum.
+                                    </p>
+                                    <p>
+                                        Sed ut perspiciatis unde omnis iste natus error sit
+                                        voluptatem accusantium doloremque laudantium, totam rem
+                                        aperiam, eaque ipsa quae ab illo inventore veritatis et
+                                        quasi architecto beatae vitae dicta sunt explicabo.
+                                    </p>
+                                    <p>
+                                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+                                        odit aut fugit, sed quia consequuntur magni dolores eos qui
+                                        ratione voluptatem sequi nesciunt.
+                                    </p>
+                                    <ul>
+                                        <li>Item 1</li>
+                                        <li>Item 2</li>
+                                        <li>Item 3</li>
+                                        <li>Item 4</li>
+                                        <li>Item 5</li>
+                                    </ul>
+                                </div>
                             </Accordion>
                         </FlexCell>
                         <FlexCell id={'flex-cell-101'}>
@@ -161,6 +207,8 @@ root.render(
                                     aspect: { size: 'sm', rounded: true }
                                 }}
                             />
+                        </FlexCell>
+                        <FlexCell id={'flex-cell-102'}>
                             <Button
                                 id={'btn-danger-solid'}
                                 title={'Danger Solid'}
@@ -203,8 +251,36 @@ root.render(
                         </FlexCell>
                         <FlexCell id={'flex-cell-101'}>
                             <Spinner size="lg" color="primary" />
+
+                            <CheckGroupInput
+                                id={'check-group-input-1'}
+                                options={mainCheckOptions}
+                                mainLabelVariants={{
+                                    variant: 'secondary',
+                                    aspect: { size: 'sm', rounded: true },
+                                    typography: {
+                                        variant: 'secondary',
+                                        size: 'sm',
+                                        case: 'uppercase'
+                                    }
+                                }}
+                            />
                         </FlexCell>
-                        <Spinner size="lg" color="primary" />
+                        <FieldSet
+                            label={undefined}
+                            input={
+                                <CheckboxInput
+                                    id={'checkbox-1'}
+                                    label={'Checkbox 1'}
+                                    tabIndex={0}
+                                    size={1}
+                                    className={'bg-blue-100'}
+                                    autoComplete="off"
+                                    initialState={undefined}
+                                />
+                            }
+                            buttons={undefined}
+                        />
                     </FlexCol>
                     <FlexCol id={'flex-col-3'}>
                         <FlexCell id={'flex-cell-101'}>

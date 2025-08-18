@@ -568,3 +568,188 @@
 .btn-ripple-info {
     background: rgba(255, 255, 255, 0.8);
 }
+
+/* ===============================================
+   SMART CONTRAST BUTTON VARIANTS
+   =============================================== */
+/* Smart solid buttons - automatically adapt to theme */
+.btn-smart-primary {
+    background-color: var(--color-surface-variant-primary);
+    color: var(--color-text-on-variant-primary);
+    border-color: var(--color-border-variant-primary);
+}
+
+.btn-smart-primary:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-primary:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-primary)/20;
+}
+
+.btn-smart-primary:active {
+    filter: brightness(0.9);
+}
+
+.btn-smart-secondary {
+    background-color: var(--color-surface-variant-secondary);
+    color: var(--color-text-on-variant-secondary);
+    border-color: var(--color-border-variant-secondary);
+}
+
+.btn-smart-secondary:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-secondary:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-secondary)/20;
+}
+
+.btn-smart-secondary:active {
+    filter: brightness(0.9);
+}
+
+.btn-smart-success {
+    background-color: var(--color-surface-variant-success);
+    color: var(--color-text-on-variant-success);
+    border-color: var(--color-border-variant-success);
+}
+
+.btn-smart-success:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-success:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-success)/20;
+}
+
+.btn-smart-success:active {
+    filter: brightness(0.9);
+}
+
+.btn-smart-warning {
+    background-color: var(--color-surface-variant-warning);
+    color: var(--color-text-on-variant-warning);
+    border-color: var(--color-border-variant-warning);
+}
+
+.btn-smart-warning:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-warning:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-warning)/20;
+}
+
+.btn-smart-warning:active {
+    filter: brightness(0.9);
+}
+
+.btn-smart-danger {
+    background-color: var(--color-surface-variant-danger);
+    color: var(--color-text-on-variant-danger);
+    border-color: var(--color-border-variant-danger);
+}
+
+.btn-smart-danger:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-danger:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-danger)/20;
+}
+
+.btn-smart-danger:active {
+    filter: brightness(0.9);
+}
+
+.btn-smart-info {
+    background-color: var(--color-surface-variant-info);
+    color: var(--color-text-on-variant-info);
+    border-color: var(--color-border-variant-info);
+}
+
+.btn-smart-info:hover {
+    filter: brightness(1.1);
+}
+
+.btn-smart-info:focus {
+    filter: brightness(1.1);
+    box-shadow: 0 0 0 3px var(--color-border-variant-info)/20;
+}
+
+.btn-smart-info:active {
+    filter: brightness(0.9);
+}
+
+/* Smart outline variants */
+.btn-smart-outline-primary {
+    background-color: transparent;
+    color: var(--color-text-variant-primary);
+    border: 1px solid var(--color-border-variant-primary);
+}
+
+.btn-smart-outline-primary:hover {
+    background-color: var(--color-surface-variant-primary);
+    color: var(--color-text-on-variant-primary);
+}
+
+.btn-smart-outline-secondary {
+    background-color: transparent;
+    color: var(--color-text-variant-secondary);
+    border: 1px solid var(--color-border-variant-secondary);
+}
+
+.btn-smart-outline-secondary:hover {
+    background-color: var(--color-surface-variant-secondary);
+    color: var(--color-text-on-variant-secondary);
+}
+
+.btn-smart-outline-success {
+    background-color: transparent;
+    color: var(--color-text-variant-success);
+    border: 1px solid var(--color-border-variant-success);
+}
+
+.btn-smart-outline-success:hover {
+    background-color: var(--color-surface-variant-success);
+    color: var(--color-text-on-variant-success);
+}
+
+.btn-smart-outline-warning {
+    background-color: transparent;
+    color: var(--color-text-variant-warning);
+    border: 1px solid var(--color-border-variant-warning);
+}
+
+.btn-smart-outline-warning:hover {
+    background-color: var(--color-surface-variant-warning);
+    color: var(--color-text-on-variant-warning);
+}
+
+.btn-smart-outline-danger {
+    background-color: transparent;
+    color: var(--color-text-variant-danger);
+    border: 1px solid var(--color-border-variant-danger);
+}
+
+.btn-smart-outline-danger:hover {
+    background-color: var(--color-surface-variant-danger);
+    color: var(--color-text-on-variant-danger);
+}
+
+.btn-smart-outline-info {
+    background-color: transparent;
+    color: var(--color-text-variant-info);
+    border: 1px solid var(--color-border-variant-info);
+}
+
+.btn-smart-outline-info:hover {
+    background-color: var(--color-surface-variant-info);
+    color: var(--color-text-on-variant-info);
+}

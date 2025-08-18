@@ -11,6 +11,7 @@ export interface IDrawerAnimationController {
     setupCSSFallback: () => void
     setProgress: (percentage: number) => void
     animateToProgressAsync: (targetPercentage: number, duration?: number) => Promise<void>
+    updateContentHeight: () => void
     open: () => Promise<void>
     close: () => Promise<void>
 }

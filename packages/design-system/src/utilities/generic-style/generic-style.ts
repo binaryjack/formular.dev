@@ -1,6 +1,8 @@
 // Import types and interfaces from their proper locations
 import type { ComponentConfigType } from './config/component-style-config'
 import { COMPONENT_STYLE_CONFIG } from './config/component-style-config'
+import { SEMANTIC_VISUAL_VARIANT_RULE } from './config/semantic-visual-variant-rules'
+import { mapSemanticTokenToClass } from './helpers/semantic-token-mapper.helper'
 import type { IClasses } from './interfaces/i-classes'
 import type { IComponentVariants } from './interfaces/i-component-variants'
 import type { IStyleStates } from './interfaces/i-style-states'
@@ -20,6 +22,12 @@ import type { ShadesType } from './types/shades-type.type'
 export const VariantRule = (fov: FieldOfViewType, shade: ShadesType): IVariantRule => {
     return { shade, fov } as IVariantRule
 }
+
+// Enhanced helper function for creating variant rules with semantic token support
+export { EnhancedVariantRule } from './helpers/enhanced-variant-rule.helper'
+
+// Export semantic visual variant rules for smart contrast
+export { SEMANTIC_VISUAL_VARIANT_RULE } from './config/semantic-visual-variant-rules'
 
 // Main exports for the VISUAL_VARIANT_RULE system
 export const VISUAL_VARIANT_RULE: Record<ExtendedVisualVariantType, IVisualVariantRules> = {
@@ -66,6 +74,24 @@ export const genericStyle = (variants: IComponentVariants): IClasses => {
                 duplicates: allClasses.filter((item, index) => allClasses.indexOf(item) !== index)
             })
         }
+    }
+
+    return output
+}
+
+// Enhanced style generation function with semantic token support
+export const semanticStyle = (variants: IComponentVariants): IClasses => {
+    let output: IClasses = createFreshOutput()
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        console.log('🎨 semanticStyle called with:', variants)
+    }
+
+    output = { ...output, ...defineSemanticVariants(variants, COMPONENT_STYLE_CONFIG) }
+
+    if (process.env.NODE_ENV === 'development') {
+        console.log('🎨 semanticStyle result:', output)
     }
 
     return output
@@ -177,6 +203,88 @@ const defineVariants = (variants: IComponentVariants, config: ComponentConfigTyp
         if (height) {
             output.backGround.push(height)
         }
+        output.states = defineStates(c, variants.states)
+    }
+
+    return output
+}
+
+const defineSemanticVariants = (
+    variants: IComponentVariants,
+    config: ComponentConfigType
+): IClasses => {
+    if (process.env.NODE_ENV === 'development' && variants.componentTypes.length === 0) {
+        console.log(`SemanticStyle: Processing failed has ${variants.componentTypes.length}`)
+        return createFreshOutput()
+    }
+
+    const defaultVariant = variants?.variant ?? 'primary'
+    const foreVariant = variants?.typography?.variant
+        ? variants?.typography?.variant
+        : defaultVariant
+
+    // Use semantic visual variant rules instead of traditional ones
+    const semanticVariantRule = SEMANTIC_VISUAL_VARIANT_RULE[variants?.visualVariant ?? 'solid']
+    const fore = semanticVariantRule.rules.find(o => o.fov === 'fore')
+    const back = semanticVariantRule.rules.find(o => o.fov === 'back')
+    const border = semanticVariantRule.rules.find(o => o.fov === 'border')
+
+    const output: IClasses = createFreshOutput()
+
+    for (const c of variants.componentTypes) {
+        const currentC = config[c]
+
+        if (c === 'typography') {
+            const foreClass = mapSemanticTokenToClass(
+                'fore',
+                fore?.shade ?? 'variant-text',
+                foreVariant,
+                currentC?.prefix ?? 'text'
+            )
+            output.text.push(foreClass)
+            output.text.push(
+                `${currentC?.prefix}-${variants.typography?.size ?? currentC?.defaultAspect?.size ?? 'md'}`
+            )
+        } else {
+            const backClass = mapSemanticTokenToClass(
+                'back',
+                back?.shade ?? 'variant-surface',
+                defaultVariant,
+                currentC?.prefix ?? 'bg'
+            )
+            output.backGround.push(backClass)
+            output.backGround.push(
+                `${currentC?.prefix}-${variants.aspect?.size ?? currentC?.defaultAspect?.size ?? 'md'}`
+            )
+        }
+
+        if (variants?.aspect?.borders ?? currentC.defaultAspect.borders) {
+            const borderClass = mapSemanticTokenToClass(
+                'border',
+                border?.shade ?? 'variant-border',
+                foreVariant,
+                currentC?.prefix ?? 'border'
+            )
+            output.borders.push(borderClass)
+        }
+
+        if (variants?.aspect?.rounded ?? currentC.defaultAspect.rounded) {
+            output.backGround.push(`rounded`)
+        }
+
+        const width = defineCustomSize('w', variants?.aspect?.width ?? currentC.defaultAspect.width)
+        if (width) {
+            output.backGround.push(width)
+        }
+
+        const height = defineCustomSize(
+            'h',
+            variants?.aspect?.height ?? currentC.defaultAspect.height
+        )
+        if (height) {
+            output.backGround.push(height)
+        }
+
         output.states = defineStates(c, variants.states)
     }
 

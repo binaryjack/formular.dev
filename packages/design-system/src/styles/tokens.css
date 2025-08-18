@@ -98,6 +98,37 @@
           --color-text-placeholder: var(--color-neutral-400);
           --color-text-on-primary: #ffffff;
           --color-text-on-dark: #ffffff;
+          /* ===============================================
+           SEMANTIC COLOR TOKENS - SMART CONTRAST
+           =============================================== */
+          /* Smart variant surfaces - adapt to theme context */
+          --color-surface-variant-primary: var(--color-primary-500);
+          --color-surface-variant-secondary: var(--color-secondary-500);
+          --color-surface-variant-success: var(--color-success-500);
+          --color-surface-variant-warning: var(--color-warning-500);
+          --color-surface-variant-danger: var(--color-danger-500);
+          --color-surface-variant-info: var(--color-info-500);
+          /* Smart text colors for variant surfaces */
+          --color-text-on-variant-primary: var(--color-primary-50);
+          --color-text-on-variant-secondary: var(--color-secondary-50);
+          --color-text-on-variant-success: var(--color-success-50);
+          --color-text-on-variant-warning: var(--color-warning-50);
+          --color-text-on-variant-danger: var(--color-danger-50);
+          --color-text-on-variant-info: var(--color-info-50);
+          /* Smart foreground text colors for default surfaces */
+          --color-text-variant-primary: var(--color-primary-600);
+          --color-text-variant-secondary: var(--color-secondary-600);
+          --color-text-variant-success: var(--color-success-600);
+          --color-text-variant-warning: var(--color-warning-600);
+          --color-text-variant-danger: var(--color-danger-600);
+          --color-text-variant-info: var(--color-info-600);
+          /* Smart border colors */
+          --color-border-variant-primary: var(--color-primary-500);
+          --color-border-variant-secondary: var(--color-secondary-500);
+          --color-border-variant-success: var(--color-success-500);
+          --color-border-variant-warning: var(--color-warning-500);
+          --color-border-variant-danger: var(--color-danger-500);
+          --color-border-variant-info: var(--color-info-500);
           /* Border Colors */
           --color-border-primary: var(--color-neutral-300);
           --color-border-secondary: var(--color-neutral-200);
@@ -244,6 +275,159 @@
           --breakpoint-lg: 1024px;
           --breakpoint-xl: 1280px;
           --breakpoint-2xl: 1536px;
+     }
+
+     /* ===============================================
+       DARK MODE THEME OVERRIDES
+       =============================================== */
+     [data-theme="dark"] {
+          /* Override surface colors for dark mode */
+          --color-surface-primary: var(--color-neutral-800);
+          --color-surface-secondary: var(--color-neutral-700);
+          --color-surface-elevated: var(--color-neutral-900);
+          --color-surface-overlay: rgba(255, 255, 255, 0.1);
+          /* Override text colors for dark mode */
+          --color-text-primary: var(--color-neutral-50);
+          --color-text-secondary: var(--color-neutral-300);
+          --color-text-muted: var(--color-neutral-400);
+          --color-text-placeholder: var(--color-neutral-500);
+          --color-text-on-primary: var(--color-neutral-900);
+          --color-text-on-dark: var(--color-neutral-50);
+          /* Smart variant surfaces - darker in dark mode */
+          --color-surface-variant-primary: var(--color-primary-600);
+          --color-surface-variant-secondary: var(--color-secondary-600);
+          --color-surface-variant-success: var(--color-success-600);
+          --color-surface-variant-warning: var(--color-warning-600);
+          --color-surface-variant-danger: var(--color-danger-600);
+          --color-surface-variant-info: var(--color-info-600);
+          /* Smart text colors - inverted contrast in dark mode */
+          --color-text-on-variant-primary: var(--color-primary-100);
+          --color-text-on-variant-secondary: var(--color-secondary-100);
+          --color-text-on-variant-success: var(--color-success-100);
+          --color-text-on-variant-warning: var(--color-warning-100);
+          --color-text-on-variant-danger: var(--color-danger-100);
+          --color-text-on-variant-info: var(--color-info-100);
+          /* Smart foreground text - lighter shades in dark mode */
+          --color-text-variant-primary: var(--color-primary-400);
+          --color-text-variant-secondary: var(--color-secondary-400);
+          --color-text-variant-success: var(--color-success-400);
+          --color-text-variant-warning: var(--color-warning-400);
+          --color-text-variant-danger: var(--color-danger-400);
+          --color-text-variant-info: var(--color-info-400);
+          /* Smart border colors - lighter in dark mode */
+          --color-border-variant-primary: var(--color-primary-400);
+          --color-border-variant-secondary: var(--color-secondary-400);
+          --color-border-variant-success: var(--color-success-400);
+          --color-border-variant-warning: var(--color-warning-400);
+          --color-border-variant-danger: var(--color-danger-400);
+          --color-border-variant-info: var(--color-info-400);
+          /* Border colors for dark mode */
+          --color-border-primary: var(--color-neutral-600);
+          --color-border-secondary: var(--color-neutral-500);
+          --color-border-muted: var(--color-neutral-700);
+     }
+
+     /* ===============================================
+       SMART CONTRAST UTILITY CLASSES
+       =============================================== */
+     /* Smart variant surface utilities */
+     .surface-variant-primary {
+          background-color: var(--color-surface-variant-primary);
+     }
+
+     .surface-variant-secondary {
+          background-color: var(--color-surface-variant-secondary);
+     }
+
+     .surface-variant-success {
+          background-color: var(--color-surface-variant-success);
+     }
+
+     .surface-variant-warning {
+          background-color: var(--color-surface-variant-warning);
+     }
+
+     .surface-variant-danger {
+          background-color: var(--color-surface-variant-danger);
+     }
+
+     .surface-variant-info {
+          background-color: var(--color-surface-variant-info);
+     }
+
+     /* Smart text on variant utilities */
+     .text-on-variant-primary {
+          color: var(--color-text-on-variant-primary);
+     }
+
+     .text-on-variant-secondary {
+          color: var(--color-text-on-variant-secondary);
+     }
+
+     .text-on-variant-success {
+          color: var(--color-text-on-variant-success);
+     }
+
+     .text-on-variant-warning {
+          color: var(--color-text-on-variant-warning);
+     }
+
+     .text-on-variant-danger {
+          color: var(--color-text-on-variant-danger);
+     }
+
+     .text-on-variant-info {
+          color: var(--color-text-on-variant-info);
+     }
+
+     /* Smart variant text utilities */
+     .text-variant-primary {
+          color: var(--color-text-variant-primary);
+     }
+
+     .text-variant-secondary {
+          color: var(--color-text-variant-secondary);
+     }
+
+     .text-variant-success {
+          color: var(--color-text-variant-success);
+     }
+
+     .text-variant-warning {
+          color: var(--color-text-variant-warning);
+     }
+
+     .text-variant-danger {
+          color: var(--color-text-variant-danger);
+     }
+
+     .text-variant-info {
+          color: var(--color-text-variant-info);
+     }
+
+     /* Smart variant border utilities */
+     .border-variant-primary {
+          border-color: var(--color-border-variant-primary);
+     }
+
+     .border-variant-secondary {
+          border-color: var(--color-border-variant-secondary);
+     }
+
+     .border-variant-success {
+          border-color: var(--color-border-variant-success);
+     }
+
+     .border-variant-warning {
+          border-color: var(--color-border-variant-warning);
+     }
+
+     .border-variant-danger {
+          border-color: var(--color-border-variant-danger);
+     }
+
+     .border-variant-info {
+          border-color: var(--color-border-variant-info);
      }
 
      /* ===============================================
