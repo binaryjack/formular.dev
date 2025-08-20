@@ -38,7 +38,7 @@ export const CheckGroupInput = ({
                 />
             }
             input={
-                <div id={id} className={`flex flex-1 flex-col`} {...rest}>
+                <div id={id} className={``} {...rest}>
                     {options.map((option: IOptionItem, i: number) => (
                         <CheckboxInput
                             key={`ci-${option.id}`}
@@ -47,7 +47,7 @@ export const CheckGroupInput = ({
                             tabIndex={0}
                             onSelect={() => handleOnSelected(option)}
                             size={1}
-                            className={'flex w-auto'}
+                            className={'relative flex'}
                             autoComplete="off"
                             initialState={undefined}
                         />

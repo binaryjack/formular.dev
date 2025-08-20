@@ -10,17 +10,19 @@ import { Accordion } from '@components/__v2/accordion/accordion.ui'
 import { Button } from '@components/__v2/button/button.ui'
 import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
 import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
-import { Dropdown } from '@components/__v2/dropdown/dropdown.ui'
+import { Dropdown } from '@components/__v2/dropdown/dropdown'
 import { FieldSet } from '@components/__v2/field-set/field-set.ui'
-import { FlexCell } from '@components/__v2/flex-layout/flex-cell.ui'
-import { FlexCol } from '@components/__v2/flex-layout/flex-col.ui'
-import { FlexLayout } from '@components/__v2/flex-layout/flex-layout.ui'
+import { Label } from '@components/__v2/label/label.ui'
 import { RadioInput } from '@components/__v2/radio-input/radio-input.ui'
+import { SmartCell } from '@components/__v2/smart-layout/smart-cell.ui'
+import { SmartCol } from '@components/__v2/smart-layout/smart-col.ui'
+import { SmartLayout } from '@components/__v2/smart-layout/smart-layout.ui'
 import { Spinner } from '@components/__v2/spinner/spinner.ui'
 
 import { AppContextProvider } from '@components/context/app-context/app-context'
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
+import { clx } from 'formular.design.system'
 
 import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
 import ReactDOM from 'react-dom/client'
@@ -28,10 +30,10 @@ import ReactDOM from 'react-dom/client'
 export const mainOptions = new OptionsBuilder()
     .setOptions(
         ...[
-            new OptionBuilder('Option 1').setValue('1'),
-            new OptionBuilder('Option 2').setValue('2'),
-            new OptionBuilder('Option 3').setValue('3'),
-            new OptionBuilder('Option 4').setValue('4')
+            new OptionBuilder('Option 1').setValue('1').setSequenceId(0),
+            new OptionBuilder('Option 2').setValue('2').setSequenceId(1),
+            new OptionBuilder('Option 3').setValue('3').setSequenceId(2),
+            new OptionBuilder('Option 4').setValue('4').setSequenceId(3)
         ]
     )
     .build()
@@ -39,23 +41,23 @@ export const mainOptions = new OptionsBuilder()
 export const mainCheckOptions = new OptionsBuilder()
     .setOptions(
         ...[
-            new OptionBuilder('Option 1').setValue('1'),
-            new OptionBuilder('Option 2').setValue('2'),
-            new OptionBuilder('Option 3').setValue('3'),
-            new OptionBuilder('Option 4').setValue('4'),
-            new OptionBuilder('Option 5').setValue('5'),
-            new OptionBuilder('Option 6').setValue('6'),
-            new OptionBuilder('Option 7').setValue('7'),
-            new OptionBuilder('Option 8').setValue('8'),
-            new OptionBuilder('Option 9').setValue('9'),
-            new OptionBuilder('Option 10').setValue('10'),
-            new OptionBuilder('Option 11').setValue('11'),
-            new OptionBuilder('Option 12').setValue('12'),
-            new OptionBuilder('Option 13').setValue('13'),
-            new OptionBuilder('Option 14').setValue('14'),
-            new OptionBuilder('Option 15').setValue('15'),
-            new OptionBuilder('Option 16').setValue('16'),
-            new OptionBuilder('Option 17').setValue('17')
+            new OptionBuilder('Option 1').setValue('1').setSequenceId(0),
+            new OptionBuilder('Option 2').setValue('2').setSequenceId(1),
+            new OptionBuilder('Option 3').setValue('3').setSequenceId(2),
+            new OptionBuilder('Option 4').setValue('4').setSequenceId(3),
+            new OptionBuilder('Option 5').setValue('5').setSequenceId(4),
+            new OptionBuilder('Option 6').setValue('6').setSequenceId(5),
+            new OptionBuilder('Option 7').setValue('7').setSequenceId(6),
+            new OptionBuilder('Option 8').setValue('8').setSequenceId(7),
+            new OptionBuilder('Option 9').setValue('9').setSequenceId(8),
+            new OptionBuilder('Option 10').setValue('10').setSequenceId(9),
+            new OptionBuilder('Option 11').setValue('11').setSequenceId(10),
+            new OptionBuilder('Option 12').setValue('12').setSequenceId(11),
+            new OptionBuilder('Option 13').setValue('13').setSequenceId(12),
+            new OptionBuilder('Option 14').setValue('14').setSequenceId(13),
+            new OptionBuilder('Option 15').setValue('15').setSequenceId(14),
+            new OptionBuilder('Option 16').setValue('16').setSequenceId(15),
+            new OptionBuilder('Option 17').setValue('17').setSequenceId(16)
         ]
     )
     .build()
@@ -89,9 +91,9 @@ root.render(
                     includeBaseConfigurations: true
                 }}
             >
-                <FlexLayout id={'flex-laxout-1'}>
-                    <FlexCol id={'flex-col-1'}>
-                        <FlexCell id={'flex-cell-101'}>
+                <SmartLayout id={'flex-laxout-1'} name={'SECTION 1'}>
+                    <SmartCol id={'col1'}>
+                        <SmartCell id={'flex-cell-101'}>
                             <Button
                                 id={'btn-danger-outline'}
                                 title={'Danger Outline'}
@@ -102,7 +104,9 @@ root.render(
                                     variant: 'danger',
                                     aspect: { size: 'sm', rounded: true }
                                 }}
-                            />
+                            />{' '}
+                        </SmartCell>
+                        <SmartCell id={'flex-cell-102'}>
                             <Button
                                 id={'btn-success-ghost'}
                                 title={'Success Ghost'}
@@ -114,8 +118,10 @@ root.render(
                                     aspect: { size: 'sm' }
                                 }}
                             />
-                        </FlexCell>
-                        <FlexCell id={'flex-cell-103'}>
+                        </SmartCell>
+                    </SmartCol>
+                    <SmartCol id={`col2`}>
+                        <SmartCell id={'flex-cell-103'}>
                             <Accordion
                                 id={'accordion-1'}
                                 title={'Short Accordion'}
@@ -194,8 +200,12 @@ root.render(
                                     </ul>
                                 </div>
                             </Accordion>
-                        </FlexCell>
-                        <FlexCell id={'flex-cell-101'}>
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
+                <SmartLayout id={'flex-laxout-2'} name={'SECTION 2'}>
+                    <SmartCol id={'col2'}>
+                        <SmartCell id={'flex-cell-101'}>
                             <Button
                                 id={'btn-primary-solid'}
                                 title={'Primary Solid'}
@@ -207,8 +217,8 @@ root.render(
                                     aspect: { size: 'sm', rounded: true }
                                 }}
                             />
-                        </FlexCell>
-                        <FlexCell id={'flex-cell-102'}>
+                        </SmartCell>
+                        <SmartCell id={'flex-cell-102'}>
                             <Button
                                 id={'btn-danger-solid'}
                                 title={'Danger Solid'}
@@ -220,10 +230,11 @@ root.render(
                                     aspect: { size: 'sm' }
                                 }}
                             />
-                        </FlexCell>
-                    </FlexCol>
-                    <FlexCol id={'flex-col-2'}>
-                        <FlexCell id={'flex-cell-101'}>
+                        </SmartCell>
+                    </SmartCol>
+
+                    <SmartCol id={'col2'}>
+                        <SmartCell id={'flex-cell-101'}>
                             <RadioInput
                                 id={'radio-input-1'}
                                 options={mainOptions}
@@ -237,6 +248,8 @@ root.render(
                                     }
                                 }}
                             />
+                        </SmartCell>
+                        <SmartCell id={'flex-cell-101'}>
                             <Button
                                 id={'btn-danger-solid'}
                                 title={'Danger Solid'}
@@ -248,8 +261,12 @@ root.render(
                                     aspect: { size: 'sm' }
                                 }}
                             />
-                        </FlexCell>
-                        <FlexCell id={'flex-cell-101'}>
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
+                <SmartLayout id={'flex-laxout-1'} name={'SECTION  3'}>
+                    <SmartCol id={'ewf'}>
+                        <SmartCell id={'flex-cell-101'}>
                             <Spinner size="lg" color="primary" />
 
                             <CheckGroupInput
@@ -257,49 +274,67 @@ root.render(
                                 options={mainCheckOptions}
                                 mainLabelVariants={{
                                     variant: 'secondary',
-                                    aspect: { size: 'sm', rounded: true },
+                                    aspect: { size: 'xs' },
                                     typography: {
                                         variant: 'secondary',
-                                        size: 'sm',
+                                        size: 'xl',
+                                        case: 'uppercase'
+                                    }
+                                }}
+                                variants={{
+                                    variant: 'success',
+                                    aspect: { size: '2xl' },
+                                    typography: {
+                                        variant: 'success',
+                                        size: '2xl',
                                         case: 'uppercase'
                                     }
                                 }}
                             />
-                        </FlexCell>
-                        <FieldSet
-                            label={undefined}
-                            input={
-                                <CheckboxInput
-                                    id={'checkbox-1'}
-                                    label={'Checkbox 1'}
-                                    tabIndex={0}
-                                    size={1}
-                                    className={'bg-blue-100'}
-                                    autoComplete="off"
-                                    initialState={undefined}
-                                />
-                            }
-                            buttons={undefined}
-                        />
-                    </FlexCol>
-                    <FlexCol id={'flex-col-3'}>
-                        <FlexCell id={'flex-cell-101'}>
-                            <Dropdown
-                                id={'dropdown-1'}
-                                label={'Dropdown 1'}
-                                initialState={'closed'}
-                                options={mainOptions}
-                            />
+                        </SmartCell>
 
+                        <SmartCell id={'flex-cell-101'}>
+                            <FieldSet
+                                label={
+                                    <Label
+                                        id={`ml-2 checkbox-label-2`}
+                                        htmlFor={`ml-2 checkbox-label-2`}
+                                        text={'CHECKBOX'}
+                                        variants={{ typography: { variant: 'warning' } }}
+                                        className={clx('cursor-pointer', 'select-none')}
+                                    />
+                                }
+                                input={
+                                    <CheckboxInput
+                                        id={'checkbox-1'}
+                                        label={'Checkbox 1'}
+                                        tabIndex={0}
+                                        size={1}
+                                        autoComplete="off"
+                                        initialState={undefined}
+                                    />
+                                }
+                                buttons={undefined}
+                            />
+                        </SmartCell>
+                        <SmartCell id={'flex-cell-101'}>
                             <Dropdown
                                 id={'dropdown-1'}
                                 label={'Dropdown 1'}
                                 initialState={'closed'}
                                 options={mainOptions}
                             />
-                        </FlexCell>
-                    </FlexCol>
-                </FlexLayout>
+                        </SmartCell>
+                        <SmartCell id={'flex-cell-101'}>
+                            <Dropdown
+                                id={'dropdown-1'}
+                                label={'Dropdown 1'}
+                                initialState={'closed'}
+                                options={mainOptions}
+                            />
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
                 {/* <RouterProvider router={router} /> */}
             </AppContextProvider>
         </ScrollContext>

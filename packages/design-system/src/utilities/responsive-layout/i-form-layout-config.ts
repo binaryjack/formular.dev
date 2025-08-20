@@ -237,7 +237,7 @@ const generateFieldProportionClasses = (proportions?: IFieldProportions) => {
     const direction = proportions?.direction || {
         '2xs': 'stack',
         xs: 'stack',
-        sm: 'hybrid',
+        sm: 'stack',
         md: 'inline'
     }
 
@@ -251,7 +251,7 @@ const generateFieldProportionClasses = (proportions?: IFieldProportions) => {
         balanced: {
             labelClasses: 'w-full sm:w-1/3 flex-shrink-0',
             inputContainerClasses: 'flex-1 min-w-0',
-            commandClasses: 'w-auto flex-shrink-0 sm:w-24'
+            commandClasses: 'w-auto flex-shrink-0'
         },
         'label-wide': {
             labelClasses: 'w-full sm:w-1/2 flex-shrink-0',
@@ -351,7 +351,7 @@ const getDirectionClass = (direction: FieldLayoutDirection) => {
         case 'hybrid':
             return 'flex-col gap-2' // Same as stack for main wrapper
         case 'inline':
-            return 'flex-row items-center gap-4'
+            return 'flex-row  gap-4'
         default:
             return 'flex-col gap-2'
     }
@@ -378,7 +378,7 @@ const getInputCommandsWrapperClass = (direction: FieldLayoutDirection) => {
         case 'stack':
             return 'flex flex-col gap-2 w-full'
         case 'hybrid':
-            return 'flex flex-row items-center gap-2 w-full' // Input and commands inline in hybrid mode
+            return 'flex flex-row gap-2 w-full ' // Input and commands inline in hybrid mode
         case 'inline':
             return '' // Not used in inline mode, elements are direct children
         default:

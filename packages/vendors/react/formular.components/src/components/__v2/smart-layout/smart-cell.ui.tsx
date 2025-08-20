@@ -1,8 +1,8 @@
 import { Label } from '../label/label.ui'
-import { IFlexLayoutProps } from './flex-layout.types'
 import { generateStyle } from './generate-style'
+import { ISmartLayoutProps } from './smart-layout.types'
 
-export const FlexCell = ({
+export const SmartCell = ({
     id,
     name,
     grid = {
@@ -11,7 +11,7 @@ export const FlexCell = ({
         }
     },
     children
-}: IFlexLayoutProps) => {
+}: ISmartLayoutProps) => {
     const { gaps } = grid || {}
 
     const className = ` flex flex-col p-1 ${generateStyle(gaps)}`
