@@ -9,7 +9,8 @@ export const ChevronToggle = ({
     toggleContextId,
     initialToggleState,
     onToggle,
-    variants
+    variants,
+    tabIndex = -1
 }: IChevronToggleProps) => {
     const { toggleState, setToggleState } = useToggleableContext(toggleContextId)
 
@@ -29,7 +30,9 @@ export const ChevronToggle = ({
         setToggleState(initialToggleState)
     }, [initialToggleState])
 
-    const handleOnToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleOnToggle = (
+        e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<unknown>
+    ) => {
         e.preventDefault()
         e.stopPropagation()
         setToggleState(onClickToggleState)
@@ -40,6 +43,7 @@ export const ChevronToggle = ({
         <Button
             id={name}
             title={name}
+            tabIndex={tabIndex}
             variants={{
                 visualVariant: 'solid',
                 variant: 'primary',
@@ -48,7 +52,8 @@ export const ChevronToggle = ({
                     rounded: false,
                     width: '10px'
                 },
-                typography: { variant: 'neutral', size: 'sm' }
+                typography: { variant: 'neutral', size: 'sm' },
+                ...variants
             }}
             aria-label={ariaLabel}
             aria-expanded={ariaExpanded}

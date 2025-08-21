@@ -26,7 +26,8 @@ export interface IExpandableDrawerProps {
     id: string
     toggleContextId: string
     children: React.ReactNode
-    position: ElementPositionType
+    tabIndex?: number
     size?: IDrawerSize
     drawerType?: DrawerType
+    delayingCloseState?: number
 }

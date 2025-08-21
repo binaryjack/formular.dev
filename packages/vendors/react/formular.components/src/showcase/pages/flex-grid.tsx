@@ -1,4 +1,4 @@
-import { Accordion } from '@components/__v2/accordion/accordion.ui'
+import { Accordion } from '@components/__v2/accordion/accordion'
 import { BaseInput } from '@components/__v2/base-input/base-input.ui'
 import { Button } from '@components/__v2/button/button.ui'
 import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
@@ -12,7 +12,7 @@ import { Spinner } from '@components/__v2/spinner/spinner.ui'
 import { StatusIcon } from '@components/__v2/status-icon/status-icon.ui'
 
 import { MdCheck, MdClose, MdReadMore } from 'react-icons/md'
-import { mainCheckOptions, mainOptions } from 'src/main'
+import { mainCheckOptions, mainOptions, onlyOneOption } from 'src/main'
 
 export const iteflex = () => {
     return (
@@ -76,7 +76,9 @@ export const iteflex = () => {
                                 typography: { variant: 'neutral', size: 'sm' }
                             }}
                             onClick={function (
-                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                e:
+                                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                    | React.KeyboardEvent<unknown>
                             ): void {
                                 console.log('Button 1 clicked', e)
                             }}
@@ -95,7 +97,9 @@ export const iteflex = () => {
                                 typography: { variant: 'neutral', size: 'sm' }
                             }}
                             onClick={function (
-                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                e:
+                                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                    | React.KeyboardEvent<unknown>
                             ): void {
                                 console.log('Button 1 clicked', e)
                             }}
@@ -166,7 +170,9 @@ export const iteflex = () => {
                                 typography: { variant: 'neutral', size: 'sm' }
                             }}
                             onClick={function (
-                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                e:
+                                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                    | React.KeyboardEvent<unknown>
                             ): void {
                                 console.log('Button 1 clicked', e)
                             }}
@@ -185,7 +191,9 @@ export const iteflex = () => {
                                 typography: { variant: 'neutral', size: 'sm' }
                             }}
                             onClick={function (
-                                e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                e:
+                                    | React.MouseEvent<HTMLButtonElement, MouseEvent>
+                                    | React.KeyboardEvent<unknown>
                             ): void {
                                 console.log('Button 21 clicked', e)
                             }}
@@ -239,8 +247,7 @@ export const iteflex = () => {
                 label={undefined}
                 input={
                     <CheckboxInput
-                        id={'checkbox-1'}
-                        label={'Checkbox 1'}
+                        option={onlyOneOption}
                         tabIndex={0}
                         size={1}
                         className={'bg-blue-100'}

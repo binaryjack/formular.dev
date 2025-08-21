@@ -7,6 +7,8 @@ export interface IKeyBindings<T> {
     onKeyCallback?: (e: React.KeyboardEvent<T>) => void
     /** Called when the Enter key is pressed. */
     onEnterCallback?: (e: React.KeyboardEvent<T>) => void
+
+    onSpacebarCallback?: (e: React.KeyboardEvent<T>) => void
     /** Called when the Escape key is pressed. */
     onEscapeCallback?: (e: React.KeyboardEvent<T>) => void
     /** Called when the ArrowDown key is pressed. */
@@ -68,7 +70,10 @@ const useKeyBindings = <T>(options: Partial<IKeyBindings<T>>) => {
             options.onArrowRightCallback(e)
             // e.preventDefault()
         }
-
+        if (options.onSpacebarCallback && e.key === ' ') {
+            options.onSpacebarCallback(e)
+            // e.preventDefault()
+        }
         // Add more keybindings as needed
     }
 

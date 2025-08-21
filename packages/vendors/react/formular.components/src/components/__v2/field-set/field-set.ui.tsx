@@ -20,18 +20,27 @@ export const FieldSet = ({
     } = generateLayoutClasses({ layout, layoutSet })
 
     return (
-        <div className={`form-fieldset ${fieldSetClasses}`} {...rest} id={`field-set-${rest.id}`}>
-            <div className={`flex w-full ${wrapperClasses}`}>
+        <div
+            tabIndex={-1}
+            className={`form-fieldset ${fieldSetClasses}`}
+            {...rest}
+            id={`field-set-${rest.id}`}
+        >
+            <div tabIndex={-1} className={`flex w-full ${wrapperClasses}`}>
                 {/* Label Section */}
-                <div className={`field-label ${labelClasses} ${fieldClasses?.label || ''}`}>
+                <div
+                    tabIndex={-1}
+                    className={`field-label ${labelClasses} ${fieldClasses?.label || ''}`}
+                >
                     {label}
                 </div>
 
                 {/* Input + Commands Section (for hybrid and stack layouts) */}
                 {inputCommandsWrapperClasses && (
-                    <div className={inputCommandsWrapperClasses}>
+                    <div tabIndex={-1} className={inputCommandsWrapperClasses}>
                         {/* Input Section */}
                         <div
+                            tabIndex={-1}
                             className={`field-input-container ${inputContainerClasses} ${fieldClasses?.inputContainer || ''}`}
                         >
                             {input}
@@ -39,6 +48,7 @@ export const FieldSet = ({
 
                         {/* Commands Section */}
                         <div
+                            tabIndex={-1}
                             className={`field-commands ${commandClasses} ${fieldClasses?.commands || ''}`}
                         >
                             {buttons}
@@ -51,6 +61,7 @@ export const FieldSet = ({
                     <>
                         {/* Input Section */}
                         <div
+                            tabIndex={-1}
                             className={`field-input-container ${inputContainerClasses} ${fieldClasses?.inputContainer || ''}`}
                         >
                             {input}
@@ -58,6 +69,7 @@ export const FieldSet = ({
 
                         {/* Commands Section */}
                         <div
+                            tabIndex={-1}
                             className={`field-commands ${commandClasses} ${fieldClasses?.commands || ''}`}
                         >
                             {buttons}

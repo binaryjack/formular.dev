@@ -3,7 +3,10 @@ import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import { IDropdownItemProps } from './dropdown.types'
 
 export const DropdownItem = forwardRef<HTMLDivElement, IDropdownItemProps>(
-    ({ option, toggleContextId, onSelectedOption, isHighlighted }: IDropdownItemProps, ref) => {
+    (
+        { option, toggleContextId, onSelectedOption, isHighlighted, tabIndex }: IDropdownItemProps,
+        ref
+    ) => {
         const { setToggleState } = useToggleableContext(toggleContextId)
         const handleOptionClick = () => {
             setToggleState('closed')
@@ -13,7 +16,7 @@ export const DropdownItem = forwardRef<HTMLDivElement, IDropdownItemProps>(
             <div
                 id={option.id}
                 data-sequence-id={option.sequenceId}
-                tabIndex={0}
+                tabIndex={tabIndex}
                 className={`
                     cursor-pointer 
                     select-none

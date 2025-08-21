@@ -5,6 +5,10 @@ export interface IChevronToggleProps {
     id: string
     toggleContextId: string
     initialToggleState: ToggleableStateType
-    onToggle?: (e: React.MouseEvent<HTMLButtonElement>, state: ToggleableStateType) => void
+    onToggle?: (
+        e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<unknown>,
+        state: ToggleableStateType
+    ) => void
     variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    tabIndex?: number
 }

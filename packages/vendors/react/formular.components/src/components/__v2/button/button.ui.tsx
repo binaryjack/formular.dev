@@ -1,6 +1,8 @@
+import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import Spinner from '@components/spinner/spinner'
 import { getSpinnerVariant } from '@components/spinner/utils/spinner.variant.converter'
 import { clx, cx, genericStyle, rippleColors } from 'formular.design.system'
+import { useState } from 'react'
 import { Typography } from '../typography/typography.ui'
 import { IButtonProps } from './button.types'
 import useRippleEffect from './ripple/use-ripple-effect'
@@ -17,8 +19,10 @@ export const Button = ({
     isToggle,
     tabindex = -1
 }: IButtonProps) => {
+    const [focus, setFocus] = useState<boolean>(false)
     const styles = genericStyle({
         componentTypes: ['button', 'typography'],
+        states: { hasFocused: true },
         ...variants
     })
 
@@ -40,6 +44,20 @@ export const Button = ({
         // Call the ripple effect handler (which includes the callback)
         onClickCallback(e)
     }
+
+    const { handleKeyDown } = useKeyBindings({
+        onEnterCallback: (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onClick(e)
+        },
+        onSpacebarCallback: (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            onClick(e)
+        }
+    })
+
     return (
         <button
             tabIndex={tabindex}
@@ -50,7 +68,11 @@ export const Button = ({
             disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? 'true' : 'false'}
+            aria-focus={focus}
             onClick={handleClick}
+            onFocus={() => setFocus(true)}
+            onBlur={() => setFocus(false)}
+            onKeyDown={handleKeyDown}
             className={cx(
                 styles.backGround,
                 styles.borders,

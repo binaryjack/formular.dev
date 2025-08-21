@@ -65,7 +65,27 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
         }
     },
     input: {
-        prefix: 'text',
+        prefix: 'input',
+        defaultVariant: 'primary',
+        defaultAspect: {
+            rounded: false,
+            borders: true,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'outline',
+        defaultStates: {
+            hasHover: true,
+            hasRing: true,
+            hasFocused: true,
+            hasPressed: false,
+            hasDisable: true,
+            hasErrors: true
+        }
+    },
+    accordion: {
+        prefix: 'accordion',
         defaultVariant: 'primary',
         defaultAspect: {
             rounded: false,
@@ -76,7 +96,7 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
         },
         defaultVisualVariantType: 'solid',
         defaultStates: {
-            hasHover: false,
+            hasHover: true,
             hasRing: false,
             hasFocused: false,
             hasPressed: false,
@@ -84,9 +104,29 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
             hasErrors: true
         }
     },
-    accordion: {
-        prefix: 'text',
-        defaultVariant: 'primary',
+    card: {
+        prefix: 'card',
+        defaultVariant: 'neutral',
+        defaultAspect: {
+            rounded: true,
+            borders: true,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'elevated',
+        defaultStates: {
+            hasHover: true,
+            hasRing: false,
+            hasFocused: false,
+            hasPressed: false,
+            hasDisable: false,
+            hasErrors: false
+        }
+    },
+    field: {
+        prefix: 'field',
+        defaultVariant: 'neutral',
         defaultAspect: {
             rounded: false,
             borders: false,
@@ -100,8 +140,148 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
             hasRing: false,
             hasFocused: false,
             hasPressed: false,
-            hasDisable: true,
+            hasDisable: false,
             hasErrors: true
+        }
+    },
+    switch: {
+        prefix: 'switch',
+        defaultVariant: 'primary',
+        defaultAspect: {
+            rounded: true,
+            borders: false,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'solid',
+        defaultStates: {
+            hasHover: true,
+            hasRing: true,
+            hasFocused: true,
+            hasPressed: false,
+            hasDisable: true,
+            hasErrors: false
+        }
+    },
+    checkbox: {
+        prefix: 'checkbox',
+        defaultVariant: 'primary',
+        defaultAspect: {
+            rounded: false,
+            borders: true,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'outline',
+        defaultStates: {
+            hasHover: true,
+            hasRing: true,
+            hasFocused: true,
+            hasPressed: false,
+            hasDisable: true,
+            hasErrors: false
+        }
+    },
+    radio: {
+        prefix: 'radio',
+        defaultVariant: 'primary',
+        defaultAspect: {
+            rounded: true,
+            borders: true,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'outline',
+        defaultStates: {
+            hasHover: true,
+            hasRing: true,
+            hasFocused: true,
+            hasPressed: false,
+            hasDisable: true,
+            hasErrors: false
+        }
+    },
+    drawer: {
+        prefix: 'drawer',
+        defaultVariant: 'neutral',
+        defaultAspect: {
+            rounded: false,
+            borders: true,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'elevated',
+        defaultStates: {
+            hasHover: false,
+            hasRing: false,
+            hasFocused: false,
+            hasPressed: false,
+            hasDisable: false,
+            hasErrors: false
+        }
+    },
+    'status-icon': {
+        prefix: 'status-icon',
+        defaultVariant: 'neutral',
+        defaultAspect: {
+            rounded: false,
+            borders: false,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'solid',
+        defaultStates: {
+            hasHover: false,
+            hasRing: false,
+            hasFocused: false,
+            hasPressed: false,
+            hasDisable: false,
+            hasErrors: false
+        }
+    },
+    validation: {
+        prefix: 'validation',
+        defaultVariant: 'danger',
+        defaultAspect: {
+            rounded: false,
+            borders: false,
+            size: 'sm',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'solid',
+        defaultStates: {
+            hasHover: false,
+            hasRing: false,
+            hasFocused: false,
+            hasPressed: false,
+            hasDisable: false,
+            hasErrors: false
+        }
+    },
+    layout: {
+        prefix: 'layout',
+        defaultVariant: 'neutral',
+        defaultAspect: {
+            rounded: false,
+            borders: false,
+            size: 'md',
+            width: undefined,
+            height: undefined
+        },
+        defaultVisualVariantType: 'solid',
+        defaultStates: {
+            hasHover: false,
+            hasRing: false,
+            hasFocused: false,
+            hasPressed: false,
+            hasDisable: false,
+            hasErrors: false
         }
     }
 }

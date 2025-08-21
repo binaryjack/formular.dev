@@ -10,6 +10,7 @@
 /* Component Styles */
 @import './button.css';
 @import './input.css';
+@import './accordion.css';
 @import './card.css';
 @import './field.css';
 @import './switch.css';

@@ -6,7 +6,7 @@
  * Main entry point for the development/demo application
  */
 
-import { Accordion } from '@components/__v2/accordion/accordion.ui'
+import { Accordion } from '@components/__v2/accordion/accordion'
 import { Button } from '@components/__v2/button/button.ui'
 import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
 import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
@@ -26,6 +26,8 @@ import { clx } from 'formular.design.system'
 
 import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
 import ReactDOM from 'react-dom/client'
+
+export const onlyOneOption = new OptionBuilder('I Accept').setValue('1').setSequenceId(0).build()
 
 export const mainOptions = new OptionsBuilder()
     .setOptions(
@@ -77,7 +79,7 @@ const containerClasses = `flex flex-col gap-1 p-1 bg-slate-500 w-[calc(100vw)] h
 const columnsClasses = `flex flex-col gap-1 p-1  xs:w-[calc(100%)] md:w-[calc(50%)] xl:w-[calc(20%)]  bg-slate-200`
 
 const html = document.documentElement
-html.setAttribute('data-theme', 'light')
+
 const currentTheme = html.getAttribute('data-theme')
 
 root.render(
@@ -306,8 +308,7 @@ root.render(
                                 }
                                 input={
                                     <CheckboxInput
-                                        id={'checkbox-1'}
-                                        label={'Checkbox 1'}
+                                        option={onlyOneOption}
                                         tabIndex={0}
                                         size={1}
                                         autoComplete="off"
@@ -332,6 +333,255 @@ root.render(
                                 initialState={'closed'}
                                 options={mainOptions}
                             />
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
+
+                <SmartLayout id={'accordion-demo-section'} name={'ACCORDION VARIANTS DEMO'}>
+                    <SmartCol id={'accordion-variants-col-1'}>
+                        <SmartCell id={'accordion-primary-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Primary & Secondary Variants
+                            </h3>
+                            <Accordion
+                                id={'accordion-demo-primary'}
+                                title={'Primary Accordion with Contrast Background'}
+                                initialState={'open'}
+                                variants={{
+                                    variant: 'primary',
+                                    aspect: { size: 'lg', rounded: true },
+                                    typography: { variant: 'primary', size: 'md' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        This accordion demonstrates the{' '}
+                                        <strong>primary variant</strong> with proper contrast
+                                        background.
+                                    </p>
+                                    <p>
+                                        The header has a distinct background color that provides
+                                        clear visual separation from the content area.
+                                    </p>
+                                    <ul>
+                                        <li>✅ High contrast ratios for accessibility</li>
+                                        <li>✅ Automatic light/dark mode support</li>
+                                        <li>✅ Semantic token-based styling</li>
+                                        <li>✅ Hover and focus states</li>
+                                    </ul>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'accordion-demo-secondary'}
+                                title={'Secondary Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'secondary',
+                                    aspect: { size: 'lg', rounded: true },
+                                    typography: { variant: 'secondary', size: 'md' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        This secondary variant shows different semantic colors while
+                                        maintaining the same contrast principles.
+                                    </p>
+                                    <p>
+                                        Each variant automatically adapts to light and dark modes.
+                                    </p>
+                                </div>
+                            </Accordion>
+                        </SmartCell>
+                    </SmartCol>
+
+                    <SmartCol id={'accordion-variants-col-2'}>
+                        <SmartCell id={'accordion-status-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Status & Feedback Variants
+                            </h3>
+                            <Accordion
+                                id={'accordion-demo-success'}
+                                title={'✅ Success State Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'success',
+                                    aspect: { size: 'md', rounded: true },
+                                    typography: { variant: 'success', size: 'sm' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Perfect for showing successful operations or positive
+                                        feedback.
+                                    </p>
+                                    <p>
+                                        Green semantic tokens with proper contrast in both light and
+                                        dark modes.
+                                    </p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'accordion-demo-warning'}
+                                title={'⚠️ Warning State Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'warning',
+                                    aspect: { size: 'md', rounded: true },
+                                    typography: { variant: 'warning', size: 'sm' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>Ideal for cautionary information or important notices.</p>
+                                    <p>Orange/yellow semantic tokens with clear visibility.</p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'accordion-demo-danger'}
+                                title={'❌ Danger State Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'danger',
+                                    aspect: { size: 'md', rounded: true },
+                                    typography: { variant: 'danger', size: 'sm' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        For error states, destructive actions, or critical alerts.
+                                    </p>
+                                    <p>
+                                        Red semantic tokens with high contrast for immediate
+                                        attention.
+                                    </p>
+                                </div>
+                            </Accordion>
+                        </SmartCell>
+
+                        <SmartCell id={'accordion-utility-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Utility & Info Variants
+                            </h3>
+                            <Accordion
+                                id={'accordion-demo-info'}
+                                title={'ℹ️ Information Accordion'}
+                                initialState={'open'}
+                                variants={{
+                                    variant: 'info',
+                                    aspect: { size: 'md', rounded: true },
+                                    typography: { variant: 'info', size: 'sm' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Perfect for informational content, help text, or
+                                        documentation.
+                                    </p>
+                                    <p>Blue semantic tokens providing calm, informative styling.</p>
+                                    <div
+                                        style={{
+                                            marginTop: '1rem',
+                                            padding: '0.5rem',
+                                            backgroundColor: 'var(--color-surface-secondary)',
+                                            borderRadius: '4px'
+                                        }}
+                                    >
+                                        <small>
+                                            <strong>Tip:</strong> Try switching between light and
+                                            dark modes to see automatic contrast adaptation!
+                                        </small>
+                                    </div>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'accordion-demo-neutral'}
+                                title={'🔧 Neutral Accordion'}
+                                initialState={'closed'}
+                                variants={{
+                                    variant: 'neutral',
+                                    aspect: { size: 'md', rounded: true },
+                                    typography: { variant: 'neutral', size: 'sm' }
+                                }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Default styling for general content without specific
+                                        semantic meaning.
+                                    </p>
+                                    <p>Uses surface tokens for subtle, clean appearance.</p>
+                                </div>
+                            </Accordion>
+
+                            <div
+                                style={{
+                                    marginTop: '1.5rem',
+                                    padding: '1rem',
+                                    backgroundColor: 'var(--color-surface-secondary)',
+                                    borderRadius: '8px',
+                                    border: '1px solid var(--color-border-muted)'
+                                }}
+                            >
+                                <h4
+                                    style={{
+                                        color: 'var(--color-text-primary)',
+                                        fontSize: '1rem',
+                                        marginBottom: '0.5rem'
+                                    }}
+                                >
+                                    🎨 Theme Toggle Demo
+                                </h4>
+                                <p
+                                    style={{
+                                        fontSize: '0.875rem',
+                                        color: 'var(--color-text-secondary)',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Click the button below to toggle between light and dark modes
+                                    and see the automatic contrast adaptation:
+                                </p>
+                                <Button
+                                    id={'theme-toggle-btn'}
+                                    title={'Toggle Theme'}
+                                    children={`Switch to ${currentTheme === 'light' ? 'Dark' : 'Light'} Mode`}
+                                    onClick={() => {
+                                        const html = document.documentElement
+                                        const newTheme =
+                                            html.getAttribute('data-theme') === 'light'
+                                                ? 'dark'
+                                                : 'light'
+                                        html.setAttribute('data-theme', newTheme)
+                                        // Force re-render to update button text
+                                        // setTimeout(() => window.location.reload(), 100)
+                                    }}
+                                    variants={{
+                                        visualVariant: 'outline',
+                                        variant: 'primary',
+                                        aspect: { size: 'sm', rounded: true }
+                                    }}
+                                />
+                            </div>
                         </SmartCell>
                     </SmartCol>
                 </SmartLayout>

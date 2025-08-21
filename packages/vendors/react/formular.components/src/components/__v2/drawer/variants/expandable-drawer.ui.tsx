@@ -8,8 +8,9 @@ export const ExpandableDrawer = ({
     children,
     id,
     toggleContextId,
-    position,
-    size = { width: 200, height: 300 }
+    size = { width: 200, height: 300 },
+    tabIndex = -1,
+    delayingCloseState = 150
 }: IExpandableDrawerProps) => {
     const { toggleState, setToggleState, containerRef } = useToggleableContext(toggleContextId)
     const { drawerRef } = useComputedAnimationState(toggleState, 'expandable')
@@ -29,10 +30,12 @@ export const ExpandableDrawer = ({
         if (containerRef?.current?.contains?.(event.target as Node)) {
             return // Don't close if clicking inside the toggleable container
         }
-
-        if (toggleState === 'open') {
-            setToggleState('closed')
-        }
+        const delayedClose = setTimeout(() => {
+            if (toggleState === 'open') {
+                setToggleState('closed')
+            }
+            clearTimeout(delayedClose)
+        }, delayingCloseState)
     })
 
     if (!setToggleState) {
@@ -43,6 +46,7 @@ export const ExpandableDrawer = ({
     return (
         <DrawerContext.Provider value={drawerContext}>
             <div
+                tabIndex={tabIndex}
                 id={id}
                 ref={drawerRef}
                 className="flex flex-col expandable-drawer-content bg-white border shadow-lg"

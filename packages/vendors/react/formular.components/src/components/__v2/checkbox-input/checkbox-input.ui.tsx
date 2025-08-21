@@ -3,8 +3,7 @@ import { Label } from '../label/label.ui'
 import { ICheckboxInput } from './checkbox-input.types'
 
 export const CheckboxInput = ({
-    id,
-    label,
+    option,
     tabIndex,
     className,
     initialState,
@@ -35,7 +34,8 @@ export const CheckboxInput = ({
             )}
         >
             <input
-                id={id}
+                id={option.id}
+                data-sequence-id={option.sequenceId}
                 data-class="base-checkbox "
                 tabIndex={tabIndex}
                 className={clx(
@@ -49,17 +49,17 @@ export const CheckboxInput = ({
                 onChange={onChange}
                 type="checkbox"
                 defaultChecked={initialState ? true : false}
-                aria-labelledby={`${id}`}
-                aria-label={label}
+                aria-labelledby={`${option.id}`}
+                aria-label={option.text}
                 aria-checked={initialState ? 'true' : 'false'}
                 style={{ width: `${size}em`, height: `${size}em` }}
                 {...rest}
             />
-            {label && (
+            {option.text && (
                 <Label
-                    id={`ml-2 checkbox-label-${id}`}
-                    htmlFor={id}
-                    text={label}
+                    id={`ml-2 checkbox-label-${option.id}`}
+                    htmlFor={option.id}
+                    text={option.text}
                     variants={clx(...cltext)}
                     className={clx('cursor-pointer', 'select-none')}
                 />

@@ -37,6 +37,7 @@ export const Toggleable = ({
         <ToggleableContext.Provider value={toggleableContext}>
             <div
                 id={id}
+                tabIndex={-1}
                 data-toggleable-container={id}
                 ref={toggleableContainerRef}
                 className={className}

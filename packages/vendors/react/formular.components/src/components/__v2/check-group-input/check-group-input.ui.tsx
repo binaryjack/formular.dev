@@ -1,5 +1,5 @@
 import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { CheckboxInput } from '../checkbox-input/checkbox-input.ui'
 import { FieldSet } from '../field-set/field-set.ui'
 import { Label } from '../label/label.ui'
@@ -15,7 +15,9 @@ export const CheckGroupInput = ({
     layoutSet,
     ...rest
 }: ICheckGroupInput) => {
+    const groupRef = useRef<HTMLDivElement>(null)
     const [selectedOptions, setSelectedOptions] = useState<IOptionItem[]>([])
+
     const handleOnSelected = (selected: IOptionItem) => {
         if (selectedOptions.find((option) => option.id === selected.id)) {
             setSelectedOptions(selectedOptions.filter((option) => option.id !== selected.id))
@@ -38,20 +40,21 @@ export const CheckGroupInput = ({
                 />
             }
             input={
-                <div id={id} className={``} {...rest}>
-                    {options.map((option: IOptionItem, i: number) => (
-                        <CheckboxInput
-                            key={`ci-${option.id}`}
-                            id={`ci-${option.id}`}
-                            label={option.text}
-                            tabIndex={0}
-                            onSelect={() => handleOnSelected(option)}
-                            size={1}
-                            className={'relative flex'}
-                            autoComplete="off"
-                            initialState={undefined}
-                        />
-                    ))}
+                <div id={id} ref={groupRef} className={`focus:outline-none`} tabIndex={0} {...rest}>
+                    {options.map((option: IOptionItem, i: number) => {
+                        return (
+                            <CheckboxInput
+                                key={`ci-${option.id}`}
+                                option={option}
+                                tabIndex={0}
+                                onSelect={() => handleOnSelected(option)}
+                                size={1}
+                                className={`relative flex ${false ? 'text-primary-300' : ''}`}
+                                autoComplete="off"
+                                initialState={undefined}
+                            />
+                        )
+                    })}
                 </div>
             }
             buttons={undefined}

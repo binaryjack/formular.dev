@@ -47,13 +47,17 @@ export const Drawer = ({
     return (
         <DrawerContext.Provider value={drawerContext}>
             <div
+                tabIndex={-1}
                 id={id}
                 className={`drawer relative flex flex-row flex-1 ${position}`}
                 ref={drawerHolderRef}
             >
-                <div className="flex flex-1">{owner}</div>
+                <div tabIndex={-1} className="flex flex-1">
+                    {owner}
+                </div>
 
                 <div
+                    tabIndex={-1}
                     ref={drawerRef}
                     className="drawer-content absolute bg-white border shadow-lg"
                     style={getPositionStyles(size, calculatedPosition)}

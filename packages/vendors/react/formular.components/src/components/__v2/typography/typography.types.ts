@@ -6,5 +6,6 @@ import { IComponentVariants } from 'formular.design.system'
 export interface ITypographyProps extends Omit<Partial<React.ComponentProps<any>>, 'className'> {
     as?: keyof JSX.IntrinsicElements
     children: React.ReactNode
+    tabindex?: number
     variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'> | string
 }

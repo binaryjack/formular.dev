@@ -1,0 +1,139 @@
+/**
+ * Accordion Component Styles
+ * 
+ * Accordion variants built using semantic tokens for proper contrast and light/dark mode support.
+ */
+@layer components {
+
+    /* ===============================================
+       ACCORDION COMPONENT VARIANTS
+       =============================================== */
+    /* Accordion Header - clickable area with distinct background */
+    .accordion-header {
+        /* Use semantic surface tokens for proper contrast */
+        background-color: var(--color-surface-secondary);
+        color: var(--color-text-primary);
+        border-bottom: 1px solid var(--color-border-muted);
+        transition: all var(--duration-fast) var(--ease-in-out);
+    }
+
+    .accordion-header:hover {
+        background-color: var(--color-surface-primary);
+        border-bottom-color: var(--color-border-primary);
+    }
+
+    .accordion-header:focus-within {
+        background-color: var(--color-surface-primary);
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: -2px;
+        border-bottom-color: var(--color-border-primary);
+    }
+
+    /* Accordion Header Color Variants - using semantic variant tokens */
+    .accordion-header-primary {
+        background-color: var(--color-surface-variant-primary);
+        color: var(--color-text-on-variant-primary);
+        border-bottom: 1px solid var(--color-border-variant-primary);
+    }
+
+    .accordion-header-primary:hover {
+        background-color: var(--color-primary-400);
+        border-bottom-color: var(--color-primary-300);
+    }
+
+    .accordion-header-secondary {
+        background-color: var(--color-surface-variant-secondary);
+        color: var(--color-text-on-variant-secondary);
+        border-bottom: 1px solid var(--color-border-variant-secondary);
+    }
+
+    .accordion-header-secondary:hover {
+        background-color: var(--color-secondary-400);
+        border-bottom-color: var(--color-secondary-300);
+    }
+
+    .accordion-header-success {
+        background-color: var(--color-surface-variant-success);
+        color: var(--color-text-on-variant-success);
+        border-bottom: 1px solid var(--color-border-variant-success);
+    }
+
+    .accordion-header-success:hover {
+        background-color: var(--color-success-400);
+        border-bottom-color: var(--color-success-300);
+    }
+
+    .accordion-header-warning {
+        background-color: var(--color-surface-variant-warning);
+        color: var(--color-text-on-variant-warning);
+        border-bottom: 1px solid var(--color-border-variant-warning);
+    }
+
+    .accordion-header-warning:hover {
+        background-color: var(--color-warning-400);
+        border-bottom-color: var(--color-warning-300);
+    }
+
+    .accordion-header-danger {
+        background-color: var(--color-surface-variant-danger);
+        color: var(--color-text-on-variant-danger);
+        border-bottom: 1px solid var(--color-border-variant-danger);
+    }
+
+    .accordion-header-danger:hover {
+        background-color: var(--color-danger-400);
+        border-bottom-color: var(--color-danger-300);
+    }
+
+    .accordion-header-info {
+        background-color: var(--color-surface-variant-info);
+        color: var(--color-text-on-variant-info);
+        border-bottom: 1px solid var(--color-border-variant-info);
+    }
+
+    .accordion-header-info:hover {
+        background-color: var(--color-info-400);
+        border-bottom-color: var(--color-info-300);
+    }
+
+    .accordion-header-neutral {
+        background-color: var(--color-surface-secondary);
+        color: var(--color-text-primary);
+        border-bottom: 1px solid var(--color-border-muted);
+    }
+
+    .accordion-header-neutral:hover {
+        background-color: var(--color-surface-primary);
+        border-bottom-color: var(--color-border-primary);
+    }
+
+    /* Accordion Container - neutral background */
+    .accordion-container {
+        background-color: var(--color-surface-elevated);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        border: 1px solid var(--color-border-muted);
+    }
+
+    /* Accordion Content Area - if needed for direct styling */
+    .accordion-content {
+        background-color: var(--color-surface-elevated);
+        color: var(--color-text-primary);
+        padding: var(--spacing-md);
+    }
+
+    /* Focus states for accessibility */
+    .accordion-header:focus-visible {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+    }
+
+    /* Disabled state */
+    .accordion-header:disabled,
+    .accordion-header[aria-disabled="true"] {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: var(--color-surface-muted);
+        color: var(--color-text-muted);
+    }
+}
