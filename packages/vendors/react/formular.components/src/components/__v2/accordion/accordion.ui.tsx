@@ -7,25 +7,39 @@ import { Label } from '../label/label.ui'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import { IAccordionProps } from './accordion.types'
 
-export const AccordionUI = ({ id, title, children, variants = {} }: IAccordionProps) => {
+export const AccordionUI = ({
+    id,
+    title,
+    children,
+    variants = {},
+    headerPreset = 'branded', // NEW: Default to branded preset
+    headerStyle // NEW: Optional fine-tuning
+}: IAccordionProps) => {
     const [focus, setFocus] = useState<boolean>(false)
     const toggleContextId = `accordion-${id}`
     const { toggleState, setToggleState } = useToggleableContext(toggleContextId)
 
+    // NEW: Enhanced genericStyle call with header support
     const classStyle = genericStyle({
         componentTypes: ['accordion', 'typography'],
         states: { hasFocused: true },
+        headerPreset, // NEW: Pass header preset
+        headerStyle, // NEW: Pass header style overrides
         ...variants
     })
 
-    const clContainerBackground = [...classStyle.backGround, 'accordion-container']
-    const clHeaderBackground = [
-        ...classStyle.backGround,
-        'accordion-header',
-        `accordion-header-${variants.variant || 'neutral'}`
-    ]
-    // Never use generic text styles for header - CSS variants handle all text colors
-    const cltext: string[] = []
+    // SIMPLIFIED: Header and container backgrounds are now handled by genericStyle
+    const clContainerBackground = classStyle.backGround.filter(
+        (cls) => !cls.includes('accordion-header') // Filter out header-specific classes
+    )
+
+    const clHeaderBackground = classStyle.backGround.filter(
+        (cls) => cls.includes('accordion-header') || cls.includes('bg-')
+    )
+
+    // SIMPLIFIED: Text classes are now managed by the header system
+    const clHeaderText = classStyle.text
+
     const clborders = classStyle.borders
     const clstates = Object.values(classStyle.states).filter((o) => !!o)
 
@@ -59,11 +73,15 @@ export const AccordionUI = ({ id, title, children, variants = {} }: IAccordionPr
                 onFocus={() => setFocus(true)}
                 onBlur={() => setFocus(false)}
                 aria-focus={focus}
+                role="button"
+                aria-expanded={toggleState === 'open'}
+                aria-controls={`accordion-${id}-content`}
                 onKeyDown={handleKeyDown}
                 onClick={handleOnClick}
                 className={clx(
-                    'relative flex w-full items-center justify-between gap-2 cursor-pointer',
+                    'relative flex w-full items-center justify-between gap-2 cursor-pointer p-4 transition-colors duration-200',
                     ...clHeaderBackground,
+                    ...clHeaderText, // NEW: Uses header-managed text classes
                     ...clborders,
                     ...clstates
                 )}
@@ -72,8 +90,12 @@ export const AccordionUI = ({ id, title, children, variants = {} }: IAccordionPr
                     tabIndex={-1}
                     htmlFor={`${id}-chevron-toggle`}
                     text={title}
-                    className={clx(...cltext)}
-                    // Don't pass variants to Label as CSS handles header text colors
+                    variants={
+                        {
+                            // IMPORTANT: Don't pass typography variants to prevent conflicts
+                            // Header text styling is now managed by the header system
+                        }
+                    }
                 />
                 <ChevronToggle
                     id={`${id}`}

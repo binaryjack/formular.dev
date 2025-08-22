@@ -1,8 +1,21 @@
 import type { ComponentVariantType } from '../../../types'
 import type { IComponentAspect } from '../interfaces/i-component-aspect'
+import type { IHeaderStyle } from '../interfaces/i-header-style'
 import type { IStyleStatesConfig } from '../interfaces/i-style-states-config'
 import type { ComponentType } from '../types/component-type.type'
 import type { ExtendedVisualVariantType } from '../types/extended-visual-variant-type.type'
+
+/**
+ * Header preset configuration for common use cases
+ */
+export interface IHeaderPresetConfig {
+    /** Preset name for easy reference */
+    name: string
+    /** Description of when to use this preset */
+    description: string
+    /** Default header style configuration */
+    style: IHeaderStyle
+}
 
 /**
  * Component style configuration interface
@@ -13,6 +26,8 @@ export interface IComponentStyleConfig {
     defaultAspect: IComponentAspect
     defaultVisualVariantType: ExtendedVisualVariantType
     defaultStates: IStyleStatesConfig
+    /** Header presets for this component type */
+    headerPresets?: Record<string, IHeaderPresetConfig>
 }
 
 /**
@@ -102,6 +117,48 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
             hasPressed: false,
             hasDisable: true,
             hasErrors: true
+        },
+        headerPresets: {
+            contrast: {
+                name: 'High Contrast',
+                description: 'Dark header with light text for maximum visual impact',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['accordion-header'],
+                    forceTextClasses: [],
+                    customClasses: []
+                }
+            },
+            branded: {
+                name: 'Branded Header',
+                description: 'Header uses component variant colors with proper contrast',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['accordion-header'],
+                    forceTextClasses: [],
+                    customClasses: []
+                }
+            },
+            subtle: {
+                name: 'Subtle Header',
+                description: 'Minimal contrast header that blends with container',
+                style: {
+                    disableGenericText: false,
+                    forceBackgroundClasses: [],
+                    forceTextClasses: [],
+                    customClasses: ['bg-opacity-50']
+                }
+            },
+            inverted: {
+                name: 'Inverted Theme',
+                description: 'Forces dark header regardless of light/dark mode',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['bg-slate-800'],
+                    forceTextClasses: ['text-white'],
+                    customClasses: []
+                }
+            }
         }
     },
     card: {
@@ -122,6 +179,28 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
             hasPressed: false,
             hasDisable: false,
             hasErrors: false
+        },
+        headerPresets: {
+            contrast: {
+                name: 'High Contrast Card Header',
+                description: 'Bold header that stands out from card content',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['card-header'],
+                    forceTextClasses: [],
+                    customClasses: []
+                }
+            },
+            branded: {
+                name: 'Branded Card Header',
+                description: 'Header uses card variant colors',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['card-header'],
+                    forceTextClasses: [],
+                    customClasses: []
+                }
+            }
         }
     },
     field: {
@@ -222,6 +301,28 @@ export const COMPONENT_STYLE_CONFIG: ComponentConfigType = {
             hasPressed: false,
             hasDisable: false,
             hasErrors: false
+        },
+        headerPresets: {
+            contrast: {
+                name: 'High Contrast Drawer Header',
+                description: 'Bold header for drawer/sidebar navigation',
+                style: {
+                    disableGenericText: true,
+                    forceBackgroundClasses: ['drawer-header'],
+                    forceTextClasses: [],
+                    customClasses: []
+                }
+            },
+            subtle: {
+                name: 'Subtle Drawer Header',
+                description: 'Minimal header that blends with drawer content',
+                style: {
+                    disableGenericText: false,
+                    forceBackgroundClasses: [],
+                    forceTextClasses: [],
+                    customClasses: ['border-b', 'border-opacity-30']
+                }
+            }
         }
     },
     'status-icon': {

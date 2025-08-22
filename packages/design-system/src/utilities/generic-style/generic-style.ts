@@ -13,6 +13,7 @@ import type { ComponentType } from './types/component-type.type'
 import type { ExtendedVisualVariantType } from './types/extended-visual-variant-type.type'
 import type { FieldOfViewType } from './types/field-of-view-type.type'
 import type { ShadesType } from './types/shades-type.type'
+import { resolveHeaderConfig } from './utils/header-preset-resolver'
 
 // ===============================================
 // MAIN EXPORTS
@@ -62,6 +63,57 @@ export const genericStyle = (variants: IComponentVariants): IClasses => {
 
     output = { ...output, ...defineVariants(variants, COMPONENT_STYLE_CONFIG) }
 
+    // Process header configuration if header preset is specified
+    if (variants.headerPreset || variants.headerStyle) {
+        const headerConfig = resolveHeaderConfig(
+            variants.componentTypes?.[0] || 'accordion',
+            variants.headerPreset || 'default',
+            variants.headerStyle
+        )
+
+        if (headerConfig) {
+            // Apply header configuration to output
+            if (headerConfig.disableGenericText) {
+                // Clear generic text styles if disabled
+                output.text = []
+            }
+
+            if (headerConfig.forceBackgroundClasses?.length) {
+                // Add forced background classes
+                output.backGround = [...output.backGround, ...headerConfig.forceBackgroundClasses]
+            }
+
+            if (headerConfig.forceTextClasses?.length) {
+                // Add forced text classes (or replace if generic text disabled)
+                if (headerConfig.disableGenericText) {
+                    output.text = [...headerConfig.forceTextClasses]
+                } else {
+                    output.text = [...output.text, ...headerConfig.forceTextClasses]
+                }
+            }
+
+            if (headerConfig.customClasses?.length) {
+                // Add custom classes to appropriate categories based on class prefixes
+                headerConfig.customClasses.forEach(cls => {
+                    if (cls.startsWith('bg-') || cls.includes('background')) {
+                        output.backGround.push(cls)
+                    } else if (cls.startsWith('text-') || cls.includes('color')) {
+                        output.text.push(cls)
+                    } else if (cls.startsWith('border-')) {
+                        output.borders.push(cls)
+                    } else {
+                        // Default to text for unknown classes
+                        output.text.push(cls)
+                    }
+                })
+            }
+        }
+
+        if (process.env.NODE_ENV === 'development') {
+            console.log('🎯 Header config applied:', headerConfig)
+        }
+    }
+
     if (process.env.NODE_ENV === 'development') {
         console.log('🎨 genericStyle result:', output)
         // Check for duplicate classes
@@ -89,6 +141,57 @@ export const semanticStyle = (variants: IComponentVariants): IClasses => {
     }
 
     output = { ...output, ...defineSemanticVariants(variants, COMPONENT_STYLE_CONFIG) }
+
+    // Process header configuration if header preset is specified
+    if (variants.headerPreset || variants.headerStyle) {
+        const headerConfig = resolveHeaderConfig(
+            variants.componentTypes?.[0] || 'accordion',
+            variants.headerPreset || 'default',
+            variants.headerStyle
+        )
+
+        if (headerConfig) {
+            // Apply header configuration to output
+            if (headerConfig.disableGenericText) {
+                // Clear generic text styles if disabled
+                output.text = []
+            }
+
+            if (headerConfig.forceBackgroundClasses?.length) {
+                // Add forced background classes
+                output.backGround = [...output.backGround, ...headerConfig.forceBackgroundClasses]
+            }
+
+            if (headerConfig.forceTextClasses?.length) {
+                // Add forced text classes (or replace if generic text disabled)
+                if (headerConfig.disableGenericText) {
+                    output.text = [...headerConfig.forceTextClasses]
+                } else {
+                    output.text = [...output.text, ...headerConfig.forceTextClasses]
+                }
+            }
+
+            if (headerConfig.customClasses?.length) {
+                // Add custom classes to appropriate categories based on class prefixes
+                headerConfig.customClasses.forEach(cls => {
+                    if (cls.startsWith('bg-') || cls.includes('background')) {
+                        output.backGround.push(cls)
+                    } else if (cls.startsWith('text-') || cls.includes('color')) {
+                        output.text.push(cls)
+                    } else if (cls.startsWith('border-')) {
+                        output.borders.push(cls)
+                    } else {
+                        // Default to text for unknown classes
+                        output.text.push(cls)
+                    }
+                })
+            }
+        }
+
+        if (process.env.NODE_ENV === 'development') {
+            console.log('🎯 Header config applied:', headerConfig)
+        }
+    }
 
     if (process.env.NODE_ENV === 'development') {
         console.log('🎨 semanticStyle result:', output)

@@ -46,8 +46,9 @@ export type { ComponentConfigType, IComponentStyleConfig } from './config/compon
 // Interface exports
 export type { IClasses } from './interfaces/i-classes'
 export type { IComponentAspect } from './interfaces/i-component-aspect'
-export type { IComponentVariants } from './interfaces/i-component-variants'
+export type { HeaderPresetType, IComponentVariants } from './interfaces/i-component-variants'
 export type { IEnhancedVariantRule } from './interfaces/i-enhanced-variant-rule'
+export type { IHeaderStyle } from './interfaces/i-header-style'
 export type { ISemanticVisualVariantRules } from './interfaces/i-semantic-visual-variant-rules'
 export type { IStyleStates } from './interfaces/i-style-states'
 export type { IStyleStatesConfig } from './interfaces/i-style-states-config'

@@ -141,6 +141,7 @@ root.render(
                                 id={'accordion-2'}
                                 title={'Medium Accordion'}
                                 initialState={'closed'}
+                                headerPreset="dark-impact"
                                 variants={{
                                     variant: 'secondary',
                                     aspect: { size: 'xl', rounded: false },
@@ -581,6 +582,202 @@ root.render(
                                         aspect: { size: 'sm', rounded: true }
                                     }}
                                 />
+                            </div>
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
+
+                {/* NEW: Header Preset Demo Section */}
+                <SmartLayout
+                    id={'accordion-header-presets-demo'}
+                    name={'🎨 ACCORDION HEADER PRESETS'}
+                >
+                    <SmartCol id={'header-presets-col-1'}>
+                        <SmartCell id={'built-in-presets-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Built-in Header Presets
+                            </h3>
+
+                            <Accordion
+                                id={'preset-branded'}
+                                title={'Branded Preset (Default)'}
+                                headerPreset="branded"
+                                initialState={'open'}
+                                variants={{ variant: 'primary' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Uses the <strong>branded</strong> preset with variant colors
+                                        and high contrast.
+                                    </p>
+                                    <p>Perfect for main content areas and primary interactions.</p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'preset-dark-impact'}
+                                title={'Dark Impact Preset'}
+                                headerPreset="dark-impact"
+                                initialState={'closed'}
+                                variants={{ variant: 'secondary' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        This header stays <strong>dark</strong> regardless of
+                                        light/dark mode for visual impact.
+                                    </p>
+                                    <p>Great for creating visual hierarchy and emphasis.</p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'preset-light-impact'}
+                                title={'Light Impact Preset'}
+                                headerPreset="light-impact"
+                                initialState={'closed'}
+                                variants={{ variant: 'success' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        This header stays <strong>light</strong> regardless of theme
+                                        mode.
+                                    </p>
+                                    <p>Perfect for subtle emphasis and clean designs.</p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'preset-subtle'}
+                                title={'Subtle Preset'}
+                                headerPreset="subtle"
+                                initialState={'closed'}
+                                variants={{ variant: 'warning' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Minimal contrast that <strong>blends</strong> with the
+                                        container.
+                                    </p>
+                                    <p>
+                                        Best for content-focused layouts where headers shouldn't
+                                        dominate.
+                                    </p>
+                                </div>
+                            </Accordion>
+                        </SmartCell>
+                    </SmartCol>
+
+                    <SmartCol id={'header-presets-col-2'}>
+                        <SmartCell id={'custom-presets-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Custom & Component-Specific Presets
+                            </h3>
+
+                            <Accordion
+                                id={'preset-contrast'}
+                                title={'Component-Specific: Contrast'}
+                                headerPreset="custom"
+                                headerStyle={{
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: [
+                                        'text-white',
+                                        'dark:text-black',
+                                        'font-medium'
+                                    ]
+                                }}
+                                initialState={'closed'}
+                                variants={{ variant: 'primary' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Component-specific preset with{' '}
+                                        <strong>maximum contrast</strong> for accessibility.
+                                    </p>
+                                    <p>
+                                        Defined in COMPONENT_STYLE_CONFIG for accordions
+                                        specifically.
+                                    </p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'fine-tuned-example'}
+                                title={'Fine-tuned with Custom Classes'}
+                                headerPreset="branded"
+                                headerStyle={{
+                                    customClasses: ['shadow-md', 'border-l-4']
+                                }}
+                                initialState={'closed'}
+                                variants={{ variant: 'warning' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Branded preset enhanced with{' '}
+                                        <strong>shadow and left border</strong>.
+                                    </p>
+                                    <p>
+                                        Shows how to fine-tune presets with additional custom
+                                        classes.
+                                    </p>
+                                </div>
+                            </Accordion>
+
+                            <Accordion
+                                id={'extreme-custom'}
+                                title={'Extreme Custom Control'}
+                                headerPreset="custom"
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-800', 'dark:bg-slate-900'],
+                                    forceTextClasses: ['text-white', 'font-bold'],
+                                    customClasses: ['shadow-xl', 'border-l-8', 'border-accent-400']
+                                }}
+                                initialState={'closed'}
+                                variants={{ variant: 'danger' }}
+                            >
+                                <div style={{ padding: '1rem' }}>
+                                    <p>
+                                        Full manual control with{' '}
+                                        <strong>custom background, text, and border</strong>.
+                                    </p>
+                                    <p>
+                                        Uses the "custom" preset with complete headerStyle override.
+                                    </p>
+                                </div>
+                            </Accordion>
+                        </SmartCell>
+                    </SmartCol>
+                </SmartLayout>
+
+                {/* Spinner Demo */}
+                <SmartLayout id={'spinner-demo-section'} name={'SPINNER DEMO'}>
+                    <SmartCol id={'spinner-col-1'}>
+                        <SmartCell id={'spinner-primary-demo'}>
+                            <h3
+                                style={{
+                                    color: 'var(--color-text-primary)',
+                                    fontSize: '1.2rem',
+                                    marginBottom: '1rem'
+                                }}
+                            >
+                                Spinner Variants
+                            </h3>
+                            <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                <Spinner size="sm" />
+                                <Spinner size="md" />
+                                <Spinner size="lg" />
                             </div>
                         </SmartCell>
                     </SmartCol>
