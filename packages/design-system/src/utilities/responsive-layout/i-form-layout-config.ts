@@ -50,6 +50,9 @@ export interface IFieldLayouts {
     layoutSet?: IFieldLayout
 }
 
+// Backward compatibility alias
+export type IFormLayoutVariants = IFieldLayouts
+
 export const generateLayoutClasses = (variants: IFieldLayouts): ILayoutClasses => {
     const { layout = {}, layoutSet: fieldSet = {} } = variants
 

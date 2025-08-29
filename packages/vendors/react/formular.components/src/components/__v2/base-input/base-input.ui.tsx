@@ -1,5 +1,5 @@
 import useDebouncer from '@adapters/react/hooks/use-debouncer'
-import { clx, genericStyle } from 'formular.design.system'
+import { clx, genericStyling } from 'formular.design.system'
 import { forwardRef, useState } from 'react'
 import { IBaseInputProps } from './base-input.types'
 
@@ -19,10 +19,7 @@ export const BaseInput = forwardRef<HTMLInputElement, IBaseInputProps>(
         }: IBaseInputProps,
         ref
     ) => {
-        const classStyle = genericStyle({
-            componentTypes: ['input'],
-            ...variants
-        }) // Now using V2 unified API with typography separation
+        const classStyle = genericStyling('baseInput', variants) // Now using V2 unified API with typography separation
 
         // Debug logging
         if (process.env.NODE_ENV === 'development') {
@@ -30,10 +27,10 @@ export const BaseInput = forwardRef<HTMLInputElement, IBaseInputProps>(
                 id,
                 variants,
                 generatedClasses: {
-                    backGround: classStyle.backGround,
-                    text: classStyle.text,
-                    borders: classStyle.borders,
-                    states: Object.values(classStyle.states)
+                    backGround: classStyle?.background,
+                    text: classStyle?.text,
+                    borders: classStyle?.borders,
+                    states: Object.values(classStyle?.states ?? {})
                 }
             })
         }
@@ -47,10 +44,14 @@ export const BaseInput = forwardRef<HTMLInputElement, IBaseInputProps>(
             setValue(e.target.value)
         }
 
-        const clbackGround = classStyle.backGround
-        const cltext = classStyle.text
-        const clborders = classStyle.borders
-        const clstates = Object.values(classStyle.states).filter((o) => !!o)
+        const clbackGround = classStyle?.background
+        const cltext = classStyle?.text
+        const clborders = classStyle?.border
+
+        // Individual color classes for atomic styling
+        const backgroundColor = classStyle?.backgroundColor
+        const textColor = classStyle?.textColor
+        const borderColor = classStyle?.borderColor
 
         return (
             <input
@@ -58,7 +59,14 @@ export const BaseInput = forwardRef<HTMLInputElement, IBaseInputProps>(
                 data-class={dataClass}
                 placeholder={placeHolder}
                 tabIndex={tabIndex}
-                className={clx(...clbackGround, ...cltext, ...clborders, ...clstates)}
+                className={clx(
+                    backgroundColor,
+                    textColor,
+                    borderColor,
+                    clbackGround,
+                    cltext,
+                    clborders
+                )}
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
                 onChange={handleOnChange}

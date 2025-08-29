@@ -1,4 +1,4 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
@@ -10,5 +10,5 @@ export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }

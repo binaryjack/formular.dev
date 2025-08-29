@@ -1,4 +1,5 @@
-import { IComponentVariants, IFieldLayouts } from 'formular.design.system'
+import { IFieldLayouts } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 import { IOptionItem, ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface IDropdownUIProps extends React.ComponentProps<'div'>, IFieldLayouts {
@@ -7,7 +8,7 @@ export interface IDropdownUIProps extends React.ComponentProps<'div'>, IFieldLay
     options: IOptionItem[]
     initialState?: ToggleableStateType
     onSelectedOption?: (option: IOptionItem) => void
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }
 
 export interface IDropdownItemProps extends React.ComponentProps<'div'> {
@@ -23,7 +24,7 @@ export interface IDropdownProps extends React.ComponentProps<'div'>, IFieldLayou
     options: IOptionItem[]
     initialState?: ToggleableStateType
     onSelectedOption?: (option: IOptionItem) => void
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }
 
 export interface IDropdownDrawerContent {

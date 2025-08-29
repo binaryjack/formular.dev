@@ -1,11 +1,12 @@
 /**
  * Test ComponentType export
  */
-import type { ComponentType } from './utilities/generic-component-styles'
+
+import { ComponentsTypes } from './types/enums/components-enum'
 
 // Test that ComponentType works
-const testType: ComponentType = 'button'
+const testType: ComponentsTypes = 'button'
 
-console.log('ComponentType test:', testType)
+console.log('ComponentsTypes test:', testType)
 
-export const componentTypeTest = testType
+export const ComponentsTypesTest = testType

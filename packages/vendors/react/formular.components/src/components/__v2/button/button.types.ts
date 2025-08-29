@@ -1,4 +1,4 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 
 export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     id: string
@@ -12,5 +12,5 @@ export interface IButtonProps extends Partial<React.ComponentProps<'button'>> {
     disabled?: boolean
     isToggle?: boolean
     tabindex?: number
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }

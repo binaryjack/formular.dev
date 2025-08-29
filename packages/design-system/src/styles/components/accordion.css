@@ -116,9 +116,9 @@
 
     /* Accordion Content Area - if needed for direct styling */
     .accordion-content {
-        background-color: var(--color-surface-elevated);
+        /* background-color: var(--color-surface-elevated);
         color: var(--color-text-primary);
-        padding: var(--spacing-md);
+        padding: var(--spacing-md); */
     }
 
     /* Focus states for accessibility */

@@ -3,9 +3,10 @@ export interface IClx {
     condition?: boolean
 }
 
-export const clx = (...classes: (IClx | string)[]): string => {
+export const clx = (...classes: (IClx | string | undefined)[]): string => {
     const output: string[] = []
     for (const c of classes) {
+        if (!c) continue
         if (typeof c === 'string') {
             if (!c) continue
             output.push(c)

@@ -1,8 +1,8 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 
 export interface IBaseTextProps extends Partial<React.ComponentProps<'label'>> {
     text: string
     htmlFor?: string
     className?: string
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }

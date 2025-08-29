@@ -1,7 +1,8 @@
 import {
+    clx,
     ComponentSizeType,
     ComponentVariantType,
-    genericStyle,
+    genericStyling,
     TextCaseType,
     TextWeightType
 } from 'formular.design.system'
@@ -58,8 +59,8 @@ export const Button = ({
         className
     } = variantProperties
 
-    const btnBaseClasses = genericStyle({
-        componentTypes: ['button']
+    const btnBaseClasses = genericStyling('button', {
+        variant
     })
 
     const {
@@ -113,7 +114,16 @@ export const Button = ({
             disabled={disabled}
             aria-busy={disabled || loading ? 'true' : 'false'}
             aria-pressed={isToggle ? (isPressed ? 'true' : 'false') : undefined}
-            className={`${btnBaseClasses} ${className ?? ''} relative overflow-hidden`}
+            className={clx(
+                btnBaseClasses?.backgroundColor,
+                btnBaseClasses?.textColor,
+                btnBaseClasses?.borderColor,
+                btnBaseClasses?.background,
+                btnBaseClasses?.border,
+                className,
+                'relative',
+                'overflow-hidden'
+            )}
             style={{
                 width: width ?? 'unset',
                 height: height ?? 'unset'

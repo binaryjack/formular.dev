@@ -4,34 +4,31 @@
 - this projects strives to focus on veracity and acuracy about our intentions. So for each contributions wheter is human or IA, we should always try to cross check information and provide sources as possible.
 
 ## Copilot Role
-
 - I need you to act as an expert in TypeScript / Javascript / HTML / CSS and any other tasks you will assist-
 - I need you to be the most acurate possible.
-- Do not embelish reality.
+- Do not embellish reality, tell always the truth even if it goes against my thoughts, beliefs.
 - let's focus on best practices.
 
 ## Copilot Summaries
-
 - Place all copilot summaries and others comments or recommendation files into `copilot-summaries`
 - No code files into it of course!
 
 ## General Documentation 
-
 - Create or use the `docs` folder to place all the generated documentation.
 
 
 ## Monorepo 
-
 - Do always use TypeScript
 - Du always use Vite.js
 
 ## Package manager
-
 - Use exclusively PNPM
 
 ## File Naming Conventions
-
 - All files must use kebab-case (e.g., `my-file-name.ts`).
+
+## Quick Test files
+- If you need build some .js tests files for your needs raw quick, it's okay but get ried of them right after.
 
 ## Coding Style
 
@@ -51,7 +48,6 @@
 - An interface name are always prefixed with `I`  example `IMyInterface`.
 - Exception: In th ecase of a react component Keep the `IMyComponentProps` in the same file as the `MyComponent` Component.
 
-
 ### Enums
 - Each enum should reside in an individual file and placed in a folder `enums`, the file name should follow this naming convention: `my-enum-name.enum.ts`
 - An enum are always suffixed by Enum
@@ -59,6 +55,23 @@
 ### Types
 - Each type should reside  in an individual file and placed in a folder `types`, the file name should follow this naming convention: `my-interface-name.type.ts`
 - An type are always suffixed by Type
+
+### Enums, Types, Arrays 
+- For each type I need a corresponding enum (that must reside in enums folder)
+
+```
+export enum MyValuesEnum {
+    value1 = 'value1',
+    value2 = 'value2'
+}
+```
+
+- Then extract the type from it  (that must reside in types folder)
+`export type MyValuesTypes = keyof typeof MyValuesEnum`
+
+- And then, the array too. (that can reside in types folder next to the type above)
+`export const MyValuesArray: string[] = Object.values(MyValuesEnum)`
+
 
 ### Exports
 - For the lib project, all the folders must have their:
@@ -76,6 +89,7 @@
 
 - Component props interface declaration: `export interface IMyComponentProps {... }` use `children: React.ReactNode` if required.
 - Component declaration: `export const MyComponent = ({propsName1,propsName2}:IMyComponentProps): OutputType => { ... }`
+- :warning: DO NEVER, EVER USE: React.FC!
 
 ## Test Implementation
 
@@ -84,7 +98,6 @@
 - **All test files must be placed under `src/__tests__/`, using subfolders to mirror the structure of the `src/` directory.**
 - **Do not place test files beside their target files or in scattered `__test__`/`__tests__` folders elsewhere.**
 - **Test file names must use kebab-case and clearly indicate the file or feature they are testing.**
-
 ---
 
 Please follow these rules for all code contributions and code generation in this project.
@@ -94,20 +107,14 @@ Please follow these rules for all code contributions and code generation in this
 - historically some `class` style were introduced by copilot in general for testing purpose, this is acceptable. We only want to rely on `prototyped style class` for the product itself.
 
 ## Scripts 
-
 - Never use Webpack 
-- Never use React.FC!
-
-
+- Do use vite.js instead
 
 ## Design System
-
 - Use Tailwindcss
-- Use SCSS
-
+- Use SCSS 
 
 ## Dependencies 
-
 - Do never add external third library into the `lib` without permission and explaining why it's needed.
 
 ## Architectural Decisions & FAQ

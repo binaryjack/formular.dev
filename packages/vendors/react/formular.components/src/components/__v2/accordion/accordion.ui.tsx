@@ -1,10 +1,11 @@
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
-import { clx, genericStyle } from 'formular.design.system'
+import { clx, genericStyling } from 'formular.design.system'
 import { useState } from 'react'
 import { ChevronToggle } from '../chevron-toggle/chevron-toggle.ui'
 import { ExpandableDrawer } from '../drawer/variants/expandable-drawer.ui'
 import { Label } from '../label/label.ui'
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
+import { AccordionContext, IAccordionContext } from './accordion-context'
 import { IAccordionProps } from './accordion.types'
 
 export const AccordionUI = ({
@@ -12,6 +13,7 @@ export const AccordionUI = ({
     title,
     children,
     variants = {},
+    contentTabIndex,
     headerPreset = 'branded', // NEW: Default to branded preset
     headerStyle // NEW: Optional fine-tuning
 }: IAccordionProps) => {
@@ -20,28 +22,13 @@ export const AccordionUI = ({
     const { toggleState, setToggleState } = useToggleableContext(toggleContextId)
 
     // NEW: Enhanced genericStyle call with header support
-    const classStyle = genericStyle({
-        componentTypes: ['accordion', 'typography'],
-        states: { hasFocused: true },
-        headerPreset, // NEW: Pass header preset
-        headerStyle, // NEW: Pass header style overrides
-        ...variants
-    })
-
-    // SIMPLIFIED: Header and container backgrounds are now handled by genericStyle
-    const clContainerBackground = classStyle.backGround.filter(
-        (cls) => !cls.includes('accordion-header') // Filter out header-specific classes
-    )
-
-    const clHeaderBackground = classStyle.backGround.filter(
-        (cls) => cls.includes('accordion-header') || cls.includes('bg-')
-    )
+    const classStyle = genericStyling('accordion', variants)
 
     // SIMPLIFIED: Text classes are now managed by the header system
-    const clHeaderText = classStyle.text
+    const clHeaderText = classStyle?.text
 
-    const clborders = classStyle.borders
-    const clstates = Object.values(classStyle.states).filter((o) => !!o)
+    const clborders = classStyle?.borders
+    const clstates = Object.values(classStyle?.states ?? {}).filter((o) => !!o)
 
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.preventDefault?.()
@@ -62,51 +49,55 @@ export const AccordionUI = ({
         }
     })
 
+    const ocontextIO: IAccordionContext = {
+        id: id,
+        tabIndex: contentTabIndex,
+        backgroundClass: undefined,
+        textClass: undefined
+    }
+
     return (
-        <div
-            tabIndex={-1}
-            id={`accordion-${id}-frame`}
-            className={clx(...clContainerBackground, ...clborders)}
-        >
+        <AccordionContext.Provider value={ocontextIO}>
             <div
-                tabIndex={0}
-                onFocus={() => setFocus(true)}
-                onBlur={() => setFocus(false)}
-                aria-focus={focus}
-                role="button"
-                aria-expanded={toggleState === 'open'}
-                aria-controls={`accordion-${id}-content`}
-                onKeyDown={handleKeyDown}
-                onClick={handleOnClick}
-                className={clx(
-                    'relative flex w-full items-center justify-between gap-2 cursor-pointer p-4 transition-colors duration-200',
-                    ...clHeaderBackground,
-                    ...clHeaderText, // NEW: Uses header-managed text classes
-                    ...clborders,
-                    ...clstates
-                )}
+                tabIndex={-1}
+                id={`accordion-${id}-frame`}
+                className={clx(classStyle?.backgroundColor, classStyle?.background)}
             >
-                <Label
-                    tabIndex={-1}
-                    htmlFor={`${id}-chevron-toggle`}
-                    text={title}
-                    variants={
-                        {
-                            // IMPORTANT: Don't pass typography variants to prevent conflicts
-                            // Header text styling is now managed by the header system
-                        }
-                    }
-                />
-                <ChevronToggle
-                    id={`${id}`}
+                <div
                     tabIndex={0}
-                    toggleContextId={toggleContextId}
-                    initialToggleState={'idle'}
-                />
+                    onFocus={() => setFocus(true)}
+                    onBlur={() => setFocus(false)}
+                    aria-focus={focus}
+                    role="button"
+                    aria-expanded={toggleState === 'open'}
+                    aria-controls={`accordion-${id}-content`}
+                    onKeyDown={handleKeyDown}
+                    onClick={handleOnClick}
+                    className={clx(
+                        'relative flex w-full items-center justify-between gap-2 cursor-pointer transition-colors duration-200',
+                        classStyle?.backgroundColor,
+                        classStyle?.textColor,
+                        classStyle?.borderColor,
+                        classStyle?.background
+                    )}
+                >
+                    <Label
+                        tabIndex={-1}
+                        htmlFor={`${id}-chevron-toggle`}
+                        text={title}
+                        variants={{ aspect: {} }}
+                    />
+                    <ChevronToggle
+                        id={`${id}`}
+                        tabIndex={0}
+                        toggleContextId={toggleContextId}
+                        initialToggleState={'idle'}
+                    />
+                </div>
+                <ExpandableDrawer id={toggleContextId} toggleContextId={toggleContextId}>
+                    {children}
+                </ExpandableDrawer>
             </div>
-            <ExpandableDrawer id={toggleContextId} toggleContextId={toggleContextId}>
-                {children}
-            </ExpandableDrawer>
-        </div>
+        </AccordionContext.Provider>
     )
 }

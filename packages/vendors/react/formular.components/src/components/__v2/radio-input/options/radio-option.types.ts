@@ -1,4 +1,4 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 
 export interface IRadioOptionProps extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     id: string
@@ -10,5 +10,5 @@ export interface IRadioOptionProps extends Omit<Partial<React.ComponentProps<'in
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onKeyUp?: (e: React.KeyboardEvent<HTMLInputElement>) => void
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
 }

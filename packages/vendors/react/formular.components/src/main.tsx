@@ -7,6 +7,7 @@
  */
 
 import { Accordion } from '@components/__v2/accordion/accordion'
+import { AccordionContent } from '@components/__v2/accordion/accordion-content'
 import { Button } from '@components/__v2/button/button.ui'
 import { CheckGroupInput } from '@components/__v2/check-group-input/check-group-input.ui'
 import { CheckboxInput } from '@components/__v2/checkbox-input/checkbox-input.ui'
@@ -106,7 +107,7 @@ root.render(
                                     variant: 'danger',
                                     aspect: { size: 'sm', rounded: true }
                                 }}
-                            />{' '}
+                            />
                         </SmartCell>
                         <SmartCell id={'flex-cell-102'}>
                             <Button
@@ -128,13 +129,16 @@ root.render(
                                 id={'accordion-1'}
                                 title={'Short Accordion'}
                                 initialState={'closed'}
+                                headerPreset="light-impact"
                                 variants={{
                                     variant: 'primary',
                                     aspect: { size: 'xl', rounded: false },
                                     typography: { variant: 'primary', size: 'sm' }
                                 }}
                             >
-                                <p>This is a short accordion with minimal content.</p>
+                                <AccordionContent as={'p'}>
+                                    This is a short accordion with minimal content.
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -148,7 +152,7 @@ root.render(
                                     typography: { variant: 'secondary', size: 'sm' }
                                 }}
                             >
-                                <p>
+                                <AccordionContent as={'p'}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                     <br />
                                     Sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -157,7 +161,7 @@ root.render(
                                     Ut enim ad minim veniam, quis nostrud exercitation ullamco.
                                     <br />
                                     Laboris nisi ut aliquip ex ea commodo consequat.
-                                </p>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -170,7 +174,7 @@ root.render(
                                     typography: { variant: 'success', size: 'sm' }
                                 }}
                             >
-                                <div>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                                         do eiusmod tempor incididunt ut labore et dolore magna
@@ -201,7 +205,7 @@ root.render(
                                         <li>Item 4</li>
                                         <li>Item 5</li>
                                     </ul>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
                         </SmartCell>
                     </SmartCol>
@@ -360,7 +364,7 @@ root.render(
                                     typography: { variant: 'primary', size: 'md' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         This accordion demonstrates the{' '}
                                         <strong>primary variant</strong> with proper contrast
@@ -376,7 +380,7 @@ root.render(
                                         <li>✅ Semantic token-based styling</li>
                                         <li>✅ Hover and focus states</li>
                                     </ul>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -389,7 +393,7 @@ root.render(
                                     typography: { variant: 'secondary', size: 'md' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         This secondary variant shows different semantic colors while
                                         maintaining the same contrast principles.
@@ -397,7 +401,7 @@ root.render(
                                     <p>
                                         Each variant automatically adapts to light and dark modes.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
                         </SmartCell>
                     </SmartCol>
@@ -423,7 +427,7 @@ root.render(
                                     typography: { variant: 'success', size: 'sm' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Perfect for showing successful operations or positive
                                         feedback.
@@ -432,36 +436,46 @@ root.render(
                                         Green semantic tokens with proper contrast in both light and
                                         dark modes.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
                                 id={'accordion-demo-warning'}
                                 title={'⚠️ Warning State Accordion'}
                                 initialState={'closed'}
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
+                                }}
                                 variants={{
                                     variant: 'warning',
                                     aspect: { size: 'md', rounded: true },
                                     typography: { variant: 'warning', size: 'sm' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>Ideal for cautionary information or important notices.</p>
                                     <p>Orange/yellow semantic tokens with clear visibility.</p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
                                 id={'accordion-demo-danger'}
                                 title={'❌ Danger State Accordion'}
                                 initialState={'closed'}
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
+                                }}
                                 variants={{
                                     variant: 'danger',
                                     aspect: { size: 'md', rounded: true },
                                     typography: { variant: 'danger', size: 'sm' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         For error states, destructive actions, or critical alerts.
                                     </p>
@@ -469,7 +483,7 @@ root.render(
                                         Red semantic tokens with high contrast for immediate
                                         attention.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
                         </SmartCell>
 
@@ -487,13 +501,18 @@ root.render(
                                 id={'accordion-demo-info'}
                                 title={'ℹ️ Information Accordion'}
                                 initialState={'open'}
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['text-black', 'font-medium']
+                                }}
                                 variants={{
                                     variant: 'info',
                                     aspect: { size: 'md', rounded: true },
                                     typography: { variant: 'info', size: 'sm' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Perfect for informational content, help text, or
                                         documentation.
@@ -512,7 +531,7 @@ root.render(
                                             dark modes to see automatic contrast adaptation!
                                         </small>
                                     </div>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -525,13 +544,13 @@ root.render(
                                     typography: { variant: 'neutral', size: 'sm' }
                                 }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Default styling for general content without specific
                                         semantic meaning.
                                     </p>
                                     <p>Uses surface tokens for subtle, clean appearance.</p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <div
@@ -608,58 +627,78 @@ root.render(
                                 id={'preset-branded'}
                                 title={'Branded Preset (Default)'}
                                 headerPreset="branded"
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['text-black', 'font-medium']
+                                }}
                                 initialState={'open'}
                                 variants={{ variant: 'primary' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Uses the <strong>branded</strong> preset with variant colors
                                         and high contrast.
                                     </p>
                                     <p>Perfect for main content areas and primary interactions.</p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
                                 id={'preset-dark-impact'}
                                 title={'Dark Impact Preset'}
                                 headerPreset="dark-impact"
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
+                                }}
                                 initialState={'closed'}
                                 variants={{ variant: 'secondary' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         This header stays <strong>dark</strong> regardless of
                                         light/dark mode for visual impact.
                                     </p>
                                     <p>Great for creating visual hierarchy and emphasis.</p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
                                 id={'preset-light-impact'}
                                 title={'Light Impact Preset'}
                                 headerPreset="light-impact"
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
+                                }}
                                 initialState={'closed'}
                                 variants={{ variant: 'success' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         This header stays <strong>light</strong> regardless of theme
                                         mode.
                                     </p>
                                     <p>Perfect for subtle emphasis and clean designs.</p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
                                 id={'preset-subtle'}
                                 title={'Subtle Preset'}
                                 headerPreset="subtle"
+                                headerStyle={{
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
+                                }}
                                 initialState={'closed'}
                                 variants={{ variant: 'warning' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Minimal contrast that <strong>blends</strong> with the
                                         container.
@@ -668,7 +707,7 @@ root.render(
                                         Best for content-focused layouts where headers shouldn't
                                         dominate.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
                         </SmartCell>
                     </SmartCol>
@@ -690,17 +729,14 @@ root.render(
                                 title={'Component-Specific: Contrast'}
                                 headerPreset="custom"
                                 headerStyle={{
+                                    disableGenericText: true,
                                     forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
-                                    forceTextClasses: [
-                                        'text-white',
-                                        'dark:text-black',
-                                        'font-medium'
-                                    ]
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
                                 }}
                                 initialState={'closed'}
                                 variants={{ variant: 'primary' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Component-specific preset with{' '}
                                         <strong>maximum contrast</strong> for accessibility.
@@ -709,7 +745,7 @@ root.render(
                                         Defined in COMPONENT_STYLE_CONFIG for accordions
                                         specifically.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -717,12 +753,14 @@ root.render(
                                 title={'Fine-tuned with Custom Classes'}
                                 headerPreset="branded"
                                 headerStyle={{
-                                    customClasses: ['shadow-md', 'border-l-4']
+                                    disableGenericText: true,
+                                    forceBackgroundClasses: ['bg-slate-900', 'dark:bg-slate-100'],
+                                    forceTextClasses: ['dark:text-black', 'font-medium']
                                 }}
                                 initialState={'closed'}
                                 variants={{ variant: 'warning' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Branded preset enhanced with{' '}
                                         <strong>shadow and left border</strong>.
@@ -731,7 +769,7 @@ root.render(
                                         Shows how to fine-tune presets with additional custom
                                         classes.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
 
                             <Accordion
@@ -741,13 +779,13 @@ root.render(
                                 headerStyle={{
                                     disableGenericText: true,
                                     forceBackgroundClasses: ['bg-slate-800', 'dark:bg-slate-900'],
-                                    forceTextClasses: ['text-white', 'font-bold'],
+                                    forceTextClasses: ['font-bold'],
                                     customClasses: ['shadow-xl', 'border-l-8', 'border-accent-400']
                                 }}
                                 initialState={'closed'}
                                 variants={{ variant: 'danger' }}
                             >
-                                <div style={{ padding: '1rem' }}>
+                                <AccordionContent as={'div'}>
                                     <p>
                                         Full manual control with{' '}
                                         <strong>custom background, text, and border</strong>.
@@ -755,7 +793,7 @@ root.render(
                                     <p>
                                         Uses the "custom" preset with complete headerStyle override.
                                     </p>
-                                </div>
+                                </AccordionContent>
                             </Accordion>
                         </SmartCell>
                     </SmartCol>

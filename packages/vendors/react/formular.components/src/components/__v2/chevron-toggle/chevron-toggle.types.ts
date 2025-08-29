@@ -1,4 +1,4 @@
-import { IComponentVariants } from 'formular.design.system'
+import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
 import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface IChevronToggleProps {
@@ -9,6 +9,6 @@ export interface IChevronToggleProps {
         e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<unknown>,
         state: ToggleableStateType
     ) => void
-    variants?: Omit<Partial<IComponentVariants>, 'ComponentTypes'>
+    variants?: Partial<IComponentStyleConfig>
     tabIndex?: number
 }

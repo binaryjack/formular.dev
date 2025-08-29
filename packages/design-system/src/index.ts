@@ -18,10 +18,10 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
-    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
     ComponentVariantType,
+    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,
@@ -34,39 +34,48 @@ export type {
     VisualVariantType
 } from './types/types'
 
-export type { IComponentState, IStyleConfig, IThemeConfig } from './types/interfaces'
+export type { IThemeConfig } from './types/interfaces'
 
-// Export utility types (legacy system)
-export type { IGenericComponentVariants } from './utilities/generic-component-styles'
+// Export utility types
+export type { IGenericComponentVariants } from './utilities/generate-validation-styles'
 
-// Export legacy utilities for backward compatibility
-export { colorUtils, generateValidationStyles } from './utilities/generic-component-styles'
+// Export component variant interfaces
+export type {
+    HeaderPresetType,
+    IComponentVariants
+} from './utilities/generic-style/interfaces/i-component-variants'
+export type { IHeaderStyle } from './utilities/generic-style/interfaces/i-header-style'
 
-// Export NEW Generic Style System (replaces old V2 system)
+// Export utilities
+export { colorUtils, generateValidationStyles } from './utilities/generate-validation-styles'
+
+// Export Atomic Style System
 export {
-    COMPONENT_STYLE_CONFIG,
-    VISUAL_VARIANT_RULE,
-    VariantRule,
-    genericStyle
+    aspectResolver,
+    borderResolver,
+    COMPONENT_PRESET,
+    componentResolver,
+    genericStyling,
+    stateResolver,
+    typographyResolver,
+    visualVariantResolver
 } from './utilities/generic-style'
 
+// Export genericStyle alias for component compatibility
+export { genericStyling as genericStyle } from './utilities/generic-style'
+
 export type {
-    ComponentConfigType,
-    ComponentType,
-    ExtendedVisualVariantType,
-    FieldOfViewType,
-    HeaderPresetType,
-    IClasses,
+    IAtomicComponentAspect,
+    IBorderStyle,
+    IComponentPreset
+} from './utilities/generic-style'
+
+// Export additional interface types
+export type {
     IComponentAspect,
-    IComponentStyleConfig,
-    IComponentVariants,
-    IHeaderStyle,
-    IStyleStates,
-    IStyleStatesConfig,
     ITypographyConfig,
-    IVariantRule,
-    IVisualVariantRules,
-    ShadesType
+    IVisualVariantRule,
+    IVisualVariantRules
 } from './utilities/generic-style'
 
 // Export Responsive Layout System
@@ -76,7 +85,7 @@ export type {
     IFieldLayout,
     IFieldLayouts,
     IFormLayoutConfig,
-    IFieldLayouts as IFormLayoutVariants,
+    IFormLayoutVariants,
     ILayoutClasses,
     LayoutType,
     OffsetType,

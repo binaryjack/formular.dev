@@ -1,18 +1,11 @@
-import type { IEnhancedVariantRule } from '../interfaces/i-enhanced-variant-rule'
-import type { EnhancedShadesType } from '../types/enhanced-shades-type.type'
-import type { FieldOfViewType } from '../types/field-of-view-type.type'
-
 /**
- * Enhanced helper function for creating variant rules with semantic token support
+ * Legacy Enhanced Variant Rule Helper - DEPRECATED
+ *
+ * This file provides compatibility for the old generic style system.
+ * NEW CODE SHOULD USE THE ATOMIC STYLE BUILDER INSTEAD.
+ *
+ * @deprecated Use the new atomic-style-builder system
  */
-export const EnhancedVariantRule = (
-    fov: FieldOfViewType,
-    shade: EnhancedShadesType
-): IEnhancedVariantRule => {
-    const isSemantic = typeof shade === 'string'
-    return {
-        shade,
-        fov,
-        isSemantic
-    } as IEnhancedVariantRule
-}
+
+// Minimal stub to make existing code compile
+export const EnhancedVariantRule = () => ({})

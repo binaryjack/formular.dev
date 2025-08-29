@@ -1,4 +1,4 @@
-import type { VisualVariantType } from '../../types'
+import { VisualVariantType } from '@/types/enums/visual-variant-enum'
 
 /**
  * Extended visual variant type that includes additional visual styles

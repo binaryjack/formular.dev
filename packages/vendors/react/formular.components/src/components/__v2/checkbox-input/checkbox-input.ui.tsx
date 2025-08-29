@@ -1,4 +1,4 @@
-import { clx, genericStyle } from 'formular.design.system'
+import { clx, genericStyling } from 'formular.design.system'
 import { Label } from '../label/label.ui'
 import { ICheckboxInput } from './checkbox-input.types'
 
@@ -14,15 +14,16 @@ export const CheckboxInput = ({
     variants = {},
     ...rest
 }: ICheckboxInput) => {
-    const classStyle = genericStyle({
-        componentTypes: ['input', 'typography'],
-        ...variants
-    }) // Now using V2 unified API with typography separation
+    const classStyle = genericStyling('checkboxInput', variants) // Now using V2 unified API with typography separation
 
-    const clbackGround = classStyle.backGround
-    const cltext = classStyle.text
-    const clborders = classStyle.borders
-    const clstates = Object.values(classStyle.states).filter((o) => !!o)
+    const clbackGround = classStyle?.background
+    const cltext = classStyle?.text
+    const clborders = classStyle?.border
+
+    // Individual color classes for atomic styling
+    const backgroundColor = classStyle?.backgroundColor
+    const textColor = classStyle?.textColor
+    const borderColor = classStyle?.borderColor
 
     return (
         <div
@@ -30,7 +31,8 @@ export const CheckboxInput = ({
                 'flex items-center py-1',
                 'radio-item-group',
                 className ?? '',
-                ...clbackGround
+                backgroundColor,
+                clbackGround
             )}
         >
             <input
@@ -38,12 +40,7 @@ export const CheckboxInput = ({
                 data-sequence-id={option.sequenceId}
                 data-class="base-checkbox "
                 tabIndex={tabIndex}
-                className={clx(
-                    'form-checkbox',
-
-                    ...clborders,
-                    ...clstates
-                )}
+                className={clx('form-checkbox', borderColor, clborders)}
                 onKeyDown={onKeyDown}
                 onKeyUp={onKeyUp}
                 onChange={onChange}
@@ -60,7 +57,7 @@ export const CheckboxInput = ({
                     id={`ml-2 checkbox-label-${option.id}`}
                     htmlFor={option.id}
                     text={option.text}
-                    variants={clx(...cltext)}
+                    variants={variants}
                     className={clx('cursor-pointer', 'select-none')}
                 />
             )}

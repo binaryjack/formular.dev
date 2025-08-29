@@ -7,6 +7,7 @@
 export type { ColorPaletteType } from './color-palette.type'
 export type { ComponentSizeType } from './component-size.type'
 export type { ComponentVariantType } from './component-variant.type'
+
 export type { CSSCustomPropertiesType } from './css-custom-properties.type'
 export type { ElementPositionType } from './element-position.type'
 export type { OrientationType } from './orientation.type'

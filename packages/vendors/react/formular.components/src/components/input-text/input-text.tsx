@@ -4,7 +4,7 @@ import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 // Import design system utilities
-import { cx, genericStyle } from 'formular.design.system'
+import { cx, genericStyling } from 'formular.design.system'
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
@@ -112,22 +112,34 @@ const InputText = ({ fieldName }: IInputTextProps) => {
                 className={cx(
                     'base-input',
                     ...(() => {
-                        const inputStyles = genericStyle({
-                            componentTypes: ['input'],
-                            aspect: { size: 'md' },
+                        const inputStyles = genericStyling('baseInput', {
+                            variant: 'primary',
                             states: {
                                 hasErrors: (instance?.input?.validationResults?.length ?? 0) > 0,
                                 hasFocused: instance?.input?.isFocus ?? false,
-                                hasDisable: instance?.input?.disabled ?? false,
-                                hasHover: false,
-                                hasPressed: false
+                                hasDisable: instance?.input?.disabled ?? false
                             }
-                        })
+                        } as any)
+                        const clbackGround = inputStyles?.background
+                        const cltext = inputStyles?.text
+                        const clborders = inputStyles?.border ? [inputStyles.border] : []
+
+                        // Individual color classes for atomic styling
+                        const backgroundColor = inputStyles?.backgroundColor
+                        const textColor = inputStyles?.textColor
+                        const borderColor = inputStyles?.borderColor
+
                         return [
-                            ...inputStyles.backGround,
-                            ...inputStyles.text,
-                            ...inputStyles.borders,
-                            ...Object.values(inputStyles.states)
+                            ...(backgroundColor ? [backgroundColor] : []),
+                            ...(textColor ? [textColor] : []),
+                            ...(borderColor ? [borderColor] : []),
+                            ...(Array.isArray(clbackGround)
+                                ? clbackGround
+                                : clbackGround
+                                  ? [clbackGround]
+                                  : []),
+                            ...(Array.isArray(cltext) ? cltext : cltext ? [cltext] : []),
+                            ...clborders
                         ]
                     })()
                 )}

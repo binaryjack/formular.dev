@@ -6,10 +6,9 @@
  */
 
 export type {
-    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
-    ComponentVariantType,
+    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,
@@ -18,13 +17,11 @@ export type {
     StyleUtilityType,
     TextCaseType,
     TextWeightType,
-    ValueOfType,
-    VisualVariantType
+    ValueOfType
 } from './types/types'
 
 // Re-export utility types for convenience
 export type {
-    ComponentType,
     ExtendedVisualVariantType,
     IGenericComponentVariants
-} from './utilities/generic-component-styles'
+} from './utilities/generate-validation-styles'

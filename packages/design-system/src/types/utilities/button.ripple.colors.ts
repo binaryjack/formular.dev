@@ -1,6 +1,6 @@
-import { ComponentVariantType } from '../types'
+import { VariantType } from '../enums/variants-enum'
 
-export const rippleColors = (variant: ComponentVariantType) => {
+export const rippleColors = (variant: VariantType) => {
     switch (variant) {
         case 'info':
             return 'rgba(255, 255, 255, 0.8)'

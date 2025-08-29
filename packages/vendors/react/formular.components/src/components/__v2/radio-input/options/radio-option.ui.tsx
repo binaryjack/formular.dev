@@ -1,4 +1,4 @@
-import { cx } from 'formular.design.system'
+import { clx } from 'formular.design.system'
 import { IRadioOptionProps } from './radio-option.types'
 
 export const RadioOption = ({
@@ -19,7 +19,7 @@ export const RadioOption = ({
             data-class="base-radio "
             placeholder={placeHolder}
             tabIndex={tabIndex}
-            className={cx(
+            className={clx(
                 'form-radio',
                 'text-primary-600 border-secondary-300',
                 'focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50',

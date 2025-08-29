@@ -62,7 +62,6 @@
         /* Remove transition classes, let controller handle animations */
         /* Keep positioning and visual styles */
         position: absolute;
-        background: white;
         border: 1px solid theme('colors.gray.200');
         box-shadow: theme('boxShadow.lg');
         z-index: 9999;
@@ -70,7 +69,6 @@
 
     .expandable-drawer-content {
         position: relative;
-        background: white;
         border: 1px solid theme('colors.gray.200');
         box-shadow: theme('boxShadow.lg');
         overflow: hidden;

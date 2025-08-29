@@ -6,7 +6,6 @@
 
 import { spacing } from '../../tokens/spacing'
 import type { ColorPaletteType } from '../types/color-palette.type'
-import type { IStyleConfig } from './i-style-config'
 
 export interface IThemeConfig {
     /** Color tokens */
@@ -14,5 +13,4 @@ export interface IThemeConfig {
     /** Spacing tokens */
     spacing: typeof spacing
     /** Component style configurations */
-    components?: Record<string, IStyleConfig>
 }

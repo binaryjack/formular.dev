@@ -203,6 +203,7 @@ export type {
     OffsetType
 } from './responsive-layout/i-form-layout-config'
 
+export type { IFormLayoutVariants } from './responsive-layout/i-form-layout-variants'
 export type { ResponsiveFormLayoutType } from './responsive-layout/responsive-form-layout'
 
 export {

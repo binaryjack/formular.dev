@@ -1,7 +1,8 @@
 import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import Spinner from '@components/spinner/spinner'
 import { getSpinnerVariant } from '@components/spinner/utils/spinner.variant.converter'
-import { clx, cx, genericStyle, rippleColors } from 'formular.design.system'
+import { clx, genericStyling, rippleColors } from 'formular.design.system'
+
 import { useState } from 'react'
 import { Typography } from '../typography/typography.ui'
 import { IButtonProps } from './button.types'
@@ -20,11 +21,7 @@ export const Button = ({
     tabindex = -1
 }: IButtonProps) => {
     const [focus, setFocus] = useState<boolean>(false)
-    const styles = genericStyle({
-        componentTypes: ['button', 'typography'],
-        states: { hasFocused: true },
-        ...variants
-    })
+    const stylesSet = genericStyling('button', variants)
 
     const {
         mainRef: buttonRef,
@@ -73,10 +70,12 @@ export const Button = ({
             onFocus={() => setFocus(true)}
             onBlur={() => setFocus(false)}
             onKeyDown={handleKeyDown}
-            className={cx(
-                styles.backGround,
-                styles.borders,
-                ...Object.values(styles.states),
+            className={clx(
+                stylesSet?.backgroundColor,
+                stylesSet?.textColor,
+                stylesSet?.borderColor,
+                stylesSet?.background,
+                stylesSet?.border,
                 'relative',
                 'overflow-hidden'
             )}
@@ -118,8 +117,8 @@ export const Button = ({
                         <div className={`flex loading mr-1`}>
                             <Spinner
                                 {...getSpinnerVariant?.(
-                                    variants?.aspect?.size!,
-                                    variants?.variant!
+                                    stylesSet?.aspect?.size!,
+                                    stylesSet?.variant!
                                 )}
                             />
                         </div>
@@ -132,13 +131,8 @@ export const Button = ({
                     )}
                     <Typography
                         as={'span'}
-                        className={clx(...styles.text, 'text-nowrap', 'elipsed-text')}
-                        variants={{
-                            variant: variants?.variant,
-                            aspect: {
-                                size: variants?.aspect?.size
-                            }
-                        }}
+                        className={clx('text-nowrap', 'elipsed-text')}
+                        variants={variants}
                         style={{ pointerEvents: 'none' }}
                     >
                         {children}

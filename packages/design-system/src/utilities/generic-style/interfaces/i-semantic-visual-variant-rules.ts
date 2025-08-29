@@ -1,8 +1,12 @@
-import type { IEnhancedVariantRule } from '../interfaces/i-enhanced-variant-rule'
-
 /**
- * Visual variant rules that use semantic tokens for smart contrast
+ * Legacy Semantic Visual Variant Rules Interface - DEPRECATED
+ *
+ * This file provides compatibility for the old generic style system.
+ * NEW CODE SHOULD USE THE ATOMIC STYLE BUILDER INSTEAD.
+ *
+ * @deprecated Use the new atomic-style-builder system
  */
+
 export interface ISemanticVisualVariantRules {
-    rules: IEnhancedVariantRule[]
+    [key: string]: any
 }

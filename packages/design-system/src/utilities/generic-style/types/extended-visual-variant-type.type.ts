@@ -1,7 +1,10 @@
-import type { VisualVariantType } from '../../../types'
-
 /**
- * Extended visual variant type that includes additional visual styles
- * beyond the basic VisualVariantType
+ * Legacy Extended Visual Variant Type - DEPRECATED
+ *
+ * This file provides compatibility for the old generic style system.
+ * NEW CODE SHOULD USE THE ATOMIC STYLE BUILDER INSTEAD.
+ *
+ * @deprecated Use the new atomic-style-builder system
  */
-export type ExtendedVisualVariantType = VisualVariantType | 'elevated' | 'outlined'
+
+export type ExtendedVisualVariantType = string
