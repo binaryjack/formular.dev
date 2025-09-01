@@ -18,10 +18,10 @@ export * from './utilities'
 
 // Types for TypeScript support (export specific types to avoid conflicts)
 export type {
+    CSSCustomPropertiesType,
     ColorPaletteType,
     ComponentSizeType,
     ComponentVariantType,
-    CSSCustomPropertiesType,
     ElementPositionType,
     OrientationType,
     ResponsiveValueType,
@@ -51,9 +51,9 @@ export { colorUtils, generateValidationStyles } from './utilities/generate-valid
 
 // Export Atomic Style System
 export {
+    COMPONENT_PRESET,
     aspectResolver,
     borderResolver,
-    COMPONENT_PRESET,
     componentResolver,
     genericStyling,
     stateResolver,
@@ -67,7 +67,8 @@ export { genericStyling as genericStyle } from './utilities/generic-style'
 export type {
     IAtomicComponentAspect,
     IBorderStyle,
-    IComponentPreset
+    IComponentPreset,
+    IComponentStyleConfig
 } from './utilities/generic-style'
 
 // Export additional interface types
