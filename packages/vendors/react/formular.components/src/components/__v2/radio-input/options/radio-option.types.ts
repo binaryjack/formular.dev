@@ -1,4 +1,4 @@
-import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
+import { IComponentStyleConfig } from 'formular.design.system'
 
 export interface IRadioOptionProps extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     id: string

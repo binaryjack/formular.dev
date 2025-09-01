@@ -1,5 +1,4 @@
-import { IFieldLayouts } from 'formular.design.system'
-import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
+import { IComponentStyleConfig, IFieldLayouts } from 'formular.design.system'
 import { IOptionItem, ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
 
 export interface IDropdownUIProps extends React.ComponentProps<'div'>, IFieldLayouts {

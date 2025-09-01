@@ -30,7 +30,9 @@
             "@style/*": ["src/style/*"],
             "@pages/*": ["src/showcase/pages/*"],
             "formular.dev.lib": ["../../../lib/dist/formular-dev.es.d.ts"],
-            "formular.dev.lib/*": ["../../../lib/dist/*"]
+            "formular.dev.lib/*": ["../../../lib/dist/*"],
+            "formular.design.system": ["../../../design-system/dist/index.d.ts"],
+            "formular.design.system/*": ["../../../design-system/dist/*"]
         }
     },
     "exclude": ["node_modules"],
