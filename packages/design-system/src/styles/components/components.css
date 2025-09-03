@@ -1,0 +1,8 @@
+/**
+ * Design System Components
+ * 
+ * Component variants built using primitive styles.
+ * These are the actual UI components that implement design patterns.
+ */
+/* Import all component styles from individual files */
+@import './components/index.css';

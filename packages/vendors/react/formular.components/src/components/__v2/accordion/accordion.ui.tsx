@@ -1,6 +1,8 @@
-import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { clx, genericStyling } from 'formular.design.system'
 import { useState } from 'react'
+
+import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
+
 import { ChevronToggle } from '../chevron-toggle/chevron-toggle.ui'
 import { ExpandableDrawer } from '../drawer/variants/expandable-drawer.ui'
 import { Label } from '../label/label.ui'
@@ -74,9 +76,8 @@ export const AccordionUI = ({
                     onKeyDown={handleKeyDown}
                     onClick={handleOnClick}
                     className={clx(
-                        'relative flex w-full items-center justify-between gap-2 cursor-pointer transition-colors duration-200',
+                        'relative flex w-full items-center justify-between cursor-pointer transition-colors duration-200',
                         classStyle?.backgroundColor,
-                        classStyle?.textColor,
                         classStyle?.borderColor,
                         classStyle?.background
                     )}
@@ -85,7 +86,8 @@ export const AccordionUI = ({
                         tabIndex={-1}
                         htmlFor={`${id}-chevron-toggle`}
                         text={title}
-                        variants={{ aspect: {} }}
+                        className={classStyle?.textColor}
+                        variants={variants}
                     />
                     <ChevronToggle
                         id={`${id}`}

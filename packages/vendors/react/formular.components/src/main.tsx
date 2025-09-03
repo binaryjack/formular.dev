@@ -6,6 +6,10 @@
  * Main entry point for the development/demo application
  */
 
+import { clx } from 'formular.design.system'
+import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
+import ReactDOM from 'react-dom/client'
+
 import { Accordion } from '@components/__v2/accordion/accordion'
 import { AccordionContent } from '@components/__v2/accordion/accordion-content'
 import { Button } from '@components/__v2/button/button.ui'
@@ -19,14 +23,9 @@ import { SmartCell } from '@components/__v2/smart-layout/smart-cell.ui'
 import { SmartCol } from '@components/__v2/smart-layout/smart-col.ui'
 import { SmartLayout } from '@components/__v2/smart-layout/smart-layout.ui'
 import { Spinner } from '@components/__v2/spinner/spinner.ui'
-
 import { AppContextProvider } from '@components/context/app-context/app-context'
 import { VisualDebug } from '@components/context/debug/visual-debug'
 import { ScrollContext } from '@components/context/scrolling/scrolling'
-import { clx } from 'formular.design.system'
-
-import { OptionBuilder, OptionsBuilder } from 'formular.dev.lib'
-import ReactDOM from 'react-dom/client'
 
 export const onlyOneOption = new OptionBuilder('I Accept').setValue('1').setSequenceId(0).build()
 
@@ -74,17 +73,12 @@ if (!rootComponent) {
 
 const root = ReactDOM.createRoot(rootComponent)
 
-const containerClasses = `flex flex-col gap-1 p-1 bg-slate-500 w-[calc(100vw)] h-full md:h-[calc(40%)] xl:h-[calc(30%)]  overflow-hidden 
-                flex-grow-0 flex-shrink-0 flex-wrap`
-
-const columnsClasses = `flex flex-col gap-1 p-1  xs:w-[calc(100%)] md:w-[calc(50%)] xl:w-[calc(20%)]  bg-slate-200`
-
 const html = document.documentElement
 
 const currentTheme = html.getAttribute('data-theme')
 
 root.render(
-    <VisualDebug options={{ enabled: false, color: 'bg-blue-100' }}>
+    <VisualDebug options={{ enabled: false, color: '' }}>
         <ScrollContext>
             <AppContextProvider
                 setupOptions={{
