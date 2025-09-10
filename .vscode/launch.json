@@ -6,7 +6,7 @@
             "name": "Debug React App",
             "type": "chrome",
             "request": "launch",
-            "url": "http://localhost:3000",
+            "url": "http://localhost:3001",
             "webRoot": "${workspaceFolder}/packages/vendors/react/formular.components",
             "sourceMaps": true,
             "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
@@ -20,16 +20,20 @@
                 "/src/*": "${webRoot}/src/*",
                 "/*": "*",
                 // Map the lib source files correctly
-                "/node_modules/.vite/deps/formular__dev__lib.js*": "${workspaceFolder}/packages/lib/src/*",
-                "formular.dev.lib/*": "${workspaceFolder}/packages/lib/src/*"
+                "/node_modules/.vite/deps/formular__dev__lib.js*": "${workspaceFolder}/packpnpmages/lib/src/*",
+                "formular.dev.lib/*": "${workspaceFolder}/packages/lib/src/*",
+                // Map the design system source files correctly
+                "formular.design.system/*": "${workspaceFolder}/packages/design-system/src/*",
+                "/node_modules/.vite/deps/formular__design__system.js*": "${workspaceFolder}/packages/design-system/src/*"
             },
             "smartStep": true,
             "skipFiles": [
                 "<node_internals>/**",
                 "${workspaceFolder}/node_modules/**",
-                "!${workspaceFolder}/packages/lib/**"
+                "!${workspaceFolder}/packages/lib/**",
+                "!${workspaceFolder}/packages/design-system/**"
             ],
-            "trace": "verbose" // Add for debugging the debugger itself
+            "trace": true // Add for debugging the debugger itself
         },
         {
             "name": "Debug Storybook",
