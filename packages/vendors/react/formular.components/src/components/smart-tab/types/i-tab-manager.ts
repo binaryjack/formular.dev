@@ -1,7 +1,8 @@
 import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
-import { INotificationManager } from 'formular.dev.lib/types/formular-dev.es'
+
 import { ITab } from './i-tab'
 
+import type { INotificationManager } from 'formular.dev.lib'
 export interface ITabManager {
     new (tabs?: ITab[]): ITabManager
     notificationManager: INotificationManager

@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from 'react'
+
 import {
     DrawerAnimationController,
     IDrawerAnimationController
 } from '@components/__v2/drawer/controller'
 import { DrawerType } from '@components/__v2/drawer/types/drawer.types'
-import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
-import { useEffect, useRef, useState } from 'react'
 
+import type { ToggleableStateType } from 'formular.dev.lib'
 export type AnimationStateType = 'closed' | 'opening' | 'open' | 'closing'
 
 export const useComputedAnimationState = (

@@ -1,5 +1,6 @@
 import { IComponentStyleConfig } from 'formular.design.system'
-import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
+
+import type { ToggleableStateType } from 'formular.dev.lib'
 
 export interface IChevronToggleProps {
     id: string

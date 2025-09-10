@@ -1,5 +1,6 @@
 import { IComponentStyleConfig, IFieldLayouts } from 'formular.design.system'
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+
+import type { IOptionItem } from 'formular.dev.lib'
 
 export interface IRadioInputProps extends React.ComponentProps<'div'>, IFieldLayouts {
     id: string

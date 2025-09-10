@@ -29,10 +29,10 @@
             "@patterns/*": ["src/patterns/*"],
             "@style/*": ["src/style/*"],
             "@pages/*": ["src/showcase/pages/*"],
-            "formular.dev.lib": ["../../../lib/src/index.ts"],
-            "formular.dev.lib/*": ["../../../lib/src/*"],
-            "formular.design.system": ["../../../design-system/src/index.ts"],
-            "formular.design.system/*": ["../../../design-system/src/*"]
+            "formular.dev.lib": ["../../../lib/dist/index.d.ts"],
+            "formular.dev.lib/*": ["../../../lib/dist/*"],
+            "formular.design.system": ["../../../design-system/dist/index.d.ts"],
+            "formular.design.system/*": ["../../../design-system/dist/*"]
         }
     },
     "exclude": ["node_modules"],

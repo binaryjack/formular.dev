@@ -1,4 +1,4 @@
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem } from 'formular.dev.lib'
 import { useEffect, useRef } from 'react'
 
 import { useSequenceIdKeyBinding } from '@adapters/react/hooks/use-sequence-id-key-binding'

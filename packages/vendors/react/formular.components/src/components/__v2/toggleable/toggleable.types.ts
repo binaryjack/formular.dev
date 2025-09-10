@@ -1,4 +1,4 @@
-import { ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
+import type { ToggleableStateType } from 'formular.dev.lib'
 import { CSSProperties } from 'react'
 
 export interface IToggleableProviderProps {

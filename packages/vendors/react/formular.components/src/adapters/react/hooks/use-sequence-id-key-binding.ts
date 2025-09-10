@@ -1,5 +1,6 @@
-import { IOptionItem, ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem, ToggleableStateType } from 'formular.dev.lib'
 import { useState } from 'react'
+
 import useKeyBindings from './use-key-bindings'
 
 export const useSequenceIdKeyBinding = (

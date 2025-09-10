@@ -1,12 +1,13 @@
-import { useService } from '@adapters/react'
+// DISCLAMER: it's okay to have any since we are in a demo file !!!! just do not take it in account
+
 import { IEntityScheme, IFormular, IFormularManager, SFormularManager } from 'formular.dev.lib'
 import { useState } from 'react'
 
+import { useService } from '@adapters/react'
 // Import components from your lib
 import { Button } from '@components/button/button'
 import FormularForm from '@components/formular-form/formular-form'
 import InputText from '@components/input-text/input-text'
-
 // Import preset builder
 import { InputTextBuilder } from '@demo/form-demo/field-schema-builder/builders-preset/input-text-builder'
 
@@ -40,7 +41,7 @@ const SimpleButtonInputDemo = () => {
 
         try {
             // Get form data - using the fields directly
-            const messageField = formular.fields.find((f) => f.input.name === 'userMessage')
+            const messageField = formular.fields.find((f: any) => f.input.name === 'userMessage')
             const rawValue = messageField?.input?.valueManager?.getValue(messageField)
 
             // Safely convert to string
@@ -63,7 +64,7 @@ const SimpleButtonInputDemo = () => {
 
             // Reset form after success
             setTimeout(() => {
-                formular.fields.forEach((field) => field.input?.clear())
+                formular.fields.forEach((field: any) => field.input?.clear())
                 setSubmitResult('')
             }, 3000)
         } catch (error) {
@@ -73,9 +74,8 @@ const SimpleButtonInputDemo = () => {
             setIsLoading(false)
         }
     }
-
     const handleClear = () => {
-        formular?.fields.forEach((field) => field.input?.clear())
+        formular?.fields.forEach((field: any) => field.input?.clear())
         setSubmitResult('')
     }
 

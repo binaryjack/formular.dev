@@ -1,7 +1,9 @@
-import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
 import { cx } from 'formular.design.system'
 import {} from 'formular.dev.lib'
-import { IExtendedInput, IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+
+import useKeyBindings from '@adapters/react/hooks/use-key-bindings'
+
+import type { IExtendedInput, IOptionItem } from 'formular.dev.lib'
 
 // Create a more complete interface for radio inputs
 interface IRadioInput extends IExtendedInput {

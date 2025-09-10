@@ -1,13 +1,14 @@
-import { useField } from '@adapters/react/fields/hooks/use-field'
 import { cx } from 'formular.design.system'
 import { isMissing, MissingPropEnum } from 'formular.dev.lib'
 
-import { IExtendedInput, IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import { useField } from '@adapters/react/fields/hooks/use-field'
+
 import FieldSet from '../field-set/field-set'
 import useFormularContext from '../formular-form/formular-form.context'
 import ValidationResultComponent from '../validation-result/validation-result'
 import RadioInputOption from './radio-input.option'
 
+import type { IExtendedInput, IOptionItem } from 'formular.dev.lib'
 // Create a more complete interface for radio inputs
 interface IRadioInput extends IExtendedInput {
     registerOption: (option: IOptionItem) => any

@@ -1,5 +1,6 @@
 import { IComponentStyleConfig } from 'formular.design.system'
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+
+import type { IOptionItem } from 'formular.dev.lib'
 
 export interface ICheckboxInput extends Omit<Partial<React.ComponentProps<'input'>>, 'type'> {
     option: IOptionItem

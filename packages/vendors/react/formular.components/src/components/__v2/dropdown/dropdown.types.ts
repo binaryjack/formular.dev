@@ -1,5 +1,6 @@
 import { IComponentStyleConfig, IFieldLayouts } from 'formular.design.system'
-import { IOptionItem, ToggleableStateType } from 'formular.dev.lib/types/formular-dev.es'
+
+import type { IOptionItem, ToggleableStateType } from 'formular.dev.lib'
 
 export interface IDropdownUIProps extends React.ComponentProps<'div'>, IFieldLayouts {
     id: string
