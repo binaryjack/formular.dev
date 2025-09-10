@@ -2,10 +2,6 @@
 //     () => import('@components/portals/DropdownButtonPortal')
 // )
 
-import { AppContext, IAppContext, ILayoutModes } from './app-context.context'
-
-import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
-import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
 import {
     IConfigurationManager,
     IServiceManager,
@@ -15,9 +11,14 @@ import {
     ServiceManagerFactory
 } from 'formular.dev.lib'
 import React, { useEffect, useMemo, useState } from 'react'
+
+import useMediaScreens from '@adapters/react/hooks/screen/use-media-screens'
+import { LayoutModeEnum } from '@components/layout/enum/layout-mode-enum'
+
 import { DrawerSlotCenter } from '../../drawer/components/drawer-slot.center'
 import { IDebug } from '../debug/debug.types'
 import { useVisualDebugContext } from '../debug/visual-debug.context'
+import { AppContext, IAppContext, ILayoutModes } from './app-context.context'
 
 interface AppContextProps {
     debug?: IDebug
@@ -170,7 +171,7 @@ const AppContextProvider = ({
 
             <div
                 className={
-                    'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-auto  h-auto bg-gray-900'
+                    'body-container absolute flex flex-col overflow-y-auto p-0 top-[20px] bottom-[25px]  items-stretch justify-stretch w-auto  h-auto'
                 }
             >
                 {children}

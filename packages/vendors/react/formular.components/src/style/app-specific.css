@@ -6,7 +6,7 @@
  */
 @layer components {
     .app {
-        @apply bg-gray-200 2xs:p-0;
+        @apply bg-white 2xs:p-0;
     }
 
     .pink_container {
