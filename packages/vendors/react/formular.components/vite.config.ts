@@ -1,8 +1,9 @@
-import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import { checker } from 'vite-plugin-checker'
 import dts from 'vite-plugin-dts'
+
+import react from '@vitejs/plugin-react-swc'
 
 export default defineConfig(({ mode }) => {
     const isDevelopment = mode === 'development'
@@ -43,6 +44,7 @@ export default defineConfig(({ mode }) => {
         optimizeDeps: {
             include: [
                 'formular.dev.lib',
+                'formular.design.system',
                 'react',
                 'react-dom',
                 'react/jsx-runtime',

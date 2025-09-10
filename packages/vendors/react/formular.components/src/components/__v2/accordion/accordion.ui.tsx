@@ -26,12 +26,6 @@ export const AccordionUI = ({
     // NEW: Enhanced genericStyle call with header support
     const classStyle = genericStyling('accordion', variants)
 
-    // SIMPLIFIED: Text classes are now managed by the header system
-    const clHeaderText = classStyle?.text
-
-    const clborders = classStyle?.borders
-    const clstates = Object.values(classStyle?.states ?? {}).filter((o) => !!o)
-
     const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         e?.preventDefault?.()
         e?.stopPropagation?.()
