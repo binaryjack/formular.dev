@@ -1,6 +1,7 @@
 import { EventsType } from '@core/framework/events/events.types'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IInitializableDependency } from '../../initialization-manager/initialization-manager.types'
+import { ValidationCache } from '../validation-cache'
 import { IValidationMethodStrategy } from './i-validation-method-strategy'
 import { IValidationResult } from './i-validation-result'
 
@@ -23,6 +24,9 @@ export interface IValidationManager extends IInitializableDependency {
 
     /** Events that will trigger validation (blur, change, input, etc.) */
     triggerKeyWordType: EventsType[]
+
+    /** Validation cache for performance optimization */
+    validationCache?: ValidationCache
 
     /**
      * Registers multiple validation strategies at once
@@ -73,4 +77,18 @@ export interface IValidationManager extends IInitializableDependency {
      * @returns Promise resolving to array of validation results for all fields
      */
     validateManyAsync?: (fields: IExtendedInput[], reset?: boolean) => Promise<IValidationResult[]>
+
+    /**
+     * Validates multiple fields in parallel for improved performance
+     * @param fields - Fields to validate concurrently
+     * @param reset - Whether to reset validation state before validating
+     * @returns Promise resolving to array of validation results for all fields
+     */
+    validateManyParallel?: (fields: IExtendedInput[], reset?: boolean) => Promise<IValidationResult[]>
+
+    /**
+     * Cleans up resources and prepares the validation manager for destruction
+     * Clears all registered validation strategies and resets state
+     */
+    dispose: () => void
 }

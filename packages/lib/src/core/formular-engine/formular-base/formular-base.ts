@@ -12,6 +12,7 @@ import { IFormular } from './formular-base.types'
 import { addFields } from './prototype/add-fields'
 import { checkAllFieldsAreValid } from './prototype/check-all-fields-are-valid'
 import { checkChanges } from './prototype/check-changes'
+import { dispose } from './prototype/dispose'
 import { getData } from './prototype/get-data'
 import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
@@ -34,9 +35,18 @@ export const Formular = function <T extends object>(
     this.fields = []
     this.originFields = []
     this.isValid = true
-    this.isBusy = LoadingStatus.Loaded
+    this._loadingStatus = LoadingStatus.Loaded
     this.triggerKeyWordType = []
     this.isDirty = false
+
+    // Define isBusy as a computed property returning boolean
+    Object.defineProperty(this, 'isBusy', {
+        get: function () {
+            return this._loadingStatus !== LoadingStatus.Loaded
+        },
+        enumerable: true,
+        configurable: false
+    })
 
     Object.defineProperty(this, 'manager', {
         value: manager,
@@ -61,5 +71,6 @@ Object.assign(Formular.prototype, {
     getData,
     getFormFlags,
     submit,
-    setTriggerKeyWord
+    setTriggerKeyWord,
+    dispose
 })

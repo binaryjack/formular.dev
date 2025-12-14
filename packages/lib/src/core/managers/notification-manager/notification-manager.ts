@@ -44,7 +44,7 @@ export const NotificationManager = function (
     this.batchTimeout = null
     this.batchConfig = {
         maxBatchSize: 50,
-        batchDelay: 16,
+        batchDelay: 8, // Optimized from 16ms to 8ms for better performance
         enablePriority: true,
         strategy: 'microtask'
     }

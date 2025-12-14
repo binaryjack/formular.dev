@@ -1,0 +1,301 @@
+/**
+ * DatePicker v3 - Basic Styles
+ * 
+ * These are minimal styles to make the component functional.
+ * Customize as needed for your project.
+ */
+/* Wrapper */
+.dp-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Input Container */
+.dp-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Input Field */
+.dp-input {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.dp-input:hover {
+    border-color: #9ca3af;
+}
+
+.dp-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.dp-input:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Clear Button */
+.dp-clear-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #ef4444;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.dp-clear-btn:hover {
+    background: #dc2626;
+}
+
+/* Drawer */
+.dp-drawer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+/* Calendar Container */
+.date-picker-container {
+    padding: 12px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.date-picker-header {
+    margin-bottom: 12px;
+}
+
+.date-picker-header-top {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.date-picker-header-separator {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 8px 0;
+}
+
+.date-picker-header-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.date-picker-date-parts {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+}
+
+.date-picker-header-grid-mode {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.date-picker-header-grid-mode>div {
+    display: flex;
+    gap: 4px;
+}
+
+/* Body */
+.date-picker-body {
+    flex: 1;
+    overflow: auto;
+}
+
+.date-picker-body-container {
+    width: 100%;
+    height: 100%;
+}
+
+.date-picker-body-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.date-picker-body-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+/* Cells */
+.date-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.date-cell:hover {
+    background: #f3f4f6;
+}
+
+.date-cell.current {
+    color: #111827;
+}
+
+.date-cell.previous,
+.date-cell.next {
+    color: #9ca3af;
+}
+
+.date-cell.selected {
+    background: #3b82f6;
+    color: white;
+}
+
+.date-cell.selected:hover {
+    background: #2563eb;
+}
+
+.date-cell.is-now {
+    font-weight: 600;
+    border: 2px solid #3b82f6;
+}
+
+.date-cell.is-weekend {
+    color: #ef4444;
+}
+
+.date-cell.selected.is-weekend {
+    color: white;
+}
+
+/* Footer */
+.date-picker-footer {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.date-picker-footer .grid-mode {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+/* Button */
+.dp-button {
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dp-button:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.dp-button:active {
+    background: #f3f4f6;
+}
+
+.dp-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.dp-button:disabled:hover {
+    background: white;
+    border-color: #d1d5db;
+}
+
+/* Utilities */
+.mr-1 {
+    margin-right: 4px;
+}
+
+.ml-1 {
+    margin-left: 4px;
+}
+
+.mx-1 {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Focus visible */
+.date-picker-container:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .dp-drawer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 0;
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+}

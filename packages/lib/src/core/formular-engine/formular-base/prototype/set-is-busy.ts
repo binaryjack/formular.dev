@@ -4,10 +4,13 @@ import { LoadingStatus } from '@core/status'
 import { IFormular } from '../formular-base.types'
 
 /**
- * Sets the busy status of the Formy instance.
+ * Sets the busy status of the Formular instance.
+ * Updates the internal loading status which is exposed via the isBusy boolean getter.
+ *
  * @param status - The loading status to set.
  */
 export const setIsBusy = function <T extends object>(this: IFormular<T>, status: LoadingStatus) {
-    this.isBusy = status
-    // this.observers.trigger()
+    ;(this as any)._loadingStatus = status
+    // Trigger observers if needed
+    // this.observers?.trigger()
 }

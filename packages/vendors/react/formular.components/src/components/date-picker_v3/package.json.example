@@ -1,0 +1,37 @@
+{
+  "name": "date-picker-v3-standalone",
+  "version": "3.0.0",
+  "description": "Standalone React DatePicker component - No FORMULAR dependencies",
+  "main": "index.ts",
+  "types": "index.ts",
+  "keywords": [
+    "react",
+    "datepicker",
+    "date-picker",
+    "calendar",
+    "standalone",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.css",
+    "README.md"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "your-repo-url"
+  }
+}

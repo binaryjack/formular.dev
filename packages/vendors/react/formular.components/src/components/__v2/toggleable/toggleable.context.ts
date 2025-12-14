@@ -7,6 +7,7 @@ export interface IToggleableContextType {
     id?: string
     containerRef?: React.RefObject<HTMLDivElement>
 }
+
 export const toggleableContextTypeDefault: IToggleableContextType = {
     toggleState: 'idle',
     setToggleState: () => {

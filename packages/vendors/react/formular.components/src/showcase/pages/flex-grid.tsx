@@ -12,7 +12,7 @@ import { Spinner } from '@components/__v2/spinner/spinner.ui'
 import { StatusIcon } from '@components/__v2/status-icon/status-icon.ui'
 
 import { MdCheck, MdClose, MdReadMore } from 'react-icons/md'
-import { mainCheckOptions, mainOptions, onlyOneOption } from 'src/main'
+import { mainCheckOptions, mainOptions, onlyOneOption } from '../../demo-data'
 
 export const iteflex = () => {
     return (

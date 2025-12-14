@@ -42,8 +42,8 @@ export type IFormular<T extends object> = IFormularBase<T> &
  * including loading status, validation state, and whether the form has been modified.
  */
 export interface IFormularFlags {
-    /** Current loading/busy status of the form */
-    isBusy: LoadingStatus
+    /** Whether the form is currently in a busy/loading state */
+    isBusy: boolean
 
     /** Whether the form has been modified from its original state */
     isDirty: boolean
@@ -165,6 +165,12 @@ export interface IFormularBase<T extends object> {
      * @param mode - Array of event types to use as validation triggers
      */
     setTriggerKeyWord: (mode: EventsType[]) => void
+
+    /**
+     * Cleans up all resources associated with this form instance
+     * Disposes all fields, clears references, and prepares for garbage collection
+     */
+    dispose: () => void
 }
 
 /**

@@ -12,6 +12,7 @@
     "main": "dist/formular-dev.cjs.js",
     "module": "dist/formular-dev.es.js",
     "types": "dist/types/formular-dev.es.d.ts",
+    "sideEffects": false,
     "exports": {
         ".": {
             "types": "./dist/types/formular-dev.es.d.ts",
