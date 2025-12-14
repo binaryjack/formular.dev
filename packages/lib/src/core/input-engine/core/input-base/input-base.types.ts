@@ -142,9 +142,9 @@ export interface IInputBase extends IInputProperties, IInitializableDependency {
     useDomManager: (domManagerInstance: IDomManager<HTMLInputElement>) => IInputBase
     useNotificationManager: (notifierInstance?: INotificationManager) => IInputBase
     useTrackingManager: (trackerInstance: ITrackingManager) => IInputBase
-    useValidationManager: (validationStrategyInstance: IValidationManager) => IInputBase
-    useValueManager: (valueStrategyInstance: IValueManager) => IInputBase
-    useStyleManager: (styleManager: IStyleManager) => IInputBase
+    useValidationManager: (validationStrategyInstance: IValidationManager | null) => IInputBase
+    useValueManager: (valueStrategyInstance: IValueManager | null) => IInputBase
+    useStyleManager: (styleManager: IStyleManager | null) => IInputBase
 }
 
 export const InputResolver = (field: IExtendedInput | IInputBase): IInputBase => {

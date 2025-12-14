@@ -27,7 +27,8 @@
         "dev": "vite build --mode development --watch",
         "test": "jest",
         "test:watch": "jest --watch",
-        "test:coverage": "jest --coverage"
+        "test:coverage": "jest --coverage",
+        "test:performance": "jest --testMatch='**/*performance*.test.ts' --verbose --runInBand"
     },
     "author": "Piana Tadeo",
     "license": "MIT",

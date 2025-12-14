@@ -6,30 +6,28 @@
   "license": "MIT",
   "description": "Advanced Form Management Library - A next-generation, framework-agnostic form management system",
   "workspaces": [
-    "packages/*",
-    "packages/vendors/*/*"
+    "packages/lib",
+    "packages/design-system"
   ],
   "scripts": {
-    "build": "pnpm run --recursive build",
+    "build": "pnpm run build:design-system && pnpm run build:lib",
     "build:lib": "pnpm --filter formular.dev.lib build",
-    "build:components": "pnpm --filter formular.components build",
-    "dev": "concurrently \"pnpm run dev:lib\" \"pnpm run dev:components\"",
+    "build:design-system": "pnpm --filter formular.design.system build",
+    "dev": "concurrently \"pnpm run dev:design-system\" \"pnpm run dev:lib\"",
     "dev:lib": "pnpm --filter formular.dev.lib dev",
-    "dev:components": "pnpm --filter formular.components dev",
-    "test": "pnpm run --recursive test",
-    "test:lib": "pnpm --filter formular.dev.lib test",
-    "test:components": "pnpm --filter formular.components test",
-    "test:coverage": "pnpm run --recursive test:coverage",
+    "dev:design-system": "pnpm --filter formular.design.system dev",
+    "test": "pnpm --filter formular.dev.lib test",
+    "test:watch": "pnpm --filter formular.dev.lib test:watch",
+    "test:coverage": "pnpm --filter formular.dev.lib test:coverage",
     "audit": "pnpm audit --recursive",
     "audit:fix": "pnpm audit --fix --recursive",
     "audit:prod": "pnpm audit --prod --recursive",
     "deps:check": "pnpm outdated --recursive",
     "deps:update": "pnpm update --recursive",
     "security:check": "pnpm audit && pnpm outdated",
-    "security:full": "pnpm audit --recursive && pnpm outdated --recursive && pnpm run lint",
+    "security:full": "pnpm audit --recursive && pnpm outdated --recursive",
     "security:report": "pnpm audit --json > security-audit.json && echo 'Security audit saved to security-audit.json'",
-    "lint": "pnpm run --recursive lint",
-    "format": "pnpm run --recursive format"
+    "clean": "pnpm --filter formular.dev.lib clean && pnpm --filter formular.design.system clean"
   },
   "pnpm": {
     "overrides": {

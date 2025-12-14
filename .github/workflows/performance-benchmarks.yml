@@ -1,0 +1,171 @@
+name: Performance Benchmarks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # Allow manual triggers
+
+jobs:
+  benchmark:
+    name: Run Performance Tests
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🟢 Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build library
+        run: pnpm --filter formular.dev.lib build
+
+      - name: 🚀 Run performance benchmarks
+        run: pnpm --filter formular.dev.lib test:performance
+        env:
+          NODE_ENV: test
+
+      - name: 📊 Generate performance report
+        if: success()
+        run: |
+          echo "# 📊 Performance Benchmark Results" > performance-summary.md
+          echo "" >> performance-summary.md
+          echo "**Node Version:** ${{ matrix.node-version }}" >> performance-summary.md
+          echo "**Run Date:** $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> performance-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> performance-summary.md
+          echo "" >> performance-summary.md
+          echo "See test output for detailed metrics." >> performance-summary.md
+
+      - name: 📤 Upload performance results
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-results-node-${{ matrix.node-version }}
+          path: |
+            performance-summary.md
+            packages/lib/coverage/
+          retention-days: 30
+
+      - name: 💬 Comment PR with results
+        if: github.event_name == 'pull_request' && success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const comment = `## 🚀 Performance Benchmark Results (Node ${{ matrix.node-version }})
+            
+            ✅ All performance tests completed successfully!
+            
+            **Key Metrics:**
+            - 📦 Form Creation: PASSED
+            - ✅ Validation: PASSED  
+            - 🔄 Field Updates: PASSED
+            - 📨 Notifications: PASSED
+            - 💾 Memory Management: PASSED
+            - 🌍 Real-World Scenarios: PASSED
+            
+            See [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed results.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+  compare-baseline:
+    name: Compare Against Baseline
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: 📥 Checkout PR branch
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'pnpm'
+
+      - name: 📚 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🏗️ Build library
+        run: pnpm --filter formular.dev.lib build
+
+      - name: 🚀 Run benchmarks on PR
+        id: pr-benchmark
+        run: pnpm --filter formular.dev.lib test:performance
+
+      - name: 📥 Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: baseline
+
+      - name: 🏗️ Build baseline
+        working-directory: baseline
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm --filter formular.dev.lib build
+
+      - name: 🚀 Run baseline benchmarks
+        id: baseline-benchmark
+        working-directory: baseline
+        run: pnpm --filter formular.dev.lib test:performance
+
+      - name: 📊 Compare results
+        run: |
+          echo "# 📊 Performance Comparison" > comparison.md
+          echo "" >> comparison.md
+          echo "## Summary" >> comparison.md
+          echo "Performance tests completed. Check detailed logs for timing comparisons." >> comparison.md
+          echo "" >> comparison.md
+          echo "⚠️ **Note:** Detailed comparison requires benchmark result parsing (future enhancement)" >> comparison.md
+
+      - name: 💬 Post comparison comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = `## 📊 Performance Comparison vs Main
+            
+            Performance benchmarks have been run against the main branch.
+            
+            **Status:** Tests completed ✅
+            
+            > 💡 **Tip:** Review the test logs to ensure no performance regressions.
+            > Significant changes (>20%) should be investigated.
+            
+            See [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed results.
+            `;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });

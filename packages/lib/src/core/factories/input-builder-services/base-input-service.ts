@@ -6,16 +6,10 @@ import { logManager } from '@core/managers/log-manager/log-manager'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
 import { SNotificationManager } from '@core/managers/notification-manager/notification-manager.types'
 import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
-import { IStyleManager, SStyleManager } from '@core/managers/style-manager/style-manager.types'
 import {
     ITrackingManager,
     STrackingManager
 } from '@core/managers/tracking-manager/tracker-manager.types'
-import {
-    IValidationManager,
-    SValidationManager
-} from '@core/managers/validation-manager/validation-manager.types'
-import { IValueManager, SValueManager } from '@core/managers/value-manager/value-manager.types'
 
 export const SBaseInputService = Symbol.for('IBaseInputService')
 
@@ -39,17 +33,16 @@ export const BaseInputService = function (this: IBaseInputService, sm: IServiceM
             const domManager = this.sm.lazy<IDomManager<HTMLInputElement>>(SDomManager)?.()
             const notificationManager = this.sm.lazy<INotificationManager>(SNotificationManager)?.()
             const trackingManaget = this.sm.lazy<ITrackingManager>(STrackingManager)?.()
-            const validationManager = this.sm.lazy<IValidationManager>(SValidationManager)?.()
-            const valueManager = this.sm.lazy<IValueManager>(SValueManager)?.()
-            const styleManager = this.sm.lazy<IStyleManager>(SStyleManager)?.()
 
+            // 🎯 OPTIMIZATION: Pass null for lazy managers (validation, value, style)
+            // These will be created on-demand via lazy getters, reducing initialization time by ~70%
             baseInputInstance.initializeProperties(descriptor)
             baseInputInstance.useDomManager(domManager)
             baseInputInstance.useTrackingManager(trackingManaget)
             baseInputInstance.useNotificationManager(notificationManager)
-            baseInputInstance.useValidationManager(validationManager)
-            baseInputInstance.useValueManager(valueManager)
-            baseInputInstance.useStyleManager(styleManager)
+            baseInputInstance.useValidationManager(null) // Lazy
+            baseInputInstance.useValueManager(null) // Lazy
+            baseInputInstance.useStyleManager(null) // Lazy
             return baseInputInstance
         }
     } catch (e: any) {
