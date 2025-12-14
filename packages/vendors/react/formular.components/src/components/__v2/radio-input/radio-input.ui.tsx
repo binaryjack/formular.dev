@@ -1,4 +1,4 @@
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem } from 'formular.dev.lib'
 import { FieldSet } from '../field-set/field-set.ui'
 import { Label } from '../label/label.ui'
 import { RadioOptionGroup } from './group/radio-option-group.ui'

@@ -204,13 +204,16 @@ export type { IFieldDescriptor } from './core/framework/schema/descriptor/field.
 // Schema Types
 export type { IFieldSchemeFactory } from './core/framework/schema/field-schema-factory/field-schema-factory.types'
 export type {
-    IApplicationScheme,
     IAppSchemeToObjectAction,
+    IApplicationScheme,
     IEntityScheme,
     IFieldSchema,
     IFieldSchemaBuilder
 } from './core/framework/schema/field-schema/field-schema-types'
 export type { IOptionItem } from './core/framework/schema/option-schema/options.scheme.types'
+
+// Common Types
+export type { ToggleableStateType } from './core/framework/common/common.toggleable'
 
 // Date Types
 export type { IDateObjectMethods } from './core/framework/types/date/date-object.models'

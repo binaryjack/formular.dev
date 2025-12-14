@@ -1,4 +1,4 @@
-import { IComponentStyleConfig } from 'formular.design.system/dist/utilities/generic-style/utils/atomic-style-builder'
+import { IComponentStyleConfig } from 'formular.design.system'
 
 /**
  * If we pass IGenericComponentVariantsV2 to `variants`, the genericStale class style builder will be invoked.

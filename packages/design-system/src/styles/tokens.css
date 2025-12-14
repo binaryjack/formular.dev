@@ -441,6 +441,7 @@
           font-family: var(--font-family-sans);
           line-height: var(--line-height-normal);
           color: var(--color-text-primary);
+          background-color: white;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
      }

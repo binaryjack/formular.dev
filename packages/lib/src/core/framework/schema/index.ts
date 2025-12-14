@@ -1,6 +1,5 @@
 export * from './descriptor'
 export * from './field-schema'
 export * from './field-schema-factory'
-export * from './option-schema'
 export * from './option-schema-builder'
 export * from './options-schema-builder'

@@ -1,6 +1,8 @@
-import { useSequenceIdKeyBinding } from '@adapters/react/hooks/use-sequence-id-key-binding'
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem } from 'formular.dev.lib'
 import { useEffect, useRef } from 'react'
+
+import { useSequenceIdKeyBinding } from '@adapters/react/hooks/use-sequence-id-key-binding'
+
 import { useToggleableContext } from '../toggleable/toggleable.context.hook'
 import { DropdownItem } from './dropdown.item'
 import { IDropdownDrawerContent } from './dropdown.types'

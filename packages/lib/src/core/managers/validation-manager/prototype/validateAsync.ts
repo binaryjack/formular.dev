@@ -22,11 +22,7 @@ export const validateAsync = async function (
         }
 
         // Check cache first
-        const cached = this.validationCache?.get(
-            field.name,
-            field.value,
-            this.validationStrategies
-        )
+        const cached = this.validationCache?.get(field.name, field.value, this.validationStrategies)
         if (cached) {
             resolve(cached)
             return
@@ -38,12 +34,7 @@ export const validateAsync = async function (
         }
 
         // Cache results
-        this.validationCache?.set(
-            field.name,
-            field.value,
-            this.validationStrategies,
-            output
-        )
+        this.validationCache?.set(field.name, field.value, this.validationStrategies, output)
 
         resolve(output)
     })

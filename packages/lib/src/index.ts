@@ -13,8 +13,8 @@ export * from './symbols'
 // Export setup utilities (new factory system)
 export * from './setup/core/setup-helpers'
 
-// Export responsive layout system
-export * from './responsive-layout'
-
-// Export test mocks for consumer testing (see CONTRIBUTING.md exception)
+// Export test mocks for development and demo purposes
 export * from './__tests__/mocks'
+
+// Note: Test mocks are included for development/demo purposes
+// but should be imported from separate paths in production for tree-shaking

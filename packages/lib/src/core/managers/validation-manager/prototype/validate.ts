@@ -20,11 +20,7 @@ export function validate(
     }
 
     // Check cache first
-    const cached = this.validationCache?.get(
-        field.name,
-        field.value,
-        this.validationStrategies
-    )
+    const cached = this.validationCache?.get(field.name, field.value, this.validationStrategies)
     if (cached) {
         return cached
     }
@@ -35,12 +31,7 @@ export function validate(
     }
 
     // Cache results
-    this.validationCache?.set(
-        field.name,
-        field.value,
-        this.validationStrategies,
-        output
-    )
+    this.validationCache?.set(field.name, field.value, this.validationStrategies, output)
 
     return output
 }

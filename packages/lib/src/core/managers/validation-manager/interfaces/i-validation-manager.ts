@@ -84,7 +84,10 @@ export interface IValidationManager extends IInitializableDependency {
      * @param reset - Whether to reset validation state before validating
      * @returns Promise resolving to array of validation results for all fields
      */
-    validateManyParallel?: (fields: IExtendedInput[], reset?: boolean) => Promise<IValidationResult[]>
+    validateManyParallel?: (
+        fields: IExtendedInput[],
+        reset?: boolean
+    ) => Promise<IValidationResult[]>
 
     /**
      * Cleans up resources and prepares the validation manager for destruction

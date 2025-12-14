@@ -19,16 +19,16 @@ export const aspectResolver = (prefix: string, aspect: IComponentAspect) => {
             classes.push(buttonSizeMap[aspect.size] || 'btn-md')
         } else {
             // For other components, use Tailwind padding classes
-            const sizeMap = {
-                '2xs': 'p-1',
-                xs: 'p-2',
-                sm: 'p-3',
-                md: 'p-4',
-                lg: 'p-5',
-                xl: 'p-6',
-                '2xl': 'p-8'
-            }
-            classes.push(sizeMap[aspect.size] || 'p-4')
+            // const sizeMap = {
+            //     '2xs': 'p-1',
+            //     xs: 'p-2',
+            //     sm: 'p-3',
+            //     md: 'p-4',
+            //     lg: 'p-5',
+            //     xl: 'p-6',
+            //     '2xl': 'p-8'
+            // }
+            // classes.push(sizeMap[aspect.size] || 'p-4')
         }
     }
 

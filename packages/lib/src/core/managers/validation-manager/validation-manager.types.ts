@@ -11,5 +11,9 @@ export * from './constants'
 export * from './factory'
 
 // Export performance optimization utilities
+export {
+    ParallelValidationScheduler,
+    analyzeValidationDependencies,
+    validateParallel
+} from './parallel-validation'
 export { ValidationCache } from './validation-cache'
-export { validateParallel, analyzeValidationDependencies, ParallelValidationScheduler } from './parallel-validation'

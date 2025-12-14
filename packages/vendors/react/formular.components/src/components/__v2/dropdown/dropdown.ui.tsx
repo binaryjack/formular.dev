@@ -1,5 +1,6 @@
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem } from 'formular.dev.lib'
 import { useEffect, useRef, useState } from 'react'
+
 import { BaseInput } from '../base-input/base-input.ui'
 import { ChevronToggle } from '../chevron-toggle/chevron-toggle.ui'
 import { Drawer } from '../drawer/variants/drawer.ui'

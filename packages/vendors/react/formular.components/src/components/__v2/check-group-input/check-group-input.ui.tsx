@@ -1,5 +1,6 @@
-import { IOptionItem } from 'formular.dev.lib/types/formular-dev.es'
+import type { IOptionItem } from 'formular.dev.lib'
 import { useRef, useState } from 'react'
+
 import { CheckboxInput } from '../checkbox-input/checkbox-input.ui'
 import { FieldSet } from '../field-set/field-set.ui'
 import { Label } from '../label/label.ui'
