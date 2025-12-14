@@ -6,8 +6,7 @@
   "license": "MIT",
   "description": "Advanced Form Management Library - A next-generation, framework-agnostic form management system",
   "workspaces": [
-    "packages/lib",
-    "packages/design-system"
+    "packages/lib"
   ],
   "scripts": {
     "build": "pnpm run build:design-system && pnpm run build:lib",
