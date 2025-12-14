@@ -83,6 +83,6 @@ const emailValidator = validators.pattern(
 
 This package depends on `shared-assets` for logo icons and other shared resources. Ensure `shared-assets` is installed and referenced correctly.
 
-## License
+## License f
 
 MIT © 2025 Piana Tadeo
