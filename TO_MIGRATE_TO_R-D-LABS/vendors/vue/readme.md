@@ -1,1 +1,0 @@
-here goes the adapters for vue.js
