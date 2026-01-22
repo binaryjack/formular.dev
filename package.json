@@ -45,8 +45,5 @@
     },
     "files": [
         "dist/**/*"
-    ],
-    "peerDependencies": {
-        "formular.design.system": "workspace:^1.0.0"
-    }
+    ]
 }
