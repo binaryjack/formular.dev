@@ -6,6 +6,14 @@ import { ValidationConstraintType } from './types/validation-constraint.type'
 export { ValidationConstraintTypeEnum }
 export type { IValidationConstraintBuilder, ValidationConstraintType }
 
+// Re-export factory and helpers
+export {
+    createValidationConstraints,
+    ValidationConstraintFactory,
+    ValidationPresets
+} from './validation-constraint-factory'
+export type { ValidationConfig, ValidationConstraintConfig } from './validation-constraint-factory'
+
 export const ValidationConstraintBuilder = function <T>(
     this: IValidationConstraintBuilder<T>,
     type: ValidationConstraintType

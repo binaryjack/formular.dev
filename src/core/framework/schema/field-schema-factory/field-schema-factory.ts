@@ -1,6 +1,5 @@
 import { IFieldSchemeFactory } from './field-schema-factory.types'
 import { addBuilders } from './prototype/add-builders'
-import { build } from './prototype/build'
 import { create } from './prototype/create'
 
 /**
@@ -17,6 +16,5 @@ export const FieldSchemaFactory = function (this: IFieldSchemeFactory, name: str
 
 Object.assign(FieldSchemaFactory.prototype, {
     addBuilders,
-    create,
-    build
+    create
 })

@@ -18,10 +18,7 @@ import {
     STextInputService
 } from '@core/factories/input-builder-services/text-input-service'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
-import {
-    IMaskedWithDrawerInputService,
-    SMaskedWithDrawerInputService
-} from '../input-builder-services'
+import { IMaskedInputService, SMaskedInputService } from '../input-builder-services'
 import { InputTypeMap } from './mapping/input-type-map'
 
 export const SInputFactory = Symbol.for('IInputFactory')
@@ -73,9 +70,7 @@ export const InputFactory = function (this: IInputFactory, serviceManager: IServ
                 builder = srs.build.bind(srs) as IBuilder<T>
                 break
             case 'date':
-                const sms = this.sm.lazy<IMaskedWithDrawerInputService>(
-                    SMaskedWithDrawerInputService
-                )?.()
+                const sms = this.sm.lazy<IMaskedInputService>(SMaskedInputService)?.()
                 builder = sms.build.bind(sms) as IBuilder<T>
                 break
             case 'text':

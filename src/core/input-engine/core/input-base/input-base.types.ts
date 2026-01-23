@@ -160,7 +160,8 @@ export interface IExtendedInputBase extends IInitializableDependency {
 }
 
 export interface IExtendedInput
-    extends IFieldStyleProperties,
+    extends
+        IFieldStyleProperties,
         IOptionBaseInputProperties,
         IDrawerBaseInputProperties,
         IClickBaseInputProperties,

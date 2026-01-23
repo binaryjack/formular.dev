@@ -9,7 +9,6 @@
 import { createScope } from './prototype/create-scope'
 import { dispose } from './prototype/dispose'
 import { findServiceDescriptor } from './prototype/find-service-descriptor'
-import { getRegisteredServices } from './prototype/get-registered-services'
 import { getServiceName } from './prototype/get-service-name'
 import { isRegistered } from './prototype/is-registered'
 import { lazy } from './prototype/lazy'
@@ -71,6 +70,5 @@ Object.assign(ServiceManager.prototype, {
     dispose,
     findServiceDescriptor,
     throwIfDisposed,
-    getServiceName,
-    getRegisteredServices
+    getServiceName
 })

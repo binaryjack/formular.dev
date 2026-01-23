@@ -12,7 +12,6 @@ import { IFormular } from './formular-base.types'
 import { addFields } from './prototype/add-fields'
 import { checkAllFieldsAreValid } from './prototype/check-all-fields-are-valid'
 import { checkChanges } from './prototype/check-changes'
-import { dispose } from './prototype/dispose'
 import { getData } from './prototype/get-data'
 import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
@@ -71,6 +70,5 @@ Object.assign(Formular.prototype, {
     getData,
     getFormFlags,
     submit,
-    setTriggerKeyWord,
-    dispose
+    setTriggerKeyWord
 })

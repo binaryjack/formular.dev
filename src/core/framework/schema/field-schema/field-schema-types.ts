@@ -3,8 +3,8 @@ import { EventsType } from '@core/framework/events/events.types'
 
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
+import { IOptionItem } from 'src/interfaces'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
-import { IOptionItem } from '../option-schema/options.scheme.types'
 
 export interface IFieldSchema extends IValidationOptions {
     readonly id: number | null

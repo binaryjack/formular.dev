@@ -1,5 +1,3 @@
 export * from './compute-aria-attributes'
 export * from './memoize'
 export * from './memoize-handlers'
-export * from './object-pool'
-export { TREE_SHAKING_GUIDE } from './tree-shaking-guide'

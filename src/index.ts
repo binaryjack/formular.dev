@@ -13,8 +13,5 @@ export * from './symbols'
 // Export setup utilities (new factory system)
 export * from './setup/core/setup-helpers'
 
-// Export test mocks for development and demo purposes
-export * from './__tests__/mocks'
-
-// Note: Test mocks are included for development/demo purposes
-// but should be imported from separate paths in production for tree-shaking
+// Note: Test mocks removed from main export to avoid build errors
+// Import directly from './__tests__/mocks' if needed for development
