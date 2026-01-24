@@ -17,8 +17,9 @@ export const useDomManager = function (
             Object.defineProperty(this, 'domManager', {
                 get: function () {
                     if (!_domManager && this.serviceManager) {
-                        _domManager =
-                            this.serviceManager.lazy<IDomManager<HTMLInputElement>>(SDomManager)?.()
+                        _domManager = (this.serviceManager.lazy as <T>(id: any) => () => T)<
+                            IDomManager<HTMLInputElement>
+                        >(SDomManager)?.()
                     }
                     return _domManager
                 },

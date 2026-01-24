@@ -16,7 +16,9 @@ export const useValueManager = function (
             Object.defineProperty(this, 'valueManager', {
                 get: function () {
                     if (!_valueManager && this.serviceManager) {
-                        _valueManager = this.serviceManager.lazy<IValueManager>(SValueManager)?.()
+                        _valueManager = (
+                            this.serviceManager.lazy as <T>(id: any) => () => T
+                        )<IValueManager>(SValueManager)?.()
                     }
                     return _valueManager
                 },

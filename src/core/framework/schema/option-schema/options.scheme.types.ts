@@ -1,5 +1,8 @@
 // Basic option item type for select, radio, and other option-based inputs
 export interface IOptionItem {
+    id?: string | number
+    sequenceId?: number
+    text?: string
     value: string | number | boolean
     label: string
     selected?: boolean

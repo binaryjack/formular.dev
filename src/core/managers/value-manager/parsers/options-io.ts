@@ -51,6 +51,6 @@ export const optionSetter: TSetter<IOptionItem | null> = (
     field.optionBase.selectedOptionId = Number(optionItem.id)
     field.input.value = optionItem.value
     field.input.domManager.dmSetValue(field.input.id.toString(), optionItem.value ?? '')
-    field.input.domManager.dmSetSelected(field.input.id.toString(), optionItem.text)
+    field.input.domManager.dmSetSelected(field.input.id.toString(), optionItem.text ?? null)
     field.input.domManager.dmSetFocus(field.input.id.toString())
 }

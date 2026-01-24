@@ -20,8 +20,9 @@ export const useValidationManager = function (
             Object.defineProperty(this, 'validationManager', {
                 get: function () {
                     if (!_validationManager && this.serviceManager) {
-                        _validationManager =
-                            this.serviceManager.lazy<IValidationManager>(SValidationManager)?.()
+                        _validationManager = (
+                            this.serviceManager.lazy as <T>(id: any) => () => T
+                        )<IValidationManager>(SValidationManager)?.()
                     }
                     return _validationManager
                 },

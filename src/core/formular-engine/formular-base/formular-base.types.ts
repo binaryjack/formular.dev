@@ -91,6 +91,12 @@ export interface IFormularBase<T extends object> {
     /** Original field configurations (for reset/comparison purposes) */
     originFields: IExtendedInput[]
 
+    /** Internal loading status tracking */
+    _loadingStatus: LoadingStatus
+
+    /** Whether the form has been modified from its original state */
+    isDirty: boolean
+
     /** Number of times this form has been submitted */
     submitCount: number
 
@@ -168,6 +174,62 @@ export interface IFormularBase<T extends object> {
 
     /**
      * Cleans up all resources associated with this form instance
+
+    /**
+     * Parses and populates form fields with data
+     * @param data - Data object to populate the form with
+     */
+    parse: (data: T) => void
+
+    /**
+     * Clears all form data and resets to initial state
+     */
+    clear: () => void
+
+    /**
+     * Validates all fields in the form
+     * @returns Promise resolving to true if all fields are valid
+     */
+    validateForm: () => Promise<boolean>
+
+    /**
+     * Pre-validates a specific field
+     * @param fieldName - Name of the field to pre-validate
+     * @returns True if the field passes pre-validation
+     */
+    preValidateField: (fieldName: string) => boolean
+
+    /**
+     * Updates a specific field's value
+     * @param fieldName - Name of the field to update
+     * @param value - New value for the field
+     */
+    updateField: (fieldName: string, value: any) => void
+
+    /**
+     * Clears a specific field
+     * @param fieldName - Name of the field to clear
+     */
+    clearField: (fieldName: string) => void
+
+    /**
+     * Resets the form to its original state
+     */
+    reset: () => void
+
+    /**
+     * Validates a specific field
+     * @param fieldName - Name of the field to validate
+     */
+    validateField: (fieldName: string) => void
+
+    /**
+     * Gets all form validation errors
+     * @returns Array of errors or error summary
+     */
+    getErrors: () => any
+
+    /**
      * Disposes all fields, clears references, and prepares for garbage collection
      */
     dispose: () => void

@@ -4,6 +4,7 @@ export interface IValidationCache {
     set(fieldName: string, fieldValue: any, strategies: any[], result: any): void
     clear(fieldName?: string): void
     clearAll(): void
+    invalidate(fieldName: string): void
 }
 
 // Simple in-memory validation cache implementation
@@ -38,5 +39,9 @@ export class ValidationCache implements IValidationCache {
 
     clearAll(): void {
         this.cache.clear()
+    }
+
+    invalidate(fieldName: string): void {
+        this.clear(fieldName)
     }
 }

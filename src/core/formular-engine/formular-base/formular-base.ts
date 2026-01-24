@@ -12,13 +12,23 @@ import { IFormular } from './formular-base.types'
 import { addFields } from './prototype/add-fields'
 import { checkAllFieldsAreValid } from './prototype/check-all-fields-are-valid'
 import { checkChanges } from './prototype/check-changes'
+import { clear } from './prototype/clear'
+import { clearField } from './prototype/clear-field'
+import { dispose } from './prototype/dispose'
 import { getData } from './prototype/get-data'
+import { getErrors } from './prototype/get-errors'
 import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
 import { hasChanges } from './prototype/has-changes'
+import { parse } from './prototype/parse'
+import { preValidateField } from './prototype/pre-validate-field'
+import { reset } from './prototype/reset'
 import { setIsBusy } from './prototype/set-is-busy'
 import { setTriggerKeyWord } from './prototype/set-validation-trigger-mode'
 import { submit } from './prototype/submit'
+import { updateField } from './prototype/update-field'
+import { validateField } from './prototype/validate-field'
+import { validateForm } from './prototype/validate-form'
 
 export const Formular = function <T extends object>(
     this: IFormular<T>,
@@ -64,11 +74,21 @@ Object.assign(Formular.prototype, {
     addFields,
     checkAllFieldsAreValid,
     checkChanges,
-    setIsBusy,
-    hasChanges,
-    getField,
+    clear,
+    clearField,
+    dispose,
     getData,
+    getErrors,
+    getField,
     getFormFlags,
+    hasChanges,
+    parse,
+    preValidateField,
+    reset,
+    setIsBusy,
+    setTriggerKeyWord,
     submit,
-    setTriggerKeyWord
+    updateField,
+    validateField,
+    validateForm
 })

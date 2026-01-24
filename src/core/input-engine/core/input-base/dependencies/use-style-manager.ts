@@ -13,7 +13,9 @@ export const useStyleManager = function (
             Object.defineProperty(this, 'styleManager', {
                 get: function () {
                     if (!_styleManager && this.serviceManager) {
-                        _styleManager = this.serviceManager.lazy<IStyleManager>(SStyleManager)?.()
+                        _styleManager = (
+                            this.serviceManager.lazy as <T>(id: any) => () => T
+                        )<IStyleManager>(SStyleManager)?.()
                         if (_styleManager) {
                             _styleManager.input = this
                         }

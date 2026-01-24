@@ -54,6 +54,7 @@ export type {
 
 // Validation Manager
 export type { IValidationConstraintBuilder } from './core/managers/validation-manager/constraint-builder/interfaces/i-validation-constraint-builder'
+export type { ValidationConstraintConfig } from './core/managers/validation-manager/constraint-builder/validation-constraint-factory'
 export type { IGenericValidationBuilder } from './core/managers/validation-manager/generic-validation-builder/generic-validation-builder'
 export type { IValidationBase } from './core/managers/validation-manager/interfaces/i-validation-base'
 export type { IValidationManager } from './core/managers/validation-manager/interfaces/i-validation-manager'

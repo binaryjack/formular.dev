@@ -29,7 +29,7 @@ export const registerOption = function (
     return new DomRegisterBuilder(this)
         .registerBlur()
         .registerFocus()
-        .registerClickOption(option.id)
+        .registerClickOption(option.id!)
         .registerAria()
         .buildOption(option)
 }

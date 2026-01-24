@@ -10,7 +10,7 @@
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noImplicitThis": true,
@@ -23,6 +23,7 @@
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
         "types": ["jest", "node"],
+        "ignoreDeprecations": "6.0",
         "baseUrl": "./",
         "paths": {
             "@tests/*": ["src/__tests__/*"],

@@ -174,6 +174,11 @@ export interface IExtendedInput
         IExtendedInputBase,
         IInitializableDependency {
     handleOnClear: any
+    value?: any
+    label?: string
+    required?: boolean
+    errors?: any[]
+    guides?: any[]
     // getOptionByValue: (value: string) => IOptionItem | null
     // tryGetOptionByIdOrValue: (id: string, value: string) => IOptionItem | null
     // handleOnChanged: <T extends IEvents>(data?: T) => void
