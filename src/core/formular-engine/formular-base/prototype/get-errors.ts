@@ -1,9 +1,10 @@
 /**
  * Gets all validation errors from all form fields
  */
+import type { IFieldError } from '@core/framework/models/errors/i-field-error'
 import type { IFormular } from '../formular-base.types'
 
-export function getErrors<T extends object>(this: IFormular<T>): any {
+export function getErrors<T extends object>(this: IFormular<T>): Record<string, IFieldError[]> {
     const errors: Record<string, any[]> = {}
 
     this.fields.forEach((field) => {

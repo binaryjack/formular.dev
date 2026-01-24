@@ -1,5 +1,6 @@
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { EventsType } from '@core/framework/events/events.types'
+import { IFieldError } from '@core/framework/models/errors/i-field-error'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
 import { IFormularManager } from '@core/managers/formular-manager/formular-manager.types'
 import { INotificationManager } from '@core/managers/notification-manager/notification-manager-base.types'
@@ -204,7 +205,7 @@ export interface IFormularBase<T extends object> {
      * @param fieldName - Name of the field to update
      * @param value - New value for the field
      */
-    updateField: (fieldName: string, value: any) => void
+    updateField: (fieldName: string, value: InputDataTypes) => void
 
     /**
      * Clears a specific field
@@ -225,9 +226,9 @@ export interface IFormularBase<T extends object> {
 
     /**
      * Gets all form validation errors
-     * @returns Array of errors or error summary
+     * @returns Object mapping field names to their error arrays
      */
-    getErrors: () => any
+    getErrors: () => Record<string, IFieldError[]>
 
     /**
      * Disposes all fields, clears references, and prepares for garbage collection
