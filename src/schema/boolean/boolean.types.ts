@@ -1,5 +1,5 @@
-import type { IBooleanSchema } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { IBooleanSchema } from '../types'
 
 export interface IBooleanSchemaImpl extends IBooleanSchema {
     _parse: (value: unknown, path: string[]) => boolean

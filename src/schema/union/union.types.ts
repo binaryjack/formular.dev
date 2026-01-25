@@ -1,5 +1,5 @@
-import type { IUnionSchema, ISchemaBase } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { ISchemaBase, IUnionSchema } from '../types'
 
 export interface IUnionSchemaImpl<T extends readonly ISchemaBase[]> extends IUnionSchema<T> {
     options: T

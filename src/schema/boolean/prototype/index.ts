@@ -1,2 +1,2 @@
-export { trueMethod } from './true'
 export { falseMethod } from './false'
+export { trueMethod } from './true'

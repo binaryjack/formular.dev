@@ -4,14 +4,13 @@
  */
 
 import { ArraySchema } from './array'
-import { RecordSchema } from './record'
-import { UnionSchema } from './union'
-import { NumberSchema } from './number'
-import { ObjectSchema } from './object'
 import { BooleanSchema } from './boolean'
 import { DateSchema } from './date'
 import { EnumSchema } from './enum'
 import { LiteralSchema } from './literal'
+import { NumberSchema } from './number'
+import { ObjectSchema } from './object'
+import { RecordSchema } from './record'
 import { StringSchema } from './string'
 import type {
     IArraySchema,
@@ -28,6 +27,7 @@ import type {
     IStringSchema,
     IUnionSchema
 } from './types'
+import { UnionSchema } from './union'
 
 /**
  * Schema builder namespace

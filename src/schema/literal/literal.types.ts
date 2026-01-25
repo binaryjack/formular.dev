@@ -1,5 +1,5 @@
-import type { ILiteralSchema } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { ILiteralSchema } from '../types'
 
 export interface ILiteralSchemaImpl<T extends string | number | boolean> extends ILiteralSchema<T> {
     value: T

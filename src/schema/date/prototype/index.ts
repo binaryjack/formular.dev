@@ -1,2 +1,2 @@
-export { min } from './min'
 export { max } from './max'
+export { min } from './min'

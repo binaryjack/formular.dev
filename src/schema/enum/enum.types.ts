@@ -1,5 +1,5 @@
-import type { IEnumSchema } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { IEnumSchema } from '../types'
 
 export interface IEnumSchemaImpl<T extends readonly [string, ...string[]]> extends IEnumSchema<T> {
     values: T

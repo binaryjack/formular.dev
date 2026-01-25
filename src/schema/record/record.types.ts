@@ -1,5 +1,5 @@
-import type { IRecordSchema, ISchemaBase } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { IRecordSchema, ISchemaBase } from '../types'
 
 export interface IRecordSchemaImpl<K extends string | number, V> extends IRecordSchema<K, V> {
     keySchema: ISchemaBase<K>

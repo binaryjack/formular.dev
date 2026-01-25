@@ -1,6 +1,6 @@
 import { SchemaBase } from '../base'
 import { createTypeError } from '../error'
-import type { ISchemaBase, IRecordSchema } from '../types'
+import type { IRecordSchema, ISchemaBase } from '../types'
 import type { IRecordSchemaImpl } from './record.types'
 
 export const RecordSchema = function <K extends string | number, V>(

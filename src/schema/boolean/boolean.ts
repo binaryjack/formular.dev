@@ -2,8 +2,8 @@ import { SchemaBase } from '../base'
 import { createTypeError } from '../error'
 import type { IBooleanSchema } from '../types'
 import type { IBooleanSchemaImpl } from './boolean.types'
-import { trueMethod } from './prototype/true'
 import { falseMethod } from './prototype/false'
+import { trueMethod } from './prototype/true'
 
 export const BooleanSchema = function (this: IBooleanSchemaImpl): void {
     // @ts-expect-error - SchemaBase.call() pattern has unavoidable type conflict with generic constructors

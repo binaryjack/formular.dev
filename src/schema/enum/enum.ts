@@ -1,6 +1,6 @@
 import { SchemaBase } from '../base'
-import { createValidationError } from '../error'
 import { SchemaErrorCode } from '../constants'
+import { createValidationError } from '../error'
 import type { IEnumSchema } from '../types'
 import type { IEnumSchemaImpl } from './enum.types'
 

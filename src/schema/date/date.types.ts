@@ -1,5 +1,5 @@
-import type { IDateSchema } from '../types'
 import type { SchemaErrorCode } from '../constants'
+import type { IDateSchema } from '../types'
 
 export interface IDateSchemaImpl extends IDateSchema {
     _parse: (value: unknown, path: string[]) => Date

@@ -2,8 +2,8 @@ import { SchemaBase } from '../base'
 import { createTypeError } from '../error'
 import type { IDateSchema } from '../types'
 import type { IDateSchemaImpl } from './date.types'
-import { min } from './prototype/min'
 import { max } from './prototype/max'
+import { min } from './prototype/min'
 
 export const DateSchema = function (this: IDateSchemaImpl): void {
     // @ts-expect-error - SchemaBase.call() pattern has unavoidable type conflict with generic constructors
