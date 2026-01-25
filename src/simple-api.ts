@@ -155,7 +155,11 @@ export function createForm<T extends IObjectShape>(
 
     // Setup submission strategy
     if (config.onSubmit) {
-        const strategy = config.submissionStrategy ?? new DirectSubmissionStrategy(config.onSubmit)
+        const wrappedSubmit = async (data: IInferShape<T>): Promise<unknown> => {
+            await config.onSubmit!(data)
+            return undefined
+        }
+        const strategy = config.submissionStrategy ?? new DirectSubmissionStrategy(wrappedSubmit)
 
         // Override submit method
         const originalSubmit = form.submit.bind(form)

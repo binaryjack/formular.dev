@@ -4,10 +4,14 @@
  */
 
 import { ArraySchema } from './array'
-import { RecordSchema, UnionSchema } from './complex'
+import { RecordSchema } from './record'
+import { UnionSchema } from './union'
 import { NumberSchema } from './number'
 import { ObjectSchema } from './object'
-import { BooleanSchema, DateSchema, EnumSchema, LiteralSchema } from './primitives'
+import { BooleanSchema } from './boolean'
+import { DateSchema } from './date'
+import { EnumSchema } from './enum'
+import { LiteralSchema } from './literal'
 import { StringSchema } from './string'
 import type {
     IArraySchema,

@@ -4,6 +4,7 @@
  */
 
 import type { IFieldDescriptor } from '../core/framework/schema/descriptor/field.descriptor'
+import { SchemaErrorCode } from './constants'
 
 /**
  * Validation error result
@@ -45,7 +46,7 @@ export type IRefinementFn<T> = (value: T) => boolean
  */
 export interface IRefinementOptions {
     readonly message?: string
-    readonly code?: string
+    readonly code?: SchemaErrorCode
 }
 
 /**

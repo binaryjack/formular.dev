@@ -25,8 +25,13 @@ export {
 
 // Individual schema classes (for advanced use)
 export { ArraySchema } from './array'
-export { RecordSchema, UnionSchema } from './complex'
+export { SchemaBase, success, failure } from './base'
+export { RecordSchema } from './record'
+export { UnionSchema } from './union'
 export { NumberSchema } from './number'
 export { ObjectSchema } from './object'
-export { BooleanSchema, DateSchema, EnumSchema, LiteralSchema } from './primitives'
+export { BooleanSchema } from './boolean'
+export { DateSchema } from './date'
+export { EnumSchema } from './enum'
+export { LiteralSchema } from './literal'
 export { StringSchema } from './string'
