@@ -86,7 +86,9 @@ export const defaultConfiguration: IConfiguration = {
         form: {
             name: 'default-form-behavior',
             enforceConfigurationCheck: true,
-            validationTriggers: ['onBlur', 'onSubmit']
+            validationTriggers: ['onBlur', 'onSubmit'],
+            enableIntrospection: true,
+            debugStreamSize: 100
         },
         validations: {
             patterns: [

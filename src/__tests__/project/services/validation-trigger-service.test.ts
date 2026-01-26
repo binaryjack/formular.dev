@@ -1,9 +1,9 @@
 import { EventsType } from '@core/framework/events/events.types'
-import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import {
-    IValidationManager,
-    SValidationManager
-} from '@core/managers/validation-manager/validation-manager.types'
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
+import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import {
     IValidationTriggerService,
     ValidationTriggerService
@@ -11,18 +11,24 @@ import {
 
 describe('ValidationTriggerService', () => {
     let mockServiceManager: jest.Mocked<IServiceManager>
-    let mockValidationManager: jest.Mocked<IValidationManager>
+    let mockFormularManager: jest.Mocked<IFormularManager>
+    let mockFormA: any
+    let mockFormB: any
     let service: IValidationTriggerService
 
     beforeEach(() => {
-        mockValidationManager = {
-            setTriggerKeyWord: jest.fn()
+        mockFormA = { setTriggerKeyWord: jest.fn() }
+        mockFormB = { setTriggerKeyWord: jest.fn() }
+        mockFormularManager = {
+            forms: new Map<string, any>([
+                ['a', mockFormA],
+                ['b', mockFormB]
+            ])
         } as any
 
-        const mockLazyResolver = jest.fn().mockReturnValue(mockValidationManager)
-
         mockServiceManager = {
-            lazy: jest.fn().mockReturnValue(mockLazyResolver)
+            lazy: jest.fn(),
+            tryResolve: jest.fn().mockReturnValue(mockFormularManager)
         } as any
 
         service = new (ValidationTriggerService as any)(mockServiceManager)
@@ -54,15 +60,16 @@ describe('ValidationTriggerService', () => {
             service.add('onChange')
 
             expect(service.triggers).toEqual(['onChange'])
-            expect(mockServiceManager.lazy).toHaveBeenCalledWith(SValidationManager)
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledWith(['onChange'])
+            expect(mockServiceManager.tryResolve).toHaveBeenCalledWith(SFormularManager)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledWith(['onChange'])
+            expect(mockFormB.setTriggerKeyWord).toHaveBeenCalledWith(['onChange'])
         })
 
         it('should add multiple triggers', () => {
             service.add('onChange', 'onBlur', 'onFocus')
 
             expect(service.triggers).toEqual(['onChange', 'onBlur', 'onFocus'])
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledWith([
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledWith([
                 'onChange',
                 'onBlur',
                 'onFocus'
@@ -74,7 +81,7 @@ describe('ValidationTriggerService', () => {
             service.add('onChange', 'onKeyUp')
 
             expect(service.triggers).toEqual(['onChange', 'onBlur', 'onKeyUp'])
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledTimes(2)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledTimes(2)
         })
 
         it('should handle adding to existing triggers', () => {
@@ -94,7 +101,7 @@ describe('ValidationTriggerService', () => {
             service.remove('onBlur')
 
             expect(service.triggers).toEqual(['onChange', 'onFocus', 'onKeyUp'])
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenLastCalledWith([
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenLastCalledWith([
                 'onChange',
                 'onFocus',
                 'onKeyUp'
@@ -105,10 +112,7 @@ describe('ValidationTriggerService', () => {
             service.remove('onChange', 'onFocus')
 
             expect(service.triggers).toEqual(['onBlur', 'onKeyUp'])
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenLastCalledWith([
-                'onBlur',
-                'onKeyUp'
-            ])
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenLastCalledWith(['onBlur', 'onKeyUp'])
         })
 
         it('should handle removing non-existent triggers', () => {
@@ -167,7 +171,7 @@ describe('ValidationTriggerService', () => {
             service.reset()
 
             expect(service.triggers).toEqual([])
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenLastCalledWith([])
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenLastCalledWith([])
         })
 
         it('should sync after reset', () => {
@@ -176,8 +180,8 @@ describe('ValidationTriggerService', () => {
 
             service.reset()
 
-            expect(mockServiceManager.lazy).toHaveBeenCalledWith(SValidationManager)
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledWith([])
+            expect(mockServiceManager.tryResolve).toHaveBeenCalledWith(SFormularManager)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledWith([])
         })
     })
 
@@ -185,16 +189,12 @@ describe('ValidationTriggerService', () => {
         it('should call validation manager setTriggerKeyWord', () => {
             service.add('onChange', 'onBlur')
 
-            expect(mockServiceManager.lazy).toHaveBeenCalledWith(SValidationManager)
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledWith([
-                'onChange',
-                'onBlur'
-            ])
+            expect(mockServiceManager.tryResolve).toHaveBeenCalledWith(SFormularManager)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledWith(['onChange', 'onBlur'])
         })
 
         it('should handle when validation manager is not available', () => {
-            const mockLazyResolver = jest.fn().mockReturnValue(undefined)
-            mockServiceManager.lazy.mockReturnValue(mockLazyResolver)
+            mockServiceManager.tryResolve.mockReturnValue(undefined as any)
 
             expect(() => {
                 service.sync()
@@ -205,13 +205,13 @@ describe('ValidationTriggerService', () => {
             jest.clearAllMocks()
 
             service.add('onChange')
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledTimes(1)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledTimes(1)
 
             service.remove('onChange')
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledTimes(2)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledTimes(2)
 
             service.reset()
-            expect(mockValidationManager.setTriggerKeyWord).toHaveBeenCalledTimes(3)
+            expect(mockFormA.setTriggerKeyWord).toHaveBeenCalledTimes(3)
         })
     })
 
@@ -263,17 +263,19 @@ describe('ValidationTriggerService', () => {
 
         it('should maintain sync with validation manager throughout workflow', () => {
             const syncCalls: string[][] = []
-
-            mockValidationManager.setTriggerKeyWord.mockImplementation((triggers) => {
-                syncCalls.push([...triggers])
-            })
+            const recorder = (triggers: string[]) => syncCalls.push([...triggers])
+            mockFormA.setTriggerKeyWord.mockImplementation(recorder)
+            mockFormB.setTriggerKeyWord.mockImplementation(recorder)
 
             service.add('onChange')
             service.add('onBlur')
             service.remove('onChange')
             service.reset()
 
-            expect(syncCalls).toEqual([['onChange'], ['onChange', 'onBlur'], ['onBlur'], []])
+            expect(syncCalls).toContainEqual(['onChange'])
+            expect(syncCalls).toContainEqual(['onChange', 'onBlur'])
+            expect(syncCalls).toContainEqual(['onBlur'])
+            expect(syncCalls).toContainEqual([])
         })
     })
 

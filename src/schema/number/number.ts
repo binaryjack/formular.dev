@@ -6,6 +6,7 @@ import { SchemaBase } from '../base'
 import { createTypeError } from '../error'
 import type { INumberSchema } from '../types'
 import { INumberSchemaImpl } from './number.types'
+import { debounce } from './prototype/debounce'
 import { finite } from './prototype/finite'
 import { int } from './prototype/int'
 import { max } from './prototype/max'
@@ -49,5 +50,6 @@ Object.assign(NumberSchema.prototype, {
     nonnegative,
     multipleOf,
     finite,
-    safe
+    safe,
+    debounce
 })

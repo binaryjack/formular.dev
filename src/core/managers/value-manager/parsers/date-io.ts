@@ -62,13 +62,7 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
     extInput: IExtendedInput,
     value: any
 ) {
-    console.log('🗓️ dateSetter called', {
-        fieldName: extInput.input.name,
-        value,
-        valueType: typeof value,
-        valueLength: typeof value === 'string' ? value.length : 'N/A',
-        dependencyName: extInput.dependencyName
-    })
+    // console.log('🗓️ dateSetter called', { fieldName: extInput.input.name, value, valueType: typeof value, valueLength: typeof value === 'string' ? value.length : 'N/A', dependencyName: extInput.dependencyName })
 
     try {
         // For masked date inputs, we need to be more careful about when to attempt conversion
@@ -81,17 +75,12 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
                 (extInput.input as any).mask != null ||
                 extInput.input.type === 'date'
 
-            console.log('🎭 Masked input check', {
-                isMaskedInput,
-                dependencyName: extInput.dependencyName
-            })
-
             // For masked inputs, only convert if we have a complete valid-looking date
             if (!isMaskedInput || isValidDateString(value, extInput.input.culture.dateFormat)) {
-                console.log('✅ Attempting date conversion for:', value)
+                // console.log('✅ Attempting date conversion for:', value)
                 value = tryConvertStringToDateObject(value, extInput.input.culture.dateFormat)
             } else {
-                console.log('⏸️ Skipping conversion for masked input:', value)
+                // console.log('⏸️ Skipping conversion for masked input:', value)
             }
         }
         if (isNDate(value)) {
@@ -100,24 +89,20 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
 
         if (value instanceof DateObject) {
             const dateString = value.toString?.(extInput.input.culture.dateFormat) ?? null
-            console.log('📅 Setting DateObject value:', { dateString })
+            // console.log('📅 Setting DateObject value:', { dateString })
 
             extInput.input.domManager.dmSetValue(extInput.input.id.toString(), dateString)
             extInput.input.value = dateString
             extInput.input.objectValue = value?.toINDate?.() ?? null
         } else {
-            console.log('📝 Setting string value:', value)
+            // console.log('📝 Setting string value:', value)
             extInput.input.domManager.dmSetValue(extInput.input.id.toString(), value)
             extInput.input.value = value
             /** keep this object value to null until we have a correct date */
             extInput.input.objectValue = null
         }
     } catch (e: any) {
-        console.error('❌ dateSetter error:', {
-            error: e.message,
-            value,
-            fieldName: extInput.input.name
-        })
+        // console.error('❌ dateSetter error:', { error: e.message, value, fieldName: extInput.input.name })
         logManager(
             undefined,
             'error',
@@ -132,13 +117,13 @@ export const dateSetter: TSetter<Date | IDateObject | INDate | string | null> = 
             extInput.input.type === 'date'
 
         if (isMaskedInput && typeof value === 'string' && value.length < 10) {
-            console.log('🛡️ Preserving partial input for masked date:', value)
+            // console.log('🛡️ Preserving partial input for masked date:', value)
             // Keep the partial input for masked date inputs
             extInput.input.domManager.dmSetValue(extInput.input.id.toString(), value)
             extInput.input.value = value
             extInput.input.objectValue = null
         } else {
-            console.log('🚫 Resetting to null due to error')
+            // console.log('🚫 Resetting to null due to error')
             extInput.input.value = null
             extInput.input.objectValue = null
         }

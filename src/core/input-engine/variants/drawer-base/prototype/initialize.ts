@@ -8,12 +8,9 @@ import { IDrawerBaseInput } from '../drawer-base-input.types'
  */
 export const initialize = async function (this: IDrawerBaseInput) {
     try {
-        const success = await abstractInitializer(this.input, (e) => {
-            logManager(undefined, 'info', 'initialize', e.name)
-        })
+        const success = await abstractInitializer(this.input, (e) => {})
 
         if (success) {
-            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             this.isInitialized = true
         }
     } catch (e: any) {

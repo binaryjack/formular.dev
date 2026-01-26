@@ -98,7 +98,9 @@ export function processEventGroup(
     if (this.observers) {
         // Store batch data for observers to access if needed
         ;(this.observers as any).lastBatch = { eventType, events }
-        this.observers.trigger()
+        // Trigger field-specific channel using field ID from input
+        const channelId = (this as any).input?.id
+        this.observers.trigger(channelId ? String(channelId) : undefined)
     }
 
     // Process notifiers using existing logic but with batch support

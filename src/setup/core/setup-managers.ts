@@ -89,28 +89,28 @@ export const setupManagers = function (sm: IServiceManager) {
     })
 
     sm.register(SStyleManager, () => new StyleManager(), {
-        lifetime: 'singleton'
+        lifetime: 'transient' // Each field needs its own StyleManager (holds className, classesList state)
     })
 
     sm.register(SValidationManager, () => new ValidationManager(), {
-        lifetime: 'singleton'
+        lifetime: 'transient' // Each field needs its own ValidationManager (holds validation state)
     })
 
     sm.register(SValueManager, () => new ValueManager(), {
-        lifetime: 'singleton'
+        lifetime: 'transient' // Each field needs its own ValueManager (holds field value state)
     })
 
     sm.register(STrackingManager, () => new TrackingManager(), {
-        lifetime: 'singleton'
+        lifetime: 'transient' // Each field needs its own TrackingManager (holds tracking state)
     })
 
     // Notification Managers - Auto-tracker first, then dependent manager
     sm.register(SAutoTrackerNotificationManager, () => new NotificationManager(), {
-        lifetime: 'singleton'
+        lifetime: 'singleton' // Single instance with channel-based routing per field
     })
 
     sm.registerClass(SNotificationManager, NotificationManager, {
-        lifetime: 'singleton',
+        lifetime: 'singleton', // Single instance with channel-based routing per field
         dependencies: [SAutoTrackerNotificationManager]
     })
 

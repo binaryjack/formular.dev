@@ -24,3 +24,6 @@ export const UnionSchema = function <T extends readonly ISchemaBase[]>(
     new <T extends readonly ISchemaBase[]>(options: T): IUnionSchemaImpl<T>
     prototype: IUnionSchema<any>
 }
+
+UnionSchema.prototype = Object.create(SchemaBase.prototype)
+UnionSchema.prototype.constructor = UnionSchema

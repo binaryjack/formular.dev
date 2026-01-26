@@ -1,10 +1,7 @@
-import { logManager } from '@core/managers/log-manager/log-manager'
 import { INotificationManager } from '../notification-manager-base.types'
 import { NotificationPriority } from '../notification-manager.types'
 
 export const initialize = function <T extends HTMLElement>(this: INotificationManager) {
-    logManager(undefined, 'info', 'initialize', this.dependencyName)
-
     // Initialize priority queues if priority batching is enabled
     if (this.batchConfig.enablePriority) {
         Object.values(NotificationPriority)
@@ -15,4 +12,5 @@ export const initialize = function <T extends HTMLElement>(this: INotificationMa
     }
 
     this.isInitialized = true
+    // dependencyName is already set in constructor with writable: true
 }

@@ -29,7 +29,7 @@ export interface IRadioInputService extends IBuilderService<IRadioBaseInput> {
     new (sm: IServiceManager): IRadioInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => IRadioBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<IRadioBaseInput>
 }
 
 export const RadioInputService = function (this: IRadioInputService, sm: IServiceManager) {
@@ -40,7 +40,7 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): IRadioBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<IRadioBaseInput> {
             const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
             const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
@@ -65,7 +65,7 @@ export const RadioInputService = function (this: IRadioInputService, sm: IServic
 
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _radioInput
         }
     } catch (e: any) {

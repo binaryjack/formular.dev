@@ -11,13 +11,9 @@ import { IRadioBaseInput } from '../radio-base-input.types'
  */
 export const initialize = async function (this: IRadioBaseInput) {
     try {
-        const success = await abstractInitializer(
-            this.input,
-            (e) => {
-                logManager(undefined, 'info', 'initialize', e.name)
-            },
-            [notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name)]
-        )
+        const success = await abstractInitializer(this.input, () => {}, [
+            notification(this, this.handleOnChanged, 'onChange', 'onChange', this.name)
+        ])
 
         if (success) {
             const em = new ExceptionManager(
@@ -45,7 +41,6 @@ export const initialize = async function (this: IRadioBaseInput) {
             if (em.hasErrors()) {
                 logManager(undefined, 'critical', 'initialize', em.toString())
             } else {
-                logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
                 this.isInitialized = true
             }
         }

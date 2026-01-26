@@ -4,18 +4,42 @@ import { IFormular } from '@core/formular-engine/formular-base/formular-base.typ
 import { IInputFactory, SInputFactory } from '@core/factories/input-factory/input-factory'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.types'
+import { SConfigurationManager } from '@core/managers/configuration-manager/interfaces/i-configuration-manager'
+import {
+    IValidationTriggerService,
+    SValidationTriggerService
+} from '@setup/services/validation-trigger-service'
 import { IFormularManager } from '../formular-manager.types'
 
-export const createFromDescriptors = function <T extends object>(
+export const createFromDescriptors = async function <T extends object>(
     this: IFormularManager,
     id: string,
     descriptors: IFieldDescriptor[]
-): IFormular<T> | undefined {
+): Promise<IFormular<T> | undefined> {
     if (this.forms.has(id)) {
         const existingForm = this.forms.get(id)
         return existingForm as IFormular<T>
     }
     const frm = new Formular(id, this)
+
+    // 🔧 FIX: Set validation triggers on form BEFORE adding fields
+    // This ensures fields inherit the correct triggerKeyWordType when added
+    const validationTriggerService =
+        this.sm.lazy<IValidationTriggerService>(SValidationTriggerService)?.()
+    if (validationTriggerService?.triggers?.length) {
+        frm.setTriggerKeyWord(validationTriggerService.triggers)
+    }
+
+    // Enable introspection helpers if configured
+    const configManager = this.sm.lazy<any>(SConfigurationManager)?.()
+    const introspectionEnabled =
+        configManager?.getConfigByName('behavior', 'form', 'enableIntrospection') ?? false
+    const debugStreamSize =
+        configManager?.getConfigByName('behavior', 'form', 'debugStreamSize') ?? 100
+
+    ;(frm as any)._introspectionEnabled = introspectionEnabled
+    ;(frm as any)._debugStreamMaxSize = debugStreamSize
+
     const factory = this.sm.lazy<IInputFactory>(SInputFactory)?.()
 
     const fields: IExtendedInput[] = []
@@ -25,7 +49,8 @@ export const createFromDescriptors = function <T extends object>(
             continue
         }
         const fieldBuilder = factory.create(descriptor.type)
-        fields.push(fieldBuilder(descriptor) as IExtendedInput)
+        const field = await fieldBuilder(descriptor)
+        fields.push(field as IExtendedInput)
     }
 
     frm.addFields(...fields)

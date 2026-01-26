@@ -18,6 +18,11 @@ export const BooleanSchema = function (this: IBooleanSchemaImpl): void {
     prototype: IBooleanSchema
 }
 
+// Set up prototype chain to inherit from SchemaBase
+BooleanSchema.prototype = Object.create(SchemaBase.prototype)
+BooleanSchema.prototype.constructor = BooleanSchema
+
+// Add boolean-specific methods
 Object.assign(BooleanSchema.prototype, {
     true: trueMethod,
     false: falseMethod

@@ -1,6 +1,7 @@
 import { IExtendedInput } from '../input-base.types'
 
 export const onFocus = (f: IExtendedInput, e: Event) => {
+    console.log('-----onFocus', f.input.name, f.input.id, e.target)
     const inputElement = e.target as HTMLInputElement
 
     f.input.isFocus = true

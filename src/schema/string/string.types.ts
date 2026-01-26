@@ -12,4 +12,5 @@ export interface IStringSchemaImpl extends IStringSchema {
     _isNullable: boolean
     _defaultValue: string | undefined
     _transforms: Array<(val: unknown) => unknown>
+    _debounce: number | undefined
 }

@@ -5,8 +5,11 @@ export interface IInitializationManager {
     new (params: IInputConfiguration): IInitializationManager
     params: IInputConfiguration
     initializer?: IInitializationDelegate
-    addInitializer: (name: string, initializer: (params: IInputConfiguration) => void) => void
-    executeSequences: () => void
+    addInitializer: (
+        name: string,
+        initializer: (params: IInputConfiguration) => void | Promise<void>
+    ) => void
+    executeSequences: () => Promise<void>
 }
 export interface IInitializableDependency {
     /*Discriminator Property*/

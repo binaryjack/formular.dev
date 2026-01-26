@@ -15,6 +15,7 @@ export const onClickHandle = function <T extends IEvents>(this: IClickBaseInput,
             `field.state.${onClickHandle.name}`,
             data?.fieldRef?.input.name,
             data?.fieldRef
-        )
+        ),
+        String(data?.fieldRef?.input.id) // Pass field ID as channel
     )
 }

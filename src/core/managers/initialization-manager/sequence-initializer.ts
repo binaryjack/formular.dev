@@ -3,10 +3,10 @@ import { InitializationManager } from './initialization-manager'
 import { IInitializableDependency } from './initialization-manager.types'
 
 // Helper function to initialize dependencies
-export function sequenceInitializer(
+export async function sequenceInitializer(
     config: IInputConfiguration,
     dependencies: IInitializableDependency[]
-): void {
+): Promise<void> {
     const IM = new InitializationManager(config)
 
     dependencies.forEach((dep) => {
@@ -14,5 +14,5 @@ export function sequenceInitializer(
         IM.addInitializer(dep?.dependencyName, dep?.initialize.bind(dep))
     })
 
-    IM.executeSequences()
+    await IM.executeSequences()
 }

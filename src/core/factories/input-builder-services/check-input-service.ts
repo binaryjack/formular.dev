@@ -25,7 +25,7 @@ export interface ICheckInputService extends IBuilderService<ICheckBoxBaseInput> 
     new (sm: IServiceManager): ICheckInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => ICheckBoxBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<ICheckBoxBaseInput>
 }
 
 export const CheckInputService = function (this: ICheckInputService, sm: IServiceManager) {
@@ -36,7 +36,7 @@ export const CheckInputService = function (this: ICheckInputService, sm: IServic
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): ICheckBoxBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<ICheckBoxBaseInput> {
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
 
@@ -51,7 +51,7 @@ export const CheckInputService = function (this: ICheckInputService, sm: IServic
 
             const dependencies = baseDependencyList(_baseInput, _clickInput, _checkInput)
 
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _checkInput
         }
     } catch (e: any) {

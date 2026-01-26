@@ -12,4 +12,5 @@ export interface INumberSchemaImpl extends INumberSchema {
     _isNullable: boolean
     _defaultValue: number | undefined
     _transforms: Array<(val: unknown) => unknown>
+    _debounce: number | undefined
 }

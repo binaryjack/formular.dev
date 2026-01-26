@@ -22,7 +22,7 @@ export interface IOptionInputService extends IBuilderService<IOptionBaseInput> {
     new (sm: IServiceManager): IOptionInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => IOptionBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<IOptionBaseInput>
 }
 
 export const OptionInputService = function (this: IOptionInputService, sm: IServiceManager) {
@@ -33,7 +33,7 @@ export const OptionInputService = function (this: IOptionInputService, sm: IServ
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): IOptionBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<IOptionBaseInput> {
             const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
             const _optionInput = this.sm.lazy<IOptionBaseInput>(
@@ -45,7 +45,7 @@ export const OptionInputService = function (this: IOptionInputService, sm: IServ
 
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _optionInput
         }
     } catch (e: any) {

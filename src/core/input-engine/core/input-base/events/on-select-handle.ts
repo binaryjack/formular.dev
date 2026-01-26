@@ -15,6 +15,7 @@ export const onSelectHandle = (f: IExtendedInput) => {
             `field.state.${onSelectHandle.name}`,
             f.input.name,
             f
-        )
+        ),
+        String(f.input.id)
     )
 }

@@ -7,5 +7,6 @@ import { IInput } from '../input-base.types'
  * @this IInput - The context in which this function is called, representing the field input instance.
  */
 export const hasChanges = function (this: IInput, callback: () => void) {
-    this?.notificationManager?.observers.subscribe(callback, false)
+    // Subscribe to field-specific channel using field ID
+    this?.notificationManager?.observers.subscribe(String(this.id), callback, false)
 }

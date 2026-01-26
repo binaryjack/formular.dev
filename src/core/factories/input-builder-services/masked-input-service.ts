@@ -22,7 +22,7 @@ export interface IMaskedInputService extends IBuilderService<IMaskedBaseInput> {
     new (sm: IServiceManager): IMaskedInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => IMaskedBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<IMaskedBaseInput>
 }
 
 export const MaskedInputService = function (this: IMaskedInputService, sm: IServiceManager) {
@@ -33,7 +33,7 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): IMaskedBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<IMaskedBaseInput> {
             console.log('🔍 descriptor.mask:', {
                 mask: descriptor.mask,
                 type: typeof descriptor.mask,
@@ -52,7 +52,7 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
             _maskedInput.input = _baseInput
             const dependencies = baseDependencyList(_baseInput, _maskedInput)
 
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _maskedInput
         }
     } catch (e: any) {

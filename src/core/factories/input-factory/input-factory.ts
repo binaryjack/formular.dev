@@ -30,7 +30,7 @@ export interface IInputFactory {
     create: <T>(type: InputTypeNames) => IBuilder<T>
 }
 
-export type IBuilder<T> = (descriptor: IFieldDescriptor) => T
+export type IBuilder<T> = (descriptor: IFieldDescriptor) => Promise<T>
 
 export interface IBuilderService<T> {
     sm: IServiceManager

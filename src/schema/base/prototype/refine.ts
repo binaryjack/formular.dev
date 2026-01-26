@@ -21,5 +21,11 @@ export function refine<TOutput, TInput>(
     cloned._isNullable = this._isNullable
     cloned._defaultValue = this._defaultValue
     cloned._transforms = [...this._transforms]
+
+    // Preserve _debounce property if set
+    if ((this as any)._debounce !== undefined) {
+        ;(cloned as any)._debounce = (this as any)._debounce
+    }
+
     return cloned
 }

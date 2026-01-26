@@ -58,14 +58,15 @@ export const tryResolve = function <T>(
                 )
         }
 
-        logManager(
-            undefined,
-            'info',
-            'IServiceManager',
-            `IServiceManager: Resolved service: ${this.getServiceName(identifier)} (${
-                descriptor.lifetime
-            })`
-        )
+        // Disable verbose resolution logs
+        // logManager(
+        //     undefined,
+        //     'info',
+        //     'IServiceManager',
+        //     `IServiceManager: Resolved service: ${this.getServiceName(identifier)} (${
+        //         descriptor.lifetime
+        //     })`
+        // )
 
         return instance
     } catch (e: any) {

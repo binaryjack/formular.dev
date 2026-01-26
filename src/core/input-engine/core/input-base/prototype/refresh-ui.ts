@@ -6,6 +6,7 @@ export const refreshUi = function (this: IInput, ref?: IInputBase | IExtendedInp
     ref?.input?.notificationManager?.debounceNotify(
         'onUiUpdate',
         ref?.input.onUiUpdateDelay,
-        newEvent(ref?.input?.name, refreshUi.name, 'onUiUpdate', `field`, ref?.input?.name, ref)
+        newEvent(ref?.input?.name, refreshUi.name, 'onUiUpdate', `field`, ref?.input?.name, ref),
+        String(ref?.input?.id)
     )
 }

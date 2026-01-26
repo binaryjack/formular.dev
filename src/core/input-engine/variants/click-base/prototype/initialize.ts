@@ -9,16 +9,11 @@ import { IClickBaseInput } from '../click-base-input.types'
  */
 export const initialize = async function (this: IClickBaseInput) {
     try {
-        const success = await abstractInitializer(
-            this.input,
-            (e) => {
-                logManager(undefined, 'info', 'initialize', e.name)
-            },
-            [notification(this, this.onClickHandle, 'onClick', 'onClick', this.name)]
-        )
+        const success = await abstractInitializer(this.input, () => {}, [
+            notification(this, this.onClickHandle, 'onClick', 'onClick', this.name)
+        ])
 
         if (success) {
-            logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
             // Object.setPrototypeOf(ClickBaseInput.prototype, FieldInput.prototype)
             this.isInitialized = true
         }

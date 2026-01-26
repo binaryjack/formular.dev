@@ -30,7 +30,7 @@ export interface ISelectInputService extends IBuilderService<ISelectBaseInput> {
     new (sm: IServiceManager): ISelectInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => ISelectBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<ISelectBaseInput>
 }
 
 export const SelectInputService = function (this: ISelectInputService, sm: IServiceManager) {
@@ -41,7 +41,7 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): ISelectBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<ISelectBaseInput> {
             const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
             const _clickInput = this.sm.lazy<IClickBaseInput>(SClickBaseInput)?.()
@@ -64,7 +64,7 @@ export const SelectInputService = function (this: ISelectInputService, sm: IServ
 
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _selectInput
         }
     } catch (e: any) {

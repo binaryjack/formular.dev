@@ -13,17 +13,21 @@ export const debounceNotify = function <T extends IEvents>(
     this: INotificationManager,
     type: EventsType,
     delay: number,
-    data?: T
+    data?: T,
+    channel?: string
 ) {
-    // Clear the previous timeout for this EventType, if any
-    clearCurrentCall(type)
+    // Create a unique key combining type and channel for per-field debouncing
+    const debounceKey = channel ? `${type}:${channel}` : type
 
-    // Store the latest data and set a new timeout for this EventType
+    // Clear the previous timeout for this debounce key, if any
+    clearCurrentCall(debounceKey as EventsType)
+
+    // Store the latest data and set a new timeout for this debounce key
     const timeoutId: number | NodeJS.Timeout = setTimeout(() => {
         // Execute the latest call for this EventType
         this.notifiers.forEach((notifier: INotification) => {
             if (notifier?.event.types.includes(type)) {
-                const callEvent = getCallByType(type)
+                const callEvent = getCallByType(debounceKey as EventsType)
 
                 notifier.method(callEvent)
 
@@ -36,10 +40,10 @@ export const debounceNotify = function <T extends IEvents>(
             }
         })
 
-        // Remove the EventType from the map after execution
-        removeCallByType(type)
+        // Remove the debounce key from the map after execution
+        removeCallByType(debounceKey as EventsType)
     }, delay)
 
-    // Update the map with the latest call
-    takeLatest<T>(type, timeoutId, data)
+    // Update the map with the latest call using the unique debounce key
+    takeLatest<T>(debounceKey as EventsType, timeoutId, data)
 }

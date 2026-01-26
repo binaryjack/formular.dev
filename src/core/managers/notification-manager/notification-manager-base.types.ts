@@ -40,7 +40,12 @@ export interface INotificationManager extends IInitializableDependency {
     flushPendingNotifications: () => void
     setBatchConfig: (config: BatchConfig) => void
 
-    debounceNotify: <T extends IEvents>(type: EventsType, delay: number, data?: T) => void
+    debounceNotify: <T extends IEvents>(
+        type: EventsType,
+        delay: number,
+        data?: T,
+        channel?: string
+    ) => void
     accept: (notify: INotification) => void
     dismiss: (notify: INotification) => void
     init: () => void

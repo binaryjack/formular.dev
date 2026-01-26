@@ -7,22 +7,22 @@ export interface IInitializationDelegate {
     new (
         name: string,
         manager: IInitializationManager,
-        intitializer: (params: IInputConfiguration) => void
+        intitializer: (params: IInputConfiguration) => void | Promise<void>
     ): IInitializationDelegate
     name: string
     manager: IInitializationManager
     next?: IInitializationDelegate
-    intitializer: (params: IInputConfiguration) => void
-    execute?: () => void
+    intitializer: (params: IInputConfiguration) => void | Promise<void>
+    execute?: () => Promise<void>
     setNextSequence?: (sequenceInitliaizer: IInitializationDelegate) => void
 }
 
-export const execute = function (this: IInitializationDelegate) {
+export const execute = async function (this: IInitializationDelegate) {
     try {
         logManager(undefined, 'info', InitializationDelegate.name, `${this.name} executing...`)
-        this?.intitializer?.(this.manager.params)
+        await this?.intitializer?.(this.manager.params)
 
-        this.next?.execute?.()
+        await this.next?.execute?.()
     } catch (e: any) {
         logManager(
             undefined,
@@ -48,7 +48,7 @@ export const InitializationDelegate = function (
     this: IInitializationDelegate,
     name: string,
     manager: IInitializationManager,
-    intitializer: (params: IInputConfiguration) => void
+    intitializer: (params: IInputConfiguration) => void | Promise<void>
 ) {
     this.name = name
     this.manager = manager

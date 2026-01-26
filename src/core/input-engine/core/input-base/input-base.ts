@@ -75,16 +75,48 @@ export const InputBase = function (
     })
 
     const config = this.serviceManager?.lazy<IConfigurationManager>(SConfigurationManager)?.()
-    this.inputDelay = config?.getConfigByName<number>('behavior', 'events', 'onChange') ?? 100
-    this.onValidateDelay =
-        config?.getConfigByName<number>('behavior', 'events', 'onValidate') ?? 100
-    this.onUiUpdateDelay =
-        config?.getConfigByName<number>('behavior', 'events', 'onUiUpdate') ?? 100
+
+    const resolveDelay = (value: any, fallback: number) => {
+        if (typeof value === 'number') return value
+        if (value && typeof value === 'object') {
+            if (typeof value.triggerDelay === 'number') return value.triggerDelay
+            if (typeof value.delay === 'number') return value.delay
+        }
+        return fallback
+    }
+
+    // Use field-level debounce if specified, otherwise fall back to global config
+    const onChangeConfig = config?.getConfigByName<any>('behavior', 'events', 'onChange')
+    const globalInputDelay = resolveDelay(onChangeConfig, 100)
+    // Only set if not already set by initializeProperties
+    if (this.inputDelay === undefined) {
+        this.inputDelay = descriptor?.debounceDelay ?? globalInputDelay
+    }
+
+    const onValidateConfig = config?.getConfigByName<any>('behavior', 'events', 'onValidate')
+    const globalOnValidateDelay = resolveDelay(onValidateConfig, 100)
+    // Only set if not already set by initializeProperties
+    if (this.onValidateDelay === undefined) {
+        this.onValidateDelay = descriptor?.debounceDelay ?? globalOnValidateDelay
+    }
+
+    const onUiUpdateConfig = config?.getConfigByName<any>('behavior', 'events', 'onUiUpdate')
+    const globalOnUiUpdateDelay = resolveDelay(onUiUpdateConfig, 100)
+    // Only set if not already set by initializeProperties
+    if (this.onUiUpdateDelay === undefined) {
+        this.onUiUpdateDelay = descriptor?.debounceDelay ?? globalOnUiUpdateDelay
+    }
+
+    // Use UI update delay as default debounce delay for observer notifications
+    if (this.observablesDelay === undefined) {
+        this.observablesDelay = this.onUiUpdateDelay ?? this.inputDelay ?? 100
+    }
 
     this.labelId = this.domManager?.labelId ?? '-label'
     this.describedById = this.domManager?.describedById ?? '-described-by'
 
-    this.onClickDelay = config?.getConfigByName<number>('behavior', 'events', 'onClick') ?? 100
+    const onClickConfig = config?.getConfigByName<any>('behavior', 'events', 'onClick')
+    this.onClickDelay = resolveDelay(onClickConfig, 100)
     this.culture =
         config?.getConfigByName<ICulture>('cultures', 'defaultCulture') ?? ({} as ICulture)
 
@@ -92,7 +124,7 @@ export const InputBase = function (
 
     // Helper to notify changes
     const notifyChange = (eventType: 'onValidate' | 'onUiUpdate') => {
-        if (!this.isInitialized || this.notificationManager?.debounceNotify === undefined) {
+        if (this.notificationManager?.debounceNotify === undefined) {
             return
         }
         this.notificationManager?.debounceNotify?.(
@@ -104,7 +136,8 @@ export const InputBase = function (
                 eventType,
                 `field.${setInputBusy.name}.isFocus`,
                 this.name
-            )
+            ),
+            String(this.id) // Pass field ID as channel
         )
     }
 

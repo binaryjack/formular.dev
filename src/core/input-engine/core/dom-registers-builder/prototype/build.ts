@@ -12,12 +12,22 @@ export const build = function (this: IDomRegisterBuilder): any {
         hasMask = !!(this.context as unknown as IMaskedBaseInput)?.mask
     }
     const eleEvts = this.assembleEventsHandlers()
+
+    // Build ARIA attributes object
+    const ariaAttrs: Record<string, string> = {}
+    if (this.arias && this.arias.length > 0) {
+        for (const aria of this.arias) {
+            ariaAttrs[`aria-${aria.name}`] = aria.value
+        }
+    }
+
     return {
         id: `${this.context.input.id}`,
         /** I need hack date input */
         type: hasMask ? 'text' : this.context.input.type,
         className: 'base-input',
         title: this.context.input.label ?? '',
+        ...ariaAttrs,
         ...eleEvts
     }
 }

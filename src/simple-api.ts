@@ -83,6 +83,9 @@ function schemaToDescriptors<T extends IObjectShape>(
                 inputType = 'text'
             }
 
+            // Extract debounce delay from schema if set
+            const debounceDelay = (fieldSchema as any)._debounce
+
             descriptors.push({
                 id,
                 name: key,
@@ -99,7 +102,8 @@ function schemaToDescriptors<T extends IObjectShape>(
                 isDirty: false,
                 isPristine: true,
                 isFocus: false,
-                shouldValidate: true
+                shouldValidate: true,
+                debounceDelay
             })
 
             id++
@@ -129,9 +133,9 @@ function schemaToDescriptors<T extends IObjectShape>(
  * })
  * ```
  */
-export function createForm<T extends IObjectShape>(
+export async function createForm<T extends IObjectShape>(
     config: IFormConfig<T>
-): IFormular<IInferShape<T>> {
+): Promise<IFormular<IInferShape<T>>> {
     // Create service manager (hidden from user)
     const serviceManager = SetupHelpers.forFormApplication()
     const formularManager = serviceManager.resolve<IFormularManager>(SFormularManager)
@@ -147,7 +151,7 @@ export function createForm<T extends IObjectShape>(
     const descriptors = schemaToDescriptors(config.schema, config.defaultValues)
 
     // Create form
-    const form = formularManager.createFromDescriptors<IInferShape<T>>(formId, descriptors)
+    const form = await formularManager.createFromDescriptors<IInferShape<T>>(formId, descriptors)
 
     if (!form) {
         throw new Error('Failed to create form')
@@ -207,10 +211,10 @@ export function createForm<T extends IObjectShape>(
  * })
  * ```
  */
-export function createFormFromPreset<T extends IObjectShape>(
+export async function createFormFromPreset<T extends IObjectShape>(
     presetName: string,
     config?: Omit<IFormConfig<T>, 'schema'>
-): IFormular<IInferShape<T>> {
+): Promise<IFormular<IInferShape<T>>> {
     const { presetRegistry } = require('./schema/presets')
     const preset = presetRegistry.get(presetName)
 

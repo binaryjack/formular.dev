@@ -26,3 +26,6 @@ export const LiteralSchema = function <T extends string | number | boolean>(
     new <T extends string | number | boolean>(value: T): ILiteralSchemaImpl<T>
     prototype: ILiteralSchema<any>
 }
+
+LiteralSchema.prototype = Object.create(SchemaBase.prototype)
+LiteralSchema.prototype.constructor = LiteralSchema

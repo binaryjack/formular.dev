@@ -18,4 +18,14 @@ export const initializeProperties = function (this: IInputBase, descriptor: IFie
     this.expectedValue = descriptor.expectedValue
     this.loaded = descriptor.loaded ?? false
     this.changed = descriptor.changed ?? false
+
+    // Apply field-specific debounce delay if provided
+    // These will be set again in the constructor, but we need to set them here
+    // to ensure they're not overwritten by global config
+    if (descriptor.debounceDelay !== undefined) {
+        this.inputDelay = descriptor.debounceDelay
+        this.onValidateDelay = descriptor.debounceDelay
+        this.onUiUpdateDelay = descriptor.debounceDelay
+        this.observablesDelay = descriptor.debounceDelay
+    }
 }

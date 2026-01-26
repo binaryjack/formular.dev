@@ -9,6 +9,10 @@ import { IDomRegisterBuilder } from '../dom-registers-builder.type'
  */
 export const registerChange = function (this: IDomRegisterBuilder, custom?: (e: Event) => void) {
     custom && this.registerEvent('onChange', (e: Event) => custom(e))
-    onChange && this.registerEvent('onChange', (e: Event) => onChange(this.context, e))
+    if (onChange) {
+        this.registerEvent('onChange', (e: Event) => {
+            onChange(this.context, e)
+        })
+    }
     return this
 }

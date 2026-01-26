@@ -10,6 +10,7 @@ import { IValueManager } from './value-manager.types'
 
 export const ValueManager = function (this: IValueManager) {
     this.isInitialized = false
+    this.valueStrategies = [] // Initialize empty strategies array
 
     Object.defineProperty(this, 'dependencyName', {
         value: ValueManager.name,

@@ -1,6 +1,7 @@
 import { IExtendedInput } from '../input-base.types'
 
 export const onBlur = (f: IExtendedInput, e: Event) => {
+    console.log('-----onBlur', f.input.name, f.input.id, e.target)
     const inputElement = e.target as HTMLInputElement
     // console.log('onBlur', f.name, inputElement.value)
     f.input.isFocus = false

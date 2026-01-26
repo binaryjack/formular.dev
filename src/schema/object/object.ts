@@ -1,3 +1,4 @@
+import { SchemaBase } from '../base'
 import type { IObjectSchema, IObjectShape } from '../types'
 import type { IObjectSchemaImpl } from './object.types'
 import { extend, merge, omit, partial, pick, required } from './prototype'
@@ -12,6 +13,9 @@ export const ObjectSchema = function <T extends IObjectShape>(
     new <T extends IObjectShape>(shape: T): IObjectSchema<T>
     prototype: any
 }
+
+ObjectSchema.prototype = Object.create(SchemaBase.prototype)
+ObjectSchema.prototype.constructor = ObjectSchema
 
 Object.assign(ObjectSchema.prototype, {
     partial,

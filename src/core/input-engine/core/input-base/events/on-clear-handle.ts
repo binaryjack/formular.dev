@@ -16,6 +16,7 @@ export const onClearHandle = (f: IExtendedInput) => {
             `field.state.${onClearHandle.name}`,
             f.input.name,
             f
-        )
+        ),
+        String(f.input.id)
     )
 }

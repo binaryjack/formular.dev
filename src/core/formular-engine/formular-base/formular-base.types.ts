@@ -168,6 +168,56 @@ export interface IFormularBase<T extends object> {
     getData: () => Record<string, InputDataTypes>
 
     /**
+     * Subscribe to form or field-level notifications with optional debouncing.
+     * This is an introspection helper and can be disabled via config.
+     * @param channel - Channel name (field ID), or undefined for form-wide notifications
+     * @param callback - Function to call when the channel fires
+     * @param options - Optional configuration (e.g., custom debounce delay)
+     * @returns Unsubscribe function
+     */
+    observe: (
+        channel: string | undefined,
+        callback: () => void,
+        options?: { debounceDelay?: number }
+    ) => () => void
+
+    /**
+     * Unsubscribe all observers attached via observe().
+     */
+    unobserveAll: () => void
+
+    /**
+     * Subscribe to form-level events with a fluent API.
+     * Returns a subscription object with .on() method for attaching callbacks.
+     *
+     * @param eventType - The event type to subscribe to (e.g., 'onValidate', 'onUiUpdate')
+     * @param subscriptionName - Optional name/identifier for this subscription
+     * @returns Subscription object with .on(callback) method
+     *
+     * @example
+     * ```typescript
+     * const unsubscribe = form.subscribe('onValidate', 'debug').on((data) => {
+     *   console.log('Validation event:', data);
+     * });
+     *
+     * // Later, to unsubscribe:
+     * unsubscribe();
+     * ```
+     */
+    subscribe: <E = any>(
+        eventType: EventsType,
+        subscriptionName?: string
+    ) => {
+        on: <T = E>(callback: (data: T) => void) => () => void
+    }
+
+    /**
+     * Ring buffer of recent debug events (if enableIntrospection is true).
+     * Each entry logs the event type, channel, and timestamp.
+     */
+    debugStream?: Array<{ type: string; channel?: string; timestamp: number }>
+
+    /**
      * Sets the event types that will trigger validation
      * @param mode - Array of event types to use as validation triggers
      */

@@ -10,7 +10,7 @@ import type { IInitializationManager } from '../initialization-manager.types'
 export const addInitializer = function (
     this: IInitializationManager,
     name: string,
-    initializer: (params: IInputConfiguration) => void
+    initializer: (params: IInputConfiguration) => void | Promise<void>
 ) {
     const newDelegate = new InitializationDelegate(name, this, initializer)
 

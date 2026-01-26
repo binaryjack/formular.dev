@@ -14,7 +14,8 @@ export const onClickOption = <T extends IExtendedInput>(f: T, optionId: string, 
             `field.option.label.${onClickOption.name}`,
             f.input.name,
             f
-        )
+        ),
+        String(f.input.id)
     )
 
     e.stopPropagation()

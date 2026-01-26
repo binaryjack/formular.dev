@@ -22,5 +22,12 @@ export function dmRegister<T extends HTMLElement>(this: IDomManager<T>, element:
         )
         return
     }
+
+    // Capture initial className as data-class for dynamic class updates
+    // This preserves the user's className while formular manages state classes
+    if (element.className) {
+        element.setAttribute('data-class', element.className)
+    }
+
     this.elements.push(element)
 }

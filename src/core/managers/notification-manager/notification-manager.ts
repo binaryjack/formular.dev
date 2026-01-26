@@ -44,14 +44,14 @@ export const NotificationManager = function (
     this.batchTimeout = null
     this.batchConfig = {
         maxBatchSize: 50,
-        batchDelay: 8, // Optimized from 16ms to 8ms for better performance
+        batchDelay: 16,
         enablePriority: true,
         strategy: 'microtask'
     }
 
     Object.defineProperty(this, 'dependencyName', {
-        value: NotificationManager.name,
-        writable: false, // Prevent modification
+        value: '',
+        writable: true, // Allow initialization to set proper name
         configurable: false // Prevent deletion or redefinition
     })
     this.isInitialized = false

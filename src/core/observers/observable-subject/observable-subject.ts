@@ -32,6 +32,7 @@ import { unSubscribeAll } from './prototype/unsubscribe-all'
 export const ObservableSubject = function (this: IObservableSubject) {
     this.observersWeak = []
     this.observersStrong = []
+    this.channels = new Map()
 
     this.cleanupRegistry = new FinalizationRegistry((ref) => {
         // Remove the observer ref from the list when GC'd

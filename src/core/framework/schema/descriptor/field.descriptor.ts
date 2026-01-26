@@ -124,6 +124,17 @@ export interface IFieldDescriptor {
      * - SSN: "###-##-####" → "123-45-6789"
      */
     mask?: string
+
+    /**
+     * Debounce delay in milliseconds for this field (optional)
+     *
+     * When set, overrides the global debounce configuration for this specific field.
+     * Useful for fields that need faster or slower update rates.
+     *
+     * @example
+     * debounceDelay: 200 // Updates 200ms after user stops typing
+     */
+    debounceDelay?: number
 }
 
 export type TFieldDescriptor = {

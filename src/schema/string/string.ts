@@ -7,6 +7,7 @@ import { SchemaBase } from '../base'
 import { createTypeError } from '../error'
 import type { IStringSchema } from '../types'
 import { ahv } from './prototype/ahv'
+import { debounce } from './prototype/debounce'
 import { email } from './prototype/email'
 import { length } from './prototype/length'
 import { max } from './prototype/max'
@@ -119,5 +120,6 @@ Object.assign(StringSchema.prototype, {
     nonempty,
     phone,
     postalCode,
-    ahv
+    ahv,
+    debounce
 })

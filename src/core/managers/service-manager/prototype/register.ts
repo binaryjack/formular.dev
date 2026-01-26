@@ -1,4 +1,3 @@
-import { logManager } from '@core/managers/log-manager/log-manager'
 import {
     IServiceDescriptor,
     IServiceManager,
@@ -24,12 +23,13 @@ export const register = function <T>(
 
     this.services.set(identifier, descriptor)
 
-    logManager(
-        undefined,
-        'info',
-        'IServiceManager',
-        `Registered service: ${this.getServiceName(identifier)} as ${descriptor.lifetime}`
-    )
+    // Disable verbose service registration logs
+    // logManager(
+    //     undefined,
+    //     'info',
+    //     'IServiceManager',
+    //     `Registered service: ${this.getServiceName(identifier)} as ${descriptor.lifetime}`
+    // )
 
     return this
 }

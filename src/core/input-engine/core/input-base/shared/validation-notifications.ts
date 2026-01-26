@@ -18,7 +18,15 @@ export const triggerUiUpdateNotification = <T extends IEvents>(
     baseInput?.notificationManager?.debounceNotify(
         'onUiUpdate',
         baseInput.onUiUpdateDelay,
-        newEvent(baseInput.name, functionName, 'onUiUpdate', 'field', baseInput.name, data.fieldRef)
+        newEvent(
+            baseInput.name,
+            functionName,
+            'onUiUpdate',
+            'field',
+            baseInput.name,
+            data.fieldRef
+        ),
+        String(baseInput.id)
     )
 }
 
@@ -43,6 +51,7 @@ export const triggerValidationChangeNotification = <T extends IEvents>(
             'field',
             baseInput.name,
             data.fieldRef
-        )
+        ),
+        String(baseInput.id)
     )
 }

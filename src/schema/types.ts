@@ -121,6 +121,7 @@ export interface IStringSchema extends ISchemaBase<string> {
     toLowerCase(): IStringSchema
     toUpperCase(): IStringSchema
     nonempty(message?: string): IStringSchema
+    debounce(milliseconds: number): IStringSchema
 
     // Country-specific validators
     phone(countryCode: string, message?: string): IStringSchema
@@ -142,6 +143,7 @@ export interface INumberSchema extends ISchemaBase<number> {
     multipleOf(value: number, message?: string): INumberSchema
     finite(message?: string): INumberSchema
     safe(message?: string): INumberSchema
+    debounce(milliseconds: number): INumberSchema
 }
 
 /**

@@ -17,6 +17,7 @@ export interface IDomRegisterBuilder {
     element: Partial<HTMLInputElement>
     context: IExtendedInput
     eventsHandlers: Record<EventsType, Events[]>
+    arias?: IAria[]
     onChange: (e: Event) => void
     onBlur: (e: Event) => void
     onFocus: (e: Event) => void

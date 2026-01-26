@@ -1,9 +1,9 @@
 import { EventsType } from '@core/framework/events/events.types'
-import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 import {
-    IValidationManager,
-    SValidationManager
-} from '@core/managers/validation-manager/validation-manager.types'
+    IFormularManager,
+    SFormularManager
+} from '@core/managers/formular-manager/formular-manager.types'
+import { IServiceManager } from '@core/managers/service-manager/service-manager.types'
 
 export const SValidationTriggerService = Symbol.for('IValidationTriggerService')
 
@@ -42,9 +42,12 @@ export const ValidationTriggerService = function (
     })
     this.sm = sm
     this.sync = function (this: IValidationTriggerService) {
-        const vm = this.sm.lazy<IValidationManager>(SValidationManager)?.()
-        if (vm) {
-            vm.setTriggerKeyWord(this.triggers)
+        // Propagate triggers to all existing forms so fields inherit them
+        const fm = this.sm.tryResolve<IFormularManager>(SFormularManager)
+        if (fm && fm.forms && fm.forms.size > 0) {
+            for (const form of fm.forms.values()) {
+                form.setTriggerKeyWord(this.triggers)
+            }
         }
     }
     // Register the base input service with the service manager

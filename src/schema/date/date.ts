@@ -30,6 +30,9 @@ export const DateSchema = function (this: IDateSchemaImpl): void {
     prototype: IDateSchema
 }
 
+DateSchema.prototype = Object.create(SchemaBase.prototype)
+DateSchema.prototype.constructor = DateSchema
+
 Object.assign(DateSchema.prototype, {
     min,
     max

@@ -26,3 +26,6 @@ export const EnumSchema = function <T extends readonly [string, ...string[]]>(
     new <T extends readonly [string, ...string[]]>(values: T): IEnumSchemaImpl<T>
     prototype: IEnumSchema<any>
 }
+
+EnumSchema.prototype = Object.create(SchemaBase.prototype)
+EnumSchema.prototype.constructor = EnumSchema

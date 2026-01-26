@@ -1,4 +1,3 @@
-import { IBuilderService } from '@core/factories/input-factory/input-factory'
 import { IFieldDescriptor } from '@core/framework/schema/descriptor/field.descriptor'
 import { IInputBase, SInputBase } from '@core/input-engine/core/input-base/input-base.types'
 import { IDomManager, SDomManager } from '@core/managers/dom-manager/dom-manager.types'
@@ -13,10 +12,10 @@ import {
 
 export const SBaseInputService = Symbol.for('IBaseInputService')
 
-export interface IBaseInputService extends IBuilderService<IInputBase> {
+export interface IBaseInputService {
     new (sm: IServiceManager): IBaseInputService
-    // Define the methods and properties for the base input service
-    // For example:
+    sm: IServiceManager
+    // Base input service is synchronous - no initialization needed
     build: (descriptor: IFieldDescriptor) => IInputBase
 }
 

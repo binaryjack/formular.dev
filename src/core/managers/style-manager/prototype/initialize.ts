@@ -11,8 +11,17 @@ import { IStyleManager } from '../style-manager.types'
 export const initialize = async function (this: IStyleManager) {
     try {
         const success = await abstractInitializer(this.input, (e) => {
-            e?.notificationManager?.observers.subscribe(this.classNames.bind(this), false)
-            e?.notificationManager?.observers.subscribe(this.getFlagsObject.bind(this), false)
+            // Subscribe to field-specific channel using field ID
+            e?.notificationManager?.observers.subscribe(
+                String(e.id),
+                this.classNames.bind(this),
+                false
+            )
+            e?.notificationManager?.observers.subscribe(
+                String(e.id),
+                this.getFlagsObject.bind(this),
+                false
+            )
 
             e.styleManager.className = ''
             e.styleManager.classesList = new Map<

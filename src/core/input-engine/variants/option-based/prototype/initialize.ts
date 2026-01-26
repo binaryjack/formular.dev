@@ -35,7 +35,6 @@ export const initialize = async function (this: IOptionBaseInput) {
             if (em.hasErrors()) {
                 logManager(undefined, 'critical', 'initialize', em.toString())
             } else {
-                logManager(this.input.trackingManager, 'info', this.dependencyName, 'Initialized')
                 this.isInitialized = true
             }
         }

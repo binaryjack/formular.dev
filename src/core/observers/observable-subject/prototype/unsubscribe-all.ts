@@ -5,11 +5,11 @@ import { IObservableSubject } from '../observable-subject.types'
  */
 export function unSubscribeAll(this: IObservableSubject) {
     for (const fn of this.observersStrong) {
-        console.log('Unsubscribing strong observer:', fn.name)
+        // console.log('Unsubscribing strong observer:', fn.name)
     }
 
     for (const fn of this.observersWeak) {
-        console.log('Unsubscribing weak observer:', fn.deref()?.name)
+        // console.log('Unsubscribing weak observer:', fn.deref()?.name)
         this.cleanupRegistry.unregister(fn)
     }
     this.observersWeak = []

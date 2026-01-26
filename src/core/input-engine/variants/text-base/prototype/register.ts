@@ -50,11 +50,12 @@ import { IExtendedInput } from '@core/input-engine/core/input-base/input-base.ty
 export const register = function <FieldValuesTypes>(
     this: IExtendedInput
 ): Partial<HTMLInputElement> {
-    const lableId = `${this.input.id}${this.input.labelId}`
-    const describedbyId = `${this.input.id}${this.input.describedById}`
+    // Use just the id for aria-labelledby and aria-describedby
+    const labelId = `${this.input.id}`
+    const describedbyId = `${this.input.id}`
 
     const arias = [
-        aria('labelledby', lableId),
+        aria('labelledby', labelId),
         aria('describedby', describedbyId),
         aria('name', this.input.name),
         aria('label', this.input.name),
@@ -62,7 +63,7 @@ export const register = function <FieldValuesTypes>(
         aria('invalid', this.input.isValid ? 'false' : 'true'),
         aria('disabled', this.input.enabled ? 'false' : 'true'),
         aria('readonly', 'false'),
-        aria('autocomplete', 'none'),
+        aria('autocomplete', 'off'),
         aria('haspopup', 'false'),
         aria('expanded', 'false'),
         aria('activedescendant', 'false')

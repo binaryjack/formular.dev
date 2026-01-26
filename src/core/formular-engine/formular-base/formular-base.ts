@@ -20,12 +20,15 @@ import { getErrors } from './prototype/get-errors'
 import { getField } from './prototype/get-field'
 import { getFormFlags } from './prototype/get-form-flags'
 import { hasChanges } from './prototype/has-changes'
+import { observe } from './prototype/observe'
 import { parse } from './prototype/parse'
 import { preValidateField } from './prototype/pre-validate-field'
 import { reset } from './prototype/reset'
 import { setIsBusy } from './prototype/set-is-busy'
 import { setTriggerKeyWord } from './prototype/set-validation-trigger-mode'
 import { submit } from './prototype/submit'
+import { subscribe } from './prototype/subscribe'
+import { unobserveAll } from './prototype/unobserve-all'
 import { updateField } from './prototype/update-field'
 import { validateField } from './prototype/validate-field'
 import { validateForm } from './prototype/validate-form'
@@ -47,6 +50,12 @@ export const Formular = function <T extends object>(
     this._loadingStatus = LoadingStatus.Loaded
     this.triggerKeyWordType = []
     this.isDirty = false
+
+    // Initialize introspection helpers (gated by config, zero cost if disabled)
+    ;(this as any)._observerSubscriptions = new Map<string | undefined, Array<() => void>>()
+    ;(this as any)._introspectionEnabled = false
+    ;(this as any)._debugStreamMaxSize = 100
+    ;(this as any).debugStream = []
 
     // Define isBusy as a computed property returning boolean
     Object.defineProperty(this, 'isBusy', {
@@ -82,12 +91,15 @@ Object.assign(Formular.prototype, {
     getField,
     getFormFlags,
     hasChanges,
+    observe,
     parse,
     preValidateField,
     reset,
     setIsBusy,
     setTriggerKeyWord,
     submit,
+    subscribe,
+    unobserveAll,
     updateField,
     validateField,
     validateForm

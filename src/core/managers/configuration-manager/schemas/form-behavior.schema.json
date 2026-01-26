@@ -49,6 +49,18 @@
                     "onObserve"
                 ]
             }
+        },
+        "enableIntrospection": {
+            "type": "boolean",
+            "description": "Enable introspection helpers (observe API, debugStream). Only for development/debug builds.",
+            "default": false
+        },
+        "debugStreamSize": {
+            "type": "number",
+            "description": "Ring buffer size for debug event stream",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 1000
         }
     },
     "required": ["name", "enforceConfigurationCheck", "validationTriggers"],

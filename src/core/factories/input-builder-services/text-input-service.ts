@@ -21,7 +21,7 @@ export interface ITextInputService extends IBuilderService<ITextBaseInput> {
     new (sm: IServiceManager): ITextInputService
     // Define the methods and properties for the base input service
     // For example:
-    build: (descriptor: IFieldDescriptor) => ITextBaseInput
+    build: (descriptor: IFieldDescriptor) => Promise<ITextBaseInput>
 }
 
 export const TextInputService = function (this: ITextInputService, sm: IServiceManager) {
@@ -32,7 +32,7 @@ export const TextInputService = function (this: ITextInputService, sm: IServiceM
     }
     this.sm = sm
     try {
-        this.build = function (descriptor: IFieldDescriptor): ITextBaseInput {
+        this.build = async function (descriptor: IFieldDescriptor): Promise<ITextBaseInput> {
             const baseInputService = this.sm.lazy<IBaseInputService>(SBaseInputService)?.()
             const _baseInput = baseInputService.build(descriptor)
             const _textInput = this.sm.lazy<ITextBaseInput>(STextBaseInput)?.()
@@ -41,7 +41,7 @@ export const TextInputService = function (this: ITextInputService, sm: IServiceM
 
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
-            sequenceInitializer(config, dependencies)
+            await sequenceInitializer(config, dependencies)
             return _textInput
         }
     } catch (e: any) {
