@@ -784,17 +784,11 @@ const MyForm = () => {
 
 ### Comprehensive Guides
 
-- **[Simple API Guide](./docs/SIMPLE-API-GUIDE.md)** - Complete guide to the `createForm()` API with real-world examples
-- **[Type Safety Guide](./docs/TYPE-SAFETY-GUIDE.md)** - Deep dive into type inference and compile-time safety
-- **[API Comparison](./docs/API-COMPARISON.md)** - v1 vs v2 API differences
-- **[Quick Reference](./docs/QUICK-REFERENCE.md)** - Cheat sheet for common tasks
-
-### Architecture Documentation
-
-- **[Architecture Overview](./docs/ARCHITECTURE-UPDATE-SUMMARY.md)** - Complete architectural guide
-- **[Architecture Diagrams](./docs/ARCHITECTURE-DIAGRAMS.md)** - Visual representations
-- **[Channel-Based Messaging](./docs/ARCHITECTURE-CHANNEL-BASED-MESSAGING.md)** - Technical implementation
-- **[Comparison with Other Libraries](./docs/COMPARISON.md)** - Side-by-side comparison
+- **[Channel-Based Messaging Architecture](./ARCHITECTURE-CHANNEL-BASED-MESSAGING.md)** - Technical implementation of the message bus system
+- **[Comparison with Other Libraries](./COMPARISON.md)** - Side-by-side comparison with React Hook Form, Formik, and TanStack Form
+- **[Field Types UI Guide](./FIELD-TYPES-UI-GUIDE.md)** - Complete guide to available field types and UI components
+- **[Form Context Integration](./FORM-CONTEXT-INTEGRATION.md)** - Integration with form providers and context
+- **[Implementation Summary](./IMPLEMENTATION-SUMMARY.md)** - Summary of v2.0 implementation details
 
 ### Examples in Codebase
 
@@ -885,7 +879,7 @@ notificationManager.observers.debounceTrigger('field-123', 300)
 
 This architecture enables formular.dev to handle **100+ field forms** with sub-100ms rendering while maintaining complete field isolation and type safety.
 
-For more details, see [Channel-Based Messaging Architecture](./docs/ARCHITECTURE-CHANNEL-BASED-MESSAGING.md).
+See [Channel-Based Messaging Architecture](./ARCHITECTURE-CHANNEL-BASED-MESSAGING.md) for more details.
 
 ---
 
