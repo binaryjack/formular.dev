@@ -50,15 +50,15 @@ Works seamlessly with React, Vue, Angular, and vanilla JavaScript using the **sa
 
 ### 📊 Competitive Advantage
 
-| Feature               | formular.dev v2.0 | React Hook Form | Formik        | TanStack Form |
-| --------------------- | ----------------- | --------------- | ------------- | ------------- |
-| **Schema system**     | ✅ Built-in       | ⚠️ External     | ⚠️ External   | ⚠️ External   |
-| **Type inference**    | ✅ Automatic      | ❌ Manual       | ❌ Manual     | ✅ Valibot    |
-| **Framework support** | ✅ All (same API) | ❌ React only   | ❌ React only | ⚠️ Adapters   |
-| **Built-in i18n**     | ✅ 6 languages    | ❌              | ❌            | ❌            |
-| **Country validators**| ✅ 12+ countries  | ❌              | ❌            | ❌            |
-| **Zero dependencies** | ✅                | ✅              | ❌ Lodash etc | ⚠️ Optional   |
-| **Bundle size**       | 45KB (12KB gz)    | ~8KB            | ~30KB         | ~15-20KB      |
+| Feature                | formular.dev v2.0 | React Hook Form | Formik        | TanStack Form |
+| ---------------------- | ----------------- | --------------- | ------------- | ------------- |
+| **Schema system**      | ✅ Built-in       | ⚠️ External     | ⚠️ External   | ⚠️ External   |
+| **Type inference**     | ✅ Automatic      | ❌ Manual       | ❌ Manual     | ✅ Valibot    |
+| **Framework support**  | ✅ All (same API) | ❌ React only   | ❌ React only | ⚠️ Adapters   |
+| **Built-in i18n**      | ✅ 6 languages    | ❌              | ❌            | ❌            |
+| **Country validators** | ✅ 12+ countries  | ❌              | ❌            | ❌            |
+| **Zero dependencies**  | ✅                | ✅              | ❌ Lodash etc | ⚠️ Optional   |
+| **Bundle size**        | 45KB (12KB gz)    | ~8KB            | ~30KB         | ~15-20KB      |
 
 ---
 
@@ -164,7 +164,7 @@ const nameSchema = f.string().min(2).max(50).nonempty().trim()
 const ageSchema = f.number().min(18).max(100).int().positive()
 
 // Boolean
-const termsSchema = f.boolean().refine(val => val === true, { message: 'Must accept terms' })
+const termsSchema = f.boolean().refine((val) => val === true, { message: 'Must accept terms' })
 
 // Date
 const birthDateSchema = f.date().max(new Date())
@@ -180,32 +180,32 @@ const statusSchema = f.literal('active')
 
 ```typescript
 f.string()
-    .email()        // Email format
-    .url()          // URL format
-    .min(5)         // Min length
-    .max(100)       // Max length
-    .length(10)     // Exact length
+    .email() // Email format
+    .url() // URL format
+    .min(5) // Min length
+    .max(100) // Max length
+    .length(10) // Exact length
     .pattern(/^\d+$/) // Regex
-    .nonempty()     // Non-empty string
-    .trim()         // Trim whitespace
-    .toLowerCase()  // Convert to lowercase
-    .toUpperCase()  // Convert to uppercase
+    .nonempty() // Non-empty string
+    .trim() // Trim whitespace
+    .toLowerCase() // Convert to lowercase
+    .toUpperCase() // Convert to uppercase
 ```
 
 ### Number Validators
 
 ```typescript
 f.number()
-    .min(0)         // Minimum value
-    .max(100)       // Maximum value
-    .int()          // Integer only
-    .positive()     // > 0
-    .negative()     // < 0
-    .nonnegative()  // >= 0
-    .nonpositive()  // <= 0
-    .multipleOf(5)  // Multiple of value
-    .finite()       // Not Infinity
-    .safe()         // Within safe integer range
+    .min(0) // Minimum value
+    .max(100) // Maximum value
+    .int() // Integer only
+    .positive() // > 0
+    .negative() // < 0
+    .nonnegative() // >= 0
+    .nonpositive() // <= 0
+    .multipleOf(5) // Multiple of value
+    .finite() // Not Infinity
+    .safe() // Within safe integer range
 ```
 
 ### Country-Specific Validators
@@ -252,11 +252,7 @@ const userSchema = f.object({
 })
 
 // Union
-const statusSchema = f.union(
-    f.literal('active'),
-    f.literal('inactive'),
-    f.literal('pending')
-)
+const statusSchema = f.union(f.literal('active'), f.literal('inactive'), f.literal('pending'))
 
 // Record (key-value pairs)
 const preferencesSchema = f.record(f.string(), f.boolean())
@@ -267,8 +263,8 @@ const preferencesSchema = f.record(f.string(), f.boolean())
 ```typescript
 const schema = f.object({
     requiredField: f.string(),
-    optionalField: f.string().optional(),     // string | undefined
-    nullableField: f.string().nullable(),     // string | null
+    optionalField: f.string().optional(), // string | undefined
+    nullableField: f.string().nullable(), // string | null
     bothField: f.string().optional().nullable() // string | null | undefined
 })
 ```
@@ -288,19 +284,21 @@ const schema = f.object({
 ```typescript
 const schema = f.object({
     email: f.string().trim().toLowerCase().email(),
-    price: f.string()
-        .transform(val => parseFloat(val))
-        .refine(val => val > 0, { message: 'Must be positive' })
+    price: f
+        .string()
+        .transform((val) => parseFloat(val))
+        .refine((val) => val > 0, { message: 'Must be positive' })
 })
 ```
 
 ### Custom Refinements
 
 ```typescript
-const passwordSchema = f.string()
+const passwordSchema = f
+    .string()
     .min(8)
-    .refine(val => /[A-Z]/.test(val), { message: 'Must contain uppercase' })
-    .refine(val => /[0-9]/.test(val), { message: 'Must contain number' })
+    .refine((val) => /[A-Z]/.test(val), { message: 'Must contain uppercase' })
+    .refine((val) => /[0-9]/.test(val), { message: 'Must contain number' })
 ```
 
 ---
@@ -360,18 +358,18 @@ const errors = form.getErrors()
 
 ```typescript
 // Check form state
-form.isValid      // All fields valid
-form.isDirty      // Form modified
-form.isBusy       // Form submitting
-form.submitCount  // Number of submissions
+form.isValid // All fields valid
+form.isDirty // Form modified
+form.isBusy // Form submitting
+form.submitCount // Number of submissions
 
 // Get/set field values
 const email = form.getField('email')?.value
 form.updateField('email', 'user@example.com')
 
 // Reset/clear form
-form.reset()  // Reset to initial values
-form.clear()  // Clear all values
+form.reset() // Reset to initial values
+form.clear() // Clear all values
 ```
 
 ### Submission
@@ -448,9 +446,7 @@ import { createForm, DirectSubmissionStrategy } from 'formular.dev'
 
 const form = createForm({
     schema: userSchema,
-    submissionStrategy: new DirectSubmissionStrategy(
-        async (data) => await api.post('/users', data)
-    )
+    submissionStrategy: new DirectSubmissionStrategy(async (data) => await api.post('/users', data))
 })
 ```
 
@@ -512,9 +508,9 @@ type User = f.infer<typeof schema>
 const form = createForm({
     schema,
     onSubmit: (data: User) => {
-        data.email          // ✅ string
-        data.role           // ✅ 'admin' | 'user'
-        data.profile.bio    // ✅ string | undefined
+        data.email // ✅ string
+        data.role // ✅ 'admin' | 'user'
+        data.profile.bio // ✅ string | undefined
     }
 })
 ```
@@ -563,9 +559,9 @@ try {
     const result = await form.submit()
 } catch (error) {
     if (error instanceof SchemaValidationError) {
-        console.log(error.code)    // Error code
-        console.log(error.path)    // Field path
-        console.log(error.errors)  // All validation errors
+        console.log(error.code) // Error code
+        console.log(error.path) // Field path
+        console.log(error.errors) // All validation errors
     }
 }
 ```
@@ -704,6 +700,7 @@ formular.dev includes 18+ built-in validators plus country-specific validators:
 **Country-Specific Validators:**
 
 Support for 12+ countries including:
+
 - 🇨🇭 Switzerland: `phone('CH')`, `postalCode('CH')`, `ahv()`
 - 🇺🇸 United States: `phone('US')`, `postalCode('US')`, `ssn('US')`
 - 🇬🇧 United Kingdom: `phone('UK')`, `postalCode('UK')`
