@@ -15,7 +15,7 @@
  *
  * Usage Example:
  * ```typescript
- * import { SConfigurationManager, IConfigurationManager } from 'formular.dev.lib'
+ * import { SConfigurationManager, IConfigurationManager } from '@pulsar-framework/formular.dev'
  *
  * const configManager = serviceManager.getService<IConfigurationManager>(SConfigurationManager)
  * ```
@@ -138,7 +138,7 @@ export { SFieldDescriptor } from './core/framework/schema/descriptor/field.descr
  *
  * #### 1. Service Registration
  * ```typescript
- * import { SConfigurationManager, ConfigurationManager } from 'formular.dev.lib'
+ * import { SConfigurationManager, ConfigurationManager } from '@pulsar-framework/formular.dev'
  *
  * // Register a service
  * serviceManager.registerClass(SConfigurationManager, ConfigurationManager, {
@@ -149,7 +149,7 @@ export { SFieldDescriptor } from './core/framework/schema/descriptor/field.descr
  *
  * #### 2. Service Resolution
  * ```typescript
- * import { SConfigurationManager, IConfigurationManager } from 'formular.dev.lib'
+ * import { SConfigurationManager, IConfigurationManager } from '@pulsar-framework/formular.dev'
  *
  * // Resolve a service
  * const configManager = serviceManager.getService<IConfigurationManager>(SConfigurationManager)
@@ -158,7 +158,7 @@ export { SFieldDescriptor } from './core/framework/schema/descriptor/field.descr
  * #### 3. React Hook Usage
  * ```typescript
  * import { useService } from '@adapters/react/services/use-service'
- * import { SConfigurationManager, IConfigurationManager } from 'formular.dev.lib'
+ * import { SConfigurationManager, IConfigurationManager } from '@pulsar-framework/formular.dev'
  *
  * function MyComponent() {
  *     const { getService } = useService()

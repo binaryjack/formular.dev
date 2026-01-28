@@ -17,7 +17,7 @@
  *
  * Usage Example:
  * ```typescript
- * import type { IConfigurationManager, IFormularManager } from 'formular.dev.lib'
+ * import type { IConfigurationManager, IFormularManager } from '@pulsar-framework/formular.dev'
  *
  * const configManager: IConfigurationManager = serviceManager.getService(SConfigurationManager)
  * ```
@@ -260,7 +260,7 @@ export type { IObservableSubject } from './core/observers/observable-subject/obs
  *
  * #### 1. Service Implementation
  * ```typescript
- * import type { IConfigurationManager } from 'formular.dev.lib'
+ * import type { IConfigurationManager } from '@pulsar-framework/formular.dev'
  *
  * class MyConfigurationManager implements IConfigurationManager {
  *     // Implement interface methods...
@@ -269,7 +269,7 @@ export type { IObservableSubject } from './core/observers/observable-subject/obs
  *
  * #### 2. Type Annotations
  * ```typescript
- * import type { IFormularManager, IValidationOptions } from 'formular.dev.lib'
+ * import type { IFormularManager, IValidationOptions } from '@pulsar-framework/formular.dev'
  *
  * function processForm(manager: IFormularManager, options: IValidationOptions) {
  *     // Process form with type safety...
@@ -278,7 +278,7 @@ export type { IObservableSubject } from './core/observers/observable-subject/obs
  *
  * #### 3. Generic Types
  * ```typescript
- * import type { IFormularBase, IInputBase } from 'formular.dev.lib'
+ * import type { IFormularBase, IInputBase } from '@pulsar-framework/formular.dev'
  *
  * function createForm<T extends object>(data: T): IFormularBase<T> {
  *     // Create form with generic type safety...
