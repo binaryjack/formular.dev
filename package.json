@@ -1,5 +1,5 @@
 {
-    "name": "formular.dev.lib",
+    "name": "@pulsar-framework/formular.dev",
     "description": "A modern form framework-agnostic builder, featuring a user-friendly interface, customizable components, and robust validation.",
     "keywords": [
         "form",
