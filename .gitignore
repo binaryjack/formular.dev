@@ -40,3 +40,4 @@ coverage/
 
 # Project specific
 public/assets/*
+# Implementation docs consolidated to monorepo root
