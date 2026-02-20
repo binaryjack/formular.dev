@@ -25,6 +25,7 @@
         "build": "vite build --mode production",
         "build:dev": "vite build --mode development",
         "dev": "vite build --mode development --watch",
+        "prepublishOnly": "pnpm run build",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:coverage": "jest --coverage",
@@ -45,5 +46,13 @@
     },
     "files": [
         "dist/**/*"
-    ]
+    ],
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/binaryjack/formular.dev.git"
+    }
 }
