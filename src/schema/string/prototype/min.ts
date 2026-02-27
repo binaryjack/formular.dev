@@ -7,6 +7,9 @@ export function min(this: IStringSchemaImpl, length: number, message?: string): 
         message: message ?? DefaultErrorMessages.tooSmall(length, 'string'),
         code: SchemaErrorCode.TooSmall
     }) as IStringSchemaImpl
-    cloned._min = { value: length, message: message ?? DefaultErrorMessages.tooSmall(length, 'string') }
+    cloned._min = {
+        value: length,
+        message: message ?? DefaultErrorMessages.tooSmall(length, 'string')
+    }
     return cloned as IStringSchema
 }

@@ -92,10 +92,26 @@ function schemaToDescriptors<T extends IObjectShape>(
             const fs = fieldSchema as any
             const validationOptions: Record<string, unknown> = {}
             const err = (msg: string) => ({ message: msg, code: 'schema', name: String(key) })
-            if (fs._required)  validationOptions['required']  = { value: fs._required.value,  error: err(fs._required.message) }
-            if (fs._min)       validationOptions['minLength'] = { value: fs._min.value,       error: err(fs._min.message) }
-            if (fs._max)       validationOptions['maxLength'] = { value: fs._max.value,       error: err(fs._max.message) }
-            if (fs._email)     validationOptions['pattern']   = { value: fs._email.value,     error: err(fs._email.message) }
+            if (fs._required)
+                validationOptions['required'] = {
+                    value: fs._required.value,
+                    error: err(fs._required.message)
+                }
+            if (fs._min)
+                validationOptions['minLength'] = {
+                    value: fs._min.value,
+                    error: err(fs._min.message)
+                }
+            if (fs._max)
+                validationOptions['maxLength'] = {
+                    value: fs._max.value,
+                    error: err(fs._max.message)
+                }
+            if (fs._email)
+                validationOptions['pattern'] = {
+                    value: fs._email.value,
+                    error: err(fs._email.message)
+                }
 
             descriptors.push({
                 id,

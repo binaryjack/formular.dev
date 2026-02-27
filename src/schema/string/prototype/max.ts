@@ -7,6 +7,9 @@ export function max(this: IStringSchemaImpl, length: number, message?: string): 
         message: message ?? DefaultErrorMessages.tooBig(length, 'string'),
         code: SchemaErrorCode.TooBig
     }) as IStringSchemaImpl
-    cloned._max = { value: length, message: message ?? DefaultErrorMessages.tooBig(length, 'string') }
+    cloned._max = {
+        value: length,
+        message: message ?? DefaultErrorMessages.tooBig(length, 'string')
+    }
     return cloned as IStringSchema
 }
