@@ -22,14 +22,6 @@ export const createFromDescriptors = async function <T extends object>(
     }
     const frm = new Formular(id, this)
 
-    // 🔧 FIX: Set validation triggers on form BEFORE adding fields
-    // This ensures fields inherit the correct triggerKeyWordType when added
-    const validationTriggerService =
-        this.sm.lazy<IValidationTriggerService>(SValidationTriggerService)?.()
-    if (validationTriggerService?.triggers?.length) {
-        frm.setTriggerKeyWord(validationTriggerService.triggers)
-    }
-
     // Enable introspection helpers if configured
     const configManager = this.sm.lazy<any>(SConfigurationManager)?.()
     const introspectionEnabled =
@@ -54,6 +46,16 @@ export const createFromDescriptors = async function <T extends object>(
     }
 
     frm.addFields(...fields)
+
+    // Set validation triggers AFTER addFields so fields are present and
+    // setTriggerKeyWord's forEach can propagate to each field's validationManager.
+    // Calling it before addFields is a no-op because frm.fields is empty.
+    const validationTriggerService =
+        this.sm.lazy<IValidationTriggerService>(SValidationTriggerService)?.()
+    if (validationTriggerService?.triggers?.length) {
+        frm.setTriggerKeyWord(validationTriggerService.triggers)
+    }
+
     this.forms.set(id, frm)
     return frm
 }

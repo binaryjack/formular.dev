@@ -86,6 +86,17 @@ function schemaToDescriptors<T extends IObjectShape>(
             // Extract debounce delay from schema if set
             const debounceDelay = (fieldSchema as any)._debounce
 
+            // Bridge named constraints (_min, _max, _required, _email) set by schema prototypes
+            // into IValidationOptions so the field engine validates on blur/change consistently
+            // with schema.safeParse() used at submit time.
+            const fs = fieldSchema as any
+            const validationOptions: Record<string, unknown> = {}
+            const err = (msg: string) => ({ message: msg, code: 'schema', name: String(key) })
+            if (fs._required)  validationOptions['required']  = { value: fs._required.value,  error: err(fs._required.message) }
+            if (fs._min)       validationOptions['minLength'] = { value: fs._min.value,       error: err(fs._min.message) }
+            if (fs._max)       validationOptions['maxLength'] = { value: fs._max.value,       error: err(fs._max.message) }
+            if (fs._email)     validationOptions['pattern']   = { value: fs._email.value,     error: err(fs._email.message) }
+
             descriptors.push({
                 id,
                 name: key,
@@ -96,7 +107,7 @@ function schemaToDescriptors<T extends IObjectShape>(
                 defaultValue: defaultValue ?? '',
                 errors: [],
                 guides: [],
-                validationOptions: {},
+                validationOptions,
                 options: [],
                 isValid: false,
                 isDirty: false,
