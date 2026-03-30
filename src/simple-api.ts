@@ -184,6 +184,17 @@ export async function createForm<T extends IObjectShape>(
         throw new Error('Failed to create form')
     }
 
+    // Add explicit cleanup method to ensure proper DI container disposal
+    ;(form as any).destroy = (): void => {
+        console.log(`[FORMULAR] Destroying form ${formId} and cleaning up ServiceManager`)
+        try {
+            // Dispose the entire service manager and its dependencies
+            serviceManager.dispose?.()
+        } catch (error) {
+            console.warn(`[FORMULAR] Error during form cleanup:`, error)
+        }
+    }
+
     // Setup submission strategy
     if (config.onSubmit) {
         const wrappedSubmit = async (data: IInferShape<T>): Promise<unknown> => {
