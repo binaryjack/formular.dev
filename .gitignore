@@ -43,3 +43,7 @@ public/assets/*
 # Implementation docs consolidated to monorepo root
 
 .npmrc
+src/**/*.js
+src/**/*.map
+src/**/*.d.ts
+src/**/*.d.ts

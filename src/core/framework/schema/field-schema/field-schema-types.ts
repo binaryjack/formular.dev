@@ -3,7 +3,7 @@ import { EventsType } from '@core/framework/events/events.types'
 
 import { InputDataTypes } from '@core/framework/common/common.input.data.types'
 import { IValidationOptions } from '@core/managers/validation-manager/validation-manager.types'
-import { IOptionItem } from 'src/interfaces'
+import { IOptionItem } from '../../../../interfaces'
 import { IFieldDescriptor } from '../descriptor/field.descriptor'
 
 export interface IFieldSchema extends IValidationOptions {
