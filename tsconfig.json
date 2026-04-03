@@ -39,6 +39,6 @@
             "@common/*": ["src/core/framework/common/*"]
         }
     },
-    "exclude": ["node_modules"],
-    "include": ["src", "tests"]
+    "exclude": ["node_modules", "dist", "build"],
+    "include": ["src", "tests", "src/**/*.json"]
 }
