@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
                 entry: resolve(__dirname, 'src/index.ts'),
                 name: 'formular.dev',
                 formats: ['es', 'cjs'],
-                fileName: (format) => `formular-dev.${format}.js`,
+                fileName: (format) => `formular-dev.${format === 'es' ? 'mjs' : 'cjs'}`,
                 cssFileName: 'formular-dev'
             },
             rollupOptions: {
