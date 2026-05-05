@@ -8,6 +8,7 @@ import { InputTypeNames } from './core/framework/common/common.input.types'
 import type { IFieldDescriptor } from './core/framework/schema/descriptor/field.descriptor'
 import type { IFormularManager } from './core/managers/formular-manager/formular-manager.types'
 import { SFormularManager } from './core/managers/formular-manager/formular-manager.types'
+import { presetRegistry } from './schema/presets'
 import type { IInferShape, IObjectSchema, IObjectShape } from './schema/types'
 import { SetupHelpers } from './setup/core/setup-helpers'
 import type { IFormSubmissionStrategy } from './submission-strategy'
@@ -253,7 +254,6 @@ export async function createFormFromPreset<T extends IObjectShape>(
     presetName: string,
     config?: Omit<IFormConfig<T>, 'schema'>
 ): Promise<IFormular<IInferShape<T>>> {
-    const { presetRegistry } = require('./schema/presets')
     const preset = presetRegistry.get(presetName)
 
     if (!preset) {
