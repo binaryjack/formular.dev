@@ -4,7 +4,7 @@
  */
 
 import type { IFormular } from './core/formular-engine/formular-base/formular-base.types'
-import { InputTypeNames } from './core/framework/common/common.input.types'
+import type { InputTypeNames } from './core/framework/common/common.input.types'
 import type { IFieldDescriptor } from './core/framework/schema/descriptor/field.descriptor'
 import type { IFormularManager } from './core/managers/formular-manager/formular-manager.types'
 import { SFormularManager } from './core/managers/formular-manager/formular-manager.types'

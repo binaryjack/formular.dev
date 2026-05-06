@@ -17,7 +17,7 @@
         "noEmit": false,
         "composite": true,
         "outDir": "./dist",
-        "rootDir": "./src",
+        "rootDir": "./",
         "sourceMap": true,
         "inlineSourceMap": false,
         "sourceRoot": "",
@@ -27,18 +27,17 @@
         "jsxImportSource": "@emotion/react",
         "types": ["jest", "node"],
         "ignoreDeprecations": "5.0",
-        "baseUrl": "./",
         "paths": {
-            "@tests/*": ["src/__tests__/*"],
-            "@mocks/*": ["src/__tests__/mocks/*"],
-            "@core/*": ["src/core/*"],
-            "@setup/*": ["src/setup/*"],
-            "@factory*": ["src/core/field-engine/generator/factory/*"],
-            "@framework/*": ["src/core/framework/*"],
-            "@utility/*": ["src/core/framework/utility/*"],
-            "@common/*": ["src/core/framework/common/*"]
+            "@tests/*": ["./src/__tests__/*"],
+            "@mocks/*": ["./src/__tests__/mocks/*"],
+            "@core/*": ["./src/core/*"],
+            "@setup/*": ["./src/setup/*"],
+            "@factory*": ["./src/core/field-engine/generator/factory/*"],
+            "@framework/*": ["./src/core/framework/*"],
+            "@utility/*": ["./src/core/framework/utility/*"],
+            "@common/*": ["./src/core/framework/common/*"]
         }
     },
     "exclude": ["node_modules", "dist", "build"],
-    "include": ["src", "tests", "src/**/*.json"]
+    "include": ["src/**/*", "tests/**/*", "src/**/*.json"]
 }
