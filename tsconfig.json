@@ -16,7 +16,6 @@
         "noImplicitThis": true,
         "noEmit": false,
         "composite": true,
-        "declaration": true,
         "outDir": "./dist",
         "rootDir": "./",
         "sourceMap": true,
@@ -27,7 +26,7 @@
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
         "types": ["jest", "node"],
-        "ignoreDeprecations": "5.0",
+        "ignoreDeprecations": "6.0",
         "paths": {
             "@tests/*": ["./src/__tests__/*"],
             "@mocks/*": ["./src/__tests__/mocks/*"],
