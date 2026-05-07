@@ -16,6 +16,7 @@
         "noImplicitThis": true,
         "noEmit": false,
         "composite": true,
+        "declaration": true,
         "outDir": "./dist",
         "rootDir": "./",
         "sourceMap": true,

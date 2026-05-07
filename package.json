@@ -11,11 +11,11 @@
     "version": "2.1.0",
     "main": "dist/formular-dev.cjs",
     "module": "dist/formular-dev.mjs",
-    "types": "dist/types/index.d.ts",
+    "types": "dist/types/src/index.d.ts",
     "sideEffects": false,
     "exports": {
         ".": {
-            "types": "./dist/types/index.d.ts",
+            "types": "./dist/types/src/index.d.ts",
             "import": "./dist/formular-dev.mjs",
             "require": "./dist/formular-dev.cjs",
             "default": "./dist/formular-dev.mjs"

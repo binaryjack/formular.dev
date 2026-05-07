@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
         },
         plugins: [
             dts({
-                outDir: 'dist/types',
+                outDir: './dist/types',
                 tsconfigPath: './tsconfig.json',
                 rollupTypes: false,
                 copyDtsFiles: false,
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
             sourcemap: true, // Always generate external sourcemaps for debugging
             minify: isProduction ? 'esbuild' : false, // Only minify in production
             lib: {
-                entry: resolve(__dirname, 'src/index.ts'),
+                entry: resolve(__dirname, './src/index.ts'),
                 name: 'formular.dev',
                 formats: ['es', 'cjs'],
                 fileName: (format) => `formular-dev.${format === 'es' ? 'mjs' : 'cjs'}`,
@@ -68,16 +68,16 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                '@tests': resolve(__dirname, 'src/__tests__'),
-                '@mocks': resolve(__dirname, 'src/mocks'),
-                '@core': resolve(__dirname, 'src/core'),
-                '@setup': resolve(__dirname, 'src/setup'),
-                '@fields': resolve(__dirname, 'src/core/fields'),
-                '@factory': resolve(__dirname, 'src/core/factory'),
-                '@framework': resolve(__dirname, 'src/core/framework'),
-                '@utility': resolve(__dirname, 'src/core/framework/utility'),
-                '@common': resolve(__dirname, 'src/core/framework/common'),
-                '@utils': resolve(__dirname, 'src/utils')
+                '@tests': resolve(__dirname, './src/__tests__'),
+                '@mocks': resolve(__dirname, './src/mocks'),
+                '@core': resolve(__dirname, './src/core'),
+                '@setup': resolve(__dirname, './src/setup'),
+                '@fields': resolve(__dirname, './src/core/fields'),
+                '@factory': resolve(__dirname, './src/core/factory'),
+                '@framework': resolve(__dirname, './src/core/framework'),
+                '@utility': resolve(__dirname, './src/core/framework/utility'),
+                '@common': resolve(__dirname, './src/core/framework/common'),
+                '@utils': resolve(__dirname, './src/utils')
             }
         }
     }
