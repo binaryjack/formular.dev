@@ -3,6 +3,14 @@
  * Checks that schema debounce values are correctly propagated to field descriptors
  */
 
+type Descriptor = {
+    id: number
+    name: string
+    label: string
+    type: string
+    debounceDelay?: number
+}
+
 const { f } = require('./dist/formular-dev.cjs.js')
 
 // Helper to access private schemaToDescriptors
@@ -54,9 +62,11 @@ const testSchema1 = f.object({
 })
 
 console.log('\n✅ TEST 1: String schema with custom debounce')
-const descriptors1 = (schemaToDescriptors as any)(testSchema1, {})
-const usernameField = descriptors1.find((d: any) => d.name === 'username')
-const emailField = descriptors1.find((d: any) => d.name === 'email')
+const descriptors1 = (
+    schemaToDescriptors as unknown as (schema: unknown, defaultValues: unknown) => Descriptor[]
+)(testSchema1, {})
+const usernameField = descriptors1.find((d: Descriptor) => d.name === 'username')
+const emailField = descriptors1.find((d: Descriptor) => d.name === 'email')
 
 if (usernameField?.debounceDelay === 200) {
     console.log('   ✓ username field has debounceDelay: 200ms')
@@ -81,9 +91,11 @@ const testSchema2 = f.object({
 })
 
 console.log('\n✅ TEST 2: Number schema with custom debounce')
-const descriptors2 = (schemaToDescriptors as any)(testSchema2, {})
-const ageField = descriptors2.find((d: any) => d.name === 'age')
-const scoreField = descriptors2.find((d: any) => d.name === 'score')
+const descriptors2 = (
+    schemaToDescriptors as unknown as (schema: unknown, defaultValues: unknown) => Descriptor[]
+)(testSchema2, {})
+const ageField = descriptors2.find((d: Descriptor) => d.name === 'age')
+const scoreField = descriptors2.find((d: Descriptor) => d.name === 'score')
 
 if (ageField?.debounceDelay === 300) {
     console.log('   ✓ age field has debounceDelay: 300ms')
@@ -104,19 +116,19 @@ const stringSchema = f.string().debounce(500)
 const numberSchema = f.number().debounce(600)
 
 console.log('\n✅ TEST 3: Schema internal _debounce property')
-if ((stringSchema as any)._debounce === 500) {
+if ((stringSchema as { _debounce?: number })._debounce === 500) {
     console.log('   ✓ string schema._debounce is 500ms')
 } else {
     console.log(
-        `   ✗ FAILED: string schema._debounce is ${(stringSchema as any)._debounce}, expected 500`
+        `   ✗ FAILED: string schema._debounce is ${(stringSchema as { _debounce?: number })._debounce}, expected 500`
     )
 }
 
-if ((numberSchema as any)._debounce === 600) {
+if ((numberSchema as { _debounce?: number })._debounce === 600) {
     console.log('   ✓ number schema._debounce is 600ms')
 } else {
     console.log(
-        `   ✗ FAILED: number schema._debounce is ${(numberSchema as any)._debounce}, expected 600`
+        `   ✗ FAILED: number schema._debounce is ${(numberSchema as { _debounce?: number })._debounce}, expected 600`
     )
 }
 
@@ -124,11 +136,11 @@ if ((numberSchema as any)._debounce === 600) {
 const chainedSchema = f.string().min(3).debounce(250).max(20).nonempty()
 
 console.log('\n✅ TEST 4: Method chaining with debounce')
-if ((chainedSchema as any)._debounce === 250) {
+if ((chainedSchema as { _debounce?: number })._debounce === 250) {
     console.log('   ✓ debounce works correctly in method chain')
 } else {
     console.log(
-        `   ✗ FAILED: chained schema._debounce is ${(chainedSchema as any)._debounce}, expected 250`
+        `   ✗ FAILED: chained schema._debounce is ${(chainedSchema as { _debounce?: number })._debounce}, expected 250`
     )
 }
 
