@@ -12,6 +12,7 @@ import type { IInferShape, IObjectSchema, IObjectShape } from './schema/types'
 import { SetupHelpers } from './setup/core/setup-helpers'
 import type { IFormSubmissionStrategy } from './submission-strategy'
 import { DirectSubmissionStrategy } from './submission-strategy'
+import { presetRegistry } from './schema/presets'
 
 /**
  * Form configuration
@@ -253,7 +254,6 @@ export async function createFormFromPreset<T extends IObjectShape>(
     presetName: string,
     config?: Omit<IFormConfig<T>, 'schema'>
 ): Promise<IFormular<IInferShape<T>>> {
-    const { presetRegistry } = require('./schema/presets')
     const preset = presetRegistry.get(presetName)
 
     if (!preset) {
