@@ -50,7 +50,7 @@ export const NotificationManager = function (
     }
 
     Object.defineProperty(this, 'dependencyName', {
-        value: '',
+        value: 'NotificationManager',
         writable: true, // Allow initialization to set proper name
         configurable: false // Prevent deletion or redefinition
     })

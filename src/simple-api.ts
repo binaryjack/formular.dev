@@ -54,6 +54,49 @@ export interface IFormConfig<T extends IObjectShape> {
     readonly submissionStrategy?: IFormSubmissionStrategy<IInferShape<T>>
 }
 
+function inferInputType(fieldSchema: unknown): InputTypeNames {
+    const fs = fieldSchema as any
+    if (!fs) return 'text'
+    
+    if (fs._type === 'number' || typeof fs.int === 'function' || typeof fs.finite === 'function') return 'number'
+    if (fs._type === 'boolean' || typeof fs.true === 'function' || typeof fs.false === 'function') return 'checkbox'
+    if (fs._type === 'date') return 'date'
+    
+    // For date, since it only has min/max like number/string, if it lacks string/number specific methods, it's a date
+    if (typeof fs.toLowerCase !== 'function' && typeof fs.int !== 'function' && typeof fs.true !== 'function' && typeof fs.min === 'function') {
+        // Only String, Number, Date have min(). String has toLowerCase(), Number has int().
+        return 'date'
+    }
+    
+    return 'text'
+}
+
+/**
+ * Extracts validation constraints from schema objects and normalizes them for the field engine.
+ */
+function extractValidationOptions(fieldSchema: unknown, key: string | number | symbol): Record<string, unknown> {
+    const fs = fieldSchema as any
+    const validationOptions: Record<string, unknown> = {}
+    if (!fs) return validationOptions
+
+    const err = (msg: string) => ({ message: msg, code: 'schema', name: String(key) })
+    
+    if (fs._required) {
+        validationOptions['required'] = { value: fs._required.value, error: err(fs._required.message) }
+    }
+    if (fs._min) {
+        validationOptions['minLength'] = { value: fs._min.value, error: err(fs._min.message) }
+    }
+    if (fs._max) {
+        validationOptions['maxLength'] = { value: fs._max.value, error: err(fs._max.message) }
+    }
+    if (fs._email) {
+        validationOptions['pattern'] = { value: fs._email.value, error: err(fs._email.message) }
+    }
+
+    return validationOptions
+}
+
 /**
  * Schema to field descriptor converter
  */
@@ -69,50 +112,9 @@ function schemaToDescriptors<T extends IObjectShape>(
             const fieldSchema = schema.shape[key]
             const defaultValue = defaultValues?.[key as keyof typeof defaultValues]
 
-            // Determine input type from schema
-            let inputType: InputTypeNames = 'text'
-
-            // Try to infer type from schema prototype
-            const protoName = Object.getPrototypeOf(fieldSchema).constructor.name
-            if (protoName === 'NumberSchema') {
-                inputType = 'number'
-            } else if (protoName === 'BooleanSchema') {
-                inputType = 'checkbox'
-            } else if (protoName === 'DateSchema') {
-                inputType = 'date'
-            } else if (protoName === 'StringSchema') {
-                inputType = 'text'
-            }
-
-            // Extract debounce delay from schema if set
+            const inputType = inferInputType(fieldSchema)
+            const validationOptions = extractValidationOptions(fieldSchema, key)
             const debounceDelay = (fieldSchema as any)._debounce
-
-            // Bridge named constraints (_min, _max, _required, _email) set by schema prototypes
-            // into IValidationOptions so the field engine validates on blur/change consistently
-            // with schema.safeParse() used at submit time.
-            const fs = fieldSchema as any
-            const validationOptions: Record<string, unknown> = {}
-            const err = (msg: string) => ({ message: msg, code: 'schema', name: String(key) })
-            if (fs._required)
-                validationOptions['required'] = {
-                    value: fs._required.value,
-                    error: err(fs._required.message)
-                }
-            if (fs._min)
-                validationOptions['minLength'] = {
-                    value: fs._min.value,
-                    error: err(fs._min.message)
-                }
-            if (fs._max)
-                validationOptions['maxLength'] = {
-                    value: fs._max.value,
-                    error: err(fs._max.message)
-                }
-            if (fs._email)
-                validationOptions['pattern'] = {
-                    value: fs._email.value,
-                    error: err(fs._email.message)
-                }
 
             descriptors.push({
                 id,

@@ -5,13 +5,10 @@ import { IFormular } from '../formular-base.types'
  * Clears all introspection subscriptions.
  */
 export const unobserveAll = function <T extends object>(this: IFormular<T>) {
-    const subscriptions = (this as any)._observerSubscriptions as Map<
-        string | undefined,
-        Array<() => void>
-    >
+    const subscriptions = this._observerSubscriptions
     const notificationManager = this.manager?.notificationManager
 
-    if (!notificationManager) {
+    if (!notificationManager || !subscriptions) {
         return
     }
 
@@ -30,5 +27,5 @@ export const unobserveAll = function <T extends object>(this: IFormular<T>) {
     subscriptions.clear()
 
     // Clear the debug stream
-    ;(this as any).debugStream = []
+    this.debugStream = []
 }

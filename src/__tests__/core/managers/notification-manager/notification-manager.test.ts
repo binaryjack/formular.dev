@@ -42,7 +42,7 @@ describe('NotificationManager', () => {
                 enablePriority: true,
                 strategy: 'microtask'
             })
-            expect(manager.dependencyName).toBe('')
+            expect(manager.dependencyName).toBe('NotificationManager')
         })
 
         it('should initialize successfully with all required methods', () => {

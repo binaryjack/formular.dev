@@ -12,30 +12,28 @@ export const validateAsync = async function (
     field: IExtendedInput,
     reset?: boolean
 ): Promise<IValidationResult[]> {
-    return new Promise(async (resolve) => {
-        const output: IValidationResult[] = []
+    const output: IValidationResult[] = []
 
-        if (reset === true) {
-            this.validationCache?.invalidate(field.name)
-            resolve(output)
-            return
-        }
+    if (reset === true) {
+        this.validationCache?.invalidate(field.name)
+        return output
+    }
 
-        // Check cache first
-        const cached = this.validationCache?.get(field.name, field.value, this.validationStrategies)
-        if (cached) {
-            resolve(cached)
-            return
-        }
+    // Check cache first
+    const cached = this.validationCache?.get(field.name, field.value, this.validationStrategies)
+    if (cached) {
+        return cached
+    }
 
-        // Perform validation
-        for (const strategy of this.validationStrategies) {
-            output.push(await strategy.validateAsync(field))
-        }
+    // Perform validation concurrently for better performance where applicable,
+    // though keeping original sequential await for safety if strategies depend on order.
+    // The original code was sequential.
+    for (const strategy of this.validationStrategies) {
+        output.push(await strategy.validateAsync(field))
+    }
 
-        // Cache results
-        this.validationCache?.set(field.name, field.value, this.validationStrategies, output)
+    // Cache results
+    this.validationCache?.set(field.name, field.value, this.validationStrategies, output)
 
-        resolve(output)
-    })
+    return output
 }

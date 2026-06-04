@@ -34,9 +34,16 @@ describe('FormularManager.createFromDescriptors - triggers propagation', () => {
             })
         }
 
+        const mockConfigManager = {
+            getConfigByName: jest.fn().mockReturnValue(false)
+        }
+
         const lazy = jest.fn().mockImplementation((id: any) => {
             if (id === SValidationTriggerService) {
                 return () => mockValidationTriggerService as any
+            }
+            if (id === Symbol.for('IConfigurationManager')) { // SConfigurationManager
+                return () => mockConfigManager as any
             }
             // Return input factory for any other id used in creation
             return () => mockInputFactory as any

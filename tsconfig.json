@@ -26,7 +26,7 @@
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
         "types": ["jest", "node"],
-        "ignoreDeprecations": "6.0",
+        "ignoreDeprecations": "5.0",
         "paths": {
             "@tests/*": ["./src/__tests__/*"],
             "@mocks/*": ["./src/__tests__/mocks/*"],

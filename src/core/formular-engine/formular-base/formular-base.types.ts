@@ -217,6 +217,13 @@ export interface IFormularBase<T extends object> {
      */
     debugStream?: Array<{ type: string; channel?: string; timestamp: number }>
 
+    _introspectionEnabled?: boolean
+    _debugStreamMaxSize?: number
+    _observerSubscriptions?: Map<string | undefined, Array<() => void>>
+    observablesDelay?: number
+    inputDelay?: number
+    triggerKeyWordType?: EventsType[]
+
     /**
      * Sets the event types that will trigger validation
      * @param mode - Array of event types to use as validation triggers

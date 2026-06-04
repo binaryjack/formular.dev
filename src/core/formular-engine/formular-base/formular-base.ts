@@ -52,10 +52,10 @@ export const Formular = function <T extends object>(
     this.isDirty = false
 
     // Initialize introspection helpers (gated by config, zero cost if disabled)
-    ;(this as any)._observerSubscriptions = new Map<string | undefined, Array<() => void>>()
-    ;(this as any)._introspectionEnabled = false
-    ;(this as any)._debugStreamMaxSize = 100
-    ;(this as any).debugStream = []
+    this._observerSubscriptions = new Map<string | undefined, Array<() => void>>()
+    this._introspectionEnabled = false
+    this._debugStreamMaxSize = 100
+    this.debugStream = []
 
     // Define isBusy as a computed property returning boolean
     Object.defineProperty(this, 'isBusy', {
