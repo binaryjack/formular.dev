@@ -1,180 +1,165 @@
 # Contributing Guidelines
 
-# Values
-- this projects strives to focus on veracity and acuracy about our intentions. So for each contributions wheter is human or IA, we should always try to cross check information and provide sources as possible.
+Thank you for contributing to formular.dev. Please adhere to these guidelines to ensure code quality, consistency, and alignment with the framework's architecture.
 
-## Copilot Role
-- I need you to act as an expert in TypeScript / Javascript / HTML / CSS and any other tasks you will assist-
-- I need you to be the most acurate possible.
-- Do not embellish reality, tell always the truth even if it goes against my thoughts, beliefs.
-- let's focus on best practices.
-
-## Copilot Summaries
-- Place all copilot summaries and others comments or recommendation files into `copilot-summaries`
-- No code files into it of course!
-
-## General Documentation 
-- Create or use the `docs` folder to place all the generated documentation.
-
-
-## Monorepo 
-- Do always use TypeScript
-- Du always use Vite.js
-
-## Package manager
-- Use exclusively PNPM
-
-## File Naming Conventions
-- All files must use kebab-case (e.g., `my-file-name.ts`).
-
-## Quick Test files
-- If you need build some .js tests files for your needs raw quick, it's okay but get ried of them right after.
-
-## Coding Style
-
-### Class
-- ALWAYS use prototyped style for classes; NEVER use the `class` keyword (class sugar syntax).
-- Classes and their methods/functions must follow this style:
-    ```ts
-    export const myFunction = function(this: ...) { ... }
-    ```
-### Class Methods
-- Any of the prototype functions of the class (as described above) should be placed into an individual file into the `prototype` folder, then they must be referenced into the `prototype-based` class file under `Object.assign(MyClass.prototype, {myFunction1, myFunction2 ... etc.})`
-
-### interfaces
-- One interface per file.
-- place them in the closest folder `interfaces`, or create one related to the current treated topic.
-- naming convention: `i-my-interface-name.ts`.
-- An interface name are always prefixed with `I`  example `IMyInterface`.
-- Exception: In th ecase of a react component Keep the `IMyComponentProps` in the same file as the `MyComponent` Component.
-
-### Enums
-- Each enum should reside in an individual file and placed in a folder `enums`, the file name should follow this naming convention: `my-enum-name.enum.ts`
-- An enum are always suffixed by Enum
-
-### Types
-- Each type should reside  in an individual file and placed in a folder `types`, the file name should follow this naming convention: `my-interface-name.type.ts`
-- An type are always suffixed by Type
-
-### Enums, Types, Arrays 
-- For each type I need a corresponding enum (that must reside in enums folder)
-
-```
-export enum MyValuesEnum {
-    value1 = 'value1',
-    value2 = 'value2'
-}
-```
-
-- Then extract the type from it  (that must reside in types folder)
-`export type MyValuesTypes = keyof typeof MyValuesEnum`
-
-- And then, the array too. (that can reside in types folder next to the type above)
-`export const MyValuesArray: string[] = Object.values(MyValuesEnum)`
-
-
-### Exports
-- For the lib project, all the folders must have their:
-  - `index.ts` that exports all the relevant objects classes etc. files paths in the current folder and /or of the sub folders 
-  - `types.ts` that exports all the relevant types, interfaces files path in the current folder and /or of the sub folders 
-
-#### Exception: Mock Exports for Testing
-- **Exception**: The `__tests__/mocks` folder is exported from the main library index to allow consumers to use mock objects for their own testing.
-- This exception enables external packages and applications to leverage the library's test mocks without requiring them to create their own mock implementations.
-- Mock files in this folder should be comprehensive and represent realistic data structures for testing purposes. 
-
-## React 
-
-- For react components :
-
-- Component props interface declaration: `export interface IMyComponentProps {... }` use `children: React.ReactNode` if required.
-- Component declaration: `export const MyComponent = ({propsName1,propsName2}:IMyComponentProps): OutputType => { ... }`
-- :warning: DO NEVER, EVER USE: React.FC!
-
-## Test Implementation
-
-- Test files must be implemented step by step, starting in a very minimalistic style.
-- When writing tests, always use available mock builders from the codebase as much as possible.
-- **All test files must be placed under `src/__tests__/`, using subfolders to mirror the structure of the `src/` directory.**
-- **Do not place test files beside their target files or in scattered `__test__`/`__tests__` folders elsewhere.**
-- **Test file names must use kebab-case and clearly indicate the file or feature they are testing.**
 ---
 
-Please follow these rules for all code contributions and code generation in this project.
+## Core Values
 
---- INFO ---
+* **Accuracy and Veracity**: Every contribution must be verified and accurate. Always cross-check technical specifications and provide documentation/tests for changes.
+* **Modern Standards**: Focus on clean code, type safety, and modern performance standards while respecting the internal architecture patterns.
 
-- historically some `class` style were introduced by copilot in general for testing purpose, this is acceptable. We only want to rely on `prototyped style class` for the product itself.
+---
 
-## Scripts 
-- Never use Webpack 
-- Do use vite.js instead
+## Project Structure and Environment
 
-## Design System
-- Use Tailwindcss
-- Use SCSS 
+* **Language**: All source code must be written in TypeScript.
+* **Package Manager**: Use `pnpm` exclusively.
+* **Build System**: Build targets use Vite.js. Do not use Webpack.
+* **Styling**: Tailwind CSS and SCSS are approved for styling components.
 
-## Dependencies 
-- Do never add external third library into the `lib` without permission and explaining why it's needed.
+---
 
-## Architectural Decisions & FAQ
+## Documentation and Summaries
 
-### Q: Why prototype-based classes instead of modern `class` syntax?
-**A:** This is a strategic decision for maximum compatibility and performance. Prototype-based classes:
-- Are more reliable and don't rely on syntactic sugar abstractions
-- Avoid potential performance overhead from transpilation and additional runtime checks
-- Ensure consistency across the entire monorepo since all packages serve similar purposes
-- Provide better compatibility across different JavaScript environments
-- Result in smaller bundle sizes due to no class syntax transformation
-- Give explicit control over the prototype chain without hidden behaviors
+* **AI/Copilot Summaries**: Place any generated assistant notes, summaries, or audit logs into the `copilot-summaries` directory.
+* **General Documentation**: Store additional framework guides or feature documents in the `docs` folder.
 
-### Q: Why one interface per file? Isn't this excessive?
-**A:** While it creates more files, this approach:
-- Provides excellent organization and separation of concerns
-- Makes interfaces easier to locate and maintain
-- Enables more granular imports and explicit dependencies
-- Works well with good folder structure
-- Note: Modern bundlers handle tree-shaking well regardless, so this is primarily an organizational choice
+---
 
-### Q: Should tests really mirror the entire src/ structure under __tests__/?
-**A:** This is under consideration. A "per topic" approach closer to the objects being tested might be more practical. The current rule may be refined based on project evolution.
+## Coding Standards
 
-### Q: Do we need index.ts AND types.ts in every folder?
-**A:** We should establish thresholds based on folder complexity. Small folders with few exports might not need this separation.
+### File Naming Conventions
 
-**Proposed Threshold Rules:**
-- Folders with 1-3 files: Use single `index.ts` for all exports
-- Folders with 4+ files OR mixed types/implementations: Use both `index.ts` and `types.ts`
-- Complex domains: Always separate for better organization
+* All file names must use kebab-case (for example: `validation-manager.ts`, `field-descriptor.ts`).
 
-## Performance & Bundle Considerations
+### Interface Design
 
-### Tree Shaking Optimization
-- Keep interfaces, types, and enums in separate files to enable better tree shaking
-- Use named exports exclusively (avoid default exports in library code)
-- Minimize re-exports when possible
+* Declare exactly one interface per file.
+* Prefix interface names with `I` (for example: `IFormularManager`).
+* Place interfaces in the nearest `interfaces` folder, or create a directory matching the component domain.
+* Interface files must be named using the pattern: `i-[interface-name].ts` (for example: `i-formular-manager.ts`).
+* Exception: React component prop interfaces (e.g., `IMyComponentProps`) should remain in the same file as the component declaration.
 
-### Bundle ComponentSizeType Monitoring
-- Regularly audit bundle sizes for the `lib` package
-- Use tools like `webpack-bundle-analyzer` or Vite's built-in analysis
-- Consider the impact of new dependencies on bundle size
+### Enum Design
 
-## Code Quality & Formatting
+* Declare exactly one enum per file.
+* Suffix enum names with `Enum` (for example: `ValidationTypeEnum`).
+* Place enums in an `enums` directory.
+* Enum files must be named using the pattern: `[enum-name].enum.ts` (for example: `validation-type.enum.ts`).
 
-### ESLint Configuration
-- Follow the existing ESLint configuration in each package
-- Ensure consistent code formatting across the monorepo
-- Use TypeScript-specific ESLint rules
+### Type Design
 
-### Prettier Configuration
-- Maintain consistent code formatting
-- Configure for TypeScript, React, and SCSS files
-- Integrate with VS Code for automatic formatting
+* Declare exactly one custom type per file.
+* Suffix custom type names with `Type` (for example: `FormStateValueType`).
+* Place types in a `types` directory.
+* Type files must be named using the pattern: `[type-name].type.ts` (for example: `form-state-value.type.ts`).
 
-## Git Workflow & Commit Guidelines
+### Enums, Types, and Arrays Matching Pattern
 
-### Commit Message Format
-Follow conventional commits format:
+For matched domain types, declare a structured enum, extract the type, and export a frozen array:
+
+```typescript
+// enums/status-type.enum.ts
+export enum StatusTypeEnum {
+    active = 'active',
+    inactive = 'inactive',
+    pending = 'pending'
+}
+
+// types/status-type.type.ts
+import { StatusTypeEnum } from '../enums/status-type.enum';
+export type StatusType = keyof typeof StatusTypeEnum;
+
+// types/status-type.array.ts
+import { StatusTypeEnum } from '../enums/status-type.enum';
+export const StatusTypeArray: string[] = Object.values(StatusTypeEnum);
+```
+
+### Folder Exports
+
+For library folders, maintain clean entry points:
+* Folders with 1 to 3 files: Use a single `index.ts` to export all relevant types and class definitions.
+* Folders with 4 or more files or mixed concerns: Separate exports into `index.ts` (for implementations and modules) and `types.ts` (for interface and type definitions).
+
+---
+
+## Class and Prototype Design
+
+To maximize tree-shaking, optimize execution speeds, and reduce production bundle sizes, standard library classes must be built using explicit prototypes instead of ES6 class syntax sugar.
+
+### Rules for Product Code Classes
+
+1. **Instantiation**: Declare the class constructor as a standard function typing `this`:
+   ```typescript
+   export const ConfigurationManager = function (this: IConfigurationManager, serviceManager: IServiceManager) {
+       this._serviceManager = serviceManager;
+   };
+   ```
+2. **Prototype Assignment**: Declare each prototype method in an individual file under a `prototype` subfolder. Use kebab-case for the file names:
+   * File: `prototype/initialize.ts`
+   * Content:
+     ```typescript
+     export const initialize = function (this: IConfigurationManager, options: IConfigurationOptions): void {
+         // Method implementation
+     };
+     ```
+3. **Class Assembly**: Import the prototype functions and assign them to the prototype using `Object.assign` in the main class definition file:
+   ```typescript
+   import { initialize } from './prototype/initialize';
+   import type { IConfigurationManager } from './interfaces/i-configuration-manager';
+
+   // Constructor
+   export const ConfigurationManager = function (this: IConfigurationManager) {
+       // ...
+   } as unknown as {
+       new (): IConfigurationManager;
+       prototype: IConfigurationManager;
+   };
+
+   // Assembly
+   Object.assign(ConfigurationManager.prototype, {
+       initialize
+   });
+   ```
+
+*Note*: Standard ES6 class syntax sugar is acceptable inside test suites (`__tests__/`) and mock utilities, but is strictly prohibited in final library runtime code.
+
+---
+
+## React Component Conventions
+
+If implementing React-specific components or wrappers:
+* Do not use `React.FC` or `React.FunctionComponent`.
+* Define components with explicit props and return types:
+  ```typescript
+  export interface IInputFieldProps {
+      readonly name: string;
+      readonly label?: string;
+  }
+
+  export const InputField = ({ name, label }: IInputFieldProps): JSX.Element => {
+      // Implementation
+  };
+  ```
+
+---
+
+## Testing Guidelines
+
+* **Placement**: Place all test files under the main `src/__tests__/` directory. Mirror the exact folder structure of `src/`. Do not place test files beside source files.
+* **Naming**: Use kebab-case for test files, clearly naming the feature under test (for example: `validation-manager.test.ts`).
+* **Practices**:
+  * Build tests incrementally, starting with small assertions.
+  * Use the pre-existing mock builders located in `src/__tests__/mocks/` to construct dependencies.
+  * Ensure the test suite compiles and runs cleanly before pushing changes.
+
+---
+
+## Git Workflow and Commits
+
+We follow the Conventional Commits specification:
+
 ```
 <type>(<scope>): <description>
 
@@ -183,110 +168,9 @@ Follow conventional commits format:
 [optional footer]
 ```
 
-Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-
-Examples:
-- `feat(lib): add new signal processing function`
-- `fix(components): resolve button click handler issue`
-- `docs(contributing): update architectural decisions`
-
-### Branch Naming
-- Feature branches: `feature/description-of-feature`
-- Bug fixes: `fix/description-of-fix`
-- Documentation: `docs/description-of-docs`
-
-### Pull Request Guidelines
-- Include clear description of changes
-- Reference related issues
-- Ensure all tests pass
-- Update documentation if needed
-- Follow the established coding style
-
-## Version Management
-
-### Semantic Versioning
-- Follow semantic versioning (semver) for all packages
-- Use PNPM workspace versioning for coordinated releases
-- Document breaking changes in CHANGELOG.md
-
-### Release Process
-- Use conventional commits to generate changelogs
-- Coordinate releases across workspace packages
-- Tag releases appropriately
-
-## Development Environment
-
-### Required Tools
-- Node.js (latest LTS)
-- PNPM (latest stable)
-- VS Code with recommended extensions
-- TypeScript (latest stable)
-
-### Recommended VS Code Extensions
-- TypeScript and JavaScript Language Features
-- ESLint
-- Prettier
-- Tailwind CSS IntelliSense
-- Vite
-
-## Testing Strategy Refinement
-
-### Test Organization Options
-Given the concerns about mirroring structure, consider these approaches:
-
-**Option 1: Topic-Based Testing (Recommended)**
-```
-src/__tests__/
-  ├── core/           # Tests for core functionality
-  ├── components/     # Tests for React components  
-  ├── utilities/      # Tests for utility functions
-  └── integration/    # Integration tests
-```
-
-**Option 2: Feature-Based Testing**
-```
-src/__tests__/
-  ├── signal-processing/
-  ├── data-validation/
-  └── user-interface/
-```
-
-**Option 3: Hybrid Approach**
-- Use topic-based for complex domains
-- Use mirrored structure for simple utilities
-- Use integration folder for cross-cutting tests
-
-### Test Naming Conventions
-- Unit tests: `feature-name.test.ts`
-- Integration tests: `feature-integration.test.ts`
-- Component tests: `component-name.test.tsx`
-
-## Documentation Standards
-
-### Code Documentation
-- Use JSDoc comments for all public APIs
-- Include examples in documentation
-- Document complex algorithms and business logic
-
-### README Requirements
-Each package should have:
-- Clear description of purpose
-- Installation instructions
-- Basic usage examples
-- API documentation links
-
-## Security Considerations
-
-### Dependency Security
-- Regularly audit dependencies with `pnpm audit`
-- Keep dependencies up to date
-- Justify any security exceptions
-
-### Code Security
-- Validate inputs at boundaries
-- Use TypeScript strict mode
-- Follow OWASP guidelines for web applications
-
----
-
-**Note:** This document is living and should be updated as the project evolves and new patterns emerge.
+* **Types**: `feat` (new features), `fix` (bug fixes), `docs` (documentation updates), `style` (formatting/whitespace), `refactor` (code restructuring), `test` (test updates), `chore` (maintenance/build tasks).
+* **Scopes**: Include the target package or component (for example: `docs(readme): add setup guide`).
+* **Branches**:
+  * Features: `feature/description`
+  * Fixes: `fix/description`
+  * Documentation: `docs/description`
