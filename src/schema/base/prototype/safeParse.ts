@@ -57,6 +57,19 @@ export function safeParse<TOutput, TInput>(
 
         return { success: true, data: parsed }
     } catch (err) {
+        if (err && typeof err === 'object' && 'name' in err && err.name === 'SchemaValidationError') {
+            const validationErr = err as any
+            if (validationErr.errors && validationErr.errors.length > 0) {
+                return {
+                    success: false,
+                    error: validationErr.errors[0]
+                }
+            }
+            return {
+                success: false,
+                error: createValidationError(validationErr.message, validationErr.code || SchemaErrorCode.Custom, validationErr.path || [])
+            }
+        }
         const error = err as Error
         return {
             success: false,
