@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
+  vite: {
+    optimizeDeps: {
+      include: ['mermaid']
+    }
+  },
   title: "formular.dev",
   description: "Advanced, high-performance, schema-first form management and validation engine.",
   themeConfig: {
@@ -68,4 +74,4 @@ export default defineConfig({
       // Use markdown-it plugins if necessary
     }
   }
-})
+}))

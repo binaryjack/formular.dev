@@ -46,4 +46,7 @@ public/assets/*
 src/**/*.js
 src/**/*.map
 src/**/*.d.ts
-src/**/*.d.ts
+
+# Vitepress
+.vitepress/cache/
+docs/.vitepress/cache/
