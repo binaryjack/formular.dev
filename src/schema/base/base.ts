@@ -4,7 +4,7 @@
  */
 
 import type { ISchemaBaseImpl } from './base.types'
-import { defaultValue, nullable, optional, parse, refine, safeParse, transform } from './prototype'
+import { defaultValue, nullable, optional, parse, refine, safeParse, toJSONSchema, transform } from './prototype'
 
 export const SchemaBase = function <TOutput, TInput = TOutput>(
     this: ISchemaBaseImpl<TOutput, TInput>,
@@ -30,5 +30,6 @@ Object.assign(SchemaBase.prototype, {
     parse,
     refine,
     safeParse,
+    toJSONSchema,
     transform
 })

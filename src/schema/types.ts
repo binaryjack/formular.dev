@@ -105,6 +105,11 @@ export interface ISchemaBase<TOutput = unknown, TInput = TOutput> {
      */
     readonly _output: TOutput
     readonly _input: TInput
+
+    /**
+     * Export the schema to a JSON Schema Draft-07 format
+     */
+    toJSONSchema(): Record<string, any>
 }
 
 /**

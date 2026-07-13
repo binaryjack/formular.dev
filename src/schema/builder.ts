@@ -125,6 +125,20 @@ export const f = {
      */
     infer: <T extends ISchemaBase>(schema: T): IInfer<T> => {
         return undefined as IInfer<T>
+    },
+
+    /**
+     * Helper to validate data against a schema and return formatted results
+     */
+    validateSchema: <T extends ISchemaBase>(
+        schema: T, 
+        data: unknown
+    ): { success: true; data: IInfer<T> } | { success: false; errors: any[] } => {
+        const result = schema.safeParse(data)
+        if (result.success) {
+            return { success: true, data: result.data as IInfer<T> }
+        }
+        return { success: false, errors: (result as any).error?.errors || [result.error] }
     }
 }
 
