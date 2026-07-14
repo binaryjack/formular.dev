@@ -1,67 +1,67 @@
 {
-    "name": "@binaryjack/formular.dev",
-    "description": "A modern form framework-agnostic builder, featuring a user-friendly interface, customizable components, and robust validation.",
-    "keywords": [
-        "form",
-        "builder",
-        "framework-agnostic",
-        "typescript",
-        "javascript"
-    ],
-    "version": "2.3.2",
-    "main": "dist/formular-dev.cjs",
-    "module": "dist/formular-dev.mjs",
-    "types": "dist/types/src/index.d.ts",
-    "sideEffects": false,
-    "exports": {
-        ".": {
-            "types": "./dist/types/src/index.d.ts",
-            "import": "./dist/formular-dev.mjs",
-            "require": "./dist/formular-dev.cjs",
-            "default": "./dist/formular-dev.mjs"
-        },
-        "./config": "./src/core/managers/configuration-manager/default/default-configuration.json"
+  "name": "@binaryjack/formular.dev",
+  "description": "A modern form framework-agnostic builder, featuring a user-friendly interface, customizable components, and robust validation.",
+  "keywords": [
+    "form",
+    "builder",
+    "framework-agnostic",
+    "typescript",
+    "javascript"
+  ],
+  "version": "2.3.8",
+  "main": "dist/formular-dev.cjs",
+  "module": "dist/formular-dev.mjs",
+  "types": "dist/types/src/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/types/src/index.d.ts",
+      "import": "./dist/formular-dev.mjs",
+      "require": "./dist/formular-dev.cjs",
+      "default": "./dist/formular-dev.mjs"
     },
-    "scripts": {
-        "build": "vite build --mode production",
-        "build:dev": "vite build --mode development",
-        "dev": "vite build --mode development --watch",
-        "prepublishOnly": "pnpm run build",
-        "docs:dev": "vitepress dev docs",
-        "docs:build": "vitepress build docs",
-        "docs:preview": "vitepress preview docs",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:coverage": "jest --coverage",
-        "test:performance": "jest --testMatch='**/*performance*.test.ts' --verbose --runInBand"
-    },
-    "author": "Piana Tadeo",
-    "license": "AGPL-3.0",
-    "devDependencies": {
-        "@types/cypress": "^1.1.6",
-        "@types/jest": "^29.5.14",
-        "@types/node": "^20.19.30",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
-        "mermaid": "^11.15.0",
-        "ts-jest": "^29.4.0",
-        "typescript": "^5.9.3",
-        "vite": "^6.4.1",
-        "vite-plugin-dts": "^4.5.4",
-        "vitepress": "^1.6.4",
-        "vitepress-plugin-mermaid": "^2.0.17",
-        "vue": "^3.5.38"
-    },
-    "files": [
-        "dist/**/*"
-    ],
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/binaryjack/formular.dev.git"
-    },
-    "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
+    "./config": "./src/core/managers/configuration-manager/default/default-configuration.json"
+  },
+  "scripts": {
+    "build": "vite build --mode production",
+    "build:dev": "vite build --mode development",
+    "dev": "vite build --mode development --watch",
+    "prepublishOnly": "pnpm run build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:performance": "jest --testMatch='**/*performance*.test.ts' --verbose --runInBand"
+  },
+  "author": "Piana Tadeo",
+  "license": "AGPL-3.0-or-later",
+  "devDependencies": {
+    "@types/cypress": "^1.1.6",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.19.30",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "mermaid": "^11.15.0",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-mermaid": "^2.0.17",
+    "vue": "^3.5.38"
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binaryjack/formular.dev.git"
+  },
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
 }

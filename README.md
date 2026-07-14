@@ -341,6 +341,5 @@ This architecture ensures constant-time `O(1)` validation dispatching, even in f
 
 ## License
 
-This project is licensed under the AGPLv3 License. See [LICENSE](LICENSE) for details.
+This project is licensed under the AGPLv3 License - see the [LICENSE](LICENSE) file for details.
 
-Copyright (c) 2025 Piana Tadeo.
