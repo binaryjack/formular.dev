@@ -4,7 +4,7 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://github.com/binaryjack/formular.dev)
 [![Test Suite](https://img.shields.io/badge/tests-450%20passing-brightgreen.svg)](https://github.com/binaryjack/formular.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue.svg)](https://github.com/binaryjack/formular.dev)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-AGPLv3-green.svg)](LICENSE)
 
 An advanced, high-performance, schema-first form management and validation engine for modern TypeScript and JavaScript applications.
 
@@ -341,6 +341,6 @@ This architecture ensures constant-time `O(1)` validation dispatching, even in f
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the AGPLv3 License. See [LICENSE](LICENSE) for details.
 
 Copyright (c) 2025 Piana Tadeo.

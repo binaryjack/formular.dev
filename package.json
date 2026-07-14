@@ -36,7 +36,7 @@
         "test:performance": "jest --testMatch='**/*performance*.test.ts' --verbose --runInBand"
     },
     "author": "Piana Tadeo",
-    "license": "MIT",
+    "license": "AGPL-3.0",
     "devDependencies": {
         "@types/cypress": "^1.1.6",
         "@types/jest": "^29.5.14",
