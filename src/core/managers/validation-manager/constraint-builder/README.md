@@ -6,12 +6,12 @@ The `ValidationConstraintFactory` provides a fluent, type-safe API for creating 
 
 ## Features
 
-- ✅ **Fluent API**: Chain validation rules with method chaining
-- ✅ **Type Safety**: Full TypeScript support with generic types
-- ✅ **Declarative Config**: Define validations using plain objects
-- ✅ **Presets**: Common validation patterns (email, password, username, etc.)
-- ✅ **Composable**: Combine with field descriptors seamlessly
-- ✅ **Reusable**: Create validation templates and share them
+-  **Fluent API**: Chain validation rules with method chaining
+-  **Type Safety**: Full TypeScript support with generic types
+-  **Declarative Config**: Define validations using plain objects
+-  **Presets**: Common validation patterns (email, password, username, etc.)
+-  **Composable**: Combine with field descriptors seamlessly
+-  **Reusable**: Create validation templates and share them
 
 ## Installation
 
