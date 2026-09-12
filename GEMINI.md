@@ -47,8 +47,8 @@
     <rule>**Architecture Principles Guide:** You must adhere to the concepts described in `private_docs/architecture_principles.md`. This file contains the definitive guidelines for Design Patterns, SOLID Principles, Clean Code, Clean Architecture, Atomic Design, Feature-Sliced Design (FSD), and other engineering standards applicable to this project.</rule>
 </ruleset>
 
-<ruleset name="Sovereign Productivity Gateway: Ragtime 2 Enforcement">
-    <rule>**Ragtime 2 Suspended Pending World SOTA Refactor (Usage Strictly Forbidden):** By user mandate, the usage of RagTime 2 is strictly forbidden until its architecture has been refactored, optimized to World SOTA standard, and validated by physical benchmarks. Antigravity MUST use native ripgrep (`grep_search`), directory search (`find_by_name`), and direct file reading tools without invoking Ragtime 2.</rule>
+<ruleset name="Sovereign Productivity Gateway: Ragtime 2 & Galileus DAG Suspension">
+    <rule>**DAG & RAG Obligation Lifted (Suspended Pending SOTA Finalization):** By explicit user mandate, all obligations to use Galileus DAG V2 and RagTime 2 are SUSPENDED. They are NOT to be imposed on agents or workflows until their architectures are fully refactored, benchmarked, and finalized. Antigravity MUST use native tools (`replace_file_content`, `write_to_file`, `run_command`, `grep_search`, `find_by_name`, `cargo`, `git`) for all code modifications, refactorings, and searches without restriction.</rule>
 </ruleset>
 
 </antigravity_rules>
