@@ -48,10 +48,7 @@
 </ruleset>
 
 <ruleset name="Sovereign Productivity Gateway: Ragtime 2 Enforcement">
-    <rule>**Strict Ragtime 2 Retrieval-First Enforcement (Absolute Zero Grep/Python Reflex):** Antigravity MUST ALWAYS invoke the RagTime 2 discrete BitNet engine (`codernic-dev-productivity-mcp` with `ragtime_semantic_search` or `code-search-context`, and `ragtime_read_file`) AS THE MANDATORY FIRST REFLEX for all codebase inquiries, symbol lookups, function definition searches, architecture investigations, and context retrieval.
-    STRICT PROHIBITION: Using `grep_search`, `find_by_name`, shell grep/find, or executing ad-hoc Python scripts (`python -c ...`, `python inspect.py`) to search, locate, or inspect the codebase BEFORE querying Ragtime 2 is STRICTLY FORBIDDEN. Antigravity must NEVER start an investigation or search with grep or python. The user must never need to remind Antigravity to use Ragtime 2.
-    If a target path or workspace directory is not yet indexed or returns 0 chunks, dynamically index it immediately using `ragtime_watch_path(path)` on `codernic-dev-productivity-mcp`.
-    Built-in `grep_search` and `find_by_name` are restricted to secondary micro-precision tasks ONLY (e.g. locating exact line boundaries for an immediate code edit chunk) AFTER RagTime 2 has already established the target file and context.</rule>
+    <rule>**Ragtime 2 Suspended Pending World SOTA Refactor (Usage Strictly Forbidden):** By user mandate, the usage of RagTime 2 is strictly forbidden until its architecture has been refactored, optimized to World SOTA standard, and validated by physical benchmarks. Antigravity MUST use native ripgrep (`grep_search`), directory search (`find_by_name`), and direct file reading tools without invoking Ragtime 2.</rule>
 </ruleset>
 
 </antigravity_rules>
