@@ -34,12 +34,6 @@ export const MaskedInputService = function (this: IMaskedInputService, sm: IServ
     this.sm = sm
     try {
         this.build = async function (descriptor: IFieldDescriptor): Promise<IMaskedBaseInput> {
-            console.log('🔍 descriptor.mask:', {
-                mask: descriptor.mask,
-                type: typeof descriptor.mask,
-                isArray: Array.isArray(descriptor.mask)
-            })
-
             const configProvider = this.sm.lazy<IInputConfigProvider>(SInputConfigProvider)?.()
             const config = configProvider.getConfig()
 

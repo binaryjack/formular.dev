@@ -11,8 +11,8 @@ export default defineConfig(({ mode }) => {
             'process.env': {}
         },
         esbuild: {
-            // jsxFactory: 'h',
-            // jsxFragment: 'Fragment'
+            drop: isProduction ? ['debugger'] : [],
+            pure: isProduction ? ['console.log', 'console.debug', 'console.info'] : []
         },
         plugins: [
             dts({

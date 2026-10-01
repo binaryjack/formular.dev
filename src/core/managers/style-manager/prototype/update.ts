@@ -22,13 +22,8 @@ export function update(
 
     this.classesList.set(className, classValue as InputClassStatesValuesEnum)
     if (!this.input?.isInitialized || !this.input?.notificationManager?.isInitialized) {
-        console.log('-----update SKIPPED: not initialized', {
-            isInitialized: this.input?.isInitialized,
-            notificationManagerInitialized: this.input?.notificationManager?.isInitialized
-        })
         return
     }
-    console.log('-----update triggering notifications for channel:', String(this.input.id))
     this.input?.notificationManager?.observers?.debounceTrigger(
         String(this.input.id),
         this.input?.observablesDelay

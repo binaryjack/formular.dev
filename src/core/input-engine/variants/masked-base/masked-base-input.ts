@@ -8,26 +8,6 @@ import { register } from './prototype/register'
 
 export const MaskedBaseInput = function (this: IMaskedBaseInput, mask: string) {
     this.isInitialized = false
-    // Debug logging
-    // Try multiple logging approaches
-    console.error('🔍 MaskedBaseInput constructor called - ERROR LOG')
-    console.warn('🔍 MaskedBaseInput constructor called - WARN LOG')
-    console.log('🔍 MaskedBaseInput constructor called - REGULAR LOG')
-    // This will force a breakpoint if dev tools are open
-
-    // In the debugger console while stopped at breakpoint
-    console.log('mask:', mask)
-    console.log('typeof mask:', typeof mask)
-    console.log('Array.isArray(mask):', Array.isArray(mask))
-    console.log('arguments:', arguments)
-    console.log('arguments length:', arguments.length)
-
-    console.log('🔍 MaskedBaseInput constructor called with:', {
-        mask,
-        type: typeof mask,
-        isArray: Array.isArray(mask),
-        arguments: Array.from(arguments)
-    })
 
     // Handle potential array wrapping
     const actualMask = Array.isArray(mask) ? mask[0] : mask

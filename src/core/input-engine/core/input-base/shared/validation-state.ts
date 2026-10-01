@@ -25,10 +25,6 @@ export const storeValidationResults = <T extends IEvents>(
 /**
  * Logs validation debug information
  */
-export const logValidationDebug = <T extends IEvents>(data: T): void => {
-    console.log(
-        '----handleValidation',
-        data?.fieldRef?.dependencyName,
-        data?.fieldRef?.input?.value
-    )
+export const logValidationDebug = <T extends IEvents>(_data: T): void => {
+    // Debug logging disabled in production hot paths
 }
