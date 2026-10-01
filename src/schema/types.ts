@@ -13,6 +13,7 @@ export interface IValidationError {
     readonly path: string[]
     readonly message: string
     readonly code: string
+    readonly errors?: readonly IValidationError[]
 }
 
 /**

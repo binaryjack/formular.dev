@@ -62,7 +62,10 @@ export function safeParse<TOutput, TInput>(
             if (validationErr.errors && validationErr.errors.length > 0) {
                 return {
                     success: false,
-                    error: validationErr.errors[0]
+                    error: {
+                        ...validationErr.errors[0],
+                        errors: validationErr.errors
+                    }
                 }
             }
             return {
