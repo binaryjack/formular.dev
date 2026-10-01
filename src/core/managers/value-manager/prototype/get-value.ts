@@ -15,10 +15,17 @@ export function getValue(
 ): unknown | null {
     const purposeType = purpose ?? 'all'
 
-    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(field.input.type))
-    // console.log('getValue', field.input.type, strategy)
+    const fieldType = field?.input?.type
+    let strategy = this.strategyByType?.get(fieldType)
     if (!strategy) {
-        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${field.input.type} `)
+        strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(fieldType))
+        if (strategy && this.strategyByType) {
+            this.strategyByType.set(fieldType, strategy)
+        }
+    }
+
+    if (!strategy) {
+        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${fieldType} `)
         return
     }
     try {

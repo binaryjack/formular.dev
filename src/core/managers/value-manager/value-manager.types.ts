@@ -40,6 +40,7 @@ export const setParserStrategy = <T extends Partial<InputDataTypes> | null>(
 
 export interface IValueManagerProperties {
     valueStrategies: IParserStrategy<InputDataTypes>[]
+    strategyByType?: Map<string, IParserStrategy<any>>
 }
 
 export interface IValueManager extends IValueManagerProperties, IInitializableDependency {

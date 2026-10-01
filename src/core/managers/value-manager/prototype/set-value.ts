@@ -8,10 +8,17 @@ export const setValue = function (
     field: IExtendedInput,
     value: InputDataTypes | null
 ) {
-    const strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(field.input.type))
+    const fieldType = field?.input?.type
+    let strategy = this.strategyByType?.get(fieldType)
+    if (!strategy) {
+        strategy = this.valueStrategies.find((s) => s.concernedTypes.includes(fieldType))
+        if (strategy && this.strategyByType) {
+            this.strategyByType.set(fieldType, strategy)
+        }
+    }
 
     if (!strategy) {
-        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${field.input.type} `)
+        console.error(`NO PARSER STRATEGY FOUND FOR THIS TYPE ${fieldType} `)
         return
     }
     try {

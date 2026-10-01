@@ -7,9 +7,15 @@ import { IParserStrategy, IValueManager } from '../value-manager.types'
  * @param parsers - Array of parser strategies to add.
  */
 export function addValueStrategies(this: IValueManager, ...parsers: IParserStrategy<any>[]) {
+    if (!this.strategyByType) {
+        this.strategyByType = new Map()
+    }
     for (const parser of parsers) {
         if (this.valueStrategies.find((o: IParserStrategy<InputDataTypes>) => o.id === parser.id))
             continue
         this.valueStrategies.push(parser)
+        for (const type of parser.concernedTypes) {
+            this.strategyByType.set(type, parser)
+        }
     }
 }

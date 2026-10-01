@@ -5,4 +5,10 @@ export const acceptValueStrategies = function (
     ...parsers: IParserStrategy<any>[]
 ) {
     this.valueStrategies = [...parsers]
+    this.strategyByType = new Map()
+    for (const strategy of this.valueStrategies) {
+        for (const type of strategy.concernedTypes) {
+            this.strategyByType.set(type, strategy)
+        }
+    }
 }
