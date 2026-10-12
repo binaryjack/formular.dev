@@ -1,0 +1,16 @@
+{
+  "schema": "https://codernic.dev/schemas/cpk-v1.json",
+  "name": "@binaryjack/formular.dev",
+  "version": "2.4.0",
+  "authors": [],
+  "license": "Proprietary",
+  "layers": {
+    "frontend": {
+      "language": "typescript-react",
+      "entry": "layers/frontend/package.json",
+      "kind": "bundle"
+    }
+  },
+  "dependencies": {},
+  "peerDependencies": {}
+}
