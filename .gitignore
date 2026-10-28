@@ -50,3 +50,4 @@ src/**/*.d.ts
 # Vitepress
 .vitepress/cache/
 docs/.vitepress/cache/
+target/
