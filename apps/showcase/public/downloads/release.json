@@ -1,0 +1,17 @@
+{
+  "version": "2.4.0",
+  "name": "@binaryjack/formular.dev",
+  "tarball": "/downloads/formular.dev-latest.tgz",
+  "tarballVersioned": "/downloads/binaryjack-formular.dev-2.4.0.tgz",
+  "sha256": "66e0d6a13dd419d6fdeba5c83d476c1e38ef72b00b248e6013d9f3985d9a4446",
+  "size": "638KB",
+  "releaseDate": "2026-10-01",
+  "npmRegistry": "https://www.npmjs.com/package/@binaryjack/formular.dev",
+  "features": [
+    "Production bundle console.log elimination & Vite tree-shaking",
+    "ObjectSchema single-pass recursive parser with exact error paths",
+    "ValueManager O(1) indexed strategy resolution",
+    "ValidationCache bounded LRU eviction with instant O(1) field invalidation",
+    "3.9M+ ops/sec throughput verified in bare-metal benchmarks"
+  ]
+}

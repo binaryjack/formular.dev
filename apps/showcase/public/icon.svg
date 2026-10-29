@@ -1,0 +1,15 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="f-mask">
+      <rect width="100" height="100" fill="white" />
+      <line x1="36" y1="16" x2="36" y2="84" stroke="black" stroke-width="14" stroke-linecap="round" />
+      <line x1="36" y1="48" x2="47" y2="48" stroke="black" stroke-width="14" stroke-linecap="round" />
+      <circle cx="56" cy="48" r="10.5" fill="black" />
+    </mask>
+  </defs>
+
+  <ellipse cx="52" cy="48" rx="33" ry="14" stroke="#6366F1" stroke-width="7" mask="url(#f-mask)" />
+  <path d="M 36 78 L 36 22 L 72 22" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M 36 48 L 47 48" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" />
+  <circle cx="56" cy="48" r="7" fill="#FFFFFF" />
+</svg>

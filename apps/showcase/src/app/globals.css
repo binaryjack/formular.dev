@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@source "../../../../src";
+@source "../../../../packages/atomos-ui-mock";
+
+@theme {
+  --color-indigo-50:  #eef2ff;
+  --color-indigo-100: #e0e7ff;
+  --color-indigo-200: #c7d2fe;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-400: #818cf8;
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-700: #4338ca;
+  --color-indigo-800: #3730a3;
+  --color-indigo-900: #312e81;
+  --color-indigo-950: #1e1b4b;
+}
+
+:root {
+  /* ── Formular Primary Accent (Electric Indigo & Violet) ── */
+  --indigo-50:  #eef2ff;
+  --indigo-100: #e0e7ff;
+  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8; /* Bright Indigo Metallic */
+  --indigo-500: #6366f1; /* Primary Brand Indigo */
+  --indigo-600: #4f46e5; /* Deep Electric Indigo */
+  --indigo-700: #4338ca;
+  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+  --indigo-950: #1e1b4b;
+
+  /* ── Carbon Surfaces (Codernic Standard) ── */
+  --carbon-void:             #050608;
+  --carbon-base:             #08090c;
+  --carbon-surface:          #0c0e14;
+  --carbon-surface-elevated: #11141d;
+  --carbon-surface-hover:    #161924;
+  --steel-border:            rgba(255, 255, 255, 0.05);
+  --steel-border-subtle:     rgba(255, 255, 255, 0.025);
+  --steel-border-active:     rgba(99, 102, 241, 0.35);
+  --indigo-glow:             0 0 24px -4px rgba(99, 102, 241, 0.25);
+
+  /* ── Neutrals — Swiss Zinc Palette ── */
+  --neutral-50:  #fafafa;
+  --neutral-100: #f4f4f5;
+  --neutral-200: #e4e4e7;
+  --neutral-300: #d4d4d8;
+  --neutral-400: #a1a1aa;
+  --neutral-500: #71717a;
+  --neutral-600: #52525b;
+  --neutral-700: #3f3f46;
+  --neutral-800: #27272a;
+  --neutral-850: #18181b;
+  --neutral-900: #121216;
+  --neutral-950: #09090b;
+
+  /* ── Semantic Bindings ── */
+  --background: var(--carbon-base);
+  --foreground: var(--neutral-100);
+  --color-bg:   var(--carbon-base);
+  --color-surface: var(--carbon-surface);
+  --color-surface-elevated: var(--carbon-surface-elevated);
+  --color-border: var(--steel-border);
+  --color-text: var(--neutral-100);
+  --color-muted: var(--neutral-400);
+  --color-accent: var(--indigo-500);
+  --color-accent-hover: var(--indigo-400);
+
+  /* ── Sharp Rectilinear Radius (Industrial Precision) ── */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+/* ── Gradient Utilities ── */
+.gradient-text-indigo {
+  background: linear-gradient(135deg, #a5b4fc 0%, #818cf8 40%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Card Base (Linear Standard) ── */
+.card-sovereign {
+  background: var(--carbon-surface);
+  border: 1px solid var(--steel-border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-sovereign:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Precision Buttons ── */
+.btn-indigo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(180deg, var(--indigo-500) 0%, var(--indigo-600) 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(129, 140, 248, 0.4);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+
+.btn-indigo:hover {
+  background: linear-gradient(180deg, var(--indigo-400) 0%, var(--indigo-500) 100%);
+  border-color: rgba(165, 180, 252, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary-carbon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--carbon-surface-elevated);
+  color: var(--neutral-200);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: -0.01em;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--steel-border);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.btn-secondary-carbon:hover {
+  background: var(--carbon-surface-hover);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+/* ── Minimalist Scrollbars ── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* ── Linear Engineering CAD Grid & Mask ── */
+.bg-cad-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
+.mask-radial-vignette {
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 15%, #000 35%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 15%, #000 35%, transparent 100%);
+}
+
+/* ── Universal Dark Form Elements & Select ── */
+select {
+  background-color: #0c0e14 !important;
+  color: #e4e4e7 !important;
+  color-scheme: dark;
+}
+
+option {
+  background-color: #0c0e14 !important;
+  color: #e4e4e7 !important;
+  color-scheme: dark;
+}
+
+input, textarea {
+  color-scheme: dark;
+}
